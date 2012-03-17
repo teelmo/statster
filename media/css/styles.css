@@ -1,0 +1,220 @@
+/*
+ * Template styles
+ */
+body {
+  background: #FFFFFF url('/media/img/bg.jpg') repeat;
+}
+div#topCont {
+  color: #EEE;
+  background: #222 url(/media/img/background_top_navi.gif) repeat-x center top;
+  height: 23px;
+  line-height: 23px;
+  vertical-align: middle;
+  width: 100%;
+  font-size: 11px;
+  border-bottom: 1px solid black;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 9999;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
+}
+div#mainCont {
+  max-width: 950px;
+  margin: auto auto;
+  margin-top: 45px;
+}
+div#leftCont {
+  background-color: #FDFDFD;
+  -moz-box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);
+  width: 600px;
+  float: left;
+  border: 1px solid #999999;
+}
+div#rightCont {
+  background-color: transparent;
+  margin-left: 600px;
+  /*-moz-box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);*/
+}
+
+/* 
+ * Heading styles 
+ */
+h1 {
+  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #EEEEEE;
+}
+div#leftCont h1 {
+  color: #777777;
+}
+div#rightCont h1 {
+  color: #000000;
+}
+h2 {
+  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+}
+div#leftCont h2 {
+  color: #777777;
+}
+div#rightCont h2 {
+  color: #777777;
+}
+
+/*
+ * Text styles
+ */
+div.container {
+  margin: 7px 15px 15px 15px;
+}
+.datetime {
+  color: #999999;
+  font-size: smaller;
+}
+.albumYear {
+  color: #999999;
+  font-size: smaller;
+}
+.playCount {
+  color: #999999;
+  font-size: smaller;
+  padding-left: 3px;
+}
+.title {
+  padding-left: 3px;
+}
+
+/*
+ * Form styles
+ */ 
+input#addListening[type="text"] {
+  border-radius: 4px;
+  border: 1px solid #000000;
+  margin: 0 0px 0 3px;
+  padding: 3px 4px 3px 4px;
+  font-size: 18px;
+  width: 98%;
+}
+
+/*
+ * Table styles
+ */ 
+table {
+  width: 100%;
+  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td {
+  margin: 0;
+  padding: 0;
+}
+table.chartTable tr {
+  border-top: 1px solid #E8E8E8;
+  border-bottom: 1px solid #E8E8E8;
+  height: 32px;
+}
+table.chartTable tr:nth-child(2n) {
+  background-color: #ECECFF;
+}
+table.chartTable tr:nth-child(2n+1) {
+  background-color: transparent;
+}
+table.chartTable tr:hover {
+  background-color: #AFC9D7;
+}
+table.chartTable td.img {
+  width: 32px;
+}
+
+/*
+ * List styles
+ */
+ul {
+  width: 100%;
+  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+}
+ul.chartList {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  display: block;
+  overflow: hidden;
+}
+ul.chartList li {
+  margin: 0px 9px 20px 0px;
+  display: inline-block;
+  overflow: visible;
+  width: 130px;
+  vertical-align: top;
+}
+
+
+
+/* 
+ * Icons / images
+ */
+img {
+  padding: 0px;
+  margin: 0px;
+}
+img.artistImg,
+img.albumImg,
+img.userImg {
+  vertical-align: middle;
+}
+img.artistImg32,
+img.albumImg32,
+img.userImg32 {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #232323;
+}
+img.artistImg124,
+img.albumImg124 {
+  width: 124px;
+  height: 124px;
+  border: 1px solid #232323;
+  border: 1px solid #E0E0E0;
+  margin: 0 0 5px 0;
+  -moz-box-shadow: 3px 3px 4px #888888;
+  -webkit-box-shadow: 3px 3px 4px #888888;
+  box-shadow: 3px 3px 4px #888888;
+}
+span.loveIcon {
+  background-image: url(/media/img/icons/heart.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0 20px 0 0;
+  margin: 0 2px 0 0;
+  vertical-align: 0;
+}
+
+/* 
+ * Other
+ */
+hr {
+  border: 0;
+  color: #9E9E9E;
+  background-color: #9E9E9E;
+  height: 1px;
+  width: 100%;
+  text-align: left;
+}
