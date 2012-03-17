@@ -2,7 +2,8 @@
   <div class="container">
     <h1>What’s ya listening?</h1>
     <?=form_open('', array('class' => 'text', 'id' => 'addListeningForm'))?>
-      <input type="text" id="addListening" placeholder="start typing.." />
+      <input type="text" id="addListening" placeholder="start typing.." /> 
+      <!--<input type="submit" />-->
     </form>
   </div>
   <div class="container"><hr /></div>
@@ -24,7 +25,19 @@
 
 <div id="rightCont">
   <div class="container">
-    <!--<h1>Statistics</h1>-->
+    <h1>Statistics</h1>
+  </div>
+  <div class="container">
+    <ul>
+      <li>Most Listened Album Last Month: Tool - Lateralus</li>
+      <li>Most Listened Artist Last Month: Penniless</li>
+      <li>Listenings in March: 0 <span>(0 in total)</span></li>
+      <li>Listenings in 2012: 0 <span>(0 in total)</span></li>
+      <li>Your listening count: 13817 <span>(32293 in total)</span></li>
+    </ul>
+  </div>
+  <div class="container"><hr /></div>
+  <div class="container">
     <h1>Statster recommends</h1>
     <h2>Recommented albums</h2>
     <ul id="recommentedAlbums">
@@ -35,4 +48,20 @@
       <!-- Content is loaded with AJAX -->
     </ul>
   </div>
+  <div class="container"><hr /></div>
+  <div class="container">
+    <h1>Latest blog posts</h1>
+  </div>
+  <div class="container"><hr /></div>
+  <div class="container">
+    <h1>Browse Statster</h1>
+    <ul>
+      <li>Browse music</li>
+      <li>Browse users</li>
+      <li>Browse metadata</li>
+    </ul>
+  </div>
+
+
+
 </div>

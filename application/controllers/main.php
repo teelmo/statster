@@ -5,12 +5,8 @@ class Main extends CI_Controller {
     // Load the form helper for add listening functionality
     $this->load->helper('form');
 
-    $data = array();
-    // Load recent listenings
-    //$data['listenings'] = $this->db->query('SELECT name, title, email FROM my_table');
-
     $this->load->view('templates/header');
-    $this->load->view('main_view', $data);
+    $this->load->view('main_view');
     $this->load->view('templates/footer');
   }
 
