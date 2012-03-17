@@ -3,15 +3,13 @@
     <div id="footer">
       <script type="text/javascript">
         jQuery.ajax({
-          type: 'GET',
-          url: '/api/recentlyListened',
+          type: 'GET', url: '/api/recentlyListened',
           data: {
             limit : 12,
           },
           success: function(data) {
             jQuery.ajax({
-              type: 'POST',
-              url: '/main/recentlyListened',
+              type: 'POST', url: '/main/recentlyListened',
               data: {
                 json_data : data,
               },
@@ -29,8 +27,7 @@
         $interval = 12;
         ?>
         jQuery.ajax({
-          type: 'GET',
-          url: '/api/topAlbum',
+          type: 'GET', url: '/api/topAlbum',
           data: {
             limit : 8,
             lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
@@ -38,8 +35,7 @@
           },
           success: function(data) {
             jQuery.ajax({
-              type: 'POST',
-              url: '/main/topAlbum',
+              type: 'POST', url: '/main/topAlbum',
               data: {
                 json_data : data,
               },
@@ -53,7 +49,48 @@
           error: function(XMLHttpRequest, textStatus, errorThrown) {
           }
         });
-      </script>
+        jQuery.ajax({
+          type: 'GET', url: '/api/recommendationNewAlbum',
+          data: {
+            limit : 2,
+          },
+          success: function(data) {
+            jQuery.ajax({
+              type: 'POST', url: '/main/recentlyListened',
+              data: {
+                json_data : data,
+              },
+              success: function(data) {
+                jQuery('#recommentedAlbums').html(data);
+              },
+              error: function(XMLHttpRequest, textStatus, errorThrown) {
+              }
+            });
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+          }
+        });
+        jQuery.ajax({
+          type: 'GET', url: '/api/recommendationPopularAlbum',
+          data: {
+            limit : 2,
+          },
+          success: function(data) {
+            jQuery.ajax({
+              type: 'POST', url: '/main/recentlyListened',
+              data: {
+                json_data : data,
+              },
+              success: function(data) {
+                jQuery('#recentlyReleased').html(data);
+              },
+              error: function(XMLHttpRequest, textStatus, errorThrown) {
+              }
+            });
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+          }
+        });
       </script>
     </div>
   </body>
