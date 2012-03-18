@@ -35,11 +35,19 @@ div#leftCont {
   float: left;
   border: 1px solid #999999;
 }
+div#leftContInner {
+  width: 150px;
+  float: left;
+  border-right: 1px dotted #CCCCCC;
+}
+div#leftContOuter {
+  width: 450px;
+  margin-left: 150px;
+}
 div#rightCont {
   background-color: transparent;
   margin-left: 600px;
-  /*-moz-box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);*/
+  width: 330px;
 }
 
 /* 

@@ -9,14 +9,12 @@ date_default_timezone_set('Europe/Helsinki');
     <link rel="stylesheet" type="text/css" href="/media/css/styles.css" />
     <style type="text/css">
       /* Portrait Tablet */
-      @media (min-width: 481px) and (max-width: 768px) {
-         div#rightCont {
+      @media (min-width: 481px) and (max-width: 960px) {
+        div#rightCont {
           display: none;
         }
         div#leftCont {
           width: 100%;
-          max-width: 600px;
-          min-width: 481px;
         }
       }
       /* Landscape smart phone */

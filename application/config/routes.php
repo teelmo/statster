@@ -41,6 +41,12 @@
 $route['default_controller'] = "main";
 $route['404_override'] = '';
 
+/*
+ * Statster defined routes
+ */
+
+$route['music/(:any)/(:any)'] = "music/album/$1/$2";
+$route['music/(:any)'] = "music/artist/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
