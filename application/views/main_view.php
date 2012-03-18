@@ -56,9 +56,9 @@
   <div class="container">
     <h1>Browse Statster</h1>
     <ul>
-      <li><?=anchor(array('music'), 'Browse music', array('title' => 'Browse music'))?></li>
-      <li><?=anchor(array('user'), 'Browse users', array('title' => 'Browse users'))?></li>
-      <li><?=anchor(array('metadata'), 'Browse metadata', array('title' => 'Browse metadata'))?></li>
+      <li>» <?=anchor(array('music'), 'Browse music', array('title' => 'Browse music'))?></li>
+      <li>» <?=anchor(array('user'), 'Browse users', array('title' => 'Browse users'))?></li>
+      <li>» <?=anchor(array('tags'), 'Browse tags', array('title' => 'Browse tags'))?></li>
     </ul>
   </div>
 </div>

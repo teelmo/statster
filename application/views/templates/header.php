@@ -1,6 +1,3 @@
-<?php
-date_default_timezone_set('Europe/Helsinki');
-?>
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -15,6 +12,8 @@ date_default_timezone_set('Europe/Helsinki');
         }
         div#leftCont {
           width: 100%;
+        }
+        div#leftContOuter {
         }
       }
       /* Landscape smart phone */

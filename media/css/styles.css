@@ -105,6 +105,18 @@ div.container {
 }
 
 /*
+ * Anchor styles
+ */
+a {
+  color: #0000EE;
+  text-decoration: none;
+}
+a:visited {
+  color: #0000EE;
+  text-decoration: none;
+}
+
+/*
  * Form styles
  */ 
 input#addListening[type="text"] {
@@ -133,6 +145,7 @@ td {
   margin: 0;
   padding: 0;
 }
+/* chartTable */
 table.chartTable tr {
   border-top: 1px solid #E8E8E8;
   border-bottom: 1px solid #E8E8E8;
@@ -147,9 +160,36 @@ table.chartTable tr:nth-child(2n+1) {
 table.chartTable tr:hover {
   background-color: #AFC9D7;
 }
-table.chartTable td.img {
+table.chartTable tr td.img {
   width: 32px;
 }
+/* albumTable */
+table.albumTable tr {
+  border-top: 1px solid #E8E8E8;
+  border-bottom: 1px solid #E8E8E8;
+  height: 64px;
+}
+table.albumTable tr td {
+  vertical-align: top;
+}
+table.albumTable tr td.img {
+  width: 64px;
+}
+table.albumTable tr:nth-child(2n) {
+  background-color: #F5F5F5;
+}
+table.albumTable tr:nth-child(2n+1) {
+  background-color: transparent;
+}
+/* genreTable */
+table.genreTable tr td {
+  border-bottom: 1px solid #E8E8E8;
+  line-height: 20px;
+  vertical-align: bottom;
+  padding: 5px 0 0 3px;
+}
+
+
 
 /*
  * List styles
@@ -158,11 +198,11 @@ ul {
   width: 100%;
   font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
-}
-ul.chartList {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
+}
+ul.chartList {
   display: block;
   overflow: hidden;
 }
@@ -193,6 +233,13 @@ img.albumImg32,
 img.userImg32 {
   width: 32px;
   height: 32px;
+  border: 1px solid #232323;
+}
+img.artistImg64,
+img.albumImg64,
+img.userImg64 {
+  width: 64px;
+  height: 64px;
   border: 1px solid #232323;
 }
 img.artistImg124,
