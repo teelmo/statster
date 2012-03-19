@@ -11,7 +11,7 @@ foreach($json_data as $idx => $row) {
         <?=anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'))?>
         <?=DASH?>
         <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'))?>
-        <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</td></span>', array('title' => 'Browse to album\'s page'))?>
+        <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse to album\'s page'))?>
       </span>
     </td>
   </tr>

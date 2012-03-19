@@ -91,6 +91,7 @@ div.container {
   color: #999999;
   font-size: smaller;
 }
+
 .albumYear {
   color: #999999;
   font-size: smaller;
@@ -114,6 +115,10 @@ a {
 a:visited {
   color: #0000EE;
   text-decoration: none;
+}
+.albumYear a {
+  color: #999999;
+
 }
 
 /*
