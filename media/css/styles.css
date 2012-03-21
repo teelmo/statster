@@ -5,17 +5,15 @@ body {
   background: #FFFFFF url('/media/img/bg.jpg') repeat;
 }
 div#topCont {
-  color: #EEE;
-  background: #222 url(/media/img/background_top_navi.gif) repeat-x center top;
+  color: #EEEEEE;
+  background: #222222 url(/media/img/background_top_navi.gif) repeat-x center top;
   height: 23px;
   line-height: 23px;
   vertical-align: middle;
   width: 100%;
   font-size: 11px;
-  border-bottom: 1px solid black;
-  position: fixed;
-  left: 0px;
-  top: 0px;
+  border-bottom: 1px solid #000000;
+  position: fixed; left: 0; top: 0;
   z-index: 9999;
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
@@ -28,12 +26,14 @@ div#mainCont {
 }
 div#leftCont {
   background-color: #FDFDFD;
-  -moz-box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   width: 600px;
   float: left;
   border: 1px solid #999999;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 div#leftContInner {
   width: 150px;
@@ -91,7 +91,6 @@ div.container {
   color: #999999;
   font-size: smaller;
 }
-
 .albumYear {
   color: #999999;
   font-size: smaller;
@@ -118,7 +117,6 @@ a:visited {
 }
 .albumYear a {
   color: #999999;
-
 }
 
 /*
@@ -193,8 +191,6 @@ table.genreTable tr td {
   vertical-align: bottom;
   padding: 5px 0 0 3px;
 }
-
-
 
 /*
  * List styles
