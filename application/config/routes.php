@@ -48,5 +48,7 @@ $route['404_override'] = '';
 $route['music/(:any)/(:any)'] = "music/album/$1/$2";
 $route['music/(:any)'] = "music/artist/$1";
 
+$route['user/(:any)'] = "user/profile/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
