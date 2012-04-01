@@ -1,9 +1,12 @@
-<!DOCTYPE HTML>
+<?=doctype('html5')?>
 <html>
   <head>
     <title><?=TITLE?></title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/media/css/styles.css" />
+    <?php
+    echo link_tag('/media/css/styles.css');
+    echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
+    ?>
     <style type="text/css">
       /* Portrait Tablet */
       @media (min-width: 481px) and (max-width: 960px) {
