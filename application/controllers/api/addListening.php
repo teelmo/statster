@@ -4,13 +4,12 @@ class AddListening extends CI_Controller {
     $this->load->helper(array('id_helper'));
 
     $data = array();
-    if (strpos($_POST['text'], DASH)) {
+    if (strpos($_POST['text'], '-')) {
       list($data['artist'], $data['album']) = explode(DASH, $_POST['text']);
       if (!$data['album_id'] = getAlbumID($data['artist'], $data['album']) && 
           !$data['user_id'] = getUserID($data['username'])) { 
         echo json_encode('');
       }
-
     }
     /*
     $sql = "INSERT 
