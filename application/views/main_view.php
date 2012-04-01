@@ -1,9 +1,9 @@
 <div id="leftCont">
   <div class="container">
     <h1>What’s ya listening?</h1>
-    <?=form_open('', array('class' => 'text', 'id' => 'addListeningForm'))?>
-      <input type="text" id="addListening" placeholder="start typing.." /> 
-      <!--<input type="submit" />-->
+    <?=form_open('', array('class' => 'text', 'id' => 'addListeningForm'), array('submitType' => 'form'))?>
+      <input type="text" id="addListeningText" placeholder="start typing.." name="addListeningText" />
+      <input type="submit" id="addListeningSubmit" value="Statster" name="addListeningSubmit" />
     </form>
   </div>
   <div class="container"><hr /></div>
@@ -22,7 +22,6 @@
   </div>
   <div class="container"><hr /></div>
 </div>
-
 <div id="rightCont">
   <div class="container">
     <h1>Statistics</h1>
@@ -35,6 +34,7 @@
       <li>Listenings in 2012: 0 <span>(0 in total)</span></li>
       <li>Your listening count: 13817 <span>(32293 in total)</span></li>
     </ul>
+    <h2>Top artists</h2>
   </div>
   <div class="container"><hr /></div>
   <div class="container">

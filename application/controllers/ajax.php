@@ -8,7 +8,7 @@ class Ajax extends CI_Controller {
   public function recentlyListened() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'url'));
+      $this->load->helper(array('img_helper', 'url', 'file'));
 
       $data = $_POST;
       $this->load->view('templates/chart_table', $data);
@@ -21,7 +21,7 @@ class Ajax extends CI_Controller {
   public function topAlbum() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'url'));
+      $this->load->helper(array('img_helper', 'url', 'file'));
 
       $data = $_POST;
       $this->load->view('templates/album_list', $data);
@@ -34,7 +34,7 @@ class Ajax extends CI_Controller {
   public function newAlbum() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper('img_helper');
+      $this->load->helper('img_helper', 'file');
 
       $data = $_POST;
       $this->load->view('templates/album_list', $data);
@@ -60,7 +60,7 @@ class Ajax extends CI_Controller {
   public function popularAlbum() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'url'));
+      $this->load->helper(array('img_helper', 'url', 'file'));
 
       $data = $_POST;
       $this->load->view('templates/album_table', $data);

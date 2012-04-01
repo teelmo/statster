@@ -137,6 +137,21 @@
           error: function(XMLHttpRequest, textStatus, errorThrown) {
           }
         });
+        jQuery("#addListeningSubmit").click(function() {
+          jQuery.ajax({
+            type: 'POST', url: '/api/addListening',
+            data: {
+              text : jQuery('#addListeningText').val(),
+              submitType : jQuery('input[name="submitType"]').val(),
+            },
+            success: function(data) {
+              console.log(data);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+            }
+          });
+          return false;
+        });
       </script>
     </div>
   </body>

@@ -121,9 +121,28 @@ a:visited {
 
 /*
  * Form styles
- */ 
-input#addListening[type="text"] {
-  border-radius: 4px;
+ */
+input[type="submit"] {
+  color: #FFFFFF;
+  font-size: 13px;
+  padding: 3px 8px 3px 9px;
+  font-family: arial;
+  font-weight: bold;
+  text-shadow: 1px 0 1px #33333;
+  background: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#666666));
+  background: -moz-linear-gradient(100% 100% 90deg, #666666, #333333);
+  background: -o-linear-gradient(100% 100% 90deg, #666666, #333333);
+  background: linear-gradient(100% 100% 90deg, #666666, #333333);
+  border-color: #CACAD2 #B6B6BD #B6B6BD #CACAD2;
+  border-style: solid;
+  border-width: 1px;
+}
+form#addListeningForm input[type="submit"] {
+  float: right;
+  margin: 10px 0 15px 0;
+}
+form#addListeningForm input[type="text"] {
+  border-radius: 2px;
   border: 1px solid #000000;
   margin: 0 0px 0 3px;
   padding: 3px 4px 3px 4px;
@@ -241,7 +260,7 @@ img.albumImg64,
 img.userImg64 {
   width: 64px;
   height: 64px;
-  border: 1px solid #232323;
+  border: 1px double #232323;
 }
 img.artistImg124,
 img.albumImg124 {
