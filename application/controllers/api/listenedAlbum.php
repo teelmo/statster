@@ -11,8 +11,8 @@ class ListenedAlbum extends CI_Controller {
           WHERE " . TBL_listening . ".`user_id` = " . TBL_user. ".`id` 
             AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id` 
             AND " . TBL_user . ".`username` LIKE " . $this->db->escape($username) . "
-          ORDER BY " . mysql_real_escape_string($order_by) . "
-          LIMIT " . mysql_real_escape_string($limit);
+          ORDER BY " . $this->db->escape($order_by) . "
+          LIMIT " . $this->db->escape($limit);
     $query = $this->db->query($sql);
     if ($query->num_rows() > 0) {
       echo json_encode($query->result());
