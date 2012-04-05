@@ -1,5 +1,6 @@
 <?php
-if ($json_data = json_decode($json_data)) {
+$json_data = json_decode($json_data);
+if (!$json_data->error) {
   foreach ($json_data as $idx => $row) {
     ?>
     <tr id="<?=$idx?>">
@@ -25,8 +26,6 @@ if ($json_data = json_decode($json_data)) {
   }
 }
 else {
-  ?>
-  Not enough data.
-  <?
+  echo $json_data->error->msg;
 }
 ?>

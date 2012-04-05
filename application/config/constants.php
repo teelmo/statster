@@ -47,6 +47,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 define('TITLE', 'Statster');
 define('DASH', '&ndash;');
 
+// Error msgs
+define('ERR_NO_RESULTS', 'No results.');
 
 // Database variables
 define('TBL_album', 'album');
