@@ -9,6 +9,7 @@ jQuery("#addListeningSubmit").click(function() {
       jQuery('#addListeningText').val("");
       recentlyListened();
       topAlbum();
+      topArtist();
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
     }
@@ -20,7 +21,7 @@ function recentlyListened() {
   jQuery.ajax({
     type: 'GET', url: '/api/recentlyListened', 
     data: {
-      limit : 12,
+      limit : 11,
     },
     success: function(data) {
       jQuery.ajax({
@@ -29,6 +30,7 @@ function recentlyListened() {
           json_data : data,
         },
         success: function(data) {
+          jQuery('#recentlyListenedLoader').hide();
           jQuery('#recentlyListened').html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -51,11 +53,12 @@ function topAlbum() {
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/topAlbum',
+        type: 'POST', url: '/ajax/topAlbumList',
         data: {
           json_data : data,
         },
         success: function(data) {
+          jQuery('#topAlbumLoader').hide();
           jQuery('#topAlbum').html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -78,11 +81,12 @@ function topArtist() {
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/topArtist',
+        type: 'POST', url: '/ajax/topArtistBar',
         data: {
           json_data : data,
         },
         success: function(data) {
+          jQuery('#topArtistLoader').hide();
           jQuery('#topArtist').html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {

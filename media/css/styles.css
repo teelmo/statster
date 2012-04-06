@@ -110,6 +110,7 @@ div.container {
 a {
   color: #0000EE;
   text-decoration: none;
+  cursor: pointer;
 }
 a:visited {
   color: #0000EE;
@@ -210,36 +211,36 @@ table.genreTable tr td {
   vertical-align: bottom;
   padding: 5px 0 0 3px;
 }
-div.chartBar {
-  background-image: url('/media/img/charts_right_red.png');
-  background-repeat: no-repeat;
-  background-position: right;
+/* barTable */
+table.barTable tr td {
+  padding: 1px 0 1px 0;
 }
-span.chartBar  {
-  display: block;
-  height: 15px;
-  padding-bottom: 1px;
-  padding-top: 1px;
-  padding-left: 6px;
-  background-color: #D71C2F;
-  color: #FFFFFF;
-  overflow: hidden;
-  margin-right: 2px;
-}
-td.chartCount {
+table.barTable td.barChartRank {
   width: 2%;
   text-align: right;
   padding-left: 3px;
   padding-right: 4px;
 }
-td.chartName {
-  width: 52%;
+table.barTable td.barChartName {
+  width: 48%;
   padding-left: 5px;
 }
-td.chartBar {
-  width: 46%;
+table.barTable td.barChartBar {
+  width: 52%;
   padding-right: 1px;
   background-color: transparent;
+}
+table.barTable div.chartBar {
+  background-image: url('/media/img/charts_right_red.png');
+  background-repeat: no-repeat;
+  background-position: right;
+}
+table.barTable div.chartBar span {
+  display: block;
+  padding: 1px 0 1px 6px;
+  background-color: #D71C2F;
+  color: #FFFFFF;
+  margin-right: 2px;
 }
 
 /*
@@ -305,7 +306,7 @@ img.albumImg124 {
   box-shadow: 3px 3px 4px #888888;
 }
 span.loveIcon {
-  background-image: url(/media/img/icons/heart.png);
+  background-image: url('/media/img/icons/heart.png');
   background-position: center;
   background-repeat: no-repeat;
   padding: 0 20px 0 0;
@@ -323,4 +324,7 @@ hr {
   height: 1px;
   width: 100%;
   text-align: left;
+}
+.hidden {
+  display: none;
 }

@@ -6,7 +6,7 @@ class TopArtist extends CI_Controller {
     $username = isset($_GET['username']) ? $_GET['username'] : '%';
     $artist = isset($_GET['artist']) ? $_GET['artist'] : '%';
     $group_by = isset($_GET['group_by']) ? $_GET['group_by'] :  TBL_artist . '.`id`';
-    $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : '`count` DESC';
+    $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
     $sql = "SELECT count(" . TBL_artist . ".`id`) as `count`, 
                    " . TBL_artist . ".`artist_name`, 

@@ -7,7 +7,7 @@ class TopAlbum extends CI_Controller {
     $artist = isset($_GET['artist']) ? $_GET['artist'] : '%';
     $album = isset($_GET['album']) ? $_GET['album'] : '%';
     $group_by = isset($_GET['group_by']) ? $_GET['group_by'] :  TBL_album . '.`id`';
-    $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : '`count` DESC';
+    $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
     $sql = "SELECT count(" . TBL_album . ".`id`) as `count`, 
                    " . TBL_artist . ".`artist_name`, 

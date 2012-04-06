@@ -18,13 +18,26 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function topAlbum() {
+  public function topAlbumList() {
     if(!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('img_helper', 'url', 'file'));
 
       $data = $_POST;
       $this->load->view('templates/album_list', $data);
+    }
+    else {
+      exit('No direct script access allowed');
+    }
+  }
+
+  public function topArtistBar() {
+    if(!empty($_POST)) {
+      // Load helpers
+      $this->load->helper(array('url'));
+
+      $data = $_POST;
+      $this->load->view('templates/bar_table', $data);
     }
     else {
       exit('No direct script access allowed');
