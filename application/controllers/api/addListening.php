@@ -2,29 +2,40 @@
 class AddListening extends CI_Controller {
   public function index() {
     $this->load->helper(array('id_helper'));
-
     if (empty($_POST)) {
       echo json_encode(array('error' => array('msg' => '$_POST parameters not delivered')));
       return false;
     }
-    else {
-      if (strpos($_POST['text'], '-')) {
-      //if (strpos($_POST['text'], DASH)) {
-        $data = array();
-        list($data['artist'], $data['album']) = explode('-', $_POST['text']);
-        //list($data['artist'], $data['album']) = explode(DASH, $_POST['text']);
-        if (!$data['album_id'] = getAlbumID($data['artist'], $data['album'])) {
-          echo json_encode(array('error' => array('msg' => 'Album error. Can\'t solve album id.')));
-          return false;
-        }
-        if (!$data['user_id'] = getUserID($_SESSION['username'])) {
-          echo json_encode(array('error' => array('msg' => 'Username error. Can\'t solve user id.')));
-          return false;
-        }
-        // Check user 
-
-        // Add data to DB
+    if (strpos($_POST['text'], '-')) {
+    //if (strpos($_POST['text'], DASH)) {
+      $data = array();
+      //$data['username'] = $_SESSION['username'];
+      $data['username'] = 'teelmo';
+      list($data['artist'], $data['album']) = explode('-', $_POST['text']);
+      $data['album_id'] = getAlbumID($data);
+      if (!$data['album_id'] = getAlbumID($data)) {
+        echo json_encode(array('error' => array('msg' => 'Album error. Can\'t solve album id.')));
+        return false;
       }
+      if (!$data['user_id'] = getUserID($data)) {
+        echo json_encode(array('error' => array('msg' => 'Username error. Can\'t solve user id.')));
+        return false;
+      }
+      // Check user 
+
+      // Add data to DB
+      $date = date('Y-m-d');
+      $sql = "INSERT
+                INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
+                VALUES ({$data['user_id']}, {$data['album_id']}, '$date')";
+      $query = $this->db->query($sql);
+      if($this->db->affected_rows() != 1) {
+
+      }
+    }
+    else {
+      echo json_encode(array('error' => array('msg' => 'Format error.')));
+      return false;
     }
   }
 }

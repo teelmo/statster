@@ -1,6 +1,6 @@
 <?php
 $json_data = json_decode($json_data);
-if (!in_array('error', $json_data)) {
+if (is_array($json_data)) {
   foreach ($json_data as $idx => $row) {
     ?>
     <tr id="<?=$idx?>">
@@ -20,6 +20,6 @@ if (!in_array('error', $json_data)) {
   }
 }
 else {
-  echo $json_data['error']['msg'];
+  echo $json_data->error->msg;
 }
 ?>

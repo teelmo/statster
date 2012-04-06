@@ -1,6 +1,6 @@
 <?php
 $json_data = json_decode($json_data);
-if (!$json_data->error) {
+if (is_array($json_data)) {
   foreach ($json_data as $idx => $row) {
     ?>
     <li id="<?=$idx?>">
