@@ -6,7 +6,7 @@ body {
 }
 div#topCont {
   color: #EEEEEE;
-  background: #222222 url(/media/img/background_top_navi.gif) repeat-x center top;
+  background: #222222 url('/media/img/background_top_navi.gif') repeat-x center top;
   height: 23px;
   line-height: 23px;
   vertical-align: middle;
@@ -209,6 +209,37 @@ table.genreTable tr td {
   line-height: 20px;
   vertical-align: bottom;
   padding: 5px 0 0 3px;
+}
+div.chartBar {
+  background-image: url('/media/img/charts_right_red.png');
+  background-repeat: no-repeat;
+  background-position: right;
+}
+span.chartBar  {
+  display: block;
+  height: 15px;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  padding-left: 6px;
+  background-color: #D71C2F;
+  color: #FFFFFF;
+  overflow: hidden;
+  margin-right: 2px;
+}
+td.chartCount {
+  width: 2%;
+  text-align: right;
+  padding-left: 3px;
+  padding-right: 4px;
+}
+td.chartName {
+  width: 52%;
+  padding-left: 5px;
+}
+td.chartBar {
+  width: 46%;
+  padding-right: 1px;
+  background-color: transparent;
 }
 
 /*

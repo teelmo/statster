@@ -41,7 +41,6 @@ function recentlyListened() {
 }
 recentlyListened();
 
-
 function topAlbum() {
   jQuery.ajax({
     type: 'GET', url: '/api/topAlbum',
@@ -68,6 +67,33 @@ function topAlbum() {
   });
 }
 topAlbum();
+
+function topArtist() {
+  jQuery.ajax({
+    type: 'GET', url: '/api/topArtist',
+    data: {
+      limit : 8,
+      lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+      upper_limit : '<?=date("Y-m-d")?>',
+    },
+    success: function(data) {
+      jQuery.ajax({
+        type: 'POST', url: '/ajax/topArtist',
+        data: {
+          json_data : data,
+        },
+        success: function(data) {
+          jQuery('#topArtist').html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        }
+      });
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    }
+  });
+}
+topArtist();
 
 /*
 jQuery.ajax({

@@ -35,6 +35,9 @@
       <li>Your listening count: 13817 <span>(32293 in total)</span></li>
     </ul>
     <h2>Top artists</h2>
+    <table id="topArtist" class="barTable">
+      <!-- Content is loaded with AJAX --> 
+    </table>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
