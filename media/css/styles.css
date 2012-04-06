@@ -3,6 +3,8 @@
  */
 body {
   background: #FFFFFF url('/media/img/bg.jpg') repeat;
+  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
 }
 div#topCont {
   color: #EEEEEE;
@@ -123,13 +125,15 @@ a:visited {
 /*
  * Form styles
  */
+input:focus {
+  outline-width: 0;
+  outline-color: #FFFFFF;
+}
 input[type="submit"] {
   color: #FFFFFF;
   font-size: 13px;
   padding: 3px 8px 3px 9px;
-  font-family: arial;
-  font-weight: bold;
-  text-shadow: 1px 0 1px #33333;
+  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#666666));
   background: -moz-linear-gradient(100% 100% 90deg, #666666, #333333);
   background: -o-linear-gradient(100% 100% 90deg, #666666, #333333);
@@ -143,21 +147,21 @@ form#addListeningForm input[type="submit"] {
   margin: 10px 0 15px 0;
 }
 form#addListeningForm input[type="text"] {
-  border-radius: 2px;
+  border-radius: 4px;
   border: 1px solid #000000;
-  margin: 0 0px 0 3px;
+  margin: 0 0 0 3px;
   padding: 3px 4px 3px 4px;
   font-size: 18px;
   width: 98%;
 }
-
+form#addListeningForm input[type="text"]:focus {
+  background-color: #FFFF88;
+}
 /*
  * Table styles
  */ 
 table {
   width: 100%;
-  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 13px;
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
@@ -247,32 +251,28 @@ table.barTable div.chartBar div {
  */
 ul {
   width: 100%;
-  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 13px;
   list-style-type: none;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 ul.chartList {
   display: block;
   overflow: hidden;
 }
 ul.chartList li {
-  margin: 0px 9px 20px 0px;
+  margin: 0 9px 20px 0;
   display: inline-block;
   overflow: visible;
   width: 130px;
   vertical-align: top;
 }
 
-
-
 /* 
  * Icons / images
  */
 img {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
 }
 img.artistImg,
 img.albumImg,
