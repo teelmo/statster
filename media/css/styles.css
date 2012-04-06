@@ -279,6 +279,11 @@ img.albumImg,
 img.userImg {
   vertical-align: middle;
 }
+img.artistImg124:hover,
+img.albumImg124:hover,
+img.userImg124:hover {
+  border-color: #777777;
+}
 img.artistImg32,
 img.albumImg32,
 img.userImg32 {
