@@ -145,7 +145,7 @@
               submitType : jQuery('input[name="submitType"]').val(),
             },
             success: function(data) {
-              console.log(data);
+              
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
             }
