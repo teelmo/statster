@@ -17,7 +17,7 @@ if (is_array($json_data)) {
       <td class="love">
         <?=($row->love == 1) ? '<span class="loveIcon" title=""></span>' : ''?>
       </td>
-      <td class="datetime"><?=$row->created?></td>
+      <td class="datetime"><?=$row->date?></td>
       <td class="img userImg">
         <img src="<?=getUserImg(array('user_id' => $row->user_id, 'size' => 32))?>" alt="" class="userImg userImg32"/>
       </td>

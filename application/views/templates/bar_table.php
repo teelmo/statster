@@ -22,7 +22,7 @@ if (is_array($json_data)) {
         }
         ?>
         <div style="width: <?=$width?>%; <?=$min_width?>;" class="chartBar">
-          <span><?=$row->count?></span>
+          <div><?=$row->count?></div>
         </div>
       </td>
     </tr>

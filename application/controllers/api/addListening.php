@@ -12,6 +12,8 @@ class AddListening extends CI_Controller {
       //$data['username'] = $_SESSION['username'];
       $data['username'] = 'teelmo';
       list($data['artist'], $data['album']) = explode('-', $_POST['text']);
+      $data['artist'] = trim($data['artist']);
+      $data['album'] = trim($data['album']);
       $data['album_id'] = getAlbumID($data);
       if (!$data['album_id'] = getAlbumID($data)) {
         echo json_encode(array('error' => array('msg' => 'Album error. Can\'t solve album id.')));

@@ -235,8 +235,7 @@ table.barTable div.chartBar {
   background-repeat: no-repeat;
   background-position: right;
 }
-table.barTable div.chartBar span {
-  display: block;
+table.barTable div.chartBar div {
   padding: 1px 0 1px 6px;
   background-color: #D71C2F;
   color: #FFFFFF;
