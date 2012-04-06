@@ -2,7 +2,7 @@
   <div class="container">
     <h1>What’s ya listening?</h1>
     <?=form_open('', array('class' => 'text', 'id' => 'addListeningForm'), array('submitType' => 'form'))?>
-      <input type="text" id="addListeningText" placeholder="start typing.." name="addListeningText" />
+      <input type="text" autocomplete="off" id="addListeningText" placeholder="start typing.." name="addListeningText" />
       <input type="submit" id="addListeningSubmit" value="Statster" name="addListeningSubmit" />
     </form>
   </div>

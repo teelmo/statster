@@ -5,23 +5,32 @@ class Music extends CI_Controller {
     // Load helpers
     $this->load->helper(array('form', 'url'));
 
-    $this->load->view('templates/header');
+    $data = array();
+    $data['request'] = 'music';
+
+    $this->load->view('templates/header', $data);
     $this->load->view('music_view');
     $this->load->view('templates/footer');
   }
 
   public function artist($artist) {
+    $data = array();
     $data['artist'] = $artist;
-    $this->load->view('templates/header');
+    $data['request'] = 'artist';
+
+    $this->load->view('templates/header', $data);
     $this->load->view('artist_view', $data);
     $this->load->view('templates/footer');
   }
 
   public function album($artist, $album) {
+    $data = array();
     $data['artist'] = $artist;
     $data['album'] = $album;
     $data['year'] = 'Unknown';
-    $this->load->view('templates/header');
+    $data['request'] = 'album';
+
+    $this->load->view('templates/header', $data);
     $this->load->view('album_view', $data);
     $this->load->view('templates/footer');
   }
