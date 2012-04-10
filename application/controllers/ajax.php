@@ -8,7 +8,7 @@ class Ajax extends CI_Controller {
   public function recentlyListened() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'url', 'file'));
+      $this->load->helper(array('img_helper', 'url'));
 
       $data = $_POST;
       $this->load->view('templates/chart_table', $data);
@@ -21,7 +21,7 @@ class Ajax extends CI_Controller {
   public function topAlbumList() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'url', 'file'));
+      $this->load->helper(array('img_helper', 'url'));
 
       $data = $_POST;
       $this->load->view('templates/album_list', $data);
@@ -47,7 +47,7 @@ class Ajax extends CI_Controller {
   public function newAlbum() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper('img_helper', 'file');
+      $this->load->helper('img_helper');
 
       $data = $_POST;
       $this->load->view('templates/album_list', $data);
@@ -73,7 +73,7 @@ class Ajax extends CI_Controller {
   public function popularAlbum() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'url', 'file'));
+      $this->load->helper(array('img_helper', 'url'));
 
       $data = $_POST;
       $this->load->view('templates/album_table', $data);
@@ -82,6 +82,5 @@ class Ajax extends CI_Controller {
       exit('No direct script access allowed');
     }
   }
-
 }
 ?>

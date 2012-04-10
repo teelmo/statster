@@ -11,7 +11,7 @@
 /*jslint onevar: true, evil: true, nomen: true, eqeqeq: true, bitwise: true, regexp: true, newcap: true, immed: true */
 /*global window: true, document: true, clearInterval: true, setInterval: true, jQuery: true */
 
-(function($) {
+(function(jQuery) {
 
   var reEscape = new RegExp('(\\' + ['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\'].join('|\\') + ')', 'g');
 
@@ -21,7 +21,7 @@
   }
 
   function Autocomplete(el, options) {
-    this.el = $(el);
+    this.el = jQuery(el);
     this.el.attr('autocomplete', 'off');
     this.suggestions = [];
     this.data = [];
@@ -75,8 +75,8 @@
     }
   }
   
-  $.fn.autocomplete = function(options) {
-    return new Autocomplete(this.get(0)||$('<input />'), options);
+  jQuery.fn.autocomplete = function(options) {
+    return new Autocomplete(this.get(0) || jQuery('<input />'), options);
   };
 
   Autocomplete.prototype = {
@@ -91,7 +91,7 @@
       autocompleteElId = 'Autocomplete_' + uid;
 
       this.killerFn = function(e) {
-        if ($(e.target).parents('.autocomplete').size() === 0) {
+        if (jQuery(e.target).parents('.autocomplete').size() === 0) {
           me.killSuggestions();
           me.disableKillerFn();
         }
@@ -100,9 +100,9 @@
       if (!this.options.width) { this.options.width = this.el.width(); }
       this.mainContainerId = 'AutocompleteContainter_' + uid;
 
-      $('<div id="' + this.mainContainerId + '" style="position:absolute;z-index:9999;"><div class="autocomplete-w1"><div class="autocomplete" id="' + autocompleteElId + '" style="display:none; width:300px;"></div></div></div>').appendTo('body');
+      jQuery('<div id="' + this.mainContainerId + '" style="position:absolute;z-index:9999;"><div class="autocomplete-w1"><div class="autocomplete" id="' + autocompleteElId + '" style="display:none; width:300px;"></div></div></div>').appendTo('body');
 
-      this.container = $('#' + autocompleteElId);
+      this.container = jQuery('#' + autocompleteElId);
       this.fixPosition();
       if (window.opera) {
         this.el.keypress(function(e) { me.onKeyPress(e); });
@@ -117,32 +117,32 @@
     
     setOptions: function(options){
       var o = this.options;
-      $.extend(o, options);
+      jQuery.extend(o, options);
       this.fixPosition(); // lisätty, jotta saadaan uudetta asetukset voimaan
       if(o.lookup){
         this.isLocal = true;
-        if($.isArray(o.lookup)){ o.lookup = { suggestions:o.lookup, data:[] }; }
+        if(jQuery.isArray(o.lookup)){ o.lookup = { suggestions:o.lookup, data:[] }; }
       }
-      $('#'+this.mainContainerId).css({ zIndex:o.zIndex });
+      jQuery('#'+this.mainContainerId).css({ zIndex:o.zIndex });
       this.container.css({ maxHeight: o.maxHeight + 'px', width:o.width+this.options.widen });
     },
     
-    clearCache: function(){
+    clearCache: function() {
       this.cachedResponse = [];
       this.badQueries = [];
     },
     
-    disable: function(){
+    disable: function() {
       this.disabled = true;
     },
     
-    enable: function(){
+    enable: function() {
       this.disabled = false;
     },
     
     showList: function() {
-      if( this.options.list ) {
-        if( !this.enabled ) {
+      if (this.options.list) {
+        if (!this.enabled) {
           this.getSuggestions('');
         }
         else {
@@ -153,7 +153,7 @@
   
     fixPosition: function() {
       var offset = this.el.offset();
-      $('#' + this.mainContainerId).css({
+      jQuery('#' + this.mainContainerId).css({
         top: (offset.top + this.el.innerHeight()+this.options.pos.y) + 'px', 
         left: (offset.left+this.options.pos.x) + 'px' 
       });
@@ -161,12 +161,12 @@
 
     enableKillerFn: function() {
       var me = this;
-      $(document).bind('click', me.killerFn);
+      jQuery(document).bind('click', me.killerFn);
     },
 
     disableKillerFn: function() {
       var me = this;
-      $(document).unbind('click', me.killerFn);
+      jQuery(document).unbind('click', me.killerFn);
     },
 
     killSuggestions: function() {
@@ -181,7 +181,7 @@
 
     onKeyPress: function(e) {
       //if (this.disabled || !this.enabled) { return; }
-      if( this.options.list && e.keyCode == 40 && this.selectedIndex === -1 ) {
+      if (this.options.list && e.keyCode == 40 && this.selectedIndex === -1) {
           this.getSuggestions(this.el.val());
           this.selectedIndex = this.options.selectFirst ? 0 : -1;
       }
@@ -191,12 +191,12 @@
       // return will exit the function
       // and event will not be prevented
       switch (e.keyCode) {
-        case 27: //KEY_ESC:
+        case 27: // KEY_ESC:
           this.el.val(this.currentValue);
           this.hide();
           break;
-        case 9: //KEY_TAB:
-        case 13: //KEY_RETURN:
+        case 9: // KEY_TAB:
+        case 13: // KEY_RETURN:
           if (this.selectedIndex === -1) {
             this.hide();
             return;
@@ -204,10 +204,10 @@
           this.select(this.selectedIndex);
           if(e.keyCode === 9){ return; }
           break;
-        case 38: //KEY_UP:
+        case 38: // KEY_UP:
           this.moveUp();
           break;
-        case 40: //KEY_DOWN:
+        case 40: // KEY_DOWN:
           this.moveDown();
           break;
         default:
@@ -220,10 +220,10 @@
     onKeyUp: function(e) {
       if(this.disabled){ return; }
       switch (e.keyCode) {
-        case 38: //KEY_UP:
-        case 40: //KEY_DOWN:
+        case 38: // KEY_UP:
+        case 40: // KEY_DOWN:
           return;
-        case 188: // on merkki "," (pilkku)
+        case 188: // COMMA:
           this.hide();
         break;
       }
@@ -233,7 +233,8 @@
           // Defer lookup in case when value changes very quickly:
           var me = this;
           this.onChangeInterval = setInterval(function() { me.onValueChange(); }, this.options.deferRequestBy);
-        } else {
+        } 
+        else {
           this.onValueChange();
         }
       }
@@ -243,7 +244,7 @@
       clearInterval(this.onChangeInterval);
       this.currentValue = this.el.val();
       var q = this.getQuery(this.currentValue);
-      if( this.selectedIndex == -1 && this.options.selectFirst ) {
+      if (this.selectedIndex == -1 && this.options.selectFirst) {
         this.selectedIndex = 0;
       }
       if (this.ignoreValueChange) {
@@ -252,7 +253,8 @@
       }
       if (q === '' || q.length < this.options.minChars) {
         this.hide();
-      } else {
+      } 
+      else {
         this.getSuggestions(q);
       }
     },
@@ -260,9 +262,9 @@
     getQuery: function(val) {
       var d, arr;
       d = this.options.delimiter;
-      if (!d) { return $.trim(val); }
+      if (!d) { return jQuery.trim(val); }
       arr = val.split(d);
-      return $.trim(arr[arr.length - 1]);
+      return jQuery.trim(arr[arr.length - 1]);
     },
 
     getSuggestionsLocal: function(q) {
@@ -271,9 +273,9 @@
       len = arr.suggestions.length;
       ret = { suggestions:[], data:[] };
       q = q.toLowerCase();
-      for(i=0; i< len; i++){
+      for (i=0; i< len; i++) {
         val = arr.suggestions[i];
-        if(val.toLowerCase().indexOf(q) === 0){
+        if (val.toLowerCase().indexOf(q) === 0) {
           ret.suggestions.push(val);
           ret.data.push(arr.data[i]);
         }
@@ -287,9 +289,10 @@
         me = this;
         me.options.params.query = q;
         this.getInputs();
-        $.extend(me.options.params, this.extraParams);
-        $.get(this.serviceUrl, me.options.params, function(txt) { me.processResponse(txt); }, 'text');
-      } else {
+        jQuery.extend(me.options.params, this.extraParams);
+        jQuery.get(this.serviceUrl, me.options.params, function(txt) { me.processResponse(txt); }, 'text');
+      } 
+      else {
         this.hide();
       }
     },
@@ -309,10 +312,9 @@
             
       this.suggestions = [];
       this.data = [];
-      if( this.response.content !== undefined && this.response.content !== null ) {
+      if (this.response.content !== undefined && this.response.content !== null) {
         this.contentLength = 0;
-        // Yhdistetään otsikoihin jaetut tulokset
-        for( name in this.response.content ) {
+        for (name in this.response.content) {
           this.suggestions = this.suggestions.concat(this.response.content[name].suggestions);
           this.data = this.data.concat(this.response.content[name].data);
           this.contentLength++;
@@ -320,9 +322,9 @@
         if (this.response.query === this.getQuery(this.currentValue)) {
           this.suggest(); 
         }
-      } else {
+      } 
+      else {
         this.badQueries.push(this.response.query);
-        // piilotetaan lista kun response on tyhjä
         this.hide();
       }
     },
@@ -349,20 +351,20 @@
       mClick = function(xi) { return function() { me.select(xi); }; };
       this.container.hide().empty();
       var j = 0;
-      for( name in this.response.content ) {
+      for (name in this.response.content) {
         len = this.response.content[name].suggestions.length;
-        if( len > 0 ) {
-          if( this.options.headings || this.contentLength > 1 ) {
+        if (len > 0) {
+          if (this.options.headings || this.contentLength > 1) {
             this.container.append('<span class="heading">' + name + '</span>');
           }
           for (i = 0; i < len; i++) {
-            if( this.options.images ) {
+            if (this.options.images) {
               image = '<img src="' + this.response.content[name].images[i] + '" class="' + this.options.imageClass + '" />';
             }
             s = this.response.content[name].suggestions[i];
             title = this.response.content[name].titles[i];
             data = this.response.content[name].data[i];
-            div = $((me.selectedIndex === i ? '<div class="selected"' : '<div')
+            div = jQuery((me.selectedIndex === i ? '<div class="selected"' : '<div')
                     + ' title="' + title + '">' + image + f(s, data, v) + '</div>');
             div.mouseover(mOver(j));
             div.click(mClick(j));
@@ -377,16 +379,16 @@
 
     activate: function(index) {
       var divs, activeItem;
-      // Ei haluta valita span-elementtejä
+      // Get only <div> elements, not <span>s
       divs = this.container.children('div');
       // Clear previous selection:
       if (this.selectedIndex !== -1 && divs.length > this.selectedIndex) {
-        $(divs.get(this.selectedIndex)).removeClass();
+        jQuery(divs.get(this.selectedIndex)).removeClass();
       }
       this.selectedIndex = index;
       if (this.selectedIndex !== -1 && divs.length > this.selectedIndex) {
         activeItem = divs.get(this.selectedIndex);
-        $(activeItem).addClass('selected');
+        jQuery(activeItem).addClass('selected');
       }
       return activeItem;
     },
@@ -451,7 +453,7 @@
       s = me.suggestions[i];
       d = me.data[i];
       me.el.val(me.getValue(s));
-      if ($.isFunction(fn)) { fn(s, d, me.el); }
+      if (jQuery.isFunction(fn)) { fn(s, d, me.el); }
     },
     
     getValue: function(value){
@@ -465,30 +467,19 @@
         return currVal.substr(0, currVal.length - arr[arr.length - 1].length) + ' ' + value;
     },
     
-    // Lisätty
     getInputs: function() {
-      if( this.options.observableElement != null ) {
-        // clone koska en osaa luoda vastaavaa tyhjästä
-        /* Prototype
-        var tmp = Object.clone(this.options.observableElement);
-        */
+      if (this.options.observableElement != null) {
         var tmp = {};
-        $.extend(tmp, this.options.observableElement);
-        // for each, koska en osaa tehdäsamaa yhdelle elementille
-        for( property in this.options.observableElement ) {
-          /* Prototype
-          tmp[property] = $F(this.options.observableElement[property]);
-          */
-          tmp[property] = $('#' + this.options.observableElement[property]).val()
-          // Tyhjennetään cache vain, jos tarkkailtavan elementin arvo on muuttunut
+        jQuery.extend(tmp, this.options.observableElement);
+        for (property in this.options.observableElement) {
+          tmp[property] = jQuery('#' + this.options.observableElement[property]).val()
           if( this.selectValue != tmp[property] ) {
-            //~ this.cachedResponse = [];
             this.selectValue = tmp[property];
           }
           if( this.extraParams === undefined ) {
             this.extraParams = tmp;
           } else {
-            $.extend(this.extraParams, tmp);
+            jQuery.extend(this.extraParams, tmp);
           }
           break;
         }

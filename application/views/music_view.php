@@ -8,6 +8,7 @@
       </ul>
     </div>
     <div class="container">
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularGenreLoader" />
       <table id="popularGenre" class="genreTable">
         <!-- Content is loaded with AJAX -->
       </table>
@@ -16,6 +17,7 @@
   <div id="leftContOuter">
     <div class="container">
       <h1>Popular albums</h1>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularAlbumLoader" />
       <table id="popularAlbum" class="albumTable">
         <!-- Content is loaded with AJAX -->
       </table>

@@ -45,10 +45,14 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 
 define('TITLE', 'Statster');
-define('DASH', '&ndash;');
+define('DASH', '–');
 
 // Error msgs
 define('ERR_NO_RESULTS', 'No results.');
+
+// Autocomplete
+define('AUTOCOMPLETE_MAX_HEIGHT', 312); #px
+define('AUTOCOMPLETE_MIN_CHARS', 3); #px
 
 // Database variables
 define('TBL_album', 'album');

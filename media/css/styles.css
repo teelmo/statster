@@ -145,6 +145,7 @@ input[type="submit"] {
 form#addListeningForm input[type="submit"] {
   float: right;
   margin: 10px 0 15px 0;
+  cursor: pointer;
 }
 form#addListeningForm input[type="text"] {
   border-radius: 4px;
@@ -305,9 +306,9 @@ img.albumImg124 {
   border: 1px solid #232323;
   border: 1px solid #E0E0E0;
   margin: 0 0 5px 0;
+  box-shadow: 3px 3px 4px #888888;
   -moz-box-shadow: 3px 3px 4px #888888;
   -webkit-box-shadow: 3px 3px 4px #888888;
-  box-shadow: 3px 3px 4px #888888;
 }
 span.loveIcon {
   background-image: url('/media/img/icons/heart.png');
@@ -331,4 +332,10 @@ hr {
 }
 .hidden {
   display: none;
+}
+.loader {
+  margin: 15px 0 0 5px;
+}
+.middle {
+  vertical-align: middle;
 }

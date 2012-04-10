@@ -9,7 +9,7 @@
   <div class="container"><hr /></div>
   <div class="container">
     <h1>Recently listened</h1>
-    <img src="/media/img/ajax-loader-bar.gif" alt="" id="recentlyListenedLoader"/>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chartTable">
       <!-- Content is loaded with AJAX --> 
     </table>
@@ -17,7 +17,7 @@
   <div class="container"><hr /></div>
   <div class="container">
     <h1>Top albums</h1>
-    <img src="/media/img/ajax-loader-bar.gif" alt="" id="topAlbumLoader" />
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
     <ul id="topAlbum" class="chartList">
       <!-- Content is loaded with AJAX --> 
     </ul>
@@ -37,7 +37,7 @@
       <li>Your listening count: 13817 <span>(32293 in total)</span></li>
     </ul>
     <h2>Top artists</h2>
-    <img src="/media/img/ajax-loader-bar.gif" alt="" id="topArtistLoader" />
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
     <table id="topArtist" class="barTable">
       <!-- Content is loaded with AJAX --> 
     </table>

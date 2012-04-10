@@ -1,3 +1,5 @@
+jQuery('#addListeningText').focus();
+
 jQuery("#addListeningSubmit").click(function() {
   jQuery.ajax({
     type: 'POST', url: '/api/addListening',
@@ -15,6 +17,20 @@ jQuery("#addListeningSubmit").click(function() {
     }
   });
   return false;
+});
+
+jQuery(function(){
+  jQuery('#addListeningText').autocomplete({
+    serviceUrl: '/autoComplete/addListening',
+    minChars: <?=AUTOCOMPLETE_MIN_CHARS?>,
+    maxHeight: <?=AUTOCOMPLETE_MAX_HEIGHT?>,
+    onSelect: function(value, data) {
+      jQuery('#addListeningText').value = data;
+    },
+    observableElement: { },
+    images: true,
+    list: true
+  });
 });
 
 function recentlyListened() {

@@ -6,12 +6,10 @@ class AddListening extends CI_Controller {
       echo json_encode(array('error' => array('msg' => '$_POST parameters not delivered')));
       return false;
     }
-    if (strpos($_POST['text'], '-')) {
-    //if (strpos($_POST['text'], DASH)) {
+    if (strpos($_POST['text'], DASH)) {
       $data = array();
-      //$data['username'] = $_SESSION['username'];
       $data['username'] = 'teelmo';
-      list($data['artist'], $data['album']) = explode('-', $_POST['text']);
+      list($data['artist'], $data['album']) = explode(DASH, $_POST['text']);
       $data['artist'] = trim($data['artist']);
       $data['album'] = trim($data['album']);
       $data['album_id'] = getAlbumID($data);
