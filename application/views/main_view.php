@@ -1,9 +1,25 @@
 <div id="leftCont">
   <div class="container">
     <h1>What’s ya listening?</h1>
-    <?=form_open('', array('class' => 'text', 'id' => 'addListeningForm'), array('submitType' => 'form'))?>
-      <input type="text" autocomplete="off" id="addListeningText" placeholder="start typing.." name="addListeningText" />
-      <input type="submit" id="addListeningSubmit" value="Statster" name="addListeningSubmit" />
+    <?=form_open('', array('class' => 'text', 'id' => 'addListeningForm'), array('addListeningType' => 'form', 'addListeningDate' => '2012-04-17', 'addListeningFormat' => ''))?>
+      <div>
+        <input type="text" autocomplete="off" id="addListeningText" placeholder="start typing.." name="addListeningText" />
+      </div>
+      <!--<div>
+        Listening date: <a href="#" title="Change date">17.4.2012</a>
+      </div>-->
+      <div>
+        <img src="/media/img/format_img/spotify_logo.png" class="listeningFormat" title="Spotify" alt="" />
+        <img src="/media/img/format_img/xbmc_logo.png" class="listeningFormat" title="XBMC" alt="" />
+        <img src="/media/img/format_img/smartphone_logo.png" class="listeningFormat" title="SGS2" alt="" />
+        <img src="/media/img/format_img/winamp_logo.png" class="listeningFormat hidden" title="Winamp" alt="" />
+        <img src="/media/img/format_img/itunes_logo.png" class="listeningFormat hidden" title="iTunes" alt="" />
+        <img src="/media/img/format_img/headphones_logo.png" class="listeningFormat hidden" title="Headphones" alt="" />
+        <img src="/media/img/format_img/showmore_logo.png" class="listeningFormat" id="addListeningShowmore" title="" alt="" />
+      </div>
+      <div>
+        <input type="submit" id="addListeningSubmit" value="Statster" name="addListeningSubmit" />
+      </div>
     </form>
   </div>
   <div class="container"><hr /></div>
