@@ -19,7 +19,7 @@ jQuery("#addListeningSubmit").click(function() {
   return false;
 });
 
-jQuery(function() {
+jQuery(function(){
   jQuery('#addListeningText').autocomplete({
     serviceUrl: '/autoComplete/addListening',
     minChars: <?=AUTOCOMPLETE_MIN_CHARS?>,
@@ -32,18 +32,6 @@ jQuery(function() {
     list: true
   });
 });
-
-jQuery(".listeningFormat").click(function() {
-  jQuery(".listeningFormat").removeClass('selected');
-  jQuery(this).addClass('selected');
-  jQuery('[name=addListeningFormat]').value = 
-});
-
-jQuery("#addListeningShowmore").click(function() {
-  jQuery(".listeningFormat").removeClass('hidden');
-  jQuery(this).remove();
-});
-
 
 function recentlyListened() {
   jQuery.ajax({

@@ -12,5 +12,6 @@ class User extends CI_Controller {
     $this->load->view('profile_view');
     $this->load->view('templates/footer');
   }
+
 }
 ?>
