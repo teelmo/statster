@@ -15,7 +15,7 @@
     display: none;
   }
   div#mainCont {
-    margin-top: 0px;
+    margin-top: 0;
   }
   div#rightCont {
     display: none;
@@ -32,12 +32,22 @@
     display: none;
   }
   div#mainCont {
-    margin-top: 0px;
+    margin-top: 0;
   }
   div#rightCont {
     display: none;
   }
   div#leftCont {
     width: 320px;
+  }
+}
+@media (min-width: 611px) and (max-width: 960px) {
+  ul.chartList {
+    width: 570px;
+  }
+} 
+@media (max-width: 610px) {
+  ul.chartList {
+    width: 321px;
   }
 }
