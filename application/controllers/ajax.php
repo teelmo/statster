@@ -8,7 +8,7 @@ class Ajax extends CI_Controller {
   public function recentlyListened() {
     if(!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'url'));
+      $this->load->helper(array('img_helper', 'format_helper', 'url'));
 
       $data = $_POST;
       $this->load->view('templates/chart_table', $data);

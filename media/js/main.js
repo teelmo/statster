@@ -5,13 +5,21 @@ jQuery("#addListeningSubmit").click(function() {
     type: 'POST', url: '/api/addListening',
     data: {
       text : jQuery('#addListeningText').val(),
+      date : jQuery('#addListeningDate').val(),
+      format : jQuery('input[name="addListeningFormat"]:checked').val(),
       submitType : jQuery('input[name="submitType"]').val(),
     },
     success: function(data) {
-      jQuery('#addListeningText').val("");
-      recentlyListened();
-      topAlbum();
-      topArtist();
+      if (data == '') {  
+        jQuery('#addListeningText').val("");
+        jQuery('input[name="addListeningFormat"]').prop('checked', false);
+        jQuery('img.listeningFormat').removeClass('selected');
+        recentlyListened();
+        topAlbum();
+        topArtist();
+      }
+      console.log(data)
+      jQuery('#addListeningText').focus();
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
     }
@@ -22,8 +30,8 @@ jQuery("#addListeningSubmit").click(function() {
 jQuery(function() {
   jQuery('#addListeningText').autocomplete({
     serviceUrl: '/autoComplete/addListening',
-    minChars: <?=AUTOCOMPLETE_MIN_CHARS?>,
-    maxHeight: <?=AUTOCOMPLETE_MAX_HEIGHT?>,
+    minChars: 3,
+    maxHeight: 312,
     onSelect: function(value, data) {
       jQuery('#addListeningText').value = data;
     },
@@ -36,7 +44,16 @@ jQuery(function() {
 jQuery(".listeningFormat").click(function() {
   jQuery(".listeningFormat").removeClass('selected');
   jQuery(this).addClass('selected');
-  jQuery('[name=addListeningFormat]').value = 
+});
+jQuery(".listeningFormat").keypress(function(e) {
+  var code = (e.keyCode ? e.keyCode : e.which);
+   if (code == 13) {
+      jQuery(".listeningFormat").removeClass('selected');
+      jQuery(this).addClass('selected');
+
+      jQuery('#' + jQuery(this).parent().attr("for")).prop('checked', true);
+      console.log()
+   }
 });
 
 jQuery("#addListeningShowmore").click(function() {
@@ -44,6 +61,13 @@ jQuery("#addListeningShowmore").click(function() {
   jQuery(this).remove();
 });
 
+jQuery("#addListeningShowmore").keypress(function(e) {
+  var code = (e.keyCode ? e.keyCode : e.which);
+  if (code == 13) {
+    jQuery(".listeningFormat").removeClass('hidden');
+    jQuery(this).remove();
+  }
+});
 
 function recentlyListened() {
   jQuery.ajax({

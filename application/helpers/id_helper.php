@@ -16,9 +16,9 @@ if (!function_exists('getArtistID')) {
       return $result[0]->id;
     }
     else {
-      return false;
+      return FALSE;
     }
-  }   
+  }
 }
 
 if (!function_exists('getAlbumID')) {
@@ -43,9 +43,9 @@ if (!function_exists('getAlbumID')) {
       return $result[0]->id;
     }
     else {
-      return false;
+      return FALSE;
     }
-  }   
+  }
 }
 
 if (!function_exists('getUserID')) {
@@ -64,7 +64,49 @@ if (!function_exists('getUserID')) {
       return $result[0]->id;
     }
     else {
-      return false;
+      return FALSE;
+    }
+  }
+}
+
+if (!function_exists('getFormatID')) {
+  function getFormatID($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $format = isset($opts['format']) ? $opts['format'] : '';
+    $sql = "SELECT " . TBL_listening_format . ".`id`
+            FROM " . TBL_listening_format . "
+            WHERE " . TBL_listening_format . ".`name` = " . $ci->db->escape($format) . "
+            LIMIT 1";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      $result = $query->result();
+      return $result[0]->id;
+    }
+    else {
+      return FALSE;
+    }
+  }   
+}
+
+if (!function_exists('getFormatTypeID')) {
+  function getFormatTypeID($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $formatType = isset($opts['format_type']) ? $opts['format_type'] : '';
+    $sql = "SELECT " . TBL_listening_format_type . ".`id`
+            FROM " . TBL_listening_format_type . "
+            WHERE " . TBL_listening_format_type . ".`name` = " . $ci->db->escape($formatType) . "
+            LIMIT 1";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      $result = $query->result();
+      return $result[0]->id;
+    }
+    else {
+      return FALSE;
     }
   }   
 }

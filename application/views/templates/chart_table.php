@@ -14,6 +14,9 @@ if (is_array($json_data)) {
           <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'))?>
           <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse to album\'s page'))?>
         </span>
+      <td class="format">
+        <?=(!empty($row->format)) ? (!empty($row->format_type)) ? 'ft' . $row->format_type : 'f' . $row->format : ''?>
+      </td>
       <td class="love">
         <?=($row->love == 1) ? '<span class="loveIcon" title=""></span>' : ''?>
       </td>

@@ -12,11 +12,14 @@ class AutoComplete extends CI_Controller {
     if (!empty($search_str)) {
       if (strpos($search_str, DASH)) {
         list($data['artist'], $data['album']) = explode(DASH, $search_str);
-        $search_str_db_artist = '%' . trim($data['artist']) . '%';
-        $search_str_db_album = '%' . trim($data['album']) . '%';
+        $search_str_db_artist = trim($data['artist']);
+        $search_str_db_artist_wc = '%' . trim($data['artist']) . '%';
+        $search_str_db_album = trim($data['album']);
+        $search_str_db_album_wc = '%' . trim($data['album']) . '%';
       }
       else {
-        $search_str_db_artist = $search_str_db_album = '%' . $search_str . '%';
+        $search_str_db_artist = $search_str_db_album_wc = $search_str;
+        $search_str_db_artist_wc = $search_str_db_album = '%' . $search_str . '%';
       }
       $search_str_db = '%' . $search_str . '%';
       $sql = "SELECT " . TBL_artist . ".`id` as artist_id,
@@ -29,8 +32,8 @@ class AutoComplete extends CI_Controller {
               FROM " . TBL_artist . ",
                    " . TBL_album . "
               WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
-                AND (" . TBL_artist . ".`artist_name` LIKE " . $this->db->escape($search_str_db_artist) . "
-                 OR " . TBL_album . ".`album_name` LIKE " . $this->db->escape($search_str_db_album) . ")
+                AND (" . TBL_artist . ".`artist_name` LIKE " . $this->db->escape($search_str_db_artist_wc) . "
+                 OR " . TBL_album . ".`album_name` LIKE " . $this->db->escape($search_str_db_album_wc) . ")
               ORDER BY `artist_relevance`,
                        " . TBL_album . ".`year` DESC, 
                        `album_relevance`";

@@ -16,10 +16,19 @@ class RecentlyListened extends CI_Controller {
                    " . TBL_user . ". `username`, 
                    " . TBL_user . ". `id` as user_id, 
                   (SELECT count(" . TBL_love . ". `album_id`)
-                    FROM " . TBL_love."
-                    WHERE " . TBL_love . ". `album_id` = " . TBL_album . ". `id` 
+                    FROM " . TBL_love . "
+                    WHERE " . TBL_love . ". `album_id` = " . TBL_album . ". `id`
                       AND " . TBL_love . ". `user_id` = " . TBL_user . ". `id`
-                  ) AS love, " . TBL_listening . ". `created`
+                  ) AS love,
+                   " . TBL_listening . ". `created`,
+                  (SELECT " . TBL_listening_formats . ". `listening_format_id`
+                    FROM " . TBL_listening_formats . "
+                    WHERE " . TBL_listening_formats . ". `listening_id` = " . TBL_listening . ". `id`
+                  ) AS format,
+                  (SELECT " . TBL_listening_format_types . ". `listening_format_type_id`
+                    FROM " . TBL_listening_format_types . "
+                    WHERE " . TBL_listening_format_types . ". `listening_id` = " . TBL_listening . ". `id`
+                  ) AS format_type
             FROM " . TBL_album.", " . TBL_artist.", " . TBL_listening.", " . TBL_user."
             WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
@@ -33,11 +42,11 @@ class RecentlyListened extends CI_Controller {
     $query = $this->db->query($sql);
     if ($query->num_rows() > 0) {
       echo json_encode($query->result());
-      return false;
+      return FALSE;
     }
     else {
       echo json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
-      return false;
+      return FALSE;
     }
   }
 }

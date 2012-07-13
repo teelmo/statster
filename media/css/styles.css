@@ -2,19 +2,19 @@
  * Template styles
  */
 body {
-  background: #FFFFFF url('/media/img/bg.jpg') repeat;
+  background: #FFF url('/media/img/bg.jpg') repeat;
   font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
 }
 div#topCont {
-  color: #EEEEEE;
-  background: #222222 url('/media/img/background_top_navi.gif') repeat-x center top;
+  color: #EEE;
+  background: #222 url('/media/img/background_top_navi.gif') repeat-x center top;
   height: 23px;
   line-height: 23px;
   vertical-align: middle;
   width: 100%;
   font-size: 11px;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #000;
   position: fixed; left: 0; top: 0;
   z-index: 9999;
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
@@ -33,14 +33,14 @@ div#leftCont {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   width: 600px;
   float: left;
-  border: 1px solid #999999;
+  border: 1px solid #999;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 div#leftContInner {
   width: 150px;
   float: left;
-  border-right: 1px dotted #CCCCCC;
+  border-right: 1px dotted #CCC;
 }
 div#leftContOuter {
   width: 450px;
@@ -61,13 +61,13 @@ h1 {
   font-style: normal;
   font-variant: normal;
   font-weight: bold;
-  text-shadow: 0 1px 0 #EEEEEE;
+  text-shadow: 0 1px 0 #EEE;
 }
 div#leftCont h1 {
-  color: #777777;
+  color: #777;
 }
 div#rightCont h1 {
-  color: #222222;
+  color: #222;
 }
 h2 {
   font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -77,10 +77,10 @@ h2 {
   font-weight: bold;
 }
 div#leftCont h2 {
-  color: #777777;
+  color: #777;
 }
 div#rightCont h2 {
-  color: #777777;
+  color: #777;
 }
 
 /*
@@ -88,17 +88,18 @@ div#rightCont h2 {
  */
 div.container {
   margin: 7px 15px 15px 15px;
+  letter-spacing: 0;
 }
 .datetime {
-  color: #999999;
+  color: #999;
   font-size: smaller;
 }
 .albumYear {
-  color: #999999;
+  color: #999;
   font-size: smaller;
 }
 .playCount {
-  color: #999999;
+  color: #999;
   font-size: smaller;
   padding-left: 3px;
 }
@@ -110,37 +111,40 @@ div.container {
  * Anchor styles
  */
 a {
-  color: #0000EE;
+  color: #00E;
   text-decoration: none;
   cursor: pointer;
 }
 a:visited {
-  color: #0000EE;
+  color: #00E;
   text-decoration: none;
 }
 .albumYear a {
-  color: #999999;
+  color: #999;
 }
 
 /*
  * Form styles
  */
-input:focus {
+input:focus, input:active {
   outline-width: 0;
-  outline-color: #FFFFFF;
+  outline-color: #FFF;
 }
 input[type="submit"] {
-  color: #FFFFFF;
+  color: #FFF;
   font-size: 13px;
   padding: 3px 8px 3px 9px;
   font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#666666));
-  background: -moz-linear-gradient(100% 100% 90deg, #666666, #333333);
-  background: -o-linear-gradient(100% 100% 90deg, #666666, #333333);
-  background: linear-gradient(100% 100% 90deg, #666666, #333333);
+  background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#666));
+  background: -moz-linear-gradient(100% 100% 90deg, #666, #333);
+  background: -o-linear-gradient(100% 100% 90deg, #666, #333);
+  background: linear-gradient(100% 100% 90deg, #666, #333);
   border-color: #CACAD2 #B6B6BD #B6B6BD #CACAD2;
   border-style: solid;
   border-width: 1px;
+}
+input[type="submit"]:focus {
+  color: #FF8;
 }
 form#addListeningForm input[type="submit"] {
   float: right;
@@ -149,16 +153,22 @@ form#addListeningForm input[type="submit"] {
 }
 form#addListeningForm input[type="text"] {
   border-radius: 4px;
-  border: 1px solid #000000;
+  border: 1px solid #000;
   margin: 0 0 0 3px;
   padding: 4px 4px 4px 8px;
   font-size: 20px;
   width: 98%;
+  background-color: #FFF;
 }
 form#addListeningForm input[type="text"]:focus {
-  background-color: #FFFF88;
+  background-color: #FF8;
+  color: #222;
 }
-form#addListeningForm div.addListeningMetadata {
+form#addListeningForm div#addListeningDateContainer {
+  margin-left: 5px;
+}
+form#addListeningForm #xbmcFormat {
+
 }
 
 /*

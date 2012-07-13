@@ -7,7 +7,7 @@ class Music extends CI_Controller {
 
     $data = array();
     $data['request'] = 'music';
-
+    
     $this->load->view('templates/header', $data);
     $this->load->view('music_view');
     $this->load->view('templates/footer');
