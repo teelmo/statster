@@ -167,9 +167,7 @@ form#addListeningForm input[type="text"]:focus {
 form#addListeningForm div#addListeningDateContainer {
   margin-left: 5px;
 }
-form#addListeningForm #xbmcFormat {
 
-}
 
 /*
  * Table styles
@@ -203,6 +201,9 @@ table.chartTable tr:hover {
 }
 table.chartTable tr td.img {
   width: 32px;
+}
+table.chartTable tr td.icon {
+  width: 20px;
 }
 /* albumTable */
 table.albumTable tr {
@@ -332,12 +333,16 @@ span.loveIcon {
   vertical-align: 0;
 }
 img.listeningFormat {
+  cursor: pointer;
   height: 64px;
   width: 64px;
   margin: 8px;
   opacity: 0.3;
   -moz-opacity: 0.3;
   filter:alpha(opacity=3);
+}
+img.listeningFormat:hover {
+  cursor: pointer;
 }
 img.listeningFormat.selected {
   opacity: 1;

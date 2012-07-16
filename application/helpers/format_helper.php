@@ -61,24 +61,4 @@ if (!function_exists('addListeningFormatTypes')) {
   }
 }
 
-if (!function_exists('getFormatImg')) {
-  function getFormatImg($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $sql = "";
-    $query = $ci->db->query($sql);
-  }
-}
-
-if (!function_exists('getFormatTypeImg')) {
-  function getFormatTypeImg($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $sql = "";
-    $query = $ci->db->query($sql);
-  }
-}
-
 ?>

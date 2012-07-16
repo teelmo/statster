@@ -21,18 +21,14 @@ class RecentlyListened extends CI_Controller {
                       AND " . TBL_love . ". `user_id` = " . TBL_user . ". `id`
                   ) AS love,
                    " . TBL_listening . ". `created`,
-                  (SELECT " . TBL_listening_formats . ". `listening_format_id`
-                    FROM " . TBL_listening_formats . "
-                    WHERE " . TBL_listening_formats . ". `listening_id` = " . TBL_listening . ". `id`
-                  ) AS format,
-                  (SELECT " . TBL_listening_format_types . ". `listening_format_type_id`
-                    FROM " . TBL_listening_format_types . "
-                    WHERE " . TBL_listening_format_types . ". `listening_id` = " . TBL_listening . ". `id`
-                  ) AS format_type
-            FROM " . TBL_album.", " . TBL_artist.", " . TBL_listening.", " . TBL_user."
+                   " . TBL_listening_formats . ". `listening_format_id`, 
+                   " . TBL_listening_format_types . ". `listening_format_type_id`
+            FROM " . TBL_album.", " . TBL_artist.", " . TBL_listening.", " . TBL_user.", " . TBL_listening_formats.", " . TBL_listening_format_types."
             WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
               AND " . TBL_album . ". `artist_id` = " . TBL_artist . ". `id`
+              AND " . TBL_listening . ". `id` = " . TBL_listening_formats . ". `listening_id`
+              AND " . TBL_listening . ". `id` = " . TBL_listening_format_types . ". `listening_id`
               AND " . TBL_user . ". `username` LIKE " . $this->db->escape($username) . "
               AND " . TBL_artist . ". `artist_name` LIKE " . $this->db->escape($artist) . "
               AND " . TBL_album . ". `album_name` LIKE " . $this->db->escape($album) . "

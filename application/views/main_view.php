@@ -1,6 +1,6 @@
 <div id="leftCont">
   <div class="container">
-    <h1>What’s ya listening?</h1>
+    <h1>What&rsquo;s ya listening?</h1>
     <?=form_open('', array('class' => 'text', 'id' => 'addListeningForm'), array('addListeningType' => 'form', 'addListeningDate' => '2012-04-17', 'addListeningFormat' => ''))?>
       <div id="addListeningDateContainer">
         Listening date: <a href="javascript:" title="Change date" onlick="return false;"><?=$cur_date?></a>
@@ -10,16 +10,16 @@
         <input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="start typing.." name="addListeningText" />
       </div>
       <div>
+        <input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="Statster" />
+      </div>
+      <div>
         <input type="radio" name="addListeningFormat" value="Stream:Spotify Unlimited" id="format_0" class="hidden" /><label for="format_0"><img src="/media/img/format_img/spotify_logo.png" tabindex="2" class="listeningFormat" title="Spotify Unlimited" alt="" /></label>
         <input type="radio" name="addListeningFormat" value="File:XBMC Media Center" id="format_1" class="hidden" /><label for="format_1"><img src="/media/img/format_img/xbmc_logo.png" tabindex="2" class="listeningFormat" title="XBMC Media Center" alt="" /></label>
         <input type="radio" name="addListeningFormat" value="File:Samsung Galaxy S II" id="format_2" class="hidden" /><label for="format_2"><img src="/media/img/format_img/smartphone_logo.png" tabindex="2" class="listeningFormat" title="Samsung Galaxy S II" alt="" /></label>
+        <input type="radio" name="addListeningFormat" value="File:Portable Device" id="format_3" class="hidden" /><label for="format_3"><img src="/media/img/format_img/headphones_logo.png" tabindex="2" class="listeningFormat" title="Portable Device" alt="" /></label>
         <!--<input type="radio" name="addListeningFormat" id="winampFormat" class="hidden" /><label for="winampFormat"><img src="/media/img/format_img/winamp_logo.png" tabindex="3" class="listeningFormat hidden" title="Winamp" alt="" /></label>
         <input type="radio" name="addListeningFormat" id="itunesFormat" class="" /><label for="itunesFormat"><img src="/media/img/format_img/itunes_logo.png" tabindex="3" class="listeningFormat hidden" title="iTunes" alt="" /></label>
-        <input type="radio" name="addListeningFormat" id="headphonesFormat" class="" /><label for="headphonesFormat"><img src="/media/img/format_img/headphones_logo.png" tabindex="3" class="listeningFormat hidden" title="Headphones" alt="" /></label>
         <input type="radio" name="addListeningFormat" id="showmoreFormat" class="" /><label for="showmoreFormat"><img src="/media/img/format_img/showmore_logo.png" tabindex="3" class="listeningFormat" id="addListeningShowmore" title="" alt="" /></label>-->
-      </div>
-      <div>
-        <input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="Statster" />
       </div>
     </form>
   </div>
@@ -75,9 +75,9 @@
   <div class="container">
     <h1>Browse Statster</h1>
     <ul>
-      <li>» <?=anchor(array('music'), 'Browse music', array('title' => 'Browse music'))?></li>
-      <li>» <?=anchor(array('user'), 'Browse users', array('title' => 'Browse users'))?></li>
-      <li>» <?=anchor(array('tags'), 'Browse tags', array('title' => 'Browse tags'))?></li>
+      <li>&raquo; <?=anchor(array('music'), 'Browse music', array('title' => 'Browse music'))?></li>
+      <li>&raquo; <?=anchor(array('user'), 'Browse users', array('title' => 'Browse users'))?></li>
+      <li>&raquo; <?=anchor(array('tags'), 'Browse tags', array('title' => 'Browse tags'))?></li>
     </ul>
   </div>
 </div>
