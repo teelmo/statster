@@ -51,16 +51,16 @@ if (!function_exists('getAlbumImg')) {
 
 if (!function_exists('getListeningsFormatImg')) {
   function getListeningsFormatImg($opts = array()) {
-    $format_img = getFormatImg($opts);
     $format_type_img = getFormatTypeImg($opts);
-    if($format_type_img['empty'] == FALSE) {
+    $format_img = getFormatImg($opts);
+    if ($format_type_img != FALSE) {
       return $format_type_img;
     }
-    elseif($format_img['empty'] == FALSE) {
+    elseif ($format_img != FALSE) {
       return $format_img;
     }
     else {
-      return './media/img/format_img/format_icons/empty.png';
+      return array('filename' => './media/img/format_img/format_icons/empty.png', 'name' => '');
     }
   }
 }    
@@ -80,11 +80,11 @@ if (!function_exists('getFormatImg')) {
     if ($query->num_rows() > 0) {
       $result = $query->result();
       $filename = './media/img/format_img/format_icons/' . $result[0]->img;
+
       return (read_file($filename)) ? array('filename' => $filename, 
                                             'name' => $result[0]->name, 
-                                            'empty' => FALSE) : 
-                                      array('filename' => './media/img/format_img/format_icons/file.png', 
-                                            'empty' => TRUE);
+                                            'empty' => FALSE) : FALSE;
+                                    
     }
     else {
       return FALSE;
@@ -109,9 +109,7 @@ if (!function_exists('getFormatTypeImg')) {
       $filename = './media/img/format_img/format_icons/' . $result[0]->img;
       return (read_file($filename)) ? array('filename' => $filename, 
                                             'name' => $result[0]->name, 
-                                            'empty' => FALSE) : 
-                                      array('filename' => './media/img/format_img/format_icons/file.png', 
-                                            'empty' => TRUE);
+                                            'empty' => FALSE) : FALSE;
     }
     else {
       return FALSE;

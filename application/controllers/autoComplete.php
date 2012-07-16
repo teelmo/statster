@@ -14,12 +14,12 @@ class AutoComplete extends CI_Controller {
         list($data['artist'], $data['album']) = explode(DASH, $search_str);
         $search_str_db_artist = trim($data['artist']);
         $search_str_db_artist_wc = '%' . trim($data['artist']) . '%';
-        $search_str_db_album = trim($data['album']);
+        $search_str_db_album = trim($data['album']). '%';
         $search_str_db_album_wc = '%' . trim($data['album']) . '%';
       }
       else {
-        $search_str_db_artist = $search_str_db_album_wc = $search_str;
-        $search_str_db_artist_wc = $search_str_db_album = '%' . $search_str . '%';
+        $search_str_db_artist = $search_str_db_album = $search_str. '%';
+        $search_str_db_artist_wc = $search_str_db_album_wc = '%' . $search_str . '%';
       }
       $search_str_db = '%' . $search_str . '%';
       $sql = "SELECT " . TBL_artist . ".`id` as artist_id,

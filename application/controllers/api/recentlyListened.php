@@ -16,7 +16,7 @@ class RecentlyListened extends CI_Controller {
                    " . TBL_artist . ". `id` as `artist_id`,
                    " . TBL_album . ". `id` as `album_id`,
                    " . TBL_user . ". `id` as `user_id`
-            FROM " . TBL_album.", " . TBL_artist . ", " . TBL_listening . ", " . TBL_user . "
+            FROM " . TBL_album . ", " . TBL_artist . ", " . TBL_listening . ", " . TBL_user . "
             WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
               AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`

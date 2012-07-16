@@ -18,7 +18,6 @@ jQuery("#addListeningSubmit").click(function() {
         topAlbum();
         topArtist();
       }
-      console.log(data)
       jQuery('#addListeningText').focus();
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -52,7 +51,6 @@ jQuery(".listeningFormat").keypress(function(e) {
       jQuery(this).addClass('selected');
 
       jQuery('#' + jQuery(this).parent().attr("for")).prop('checked', true);
-      console.log()
    }
 });
 

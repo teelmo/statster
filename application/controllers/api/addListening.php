@@ -1,7 +1,7 @@
 <?php
 class AddListening extends CI_Controller {
   public function index() {
-    $this->load->helper(array('id_helper', 'format_helper'));
+    $this->load->helper(array('id_helper', 'music_helper'));
     if (empty($_POST)) {
       echo json_encode(array('error' => array('msg' => '$_POST parameters not delivered')));
       return FALSE;
@@ -31,8 +31,10 @@ class AddListening extends CI_Controller {
       $query = $this->db->query($sql);
       if($this->db->affected_rows() == 1) {
         $data['listening_id'] = $this->db->insert_id();
-        list($data['format'], $data['format_type']) = explode(':', $_POST['format']);
-        addListeningFormat($data);
+        if (!empty($_POST['format'])) {
+          list($data['format'], $data['format_type']) = explode(':', $_POST['format']);
+          addListeningFormat($data);
+        }
       }
     }
     else {
