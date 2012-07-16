@@ -15,7 +15,10 @@ if (is_array($json_data)) {
           <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse to album\'s page'))?>
         </span>
       <td class="format icon middle">
-        <?=(!empty($row->listening_format_id)) ? '<img src="' . getListeningsFormatImg(array('listening_format_id' => $row->listening_format_id, 'listening_format_type_id' => $row->listening_format_type_id)) . '" alt="" />': ''?>
+        <?php
+        $listeningsFormatImg = getListeningsFormatImg(array('listening_format_id' => $row->listening_format_id, 'listening_format_type_id' => $row->listening_format_type_id));
+        ?>
+        <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>"/>
       </td>
       <td class="love icon middle">
         <?=($row->love == 1) ? '<span class="loveIcon" title=""></span>' : ''?>

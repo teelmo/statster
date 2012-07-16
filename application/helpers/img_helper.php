@@ -53,18 +53,15 @@ if (!function_exists('getListeningsFormatImg')) {
   function getListeningsFormatImg($opts = array()) {
     $format_img = getFormatImg($opts);
     $format_type_img = getFormatTypeImg($opts);
-
-    return (!empty($format_type_img) || $format_type_img == 'empty.png') ? :
-    /*
-    if ($query->num_rows() > 0) {
-      $result = $query->result();
-      $empty_filename = './media/img/format_img/format_icons/file.png';
-      $filename = './media/img/format_img/format_icons/' . $result[0]->img;
-      return (read_file($filename)) ? $filename : $empty_filename;
+    if($format_type_img['empty'] == FALSE) {
+      return $format_type_img;
+    }
+    elseif($format_img['empty'] == FALSE) {
+      return $format_img;
     }
     else {
-      return FALSE;
-    }*/
+      return './media/img/format_img/format_icons/empty.png';
+    }
   }
 }    
 
@@ -73,16 +70,19 @@ if (!function_exists('getFormatImg')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $format_id = isset($opts['format_id']) ? $opts['format_id'] : '';
-    $sql = "SELECT " . TBL_listening_format . ".`img`
+    $format_id = isset($opts['listening_format_id']) ? $opts['listening_format_id'] : '';
+    $sql = "SELECT " . TBL_listening_format . ".`img`, " . TBL_listening_format . ".`name`
             FROM " . TBL_listening_format . "
             WHERE  " . TBL_listening_format . ".`id` = " . $ci->db->escape($format_id);
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {
       $result = $query->result();
-      $empty_filename = './media/img/format_img/format_icons/file.png';
       $filename = './media/img/format_img/format_icons/' . $result[0]->img;
-      return (read_file($filename)) ? $filename : $empty_filename;
+      return (read_file($filename)) ? array('filename' => $filename, 
+                                            'name' => $result[0]->name, 
+                                            'empty' => FALSE) : 
+                                      array('filename' => './media/img/format_img/format_icons/file.png', 
+                                            'empty' => TRUE);
     }
     else {
       return FALSE;
@@ -95,16 +95,19 @@ if (!function_exists('getFormatTypeImg')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $format_type_id = isset($opts['format_type_id']) ? $opts['format_type_id'] : '';
-    $sql = "SELECT " . TBL_listening_format_type . ".`img`
+    $format_type_id = isset($opts['listening_format_type_id']) ? $opts['listening_format_type_id'] : '';
+    $sql = "SELECT " . TBL_listening_format_type . ".`img`, " . TBL_listening_format_type . ".`name`
             FROM " . TBL_listening_format_type . "
             WHERE  " . TBL_listening_format_type . ".`id` = " . $ci->db->escape($format_type_id);
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {
       $result = $query->result();
-      $empty_filename = './media/img/format_img/format_icons/file.png';
       $filename = './media/img/format_img/format_icons/' . $result[0]->img;
-      return (read_file($filename)) ? $filename : $empty_filename;
+      return (read_file($filename)) ? array('filename' => $filename, 
+                                            'name' => $result[0]->name, 
+                                            'empty' => FALSE) : 
+                                      array('filename' => './media/img/format_img/format_icons/file.png', 
+                                            'empty' => TRUE);
     }
     else {
       return FALSE;
