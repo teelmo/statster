@@ -70,10 +70,12 @@ if (!function_exists('getFormatImg')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $format_id = isset($opts['listening_format_id']) ? $opts['listening_format_id'] : '';
+    $listening_id = isset($opts['listening_id']) ? $opts['listening_id'] : '';
     $sql = "SELECT " . TBL_listening_format . ".`img`, " . TBL_listening_format . ".`name`
-            FROM " . TBL_listening_format . "
-            WHERE  " . TBL_listening_format . ".`id` = " . $ci->db->escape($format_id);
+            FROM " . TBL_listening_format . ", " . TBL_listening_formats . ", " . TBL_listening . "
+            WHERE " . TBL_listening_format . ".`id` = " . TBL_listening_formats . ".`listening_format_id`
+              AND " . TBL_listening . ".`id` = " . TBL_listening_formats . ".`listening_id`
+              AND " . TBL_listening . ".`id` = " . $ci->db->escape($listening_id);
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {
       $result = $query->result();
@@ -95,10 +97,12 @@ if (!function_exists('getFormatTypeImg')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $format_type_id = isset($opts['listening_format_type_id']) ? $opts['listening_format_type_id'] : '';
+    $listening_id = isset($opts['listening_id']) ? $opts['listening_id'] : '';
     $sql = "SELECT " . TBL_listening_format_type . ".`img`, " . TBL_listening_format_type . ".`name`
-            FROM " . TBL_listening_format_type . "
-            WHERE  " . TBL_listening_format_type . ".`id` = " . $ci->db->escape($format_type_id);
+            FROM " . TBL_listening_format_type . ", " . TBL_listening_format_types . ", " . TBL_listening . "
+            WHERE " . TBL_listening_format_type . ".`id` = " . TBL_listening_format_types . ".`listening_format_type_id`
+              AND " . TBL_listening . ".`id` = " . TBL_listening_format_types . ".`listening_id`
+              AND " . TBL_listening . ".`id` = " . $ci->db->escape($listening_id);
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {
       $result = $query->result();

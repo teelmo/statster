@@ -6,34 +6,26 @@ class RecentlyListened extends CI_Controller {
     $album = isset($_GET['album']) ? $_GET['album'] : '%';
     $date = isset($_GET['date']) ? $_GET['date'] : '%';
     $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
-    $sql = "SELECT " . TBL_listening . ". `id`, 
+    $sql = "SELECT " . TBL_listening . ". `id` as `listening_id`,
                    " . TBL_artist . ". `artist_name`,
-                   " . TBL_artist . ". `id` as artist_id,
-                   " . TBL_album . ". `album_name`, 
-                   " . TBL_album . ". `id` as album_id, 
+                   " . TBL_album . ". `album_name`,
                    " . TBL_album . ". `year`, 
+                   " . TBL_user . ". `username`,
                    " . TBL_listening . ". `date`, 
-                   " . TBL_user . ". `username`, 
-                   " . TBL_user . ". `id` as user_id, 
-                  (SELECT count(" . TBL_love . ". `album_id`)
-                    FROM " . TBL_love . "
-                    WHERE " . TBL_love . ". `album_id` = " . TBL_album . ". `id`
-                      AND " . TBL_love . ". `user_id` = " . TBL_user . ". `id`
-                  ) AS love,
                    " . TBL_listening . ". `created`,
-                   " . TBL_listening_formats . ". `listening_format_id`, 
-                   " . TBL_listening_format_types . ". `listening_format_type_id`
-            FROM " . TBL_album.", " . TBL_artist.", " . TBL_listening.", " . TBL_user.", " . TBL_listening_formats.", " . TBL_listening_format_types."
+                   " . TBL_artist . ". `id` as `artist_id`,
+                   " . TBL_album . ". `id` as `album_id`,
+                   " . TBL_user . ". `id` as `user_id`
+            FROM " . TBL_album.", " . TBL_artist . ", " . TBL_listening . ", " . TBL_user . "
             WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
-              AND " . TBL_album . ". `artist_id` = " . TBL_artist . ". `id`
-              AND " . TBL_listening . ". `id` = " . TBL_listening_formats . ". `listening_id`
-              AND " . TBL_listening . ". `id` = " . TBL_listening_format_types . ". `listening_id`
+              AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
               AND " . TBL_user . ". `username` LIKE " . $this->db->escape($username) . "
               AND " . TBL_artist . ". `artist_name` LIKE " . $this->db->escape($artist) . "
               AND " . TBL_album . ". `album_name` LIKE " . $this->db->escape($album) . "
               AND " . TBL_listening . ". `date` LIKE " . $this->db->escape($date) . "
-            ORDER BY " . TBL_listening . ". `date` DESC, " . TBL_listening . ". `id` DESC
+            ORDER BY " . TBL_listening . ". `date` DESC, 
+                     " . TBL_listening . ". `id` DESC
             LIMIT " . mysql_real_escape_string($limit);
     $query = $this->db->query($sql);
     if ($query->num_rows() > 0) {

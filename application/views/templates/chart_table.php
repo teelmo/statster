@@ -16,12 +16,12 @@ if (is_array($json_data)) {
         </span>
       <td class="format icon middle">
         <?php
-        $listeningsFormatImg = getListeningsFormatImg(array('listening_format_id' => $row->listening_format_id, 'listening_format_type_id' => $row->listening_format_type_id));
+        $listeningsFormatImg = getListeningsFormatImg(array('listening_id' => $row->listening_id));
         ?>
         <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>"/>
       </td>
       <td class="love icon middle">
-        <?=($row->love == 1) ? '<span class="loveIcon" title=""></span>' : ''?>
+        <?=(getAlbumLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)) == TRUE) ? '<span class="loveIcon" title=""></span>' : ''?>
       </td>
       <td class="datetime"><?=$row->date?></td>
       <td class="img userImg">
