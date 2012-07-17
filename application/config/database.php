@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'statster';
-$db['default']['password'] = 'YG5uKjY5MG5K.BAe';
+$db['default']['password'] = 'nCnnvDv2AnGR5Tu2';
 $db['default']['database'] = 'statster';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
