@@ -1,6 +1,14 @@
 <?php 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+   * Get artist's ID.
+   *
+   * @param array $opts.
+   *          'artist'  => Artist name
+   *
+   * @return int artist ID or boolean FALSE.
+   */
 if (!function_exists('getArtistID')) {
   function getArtistID($opts = array()) {
     $ci=& get_instance();
@@ -21,6 +29,15 @@ if (!function_exists('getArtistID')) {
   }
 }
 
+/**
+   * Get album's ID.
+   *
+   * @param array $opts.
+   *          'artist'  => Artist name
+   *          'album'  => Album name
+   *
+   * @return int album ID or boolean FALSE.
+   */
 if (!function_exists('getAlbumID')) {
   function getAlbumID($opts = array()) {
     $ci=& get_instance();
@@ -48,6 +65,14 @@ if (!function_exists('getAlbumID')) {
   }
 }
 
+/**
+   * Get user's ID.
+   *
+   * @param array $opts.
+   *          'username'  => Username
+   *
+   * @return int user ID or boolean FALSE.
+   */
 if (!function_exists('getUserID')) {
   function getUserID($opts = array()) {
     $ci=& get_instance();
@@ -69,6 +94,14 @@ if (!function_exists('getUserID')) {
   }
 }
 
+/**
+   * Get format's ID.
+   *
+   * @param array $opts.
+   *          'format'  => Format name
+   *
+   * @return int format ID or boolean FALSE.
+   */
 if (!function_exists('getFormatID')) {
   function getFormatID($opts = array()) {
     $ci=& get_instance();
@@ -90,6 +123,14 @@ if (!function_exists('getFormatID')) {
   }   
 }
 
+/**
+   * Get format type's ID.
+   *
+   * @param array $opts.
+   *          'format_type'  => Format type name
+   *
+   * @return int format type ID or boolean FALSE.
+   */
 if (!function_exists('getFormatTypeID')) {
   function getFormatTypeID($opts = array()) {
     $ci=& get_instance();
