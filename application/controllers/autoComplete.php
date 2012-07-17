@@ -47,14 +47,14 @@ class AutoComplete extends CI_Controller {
           $content['images'][] = getAlbumImg(array('album_id' => $row->album_id, 'size' => 20));
         }
         echo json_encode(array('query' => $search_str, 'content' => array("" => $content)));
-        return false;
+        return FALSE;
       }
       echo json_encode(array('query' => $search_str, 'content' => null));
-      return false;
+      return FALSE;
     }
     else {
       echo json_encode(array('query' => $search_str, 'content' => null));
-      return false;
+      return FALSE;
     }
   }
 }
