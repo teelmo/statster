@@ -152,8 +152,8 @@ form#addListeningForm input[type="submit"] {
   cursor: pointer;
 }
 form#addListeningForm input[type="text"] {
-  border-radius: 4px;
-  border: 1px solid #000;
+  border-radius: 3px;
+
   margin: 0 0 0 3px;
   padding: 4px 4px 4px 8px;
   font-size: 20px;
@@ -166,6 +166,26 @@ form#addListeningForm input[type="text"]:focus {
 }
 form#addListeningForm div#addListeningDateContainer {
   margin-left: 5px;
+}
+form#registerForm input[type="password"],
+form#registerForm input[type="text"] {
+  font-size: 14px;
+  width: 90%;
+  border-radius: 2px;
+  background-color: #FFF;
+  padding: 4px 4px 4px 4px;
+}
+form#loginForm div,
+form#registerForm div {
+  margin-bottom: -6px;
+}
+form#loginForm input[type="password"],
+form#loginForm input[type="text"] {
+  font-size: 14px;
+  width: 30%;
+  border-radius: 2px;
+  background-color: #FFF;
+  padding: 4px 4px 4px 4px;
 }
 
 
@@ -369,4 +389,10 @@ hr {
 }
 .middle {
   vertical-align: middle;
+}
+.textRight {
+  text-align: right;
+}
+.floatRight {
+  float: right;
 }

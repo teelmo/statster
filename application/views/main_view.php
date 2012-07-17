@@ -1,7 +1,7 @@
 <div id="leftCont">
   <div class="container">
     <h1>What&rsquo;s ya listening?</h1>
-    <?=form_open('', array('class' => 'text', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
+    <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
       <div id="addListeningDateContainer">
         Listening date: <a href="javascript:" title="Change date" onlick="return false;"><?=$cur_date?></a>
         <input type="hidden" name="date" id="addListeningDate" value="<?=$cur_date?>"/>
