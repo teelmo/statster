@@ -1,16 +1,16 @@
 <?php 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!function_exists('getUserImg')) {
+if (!function_exists('indentJSON')) {
   /**
-   * http://recursive-design.com/blog/2008/03/11/format-json-with-php/
    * Indents a flat JSON string to make it more human-readable.
+   * @see http://recursive-design.com/blog/2008/03/11/format-json-with-php/
    *
    * @param string $json The original JSON string to process.
    *
    * @return string Indented version of the original JSON string.
    */
-  function indent($json) {
+  function indentJSON($json) {
     $result      = '';
     $pos         = 0;
     $strLen      = strlen($json);
@@ -19,10 +19,9 @@ if (!function_exists('getUserImg')) {
     $prevChar    = '';
     $outOfQuotes = true;
 
-    for ($i=0; $i<=$strLen; $i++) {
-
+    for ($ii = 0; $ii <= $strLen; $ii++) {
       // Grab the next character in the string.
-      $char = substr($json, $i, 1);
+      $char = substr($json, $ii, 1);
 
       // Are we inside a quoted string?
       if ($char == '"' && $prevChar != '\\') {
@@ -30,10 +29,11 @@ if (!function_exists('getUserImg')) {
       
       // If this character is the end of an element, 
       // output a new line and indent the next line.
-      } else if(($char == '}' || $char == ']') && $outOfQuotes) {
+      } 
+      elseif (($char == '}' || $char == ']') && $outOfQuotes) {
         $result .= $newLine;
         $pos --;
-        for ($j=0; $j<$pos; $j++) {
+        for ($jj = 0; $jj < $pos; $jj++) {
           $result .= $indentStr;
         }
       }
@@ -48,8 +48,7 @@ if (!function_exists('getUserImg')) {
         if ($char == '{' || $char == '[') {
           $pos ++;
         }
-        
-        for ($j = 0; $j < $pos; $j++) {
+        for ($jj = 0; $jj < $pos; $jj++) {
           $result .= $indentStr;
         }
       }

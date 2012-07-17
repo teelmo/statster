@@ -42,7 +42,7 @@ class TopAlbum extends CI_Controller {
     if ($query->num_rows() > 0) {
       if (!empty($human_readable)) {
         $this->load->helper(array('text_helper'));
-        echo indent(json_encode($query->result()));
+        echo indentJSON(json_encode($query->result()));
       }
       else {
         echo json_encode($query->result());
