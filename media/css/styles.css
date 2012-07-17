@@ -90,19 +90,16 @@ div.container {
   margin: 7px 15px 15px 15px;
   letter-spacing: 0;
 }
+.playCount,
+.albumYear,
 .datetime {
   color: #999;
   font-size: smaller;
 }
-.albumYear {
-  color: #999;
-  font-size: smaller;
+.listeningDate {
+  color: #999; 
 }
-.playCount {
-  color: #999;
-  font-size: smaller;
-  padding-left: 3px;
-}
+.playCount,
 .title {
   padding-left: 3px;
 }
@@ -153,7 +150,6 @@ form#addListeningForm input[type="submit"] {
 }
 form#addListeningForm input[type="text"] {
   border-radius: 3px;
-
   margin: 0 0 0 3px;
   padding: 4px 4px 4px 8px;
   font-size: 20px;
@@ -187,7 +183,6 @@ form#loginForm input[type="text"] {
   background-color: #FFF;
   padding: 4px 4px 4px 4px;
 }
-
 
 /*
  * Table styles
