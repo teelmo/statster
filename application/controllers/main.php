@@ -11,7 +11,7 @@ class Main extends CI_Controller {
     //$this->session->set_userdata($userdata);
     */
 
-    if ($this->session->userdata('logged_in')) {
+    if (!$this->session->userdata('logged_in')) {
       // Load helpers
       $this->load->helper(array('form', 'url'));
 

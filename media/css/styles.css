@@ -289,11 +289,18 @@ ul.chartList {
   display: block;
   overflow: hidden;
 }
-ul.chartList li {
+ul.chartList124 li {
   margin: 0 9px 20px 0;
   display: inline-block;
   overflow: visible;
   width: 130px;
+  vertical-align: top;
+}
+ul.chartList64 li {
+  margin: 0 9px 0px 0;
+  display: inline-block;
+  overflow: visible;
+  width: 70px;
   vertical-align: top;
 }
 
@@ -326,7 +333,7 @@ img.albumImg64,
 img.userImg64 {
   width: 64px;
   height: 64px;
-  border: 1px double #232323;
+  border: 5px double #232323;
 }
 img.artistImg124,
 img.albumImg124 {

@@ -1,6 +1,7 @@
 <?php
 class AddListening extends CI_Controller {
   public function index() {
+    // Load helpers
     $this->load->helper(array('id_helper', 'music_helper'));
     if (empty($_POST)) {
       echo json_encode(array('error' => array('msg' => '$_POST parameters not delivered')));

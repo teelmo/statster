@@ -69,7 +69,7 @@ jQuery("#addListeningShowmore").keypress(function(e) {
 
 function recentlyListened() {
   jQuery.ajax({
-    type: 'GET', url: '/api/recentlyListened', 
+    type: 'POST', url: '/api/recentlyListened', 
     data: {
       limit : 11,
     },
@@ -95,7 +95,7 @@ recentlyListened();
 
 function topAlbum() {
   jQuery.ajax({
-    type: 'GET', url: '/api/topAlbum',
+    type: 'POST', url: '/api/topAlbum',
     data: {
       limit : 8,
       lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
@@ -103,7 +103,7 @@ function topAlbum() {
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/topAlbumList',
+        type: 'POST', url: '/ajax/albumList/124',
         data: {
           json_data : data,
         },
@@ -123,7 +123,7 @@ topAlbum();
 
 function topArtist() {
   jQuery.ajax({
-    type: 'GET', url: '/api/topArtist',
+    type: 'POST', url: '/api/topArtist',
     data: {
       limit : 8,
       lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
@@ -149,47 +149,58 @@ function topArtist() {
 }
 topArtist();
 
-/*
-jQuery.ajax({
-  type: 'GET', url: '/api/recommendationNewAlbum',
-  data: {
-    limit : 2,
-  },
-  success: function(data) {
-    jQuery.ajax({
-      type: 'POST', url: '/ajax/',
-      data: {
-        json_data : data,
-      },
-      success: function(data) {
-        jQuery('#recommentedAlbums').html(data);
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-      }
-    });
-  },
-  error: function(XMLHttpRequest, textStatus, errorThrown) {
-  }
-});
+function recommentedTopAlbum() {
+  jQuery.ajax({
+    type: 'POST', url: '/api/recommentedTopAlbum',
+    data: {
+      limit : 10,
+      lower_limit : 90 * 24 * 60 * 60 
+    },
+    success: function(data) {
+      jQuery.ajax({
+        type: 'POST', url: '/ajax/albumList/64',
+        data: {
+          json_data : data,
+          limit : 2,
+        },
+        success: function(data) {
+          jQuery('#recommentedTopAlbumLoader').hide();
+          jQuery('#recommentedTopAlbum').html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        }
+      });
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    }
+  });
+}
+recommentedTopAlbum();
 
-jQuery.ajax({
-  type: 'GET', url: '/api/recommendationPopularAlbum',
-  data: {
-    limit : 2,
-  },
-  success: function(data) {
-    jQuery.ajax({
-      type: 'POST', url: '/ajax/',
-      data: {
-        json_data : data,
-      },
-      success: function(data) {
-        jQuery('#recentlyReleased').html(data);
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-      }
-    });
-  },
-  error: function(XMLHttpRequest, textStatus, errorThrown) {
-  }
-});*/
+function recommentedNewAlbum() {
+  jQuery.ajax({
+    type: 'POST', url: '/api/recommentedNewAlbum',
+    data: {
+      limit : 10,
+      order_by : 'album.year DESC, album.created DESC',
+    },
+    success: function(data) {
+      jQuery.ajax({
+        type: 'POST', url: '/ajax/albumList/64',
+        data: {
+          json_data : data,
+          limit : 2,
+        },
+        success: function(data) {
+          jQuery('#recommentedNewAlbumLoader').hide();
+          jQuery('#recommentedNewAlbum').html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        }
+      });
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    }
+  });
+}
+recommentedNewAlbum();

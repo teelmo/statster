@@ -2,7 +2,7 @@
   <div class="container">
     <h1>What&rsquo;s ya listening?</h1>
     <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
-      <div id="addListeningDateContainer">
+      <div id="addListeningDateContainer" class="listeningDate">
         Listening date: <a href="javascript:" title="Change date" onlick="return false;"><?=$cur_date?></a>
         <input type="hidden" name="date" id="addListeningDate" value="<?=$cur_date?>"/>
       </div>
@@ -34,7 +34,7 @@
   <div class="container">
     <h1>Top albums</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
-    <ul id="topAlbum" class="chartList"><!-- Content is loaded with AJAX --></ul>
+    <ul id="topAlbum" class="chartList chartList124"><!-- Content is loaded with AJAX --></ul>
   </div>
   <div class="container"><hr /></div>
 </div>
@@ -55,24 +55,20 @@
     <table id="topArtist" class="barTable"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
-  <?php /*
   <div class="container">
     <h1>Statster recommends</h1>
     <h2>Recommented albums</h2>
-    <ul id="recommentedAlbums"><!-- Content is loaded with AJAX --></ul>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
+    <ul id="recommentedTopAlbum" class="chartList chartList64"><!-- Content is loaded with AJAX --></ul>
     <h2>Recently released</h2>
-    <ul id="recentlyReleased">  
-      <!-- Content is loaded with AJAX -->
-    </ul>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedNewAlbumLoader" />
+    <ul id="recommentedNewAlbum" class="chartList chartList64"><!-- Content is loaded with AJAX --></ul>
   </div>
   <div class="container"><hr /></div>
-  */ ?>
-  <?php /*
   <div class="container">
     <h1>Latest blog posts</h1>
   </div>
   <div class="container"><hr /></div>
-  */ ?>
   <div class="container">
     <h1>Browse Statster</h1>
     <ul>

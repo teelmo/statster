@@ -6,7 +6,7 @@ if (is_array($json_data)) {
       $highest_count = $row->count;
     }
     ?>
-    <tr id="<?=$idx?>">
+    <tr id="barTable<?=$idx?>">
       <td class="barChartRank">
         <?=$idx + 1?>.
       </td>
