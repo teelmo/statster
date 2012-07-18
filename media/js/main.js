@@ -97,9 +97,9 @@ function topAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/topAlbum',
     data: {
-      limit : 8,
       lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
       upper_limit : '<?=date("Y-m-d")?>',
+      limit : 8,
     },
     success: function(data) {
       jQuery.ajax({
@@ -152,7 +152,7 @@ function recommentedTopAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/recommentedTopAlbum',
     data: {
-      lower_limit : '<?=date("Y-m-d", time() - (90 * 24 * 60 * 60))?>' 
+      lower_limit : '<?=date("Y-m-d", time() - (90 * 24 * 60 * 60))?>', 
       limit : 15,
     },
     success: function(data) {
