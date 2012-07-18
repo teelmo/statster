@@ -161,6 +161,7 @@ function recommentedTopAlbum() {
         data: {
           json_data : data,
           limit : 2,
+          hide : {"artist" : true},
         },
         success: function(data) {
           jQuery('#recommentedTopAlbumLoader').hide();
@@ -189,6 +190,7 @@ function recommentedNewAlbum() {
         data: {
           json_data : data,
           limit : 2,
+          hide : {"artist" : true},
         },
         success: function(data) {
           jQuery('#recommentedNewAlbumLoader').hide();
