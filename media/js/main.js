@@ -126,7 +126,7 @@ function topArtist() {
     type: 'POST', url: '/api/topArtist',
     data: {
       lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-      limit : 15,
+      limit : 10,
     },
     success: function(data) {
       jQuery.ajax({
@@ -180,8 +180,8 @@ function recommentedNewAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/recommentedNewAlbum',
     data: {
-      limit : 15,
       order_by : 'album.year DESC, album.created DESC',
+      limit : 15,
     },
     success: function(data) {
       jQuery.ajax({

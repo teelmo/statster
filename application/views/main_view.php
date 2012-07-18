@@ -57,7 +57,7 @@
   <div class="container"><hr /></div>
   <div class="container">
     <h1>Statster recommends</h1>
-    <h2>Recommented albums</h2>
+    <h2>Popular albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
     <ul id="recommentedTopAlbum" class="chartList chartList64"><!-- Content is loaded with AJAX --></ul>
     <h2>Recently released</h2>
@@ -65,10 +65,10 @@
     <ul id="recommentedNewAlbum" class="chartList chartList64"><!-- Content is loaded with AJAX --></ul>
   </div>
   <div class="container"><hr /></div>
-  <div class="container">
+  <!--<div class="container">
     <h1>Latest blog posts</h1>
   </div>
-  <div class="container"><hr /></div>
+  <div class="container"><hr /></div>-->
   <div class="container">
     <h1>Browse Statster</h1>
     <ul>
