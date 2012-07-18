@@ -125,9 +125,8 @@ function topArtist() {
   jQuery.ajax({
     type: 'POST', url: '/api/topArtist',
     data: {
-      limit : 8,
       lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-      upper_limit : '<?=date("Y-m-d")?>',
+      limit : 15,
     },
     success: function(data) {
       jQuery.ajax({
@@ -153,8 +152,8 @@ function recommentedTopAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/recommentedTopAlbum',
     data: {
-      limit : 10,
-      lower_limit : 90 * 24 * 60 * 60 
+      lower_limit : '<?=date("Y-m-d", time() - (90 * 24 * 60 * 60))?>' 
+      limit : 15,
     },
     success: function(data) {
       jQuery.ajax({
@@ -181,7 +180,7 @@ function recommentedNewAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/recommentedNewAlbum',
     data: {
-      limit : 10,
+      limit : 15,
       order_by : 'album.year DESC, album.created DESC',
     },
     success: function(data) {
