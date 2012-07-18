@@ -43,13 +43,13 @@
     <h1>Statistics</h1>
   </div>
   <div class="container">
-    <!--<ul>
+    <ul>
       <li>Most Listened Album Last Month: Tool - Lateralus</li>
       <li>Most Listened Artist Last Month: Penniless</li>
       <li>Listenings in March: 0 <span>(0 in total)</span></li>
       <li>Listenings in 2012: 0 <span>(0 in total)</span></li>
       <li>Your listening count: 13817 <span>(32293 in total)</span></li>
-    </ul>-->
+    </ul>
     <h2>Top artists</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
     <table id="topArtist" class="barTable"><!-- Content is loaded with AJAX --></table>
@@ -59,10 +59,10 @@
     <h1>Statster recommends</h1>
     <h2>Popular albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
-    <ul id="recommentedTopAlbum" class="chartList chartList64"><!-- Content is loaded with AJAX --></ul>
+    <table id="recommentedTopAlbum" class="albumTable"><!-- Content is loaded with AJAX --></table>
     <h2>Recently released</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedNewAlbumLoader" />
-    <ul id="recommentedNewAlbum" class="chartList chartList64"><!-- Content is loaded with AJAX --></ul>
+    <table id="recommentedNewAlbum" class="albumTable"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
   <!--<div class="container">

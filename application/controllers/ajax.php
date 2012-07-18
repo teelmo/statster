@@ -31,7 +31,20 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function topArtistBar() {
+  public function albumTable() {
+    if(!empty($_POST)) {
+      // Load helpers
+      $this->load->helper(array('img_helper', 'url'));
+
+      $data = $_POST;
+      $this->load->view('templates/album_table', $data);
+    }
+    else {
+      exit('No direct script access allowed');
+    }
+  }
+
+  public function artistBar() {
     if(!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('url'));

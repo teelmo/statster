@@ -232,10 +232,10 @@ table.albumTable tr td {
 table.albumTable tr td.img {
   width: 64px;
 }
-table.albumTable tr:nth-child(2n) {
+table.albumTableLeftCont tr:nth-child(2n) {
   background-color: #F5F5F5;
 }
-table.albumTable tr:nth-child(2n+1) {
+table.albumTableLeftCont tr:nth-child(2n+1) {
   background-color: transparent;
 }
 /* genreTable */
@@ -392,8 +392,14 @@ hr {
 .middle {
   vertical-align: middle;
 }
+.textLeft {
+  text-align: left;
+}
 .textRight {
   text-align: right;
+}
+.floatLeft {
+  float: right;
 }
 .floatRight {
   float: right;

@@ -1,6 +1,6 @@
 function popularGenre() {
   jQuery.ajax({
-    type: 'GET', url: '/api/popularGenre',
+    type: 'POST', url: '/api/topGenre',
     data: {
       limit : 15,
       lower_limit : '<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
@@ -28,7 +28,7 @@ popularGenre();
 
 function topAlbum() {
   jQuery.ajax({
-    type: 'GET', url: '/api/topAlbum',
+    type: 'POST', url: '/api/topAlbum',
     data: {
       limit : 15,
       lower_limit : '<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
@@ -36,7 +36,7 @@ function topAlbum() {
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/popularAlbum',
+        type: 'POST', url: '/ajax/albumTable',
         data: {
           json_data : data,
         },

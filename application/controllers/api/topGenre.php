@@ -1,5 +1,5 @@
 <?php
-class PopularGenre extends CI_Controller {
+class TopGenre extends CI_Controller {
   public function index() {
     // Load helpers
     $this->load->helper(array('music_helper'));
