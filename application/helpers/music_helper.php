@@ -151,7 +151,7 @@ if (!function_exists('addListeningFormatTypes')) {
 }
 
 /**
-   * Returns listened artists from the given user.
+   * Returns listened artists for the given user.
    *
    * @param array $opts.
    *          'username'        => Username
@@ -183,31 +183,12 @@ if (!function_exists('getListenedArtists')) {
           ORDER BY " . mysql_real_escape_string($order_by) . "
           LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return indentJSON(json_encode($query->result()));
-      }
-      else {
-        return json_encode($query->result());
-      }
-      return FALSE;
-    }
-    else {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return '<pre>' . indent(json_encode(array('error' => array('msg' => ERR_NO_RESULTS)))) . '</pre>';
-      }
-      else {
-        return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
-      }
-      return FALSE;
-    }
+    return _json_return_helper($query);
   }
 }
 
 /**
-   * Returns listened albums from the given user.
+   * Returns listened albums for the given user.
    *
    * @param array $opts.
    *          'username'        => Username
@@ -242,31 +223,12 @@ if (!function_exists('getListenedAlbums')) {
             ORDER BY " . mysql_real_escape_string($order_by) . "
             LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return indentJSON(json_encode($query->result()));
-      }
-      else {
-        return json_encode($query->result());
-      }
-      return FALSE;
-    }
-    else {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return '<pre>' . indent(json_encode(array('error' => array('msg' => ERR_NO_RESULTS)))) . '</pre>';
-      }
-      else {
-        return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
-      }
-      return FALSE;
-    }
+    return _json_return_helper($query);
   }
 }
 
 /**
-   * Returns top albums from the given user.
+   * Returns top artists for the given user.
    *
    * @param array $opts.
    *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
@@ -318,31 +280,12 @@ if (!function_exists('getTopArtists')) {
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return indentJSON(json_encode($query->result()));
-      }
-      else {
-        return json_encode($query->result());
-      }
-      return FALSE;
-    }
-    else {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return '<pre>' . indent(json_encode(array('error' => array('msg' => ERR_NO_RESULTS)))) . '</pre>';
-      }
-      else {
-        return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
-      }
-      return FALSE;
-    }
+    return _json_return_helper($query);
   }
 }
 
 /**
-   * Returns top albums from the given user.
+   * Returns top albums for the given user.
    *
    * @param array $opts.
    *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
@@ -400,31 +343,12 @@ if (!function_exists('getTopAlbums')) {
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return indentJSON(json_encode($query->result()));
-      }
-      else {
-        return json_encode($query->result());
-      }
-      return FALSE;
-    }
-    else {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return '<pre>' . indent(json_encode(array('error' => array('msg' => ERR_NO_RESULTS)))) . '</pre>';
-      }
-      else {
-        return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
-      }
-      return FALSE;
-    }
+    return _json_return_helper($query);
   }
 }
 
 /**
-   * Returns top albums from the given user.
+   * Returns recently listened albums for the given user.
    *
    * @param array $opts.
    *          'username'        => Username
@@ -469,31 +393,13 @@ if (!function_exists('getRecentlyListened')) {
                      " . TBL_listening . ". `id` DESC
             LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return indentJSON(json_encode($query->result()));
-      }
-      else {
-        return json_encode($query->result());
-      }
-      return FALSE;
-    }
-    else {
-      if (!empty($human_readable)) {
-        $ci->load->helper(array('text_helper'));
-        return '<pre>' . indent(json_encode(array('error' => array('msg' => ERR_NO_RESULTS)))) . '</pre>';
-      }
-      else {
-        return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
-      }
-      return FALSE;
+    return _json_return_helper($query);
     }
   }
 }
 
 /**
-   * Returns top genres from the given user.
+   * Returns top genres for the given user.
    *
    * @param array $opts.
    *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
@@ -540,6 +446,19 @@ if (!function_exists('getTopGenres')) {
               ORDER BY " . mysql_real_escape_string($order_by) . " 
               LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
+    return _json_return_helper($query);
+  }
+}
+
+/**
+   * A helper function for returning music helper's responces.
+   *
+   * @param object $query.
+   *
+   * @return string JSON encoded data containing album information or boolean FALSE.
+   */
+if (!function_exists('_json_return_helper')) {
+  function _json_return_helper($query) {
     if ($query->num_rows() > 0) {
       if (!empty($human_readable)) {
         $ci->load->helper(array('text_helper'));
