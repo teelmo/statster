@@ -45,10 +45,19 @@ $route['404_override'] = '';
  * Statster defined routes
  */
 
+/* Artist and albums page's routes */
 $route['music/(:any)/(:any)'] = "music/album/$1/$2";
 $route['music/(:any)'] = "music/artist/$1";
 
+/* User profile page's routes */
 $route['user/(:any)'] = "user/profile/$1";
+
+/* Meta page's routes */
+$route['about'] = "main/about";
+$route['career'] = "main/career";
+$route['developers'] = "main/developers";
+$route['privacy'] = "main/privacy";
+$route['terms'] = "main/terms";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
