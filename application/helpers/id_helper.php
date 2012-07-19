@@ -7,12 +7,13 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
    * @param array $opts.
    *          'artist'  => Artist name
    *
-   * @return int artist ID or boolean FALSE.
+   * @return int Artist ID or boolean FALSE.
    */
 if (!function_exists('getArtistID')) {
   function getArtistID($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+
     $artist = isset($opts['artist']) ? $opts['artist'] : '';
     $sql = "SELECT " . TBL_artist . ".`id`
             FROM " . TBL_artist . "
@@ -36,7 +37,7 @@ if (!function_exists('getArtistID')) {
    *          'artist'  => Artist name
    *          'album'  => Album name
    *
-   * @return int album ID or boolean FALSE.
+   * @return int Album ID or boolean FALSE.
    */
 if (!function_exists('getAlbumID')) {
   function getAlbumID($opts = array()) {
@@ -71,7 +72,7 @@ if (!function_exists('getAlbumID')) {
    * @param array $opts.
    *          'username'  => Username
    *
-   * @return int user ID or boolean FALSE.
+   * @return int User ID or boolean FALSE.
    */
 if (!function_exists('getUserID')) {
   function getUserID($opts = array()) {
@@ -100,7 +101,7 @@ if (!function_exists('getUserID')) {
    * @param array $opts.
    *          'format'  => Format name
    *
-   * @return int format ID or boolean FALSE.
+   * @return int Format ID or boolean FALSE.
    */
 if (!function_exists('getFormatID')) {
   function getFormatID($opts = array()) {
@@ -129,7 +130,7 @@ if (!function_exists('getFormatID')) {
    * @param array $opts.
    *          'format_type'  => Format type name
    *
-   * @return int format type ID or boolean FALSE.
+   * @return int Format type ID or boolean FALSE.
    */
 if (!function_exists('getFormatTypeID')) {
   function getFormatTypeID($opts = array()) {
