@@ -3,7 +3,7 @@
     <div class="floatRight">
       <?=anchor(array('login'), 'Login', array('title' => 'Login'))?>
     </div>
-    <h1>Statster&nbsp; &middot; &nbsp; &middot; &nbsp; &middot; &nbsp;welcome!</h1>
+    <h1>Statster&nbsp; &middot; &nbsp; &middot; &nbsp;greetings!</h1>
     <p>
       Want to be reconciled with the music. Do it Statster like and <a href="javascript:" onclick="$('#registerForm').toggle(); return false;">register now!</a> 
     </p>
@@ -27,23 +27,32 @@
       </div>
     </form>
   </div>
+  <!--<div class="container"><hr /></div>
+  <div class="container">
+    <iframe width="570" height="321" src="http://www.youtube.com/embed/f0pdwd0miqs" frameborder="0" allowfullscreen></iframe>
+  </div>-->
   <div class="container"><hr /></div>
   <div class="container">
-    <iframe width="570" height="315" src="http://www.youtube.com/embed/f0pdwd0miqs" frameborder="0" allowfullscreen></iframe>
+    <iframe width="570" height="321" src="http://www.youtube.com/embed/NmfzWpp0hMc" frameborder="0" allowfullscreen></iframe>
   </div>
+  <!--<div class="container"><hr /></div>
   <div class="container">
-    
-  </div>
+    <iframe width="570" height="428" src="http://www.youtube.com/embed/sPhl1vGRyXQ" frameborder="0" allowfullscreen></iframe>
+  </div>-->
   <div class="container"><hr /></div>
 </div>
 
 <div id="rightCont">
   <div class="container">
     <h1>Recently listened albums</h1>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader" />
+    <table id="recentlyListened" class="albumTable"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
     <h1>All time top artists</h1>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
+    <table id="topArtist" class="barTable"><!-- Content is loaded with AJAX --></table>
   </div>
 
 </div>
