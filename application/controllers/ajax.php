@@ -24,7 +24,7 @@ class Ajax extends CI_Controller {
       $this->load->helper(array('img_helper', 'url'));
 
       $data = $_POST;
-      $this->load->view('templates/album_list_' . $size, $data);
+      $this->load->view('templates/album_list', $data);
     }
     else {
       exit('No direct script access allowed');
