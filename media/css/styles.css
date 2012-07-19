@@ -244,8 +244,8 @@ table.chartTable tr td.icon {
 }
 /* albumTable */
 table.albumTable tr {
-  border-top: 1px solid #DCDCDC;
-  border-bottom: 1px solid #DCDCDC;
+  border-top: 1px solid #E1E1E1;
+  border-bottom: 1px solid #E1E1E1;
   /*height: 64px;*/
 }
 table.albumTable tr td {
@@ -268,7 +268,7 @@ table.albumTableLeftCont tr:hover {
 }
 /* genreTable */
 table.genreTable tr td {
-  border-bottom: 1px solid #DCDCDC;
+  border-bottom: 1px solid #E1E1E1;
   line-height: 20px;
   vertical-align: bottom;
   padding: 5px 0 0 3px;
