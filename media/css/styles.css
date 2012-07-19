@@ -178,7 +178,7 @@ form#registerForm div {
 form#loginForm input[type="password"],
 form#loginForm input[type="text"] {
   font-size: 14px;
-  width: 30%;
+  width: 70%;
   border-radius: 2px;
   background-color: #FFF;
   padding: 4px 4px 4px 4px;
