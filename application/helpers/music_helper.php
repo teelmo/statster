@@ -394,7 +394,6 @@ if (!function_exists('getRecentlyListened')) {
             LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
     return _json_return_helper($query);
-    }
   }
 }
 
