@@ -5,6 +5,7 @@ body {
   background: #FFF url('/media/img/bg.jpg') repeat;
   font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
+  margin-bottom: 50px;
 }
 div#topCont {
   color: #EEE;
@@ -27,7 +28,7 @@ div#mainCont {
   margin-top: 45px;
 }
 div#leftCont {
-  background-color: #FDFDFD;
+  background: #FFF url('/media/img/bg.png') repeat;
   -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -51,9 +52,18 @@ div#rightCont {
   margin-left: 600px;
   width: 330px;
 }
+div#footer {
+  max-width: 950px;
+  margin: auto auto;
+  padding-left: 30px;
+  position: relative;
+  top: -15px;
+  clear: both;
+  font-size: smaller;
+}
 
 /* 
- * Heading styles 
+ * Heading styles
  */
 h1 {
   font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -97,7 +107,7 @@ div.container {
   font-size: smaller;
 }
 .listeningDate {
-  color: #999; 
+  color: #999;
 }
 .playCount,
 .title {
@@ -112,8 +122,20 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+div#footer a {
+  color: #000;
+  font-weight: bold;
+}
+a:hover {
+  color: #999;
+}
 a:visited {
   color: #00E;
+  text-decoration: none;
+}
+div#footer a:hover,
+a:visited:hover {
+  color: #999;
   text-decoration: none;
 }
 .albumYear a {
@@ -206,13 +228,13 @@ table.chartTable tr {
   height: 32px;
 }
 table.chartTable tr:nth-child(2n) {
-  background-color: #ECECFF;
+  background-color: rgba(236, 236, 255, 0.5)
 }
 table.chartTable tr:nth-child(2n+1) {
-  background-color: transparent;
+  background-color: rgba(245, 245, 245, 1)
 }
 table.chartTable tr:hover {
-  background-color: #AFC9D7;
+  background-color: rgba(175, 201, 215, 0.5);
 }
 table.chartTable tr td.img {
   width: 32px;
@@ -222,25 +244,31 @@ table.chartTable tr td.icon {
 }
 /* albumTable */
 table.albumTable tr {
-  border-top: 1px solid #E8E8E8;
-  border-bottom: 1px solid #E8E8E8;
-  height: 64px;
+  border-top: 1px solid #DCDCDC;
+  border-bottom: 1px solid #DCDCDC;
+  /*height: 64px;*/
 }
 table.albumTable tr td {
   vertical-align: top;
 }
-table.albumTable tr td.img {
+table.albumTable tr td.img32 {
+  width: 32px;
+}
+table.albumTable tr td.img64 {
   width: 64px;
 }
 table.albumTableLeftCont tr:nth-child(2n) {
-  background-color: #F5F5F5;
+  background-color: rgba(245, 245, 245, 0.5);
 }
 table.albumTableLeftCont tr:nth-child(2n+1) {
   background-color: transparent;
 }
+table.albumTableLeftCont tr:hover {
+  background-color: rgba(175, 201, 215, 0.5);
+}
 /* genreTable */
 table.genreTable tr td {
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid #DCDCDC;
   line-height: 20px;
   vertical-align: bottom;
   padding: 5px 0 0 3px;
