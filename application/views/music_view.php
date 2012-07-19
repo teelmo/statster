@@ -13,7 +13,7 @@
     </div>
   </div>
   <div id="leftContOuter">
-    <div class="container">
+    <div class="container" style="margin-right: 0px;">
       <h1>Popular albums</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularAlbumLoader" />
       <table id="popularAlbum" class="albumTable albumTableLeftCont"><!-- Content is loaded with AJAX --></table>
