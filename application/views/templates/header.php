@@ -27,4 +27,5 @@
   <body>
     <div id="topCont"></div>
 
+    <div id="logoCont"></div>
     <div id="mainCont">
