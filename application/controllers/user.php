@@ -7,7 +7,7 @@ class User extends CI_Controller {
     $this->load->view('templates/footer');
   }
 
-   public function profile() {
+  public function profile() {
     $this->load->view('templates/header');
     $this->load->view('profile_view');
     $this->load->view('templates/footer');
