@@ -13,7 +13,7 @@ class Main extends CI_Controller {
 
     if (!$this->session->userdata('logged_in')) {
       // Load helpers
-      $this->load->helper(array('form', 'url'));
+      $this->load->helper(array('form'));
 
       $data = array();
       $data['cur_date'] = date('Y-m-d');
@@ -26,12 +26,48 @@ class Main extends CI_Controller {
     }
     else {
       // Load helpers
-      $this->load->helper(array('form', 'url'));
+      $this->load->helper(array('form'));
+
+      $data = array();
+      $data['request'] = 'welcome';
 
       $this->load->view('templates/header');
       $this->load->view('welcome_view');
-      $this->load->view('templates/footer');  
+      $this->load->view('templates/footer', $data);  
     }
+  }
+
+  /* 
+   * Meta page's controllers 
+   */
+  public function about() {
+    $this->load->view('templates/header');
+    $this->load->view('meta/about_view');
+    $this->load->view('templates/footer');  
+  }
+
+  public function career() {
+    $this->load->view('templates/header');
+    $this->load->view('meta/career_view');
+    $this->load->view('templates/footer');  
+  }
+
+  public function developers() {
+    $this->load->view('templates/header');
+    $this->load->view('meta/developers_view');
+    $this->load->view('templates/footer');  
+  }
+
+  public function privacy() {
+    $this->load->view('templates/header');
+    $this->load->view('meta/privacy_view');
+    $this->load->view('templates/footer');  
+  }
+
+  public function terms() {
+    $this->load->view('templates/header');
+    $this->load->view('meta/terms_view');
+    $this->load->view('templates/footer');  
   }
 }
 ?>
