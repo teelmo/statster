@@ -100,6 +100,7 @@ div.container {
   margin: 7px 15px 15px 15px;
   letter-spacing: 0;
 }
+.updated,
 .playCount,
 .albumYear,
 .datetime {
@@ -307,15 +308,13 @@ table.barTable div.chartBar div {
 /*
  * List styles
  */
-ul {
+ul.chartList {
   width: 100%;
+  display: block;
+  overflow: hidden;
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
-ul.chartList {
-  display: block;
-  overflow: hidden;
 }
 ul.chartList124 li {
   margin: 0 9px 20px 0;
@@ -431,4 +430,7 @@ hr {
 }
 .floatRight {
   float: right;
+}
+.small {
+  font-size: smaller;
 }
