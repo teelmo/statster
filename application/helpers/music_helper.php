@@ -155,7 +155,7 @@ if (!function_exists('addListeningFormatTypes')) {
    *
    * @param array $opts.
    *          'username'        => Username
-   *          'artist_name'     => Artist name
+   *          'order_by'        => Order by argument
    *          'limit'           => Limit
    *          'human_readable'  => Output format
    *
@@ -183,7 +183,7 @@ if (!function_exists('getListenedArtists')) {
           ORDER BY " . mysql_real_escape_string($order_by) . "
           LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    return _json_return_helper($query);
+    return _json_return_helper($query, $human_readable);
   }
 }
 
@@ -192,7 +192,7 @@ if (!function_exists('getListenedArtists')) {
    *
    * @param array $opts.
    *          'username'        => Username
-   *          'album_name'      => Album name
+   *          'order_by'        => Order by argument
    *          'limit'           => Limit
    *          'human_readable'  => Output
    *
@@ -223,7 +223,7 @@ if (!function_exists('getListenedAlbums')) {
             ORDER BY " . mysql_real_escape_string($order_by) . "
             LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    return _json_return_helper($query);
+    return _json_return_helper($query, $human_readable);
   }
 }
 
@@ -280,7 +280,7 @@ if (!function_exists('getTopArtists')) {
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    return _json_return_helper($query);
+    return _json_return_helper($query, $human_readable);
   }
 }
 
@@ -343,7 +343,7 @@ if (!function_exists('getTopAlbums')) {
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    return _json_return_helper($query);
+    return _json_return_helper($query, $human_readable);
   }
 }
 
@@ -393,7 +393,7 @@ if (!function_exists('getRecentlyListened')) {
                      " . TBL_listening . ". `id` DESC
             LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    return _json_return_helper($query);
+    return _json_return_helper($query, $human_readable);
   }
 }
 
@@ -445,7 +445,7 @@ if (!function_exists('getTopGenres')) {
               ORDER BY " . mysql_real_escape_string($order_by) . " 
               LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
-    return _json_return_helper($query);
+    return _json_return_helper($query, $human_readable);
   }
 }
 
@@ -454,12 +454,17 @@ if (!function_exists('getTopGenres')) {
    *
    * @param object $query.
    *
+   * @param string $human_readable.
+   *
    * @return string JSON encoded data containing album information or boolean FALSE.
    */
 if (!function_exists('_json_return_helper')) {
-  function _json_return_helper($query) {
+  function _json_return_helper($query, $human_readable) {
     if ($query->num_rows() > 0) {
-      if (!empty($human_readable)) {
+      if (!empty($human_readable) && $human_readable != 'false') {
+        $ci=& get_instance();
+        $ci->load->database();
+
         $ci->load->helper(array('text_helper'));
         return indentJSON(json_encode($query->result()));
       }
@@ -469,7 +474,10 @@ if (!function_exists('_json_return_helper')) {
       return FALSE;
     }
     else {
-      if (!empty($human_readable)) {
+      if (!empty($human_readable) && $human_readable != 'false') {
+        $ci=& get_instance();
+        $ci->load->database();
+
         $ci->load->helper(array('text_helper'));
         return '<pre>' . indent(json_encode(array('error' => array('msg' => ERR_NO_RESULTS)))) . '</pre>';
       }
