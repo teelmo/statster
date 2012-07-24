@@ -50,6 +50,7 @@ define('DASH', '-');
 
 // Error msgs
 define('ERR_NO_RESULTS', 'No results.');
+define('ERR_INCORRECT_CREDENTIALS', 'Username or password error.');
 
 // Autocomplete
 define('AUTOCOMPLETE_MAX_HEIGHT', 312); #px
