@@ -27,7 +27,8 @@
   <body>
     <div id="topCont">
       <div id="topContInner">
-        <h1><?=anchor('./', 'Statster Beta')?></h1>
+        <h1><?=anchor('./', 'Statster')?></h1>
+        <img src="/media/img/beta.png" alt="" style="vertical-align: -35%;" />
         <div class="floatRight" style="width: 200px;">
           <?php
             if($this->session->userdata('logged_in') === TRUE) {
@@ -40,7 +41,10 @@
           ?>
         </div>
         <div class="floatLeft" style="margin-right: 160px; width: 250px;">
-          <?=form_open('', array('class' => '', 'id' => 'searchForm'), array('searchType' => 'form'))?>
+          <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="" id="searchForm">
+            <div style="display: none;">
+              <input type="hidden" name="searchType" value="form">
+            </div>
             <input type="text" class="middle" autocomplete="off" tabindex="10" id="searchString" placeholder="Search.." name="searchStr" />
           </form>
         </div>

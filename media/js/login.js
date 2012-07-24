@@ -10,9 +10,8 @@ jQuery("#loginSubmit").click(function() {
     },
     success: function(data) {
       if (data == '') {  
-        
+        // TODO REDIRECT 
       }
-      
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
     }
