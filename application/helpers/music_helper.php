@@ -196,7 +196,7 @@ if (!function_exists('getListenedArtists')) {
    *          'limit'           => Limit
    *          'human_readable'  => Output
    *
-   * @return string JSON encoded data containing artist information.
+   * @return string JSON encoded data containing album information.
    */
 if (!function_exists('getListenedAlbums')) {
   function getListenedAlbums($opts = array()) {
