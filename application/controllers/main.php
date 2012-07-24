@@ -2,16 +2,7 @@
 class Main extends CI_Controller {
 
   public function index() {
-    // http://codeigniter.com/user_guide/libraries/sessions.html
-    /*$userdata = array(
-                   'username'  => 'teelmo',
-                   'email'     => 'teemo.tebest@gmail.com',
-                   'logged_in' => TRUE
-               );
-    //$this->session->set_userdata($userdata);
-    */
-
-    if (!$this->session->userdata('logged_in')) {
+    if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers
       $this->load->helper(array('form'));
 
