@@ -3,10 +3,10 @@
     <h1>Login</h1>
       <?=form_open('', array('class' => '', 'id' => 'loginForm'), array('addListeningType' => 'form'))?>
       <div>
-        <input type="text" class="" autocomplete="off" tabindex="2" id="registerUsername" placeholder="Enter username" name="registerUsername" />
+        <input type="text" class="" autocomplete="off" tabindex="2" id="loginUsername" placeholder="Enter username" name="registerUsername" />
       </div>
       <div>
-        <input type="password" class="" autocomplete="off" tabindex="2" id="registerEmail" placeholder="Enter password" name="registerEmail" />
+        <input type="password" class="" autocomplete="off" tabindex="2" id="loginPassword" placeholder="Enter password" name="registerEmail" />
       </div>
       <div>
         <p>
