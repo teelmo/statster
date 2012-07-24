@@ -25,7 +25,32 @@
     </style>
   </head>
   <body>
-    <div id="topCont"></div>
-
+    <div id="topCont">
+      <div id="topContInner">
+        <h1><?=anchor('./', 'Statster Beta')?></h1>
+        <div class="floatRight" style="width: 200px;">
+          <?php
+            if($this->session->userdata('logged_in') === TRUE) {
+              ?>
+              <?=anchor('user/'.$this->session->userdata('username'), $this->session->userdata('username'))?>
+              <?=anchor('user/'.$this->session->userdata('username'), '<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg32" style="vertical-align: -45%;"/>')?>
+              <?=anchor('logout', 'Logout')?>  
+              <?
+            }
+          ?>
+        </div>
+        <div class="floatLeft" style="margin-right: 160px; width: 250px;">
+          <?=form_open('', array('class' => '', 'id' => 'searchForm'), array('searchType' => 'form'))?>
+            <input type="text" class="middle" autocomplete="off" tabindex="10" id="searchString" placeholder="Search.." name="searchStr" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <br  />
+    <br  />
+    <br  />
+    <?php
+    //print_r($this->session->userdata);
+    ?>
     <div id="logoCont"></div>
     <div id="mainCont">
