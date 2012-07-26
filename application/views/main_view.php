@@ -34,7 +34,7 @@
   <div class="container">
     <h1>Top albums</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
-    <ul id="topAlbum" class="chartList chartList124"><!-- Content is loaded with AJAX --></ul>
+    <ul id="topAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
   <div class="container"><hr /></div>
 </div>
@@ -43,7 +43,7 @@
     <h1>Statistics</h1>
   </div>
   <div class="container">
-    <ul>
+    <ul class="noBullets">
       <li>Most Listened Album Last Month: Tool - Lateralus</li>
       <li>Most Listened Artist Last Month: Penniless</li>
       <li>Listenings in March: 0 <span>(0 in total)</span></li>
@@ -71,7 +71,7 @@
   <div class="container"><hr /></div>-->
   <div class="container">
     <h1>Browse Statster</h1>
-    <ul>
+    <ul class="noBullets">
       <li>&raquo; <?=anchor(array('music'), 'Browse music', array('title' => 'Browse music'))?></li>
       <li>&raquo; <?=anchor(array('user'), 'Browse users', array('title' => 'Browse users'))?></li>
       <li>&raquo; <?=anchor(array('tags'), 'Browse tags', array('title' => 'Browse tags'))?></li>

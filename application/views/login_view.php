@@ -14,6 +14,9 @@
         </p>
       </div>
     </form>
+    <p>
+      After clicking login please click <?=anchor('/', 'here')?>.
+    </p>
   </div>
   <div class="container"><hr /></div>
 </div>

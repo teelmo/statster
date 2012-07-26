@@ -29,18 +29,22 @@
       <div id="topContInner">
         <h1><?=anchor('./', 'Statster')?></h1>
         <img src="/media/img/beta.png" alt="" style="vertical-align: -35%;" />
-        <div class="floatRight" style="width: 200px;">
+        <div class="floatRight" id="userCont">
           <?php
-            if($this->session->userdata('logged_in') === TRUE) {
-              ?>
-              <?=anchor('user/'.$this->session->userdata('username'), $this->session->userdata('username'))?>
-              <?=anchor('user/'.$this->session->userdata('username'), '<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg32" style="vertical-align: -45%;"/>')?>
-              <?=anchor('logout', 'Logout')?>  
-              <?
-            }
+          if($this->session->userdata('logged_in') === TRUE) {
+            ?>
+            <?=anchor('user/'.$this->session->userdata('username'), '<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg32" style="vertical-align: -45%;"/>')?>
+            <?=anchor('logout', 'Logout')?>  
+            <?
+          }
+          else {
+            ?>
+            <?=anchor(array('login'), 'Login', array('title' => 'Login'))?>
+            <?
+          }
           ?>
         </div>
-        <div class="floatLeft" style="margin-right: 160px; width: 250px;">
+        <div class="floatRight" id="searchCont">
           <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="" id="searchForm">
             <div style="display: none;">
               <input type="hidden" name="searchType" value="form">
@@ -50,11 +54,5 @@
         </div>
       </div>
     </div>
-    <br  />
-    <br  />
-    <br  />
-    <?php
-    //print_r($this->session->userdata);
-    ?>
     <div id="logoCont"></div>
     <div id="mainCont">

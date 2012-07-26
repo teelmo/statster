@@ -1,8 +1,5 @@
 <div id="leftCont">
   <div class="container">
-    <div class="floatRight">
-      <?=anchor(array('login'), 'Login', array('title' => 'Login'))?>
-    </div>
     <h1>Statster&nbsp; &middot; &nbsp; &middot; &nbsp;greetings!</h1>
     <p>
       Want to be reconciled with the music. Do it Statster like and <a href="javascript:" onclick="$('#registerForm').toggle(); return false;">register now!</a> 
@@ -41,7 +38,6 @@
   </div>-->
   <div class="container"><hr /></div>
 </div>
-
 <div id="rightCont">
   <div class="container">
     <h1>Recently listened albums</h1>
@@ -54,7 +50,4 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
     <table id="topArtist" class="barTable"><!-- Content is loaded with AJAX --></table>
   </div>
-
 </div>
-
-

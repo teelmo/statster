@@ -11,7 +11,7 @@ div#topCont {
   color: #EEE;
   background: #222 url('/media/img/background_top_navi.gif') repeat-x center top;
   height: 36px;
-  line-height: 32px;
+  line-height: 36px;
   vertical-align: middle;
   width: 100%;
   font-size: 13px;
@@ -29,10 +29,21 @@ div#topContInner {
 div#topContInner div {
   display: inline-block;
 }
+div#userCont {
+  width: 300px;
+  text-align: right;
+  padding-right: 50px;
+}
+div#userCont img {
+  margin-top: -6px;
+}
+div#searchCont {
+  margin-right: 0;
+}
 div#mainCont {
   max-width: 950px;
   margin: auto auto;
-  margin-top: 20px;
+  margin-top: 70px;
 }
 div#leftCont {
   background: #FFF url('/media/img/bg_leftCont.png') repeat;
@@ -339,13 +350,15 @@ table.barTable div.chartBar div {
 /*
  * List styles
  */
+ul.noBullets {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 ul.chartList {
   width: 100%;
   display: block;
   overflow: hidden;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 ul.chartList124 li {
   margin: 0 9px 20px 0;
@@ -457,7 +470,7 @@ hr {
   text-align: right;
 }
 .floatLeft {
-  float: right;
+  float: left;
 }
 .floatRight {
   float: right;
