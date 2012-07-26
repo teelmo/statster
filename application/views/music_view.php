@@ -2,7 +2,7 @@
   <div id="leftContInner">
     <div class="container">
       <h2>Find music</h2>
-      <ul>
+      <ul class="noBullets">
         <li>» <?=anchor(array('artist'), 'Browse artists', array('title' => 'Browse artists'))?></li>
         <li>» <?=anchor(array('album'), 'Browse albums', array('title' => 'Browse albums'))?></li>
       </ul>
