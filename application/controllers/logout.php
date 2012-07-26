@@ -5,7 +5,14 @@ class Logout extends CI_Controller {
     // Load helpers
     $this->load->helper(array('user_helper'));
 
-    echo logoutUser();
+    // Redirect user to the first page if logout successful.
+    $logout = logoutUser();
+    if (empty($logout)) {
+      redirect('/', 'refresh');
+    }
+    else {
+      echo $logout;
+    }
 
   }
 }

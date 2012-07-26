@@ -10,7 +10,10 @@ jQuery("#loginSubmit").click(function() {
     },
     success: function(data) {
       if (data == '') {  
-        // TODO REDIRECT 
+        window.location.href = "/";
+      }
+      else {
+        // @TODO error msgs.
       }
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
