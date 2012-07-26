@@ -34,11 +34,12 @@ div#userCont {
   text-align: right;
   padding-right: 50px;
 }
-div#userCont img {
+div#topCont img {
   margin-top: -6px;
 }
 div#searchCont {
   margin-right: 0;
+  margin-top: -1px;
 }
 div#mainCont {
   max-width: 950px;
@@ -91,8 +92,8 @@ h1 {
   text-shadow: 0 1px 0 #EEE;
 }
 div#topCont h1 {
-  margin: 4px;
-  padding: 0;
+  margin: 0;
+  padding: 2px;
   display: inline-block;
   font-family: "Helvetica";
   letter-spacing: 3px;
@@ -209,10 +210,10 @@ form#addListeningForm input[type="text"] {
   padding: 4px 4px 4px 8px;
   font-size: 20px;
   width: 98%;
-  background-color: #FFF;
+  background-color: #EEE;
 }
 form#addListeningForm input[type="text"]:focus {
-  background-color: #FF8;
+  background-color: #FF0;
   color: #222;
 }
 form#addListeningForm div#addListeningDateContainer {
@@ -247,6 +248,10 @@ form#searchForm input {
   padding: 4px 4px 4px 4px;
   border: 1px solid #000;
   width: 250px;
+  background-color: #555;
+}
+form#searchForm input[type="text"]:focus {
+  background-color: #EEE;
 }
 
 /*
@@ -441,6 +446,9 @@ img.listeningFormat.selected {
   opacity: 1;
   -moz-opacity: 1;
   filter:alpha(opacity=10);
+}
+img#betaLogo {
+  vertical-align: -40%;
 }
 
 /* 

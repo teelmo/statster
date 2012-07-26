@@ -28,13 +28,13 @@
     <div id="topCont">
       <div id="topContInner">
         <h1><?=anchor('./', 'Statster')?></h1>
-        <img src="/media/img/beta.png" alt="" style="vertical-align: -35%;" />
+        <img src="/media/img/beta.png" alt="" id="betaLogo" />
         <div class="floatRight" id="userCont">
           <?php
           if($this->session->userdata('logged_in') === TRUE) {
             ?>
+            <!--<?=anchor('logout', 'Logout')?>-->
             <?=anchor('user/'.$this->session->userdata('username'), '<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg32" style="vertical-align: -45%;"/>')?>
-            <?=anchor('logout', 'Logout')?>  
             <?
           }
           else {
