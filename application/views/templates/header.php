@@ -21,7 +21,7 @@
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>
     <style type="text/css">
-       /* Nothing here */
+      /* Nothing here */
     </style>
   </head>
   <body>
