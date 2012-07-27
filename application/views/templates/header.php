@@ -45,7 +45,11 @@
             if($this->session->userdata('logged_in') === TRUE) {
               ?>
               <!--<?=anchor('logout', 'Logout')?>-->
-              <?=anchor('user/'.$this->session->userdata('username'), $this->session->userdata('real_name') . ' <img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg32" id="profile"/>')?>
+              <?=anchor('user/'.$this->session->userdata('username'), $this->session->userdata('real_name') . '&nbsp;&nbsp;<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg32" id="profile"/>')?>
+              <span class="divider"></span>
+              <div>
+                <?=anchor('/', '<img src="/media/img/icons/bar_chart_28px.png" alt="" id="addlistening"/>')?>
+              </div>
               <?
             }
             else {
@@ -54,10 +58,6 @@
               <?
             }
             ?>
-          </div>
-          <span class="divider"></span>
-          <div>
-            <?=anchor('/', '<img src="/media/img/icons/bar_chart_28px.png" alt="" id="addlistening"/>')?>
           </div>
         </div>
       </div>
