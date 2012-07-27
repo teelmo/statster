@@ -26,20 +26,22 @@ div#topContInner {
   max-width: 950px;
   margin: auto auto;
 }
+div#topContInner form, 
 div#topContInner div {
-  display: inline-block;
-}
-div#userCont {
-  width: 300px;
-  text-align: right;
-  padding-right: 50px;
+  display: inline;
 }
 div#topCont img {
   margin-top: -6px;
 }
-div#searchCont {
-  margin-right: 0;
-  margin-top: -1px;
+div#userCont {
+  opacity: 0.6;
+  -moz-opacity: 0.6;
+  filter:alpha(opacity=6);
+}
+div#userCont:hover {
+  opacity: 1;
+  -moz-opacity: 1;
+  filter:alpha(opacity=10);
 }
 div#mainCont {
   max-width: 950px;
@@ -144,11 +146,11 @@ div.more {
   margin: 10px 5px;
   float: right;
   font-size: 11px;
+  font-weight: bold;
   line-height: 16px;
   padding-right: 20px;
   background-image: url('/media/img/icons/arrow-right.png');
   background-repeat: no-repeat;
-  font-weight: bold;
   background-position: right top;
 }
 
@@ -171,7 +173,6 @@ a:visited {
   color: #00E;
   text-decoration: none;
 }
-div#topCont a:hover,
 div#footer a:hover,
 a:visited:hover {
   color: #999;
@@ -250,20 +251,35 @@ form#loginForm input[type="text"] {
   background-color: #FFF;
   padding: 4px 4px 4px 4px;
 }
-form#searchForm {
-  display: inline;
-}
 form#searchForm input {
   font-size: 14px;
-  border-radius: 3px;
-  padding: 4px 4px 4px 4px;
+  border-radius: 4px;
+  padding: 4px 30px 4px 4px;
   border: 1px solid #000;
   width: 250px;
   background-color: #555;
+  margin-right: -20px;
+  margin-top: -1px;
 }
+form#searchForm input[type="text"]:hover,
 form#searchForm input[type="text"]:focus {
   background-color: #EEE;
 }
+form#searchForm button#searchSubmit {
+  position: relative;
+  cursor: pointer;
+  display: inline;
+  right: 11px;
+  background: transparent url('/media/img/icons/search.png') no-repeat;
+  background-position: 0;
+  outline: none;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
 
 /*
  * Table styles
@@ -463,6 +479,31 @@ img#betaLogo {
   opacity: 0.9;
   -moz-opacity: 0.9;
   filter:alpha(opacity=9);
+}
+img#profile {
+  vertical-align: -45%;
+  padding-right: 25px;
+  background-image: url('/media/img/icons/arrow-down.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+img#addlistening {
+  vertical-align: -45%;
+  opacity: 0.6;
+  -moz-opacity: 0.6;
+  filter:alpha(opacity=6);
+}
+img#addlistening:hover {
+  opacity: 1;
+  -moz-opacity: 1;
+  filter:alpha(opacity=10);
+}
+span.divider {
+  border-left: 1px solid #111;
+  border-right: 1px solid #555;
+  padding-top: 2px;
+  padding-bottom: 5px;
+  margin: 0 12px 0 5px;
 }
 
 /* 
