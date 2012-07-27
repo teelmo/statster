@@ -35,5 +35,15 @@ class Music extends CI_Controller {
     $this->load->view('templates/footer');
   }
 
+public function recent() {
+    $data = array();
+    $data += $_REQUEST;
+    $data['request'] = 'recent';
+
+    $this->load->view('templates/header');
+    $this->load->view('recent_view', $data);
+    $this->load->view('templates/footer', $data);
+  }
+
 }
 ?>

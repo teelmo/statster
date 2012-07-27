@@ -140,6 +140,17 @@ div.container {
 .title {
   padding-left: 3px;
 }
+div.more {
+  margin: 10px 5px;
+  float: right;
+  font-size: 11px;
+  line-height: 16px;
+  padding-right: 20px;
+  background-image: url('/media/img/icons/arrow-right.png');
+  background-repeat: no-repeat;
+  font-weight: bold;
+  background-position: right top;
+}
 
 /*
  * Anchor styles

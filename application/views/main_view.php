@@ -29,6 +29,7 @@
     <h1>Recently listened</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chartTable"><!-- Content is loaded with AJAX --></table>
+    <div class="more"><?=anchor('recent', 'See more/edit')?></div>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
@@ -43,13 +44,13 @@
     <h1>Statistics</h1>
   </div>
   <div class="container">
-    <ul class="noBullets">
+    <!--<ul class="noBullets">
       <li>Most Listened Album Last Month: Tool - Lateralus</li>
       <li>Most Listened Artist Last Month: Penniless</li>
       <li>Listenings in March: 0 <span>(0 in total)</span></li>
       <li>Listenings in 2012: 0 <span>(0 in total)</span></li>
       <li>Your listening count: 13817 <span>(32293 in total)</span></li>
-    </ul>
+    </ul>-->
     <h2>Top artists</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
     <table id="topArtist" class="barTable"><!-- Content is loaded with AJAX --></table>
