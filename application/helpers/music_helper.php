@@ -15,8 +15,8 @@ if (!function_exists('getAlbumLove')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $user_id = isset($opts['user_id']) ? $opts['user_id'] : '';
-    $album_id = isset($opts['album_id']) ? $opts['album_id'] : '';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '';
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
     $sql = "SELECT " . TBL_love . ".`id`
             FROM " . TBL_love . "
             WHERE " . TBL_love . ".`user_id` = " . $ci->db->escape($user_id) . "
@@ -45,8 +45,8 @@ if (!function_exists('getArtistFan')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $user_id = isset($opts['user_id']) ? $opts['user_id'] : '';
-    $artist_id = isset($opts['artist_id']) ? $opts['artist_id'] : '';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '';
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
     $sql = "SELECT " . TBL_fan . ".`id`
             FROM " . TBL_fan . "
             WHERE " . TBL_fan . ".`user_id` = " . $ci->db->escape($user_id) . "
@@ -101,7 +101,7 @@ if (!function_exists('addListeningFormats')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $format_id = isset($opts['format_id']) ? $opts['format_id'] : '';
+    $format_id = !empty($opts['format_id']) ? $opts['format_id'] : '';
     $listening_id = $opts['listening_id'];
     $user_id = $opts['user_id'];
     
@@ -133,7 +133,7 @@ if (!function_exists('addListeningFormatTypes')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $format_type_id = isset($opts['format_type_id']) ? $opts['format_type_id'] : '';
+    $format_type_id = !empty($opts['format_type_id']) ? $opts['format_type_id'] : '';
     $listening_id = $opts['listening_id'];
     $user_id = $opts['user_id'];
 
@@ -166,10 +166,10 @@ if (!function_exists('getListenedArtists')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $username = isset($opts['username']) ? $opts['username'] : '%';
-    $order_by = isset($opts['order_by']) ? $opts['order_by'] : TBL_artist . '`artist_name` ASC';
-    $limit = isset($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = isset($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : TBL_artist . '`artist_name` ASC';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT DISTINCT " . TBL_artist . ".`id`, 
                             " . TBL_artist . ".`artist_name`
           FROM " . TBL_album . ", 
@@ -203,10 +203,10 @@ if (!function_exists('getListenedAlbums')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $username = isset($opts['username']) ? $opts['username'] : '%';
-    $order_by = isset($opts['order_by']) ? $opts['order_by'] : TBL_album . '.`album_name` ASC';
-    $limit = isset($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = isset($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : TBL_album . '.`album_name` ASC';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT DISTINCT " . TBL_artist . ".`artist_name`, 
                    " . TBL_artist . ".`id` as artist_id, 
                    " . TBL_album . ".`album_name`, 
@@ -247,14 +247,14 @@ if (!function_exists('getTopArtists')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $lower_limit = isset($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = isset($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
-    $username = isset($opts['username']) ? $opts['username'] : '%';
-    $artist = isset($opts['artist']) ? $opts['artist'] : '%';
-    $group_by = isset($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
-    $order_by = isset($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
-    $limit = isset($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = isset($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT count(" . TBL_artist . ".`id`) as `count`, 
                    " . TBL_artist . ".`artist_name`, 
                    " . TBL_artist . ".`id` as artist_id, 
@@ -305,15 +305,15 @@ if (!function_exists('getTopAlbums')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $lower_limit = isset($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = isset($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
-    $username = isset($opts['username']) ? $opts['username'] : '%';
-    $artist = isset($opts['artist']) ? $opts['artist'] : '%';
-    $album = isset($opts['album']) ? $opts['album'] : '%';
-    $group_by = isset($opts['group_by']) ? $opts['group_by'] :  TBL_album . '.`id`';
-    $order_by = isset($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
-    $limit = isset($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = isset($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
+    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_album . '.`id`';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT count(" . TBL_album . ".`id`) as `count`, 
                    " . TBL_artist . ".`artist_name`, 
                    " . TBL_artist . ".`id` as artist_id, 
@@ -365,12 +365,12 @@ if (!function_exists('getRecentlyListened')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $username = isset($opts['username']) ? $opts['username'] : '%';
-    $artist = isset($opts['artist']) ? $opts['artist'] : '%';
-    $album = isset($opts['album']) ? $opts['album'] : '%';
-    $date = isset($opts['date']) ? $opts['date'] : '%';
-    $limit = isset($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = isset($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
+    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $date = !empty($opts['date']) ? $opts['date'] : '%';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT " . TBL_listening . ". `id` as `listening_id`,
                    " . TBL_artist . ". `artist_name`,
                    " . TBL_album . ". `album_name`,
@@ -418,13 +418,13 @@ if (!function_exists('getTopGenres')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $lower_limit = isset($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = isset($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
-    $artist = isset($opts['artist']) ? $opts['artist'] : '%';
-    $album = isset($opts['album']) ? $opts['album'] : '%';
-    $order_by = isset($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
-    $limit = isset($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = isset($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
+    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT count(" . TBL_genre . ".`id`) as `count`, " . TBL_genre . ".`name`
             FROM " . TBL_album . ", 
                  " . TBL_artist . ", 

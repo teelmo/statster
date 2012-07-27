@@ -27,7 +27,7 @@
   <body>
     <div id="topCont">
       <div id="topContInner">
-        <h1><?=anchor('./', 'Statster')?></h1>
+        <h1><?=anchor('/', 'Statster')?></h1>
         <img src="/media/img/beta.png" alt="" id="betaLogo" />
         <div class="floatRight" id="userCont">
           <?php
