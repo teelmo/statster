@@ -44,7 +44,7 @@ if (is_array($json_data)) {
           <?php
           $listeningsFormatImg = getListeningsFormatImg(array('listening_id' => $row->listening_id));
           ?>
-          <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle"/>
+          <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon"/>
         </td>
         <td class="datetime textRight"><?=$datetime?></td>
         <td class="img userImg">
