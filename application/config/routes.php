@@ -52,9 +52,6 @@ $route['music/(:any)'] = "music/artist/$1";
 /* Music page's routes */
 $route['recent'] = "music/recent";
 
-/* User profile page's routes */
-$route['user/(:any)'] = "user/profile/$1";
-
 /* Meta page's routes */
 $route['about'] = "main/about";
 $route['career'] = "main/career";
