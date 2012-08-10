@@ -132,10 +132,10 @@ function topAlbum() {
         },
         success: function(data) {
           jQuery('#topAlbumLoader').hide();
-          jQuery('#topAlbum').html(data);
+          jQuery('#topAlbum').html(data); 
         },
         complete: function() {
-          setTimeout(topAlbum, 60*10*1000);
+          setTimeout(topAlbum, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -165,7 +165,7 @@ function topArtist() {
           jQuery('#topArtist').html(data);
         },
         complete: function() {
-          setTimeout(topArtist, 60*10*1000);
+          setTimeout(topArtist, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -198,7 +198,7 @@ function recommentedTopAlbum() {
         },
         complete: function() {
           // Schedule the next request when the current one's complete
-          setTimeout(recommentedTopAlbum, 60*10*1000);
+          setTimeout(recommentedTopAlbum, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -231,7 +231,7 @@ function recommentedNewAlbum() {
         },
         complete: function() {
           // Schedule the next request when the current one's complete
-          setTimeout(recommentedNewAlbum, 60*10*1000);
+          setTimeout(recommentedNewAlbum, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }

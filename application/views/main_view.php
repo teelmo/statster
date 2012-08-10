@@ -29,7 +29,7 @@
     <h1>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="middle hidden" id="recentlyListenedLoader2" /></h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chartTable"><!-- Content is loaded with AJAX --></table>
-    <div class="more"><?=anchor('recent', 'See more/edit')?></div>
+    <div class="more"><?=anchor('recent', 'See more/edit', array('title' => 'Browse more listenings'))?></div>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
