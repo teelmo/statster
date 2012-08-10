@@ -261,7 +261,9 @@ form#searchForm input {
   margin-right: -20px;
   margin-top: -1px;
 }
-form#searchForm input[type="text"]:hover,
+form#searchForm .searchForm:hover {
+  background-color: #DDD;
+}
 form#searchForm input[type="text"]:focus {
   background-color: #EEE;
 }
@@ -270,7 +272,7 @@ form#searchForm button#searchSubmit {
   cursor: pointer;
   display: inline;
   right: 11px;
-  background: transparent url('/media/img/icons/search.png') no-repeat;
+  background: url('/media/img/icons/search.png') no-repeat;
   background-position: 0;
   outline: none;
   width: 16px;
@@ -279,7 +281,6 @@ form#searchForm button#searchSubmit {
   margin: 0;
   border: 0;
 }
-
 
 /*
  * Table styles
@@ -424,6 +425,13 @@ img.albumImg124:hover,
 img.userImg124:hover {
   border-color: #777777;
 }
+img.artistImg20,
+img.albumImg20,
+img.userImg20 {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #232323;
+}
 img.artistImg32,
 img.albumImg32,
 img.userImg32 {
@@ -482,8 +490,8 @@ img#betaLogo {
 }
 img#profile {
   vertical-align: -45%;
-  padding-right: 25px;
-  background-image: url('/media/img/icons/arrow-down.png');
+  padding-right: 20px;
+  background-image: url('/media/img/icons/GrayDownArrow.png');
   background-repeat: no-repeat;
   background-position: right center;
 }
