@@ -14,7 +14,7 @@ if (is_array($json_data)) {
       $size = '32';
       $datetime = timeAgo($row->date);
       if ($idx == 0) {
-        if ((strtotime($row->created) - time()) < JUST_LISTENED_INTERVAL && $row->date == CUR_DATE) {
+        if ((time() - strtotime($row->created)) < JUST_LISTENED_INTERVAL && $row->date == CUR_DATE) {
           $class = 'justAdded';
           $size = '64';
           $datetime = '<span id="nowPlaying"></span> just listened';

@@ -322,11 +322,15 @@ table.chartTable tbody tr.justAdded:hover,
 table.chartTable tbody tr:hover {
   background-color: rgba(175, 201, 215, 0.5) !important;
 }
+table.chartTable tbody tr td.datetime {
+  width: 82px;
+}
 table.chartTable tbody tr td.img {
   width: 32px;
 }
 table.chartTable tbody tr td.icon {
   width: 20px;
+  padding: 0 2px;
 }
 table.chartTable tbody tr td.userImg {
   text-align: right;
@@ -479,8 +483,8 @@ span.loveIcon {
   background-image: url('/media/img/icons/heart.png');
   background-position: center;
   background-repeat: no-repeat;
-  padding: 0 20px 0 0;
-  margin: 2px 2px 0 0;
+  padding: 0 20px 3px 0;
+  margin: 3px 2px 0 0;
   vertical-align: 0;
 }
 img.listeningFormat {
