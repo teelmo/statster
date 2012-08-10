@@ -5,6 +5,7 @@
     <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="/media/js/jquery.min.js"></script>
     <script type="text/javascript" src="/media/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="/media/js/jquery.tipsy.js"></script>
     <script type="text/javascript" src="/media/js/dropdown.js"></script>
     <script type="text/javascript">
       if (document.images) {
@@ -18,6 +19,7 @@
     echo link_tag('media/css/styles.css');
     echo link_tag('media/css/jquery.autocomplete.css');
     echo link_tag('media/css/responsive.css');
+    echo link_tag('media/css/tipsy.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>
@@ -47,14 +49,14 @@
               <div id="userCont">
                 <strong><?=$this->session->userdata('real_name')?></strong>&nbsp;&nbsp;<img src="<?=$this->session->userdata('user_image')?>" alt="" class="userImg userImg20" id="profile"/>
                 <ul class="subnav" style="display: none;">
-                  <li><?=anchor(array('profile', 'edit'), 'Edit')?></li>
+                  <li><?=anchor(array('user', 'edit'), 'Edit')?></li>
                   <li><?=anchor(array('inbox'), 'Inbox')?></li>
                   <li><?=anchor(array('logout'), 'Logout')?></li>
                 </ul>
                 <span class="divider"></span>
               </div>
               <div>
-                <img src="/media/img/icons/bar_chart_20px.png" alt="" id="addlistening"/>
+                <?=anchor(array('/'), '<img src="/media/img/icons/bar_chart_20px.png" alt="" id="addlistening"/>', array('title' => 'Add listening'))?>
               </div>
               <?
             }
