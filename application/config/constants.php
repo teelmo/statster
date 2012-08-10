@@ -56,6 +56,10 @@ define('ERR_INCORRECT_CREDENTIALS', 'Username or password error.');
 define('AUTOCOMPLETE_MAX_HEIGHT', 312); #px
 define('AUTOCOMPLETE_MIN_CHARS', 3); #px
 
+// Time constants
+define('JUST_LISTENED_INTERVAL', 900); #15min
+define('CUR_DATE', date('Y-m-d')); #2009-12-15
+
 // Database variables
 define('TBL_album', 'album');
 define('TBL_album_comment', 'album_comment');

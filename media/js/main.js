@@ -67,7 +67,17 @@ jQuery("#addListeningShowmore").keypress(function(e) {
   }
 });
 
-function recentlyListened() {
+jQuery("#recentlyListened").hover(function () {
+  var currentTime = new Date();    
+  if((currentTime.getTime() - jQuery("#recentlyUpdated").attr('value') > (60 * 2 * 1000))) {
+    recentlyListened();
+  }
+});
+
+function recentlyListened(isFirst) {
+  if (isFirst != true) {
+    jQuery('#recentlyListenedLoader2').show();
+  }
   jQuery.ajax({
     type: 'POST', url: '/api/recentlyListened', 
     data: {
@@ -80,8 +90,21 @@ function recentlyListened() {
           json_data : data,
         },
         success: function(data) {
+          jQuery('#recentlyListenedLoader2').hide();
           jQuery('#recentlyListenedLoader').hide();
           jQuery('#recentlyListened').html(data);
+
+          var currentTime = new Date();
+          var hours = currentTime.getHours();
+          var minutes = currentTime.getMinutes();
+          if (minutes < 10) {
+            minutes = "0" + minutes;
+          }
+          jQuery('#recentlyUpdated').html('updated '+ hours + ':' + minutes);
+          jQuery('#recentlyUpdated').attr('value', currentTime.getTime());
+        },
+        complete: function() {
+          setTimeout(recentlyListened, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -91,7 +114,7 @@ function recentlyListened() {
     }
   });
 }
-recentlyListened();
+recentlyListened(true);
 
 function topAlbum() {
   jQuery.ajax({
@@ -110,6 +133,9 @@ function topAlbum() {
         success: function(data) {
           jQuery('#topAlbumLoader').hide();
           jQuery('#topAlbum').html(data);
+        },
+        complete: function() {
+          setTimeout(topAlbum, 60*10*1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -137,6 +163,9 @@ function topArtist() {
         success: function(data) {
           jQuery('#topArtistLoader').hide();
           jQuery('#topArtist').html(data);
+        },
+        complete: function() {
+          setTimeout(topArtist, 60*10*1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -167,6 +196,10 @@ function recommentedTopAlbum() {
           jQuery('#recommentedTopAlbumLoader').hide();
           jQuery('#recommentedTopAlbum').html(data);
         },
+        complete: function() {
+          // Schedule the next request when the current one's complete
+          setTimeout(recommentedTopAlbum, 60*10*1000);
+        },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
       });
@@ -195,6 +228,10 @@ function recommentedNewAlbum() {
         success: function(data) {
           jQuery('#recommentedNewAlbumLoader').hide();
           jQuery('#recommentedNewAlbum').html(data);
+        },
+        complete: function() {
+          // Schedule the next request when the current one's complete
+          setTimeout(recommentedNewAlbum, 60*10*1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }

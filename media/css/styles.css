@@ -301,25 +301,40 @@ td {
   padding: 0;
 }
 /* chartTable */
-table.chartTable tr {
+table.chartTable {
+  margin-top: -12px; /* This because of the last updated time */
+}
+table.chartTable tbody tr {
   border-top: 1px solid #E8E8E8;
   border-bottom: 1px solid #E8E8E8;
   height: 32px;
 }
-table.chartTable tr:nth-child(2n) {
+table.chartTable tbody tr.justAdded {
+  background-color: rgba(253, 248, 166, 1) !important;
+}
+table.chartTable tbody tr:nth-child(2n) {
   background-color: rgba(236, 236, 255, 0.5);
 }
-table.chartTable tr:nth-child(2n+1) {
+table.chartTable tbody tr:nth-child(2n+1) {
   background-color: rgba(245, 245, 245, 0.5);
 }
-table.chartTable tr:hover {
-  background-color: rgba(175, 201, 215, 0.5);
+table.chartTable tbody tr.justAdded:hover,
+table.chartTable tbody tr:hover {
+  background-color: rgba(175, 201, 215, 0.5) !important;
 }
-table.chartTable tr td.img {
+table.chartTable tbody tr td.img {
   width: 32px;
 }
-table.chartTable tr td.icon {
+table.chartTable tbody tr td.icon {
   width: 20px;
+}
+table.chartTable tbody tr td.userImg {
+  text-align: right;
+}
+table.chartTable thead tr td {
+  text-align: right;
+  color: #999;
+  font-size: 11px;
 }
 /* albumTable */
 table.albumTable tr {
@@ -447,7 +462,7 @@ img.albumImg64,
 img.userImg64 {
   width: 64px;
   height: 64px;
-  border: 5px double #232323;
+  border: 3px double #232323;
 }
 img.artistImg124,
 img.albumImg124 {
@@ -494,7 +509,7 @@ img#betaLogo {
 img#profile {
   vertical-align: -45%;
   padding-right: 20px;
-  background-image: url('/media/img/icons/GrayDownArrow.png');
+  background-image: url('/media/img/icons/arrow-down.png');
   background-repeat: no-repeat;
   background-position: right center;
 }
@@ -516,7 +531,12 @@ span.divider {
   padding-bottom: 5px;
   margin: 0 12px 0 5px;
 }
-
+span#nowPlaying {
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 20px;
+  background-image: url('/media/img/icons/now_playing.gif');
+}
 /* 
  * Other
  */

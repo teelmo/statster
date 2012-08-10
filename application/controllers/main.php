@@ -7,7 +7,6 @@ class Main extends CI_Controller {
       $this->load->helper(array('form'));
 
       $data = array();
-      $data['cur_date'] = date('Y-m-d');
       $data['request'] = 'main';
       $data['interval'] = 12;
       
