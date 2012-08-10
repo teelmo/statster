@@ -5,6 +5,7 @@
     <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="/media/js/jquery.min.js"></script>
     <script type="text/javascript" src="/media/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="/media/js/dropdown.js"></script>
     <script type="text/javascript">
       if (document.images) {
         preLoadImg1 = new Image();
@@ -44,11 +45,16 @@
             if($this->session->userdata('logged_in') === TRUE) {
               ?>
               <div id="userCont">
-                <?=anchor('user/'.$this->session->userdata('username'), $this->session->userdata('real_name') . '&nbsp;&nbsp;<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg20" id="profile"/>')?>
+                <strong><?=$this->session->userdata('real_name')?></strong>&nbsp;&nbsp;<img src="<?=$this->session->userdata('user_image')?>" alt="" class="userImg userImg20" id="profile"/>
+                <ul class="subnav" style="display: none;">
+                  <li><?=anchor(array('profile', 'edit'), 'Edit')?></li>
+                  <li><?=anchor(array('inbox'), 'Inbox')?></li>
+                  <li><?=anchor(array('logout'), 'Logout')?></li>
+                </ul>
                 <span class="divider"></span>
               </div>
               <div>
-                <?=anchor('/', '<img src="/media/img/icons/bar_chart_20px.png" alt="" id="addlistening"/>')?>
+                <img src="/media/img/icons/bar_chart_20px.png" alt="" id="addlistening"/>
               </div>
               <?
             }
