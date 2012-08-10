@@ -59,3 +59,36 @@ if (!function_exists('indentJSON')) {
     return '<pre>' . $result . '</pre>';
   }
 }
+
+if (!function_exists('timeAgo')) {
+  /**
+   * Converts datetimes to timeago strings
+   * @see http://tutorialfeed.net/development/timeago-style-php-timestamps
+   *
+   * @param string $ptime Datetime.
+   *
+   * @return string Time ago style formatted version of the given datetime.
+   */
+  function timeAgo($ptime) {
+    $etime = time() - strtotime($ptime);
+
+    $a = array(
+      12 * 30 * 24 * 60 * 60  =>  'year',
+      30 * 24 * 60 * 60   =>  'month',
+      24 * 60 * 60      =>  'day',
+      60 * 60       =>  'today',
+    );
+
+    foreach ($a as $secs => $str) {
+      $d = $etime / $secs;
+
+      if ($d >= 1) {
+        $r = round($d);
+        if ($str == 'today') {
+          return $str;
+        }
+        return $r . ' ' . $str . ( $r > 1 ? 's' : '' ) . ' ago';
+      }
+    }
+  }
+}

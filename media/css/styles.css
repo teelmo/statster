@@ -138,6 +138,9 @@ div.container {
 .listeningDate {
   color: #999;
 }
+.datetime {
+  padding-right: 5px;
+}
 .playCount,
 .title {
   padding-left: 3px;

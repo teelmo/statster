@@ -23,7 +23,7 @@ if (is_array($json_data)) {
         ?>
         <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle"/>
       </td>
-      <td class="datetime"><?=$row->date?></td>
+      <td class="datetime textRight"><?=timeAgo($row->date)?></td>
       <td class="img userImg">
         <img src="<?=getUserImg(array('user_id' => $row->user_id, 'size' => 32))?>" alt="" class="userImg userImg32"/>
       </td>
