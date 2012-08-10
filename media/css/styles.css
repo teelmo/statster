@@ -76,11 +76,13 @@ div#rightCont {
 div#footer {
   max-width: 950px;
   margin: auto auto;
-  padding-left: 30px;
   position: relative;
   top: -15px;
   clear: both;
   font-size: smaller;
+}
+div#footer div {
+  padding: 0 10px 0 10px;
 }
 
 /* 
@@ -551,12 +553,18 @@ span#nowPlaying {
   padding-left: 20px;
   background-image: url('/media/img/icons/now_playing.gif');
 }
+img.icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: -25%;
+}
 
 /*
  * Topbar usernav styles
  */
 #userCont {
   position: relative;
+  cursor: pointer;
 }
 #userCont ul.subnav {
   list-style: none;
