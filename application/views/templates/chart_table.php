@@ -9,6 +9,7 @@ if (is_array($json_data)) {
   </thead>
   <tbody>
     <?php
+    $justAdded = false;
     foreach ($json_data as $idx => $row) {
       $class = '';
       $size = '32';
@@ -18,7 +19,11 @@ if (is_array($json_data)) {
           $class = 'justAdded';
           $size = '64';
           $datetime = '<span id="nowPlaying"></span> just listened';
+          $justAdded = true;
         }
+      }
+      elseif($justAdded === true) {
+        $class = 'justAddedRest';
       }
       ?>
       <tr id="chartTable<?=$idx?>" class="<?=$class?>">

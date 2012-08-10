@@ -141,8 +141,7 @@ div.container {
 .datetime {
   padding-right: 5px;
 }
-.playCount,
-.title {
+.playCount {
   padding-left: 3px;
 }
 div.more {
@@ -325,6 +324,14 @@ table.chartTable tbody tr:hover {
 table.chartTable tbody tr td.datetime {
   width: 82px;
 }
+table.chartTable tbody tr.justAddedRest td.datetime {
+  position: relative;
+  right: -36px;
+}
+table.chartTable tbody tr.justAddedRest td.title {
+  position: relative;
+  left: -36px;
+}
 table.chartTable tbody tr td.img {
   width: 32px;
 }
@@ -436,6 +443,9 @@ ul.chartList64 li {
 img {
   padding: 0;
   margin: 0;
+}
+img.albumImg {
+  margin-right: 4px;
 }
 img.artistImg,
 img.albumImg,
