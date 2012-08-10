@@ -12,6 +12,5 @@ class User extends CI_Controller {
     $this->load->view('user/edit_view');
     $this->load->view('templates/footer');
   }
-
 }
 ?>

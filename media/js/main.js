@@ -197,7 +197,6 @@ function recommentedTopAlbum() {
           jQuery('#recommentedTopAlbum').html(data);
         },
         complete: function() {
-          // Schedule the next request when the current one's complete
           setTimeout(recommentedTopAlbum, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -230,7 +229,6 @@ function recommentedNewAlbum() {
           jQuery('#recommentedNewAlbum').html(data);
         },
         complete: function() {
-          // Schedule the next request when the current one's complete
           setTimeout(recommentedNewAlbum, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
