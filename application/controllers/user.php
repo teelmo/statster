@@ -11,6 +11,10 @@ class User extends CI_Controller {
     if ($this->session->userdata('logged_in') !== TRUE) {
       redirect('/login?redirect=user/edit', 'refresh');
     }
+
+    // Load helpers
+    $this->load->helper(array('form'));
+      
     $this->load->view('templates/header');
     $this->load->view('user/edit_view');
     $this->load->view('templates/footer');
