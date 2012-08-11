@@ -4,7 +4,8 @@ class Login extends CI_Controller {
   public function index() {
     // Check that user has not already logged in.
     if ($this->session->userdata('logged_in') === TRUE) {
-      redirect('/', 'refresh');
+      $redirect = empty($_GET['redirect']) ? '/' : $_GET['redirect'];
+      redirect($redirect, 'refresh');
     }
 
     // Load helpers
