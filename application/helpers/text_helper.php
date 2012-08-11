@@ -75,7 +75,8 @@ if (!function_exists('timeAgo')) {
     $a = array(
       12 * 30 * 24 * 60 * 60  =>  'year',
       30 * 24 * 60 * 60   =>  'month',
-      24 * 60 * 60      =>  'day',
+      48 * 60 * 60      =>  'day',
+      24 * 60 * 60      =>  'yesterday',
       60 * 60       =>  'today',
     );
 
@@ -84,7 +85,7 @@ if (!function_exists('timeAgo')) {
 
       if ($d >= 1) {
         $r = round($d);
-        if ($str == 'today') {
+        if ($secs < (48 * 60 * 60)) {
           return $str;
         }
         return $r . ' ' . $str . ( $r > 1 ? 's' : '' ) . ' ago';
