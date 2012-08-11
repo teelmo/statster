@@ -30,8 +30,10 @@
   <body>
     <div id="topCont">
       <div id="topContInner">
-        <h1><?=anchor('/', 'Statster')?></h1>
-        <img src="/media/img/icons/beta.png" alt="" id="betaLogo" />
+        <div class="floatLeft">
+          <h1><?=anchor('/', 'Statster')?></h1>
+          <img src="/media/img/icons/beta.png" alt="" id="betaLogo" />
+        </div>
         <div class="floatRight">
           <div id="searchCont">
             <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="" id="searchForm">

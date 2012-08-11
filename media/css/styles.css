@@ -565,11 +565,12 @@ img.icon {
 #userCont {
   position: relative;
   cursor: pointer;
+  padding: 10px 0 10px 0;
 }
 #userCont ul.subnav {
   list-style: none;
   position: absolute;
-  top: 26px;
+  top: 36px;
   right: 12px;
   background: #333;
   margin: 0; 
