@@ -84,7 +84,9 @@ div#footer {
 div#footer div {
   padding: 0 10px 0 10px;
 }
-
+div#footer div.socialMedia {
+  padding-right: 355px;
+}
 /* 
  * Heading styles
  */

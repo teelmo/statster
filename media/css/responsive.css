@@ -8,6 +8,9 @@
   }
   div#leftContOuter {
   }
+  div#footer div.socialMedia {
+    padding-right: 7px;
+  }
 }
 /* Landscape smart phone */
 @media (min-width: 321px) and (max-width: 480px) {
