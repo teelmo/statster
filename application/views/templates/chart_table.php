@@ -35,16 +35,16 @@ if (is_array($json_data)) {
             <?=anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'))?>
             <?=DASH?>
             <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'))?>
-            <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse to album\'s page'))?>
+            <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'))?>
           </span>
         <td class="love icon">
-          <?=(getAlbumLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)) == TRUE) ? '<span class="loveIcon" title=""></span>' : ''?>
+          <?=(getAlbumLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)) == TRUE) ? '<span class="loveIcon" title="Loved"></span>' : ''?>
         </td>
         <td class="format icon">
           <?php
           $listeningsFormatImg = getListeningsFormatImg(array('listening_id' => $row->listening_id));
           ?>
-          <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon"/>
+          <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon listeningFormatType"/>
         </td>
         <td class="datetime textRight"><?=$datetime?></td>
         <td class="img userImg">

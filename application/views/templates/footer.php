@@ -22,6 +22,8 @@
         ?>
         jQuery(document).ready(function() {
           jQuery('a').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
+          jQuery('img.listeningFormatType').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
+          jQuery('span.loveIcon').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
         });
       </script>
     </div>
