@@ -61,14 +61,11 @@ if (!function_exists('loginUser')) {
 }
 
 /**
-   * Handles user login form posts.
+   * Handles user logout.
    *
    * @param array $opts.
-   *          'artist'  => Artist name
    *
-   * @return int artist ID or boolean FALSE.
-   *
-   * @todo Destroy session. 
+   * @return boolean TRUE
    */
 if (!function_exists('logoutUser')) {
   function logoutUser($opts = array()) {
@@ -76,17 +73,17 @@ if (!function_exists('logoutUser')) {
 
     $userdata = array('logged_in' => FALSE);
     $ci->session->set_userdata($userdata);
+    return TRUE;
   }
 }
 /**
-   * Handles user login form posts.
+   * Returns all users in the system and their information.
    *
    * @param array $opts.
-   *          'artist'  => Artist name
+   *          'excluded_username'  => array of usernames
    *
-   * @return int artist ID or boolean FALSE.
+   * @return array containing user information
    *
-   * @todo Destroy session. 
    */
 if (!function_exists('getUsers')) {
   function getUsers($opts = array()) {
@@ -108,11 +105,6 @@ if (!function_exists('getUsers')) {
             WHERE " . TBL_user . ".`id` = " . TBL_user_info . ".`user_id`
               AND " . TBL_username. ".`username` NOT IN (" . $exclude_username . ")";
     $query = $ci->db->query($sql);
-    if ($query->num_rows() == 1) {
-      $ci->load->helper(array('img_helper'));
-      $result = $query->result();
-      $result = $result[0];
-    }
   }
 }  
 ?>
