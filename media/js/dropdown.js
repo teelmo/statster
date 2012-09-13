@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
   // User dropdown menu
-  jQuery("#userCont").click(function() {
+  jQuery("#userContDropdown").click(function() {
     var sub_nav = jQuery(this).parent().find('ul.subnav');
     // Check if 
     if(sub_nav.is(':visible')) { 

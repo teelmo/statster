@@ -17,9 +17,9 @@
     </script>
     <?php
     echo link_tag('media/css/styles.css');
+    echo link_tag('media/css/tipsy.css');
     echo link_tag('media/css/jquery.autocomplete.css');
     echo link_tag('media/css/responsive.css');
-    echo link_tag('media/css/tipsy.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>
@@ -49,16 +49,17 @@
             if($this->session->userdata('logged_in') === TRUE) {
               ?>
               <div id="userCont">
-                <strong><?=$this->session->userdata('real_name')?></strong>&nbsp;&nbsp;<img src="<?=$this->session->userdata('user_image')?>" alt="" class="userImg userImg20" id="profile"/>
+                <span id="userContProfile"><?=anchor(array('user', 'profile', $this->session->userdata('username')), '<strong>' . $this->session->userdata('real_name') . '</strong>&nbsp;&nbsp;<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg20" id="profile"/>', array('title' => 'Browse your profile'))?></span>
+                <span id="userContDropdown"></span>
                 <ul class="subnav" style="display: none;">
                   <li><?=anchor(array('user', 'edit'), 'Edit')?></li>
                   <li><?=anchor(array('inbox'), 'Inbox')?></li>
                   <li><?=anchor(array('logout'), 'Logout')?></li>
                 </ul>
-                <span class="divider"></span>
               </div>
               <div>
-                <?=anchor(array('/'), '<img src="/media/img/icons/bar_chart_20px.png" alt="" id="addlistening"/>', array('title' => 'Add listening'))?>
+                <span class="divider"></span>
+                <?=anchor(array('/'), '<img src="/media/img/icons/bar_chart_20px.png" alt="" id="addlistening"/>', array('title' => 'Add listening', 'id' => 'addListeningLink'))?>
               </div>
               <?
             }
