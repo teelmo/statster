@@ -33,12 +33,22 @@ div#topContInner div {
 div#topCont img {
   margin-top: -6px;
 }
-div#userCont {
+span#userContProfile {
   opacity: 0.6;
   -moz-opacity: 0.6;
   filter:alpha(opacity=6);
 }
-div#userCont:hover {
+span#userContProfile:hover {
+  opacity: 1;
+  -moz-opacity: 1;
+  filter:alpha(opacity=10);
+}
+span#userContDropdown {
+  opacity: 0.6;
+  -moz-opacity: 0.6;
+  filter:alpha(opacity=6);
+}
+span#userContDropdown:hover {
   opacity: 1;
   -moz-opacity: 1;
   filter:alpha(opacity=10);
@@ -217,6 +227,7 @@ input[type="submit"] {
 input[type="submit"]:focus {
   color: #FF8;
 }
+form#composeForm input[type="submit"],
 form#addListeningForm input[type="submit"] {
   float: right;
   margin: 10px 0 15px 0;
@@ -236,6 +247,21 @@ form#addListeningForm input[type="text"]:focus {
 }
 form#addListeningForm div#addListeningDateContainer {
   margin-left: 5px;
+}
+form#composeForm input[type="text"]:focus {
+
+}
+form#composeForm input[type="text"] {
+  border-radius: 3px;
+  margin: 0 0 0 3px;
+  padding: 4px 4px 4px 8px;
+  font-size: 20px;
+  width: 70%;
+  background-color: #EEE; 
+}
+form#composeForm textarea {
+  height: 150px;
+  width: 70%;
 }
 form#registerForm input[type="password"],
 form#registerForm input[type="text"] {
@@ -260,15 +286,15 @@ form#loginForm input[type="text"] {
 form#searchForm input {
   font-size: 14px;
   border-radius: 4px;
-  padding: 4px 30px 4px 4px;
+  padding: 4px 30px 4px 7px;
   border: 1px solid #000;
   width: 250px;
   background-color: #555;
   margin-right: -20px;
   margin-top: -1px;
 }
-form#searchForm .searchForm:hover {
-  background-color: #DDD;
+form#searchForm input[type="text"]:hover {
+  background-color: #666;
 }
 form#searchForm input[type="text"]:focus {
   background-color: #EEE;
@@ -409,7 +435,7 @@ table.barTable div.chartBar {
 table.barTable div.chartBar div {
   padding: 1px 0 1px 6px;
   background-color: #D71C2F;
-  color: #FFFFFF;
+  color: #FFF;
   margin-right: 2px;
 }
 
@@ -459,7 +485,7 @@ img.userImg {
 img.artistImg124:hover,
 img.albumImg124:hover,
 img.userImg124:hover {
-  border-color: #777777;
+  border-color: #777;
 }
 img.artistImg20,
 img.albumImg20,
@@ -489,9 +515,9 @@ img.albumImg124 {
   border: 1px solid #232323;
   border: 1px solid #E0E0E0;
   margin: 0 0 5px 0;
-  box-shadow: 3px 3px 4px #888888;
-  -moz-box-shadow: 3px 3px 4px #888888;
-  -webkit-box-shadow: 3px 3px 4px #888888;
+  box-shadow: 3px 3px 4px #888;
+  -moz-box-shadow: 3px 3px 4px #888;
+  -webkit-box-shadow: 3px 3px 4px #888;
 }
 span.loveIcon {
   background-image: url('/media/img/icons/heart.png');
@@ -520,13 +546,14 @@ img.listeningFormat.selected {
 }
 img#betaLogo {
   vertical-align: -40%;
-  opacity: 0.9;
-  -moz-opacity: 0.9;
-  filter:alpha(opacity=9);
+  opacity: 0.7;
+  -moz-opacity: 0.7;
+  filter:alpha(opacity=7);
 }
-img#profile {
-  vertical-align: -45%;
-  padding-right: 20px;
+span#userContDropdown {
+  vertical-align: middle;
+  padding-left: 18px;
+  margin-right: 3px;
   background-image: url('/media/img/icons/arrow-down.png');
   background-repeat: no-repeat;
   background-position: right center;
@@ -573,13 +600,13 @@ img.icon {
   list-style: none;
   position: absolute;
   top: 36px;
-  right: 12px;
+  right: -7px;
   background: #333;
   margin: 0; 
   padding: 0;
   display: none;
   float: left;
-  width: 160px;
+  width: 162px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   border: 1px solid #111;
@@ -600,7 +627,7 @@ img.icon {
   text-decoration: none;
 }
 #userCont ul.subnav li a:hover {
-  background-color: #333333;
+  background-color: #333;
 }
 /* 
  * Other
