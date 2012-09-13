@@ -75,7 +75,7 @@
     <ul class="noBullets">
       <li>&raquo; <?=anchor(array('music'), 'Browse music', array('title' => 'Browse music'))?></li>
       <li>&raquo; <?=anchor(array('user'), 'Browse users', array('title' => 'Browse users'))?></li>
-      <li>&raquo; <?=anchor(array('tags'), 'Browse tags', array('title' => 'Browse tags'))?></li>
+      <li>&raquo; <?=anchor(array('tag'), 'Browse tags', array('title' => 'Browse tags'))?></li>
     </ul>
   </div>
 </div>
