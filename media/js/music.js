@@ -39,6 +39,7 @@ function topAlbum() {
         type: 'POST', url: '/ajax/albumTable',
         data: {
           json_data : data,
+          hide : {"count" : true, "rank": true},
         },
         success: function(data) {
           jQuery('#popularAlbumLoader').hide();
