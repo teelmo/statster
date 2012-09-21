@@ -2,9 +2,6 @@
 class Music extends CI_Controller {
 
   public function index() {
-    // Load helpers
-    $this->load->helper(array('form'));
-
     $data = array();
     $data['request'] = 'music';
     
