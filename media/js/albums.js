@@ -4,7 +4,7 @@ function topAlbum10() {
     data: {
       limit: "0, 8",
       lower_limit: '1970-01-01',
-      username: '<?php echo $_GET['username']?>'
+      username: '<?php echo !empty($_GET['username']) ? $_GET['username'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
