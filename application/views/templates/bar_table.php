@@ -1,17 +1,36 @@
 <?php
 $json_data = json_decode($json_data);
 if (is_array($json_data)) {
+  $rank = !empty($rank) ? $rank : 1;
+  $prev_count = FALSE;
   foreach ($json_data as $idx => $row) {
-    if(empty($highest_count)) {
+    if (empty($highest_count)) {
       $highest_count = $row->count;
     }
     ?>
     <tr id="barTable<?=$idx?>">
-      <td class="barChartRank">
-        <?=$idx + 1?>.
-      </td>
+      <?php
+      if (empty($hide['rank'])) {
+        ?>
+        <td class="barChartRank">
+          <?php
+          if ($row->count != $prev_count) {
+            echo $rank . ".";
+          }
+          ?>
+        </td>
+        <?php
+      }
+      ?>
       <td class="barChartName">
-        <?=anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'))?>
+        <?php
+        if (!empty($row->album_name)) {
+          echo anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to artist\'s page'));
+        }
+        else {
+          echo anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'));
+        }
+        ?>
       </td>
       <td class="barChartBar">
         <?
@@ -27,6 +46,10 @@ if (is_array($json_data)) {
       </td>
     </tr>
     <?php
+    if ($row->count != $prev_count) {
+      $rank++;
+    }
+    $prev_count = $row->count;
   }
 }
 else {
