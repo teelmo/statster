@@ -5,7 +5,7 @@ class Ajax extends CI_Controller {
     exit('No direct script access allowed');
   }
 
-  public function recentlyListened() {
+  public function chartTable() {
     if(!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('img_helper', 'music_helper', 'text_helper'));
@@ -45,6 +45,16 @@ class Ajax extends CI_Controller {
   }
 
   public function artistBar() {
+    if(!empty($_POST)) {
+      $data = $_POST;
+      $this->load->view('templates/bar_table', $data);
+    }
+    else {
+      exit('No direct script access allowed');
+    }
+  }
+
+  public function albumBar() {
     if(!empty($_POST)) {
       $data = $_POST;
       $this->load->view('templates/bar_table', $data);
