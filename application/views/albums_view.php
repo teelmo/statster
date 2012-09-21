@@ -1,6 +1,7 @@
 <div id="leftCont">
   <div class="container">
     <h1>Top albums</h1>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbum10Loader"/>
     <ul id="topAlbum10" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader"/>
     <table id="topAlbum" class="barTable"><!-- Content is loaded with AJAX --></table>

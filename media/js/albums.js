@@ -13,6 +13,7 @@ function topAlbum10() {
           json_data : data
         },
         success: function(data) {
+          jQuery('#topAlbum10Loader').hide();
           jQuery('#topAlbum10').html(data);
         },
         complete: function() {
