@@ -9,20 +9,20 @@ if (is_array($json_data)) {
   </thead>
   <tbody>
     <?php
-    $justAdded = false;
+    $justAdded = FALSE;
     foreach ($json_data as $idx => $row) {
       $class = '';
-      $size = '32';
+      $size = 32;
       $datetime = timeAgo($row->date);
       if ($idx == 0) {
         if ((time() - strtotime($row->created)) < JUST_LISTENED_INTERVAL && $row->date == CUR_DATE) {
           $class = 'justAdded';
-          $size = '64';
+          $size = 64;
           $datetime = '<span id="nowPlaying"></span> just listened';
-          $justAdded = true;
+          $justAdded = TRUE;
         }
       }
-      elseif($justAdded === true) {
+      elseif($justAdded === TRUE) {
         $class = 'justAddedRest';
       }
       ?>

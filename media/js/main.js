@@ -85,7 +85,7 @@ function recentlyListened(isFirst) {
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/recentlyListened',
+        type: 'POST', url: '/ajax/chartTable',
         data: {
           json_data : data,
         },
@@ -190,7 +190,7 @@ function recommentedTopAlbum() {
         data: {
           json_data : data,
           limit : 2,
-          hide : {"artist" : true},
+          hide : {"artist" : true, "count" : true, "rank": true},
         },
         success: function(data) {
           jQuery('#recommentedTopAlbumLoader').hide();
@@ -222,7 +222,7 @@ function recommentedNewAlbum() {
         data: {
           json_data : data,
           limit : 2,
-          hide : {"artist" : true},
+          hide : {"artist" : true, "count" : true, "rank": true},
         },
         success: function(data) {
           jQuery('#recommentedNewAlbumLoader').hide();
