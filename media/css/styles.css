@@ -511,13 +511,15 @@ img.userImg64 {
 img.artistImg124,
 img.albumImg124 {
   width: 124px;
-  height: 124px;
   border: 1px solid #232323;
   border: 1px solid #E0E0E0;
   margin: 0 0 5px 0;
   box-shadow: 3px 3px 4px #888;
   -moz-box-shadow: 3px 3px 4px #888;
   -webkit-box-shadow: 3px 3px 4px #888;
+}
+img.albumImg124 {
+  height: 124px;
 }
 span.loveIcon {
   background-image: url('/media/img/icons/heart.png');

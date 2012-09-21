@@ -13,6 +13,7 @@ function topArtist10() {
           json_data : data
         },
         success: function(data) {
+          jQuery('#topArtist10Loader').hide();
           jQuery('#topArtist10').html(data);
         },
         complete: function() {
