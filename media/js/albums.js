@@ -2,9 +2,9 @@ function topAlbum10() {
   jQuery.ajax({
     type: 'POST', url: '/api/topAlbum', 
     data: {
-      limit: "0, 8",
-      lower_limit: '1970-01-01',
-      username: '<?php echo !empty($_GET['username']) ? $_GET['username'] : ''?>'
+      limit : "0, 8",
+      lower_limit : '1970-01-01',
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
@@ -33,8 +33,8 @@ function topAlbum() {
     type: 'POST', url: '/api/topAlbum', 
     data: {
       limit: "8, 200",
-      lower_limit: '1970-01-01',
-      username: '<?php echo !empty($_GET['username']) ? $_GET['username'] : ''?>'
+      lower_limit : '1970-01-01',
+      username : '<?php echo !empty($_GET['username']) ? $_GET['username'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({

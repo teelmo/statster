@@ -82,6 +82,7 @@ function recentlyListened(isFirst) {
     type: 'POST', url: '/api/recentlyListened', 
     data: {
       limit : 11,
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
@@ -120,9 +121,9 @@ function topAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/topAlbum',
     data: {
-      lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-      upper_limit : '<?=date("Y-m-d")?>',
       limit : 8,
+      lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
@@ -151,8 +152,9 @@ function topArtist() {
   jQuery.ajax({
     type: 'POST', url: '/api/topArtist',
     data: {
-      lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
       limit : 10,
+      lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
@@ -181,8 +183,9 @@ function recommentedTopAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/recommentedTopAlbum',
     data: {
-      lower_limit : '<?=date("Y-m-d", time() - (90 * 24 * 60 * 60))?>', 
       limit : 10,
+      lower_limit : '<?=date("Y-m-d", time() - (90 * 24 * 60 * 60))?>',
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>' 
     },
     success: function(data) {
       jQuery.ajax({
@@ -190,7 +193,7 @@ function recommentedTopAlbum() {
         data: {
           json_data : data,
           limit : 2,
-          hide : {"artist" : true, "count" : true, "rank": true},
+          hide : {"artist" : true, "count" : true, "rank" : true},
         },
         success: function(data) {
           jQuery('#recommentedTopAlbumLoader').hide();
@@ -213,8 +216,9 @@ function recommentedNewAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/recommentedNewAlbum',
     data: {
-      order_by : 'album.year DESC, album.created DESC',
       limit : 10,
+      order_by : 'album.year DESC, album.created DESC',
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({

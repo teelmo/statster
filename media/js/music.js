@@ -4,7 +4,7 @@ function popularGenre() {
     data: {
       limit : 15,
       lower_limit : '<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
-      upper_limit : '<?=date("Y-m-d")?>',
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
@@ -32,7 +32,7 @@ function topAlbum() {
     data: {
       limit : 15,
       lower_limit : '<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
-      upper_limit : '<?=date("Y-m-d")?>',
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({

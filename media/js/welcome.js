@@ -10,7 +10,7 @@ function recentlyListened() {
         data: {
           json_data : data,
           size : 32,
-          hide : {"artist" : true},
+          hide : {"artist" : true, "count" : true, "rank" : true},
         },
         success: function(data) {
           jQuery('#recentlyListenedLoader').hide();
