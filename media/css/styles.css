@@ -419,11 +419,11 @@ table.barTable td.barChartRank {
   padding-right: 4px;
 }
 table.barTable td.barChartName {
-  width: 48%;
+  width: 58%;
   padding-left: 5px;
 }
 table.barTable td.barChartBar {
-  width: 52%;
+  width: 42%;
   padding-right: 1px;
   background-color: transparent;
 }
