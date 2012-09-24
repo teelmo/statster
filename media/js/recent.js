@@ -10,7 +10,7 @@ function recentlyListened(isFirst) {
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/recentlyListened',
+        type: 'POST', url: '/ajax/chartTable',
         data: {
           json_data : data,
         },
