@@ -549,7 +549,7 @@ img.listeningFormat.selected {
   filter:alpha(opacity=10);
 }
 img#betaLogo {
-  vertical-align: -40%;
+  vertical-align: -32%;
   opacity: 0.7;
   -moz-opacity: 0.7;
   filter:alpha(opacity=7);
@@ -563,7 +563,7 @@ span#userContDropdown {
   background-position: right center;
 }
 img#addlistening {
-  vertical-align: -45%;
+  vertical-align: -20%;
   opacity: 0.6;
   -moz-opacity: 0.6;
   filter:alpha(opacity=6);
