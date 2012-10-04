@@ -49,7 +49,7 @@
             if($this->session->userdata('logged_in') === TRUE) {
               ?>
               <div id="userCont">
-                <span id="userContProfile"><?=anchor(array('user', 'profile', $this->session->userdata('username')), '<strong>' . $this->session->userdata('real_name') . '</strong>&nbsp;&nbsp;<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg20" id="profile"/>', array('title' => 'Browse your profile'))?></span>
+                <span id="userContProfile"><?=anchor(array('user', 'profile', $this->session->userdata('username')), '' . $this->session->userdata('real_name') . '&nbsp;&nbsp;<img src="' . $this->session->userdata('user_image') . '" alt="" class="userImg userImg20" id="profile"/>', array('title' => 'Browse your profile'))?></span>
                 <span id="userContDropdown"></span>
                 <ul class="subnav" style="display: none;">
                   <li><?=anchor(array('user', 'edit'), 'Edit')?></li>
