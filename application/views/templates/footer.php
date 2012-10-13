@@ -22,13 +22,13 @@
           }
         }
         ?>
-        jQuery(document).ready(function() {
+        /*jQuery(document).ready(function() {
           jQuery('a#addListeningLink').tipsy({delayIn: 350, delayOut: 125, gravity: 'ne', live: true});
           jQuery('a').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
           jQuery('img.listeningFormatType').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
           jQuery('span.loveIcon').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
           jQuery('img.listeningFormat').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
-        });
+        });*/
       </script>
     </div>
   </body>
