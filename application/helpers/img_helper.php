@@ -22,7 +22,7 @@ if (!function_exists('getUserImg')) {
       return $empty_filename;
     }
     $filename = './media/img/user_img/' . $opts['size'] . '/' . $opts['user_id'] . '.jpg';
-    return (read_file($filename)) ? $filename : $empty_filename;
+    return (read_file($filename)) ? site_url() . $filename : site_url() . $empty_filename;
   }   
 }
 
@@ -47,7 +47,7 @@ if (!function_exists('getArtistImg')) {
       return $empty_filename;
     }
     $filename = './media/img/artist_img/' . $opts['size'] . '/' . $opts['artist_id'] . '.jpg';
-    return (read_file($filename)) ? $filename : $empty_filename;
+    return (read_file($filename)) ? site_url() . $filename : site_url() . $empty_filename;
   }   
 }
 
@@ -72,7 +72,7 @@ if (!function_exists('getAlbumImg')) {
       return $empty_filename;
     }
     $filename = './media/img/album_img/' . $opts['size'] . '/' . $opts['album_id'] . '.jpg';
-    return (read_file($filename)) ? $filename : $empty_filename;
+    return (read_file($filename)) ? site_url() . $filename : site_url() . $empty_filename;
   }   
 }
 
@@ -96,7 +96,7 @@ if (!function_exists('getListeningsFormatImg')) {
       return $format_img;
     }
     else {
-      return array('filename' => './media/img/format_img/format_icons/empty.png', 'name' => '');
+      return array('filename' => site_url() . './media/img/format_img/format_icons/empty.png', 'name' => '');
     }
   }
 }    
@@ -125,7 +125,7 @@ if (!function_exists('getFormatImg')) {
       $result = $query->result();
       $filename = './media/img/format_img/format_icons/' . $result[0]->img;
 
-      return (read_file($filename)) ? array('filename' => $filename, 
+      return (read_file($filename)) ? array('filename' => site_url() . $filename, 
                                             'name' => $result[0]->name, 
                                             'empty' => FALSE) : FALSE;
                                     
@@ -159,7 +159,7 @@ if (!function_exists('getFormatTypeImg')) {
     if ($query->num_rows() > 0) {
       $result = $query->result();
       $filename = './media/img/format_img/format_icons/' . $result[0]->img;
-      return (read_file($filename)) ? array('filename' => $filename, 
+      return (read_file($filename)) ? array('filename' => site_url() . $filename, 
                                             'name' => $result[0]->name, 
                                             'empty' => FALSE) : FALSE;
     }
