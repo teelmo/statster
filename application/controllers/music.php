@@ -12,9 +12,8 @@ class Music extends CI_Controller {
 
   public function artist($artist) {
     $data = array();
-    $data['artist'] = $artist;
+    $data['artist'] = urldecode(utf8_decode($artist));
     $data['request'] = 'artist';
-
     $this->load->view('templates/header', $data);
     $this->load->view('artist_view', $data);
     $this->load->view('templates/footer');
@@ -22,8 +21,8 @@ class Music extends CI_Controller {
 
   public function album($artist, $album) {
     $data = array();
-    $data['artist'] = $artist;
-    $data['album'] = $album;
+    $data['artist'] = urldecode(utf8_decode($artist));
+    $data['album'] = urldecode(utf8_decode($album));
     $data['year'] = 'Unknown';
     $data['request'] = 'album';
 
