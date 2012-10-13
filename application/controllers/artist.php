@@ -1,4 +1,8 @@
 <?php
+/*
+ * This is the controller for the artists page, not for 
+ * a single artist which is found from the music controller
+ */
 class Artist extends CI_Controller {
 
   public function index() {
