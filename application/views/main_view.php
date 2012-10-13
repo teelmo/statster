@@ -1,13 +1,14 @@
 <div id="leftCont">
   <div class="container">
-    <h1>What&rsquo;s ya listening?</h1>
+    <!--<h1></h1>-->
+    <br />
     <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
       <div id="addListeningDateContainer" class="listeningDate">
         Listening date: <a href="javascript:" title="Change date" onlick="return false;"><?=CUR_DATE?></a>
         <input type="hidden" name="date" id="addListeningDate" value="<?=CUR_DATE?>"/>
       </div>
       <div>
-        <input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="start typing.." name="addListeningText" />
+        <input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="What&rsquo;s ya listening?" name="addListeningText" />
       </div>
       <div>
         <input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="Statster" />
@@ -26,14 +27,14 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h1>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="middle hidden" id="recentlyListenedLoader2" /></h1>
+    <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="middle hidden" id="recentlyListenedLoader2" /></h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chartTable"><!-- Content is loaded with AJAX --></table>
     <div class="more"><?=anchor('recent', 'See more/edit', array('title' => 'Browse more listenings'))?></div>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h1>Top albums</h1>
+    <h2>Top albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
     <ul id="topAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
