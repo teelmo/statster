@@ -11,8 +11,17 @@ class Music extends CI_Controller {
   }
 
   public function artist($artist) {
+    // Load helpers
+    $this->load->helper(array('img_helper'));
+    $this->load->helper(array('artist_helper'));
+
     $data = array();
     $data['artist'] = urldecode(utf8_decode($artist));
+    $data = getArtistInfo($data);
+    $data += getArtistListenings($data);
+    $data['user_id'] = $this->session->userdata['user_id'];
+    $data += getArtistListenings($data);
+    
     $data['request'] = 'artist';
     $this->load->view('templates/header', $data);
     $this->load->view('artist_view', $data);

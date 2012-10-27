@@ -3,7 +3,7 @@
  */
 body {
   background: #FFF url('/media/img/bg_body.jpg') repeat;
-  font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
   margin-bottom: 50px;
 }
@@ -102,11 +102,12 @@ div#footer div.socialMedia {
  * Heading styles
  */
 h1 {
-  font-size: 18px;
+  font-size: 22px;
   font-style: normal;
   font-variant: normal;
   font-weight: bold;
   text-shadow: 0 1px 0 #EEE;
+  letter-spacing: 0.1em;
 }
 div#topCont h1 {
   margin: 0;
@@ -121,19 +122,27 @@ div#leftCont h1 {
   color: #777;
 }
 div#rightCont h1 {
+  font-size: 18px;
   color: #222;
 }
 h2 {
-  font-size: 14px;
+  font-size: 18px;
   font-style: normal;
   font-variant: normal;
   font-weight: bold;
 }
 div#leftCont h2 {
   color: #777;
+  letter-spacing: 0.1em;
 }
 div#rightCont h2 {
   color: #777;
+  font-size: 14px;
+}
+h3.artistFan {
+  margin-bottom: 1px;
+  color: #777;
+  letter-spacing: 0.1em;
 }
 
 /*
@@ -142,6 +151,9 @@ div#rightCont h2 {
 div.container {
   margin: 7px 15px 15px 15px;
   letter-spacing: 0;
+}
+div.clear {
+  clear: both;
 }
 .updated,
 .playCount,
@@ -169,6 +181,30 @@ div.more {
   background-image: url('/media/img/icons/arrow-right.png');
   background-repeat: no-repeat;
   background-position: right top;
+}
+span.tag {
+  padding: 5px;
+  letter-spacing: 0.1em;
+  border-radius: 3px;
+  background-color: #0187C5;
+  display: inline-block;
+  color: #FFF;
+  font-size: 12px;
+}
+span.tag:hover {
+  background-color: #0179B1;
+}
+div.artistInfo {
+  padding-top: 10px;
+  margin-left: 310px; 
+}
+div.artistInfo div.externalLink {
+  margin: 7px 0 7px 0;
+  vertical-align: middle;
+  font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+  color: #666;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 /*
@@ -440,6 +476,26 @@ table.barTable div.chartBar div {
   color: #FFF;
   margin-right: 2px;
 }
+table.artistInfo {
+  font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+}
+table.artistInfo th:first-child {
+  width: 90px;
+}
+table.artistInfo th {
+  color: #0187C5;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: left;
+  line-height: 18px;
+}
+table.artistInfo td {
+  color: #666;
+  line-height: 18px;
+  vertical-align: top;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
 
 /*
  * List styles
@@ -523,6 +579,36 @@ img.albumImg124 {
 img.albumImg124 {
   height: 124px;
 }
+img.artistImg174,
+img.albumImg174 {
+  width: 174px;
+  border: 1px solid #232323;
+  border: 1px solid #E0E0E0;
+  margin: 0 0 5px 0;
+  box-shadow: 3px 3px 4px #888;
+  -moz-box-shadow: 3px 3px 4px #888;
+  -webkit-box-shadow: 3px 3px 4px #888;
+}
+img.albumImg174 {
+  height: 174px;
+}
+img.artistImg300,
+img.albumImg300 {
+  width: 300px;
+  border: 1px solid #232323;
+  border: 1px solid #E0E0E0;
+  margin: 0 0 5px 0;
+  box-shadow: 3px 3px 4px #888;
+  -moz-box-shadow: 3px 3px 4px #888;
+  -webkit-box-shadow: 3px 3px 4px #888;
+}
+img.albumImg174 {
+  height: 300px;
+}
+img.artistPageImg {
+  float: left;
+  margin-right: 15px;
+}
 span.loveIcon {
   background-image: url('/media/img/icons/heart.png');
   background-position: center;
@@ -550,9 +636,9 @@ img.listeningFormat.selected {
 }
 img#betaLogo {
   vertical-align: -32%;
-  opacity: 0.7;
-  -moz-opacity: 0.7;
-  filter:alpha(opacity=7);
+  opacity: 0.6;
+  -moz-opacity: 0.6;
+  filter:alpha(opacity=6);
 }
 span#userContDropdown {
   vertical-align: 0%;
