@@ -4,11 +4,14 @@
   </div>
   <div class="container">
     <div class="tags">
-      <?=anchor(array('tag', 'genre'), '<span class="tag genre">Progressive Metal</span>', array('title' => 'Browse release year'))?>
-      <span class="tag genre">Post-Metal</span>
-      <span class="tag genre">Metal</span>
-      <span class="tag keyword">Seen Live</span>
-      <span class="tag keyword">Swedish</span>
+      <?php
+      foreach ($tags as $tag) {
+        ?>
+        <span class="tag <?=$tag['type']?>"><?=$tag['name']?></span> 
+        <?php
+      }
+      ?>
+      <span class="tag moretags">+</span> 
     </div>
   </div>
   <div class="container">
@@ -22,7 +25,7 @@
           <?php
           if (!empty($user_count)) {
             ?>
-            <th><?=$user_count?></th>
+            <th><small><?=$user_count?></small></th>
             <?php
           }
           ?>
@@ -51,7 +54,7 @@
             <?=anchor('http://spotify', '<img src="' . site_url() . '/media/img/format_img/format_icons/spotify.png" alt="" class="icon" /> Search on Spotify')?>
           </div>
           <div class="externalLink">
-            <?=anchor('http://spotify', '<img src="' . site_url() . '/media/img/format_img/format_icons/lastfm.png" alt="" class="icon" /> Search on Last.fm')?>
+            <?=anchor('http://lastfm', '<img src="' . site_url() . '/media/img/format_img/format_icons/lastfm.png" alt="" class="icon" /> Search on Last.fm')?>
           </div>
         </div>
       </div>

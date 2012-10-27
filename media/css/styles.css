@@ -139,6 +139,7 @@ div#rightCont h2 {
   color: #777;
   font-size: 14px;
 }
+h3.albumLove,
 h3.artistFan {
   margin-bottom: 1px;
   color: #777;
@@ -183,21 +184,39 @@ div.more {
   background-position: right top;
 }
 span.tag {
-  padding: 5px;
+  padding: 4px;
+  margin-bottom: 3px;
   letter-spacing: 0.1em;
   border-radius: 3px;
-  background-color: #0187C5;
   display: inline-block;
   color: #FFF;
   font-size: 12px;
 }
-span.tag:hover {
+span.genre {
+  background-color: #0187C5;
+}
+span.genre:hover {
   background-color: #0179B1;
 }
+span.keyword {
+  background-color: #0187C5;
+}
+span.keyword:hover {
+  background-color: #0179B1;
+}
+span.moretags {
+  background-color: #AAA;
+  padding: 4px 6px;
+}
+span.moretags:hover {
+  background-color: #0179B1;
+}
+div.albumInfo,
 div.artistInfo {
   padding-top: 10px;
   margin-left: 310px; 
 }
+div.albumInfo div.externalLink,
 div.artistInfo div.externalLink {
   margin: 7px 0 7px 0;
   vertical-align: middle;
@@ -476,19 +495,23 @@ table.barTable div.chartBar div {
   color: #FFF;
   margin-right: 2px;
 }
+table.albumInfo
 table.artistInfo {
   font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
 }
+table.albumInfo th:first-child,
 table.artistInfo th:first-child {
   width: 90px;
 }
+table.albumInfo th,
 table.artistInfo th {
   color: #0187C5;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: bold;
   text-align: left;
   line-height: 18px;
 }
+table.albumInfo td,
 table.artistInfo td {
   color: #666;
   line-height: 18px;

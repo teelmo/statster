@@ -53,7 +53,7 @@ if (!function_exists('getArtistNationalities')) {
    *          'artist_id'  => Artist ID
    *          'user_id'  => User ID
    *
-   * @return array Listening information or boolean FALSE.
+   * @return array Listening information.
    *
    */
 if (!function_exists('getArtistListenings')) {
@@ -75,6 +75,109 @@ if (!function_exists('getArtistListenings')) {
     }
     else {
       return array($count_type => 0);
+    }
+  }
+}
+
+/**
+   * Gets artist's tags (genres and keywords).
+   *
+   * @param array $opts.
+   *          'artist_id'  => Artist ID
+   *          'user_id'  => User ID
+   *
+   * @return array Tag information or boolean FALSE.
+   *
+   */
+if (!function_exists('getArtistTags')) {
+  function getArtistTags($opts = array()) {
+    $data = array();
+    $tags_array = array();
+    $tags_array[] = getArtistGenres($opts);
+    $tags_array[] = getArtistKeywords($opts);
+    foreach ($tags_array as $idx => $tags) {
+      foreach ($tags as $idx => $tag) {
+        $data['tags'][] = $tag;
+      }
+    }
+    uasort($data, '_tagsSort');
+    $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
+    return $data;
+  }
+}
+
+/*
+ * Helper function for sorting tags
+ */
+function _tagsSort($a, $b) {
+  if ($a['count'] == $b['count']) {
+    return 0;
+  }
+  return ($a['count'] > $b['count']) ? -1 : 1;
+}
+
+/**
+   * Gets artist's genres.
+   *
+   * @param array $opts.
+   *          'artist_id'  => Artist ID
+   *          'user_id'  => User ID
+   *
+   * @return array Keyword information or boolean FALSE.
+   *
+   */
+if (!function_exists('getArtistGenres')) {
+  function getArtistGenres($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
+    $sql = "SELECT " . TBL_genre . ".`name`, count(" . TBL_genre . ".`id`) as `count`, 'genre' as `type`
+            FROM " . TBL_genre . ", " . TBL_genres . ", " . TBL_artist . ", " . TBL_album . "
+            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
+              AND " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
+              AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
+              AND " . TBL_artist . ".`id` = " . $opts['artist_id'] . "
+            GROUP BY " . TBL_genre . ".`id`
+            ORDER BY count(" . TBL_genre . ".`id`) DESC";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      return $query->result(0);
+    }
+    else {
+      return FALSE;
+    }
+  }
+}
+
+/**
+   * Gets artist's keywords.
+   *
+   * @param array $opts.
+   *          'artist_id'  => Artist ID
+   *          'user_id'  => User ID
+   *
+   * @return array Keyword information or boolean FALSE.
+   *
+   */
+if (!function_exists('getArtistKeywords')) {
+  function getArtistKeywords($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
+    $sql = "SELECT " . TBL_keyword . ".`name`, count(" . TBL_keyword . ".`id`) as `count`, 'keyword' as `type`
+            FROM " . TBL_keyword . ", " . TBL_keywords . ", " . TBL_artist . ", " . TBL_album . "
+            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
+              AND " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
+              AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
+              AND " . TBL_artist . ".`id` = " . $opts['artist_id'] . "
+            GROUP BY " . TBL_keyword . ".`id`
+            ORDER BY count(" . TBL_keyword . ".`id`) DESC";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      return $query->result(0);
+    }
+    else {
+      return FALSE;
     }
   }
 }
