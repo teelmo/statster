@@ -1,34 +1,32 @@
 <?php 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-   * Tells if the given album is loved by the given user.
-   *
-   * @param array $opts.
-   *          'user_id'   => User ID
-   *          'album_id'  => Artist ID
-   *
-   * @return int or boolean FALSE.
-   */
+ * Tells if the given album is loved by the given user.
+ *
+ * @param array $opts.
+ *          'user_id'   => User ID
+ *          'album_id'  => Artist ID
+ *
+ * @return string JSON encoded data containing album information.
+ */
 if (!function_exists('getAlbumLove')) {
   function getAlbumLove($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '';
+    // Load helpers
+    $ci->load->helper(array('return_helper'));
+
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
-    $sql = "SELECT " . TBL_love . ".`id`
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $sql = "SELECT " . TBL_love . ".`id`, 'love' as `type`
             FROM " . TBL_love . "
-            WHERE " . TBL_love . ".`user_id` = " . $ci->db->escape($user_id) . "
+            WHERE " . TBL_love . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
               AND " . TBL_love . ".`album_id` = " . $ci->db->escape($album_id);
     $query = $ci->db->query($sql);
-    $num_rows = $query->num_rows();
-    if ($num_rows > 0) {
-      return $num_rows;
-    }
-    else {
-      return FALSE;
-    }
+    return _json_return_helper($query, $human_readable);
   }
 }
 
@@ -46,20 +44,18 @@ if (!function_exists('getArtistFan')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '';
+    // Load helpers
+    $ci->load->helper(array('return_helper'));
+
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
-    $sql = "SELECT " . TBL_fan . ".`id`
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $sql = "SELECT " . TBL_fan . ".`id`, 'fan' as `type`
             FROM " . TBL_fan . "
-            WHERE " . TBL_fan . ".`user_id` = " . $ci->db->escape($user_id) . "
+            WHERE " . TBL_fan . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
               AND " . TBL_fan . ".`artist_id` = " . $ci->db->escape($artist_id);
     $query = $ci->db->query($sql);
-    $num_rows = $query->num_rows();
-    if ($num_rows > 0) {
-      return $num_rows;
-    }
-    else {
-      return FALSE;
-    }
+    return _json_return_helper($query, $human_readable);
   }
 }
 
@@ -138,7 +134,6 @@ if (!function_exists('addListeningFormatTypes')) {
     $format_type_id = !empty($opts['format_type_id']) ? $opts['format_type_id'] : '';
     $listening_id = $opts['listening_id'];
     $user_id = $opts['user_id'];
-
     $sql = "INSERT
               INTO " . TBL_listening_format_types . " (`listening_id`, `listening_format_type_id`, `user_id`)
               VALUES (" . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_type_id) . ", " . $ci->db->escape($user_id) . ")";

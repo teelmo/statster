@@ -2,7 +2,7 @@
 class AutoComplete extends CI_Controller {
 
   public function index() {
-    exit('No direct script access allowed');
+    exit ('No direct script access allowed');
   }
 
   public function addListening() {

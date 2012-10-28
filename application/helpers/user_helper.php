@@ -1,14 +1,14 @@
 <?php 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-   * Handles user login form posts.
-   *
-   * @param array $opts.
-   *          'artist'  => Artist name
-   *
-   * @return int artist ID or boolean FALSE.
-   */
+ * Handles user login form posts.
+ *
+ * @param array $opts.
+ *          'artist'  => Artist name
+ *
+ * @return int artist ID or boolean FALSE.
+ */
 if (!function_exists('loginUser')) {
   function loginUser($opts = array()) {
     $ci=& get_instance();

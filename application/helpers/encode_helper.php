@@ -1,14 +1,14 @@
 <?php 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-   * Convert elements so that they can be used in urls
-   *
-   * @param string $url.
-   *
-   * @return string url encoded string.
-   *
-   */
+ * Convert elements so that they can be used in urls
+ *
+ * @param string $url.
+ *
+ * @return string url encoded string.
+ *
+ */
 if (!function_exists('url_title')) {
   function url_title($url) {
     $search = array('#','?','+','/',' ','&','"');

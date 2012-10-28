@@ -1,20 +1,22 @@
 <?php
+if (!defined('BASEPATH')) exit ('No direct script access allowed');
+
 /**
-   * Returns top genres for the given user.
-   *
-   * @param array $opts.
-   *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
-   *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
-   *          'username'        => Username
-   *          'artist'          => Artist name
-   *          'album'           => Album name
-   *          'group_by'        => Group by argument
-   *          'order_by'        => Order by argument
-   *          'limit'           => Limit
-   *          'human_readable'  => Output format
-   *
-   * @return string JSON encoded data containing album information.
-   */
+ * Returns top genres for the given user.
+ *
+ * @param array $opts.
+ *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
+ *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+ *          'username'        => Username
+ *          'artist'          => Artist name
+ *          'album'           => Album name
+ *          'group_by'        => Group by argument
+ *          'order_by'        => Order by argument
+ *          'limit'           => Limit
+ *          'human_readable'  => Output format
+ *
+ * @return string JSON encoded data containing album information.
+ */
 if (!function_exists('getTopGenres')) {
   function getTopGenres($opts = array()) {
     $ci=& get_instance();

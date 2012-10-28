@@ -1,15 +1,15 @@
 <?php 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-   * Gets album's info.
-   *
-   * @param array $opts.
-   *          'artist'  => Artist name
-   *          'album'  => Album name
-   *
-   * @return array Album information or boolean FALSE.
-   */
+ * Gets album's info.
+ *
+ * @param array $opts.
+ *          'artist'  => Artist name
+ *          'album'  => Album name
+ *
+ * @return array Album information or boolean FALSE.
+ */
 if (!function_exists('getAlbumInfo')) {
   function getAlbumInfo($opts = array()) {
     $ci=& get_instance();
