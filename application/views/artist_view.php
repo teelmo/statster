@@ -43,9 +43,8 @@
       </table>
       <h3 class="artistFan">Artist's fans</h3>
       <div>
-        <img src="<?=site_url()?>/media/img/icons/star.png" alt="" />
-        <img src="<?=site_url()?>/media/img/icons/star.png" alt="" />
-        <img src="<?=site_url()?>/media/img/icons/star.png" alt="" />
+        <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistFanLoader"/>
+        <ul id="artistFan" class="likeList noBullets"><!-- Content is loaded with AJAX --></ul>
       </div>
       <br />
       <div>

@@ -548,6 +548,14 @@ ul.chartList64 li {
   width: 70px;
   vertical-align: top;
 }
+ul.likeList {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+ul.likeList li {
+  display: inline-block;
+}
 
 /* 
  * Icons / images
@@ -634,7 +642,7 @@ img.artistPageImg {
   margin-right: 15px;
 }
 span.loveIcon {
-  background-image: url('/media/img/icons/heart.png');
+  background-image: url('/media/img/icons/love.png');
   background-position: center;
   background-repeat: no-repeat;
   padding: 0 20px 3px 0;

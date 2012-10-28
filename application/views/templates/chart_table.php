@@ -38,7 +38,14 @@ if (is_array($json_data)) {
             <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'))?>
           </span>
         <td class="love icon">
-          <?=(getAlbumLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)) == TRUE) ? '<span class="loveIcon" title="Loved"></span>' : ''?>
+          <?php
+          $love_data = json_decode(getAlbumLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)));
+          if (empty($love_data->error)) {
+            ?>
+            <span class="loveIcon" title="Loved"></span>
+            <?php
+          }
+          ?>
         </td>
         <td class="format icon">
           <?php
