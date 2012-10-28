@@ -43,7 +43,7 @@
       </table>
       <h3 class="albumLove">Album's loves</h3>
       <div>
-        <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="albumLoveLoader"/>
+        <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
         <ul id="albumLove" class="likeList noBullets"><!-- Content is loaded with AJAX --></ul>
       </div>
       <br />

@@ -789,3 +789,7 @@ hr {
 .small {
   font-size: smaller;
 }
+.noIndent {
+  margin: 0;
+  padding: 0;
+}
