@@ -7,11 +7,11 @@
       <?php
       foreach ($tags as $tag) {
         ?>
-        <span class="tag <?=$tag['type']?>"><?=$tag['name']?></span> 
+        <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
         <?php
       }
       ?>
-      <span class="tag moretags">+</span> 
+      <span class="tag moretags"><?=anchor(array(), '+')?></span>
     </div>
   </div>
   <div class="container">

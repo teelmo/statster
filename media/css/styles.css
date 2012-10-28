@@ -189,8 +189,10 @@ span.tag {
   letter-spacing: 0.1em;
   border-radius: 3px;
   display: inline-block;
-  color: #FFF;
   font-size: 12px;
+}
+span.tag a { 
+  color: #FFF;
 }
 span.genre {
   background-color: #0187C5;
