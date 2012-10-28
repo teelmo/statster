@@ -100,20 +100,10 @@ if (!function_exists('getArtistTags')) {
         $data['tags'][] = $tag;
       }
     }
-    uasort($data, '_tagsSort');
+    uasort($data, '_tagsSortByCount');
     $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
     return $data;
   }
-}
-
-/*
- * Helper function for sorting tags
- */
-function _tagsSort($a, $b) {
-  if ($a['count'] == $b['count']) {
-    return 0;
-  }
-  return ($a['count'] > $b['count']) ? -1 : 1;
 }
 
 /**

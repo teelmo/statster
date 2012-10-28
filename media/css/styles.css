@@ -207,9 +207,10 @@ span.keyword:hover {
 span.moretags {
   background-color: #AAA;
   padding: 4px 6px;
+  font-weight: bold;
 }
 span.moretags:hover {
-  background-color: #0179B1;
+  background-color: #999;
 }
 div.albumInfo,
 div.artistInfo {

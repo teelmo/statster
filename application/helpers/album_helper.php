@@ -103,20 +103,10 @@ if (!function_exists('getAlbumTags')) {
         $data['tags'][] = $tag;
       }
     }
-    uasort($data, '_tagsSort');
+    uasort($data, '_tagsSortByCount');
     $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
     return $data;
   }
-}
-
-/*
- * Helper function for sorting tags
- */
-function _tagsSort($a, $b) {
-  if ($a['count'] == $b['count']) {
-    return 0;
-  }
-  return ($a['count'] > $b['count']) ? -1 : 1;
 }
 
 /**
@@ -135,11 +125,10 @@ if (!function_exists('getAlbumGenres')) {
     $ci->load->database();
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $sql = "SELECT " . TBL_genre . ".`name`, count(" . TBL_genre . ".`id`) as `count`, 'genre' as `type`
-            FROM " . TBL_genre . ", " . TBL_genres . ", " . TBL_artist . ", " . TBL_album . "
-            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
-              AND " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
+            FROM " . TBL_genre . ", " . TBL_genres . ", " . TBL_album . "
+            WHERE " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
               AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
-              AND " . TBL_artist . ".`id` = " . $opts['artist_id'] . "
+              AND " . TBL_album . ".`id` = " . $opts['album_id'] . "
             GROUP BY " . TBL_genre . ".`id`
             ORDER BY count(" . TBL_genre . ".`id`) DESC";
     $query = $ci->db->query($sql);
@@ -168,11 +157,10 @@ if (!function_exists('getAlbumKeywords')) {
     $ci->load->database();
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $sql = "SELECT " . TBL_keyword . ".`name`, count(" . TBL_keyword . ".`id`) as `count`, 'keyword' as `type`
-            FROM " . TBL_keyword . ", " . TBL_keywords . ", " . TBL_artist . ", " . TBL_album . "
-            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
-              AND " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
+            FROM " . TBL_keyword . ", " . TBL_keywords . ", " . TBL_album . "
+            WHERE " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
               AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
-              AND " . TBL_artist . ".`id` = " . $opts['artist_id'] . "
+              AND " . TBL_album . ".`id` = " . $opts['album_id'] . "
             GROUP BY " . TBL_keyword . ".`id`
             ORDER BY count(" . TBL_keyword . ".`id`) DESC";
     $query = $ci->db->query($sql);

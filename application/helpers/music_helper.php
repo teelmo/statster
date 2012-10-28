@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
    *          'user_id'   => User ID
    *          'album_id'  => Artist ID
    *
-   * @return boolean TRUE|FALSE.
+   * @return int or boolean FALSE.
    */
 if (!function_exists('getAlbumLove')) {
   function getAlbumLove($opts = array()) {
@@ -22,8 +22,9 @@ if (!function_exists('getAlbumLove')) {
             WHERE " . TBL_love . ".`user_id` = " . $ci->db->escape($user_id) . "
               AND " . TBL_love . ".`album_id` = " . $ci->db->escape($album_id);
     $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      return TRUE;
+    $num_rows = $query->num_rows();
+    if ($num_rows > 0) {
+      return $num_rows;
     }
     else {
       return FALSE;
@@ -38,7 +39,7 @@ if (!function_exists('getAlbumLove')) {
    *          'user_id'   => User ID
    *          'artist_id' => Artist ID
    *
-   * @return boolean TRUE|FALSE.
+   * @return int or boolean FALSE.
    */
 if (!function_exists('getArtistFan')) {
   function getArtistFan($opts = array()) {
@@ -52,8 +53,9 @@ if (!function_exists('getArtistFan')) {
             WHERE " . TBL_fan . ".`user_id` = " . $ci->db->escape($user_id) . "
               AND " . TBL_fan . ".`artist_id` = " . $ci->db->escape($artist_id);
     $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      return TRUE;
+    $num_rows = $query->num_rows();
+    if ($num_rows > 0) {
+      return $num_rows;
     }
     else {
       return FALSE;
@@ -394,6 +396,59 @@ if (!function_exists('getRecentlyListened')) {
             LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+   * Gets artist's albums which have listenings
+   *
+   * @param array $opts.
+   *          'artist_id'  => Artist ID
+   *
+   * @return array Album information or boolean FALSE.
+   *
+   */
+if (!function_exists('getArtistAlbums')) {
+  function getArtistAlbums($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
+    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $date = !empty($opts['date']) ? $opts['date'] : '%';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $sql = "SELECT count(" . TBL_album . ".`id`) as `count`,
+                   " . TBL_artist . ". `artist_name`,
+                   " . TBL_album . ". `album_name`,
+                   " . TBL_album . ". `year`, 
+                   " . TBL_artist . ". `id` as `artist_id`,
+                   " . TBL_album . ". `id` as `album_id`
+            FROM " . TBL_listening . ", " . TBL_artist . ", " . TBL_album . ", " . TBL_user . " 
+            WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
+              AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
+              AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
+              AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
+              AND " . TBL_artist . ". `artist_name` LIKE " . $ci->db->escape($artist) . "
+              AND " . TBL_album . ". `album_name` LIKE " . $ci->db->escape($album) . "
+              AND " . TBL_listening . ". `date` LIKE " . $ci->db->escape($date) . "
+            GROUP BY " . TBL_album . ".`id`
+            ORDER BY count(" . TBL_album . ".`id`) DESC";
+    $query = $ci->db->query($sql);
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/*
+ * Helper function for sorting tags
+ */
+if (!function_exists('_tagsSortByCount')) {
+  function _tagsSortByCount($a, $b) {
+    if ($a['count'] == $b['count']) {
+      return 0;
+    }
+    return ($a['count'] > $b['count']) ? -1 : 1;
   }
 }
 ?>

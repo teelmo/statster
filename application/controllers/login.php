@@ -12,7 +12,7 @@ class Login extends CI_Controller {
     $this->load->helper(array('form'));
 
     $data = array();
-    $data['request'] = 'login';
+    $data['request'] = array('login');
 
     $this->load->view('templates/header');
     $this->load->view('login_view');

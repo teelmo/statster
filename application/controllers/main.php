@@ -7,7 +7,7 @@ class Main extends CI_Controller {
       $this->load->helper(array('form'));
 
       $data = array();
-      $data['request'] = 'main';
+      $data['request'] = array('main');
       $data['interval'] = 12;
       
       $this->load->view('templates/header');
@@ -19,7 +19,7 @@ class Main extends CI_Controller {
       $this->load->helper(array('form'));
 
       $data = array();
-      $data['request'] = 'welcome';
+      $data['request'] = array('welcome');
 
       $this->load->view('templates/header');
       $this->load->view('welcome_view');
