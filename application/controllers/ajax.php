@@ -77,10 +77,10 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function popularGenre() {
+  public function popularTag() {
     if (!empty($_POST)) {
       $data = $_POST;
-      $this->load->view('templates/genre_table', $data);
+      $this->load->view('templates/tag_table', $data);
     }
     else {
       exit ('No direct script access allowed');

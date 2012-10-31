@@ -1,20 +1,22 @@
-function popularGenre() {
+function topGenre() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topGenre',
+    type: 'POST', url: '/api/topGenre', 
     data: {
-      limit : 15,
-      lower_limit : '<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
+      limit : 7,
+      lower_limit : '<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
       username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
         type: 'POST', url: '/ajax/popularTag',
         data: {
-          json_data : data,
+          json_data : data
         },
         success: function(data) {
-          jQuery('#popularGenreLoader').hide();
-          jQuery('#popularGenre').html(data);
+          jQuery('#topGenreLoader').hide();
+          jQuery('#topGenre').html(data);
+        },
+        complete: function() {
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -24,26 +26,27 @@ function popularGenre() {
     }
   });
 }
-popularGenre();
+topGenre();
 
-function topAlbum() {
+function topKeyword() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topAlbum',
+    type: 'POST', url: '/api/topKeyword', 
     data: {
-      limit : 15,
-      lower_limit : '<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
+      limit : 7,
+      lower_limit : '<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
       username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
+        type: 'POST', url: '/ajax/popularTag',
         data: {
-          json_data : data,
-          hide : {"count" : true, "rank": true},
+          json_data : data
         },
         success: function(data) {
-          jQuery('#popularAlbumLoader').hide();
-          jQuery('#popularAlbum').html(data);
+          jQuery('#topKeywordLoader').hide();
+          jQuery('#topKeyword').html(data);
+        },
+        complete: function() {
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -53,4 +56,4 @@ function topAlbum() {
     }
   });
 }
-topAlbum();
+topKeyword();
