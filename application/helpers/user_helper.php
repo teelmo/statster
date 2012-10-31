@@ -47,9 +47,7 @@ if (!function_exists('loginUser')) {
                    'created'      => $result->created,
                    'last_login'   => $result->last_login,
                    'last_access'  => $result->last_access,
-                   'user_image'   => getUserImg(array('user_id' => $result->id, 
-                                                        'size'    => 32
-                                                        )),
+                   'user_image'   => getUserImg(array('user_id' => $result->id, 'size'    => 32)),
                    'logged_in'    => TRUE
                );
       $ci->session->set_userdata($userdata);
