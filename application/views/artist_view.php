@@ -66,23 +66,28 @@
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti. Lorem ipsum ligula ut hendrerit mollis, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Sed congue augue vitae neque. Nulla consectetuer porttitor pede. Fusce purus morbi tortor magna condimentum vel, placerat id blandit sit amet tortor.
     </p>
   </div>
+  <!--
   <div class="container"><hr /></div>
   <div class="container">
     <h2>Similar artists</h2>
   </div>
+  -->
   <div class="container"><hr /></div>
   <div class="container">
     <h2>Artist's albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
     <ul id="artistAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
+  <!--
   <div class="container"><hr /></div>
   <div class="container">
     <h2>Shoutbox</h2>
   </div>
+  -->
   <div class="container"><hr /></div>
 </div>
 <div id="rightCont">
+  <!--
   <div class="container">
     <h1>Latest listenings</h1>
   </div>
@@ -92,4 +97,5 @@
   <div class="container">
     <h1>Events</h1>
   </div>
+  -->
 </div>
