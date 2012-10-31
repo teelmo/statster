@@ -89,23 +89,26 @@ if (!function_exists('getAlbumListenings')) {
    *          'album_id'  => Album ID
    *          'user_id'  => User ID
    *
-   * @return array Tag information or boolean FALSE.
+   * @return array Tag information.
    *
    */
 if (!function_exists('getAlbumTags')) {
   function getAlbumTags($opts = array()) {
-    $data = array();
     $tags_array = array();
     $tags_array[] = getAlbumGenres($opts);
     $tags_array[] = getAlbumKeywords($opts);
-    foreach ($tags_array as $idx => $tags) {
-      foreach ($tags as $idx => $tag) {
-        $data['tags'][] = $tag;
+    if (is_array($tags_array)) {
+      $data = array();
+      foreach ($tags_array as $idx => $tags) {
+        foreach ($tags as $idx => $tag) {
+          $data['tags'][] = $tag;
+        }
       }
+      uasort($data, '_tagsSortByCount');
+      $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
+      return $data;
     }
-    uasort($data, '_tagsSortByCount');
-    $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
-    return $data;
+    return array();
   }
 }
 
@@ -136,7 +139,7 @@ if (!function_exists('getAlbumGenres')) {
       return $query->result(0);
     }
     else {
-      return FALSE;
+      return array();
     }
   }
 }
