@@ -113,7 +113,7 @@ if (!function_exists('getArtistTags')) {
    *          'artist_id'  => Artist ID
    *          'user_id'  => User ID
    *
-   * @return array Keyword information or boolean FALSE.
+   * @return array artist's Keyword information.
    *
    */
 if (!function_exists('getArtistGenres')) {
@@ -134,7 +134,7 @@ if (!function_exists('getArtistGenres')) {
       return $query->result(0);
     }
     else {
-      return FALSE;
+      return array();
     }
   }
 }
@@ -146,7 +146,7 @@ if (!function_exists('getArtistGenres')) {
    *          'artist_id'  => Artist ID
    *          'user_id'  => User ID
    *
-   * @return array Keyword information or boolean FALSE.
+   * @return array artist's Keyword information.
    *
    */
 if (!function_exists('getArtistKeywords')) {
@@ -167,7 +167,7 @@ if (!function_exists('getArtistKeywords')) {
       return $query->result(0);
     }
     else {
-      return FALSE;
+      return array();
     }
   }
 }

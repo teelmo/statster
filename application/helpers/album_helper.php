@@ -116,7 +116,7 @@ if (!function_exists('getAlbumTags')) {
    *          'album_id'  => Album ID
    *          'user_id'  => User ID
    *
-   * @return array Keyword information or boolean FALSE.
+   * @return array album's Keyword information.
    *
    */
 if (!function_exists('getAlbumGenres')) {
@@ -148,7 +148,7 @@ if (!function_exists('getAlbumGenres')) {
    *          'album_id'  => Album ID
    *          'user_id'  => User ID
    *
-   * @return array Keyword information or boolean FALSE.
+   * @return array album's Keyword information.
    *
    */
 if (!function_exists('getAlbumKeywords')) {
@@ -168,7 +168,7 @@ if (!function_exists('getAlbumKeywords')) {
       return $query->result(0);
     }
     else {
-      return FALSE;
+      return array();
     }
   }
 }
