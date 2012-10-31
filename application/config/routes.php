@@ -59,5 +59,8 @@ $route['developers'] = "main/developers";
 $route['privacy'] = "main/privacy";
 $route['terms'] = "main/terms";
 
+/* Release year's routes */
+$route['tag/release+year'] = "tag/release_year";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
