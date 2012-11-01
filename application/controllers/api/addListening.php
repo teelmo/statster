@@ -29,7 +29,7 @@ class AddListening extends CI_Controller {
                 INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
                 VALUES ({$data['user_id']}, {$data['album_id']}, '{$data['date']}')";
       $query = $this->db->query($sql);
-      if($this->db->affected_rows() == 1) {
+      if ($this->db->affected_rows() == 1) {
         $data['listening_id'] = $this->db->insert_id();
         if (!empty($_POST['format'])) {
           list($data['format'], $data['format_type']) = explode(':', $_POST['format']);
