@@ -37,9 +37,9 @@ if (is_array($json_data)) {
       <td class="barChartBar">
         <?
         $width = ceil(($row->count / $highest_count) * 100);
-        $min_width = ($row->count < 10) ? 'min-width: 20px' : 'min-width: 28px';
+        $min_width = ($row->count < 10) ? 'min-width: 22px' : 'min-width: 30px';
         if ($row->count > 100) {
-          $min_width = 'min-width: 36px;';
+          $min_width = 'min-width: 38px;';
         }
         ?>
         <div style="width: <?=$width?>%; <?=$min_width?>;" class="chartBar">
