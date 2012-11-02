@@ -41,7 +41,8 @@ function recentlyListened() {
         data: {
           json_data : data,
           hide : {"artist" : true, "count" : true, "rank" : true},
-          img : 'user'
+          img : 'user',
+          size : 32
         },
         success: function(data) {
           jQuery('#recentlyListenedLoader').hide();
