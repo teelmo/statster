@@ -86,12 +86,14 @@
   -->
   <div class="container"><hr /></div>
 </div>
-
 <div id="rightCont">
-  <!--
   <div class="container">
     <h1>Latest listenings</h1>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
+    <table id="recentlyListened" class="albumTable"><!-- Content is loaded with AJAX --></table>
+    <div class="more"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'See more', array('title' => 'Browse more listenings'))?></div>
   </div>
+  <!--
   <div class="container">
     <h1>Top listeners</h1>
   </div>

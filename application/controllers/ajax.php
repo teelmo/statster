@@ -47,7 +47,7 @@ class Ajax extends CI_Controller {
   public function albumTable() {
     if (!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper'));
+      $this->load->helper(array('img_helper', 'text_helper'));
 
       $data = $_POST;
       $this->load->view('templates/album_table', $data);

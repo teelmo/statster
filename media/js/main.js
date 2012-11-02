@@ -193,7 +193,8 @@ function recommentedTopAlbum() {
         data: {
           json_data : data,
           limit : 2,
-          hide : {"artist" : true, "count" : true, "rank" : true},
+          hide : {"artist" : true, "count" : true, "rank": true, "date": true},
+          img : 'album'
         },
         success: function(data) {
           jQuery('#recommentedTopAlbumLoader').hide();
@@ -226,7 +227,8 @@ function recommentedNewAlbum() {
         data: {
           json_data : data,
           limit : 2,
-          hide : {"artist" : true, "count" : true, "rank": true},
+          hide : {"artist" : true, "count" : true, "rank": true, "date": true},
+          img : 'album'
         },
         success: function(data) {
           jQuery('#recommentedNewAlbumLoader').hide();

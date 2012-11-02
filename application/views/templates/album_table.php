@@ -24,11 +24,20 @@ if (is_array($json_data)) {
         <?php
       }
       ?>
-      <td class="img<?=$size?> albumImg">
-        <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
+      <td class="img<?=$size?> <?=$img?>Img">
+      <?php
+      switch ($img) {
+        case 'album':
+          echo anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'));
+          break;
+        case 'user':
+          echo anchor(array('user', 'profile', url_title($row->username)), '<img src="' . getUserImg(array('user_id' => $row->user_id, 'size' => $size)) . '" alt="" class="userImg userImg' . $size . '" />', array('title' => 'Browse to user\'s page'));
+          break;
+      }
+      ?>
       </td>
       <td class="title">
-        <span class="title">
+        <div class="title">
           <?php
           if (empty($hide['artist'])) {
             ?>
@@ -39,7 +48,16 @@ if (is_array($json_data)) {
           ?>
           <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'))?>
           <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'))?>
-        </span>
+        </div>
+        <?php
+        if (empty($hide['date'])) {
+          ?>
+          <div class="datetime">
+            <?=timeAgo($row->date)?>
+          </div>
+          <?php
+        }
+        ?>
       </td>
       <?php
       if (empty($hide['count'])) {

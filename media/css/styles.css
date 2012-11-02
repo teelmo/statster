@@ -159,6 +159,7 @@ div.clear {
 .updated,
 .playCount,
 .albumYear,
+.separator,
 .datetime {
   color: #999;
   font-size: smaller;
@@ -411,25 +412,25 @@ table.chartTable tbody tr.justAdded:hover,
 table.chartTable tbody tr:hover {
   background-color: rgba(175, 201, 215, 0.5) !important;
 }
-table.chartTable tbody tr td.datetime {
+table.chartTable tbody tr .datetime {
   width: 82px;
 }
-table.chartTable tbody tr.justAddedRest td.datetime {
+table.chartTable tbody tr.justAddedRest .datetime {
   position: relative;
   right: -36px;
 }
-table.chartTable tbody tr.justAddedRest td.title {
+table.chartTable tbody tr.justAddedRest .title {
   position: relative;
   left: -36px;
 }
-table.chartTable tbody tr td.img {
+table.chartTable tbody tr .img {
   width: 32px;
 }
-table.chartTable tbody tr td.icon {
+table.chartTable tbody tr .icon {
   width: 20px;
   padding: 0 2px;
 }
-table.chartTable tbody tr td.userImg {
+table.chartTable tbody tr .userImg {
   text-align: right;
 }
 table.chartTable thead tr td {
@@ -566,7 +567,8 @@ img {
   padding: 0;
   margin: 0;
 }
-img.albumImg {
+img.albumImg,
+img.userImg {
   margin-right: 4px;
 }
 img.artistImg,
