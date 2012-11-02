@@ -15,7 +15,9 @@ if (is_array($json_data)) {
         <td class="barChartRank">
           <?php
           if ($row->count != $prev_count) {
-            echo $rank . ".";
+            ?>
+            <span class="rank"><?=$rank?>.</span>
+            <?php
           }
           ?>
         </td>

@@ -345,6 +345,62 @@ if (!function_exists('getTopAlbums')) {
 }
 
 /**
+   * Returns top albums for the given user.
+   *
+   * @param array $opts.
+   *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
+   *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+   *          'username'        => Username
+   *          'artist'          => Artist name
+   *          'album'           => Album name
+   *          'group_by'        => Group by argument
+   *          'order_by'        => Order by argument
+   *          'limit'           => Limit
+   *          'human_readable'  => Output format
+   *
+   * @return string JSON encoded data containing album information.
+   */
+if (!function_exists('getTopListeners')) {
+  function getTopListeners($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-01-01';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
+    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_user . '.`id`';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $sql = "SELECT count(" . TBL_user . ".`id`) as `count`, 
+                   " . TBL_user . ". `username`, 
+                   " . TBL_user . ". `id` as user_id,
+                   " . TBL_artist . ".`artist_name`, 
+                   " . TBL_artist . ".`id` as artist_id, 
+                   " . TBL_album . ".`album_name`, 
+                   " . TBL_album . ".`id` as album_id, 
+                   " . TBL_album . ".`year`
+            FROM " . TBL_album . ", 
+                 " . TBL_artist . ", 
+                 " . TBL_listening . " , 
+                 " . TBL_user . "
+            WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+              AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . " 
+                                                   AND " . $ci->db->escape($upper_limit) . "
+              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist) . "
+              AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album) . "
+              GROUP BY " . mysql_real_escape_string($group_by) . "
+              ORDER BY " . mysql_real_escape_string($order_by) . "
+              LIMIT " . mysql_real_escape_string($limit);
+    $query = $ci->db->query($sql);
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
    * Returns recently listened albums for the given user.
    *
    * @param array $opts.

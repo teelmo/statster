@@ -163,6 +163,7 @@ div.clear {
 .playCount,
 .albumYear,
 .separator,
+.count,
 .datetime {
   color: #999;
   font-size: smaller;
@@ -459,6 +460,17 @@ table.albumTable tr td.img32 {
 table.albumTable tr td.img64 {
   width: 64px;
 }
+table.albumTable tr td.rank {
+  width: 24px;
+  vertical-align: middle;
+}
+table.albumTable tr td.rank span.rank {
+  background: #0187C5;
+  padding: 2px 3px 2px 5px;
+  color: #FFF;
+  vertical-align: middle;
+  border-radius: 5px;
+}
 table.albumTableLeftCont tr:nth-child(2n) {
   background-color: rgba(245, 245, 245, 0.5);
 }
@@ -471,19 +483,25 @@ table.albumTableLeftCont tr:hover {
 /* genreTable */
 table.genreTable tr td {
   border-bottom: 1px solid #E1E1E1;
-  line-height: 20px;
   vertical-align: bottom;
-  padding: 5px 0 0 3px;
+  padding: 3px 0 0 0px;
 }
 /* barTable */
 table.barTable tr td {
-  padding: 1px 0 1px 0;
+  padding: 0 0 1px 0;
 }
 table.barTable td.barChartRank {
   width: 2%;
   text-align: right;
   padding-left: 3px;
   padding-right: 4px;
+}
+table.barTable tr td.barChartRank span.rank {
+  background: #0187C5;
+  padding: 2px 3px 2px 5px;
+  color: #FFF;
+  vertical-align: middle;
+  border-radius: 5px;
 }
 table.barTable td.barChartName {
   width: 58%;

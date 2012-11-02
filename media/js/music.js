@@ -10,7 +10,7 @@ function popularGenre() {
       jQuery.ajax({
         type: 'POST', url: '/ajax/popularTag',
         data: {
-          json_data : data,
+          json_data : data
         },
         success: function(data) {
           jQuery('#popularGenreLoader').hide();
@@ -39,7 +39,9 @@ function topAlbum() {
         type: 'POST', url: '/ajax/albumTable',
         data: {
           json_data : data,
-          hide : {"count" : true, "rank": true},
+          hide : {"count" : true, "rank": true, "date": true},
+          title : 'music',
+          img : 'user'
         },
         success: function(data) {
           jQuery('#popularAlbumLoader').hide();

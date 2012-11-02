@@ -17,7 +17,9 @@ if (is_array($json_data)) {
         <td class="rank">
           <?php
           if ($row->count != $prev_count) {
-            echo $rank;
+            ?>
+            <span class="rank"><?=$rank?>.</span>
+            <?php
           }
           ?>
         </td>
@@ -39,15 +41,21 @@ if (is_array($json_data)) {
       <td class="title">
         <div class="title">
           <?php
-          if (empty($hide['artist'])) {
-            ?>
-            <?=anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'))?>
-            <?=DASH?>
-            <?php
+          switch ($title) {
+            case 'music':
+              if (empty($hide['artist'])) {
+                echo anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'));
+                echo ' ' . DASH . ' ';
+              }
+              echo anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'));
+              echo ' ';
+              echo anchor(array('tag', 'release+year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'));
+              break;
+            case 'user':
+              echo anchor(array('user', 'profile', url_title($row->username)), $row->username, array('title' => 'Browse to user profile'));
+              break;
           }
           ?>
-          <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'))?>
-          <?=anchor(array('tag', 'release-year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'))?>
         </div>
         <?php
         if (empty($hide['date'])) {
@@ -57,17 +65,15 @@ if (is_array($json_data)) {
           </div>
           <?php
         }
+        if (empty($hide['count'])) {
+          ?>
+          <div class="count">
+            <?=$row->count?> listenings
+          </div>
+          <?php
+        }
         ?>
       </td>
-      <?php
-      if (empty($hide['count'])) {
-        ?>
-        <td class="count">
-          <?=$row->count?>
-        </td>
-        <?php
-      }
-      ?>
     </tr>
     <?php
     if ($row->count != $prev_count) {

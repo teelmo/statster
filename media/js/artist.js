@@ -40,7 +40,8 @@ function recentlyListened() {
         data: {
           json_data : data,
           hide : {"artist" : true, "count" : true, "rank" : true},
-          img : 'album',
+          img : 'user',
+          title : 'music',
           size : 32
         },
         success: function(data) {
@@ -56,3 +57,35 @@ function recentlyListened() {
   });
 }
 recentlyListened();
+
+function topListeners() {
+  jQuery.ajax({
+    type: 'POST', url: '/api/topListener', 
+    data: {
+      limit : 6,
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      artist : '<?php echo $artist_name?>'
+    },
+    success: function(data) {
+      jQuery.ajax({
+        type: 'POST', url: '/ajax/albumTable',
+        data: {
+          json_data : data,
+          hide : {"date" : true},
+          img : 'user',
+          title : 'user',
+          size : 32
+        },
+        success: function(data) {
+          jQuery('#topListenerLoader').hide();
+          jQuery('#topListener').html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        }
+      });
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    }
+  });
+}
+topListeners();
