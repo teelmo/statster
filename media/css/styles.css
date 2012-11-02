@@ -109,6 +109,9 @@ h1 {
   text-shadow: 0 1px 0 #EEE;
   letter-spacing: 0.1em;
 }
+h1 div.artist_name {
+  font-size: 14px;
+}
 div#topCont h1 {
   margin: 0;
   padding: 2px;
@@ -263,6 +266,9 @@ div#topCont a {
 }
 div#topCont h1 a:hover {
   color: #FFF;
+}
+h1 div.artist_name a{
+  color: #666;
 }
 
 /*

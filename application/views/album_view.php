@@ -1,6 +1,7 @@
 <div id="leftCont">
   <div class="container">
-    <h1><?=$artist_name?> <?=DASH?> <?=$album_name?> <span class="albumYear">(<?=$year?>)</span></h1>
+    
+    <h1><div class="artist_name"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div><?=$album_name?> <span class="albumYear">(<?=$year?>)</span></h1>
   </div>
   <div class="container">
     <div class="tags">
