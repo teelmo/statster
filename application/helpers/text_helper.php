@@ -86,7 +86,7 @@ if (!function_exists('timeAgo')) {
       if ($d >= 1) {
         $r = round($d);
         if ($secs < (48 * 60 * 60)) {
-          return $str;
+          return '<span title="' . $ptime . '">' . $str . '</span>';
         }
         return $r . ' ' . $str . ( $r > 1 ? 's' : '' ) . ' ago';
       }
