@@ -41,7 +41,7 @@ function topAlbum() {
           json_data : data,
           hide : {"count" : true, "rank": true, "date": true},
           title : 'music',
-          img : 'user'
+          img : 'album'
         },
         success: function(data) {
           jQuery('#popularAlbumLoader').hide();
