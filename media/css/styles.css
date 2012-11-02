@@ -421,7 +421,7 @@ table.chartTable tbody tr.justAddedRest .datetime {
 }
 table.chartTable tbody tr.justAddedRest .title {
   position: relative;
-  left: -36px;
+  left: -18px;
 }
 table.chartTable tbody tr .img {
   width: 32px;
