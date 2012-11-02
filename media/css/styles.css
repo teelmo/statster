@@ -488,7 +488,7 @@ table.genreTable tr td {
 }
 /* barTable */
 table.barTable tr td {
-  padding: 0 0 1px 0;
+  padding: 1px 0 1px 0;
 }
 table.barTable td.barChartRank {
   width: 2%;
@@ -512,16 +512,15 @@ table.barTable td.barChartBar {
   padding-right: 1px;
   background-color: transparent;
 }
-table.barTable div.chartBar {
-  background-image: url('/media/img/charts_right_red.png');
-  background-repeat: no-repeat;
-  background-position: right;
-}
 table.barTable div.chartBar div {
-  padding: 1px 0 1px 6px;
+  padding: 2px 0 1px 6px;
   background-color: #D71C2F;
   color: #FFF;
   margin-right: 2px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -moz-border-radius-bottomright: 5px;
 }
 table.albumInfo
 table.artistInfo {
