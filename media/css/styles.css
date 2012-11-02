@@ -415,22 +415,22 @@ table.chartTable tbody tr:hover {
 table.chartTable tbody tr .datetime {
   width: 82px;
 }
-table.chartTable tbody tr.justAddedRest .datetime {
+table.chartTable tbody tr.justAddedRest td.datetime {
   position: relative;
   right: -36px;
 }
-table.chartTable tbody tr.justAddedRest .title {
+table.chartTable tbody tr.justAddedRest td.title {
   position: relative;
-  left: -18px;
+  left: -36px;
 }
-table.chartTable tbody tr .img {
+table.chartTable tbody tr td.img {
   width: 32px;
 }
-table.chartTable tbody tr .icon {
+table.chartTable tbody tr td.icon {
   width: 20px;
   padding: 0 2px;
 }
-table.chartTable tbody tr .userImg {
+table.chartTable tbody tr td.userImg {
   text-align: right;
 }
 table.chartTable thead tr td {
