@@ -568,7 +568,7 @@ img {
   margin: 0;
 }
 img.albumImg,
-img.userImg {
+table.albumTable img.userImg {
   margin-right: 4px;
 }
 img.artistImg,
