@@ -93,7 +93,7 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
     <table id="topListener" class="albumTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
-      <?=anchor(array('top', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'))?>
+      <?=anchor(array('listener', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'))?>
     </div>
   </div>
   <div class="container"><hr /></div>

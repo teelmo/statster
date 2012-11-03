@@ -71,7 +71,7 @@ class Music extends CI_Controller {
     }
   }
 
-public function recent($artist_name = '', $album_name = FALSE) {
+  public function recent($artist_name = '', $album_name = FALSE) {
     $data = array();
     $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
     $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
@@ -80,6 +80,18 @@ public function recent($artist_name = '', $album_name = FALSE) {
 
     $this->load->view('templates/header');
     $this->load->view('recent_view', $data);
+    $this->load->view('templates/footer', $data);
+  }
+
+  public function listener($artist_name = '', $album_name = FALSE) {
+    $data = array();
+    $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
+    $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
+    $data['request'] = array('listener');
+    $data += $_REQUEST;
+
+    $this->load->view('templates/header');
+    $this->load->view('listener_view', $data);
     $this->load->view('templates/footer', $data);
   }
 }

@@ -1,6 +1,6 @@
 <div id="leftCont">
   <div class="container">
-    <h1><div class="artist_name"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div><?=$album_name?> <span class="albumYear">(<?=$year?>)</span></h1>
+    <h1><div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div><?=$album_name?> <span class="albumYear">(<?=$year?>)</span></h1>
   </div>
   <div class="container">
     <div class="tags">
@@ -93,7 +93,7 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
     <table id="topListener" class="albumTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
-      <?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'See more', array('title' => 'Browse more listenings'))?>
+      <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'See more', array('title' => 'Browse more listenings'))?>
     </div>
   </div>
   <div class="container"><hr /></div>

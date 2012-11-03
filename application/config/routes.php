@@ -54,6 +54,11 @@ $route['recent'] = "music/recent";
 $route['recent/(:any)/(:any)'] = "music/recent/$1/$2";
 $route['recent/(:any)'] = "music/recent/$1";
 
+/* Recent page's routes */
+$route['listener'] = "music/listener";
+$route['listener/(:any)/(:any)'] = "music/listener/$1/$2";
+$route['listener/(:any)'] = "music/listener/$1";
+
 /* Meta page's routes */
 $route['about'] = "main/about";
 $route['career'] = "main/career";
