@@ -231,7 +231,7 @@ if (!function_exists('getListenedAlbums')) {
    *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
    *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
    *          'username'        => Username
-   *          'artist'          => Artist name
+   *          'artist_name'          => Artist name
    *          'group_by'        => Group by argument
    *          'order_by'        => Order by argument
    *          'limit'           => Limit
@@ -247,7 +247,7 @@ if (!function_exists('getTopArtists')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist_name = !empty($opts['artist']) ? $opts['artist_name'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -288,8 +288,8 @@ if (!function_exists('getTopArtists')) {
    *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
    *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
    *          'username'        => Username
-   *          'artist'          => Artist name
-   *          'album'           => Album name
+   *          'artist_name'          => Artist name
+   *          'album_name'           => Album name
    *          'group_by'        => Group by argument
    *          'order_by'        => Order by argument
    *          'limit'           => Limit
@@ -305,8 +305,8 @@ if (!function_exists('getTopAlbums')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist_name = !empty($opts['artist']) ? $opts['artist_name'] : '%';
-    $album_name = !empty($opts['album']) ? $opts['album_name'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_album . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -351,8 +351,8 @@ if (!function_exists('getTopAlbums')) {
    *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
    *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
    *          'username'        => Username
-   *          'artist'          => Artist name
-   *          'album'           => Album name
+   *          'artist_name'          => Artist name
+   *          'album_name'           => Album name
    *          'group_by'        => Group by argument
    *          'order_by'        => Order by argument
    *          'limit'           => Limit
@@ -367,8 +367,8 @@ if (!function_exists('getTopListeners')) {
 
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-01-01';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
-    $artist_name = !empty($opts['artist']) ? $opts['artist_name'] : '%';
-    $album_name = !empty($opts['album']) ? $opts['album_name'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_user . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -405,8 +405,8 @@ if (!function_exists('getTopListeners')) {
    *
    * @param array $opts.
    *          'username'        => Username
-   *          'artist'          => Artist name
-   *          'album'           => Album name
+   *          'artist_name'          => Artist name
+   *          'album_name'           => Album name
    *          'date'            => Listening date in yyyy/mm/dd format
    *          'limit'           => Limit
    *          'human_readable'  => Output format

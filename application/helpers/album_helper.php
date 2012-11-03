@@ -5,8 +5,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
  * Gets album's info.
  *
  * @param array $opts.
- *          'artist'  => Artist name
- *          'album'  => Album name
+ *          'artist_name'  => Artist name
+ *          'album_name'  => Album name
  *
  * @return array Album information or boolean FALSE.
  */
