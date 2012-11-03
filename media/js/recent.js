@@ -6,13 +6,15 @@ function recentlyListened(isFirst) {
     type: 'POST', url: '/api/recentlyListened', 
     data: {
       limit : 100,
-      username: '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      username: '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      artist_name: '<?php echo $artist_name?>',
+      album_name: '<?php echo $album_name?>'
     },
     success: function(data) {
       jQuery.ajax({
         type: 'POST', url: '/ajax/chartTable',
         data: {
-          json_data : data,
+          json_data : data
         },
         success: function(data) {
           jQuery('#recentlyListenedLoader2').hide();

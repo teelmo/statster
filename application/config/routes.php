@@ -49,8 +49,10 @@ $route['404_override'] = '';
 $route['music/(:any)/(:any)'] = "music/album/$1/$2";
 $route['music/(:any)'] = "music/artist/$1";
 
-/* Music page's routes */
+/* Recent page's routes */
 $route['recent'] = "music/recent";
+$route['recent/(:any)/(:any)'] = "music/recent/$1/$2";
+$route['recent/(:any)'] = "music/recent/$1";
 
 /* Meta page's routes */
 $route['about'] = "main/about";
