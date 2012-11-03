@@ -16,24 +16,28 @@ class Music extends CI_Controller {
 
     $data = array();
     // Decode artist information
-    $data['artist'] = urldecode(utf8_decode($artist));
+    $data['artist'] = urldecode(urldecode(utf8_decode($artist)));
     // Get artist information aka. artist's name and id
-    $data = getArtistInfo($data);
-    // Get artist's totaol listening data
-    $data += getArtistListenings($data);
-    // Get logged in user's listening data
-    if ($data['user_id'] = $this->session->userdata('user_id')) {
+    if ($data = getArtistInfo($data)) {
+      // Get artist's totaol listening data
       $data += getArtistListenings($data);
+      // Get logged in user's listening data
+      if ($data['user_id'] = $this->session->userdata('user_id')) {
+        $data += getArtistListenings($data);
+      }
+      // Get artists tags (genres, keywords) data
+      $data['limit'] = 9;
+      $data += getArtistTags($data);
+
+      $data['request'] = array('artist', 'artistAlbum');
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('artist_view', $data);
+      $this->load->view('templates/footer');
     }
-    // Get artists tags (genres, keywords) data
-    $data['limit'] = 9;
-    $data += getArtistTags($data);
-
-    $data['request'] = array('artist', 'artistAlbum');
-
-    $this->load->view('templates/header', $data);
-    $this->load->view('artist_view', $data);
-    $this->load->view('templates/footer');
+    else {
+      show_404();
+    }
   }
 
   public function album($artist, $album) {
@@ -41,26 +45,30 @@ class Music extends CI_Controller {
     $this->load->helper(array('img_helper', 'music_helper', 'album_helper'));
 
     $data = array();
-    $data['artist'] = urldecode(utf8_decode($artist));
-    $data['album'] = urldecode(utf8_decode($album));
+    $data['artist'] = urldecode(urldecode(utf8_decode($artist)));
+    $data['album'] = urldecode(urldecode(utf8_decode($album)));
 
     // Get artist information aka. artist's name and id
-    $data = getAlbumInfo($data);
-    // Get artist's totaol listening data
-    $data += getAlbumListenings($data);
-    // Get logged in user's listening data
-    if ($data['user_id'] = $this->session->userdata('user_id')) {
+    if ($data = getAlbumInfo($data)) {
+      // Get artist's totaol listening data
       $data += getAlbumListenings($data);
+      // Get logged in user's listening data
+      if ($data['user_id'] = $this->session->userdata('user_id')) {
+        $data += getAlbumListenings($data);
+      }
+      // Get artists tags (genres, keywords) data
+      $data['limit'] = 9;
+      $data += getAlbumTags($data);
+
+      $data['request'] = array('album', 'artistAlbum');
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('album_view', $data);
+      $this->load->view('templates/footer');
     }
-    // Get artists tags (genres, keywords) data
-    $data['limit'] = 9;
-    $data += getAlbumTags($data);
-
-    $data['request'] = array('album', 'artistAlbum');
-
-    $this->load->view('templates/header', $data);
-    $this->load->view('album_view', $data);
-    $this->load->view('templates/footer');
+    else {
+      show_404();
+    }
   }
 
 public function recent() {
