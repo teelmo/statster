@@ -40,7 +40,7 @@ function recentlyListened() {
         data: {
           json_data : data,
           hide : {"artist" : true, "count" : true, "rank" : true},
-          img : 'user',
+          img : 'album',
           title : 'music',
           size : 32
         },
