@@ -11,8 +11,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
  */
 if (!function_exists('url_title')) {
   function url_title($url) {
-    $search = array('#','?','+','/',' ','&','"');
-    $replace = array('%2523','%253F','%252B','%252F','+','%2526','%2522');
+    $search = array('#','?','+','/',' ','&','"','<','>');
+    $replace = array('%2523','%253F','%252B','%252F','+','%2526','%2522', '%253C', '%253E');
     return str_replace($search, $replace, $url);
   }
 }
