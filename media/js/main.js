@@ -193,7 +193,7 @@ function recommentedTopAlbum() {
         data: {
           json_data : data,
           limit : 2,
-          hide : {"artist" : true, "count" : true, "rank": true, "date": true},
+          hide : {'artist':true, 'count':true, 'rank': true, 'date':true, 'calendar':true},
           title : 'music',
           img : 'album'
         },
@@ -228,7 +228,7 @@ function recommentedNewAlbum() {
         data: {
           json_data : data,
           limit : 2,
-          hide : {"artist" : true, "count" : true, "rank": true, "date": true},
+          hide : {'artist':true, 'count':true, 'rank': true,'date': true, 'calendar':true},
           title : 'music',
           img : 'album'
         },

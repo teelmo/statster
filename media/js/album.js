@@ -2,7 +2,7 @@ function albumLove() {
   jQuery.ajax({
     type: 'POST', url: '/api/albumLove', 
     data: {
-      album_id : '<?=$album_id?>',
+      album_id : <?=$album_id?>,
     },
     success: function(data) {
       jQuery.ajax({
@@ -25,6 +25,39 @@ function albumLove() {
   });
 }
 albumLove();
+
+function topListeners() {
+  jQuery.ajax({
+    type: 'POST', url: '/api/topListener', 
+    data: {
+      limit : 6,
+      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      artist : '<?php echo $artist_name?>',
+      album : '<?php echo $album_name?>'
+    },
+    success: function(data) {
+      jQuery.ajax({
+        type: 'POST', url: '/ajax/albumTable',
+        data: {
+          json_data : data,
+          hide : {'date' : true, 'calendar': true},
+          img : 'user',
+          title : 'user',
+          size : 32
+        },
+        success: function(data) {
+          jQuery('#topListenerLoader').hide();
+          jQuery('#topListener').html(data);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        }
+      });
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    }
+  });
+}
+topListeners();
 
 function recentlyListened() {
   jQuery.ajax({
@@ -58,36 +91,3 @@ function recentlyListened() {
   });
 }
 recentlyListened();
-
-function topListeners() {
-  jQuery.ajax({
-    type: 'POST', url: '/api/topListener', 
-    data: {
-      limit : 6,
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-      artist : '<?php echo $artist_name?>',
-      album : '<?php echo $album_name?>'
-    },
-    success: function(data) {
-      jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
-        data: {
-          json_data : data,
-          hide : {"date" : true},
-          img : 'user',
-          title : 'user',
-          size : 32
-        },
-        success: function(data) {
-          jQuery('#topListenerLoader').hide();
-          jQuery('#topListener').html(data);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
-    }
-  });
-}
-topListeners();

@@ -25,6 +25,17 @@ if (is_array($json_data)) {
         </td>
         <?php
       }
+      if (empty($hide['calendar'])) {
+        ?>
+        <td class="barChartCalendar">
+          <?php
+          $timestamp = strtotime($row->date);
+          ?>
+          <span class="month"><?=date('M', $timestamp)?></span>
+          <span class="day"><?=date('j', $timestamp)?></span>
+        </td>
+        <?php
+      }
       ?>
       <td class="img<?=$size?> <?=$img?>Img">
       <?php

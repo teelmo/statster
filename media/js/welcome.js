@@ -10,7 +10,7 @@ function recentlyListened() {
         data: {
           json_data : data,
           size : 32,
-          hide : {"artist" : true, "count" : true, "rank" : true},
+          hide : {'artist':true, 'count':true, 'rank':true, 'calendar':true},
           title : 'music',
           img : 'album'
         },
