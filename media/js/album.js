@@ -32,8 +32,8 @@ function topListeners() {
     data: {
       limit : 6,
       username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-      artist : '<?php echo $artist_name?>',
-      album : '<?php echo $album_name?>'
+      artist_name : '<?php echo $artist_name?>',
+      album_name : '<?php echo $album_name?>'
     },
     success: function(data) {
       jQuery.ajax({
@@ -65,8 +65,8 @@ function recentlyListened() {
     data: {
       limit : 6,
       username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-      artist : '<?php echo $artist_name?>',
-      album : '<?php echo $album_name?>'
+      artist_name : '<?php echo $artist_name?>',
+      album_name : '<?php echo $album_name?>'
     },
     success: function(data) {
       jQuery.ajax({

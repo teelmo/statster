@@ -10,13 +10,13 @@ class Music extends CI_Controller {
     $this->load->view('templates/footer');
   }
 
-  public function artist($artist) {
+  public function artist($artist_name) {
     // Load helpers
     $this->load->helper(array('img_helper', 'music_helper', 'artist_helper'));
 
     $data = array();
     // Decode artist information
-    $data['artist'] = urldecode(urldecode(utf8_decode($artist)));
+    $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
     // Get artist information aka. artist's name and id
     if ($data = getArtistInfo($data)) {
       // Get artist's totaol listening data
@@ -28,8 +28,8 @@ class Music extends CI_Controller {
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getArtistTags($data);
-
       $data['request'] = array('artist', 'artistAlbum');
+      $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
       $this->load->view('artist_view', $data);
@@ -40,13 +40,13 @@ class Music extends CI_Controller {
     }
   }
 
-  public function album($artist, $album) {
+  public function album($artist_name, $album_name) {
     // Load helpers
     $this->load->helper(array('img_helper', 'music_helper', 'album_helper'));
 
     $data = array();
-    $data['artist'] = urldecode(urldecode(utf8_decode($artist)));
-    $data['album'] = urldecode(urldecode(utf8_decode($album)));
+    $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
+    $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
 
     // Get artist information aka. artist's name and id
     if ($data = getAlbumInfo($data)) {
@@ -59,8 +59,8 @@ class Music extends CI_Controller {
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getAlbumTags($data);
-
       $data['request'] = array('album', 'artistAlbum');
+      $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
       $this->load->view('album_view', $data);
@@ -71,10 +71,12 @@ class Music extends CI_Controller {
     }
   }
 
-public function recent() {
+public function recent($artist_name = '', $album_name = FALSE) {
     $data = array();
-    $data += $_REQUEST;
+    $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
+    $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
     $data['request'] = array('recent');
+    $data += $_REQUEST;
 
     $this->load->view('templates/header');
     $this->load->view('recent_view', $data);

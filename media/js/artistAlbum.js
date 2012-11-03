@@ -2,7 +2,7 @@ function artistAlbum() {
   jQuery.ajax({
     type: 'POST', url: '/api/artistAlbum', 
     data: {
-      artist : '<?php echo $artist_name?>',
+      artist_name : '<?php echo $artist_name?>',
       username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {

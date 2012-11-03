@@ -247,7 +247,7 @@ if (!function_exists('getTopArtists')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
+    $artist_name = !empty($opts['artist']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -272,7 +272,7 @@ if (!function_exists('getTopArtists')) {
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
-              AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist) . "
+              AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
               GROUP BY " . mysql_real_escape_string($group_by) . "
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
@@ -305,8 +305,8 @@ if (!function_exists('getTopAlbums')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
-    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $artist_name = !empty($opts['artist']) ? $opts['artist_name'] : '%';
+    $album_name = !empty($opts['album']) ? $opts['album_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_album . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -334,8 +334,8 @@ if (!function_exists('getTopAlbums')) {
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
-              AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist) . "
-              AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album) . "
+              AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
+              AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album_name) . "
               GROUP BY " . mysql_real_escape_string($group_by) . "
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
@@ -367,8 +367,8 @@ if (!function_exists('getTopListeners')) {
 
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-01-01';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
-    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
-    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $artist_name = !empty($opts['artist']) ? $opts['artist_name'] : '%';
+    $album_name = !empty($opts['album']) ? $opts['album_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_user . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -390,8 +390,8 @@ if (!function_exists('getTopListeners')) {
                                                    AND " . $ci->db->escape($upper_limit) . "
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist) . "
-              AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album) . "
+              AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
+              AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album_name) . "
               GROUP BY " . mysql_real_escape_string($group_by) . "
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
@@ -419,8 +419,8 @@ if (!function_exists('getRecentlyListened')) {
     $ci->load->database();
     
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
-    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $date = !empty($opts['date']) ? $opts['date'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
@@ -439,8 +439,8 @@ if (!function_exists('getRecentlyListened')) {
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
               AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
               AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
-              AND " . TBL_artist . ". `artist_name` LIKE " . $ci->db->escape($artist) . "
-              AND " . TBL_album . ". `album_name` LIKE " . $ci->db->escape($album) . "
+              AND " . TBL_artist . ". `artist_name` LIKE " . $ci->db->escape($artist_name) . "
+              AND " . TBL_album . ". `album_name` LIKE " . $ci->db->escape($album_name) . "
               AND " . TBL_listening . ". `date` LIKE " . $ci->db->escape($date) . "
             ORDER BY " . TBL_listening . ". `date` DESC, 
                      " . TBL_listening . ". `id` DESC
@@ -465,8 +465,8 @@ if (!function_exists('getArtistAlbums')) {
     $ci->load->database();
 
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
-    $album = !empty($opts['album']) ? $opts['album'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $date = !empty($opts['date']) ? $opts['date'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
@@ -481,8 +481,8 @@ if (!function_exists('getArtistAlbums')) {
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
               AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
               AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
-              AND " . TBL_artist . ". `artist_name` LIKE " . $ci->db->escape($artist) . "
-              AND " . TBL_album . ". `album_name` LIKE " . $ci->db->escape($album) . "
+              AND " . TBL_artist . ". `artist_name` LIKE " . $ci->db->escape($artist_name) . "
+              AND " . TBL_album . ". `album_name` LIKE " . $ci->db->escape($album_name) . "
               AND " . TBL_listening . ". `date` LIKE " . $ci->db->escape($date) . "
             GROUP BY " . TBL_album . ".`id`
             ORDER BY count(" . TBL_album . ".`id`) DESC";

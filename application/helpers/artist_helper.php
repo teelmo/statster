@@ -14,7 +14,7 @@ if (!function_exists('getArtistInfo')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_name = !empty($opts['artist']) ? $opts['artist'] : '';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
     $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`, " . TBL_artist . ".`artist_name`
             FROM " . TBL_artist . "
             WHERE " . TBL_artist . ".`artist_name` = " . $ci->db->escape($artist_name);
