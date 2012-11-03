@@ -13,6 +13,7 @@ if (is_array($json_data)) {
     foreach ($json_data as $idx => $row) {
       $class = '';
       $size = 32;
+      $datetime = '';
       if ($idx == 0) {
         if ((time() - strtotime($row->created)) < JUST_LISTENED_INTERVAL && $row->date == CUR_DATE) {
           $class = 'justAdded';
@@ -21,7 +22,7 @@ if (is_array($json_data)) {
           $justAdded = TRUE;
         }
       }
-      elseif($justAdded === TRUE) {
+      elseif ($justAdded === TRUE) {
         $class = 'justAddedRest';
       }
       ?>
@@ -52,7 +53,7 @@ if (is_array($json_data)) {
           ?>
           <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon listeningFormatType"/>
         </td>
-        <td class="datetime textRight"><?=timeAgo($row->date)?></td>
+        <td class="datetime textRight"><?php echo !empty($datetime) ? $datetime : timeAgo($row->date)?></td>
         <td class="img userImg">
           <img src="<?=getUserImg(array('user_id' => $row->user_id, 'size' => $size))?>" alt="" class="userImg userImg<?=$size?>"/>
         </td>
