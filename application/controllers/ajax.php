@@ -106,5 +106,15 @@ class Ajax extends CI_Controller {
       exit ('No direct script access allowed');
     }
   }
+
+  public function artistBio() {
+    if (!empty($_POST)) {
+      $data = $_POST;
+      $this->load->view('templates/artist_bio', $data);
+    }
+    else {
+      exit ('No direct script access allowed');
+    }
+  }
 }
 ?>

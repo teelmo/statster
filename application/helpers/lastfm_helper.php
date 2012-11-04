@@ -45,7 +45,15 @@ if (!function_exists('getArtistsSimilar')) {
  */
 if (!function_exists('getArtistsEvents')) {
   function getArtistsEvents($opts = array()) {
-    
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 4;
+    $format = !empty($opts['format']) ? $opts['format'] : 'json';
+    if ($artist_name !== FALSE) {
+      $data = array();
+      return json_encode($data);  
+    }
+    return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
   }
 }
 
@@ -60,7 +68,16 @@ if (!function_exists('getArtistsEvents')) {
  */
 if (!function_exists('getArtistsBio')) {
   function getArtistsBio($opts = array()) {
-    
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $format = !empty($opts['format']) ? $opts['format'] : 'json';
+    if ($artist_name !== FALSE) {
+      $data = array();
+      $artist_bio = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . $artist_name . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
+      $artist_info = $artist_bio['artist'];
+      return json_encode($artist_info['bio']['content']); 
+    }
+    return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
   }
 }
 ?>
