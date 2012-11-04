@@ -24,7 +24,7 @@ if (!function_exists('_json_return_helper')) {
       else {
         return json_encode($query->result());
       }
-      return FALSE;
+      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
     }
     else {
       if (!empty($human_readable) && $human_readable != 'false') {
@@ -38,7 +38,7 @@ if (!function_exists('_json_return_helper')) {
       else {
         return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
       }
-      return FALSE;
+      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
     }
   }
 }

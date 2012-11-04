@@ -16,8 +16,8 @@
       </div>
       <script type="text/javascript">
         <?php
-        if (isset($request)) {
-          foreach ($request as $file) {
+        if (isset($js_include)) {
+          foreach ($js_include as $file) {
             if (file_exists('./media/js/' . $file . '.js')) {
               include('./media/js/' . $file . '.js');
             }

@@ -28,7 +28,7 @@ class Music extends CI_Controller {
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getArtistTags($data);
-      $data['request'] = array('artist', 'artistAlbum');
+      $data['js_include'] = array('artist', 'artistAlbum', 'similarArtist');
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
@@ -59,7 +59,7 @@ class Music extends CI_Controller {
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getAlbumTags($data);
-      $data['request'] = array('album', 'artistAlbum');
+      $data['js_include'] = array('album', 'artistAlbum', 'similarArtist');
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
@@ -75,7 +75,7 @@ class Music extends CI_Controller {
     $data = array();
     $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
     $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
-    $data['request'] = array('recent');
+    $data['js_include'] = array('recent');
     $data += $_REQUEST;
 
     $this->load->view('templates/header');
@@ -87,7 +87,7 @@ class Music extends CI_Controller {
     $data = array();
     $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
     $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
-    $data['request'] = array('listener');
+    $data['js_include'] = array('listener');
     $data += $_REQUEST;
 
     $this->load->view('templates/header');

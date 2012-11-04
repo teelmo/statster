@@ -6,7 +6,7 @@
 class Album extends CI_Controller {
 
   public function index() {
-    $data['request'] = array('albums');
+    $data['js_include'] = array('albums');
 
     $this->load->view('templates/header');
     $this->load->view('albums_view');

@@ -6,7 +6,7 @@
 class Artist extends CI_Controller {
 
   public function index() {
-    $data['request'] = array('artists');
+    $data['js_include'] = array('artists');
 
     $this->load->view('templates/header');
     $this->load->view('artists_view');
