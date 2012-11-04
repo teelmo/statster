@@ -100,5 +100,8 @@ define('TBL_user_album', 'user_album');
 define('TBL_user_comment', 'user_comment');
 define('TBL_user_info', 'user_info');
 
+/* API keys */
+define('LASTFM_API_KEY', 'b43a6b2eed67fe3672dbe43c102be8e6');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
