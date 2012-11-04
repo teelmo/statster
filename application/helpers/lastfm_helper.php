@@ -18,7 +18,7 @@ if (!function_exists('getArtistsSimilar')) {
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {
       $data = array();
-      $similar_artists = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' . $artist_name . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
+      $similar_artists = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
       $similar_artists = $similar_artists['similarartists']['artist'];
       foreach ($similar_artists as $idx => $similar_artist) {
         if ($artist_info = getArtistInfo(array('artist_name' => $similar_artist['name']))) {
@@ -73,7 +73,7 @@ if (!function_exists('getArtistsBio')) {
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {
       $data = array();
-      $artist_bio = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . $artist_name . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
+      $artist_bio = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
       $artist_info = $artist_bio['artist'];
       return json_encode($artist_info['bio']['content']); 
     }
