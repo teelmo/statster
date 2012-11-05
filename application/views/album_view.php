@@ -61,9 +61,9 @@
   </div>
   <div class="clear"></div>
   <div class="container">
-    <h2>Biography</h2>
+    <h2 id="biography">Biography</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistBioLoader"/>
-    <p id="artistBio"><!-- Content is loaded with AJAX --></p>
+    <div id="artistBio"><!-- Content is loaded with AJAX --></div>
   </div>
   <div class="container"><hr /></div>
   <div class="container">

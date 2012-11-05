@@ -184,9 +184,15 @@ div.more {
   font-weight: bold;
   line-height: 16px;
   padding-right: 20px;
-  background-image: url('/media/img/icons/arrow-right.png');
+  background-image: url('/media/img/icons/arrow-right_blue.png');
   background-repeat: no-repeat;
   background-position: right top;
+}
+div.moreDown {
+  background-image: url('/media/img/icons/arrow-down_blue.png');
+}
+div.moreUp {
+  background-image: url('/media/img/icons/arrow-up_blue.png');
 }
 span.tag {
   padding: 4px;
@@ -232,6 +238,9 @@ div.artistInfo div.externalLink {
   color: #666;
   font-size: 13px;
   font-weight: bold;
+}
+div#artistBio p.content {
+  display: none;
 }
 
 /*
@@ -738,7 +747,7 @@ span#userContDropdown {
   vertical-align: 0%;
   padding-left: 18px;
   margin-right: 3px;
-  background-image: url('/media/img/icons/arrow-down.png');
+  background-image: url('/media/img/icons/arrow-down_grey.png');
   background-repeat: no-repeat;
   background-position: right center;
 }

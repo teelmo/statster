@@ -74,8 +74,9 @@ if (!function_exists('getArtistsBio')) {
     if ($artist_name !== FALSE) {
       $data = array();
       $artist_bio = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
-      $artist_info = $artist_bio['artist'];
-      return json_encode($artist_info['bio']['content']); 
+      $data['bio_summary'] = $artist_bio['artist']['bio']['summary']; 
+      $data['bio_content'] = $artist_bio['artist']['bio']['content'];
+      return json_encode($data); 
     }
     return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
   }

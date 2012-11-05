@@ -17,6 +17,18 @@ function artistBio() {
           jQuery('#artistBio').html(data);
         },
         complete: function() {
+          jQuery('#biographyMore').click(function() {
+            jQuery('#biographyMore').hide();
+            jQuery('.summary').hide();
+            jQuery('#biographyLess').show();
+            jQuery('.content').show();
+          });
+          jQuery('#biographyLess').click(function() {
+            jQuery('#biographyLess').hide();
+            jQuery('.content').hide();
+            jQuery('#biographyMore').show();
+            jQuery('.summary').show();
+          });
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -27,3 +39,4 @@ function artistBio() {
   });
 }
 artistBio();
+
