@@ -1,14 +1,16 @@
 function artistFan() {
   jQuery.ajax({
-    type: 'POST', url: '/api/artistFan', 
+    type:'POST',
+    url:'/api/artistFan',
     data: {
-      artist_id : '<?=$artist_id?>',
+      artist_id:'<?=$artist_id?>',
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/artistFan',
+        type: 'POST',
+        url: '/ajax/artistFan',
         data: {
-          json_data : data
+          json_data:data
         },
         success: function(data) {
           jQuery('#artistFanLoader').hide();
@@ -28,21 +30,24 @@ artistFan();
 
 function topListeners() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topListener', 
+    type:'POST',
+    url:'/api/topListener',
     data: {
-      limit : 6,
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-      artist_name : '<?php echo $artist_name?>'
+      limit:6,
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      artist_name:'<?php echo $artist_name?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
+        type:'POST',
+        url:'/ajax/userTable',
         data: {
-          json_data : data,
-          hide : {'date':true, 'calendar':true},
-          img : 'user',
-          title : 'user',
-          size : 32
+          json_data:data,
+          hide: {
+            date:true,
+            calendar:true
+          },
+          size:32
         },
         success: function(data) {
           jQuery('#topListenerLoader').hide();
@@ -60,21 +65,25 @@ topListeners();
 
 function recentlyListened() {
   jQuery.ajax({
-    type: 'POST', url: '/api/recentlyListened', 
+    type:'POST',
+    url:'/api/recentlyListened',
     data: {
-      limit : 6,
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-      artist_name : '<?php echo $artist_name?>'
+      limit:6,
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      artist_name:'<?php echo $artist_name?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
+        type:'POST',
+        url:'/ajax/albumTable',
         data: {
-          json_data : data,
-          hide : {"artist" : true, "count" : true, "rank" : true},
-          img : 'album',
-          title : 'music',
-          size : 32
+          json_data:data,
+          hide: {
+            artist:true,
+            count:true,
+            rank:true
+          },
+          size:32
         },
         success: function(data) {
           jQuery('#recentlyListenedLoader').hide();

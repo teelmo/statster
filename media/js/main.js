@@ -2,12 +2,13 @@ jQuery('#addListeningText').focus();
 
 jQuery("#addListeningSubmit").click(function() {
   jQuery.ajax({
-    type: 'POST', url: '/api/addListening',
+    type:'POST',
+    url:'/api/addListening',
     data: {
-      text : jQuery('#addListeningText').val(),
-      date : jQuery('#addListeningDate').val(),
-      format : jQuery('input[name="addListeningFormat"]:checked').val(),
-      submitType : jQuery('input[name="submitType"]').val(),
+      text:jQuery('#addListeningText').val(),
+      date:jQuery('#addListeningDate').val(),
+      format:jQuery('input[name="addListeningFormat"]:checked').val(),
+      submitType:jQuery('input[name="submitType"]').val(),
     },
     success: function(data) {
       if (data == '') {  

@@ -28,22 +28,24 @@ albumLove();
 
 function topListeners() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topListener', 
-    data: {
-      limit : 6,
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-      artist_name : '<?php echo $artist_name?>',
-      album_name : '<?php echo $album_name?>'
+    type:'POST',
+    url: '/api/topListener',
+    data:{
+      limit:6,
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      artist_name:'<?php echo $artist_name?>',
+      album_name:'<?php echo $album_name?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
-        data: {
-          json_data : data,
-          hide : {'date' : true, 'calendar': true},
-          img : 'user',
-          title : 'user',
-          size : 32
+        type:'POST',
+        url:'/ajax/userTable',
+        data:{
+          json_data:data,
+          hide:{'date':true,'calendar':true},
+          img:'user',
+          title:'user',
+          size:32
         },
         success: function(data) {
           jQuery('#topListenerLoader').hide();
@@ -61,22 +63,25 @@ topListeners();
 
 function recentlyListened() {
   jQuery.ajax({
-    type: 'POST', url: '/api/recentlyListened', 
+    type:'POST',
+    url:'/api/recentlyListened',
     data: {
-      limit : 6,
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-      artist_name : '<?php echo $artist_name?>',
-      album_name : '<?php echo $album_name?>'
+      limit:6,
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      artist_name:'<?php echo $artist_name?>',
+      album_name:'<?php echo $album_name?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
-        data: {
-          json_data : data,
-          hide : {"artist" : true, "count" : true, "rank" : true},
-          title : 'music',
-          img : 'user',
-          size : 32
+        type:'POST',
+        url:'/ajax/userTable',
+        data:{
+          json_data:data,
+          hide: {
+            count:true,
+            rank:true
+          },
+          size:32
         },
         success: function(data) {
           jQuery('#recentlyListenedLoader').hide();

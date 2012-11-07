@@ -1,16 +1,18 @@
 function popularGenre() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topGenre',
+    type:'POST',
+    url:'/api/topGenre',
     data: {
-      limit : 15,
-      lower_limit : '<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:15,
+      lower_limit:'<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/popularTag',
+        type:'POST',
+        url:'/ajax/popularTag',
         data: {
-          json_data : data
+          json_data:data
         },
         success: function(data) {
           jQuery('#popularGenreLoader').hide();

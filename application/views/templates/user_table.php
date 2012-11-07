@@ -37,20 +37,13 @@ if (is_array($json_data)) {
         <?php
       }
       ?>
-      <td class="img<?=$size?> albumImg">
-        <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
+      <td class="img<?=$size?> userImg">
+      <?=anchor(array('user', 'profile', url_title($row->username)), '<img src="' . getUserImg(array('user_id' => $row->user_id, 'size' => $size)) . '" alt="" class="userImg userImg' . $size . '" />', array('title' => 'Browse to user\'s page'));
+      ?>
       </td>
       <td class="title">
         <div class="title">
-          <?php
-          if (empty($hide['artist'])) {
-            echo anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'));
-            echo ' ' . DASH . ' ';
-          }
-          echo anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'));
-          echo ' ';
-          echo anchor(array('tag', 'release+year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'));
-          ?>
+          <?= anchor(array('user', 'profile', url_title($row->username)), $row->username, array('title' => 'Browse to user profile'))?>
         </div>
         <?php
         if (empty($hide['date'])) {
