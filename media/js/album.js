@@ -1,7 +1,7 @@
 function albumLove() {
   jQuery.ajax({
     type:'POST',
-    url:'/api/albumLove', 
+    url:'/api/albumLove',
     data: {
       album_id:<?=$album_id?>,
     },
@@ -44,9 +44,10 @@ function topListeners() {
         url:'/ajax/userTable',
         data:{
           json_data:data,
-          hide:{'date':true,'calendar':true},
-          img:'user',
-          title:'user',
+          hide:{
+            date:true,
+            calendar:true
+          },
           size:32
         },
         success: function(data) {

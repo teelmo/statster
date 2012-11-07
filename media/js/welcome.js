@@ -38,23 +38,25 @@ recentlyListened();
 
 function topArtist() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topArtist',
+    type:'POST',
+    url:'/api/topArtist',
     data: {
-      lower_limit : '1970-01-01',
-      limit : 15,
+      lower_limit:'1970-01-01',
+      limit:15,
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/artistBar',
+        type:'POST',
+        url:'/ajax/artistBar',
         data: {
-          json_data : data,
+          json_data:data,
         },
         success: function(data) {
           jQuery('#topArtistLoader').hide();
           jQuery('#topArtist').html(data);
         },
         complete: function() {
-          setTimeout(topArtist, 60 * 10 * 1000);
+          setTimeout(topArtist, 60*10*1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
