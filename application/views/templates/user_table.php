@@ -10,7 +10,7 @@ if (is_array($json_data)) {
   $prev_count = FALSE;
   foreach ($json_data as $idx => $row) {
     ?>
-    <tr id="albumTable<?=$idx?>">
+    <tr id="userTable<?=$idx?>">
       <?php
       if (empty($hide['rank'])) {
         ?>
