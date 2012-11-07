@@ -28,7 +28,7 @@ class Music extends CI_Controller {
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getArtistTags($data);
-      $data['js_include'] = array('artist', 'artistAlbum', 'similarArtist', 'artistBio');
+      $data['js_include'] = array('artist', 'artistAlbum', 'similarArtist', 'artistBio', 'artistEvent');
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
@@ -59,7 +59,7 @@ class Music extends CI_Controller {
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getAlbumTags($data);
-      $data['js_include'] = array('album', 'artistAlbum', 'similarArtist', 'artistBio');
+      $data['js_include'] = array('album', 'artistAlbum', 'similarArtist', 'artistBio', 'artistEvent');
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);

@@ -72,9 +72,6 @@ class Ajax extends CI_Controller {
 
   public function eventTable() {
     if (!empty($_POST)) {
-      // Load helpers
-      $this->load->helper(array('img_helper', 'text_helper'));
-
       $data = $_POST;
       $this->load->view('templates/event_table', $data);
     }
