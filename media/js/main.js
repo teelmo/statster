@@ -12,7 +12,7 @@ jQuery("#addListeningSubmit").click(function() {
     },
     success: function(data) {
       if (data == '') {  
-        jQuery('#addListeningText').val("");
+        jQuery('#addListeningText').val('');
         jQuery('input[name="addListeningFormat"]').prop('checked', false);
         jQuery('img.listeningFormat').removeClass('selected');
         recentlyListened();

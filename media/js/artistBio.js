@@ -1,16 +1,20 @@
 function artistBio() {
   jQuery.ajax({
-    type: 'POST', url: '/api/artistBio', 
+    type:'POST',
+    url:'/api/artistBio',
     data: {
-      limit : 4,
-      artist_name : '<?php echo $artist_name?>'
+      limit:4,
+      artist_name:'<?php echo $artist_name?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/artistBio',
+        type:'POST',
+        url:'/ajax/artistBio',
         data: {
-          json_data : data,
-          hide : {'count':true},
+          json_data:data,
+          hide : {
+            count:true
+          },
         },
         success: function(data) {
           jQuery('#artistBioLoader').hide();
@@ -39,4 +43,3 @@ function artistBio() {
   });
 }
 artistBio();
-

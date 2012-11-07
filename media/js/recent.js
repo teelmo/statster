@@ -3,8 +3,8 @@ function recentlyListened(isFirst) {
     jQuery('#recentlyListenedLoader2').show();
   }
   jQuery.ajax({
-    type:'POST', 
-    url:'/api/recentlyListened', 
+    type:'POST',
+    url:'/api/recentlyListened',
     data: {
       limit:100,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
@@ -33,7 +33,7 @@ function recentlyListened(isFirst) {
           jQuery('#recentlyUpdated').attr('value', currentTime.getTime());
         },
         complete: function() {
-          setTimeout(recentlyListened, 60 * 10 * 1000);
+          setTimeout(recentlyListened, 60*10*1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }

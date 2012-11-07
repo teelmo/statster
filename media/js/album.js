@@ -1,14 +1,16 @@
 function albumLove() {
   jQuery.ajax({
-    type: 'POST', url: '/api/albumLove', 
+    type:'POST',
+    url:'/api/albumLove',
     data: {
-      album_id : <?=$album_id?>,
+      album_id:<?=$album_id?>,
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumLove',
+        type:'POST',
+        url:'/ajax/albumLove',
         data: {
-          json_data : data
+          json_data:data
         },
         success: function(data) {
           jQuery('#albumLoveLoader').hide();
@@ -42,9 +44,10 @@ function topListeners() {
         url:'/ajax/userTable',
         data:{
           json_data:data,
-          hide:{'date':true,'calendar':true},
-          img:'user',
-          title:'user',
+          hide:{
+            date:true,
+            calendar:true
+          },
           size:32
         },
         success: function(data) {

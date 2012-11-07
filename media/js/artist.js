@@ -3,12 +3,12 @@ function artistFan() {
     type:'POST',
     url:'/api/artistFan',
     data: {
-      artist_id:'<?=$artist_id?>',
+      artist_id:<?=$artist_id?>,
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST',
-        url: '/ajax/artistFan',
+        type:'POST',
+        url:'/ajax/artistFan',
         data: {
           json_data:data
         },
