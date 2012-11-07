@@ -24,7 +24,7 @@ function recentlyListened() {
           jQuery('#recentlyListened').html(data);
         },
         complete: function() {
-          setTimeout(recentlyListened, 60 * 10 * 1000);
+          setTimeout(recentlyListened, 60*10*1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }

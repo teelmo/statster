@@ -12,7 +12,7 @@ function topGenre() {
         type:'POST',
         url:'/ajax/popularTag',
         data: {
-          json_data : data
+          json_data:data
         },
         success: function(data) {
           jQuery('#topGenreLoader').hide();
