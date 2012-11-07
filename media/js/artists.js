@@ -1,16 +1,18 @@
 function topArtist10() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topArtist', 
+    type:'POST',
+    url:'/api/topArtist', 
     data: {
-      limit : 8,
-      lower_limit : '1970-01-01',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:8,
+      lower_limit:'1970-01-01',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/artistList/124',
+        type:'POST',
+        url:'/ajax/artistList/124',
         data: {
-          json_data : data
+          json_data:data
         },
         success: function(data) {
           jQuery('#topArtist10Loader').hide();
