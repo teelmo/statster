@@ -72,9 +72,6 @@ class Ajax extends CI_Controller {
 
   public function eventTable() {
     if (!empty($_POST)) {
-      // Load helpers
-      $this->load->helper(array('img_helper', 'text_helper'));
-
       $data = $_POST;
       $this->load->view('templates/event_table', $data);
     }
@@ -127,6 +124,16 @@ class Ajax extends CI_Controller {
     if (!empty($_POST)) {
       $data = $_POST;
       $this->load->view('templates/list_like', $data);
+    }
+    else {
+      exit ('No direct script access allowed');
+    }
+  }
+
+  public function artistBio() {
+    if (!empty($_POST)) {
+      $data = $_POST;
+      $this->load->view('templates/artist_bio', $data);
     }
     else {
       exit ('No direct script access allowed');

@@ -50,6 +50,9 @@ define('DASH', '-');
 
 // Error msgs
 define('ERR_NO_RESULTS', 'No results.');
+define('ERR_NO_ARTIST', 'No artist given.');
+define('ERR_NO_EVENT', 'No events.');
+define('ERR_GENERAL', 'General error.');
 define('ERR_INCORRECT_CREDENTIALS', 'Username or password error.');
 
 // Autocomplete
@@ -99,6 +102,9 @@ define('TBL_user', 'user');
 define('TBL_user_album', 'user_album');
 define('TBL_user_comment', 'user_comment');
 define('TBL_user_info', 'user_info');
+
+/* API keys */
+define('LASTFM_API_KEY', 'b43a6b2eed67fe3672dbe43c102be8e6');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
