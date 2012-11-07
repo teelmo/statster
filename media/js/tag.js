@@ -1,14 +1,16 @@
 function topGenre() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topGenre', 
+    type:'POST', 
+    url:'/api/topGenre', 
     data: {
-      limit : 7,
-      lower_limit : '<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:7,
+      lower_limit:'<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/popularTag',
+        type:'POST',
+        url:'/ajax/popularTag',
         data: {
           json_data : data
         },
@@ -30,17 +32,19 @@ topGenre();
 
 function topKeyword() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topKeyword', 
+    type:'POST',
+    url:'/api/topKeyword',
     data: {
-      limit : 7,
-      lower_limit : '<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:7,
+      lower_limit:'<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/popularTag',
+        type:'POST',
+        url:'/ajax/popularTag',
         data: {
-          json_data : data
+          json_data:data
         },
         success: function(data) {
           jQuery('#topKeywordLoader').hide();

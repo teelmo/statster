@@ -1,18 +1,23 @@
 function recentlyListened() {
   jQuery.ajax({
-    type: 'POST', url: '/api/recentlyListened', 
+    type:'POST',
+    url:'/api/recentlyListened',
     data: {
-      limit : 5,
+      limit:5,
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
+        type:'POST',
+        url:'/ajax/albumTable',
         data: {
-          json_data : data,
-          size : 32,
-          hide : {'artist':true, 'count':true, 'rank':true, 'calendar':true},
-          title : 'music',
-          img : 'album'
+          json_data:data,
+          size:32,
+          hide : {
+            artist:true,
+            count:true,
+            rank:true,
+            calendar:true
+          },
         },
         success: function(data) {
           jQuery('#recentlyListenedLoader').hide();
