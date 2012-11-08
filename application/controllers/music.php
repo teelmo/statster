@@ -3,7 +3,7 @@ class Music extends CI_Controller {
 
   public function index() {
     $data = array();
-    $data['request'] = array('music');
+    $data['js_include'] = array('music');
     
     $this->load->view('templates/header', $data);
     $this->load->view('music_view');
@@ -16,7 +16,7 @@ class Music extends CI_Controller {
 
     $data = array();
     // Decode artist information
-    $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
+    $data['artist_name'] = decode($artist_name);
     // Get artist information aka. artist's name and id
     if ($data = getArtistInfo($data)) {
       // Get artist's totaol listening data
@@ -45,8 +45,8 @@ class Music extends CI_Controller {
     $this->load->helper(array('img_helper', 'music_helper', 'album_helper'));
 
     $data = array();
-    $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
-    $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
+    $data['artist_name'] = decode($artist_name);
+    $data['album_name'] = decode($album_name);
 
     // Get artist information aka. artist's name and id
     if ($data = getAlbumInfo($data)) {
@@ -73,8 +73,8 @@ class Music extends CI_Controller {
 
   public function recent($artist_name = '', $album_name = FALSE) {
     $data = array();
-    $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
-    $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
+    $data['artist_name'] = decode($artist_name);
+    $data['album_name'] = decode($album_name);
     $data['js_include'] = array('recent');
     $data += $_REQUEST;
 
@@ -85,8 +85,8 @@ class Music extends CI_Controller {
 
   public function listener($artist_name = '', $album_name = FALSE) {
     $data = array();
-    $data['artist_name'] = urldecode(urldecode(utf8_decode($artist_name)));
-    $data['album_name'] = urldecode(urldecode(utf8_decode($album_name)));
+    $data['artist_name'] = decode($artist_name);
+    $data['album_name'] = decode($album_name);
     $data['js_include'] = array('listener');
     $data += $_REQUEST;
 

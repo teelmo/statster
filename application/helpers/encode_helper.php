@@ -16,4 +16,18 @@ if (!function_exists('url_title')) {
     return str_replace($search, $replace, $url);
   }
 }
+
+/**
+ * Convert a string so that it can be used by the system
+ *
+ * @param string $str.
+ *
+ * @return string str decoded string.
+ *
+ */
+if (!function_exists('decode')) {
+  function decode($str) {
+    return html_entity_decode(urldecode(urldecode(utf8_decode($str))));
+  }
+}
 ?>
