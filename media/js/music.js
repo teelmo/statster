@@ -30,20 +30,24 @@ popularGenre();
 
 function topAlbum() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topAlbum',
+    type:'POST',
+    url:'/api/topAlbum',
     data: {
-      limit : 15,
-      lower_limit : '<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:15,
+      lower_limit:'<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
+        type:'POST',
+        url:'/ajax/albumTable',
         data: {
-          json_data : data,
-          hide : {'count':true, 'rank':true, 'date':true, 'calendar':true},
-          title : 'music',
-          img : 'album'
+          json_data:data,
+          hide: {
+            'count':true,
+            'rank':true,
+            'date':true
+          }
         },
         success: function(data) {
           jQuery('#popularAlbumLoader').hide();
