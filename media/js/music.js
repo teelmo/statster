@@ -44,9 +44,9 @@ function topAlbum() {
         data: {
           json_data:data,
           hide: {
-            'count':true,
-            'rank':true,
-            'date':true
+            count:true,
+            rank:true,
+            date:true
           }
         },
         success: function(data) {
