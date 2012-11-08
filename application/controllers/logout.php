@@ -13,7 +13,6 @@ class Logout extends CI_Controller {
     else {
       echo $logout;
     }
-
   }
 }
 ?>

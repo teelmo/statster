@@ -12,6 +12,5 @@ class Album extends CI_Controller {
     $this->load->view('albums_view');
     $this->load->view('templates/footer', $data);
   }
-
 }
 ?>

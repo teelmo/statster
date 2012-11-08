@@ -12,6 +12,5 @@ class Artist extends CI_Controller {
     $this->load->view('artists_view');
     $this->load->view('templates/footer', $data);
   }
-
 }
 ?>
