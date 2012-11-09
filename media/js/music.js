@@ -46,7 +46,8 @@ function topAlbum() {
           hide: {
             count:true,
             rank:true,
-            date:true
+            date:true,
+            calendar:true
           }
         },
         success: function(data) {
