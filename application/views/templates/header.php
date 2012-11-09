@@ -5,7 +5,6 @@
     <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="/media/js/jquery.min.js"></script>
     <script type="text/javascript" src="/media/js/jquery.autocomplete.min.js"></script>
-    <script type="text/javascript" src="/media/js/jquery.tipsy.js"></script>
     <script type="text/javascript" src="/media/js/dropdown.js"></script>
     <script type="text/javascript">
       if (document.images) {
