@@ -11,7 +11,7 @@ jQuery("#addListeningSubmit").click(function() {
       submitType:jQuery('input[name="submitType"]').val(),
     },
     success: function(data) {
-      if (data == '') {  
+      if (jQuery.trim(data) == '') {  
         jQuery('#addListeningText').val('');
         jQuery('input[name="addListeningFormat"]').prop('checked', false);
         jQuery('img.listeningFormat').removeClass('selected');
@@ -238,7 +238,6 @@ function recommentedNewAlbum() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      console.log(data);
       jQuery.ajax({
         type:'POST',
         url:'/ajax/albumTable',
