@@ -1,5 +1,6 @@
 <div id="leftCont">
   <div class="container">
+    <span id="fan"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/></span>
     <h1><?=$artist_name?></h1>
   </div>
   <div class="container">

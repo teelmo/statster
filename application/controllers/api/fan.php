@@ -12,18 +12,21 @@ class Fan extends CI_Controller {
     echo getFan($_REQUEST);
   }
 
+  /* Add a fan */
   public function add() {
     // Load helpers
-    
+    $this->load->helper(array('favorites_helper', 'id_helper'));
+
+    echo addFan($_POST);    
   }
 
-  /* Update love information */
+  /* Update fan information */
   public function update() {
     // Load helpers
     
   }
 
-  /* Delete love information */
+  /* Delete fan information */
   public function delete() {
     // Load helpers
     

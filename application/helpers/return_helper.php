@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
  *
  * @param string $human_readable.
  *
- * @return string JSON encoded data containing album information or boolean   FALSE.
+ * @return string JSON.
  */
 if (!function_exists('_json_return_helper')) {
   function _json_return_helper($query, $human_readable) {
@@ -19,11 +19,14 @@ if (!function_exists('_json_return_helper')) {
 
         // Load helpers
         $ci->load->helper(array('text_helper'));
+        header("HTTP/1.1 200 OK");
         return indentJSON(json_encode($query->result()));
       }
       else {
+        header("HTTP/1.1 200 OK");
         return json_encode($query->result());
       }
+      header("HTTP/1.1 400 Bad Request");
       return json_encode(array('error' => array('msg' => ERR_GENERAL)));
     }
     else {
@@ -33,11 +36,14 @@ if (!function_exists('_json_return_helper')) {
 
         // Load helpers
         $ci->load->helper(array('text_helper'));
-        return '<pre>' . indent(json_encode(array('error' => array('msg' => ERR_NO_RESULTS)))) . '</pre>';
+        header("HTTP/1.1 204 No Content");
+        exit ();
       }
       else {
-        return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
+        header("HTTP/1.1 204 No Content");
+        exit ();
       }
+      header("HTTP/1.1 400 Bad Request");
       return json_encode(array('error' => array('msg' => ERR_GENERAL)));
     }
   }

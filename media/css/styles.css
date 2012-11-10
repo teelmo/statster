@@ -256,6 +256,40 @@ div.artistInfo div.externalLink {
 div#artistBio p.content {
   display: none;
 }
+span#love,
+span#fan {
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+  padding-right: 20px;
+  height: 16px;
+  line-height: 16px;
+  cursor: pointer;
+  float: right;
+}
+span.loveMsg,
+span.fanMsg {
+  font-weight: bold;
+  opacity: 0.7;
+  color: #0F0;
+}
+span.loveAdd {
+  background-image: url('/media/img/icons/love_add.png');
+}
+span.fanAdd {
+  background-image: url('/media/img/icons/fan_add.png');
+}
+span.loveDel {
+  background-image: url('/media/img/icons/love.png');
+}
+span.fanDel {
+  background-image: url('/media/img/icons/fan.png');
+}
+span.loveDel:hover{
+  background-image: url('/media/img/icons/love_delete.png');
+}
+span.fanDel:hover {
+  background-image: url('/media/img/icons/fan_delete.png');
+}
 
 /*
  * Anchor styles
@@ -875,6 +909,8 @@ hr {
 }
 .loader {
   margin: 15px 0 0 5px;
+  line-height: 1;
+  display: inline;
 }
 .middle {
   vertical-align: middle;

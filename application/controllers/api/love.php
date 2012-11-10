@@ -12,9 +12,12 @@ class Love extends CI_Controller {
     echo getLove($_REQUEST);
   }
 
+  /* Add a love */
   public function add() {
     // Load helpers
-    
+    $this->load->helper(array('favorites_helper', 'id_helper'));
+
+    echo addLove($_POST);  
   }
 
   /* Update love information */
