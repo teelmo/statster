@@ -25,7 +25,6 @@ class Listening extends CI_Controller {
       $data['artist'] = trim($data['artist']);
       $data['album'] = preg_replace('/^(.*)\(([0-9]){4}\)$/', '$1', $data['album']);
       $data['album'] = trim($data['album']);
-      $data['album_id'] = getAlbumID($data);
       $data['date'] = trim($_POST['date']);
       if (!$data['album_id'] = getAlbumID($data)) {
         echo json_encode(array('error' => array('msg' => 'Album error. Can\'t solve album id.')));
@@ -43,6 +42,7 @@ class Listening extends CI_Controller {
       $query = $this->db->query($sql);
       if ($this->db->affected_rows() == 1) {
         $data['listening_id'] = $this->db->insert_id();
+        // Add listening format data
         if (!empty($_POST['format'])) {
           list($data['format'], $data['format_type']) = explode(':', $_POST['format']);
           addListeningFormat($data);
