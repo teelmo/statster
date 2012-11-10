@@ -331,6 +331,7 @@ form#addListeningForm input[type="text"] {
   width: 98%;
   background-color: #EEE;
 }
+form#addListeningForm input[type="text"]:active,
 form#addListeningForm input[type="text"]:focus {
   background-color: #FF0;
   color: #222;
@@ -452,6 +453,9 @@ table.chartTable tbody tr.justAddedRest td.datetime {
 table.chartTable tbody tr.justAddedRest td.title {
   position: relative;
   left: -36px;
+}
+table.chartTable tbody tr td {
+  vertical-align: middle;
 }
 table.chartTable tbody tr td.img {
   width: 32px;
