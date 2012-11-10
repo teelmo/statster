@@ -69,8 +69,7 @@ if (!function_exists('logoutUser')) {
   function logoutUser($opts = array()) {
     $ci=& get_instance();
 
-    $userdata = array('logged_in' => FALSE);
-    $ci->session->set_userdata($userdata);
+    $ci->session->sess_destroy();
     return TRUE;
   }
 }
