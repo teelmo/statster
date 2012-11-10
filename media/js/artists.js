@@ -1,7 +1,7 @@
 function topArtist10() {
   jQuery.ajax({
     type:'POST',
-    url:'/api/topArtist',
+    url:'/api/artist/get',
     data: {
       limit:8,
       lower_limit:'1970-01-01',
@@ -33,7 +33,7 @@ topArtist10();
 function topArtist() {
   jQuery.ajax({
     type: 'POST',
-    url: '/api/topArtist',
+    url: '/api/artist/get',
     data: {
       limit:'8, 200',
       lower_limit:'1970-01-01',

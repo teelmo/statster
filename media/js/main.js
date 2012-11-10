@@ -3,7 +3,7 @@ jQuery('#addListeningText').focus();
 jQuery("#addListeningSubmit").click(function() {
   jQuery.ajax({
     type:'POST',
-    url:'/api/addListening',
+    url:'/api/listening/add',
     data: {
       text:jQuery('#addListeningText').val(),
       date:jQuery('#addListeningDate').val(),
@@ -30,14 +30,14 @@ jQuery("#addListeningSubmit").click(function() {
 jQuery(function() {
   jQuery('#addListeningText').autocomplete({
     serviceUrl: '/autoComplete/addListening',
-    minChars: 3,
-    maxHeight: 312,
+    minChars:3,
+    maxHeight:312,
     onSelect: function(value, data) {
       jQuery('#addListeningText').value = data;
     },
     observableElement: { },
-    images: true,
-    list: true
+    images:true,
+    list:true
   });
 });
 
@@ -80,16 +80,18 @@ function recentlyListened(isFirst) {
     jQuery('#recentlyListenedLoader2').show();
   }
   jQuery.ajax({
-    type: 'POST', url: '/api/recentlyListened', 
+    type:'POST',
+    url:'/api/listening/get',
     data: {
-      limit : 11,
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:11,
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/chartTable',
+        type:'POST',
+        url:'/ajax/chartTable',
         data: {
-          json_data : data,
+          json_data:data,
         },
         success: function(data) {
           jQuery('#recentlyListenedLoader2').hide();
@@ -120,17 +122,19 @@ recentlyListened(true);
 
 function topAlbum() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topAlbum',
+    type:'POST',
+    url:'/api/album/get',
     data: {
-      limit : 8,
-      lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:8,
+      lower_limit:'<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumList/124',
+        type:'POST',
+        url:'/ajax/albumList/124',
         data: {
-          json_data : data,
+          json_data:data,
         },
         success: function(data) {
           jQuery('#topAlbumLoader').hide();
@@ -151,17 +155,19 @@ topAlbum();
 
 function topArtist() {
   jQuery.ajax({
-    type: 'POST', url: '/api/topArtist',
+    type:'POST',
+    url:'/api/artist/get',
     data: {
-      limit : 10,
-      lower_limit : '<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:10,
+      lower_limit:'<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/artistBar',
+        type:'POST',
+        url:'/ajax/artistBar',
         data: {
-          json_data : data,
+          json_data:data,
         },
         success: function(data) {
           jQuery('#topArtistLoader').hide();
@@ -182,21 +188,27 @@ topArtist();
 
 function recommentedTopAlbum() {
   jQuery.ajax({
-    type: 'POST', url: '/api/recommentedTopAlbum',
+    type:'POST',
+    url: '/api/recommentedTopAlbum',
     data: {
-      limit : 10,
-      lower_limit : '<?=date("Y-m-d", time() - (90 * 24 * 60 * 60))?>',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>' 
+      limit:10,
+      lower_limit:'<?=date("Y-m-d", time() - (90 * 24 * 60 * 60))?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>' 
     },
     success: function(data) {
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
+        type:'POST',
+        url:'/ajax/albumTable',
         data: {
-          json_data : data,
-          limit : 2,
-          hide : {'artist':true, 'count':true, 'rank': true, 'date':true, 'calendar':true},
-          title : 'music',
-          img : 'album'
+          json_data:data,
+          limit:2,
+          hide: {
+            artist:true,
+            count:true,
+            rank:true,
+            date:true,
+            calendar:true
+          }
         },
         success: function(data) {
           jQuery('#recommentedTopAlbumLoader').hide();
@@ -217,21 +229,28 @@ recommentedTopAlbum();
 
 function recommentedNewAlbum() {
   jQuery.ajax({
-    type: 'POST', url: '/api/recommentedNewAlbum',
+    type:'POST',
+    url:'/api/recommentedNewAlbum',
     data: {
-      limit : 10,
-      order_by : 'album.year DESC, album.created DESC',
-      username : '<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      limit:10,
+      order_by:'album.year DESC, album.created DESC',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
+      console.log(data);
       jQuery.ajax({
-        type: 'POST', url: '/ajax/albumTable',
+        type:'POST',
+        url:'/ajax/albumTable',
         data: {
-          json_data : data,
-          limit : 2,
-          hide : {'artist':true, 'count':true, 'rank': true,'date': true, 'calendar':true},
-          title : 'music',
-          img : 'album'
+          json_data:data,
+          limit:2,
+          hide: {
+            artist:true,
+            count:true,
+            rank:true,
+            date:true,
+            calendar:true
+          }
         },
         success: function(data) {
           jQuery('#recommentedNewAlbumLoader').hide();

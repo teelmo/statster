@@ -4,7 +4,7 @@ class RecommentedTopAlbum extends CI_Controller {
     // Load helpers
     $this->load->helper(array('music_helper', 'return_helper'));
 
-    echo getTopAlbums($_REQUEST);
+    echo getAlbums($_REQUEST);
   }
 }
 ?>

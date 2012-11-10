@@ -4,7 +4,7 @@ function recentlyListened(isFirst) {
   }
   jQuery.ajax({
     type:'POST',
-    url:'/api/recentlyListened',
+    url:'/api/listening/get',
     data: {
       limit:100,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',

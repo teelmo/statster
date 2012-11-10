@@ -2,64 +2,6 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Tells if the given album is loved by the given user.
- *
- * @param array $opts.
- *          'user_id'   => User ID
- *          'album_id'  => Artist ID
- *
- * @return string JSON encoded data containing album information.
- */
-if (!function_exists('getAlbumLove')) {
-  function getAlbumLove($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    // Load helpers
-    $ci->load->helper(array('return_helper'));
-
-    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
-    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT " . TBL_love . ".`id`, 'love' as `type`
-            FROM " . TBL_love . "
-            WHERE " . TBL_love . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
-              AND " . TBL_love . ".`album_id` = " . $ci->db->escape($album_id);
-    $query = $ci->db->query($sql);
-    return _json_return_helper($query, $human_readable);
-  }
-}
-
-/**
-   * Tells if the given artist is faned by the given user.
-   *
-   * @param array $opts.
-   *          'user_id'   => User ID
-   *          'artist_id' => Artist ID
-   *
-   * @return int or boolean FALSE.
-   */
-if (!function_exists('getArtistFan')) {
-  function getArtistFan($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    // Load helpers
-    $ci->load->helper(array('return_helper'));
-
-    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
-    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT " . TBL_fan . ".`id`, 'fan' as `type`
-            FROM " . TBL_fan . "
-            WHERE " . TBL_fan . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
-              AND " . TBL_fan . ".`artist_id` = " . $ci->db->escape($artist_id);
-    $query = $ci->db->query($sql);
-    return _json_return_helper($query, $human_readable);
-  }
-}
-
-/**
    * Collection function for adding format and
    * format type information to a listening.
    *
@@ -148,83 +90,6 @@ if (!function_exists('addListeningFormatTypes')) {
 }
 
 /**
-   * Returns listened artists for the given user.
-   *
-   * @param array $opts.
-   *          'username'        => Username
-   *          'order_by'        => Order by argument
-   *          'limit'           => Limit
-   *          'human_readable'  => Output format
-   *
-   * @return string JSON encoded data containing artist information.
-   */
-if (!function_exists('getListenedArtists')) {
-  function getListenedArtists($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : TBL_artist . '`artist_name` ASC';
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT DISTINCT " . TBL_artist . ".`id`, 
-                            " . TBL_artist . ".`artist_name`
-          FROM " . TBL_album . ", 
-               " . TBL_artist . ", 
-               " . TBL_listening . ", 
-               " . TBL_user . "
-          WHERE " . TBL_listening . ".`user_id` = " . TBL_user . ".`id` 
-            AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id` 
-            AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-            AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
-          ORDER BY " . mysql_real_escape_string($order_by) . "
-          LIMIT " . mysql_real_escape_string($limit);
-    $query = $ci->db->query($sql);
-    return _json_return_helper($query, $human_readable);
-  }
-}
-
-/**
-   * Returns listened albums for the given user.
-   *
-   * @param array $opts.
-   *          'username'        => Username
-   *          'order_by'        => Order by argument
-   *          'limit'           => Limit
-   *          'human_readable'  => Output
-   *
-   * @return string JSON encoded data containing album information.
-   */
-if (!function_exists('getListenedAlbums')) {
-  function getListenedAlbums($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : TBL_album . '.`album_name` ASC';
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT DISTINCT " . TBL_artist . ".`artist_name`, 
-                   " . TBL_artist . ".`id` as artist_id, 
-                   " . TBL_album . ".`album_name`, 
-                   " . TBL_album . ".`id` as album_id, 
-                   " . TBL_album . ".`year`
-            FROM " . TBL_artist . ",
-                 " . TBL_album . ",
-                 " . TBL_listening . ", 
-                 " . TBL_user . "
-            WHERE " . TBL_listening . ".`user_id` = " . TBL_user. ".`id` 
-              AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id` 
-              AND " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
-              AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
-            ORDER BY " . mysql_real_escape_string($order_by) . "
-            LIMIT " . mysql_real_escape_string($limit);
-    $query = $ci->db->query($sql);
-    return _json_return_helper($query, $human_readable);
-  }
-}
-
-/**
    * Returns top artists for the given user.
    *
    * @param array $opts.
@@ -239,8 +104,8 @@ if (!function_exists('getListenedAlbums')) {
    *
    * @return string JSON encoded data containing artist information.
    */
-if (!function_exists('getTopArtists')) {
-  function getTopArtists($opts = array()) {
+if (!function_exists('getArtists')) {
+  function getArtists($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 
@@ -297,8 +162,8 @@ if (!function_exists('getTopArtists')) {
    *
    * @return string JSON encoded data containing album information.
    */
-if (!function_exists('getTopAlbums')) {
-  function getTopAlbums($opts = array()) {
+if (!function_exists('getAlbums')) {
+  function getAlbums($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 
@@ -360,8 +225,8 @@ if (!function_exists('getTopAlbums')) {
    *
    * @return string JSON encoded data containing album information.
    */
-if (!function_exists('getTopListeners')) {
-  function getTopListeners($opts = array()) {
+if (!function_exists('getListeners')) {
+  function getListeners($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 

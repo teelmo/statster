@@ -1,7 +1,7 @@
 function recentlyListened() {
   jQuery.ajax({
     type:'POST',
-    url:'/api/recentlyListened',
+    url:'/api/listening/get',
     data: {
       limit:5,
     },
@@ -39,7 +39,7 @@ recentlyListened();
 function topArtist() {
   jQuery.ajax({
     type:'POST',
-    url:'/api/topArtist',
+    url:'/api/artist/get',
     data: {
       lower_limit:'1970-01-01',
       limit:15,

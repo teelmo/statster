@@ -1,7 +1,7 @@
 function albumLove() {
   jQuery.ajax({
     type:'POST',
-    url:'/api/albumLove',
+    url:'/api/love/get',
     data: {
       album_id:<?=$album_id?>,
     },
@@ -31,7 +31,7 @@ albumLove();
 function topListeners() {
   jQuery.ajax({
     type:'POST',
-    url: '/api/topListener',
+    url: '/api/user/get',
     data:{
       limit:6,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
@@ -67,7 +67,7 @@ topListeners();
 function recentlyListened() {
   jQuery.ajax({
     type:'POST',
-    url:'/api/recentlyListened',
+    url:'/api/listening/get',
     data: {
       limit:6,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',

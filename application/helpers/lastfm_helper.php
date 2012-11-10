@@ -10,8 +10,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
  * @return array Artist's similar artists.
  *
  */
-if (!function_exists('getArtistsSimilar')) {
-  function getArtistsSimilar($opts = array()) {
+if (!function_exists('getSimilar')) {
+  function getSimilar($opts = array()) {
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $limit = !empty($opts['limit']) ? $opts['limit'] : 4;
@@ -43,8 +43,8 @@ if (!function_exists('getArtistsSimilar')) {
  * @return array Artist's events.
  *
  */
-if (!function_exists('getArtistsEvents')) {
-  function getArtistsEvents($opts = array()) {
+if (!function_exists('getEvents')) {
+  function getEvents($opts = array()) {
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $limit = !empty($opts['limit']) ? $opts['limit'] : 8;
@@ -54,6 +54,8 @@ if (!function_exists('getArtistsEvents')) {
       $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
       if (!empty($lastfm_data['events']['event'])) {  
         $events = $lastfm_data['events']['event'];
+echo '<pre>';
+        print_r($events);
         foreach ($events as $idx => $event) {
           $data[] = array('name' => $event['venue']['name'],
                           'city' => $event['venue']['location']['city'],
@@ -80,8 +82,8 @@ if (!function_exists('getArtistsEvents')) {
  * @return string Artist's bio.
  *
  */
-if (!function_exists('getArtistsBio')) {
-  function getArtistsBio($opts = array()) {
+if (!function_exists('getBio')) {
+  function getBio($opts = array()) {
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';

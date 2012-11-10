@@ -39,7 +39,7 @@ if (is_array($json_data)) {
           </span>
         <td class="love icon">
           <?php
-          $love_data = json_decode(getAlbumLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)));
+          $love_data = json_decode(getLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)));
           if (empty($love_data->error)) {
             ?>
             <span class="loveIcon" title="Loved"></span>

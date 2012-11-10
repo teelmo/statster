@@ -17,8 +17,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
  *
  * @return string JSON encoded data containing album information.
  */
-if (!function_exists('getTopGenres')) {
-  function getTopGenres($opts = array()) {
+if (!function_exists('getGenres')) {
+  function getGenres($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
     
@@ -71,8 +71,8 @@ if (!function_exists('getTopGenres')) {
  *
  * @return string JSON encoded data containing album information.
  */
-if (!function_exists('getTopKeywords')) {
-  function getTopKeywords($opts = array()) {
+if (!function_exists('getKeywords')) {
+  function getKeywords($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
     

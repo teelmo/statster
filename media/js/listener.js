@@ -1,7 +1,7 @@
 function topListeners() {
   jQuery.ajax({
     type:'POST',
-    url:'/api/topListener',
+    url:'/api/user/get',
     data: {
       limit:100,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',

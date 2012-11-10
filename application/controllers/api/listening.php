@@ -1,8 +1,20 @@
 <?php
-class AddListening extends CI_Controller {
+class Listening extends CI_Controller {
   public function index() {
+    exit ('No direct script access allowed');
+  }
+
+  public function get() {
+    // Load helpers
+    $this->load->helper(array('music_helper', 'return_helper'));
+    
+    echo getRecentlyListened($_REQUEST);
+  }
+
+  public function add() {
     // Load helpers
     $this->load->helper(array('id_helper', 'music_helper'));
+
     if (empty($_POST)) {
       echo json_encode(array('error' => array('msg' => '$_POST parameters not delivered')));
       return FALSE;
@@ -42,5 +54,17 @@ class AddListening extends CI_Controller {
       return FALSE;
     }
   }
+
+  /* Update listening information */
+  public function update() {
+    // Load helpers
+    
+  }
+
+  /* Delete listening information */
+  public function delete() {
+    // Load helpers
+    
+  }
 }
-?>
+?> 
