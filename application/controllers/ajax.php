@@ -8,7 +8,7 @@ class Ajax extends CI_Controller {
   public function chartTable() {
     if (!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'music_helper', 'favorites_helper', 'text_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'favorites_helper', 'output_helper'));
 
       $data = $_POST;
       $this->load->view('templates/chart_table', $data);
@@ -47,7 +47,7 @@ class Ajax extends CI_Controller {
   public function albumTable() {
     if (!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'text_helper'));
+      $this->load->helper(array('img_helper', 'output_helper'));
 
       $data = $_POST;
       $this->load->view('templates/album_table', $data);
@@ -60,7 +60,7 @@ class Ajax extends CI_Controller {
   public function userTable() {
     if (!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'text_helper'));
+      $this->load->helper(array('img_helper', 'output_helper'));
 
       $data = $_POST;
       $this->load->view('templates/user_table', $data);
