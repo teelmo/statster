@@ -41,6 +41,7 @@
           ?>
         </tr>
       </table>
+      <br />
       <h3 class="artistFan">Artist's fans</h3>
       <div>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/>

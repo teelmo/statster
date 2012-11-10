@@ -8,6 +8,7 @@
       <div>
         <input type="password" class="" autocomplete="off" tabindex="2" id="loginPassword" placeholder="Enter password" name="registerEmail" />
       </div>
+      <br />
       <div>
         <p>
           <input type="submit" name="loginSubmit" tabindex="2" id="loginSubmit" value="Login" />

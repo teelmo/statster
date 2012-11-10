@@ -2,7 +2,6 @@
 <html>
   <head>
     <title><?=TITLE?></title>
-    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="/media/js/jquery.min.js"></script>
     <script type="text/javascript" src="/media/js/jquery.autocomplete.min.js"></script>
     <script type="text/javascript" src="/media/js/dropdown.js"></script>
@@ -15,16 +14,13 @@
       }
     </script>
     <?php
+    echo link_tag('media/css/reset.css');
     echo link_tag('media/css/styles.css');
-    echo link_tag('media/css/tipsy.css');
     echo link_tag('media/css/jquery.autocomplete.css');
     echo link_tag('media/css/responsive.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>
-    <style type="text/css">
-      /* Nothing here */
-    </style>
   </head>
   <body>
     <div id="topCont">

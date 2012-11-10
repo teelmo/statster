@@ -6,6 +6,7 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
   margin-bottom: 50px;
+  line-height: 1.2;
 }
 div#topCont {
   color: #EEE;
@@ -108,6 +109,7 @@ h1 {
   font-weight: bold;
   text-shadow: 0 1px 0 #EEE;
   letter-spacing: 0.1em;
+  margin: 20px 0 20px 0;
 }
 h1 div.desc {
   font-size: 14px;
@@ -127,12 +129,14 @@ div#leftCont h1 {
 div#rightCont h1 {
   font-size: 18px;
   color: #222;
+  margin-bottom: 10px;
 }
 h2 {
   font-size: 18px;
   font-style: normal;
   font-variant: normal;
   font-weight: bold;
+  margin: 15px 0 15px 0;
 }
 div#leftCont h2 {
   color: #777;

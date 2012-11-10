@@ -1,19 +1,30 @@
 /* Portrait Tablet */
-@media (min-width: 481px) and (max-width: 960px) {
-  div#rightCont {
-    display: none;
+@media handheld, only screen and (min-width: 601px) and (max-width: 960px) {
+  div#mainCont {
+    max-width: 790px;
+    width: 600px;
   }
   div#leftCont {
     width: 100%;
   }
-  div#leftContOuter {
+  div#topContInner {
+    width: 590px;
+    margin: auto auto;
+    padding: 0 5px 0 5px;
+  }
+  div#rightCont {
+    display: none;
+  }
+  div#footer {
+    width: 600px;
   }
   div#footer div.socialMedia {
-    padding-right: 7px;
+    padding-right: 8px;
   }
 }
+
 /* Landscape smart phone */
-@media (min-width: 321px) and (max-width: 480px) {
+@media handheld, only screen and (min-width: 321px) and (max-width: 600px) {
   div#topCont {
     display: none;
   }
@@ -28,29 +39,44 @@
     max-width: 480px;
     min-width: 321px;
   }
-}
-/* Portrait smart phone */
-@media (max-width: 320px) {
-  div#topCont {
+  div#footer div.floatLeft {
     display: none;
   }
-  div#mainCont {
-    margin-top: 0;
-  }
-  div#rightCont {
-    display: none;
-  }
-  div#leftCont {
-    width: 320px;
+  div#footer div.socialMedia {
+    padding-right: 8px;
   }
 }
-@media (min-width: 611px) and (max-width: 960px) {
+
+@media handheld, only screen and (min-width: 601px) and (max-width: 960px) {
   ul.chartList {
     width: 570px;
   }
 } 
-@media (max-width: 610px) {
+@media handheld, only screen and (max-width: 600px) {
   ul.chartList {
     width: 321px;
+  }
+}
+
+@media handheld, only screen and (max-width: 600px) {
+  img.artistImg300 {
+    width: 174px;
+  }
+  img.albumImg300 {
+    width: 174px;
+  }
+}
+
+@media handheld, only screen and (max-width: 500px) {
+  img.artistImg300,
+  img.albumImg300 {
+    width: 174px;
+  }
+  div.artistInfo,
+  div.albumInfo {
+    margin-left: 190px;
+  }
+  div.externalLink {
+    display: none;
   }
 }
