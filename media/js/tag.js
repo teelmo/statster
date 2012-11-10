@@ -1,7 +1,7 @@
 function topGenre() {
   jQuery.ajax({
-    type:'POST', 
-    url:'/api/topGenre', 
+    type:'GET', 
+    url:'/api/genre/get', 
     data: {
       limit:7,
       lower_limit:'<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
@@ -32,8 +32,8 @@ topGenre();
 
 function topKeyword() {
   jQuery.ajax({
-    type:'POST',
-    url:'/api/topKeyword',
+    type:'GET',
+    url:'/api/keyword/get',
     data: {
       limit:7,
       lower_limit:'<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',

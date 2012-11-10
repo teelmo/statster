@@ -3,7 +3,7 @@ function recentlyListened(isFirst) {
     jQuery('#recentlyListenedLoader2').show();
   }
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/listening/get',
     data: {
       limit:100,

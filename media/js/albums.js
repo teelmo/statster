@@ -1,6 +1,6 @@
 function topAlbum10() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/album/get',
     data: {
       limit:8,
@@ -32,7 +32,7 @@ topAlbum10();
 
 function topAlbum() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/album/get',
     data: {
       limit:'8, 200',

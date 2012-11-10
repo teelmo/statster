@@ -80,7 +80,7 @@ function recentlyListened(isFirst) {
     jQuery('#recentlyListenedLoader2').show();
   }
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/listening/get',
     data: {
       limit:11,
@@ -122,7 +122,7 @@ recentlyListened(true);
 
 function topAlbum() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/album/get',
     data: {
       limit:8,
@@ -155,7 +155,7 @@ topAlbum();
 
 function topArtist() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/artist/get',
     data: {
       limit:10,
@@ -188,7 +188,7 @@ topArtist();
 
 function recommentedTopAlbum() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url: '/api/recommentedTopAlbum',
     data: {
       limit:10,
@@ -229,7 +229,7 @@ recommentedTopAlbum();
 
 function recommentedNewAlbum() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/recommentedNewAlbum',
     data: {
       limit:10,

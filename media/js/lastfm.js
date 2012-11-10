@@ -1,6 +1,6 @@
 function getSimilar() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/lastfm/getSimilar',
     data: {
       limit:4,
@@ -34,7 +34,7 @@ getSimilar();
 
 function getEvents() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/lastfm/getEvents',
     data: {
       limit:15,
@@ -65,7 +65,7 @@ getEvents();
 
 function getBio() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/lastfm/getBio',
     data: {
       limit:4,

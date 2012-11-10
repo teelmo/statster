@@ -1,6 +1,6 @@
 function topArtist10() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/artist/get',
     data: {
       limit:8,
@@ -32,7 +32,7 @@ topArtist10();
 
 function topArtist() {
   jQuery.ajax({
-    type: 'POST',
+    type: 'GET',
     url: '/api/artist/get',
     data: {
       limit:'8, 200',

@@ -1,6 +1,6 @@
 function popularGenre() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/genre/get',
     data: {
       limit:15,
@@ -30,7 +30,7 @@ popularGenre();
 
 function topAlbum() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/album/get',
     data: {
       limit:15,

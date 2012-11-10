@@ -1,6 +1,6 @@
 function artistFan() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/fan/get',
     data: {
       artist_id:<?=$artist_id?>,
@@ -30,7 +30,7 @@ artistFan();
 
 function topListeners() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/user/get',
     data: {
       limit:6,
@@ -65,7 +65,7 @@ topListeners();
 
 function recentlyListened() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/listening/get',
     data: {
       limit:6,

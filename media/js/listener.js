@@ -1,6 +1,6 @@
 function topListeners() {
   jQuery.ajax({
-    type:'POST',
+    type:'GET',
     url:'/api/user/get',
     data: {
       limit:100,
