@@ -124,7 +124,7 @@ div#topCont h1 {
   text-shadow: 1px 0px 5px #CCC;
 }
 div#leftCont h1 {
-  color: #777;
+  color: #555;
 }
 div#rightCont h1 {
   font-size: 18px;
@@ -133,18 +133,27 @@ div#rightCont h1 {
 }
 h2 {
   font-size: 18px;
+  font-weight: bold;
   font-style: normal;
   font-variant: normal;
   font-weight: bold;
   margin: 15px 0 15px 0;
 }
 div#leftCont h2 {
-  color: #777;
+  color: #555;
+  font-size: 16px;
   letter-spacing: 0.1em;
 }
 div#rightCont h2 {
   color: #777;
   font-size: 14px;
+  font-weight: bold;
+}
+h3 {
+  margin: 10px 0 10px 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
 }
 h3.albumLove,
 h3.artistFan {
@@ -283,7 +292,7 @@ div#topCont h1 a:hover {
   color: #FFF;
 }
 h1 div.desc a{
-  color: #666;
+  color: #555;
 }
 
 /*
