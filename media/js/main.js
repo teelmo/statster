@@ -234,6 +234,7 @@ function recommentedNewAlbum() {
     data: {
       limit:10,
       order_by:'album.year DESC, album.created DESC',
+      lower_limit:'<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
