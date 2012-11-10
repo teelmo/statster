@@ -7,7 +7,7 @@ class Fan extends CI_Controller {
   /* List fans */
   public function get() {
     // Load helpers
-    $this->load->helper(array('favorites_helper', 'return_helper'));
+    $this->load->helper(array('fan_helper', 'return_helper'));
     
     echo getFan($_REQUEST);
   }
@@ -15,7 +15,7 @@ class Fan extends CI_Controller {
   /* Add a fan */
   public function add() {
     // Load helpers
-    $this->load->helper(array('favorites_helper', 'id_helper'));
+    $this->load->helper(array('fan_helper'));
 
     echo addFan($_POST);    
   }
