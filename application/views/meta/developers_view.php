@@ -12,12 +12,8 @@
     <p>
       HTTP API responces are in JSON-format.
     </p>
-    <p>
-      <strong>api/addListening</strong>
-    </p>
-    <p>
-      <strong>api/listArtist</strong>
-    </p>
+    <h3>api/listening</h3>
+    <h3>api/artist</h3>
     <code>
       Returns listened artists for the given user.</br />
       <br  />
@@ -32,9 +28,7 @@
     <p class="small">
       <?=anchor('api/listAlbum?username=teelmo&order_by=artist_name+asc&limit=10&human_readable=true', 'http://statster.info/api/listAlbum?username=teelmo&order_by=artist_name+asc&limit=10&human_readable=false')?>
     </p>
-    <p>
-      <strong>api/listAlbum</strong>
-    </p>
+      <h3>api/album</h3>
     <code>
       Returns listened albums for the given user.</br />
       <br  />
@@ -49,9 +43,7 @@
     <p class="small">
       <?=anchor('api/listAlbum?username=teelmo&order_by=album_name+asc&limit=10&human_readable=true', 'http://statster.info/api/listAlbum?username=teelmo&order_by=album_name+asc&limit=10&human_readable=false')?>
     </p>
-    <p>
-      <strong>api/recentlyListened</strong>
-    </p>
+    <h3>api/listening/get</h3>
     <code>
       Returns recently listened albums for the given user.</br />
       </br />
@@ -68,26 +60,6 @@
     <p class="small">
       <?=anchor('api/recentlyListened?username=teelmo&artist=tool&album=lateralus&date=2008-11-%&limit=10&human_readable=true', 'http://statster.info/api/recentlyListened?username=teelmo&artist=tool&album=lateralus&date=2008-11-%&limit=10&human_readable=true')?>
     </p>
-    <p>
-      <strong>api/recommetedNewAlbum</strong>
-      <br />
-    </p>
-    <p>
-      <strong>api/recommetedTopAlbum</strong>
-      <br />
-    </p>
-    <p>
-      <strong>api/topAlbum</strong>
-      <br />
-    </p>
-    <p>
-      <strong>api/topArtist</strong>
-      <br />
-    </p>
-    <p>
-      <strong>api/topGenre</strong>
-      <br />
-    </p>
   </div>
       
   <div class="container">
@@ -95,7 +67,7 @@
   </div>
   <div class="container">
     <p class="updated">
-      Updated: 2. of July 2012
+      Updated: 10. of November 2012
     </p>
   </div>
   <div class="container"><hr /></div>
