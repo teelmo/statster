@@ -27,7 +27,7 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="middle hidden" id="recentlyListenedLoader2" /></h2>
+    <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chartTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
