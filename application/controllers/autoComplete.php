@@ -6,7 +6,9 @@ class AutoComplete extends CI_Controller {
   }
 
   public function addListening() {
+    // Load helpers
     $this->load->helper(array('img_helper'));
+    
     $content = array();
     $search_str = $_GET['query'];
     if (!empty($search_str)) {
@@ -47,14 +49,14 @@ class AutoComplete extends CI_Controller {
           $content['images'][] = getAlbumImg(array('album_id' => $row->album_id, 'size' => 20));
         }
         echo json_encode(array('query' => $search_str, 'content' => array("" => $content)));
-        return FALSE;
+        return;
       }
       echo json_encode(array('query' => $search_str, 'content' => null));
-      return FALSE;
+      return;
     }
     else {
       echo json_encode(array('query' => $search_str, 'content' => null));
-      return FALSE;
+      return;
     }
   }
 }
