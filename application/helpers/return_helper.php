@@ -36,12 +36,10 @@ if (!function_exists('_json_return_helper')) {
 
         // Load helpers
         $ci->load->helper(array('text_helper'));
-        header("HTTP/1.1 204 No Content");
-        exit ();
+        return header("HTTP/1.1 204 No Content");
       }
       else {
-        header("HTTP/1.1 204 No Content");
-        exit ();
+        return header("HTTP/1.1 204 No Content");
       }
       header("HTTP/1.1 400 Bad Request");
       return json_encode(array('error' => array('msg' => ERR_GENERAL)));
