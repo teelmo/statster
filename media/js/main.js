@@ -1,5 +1,3 @@
-jQuery('#addListeningText').focus();
-
 jQuery("#addListeningSubmit").click(function() {
   jQuery.ajax({
     type:'POST',
@@ -10,72 +8,77 @@ jQuery("#addListeningSubmit").click(function() {
       format:jQuery('input[name="addListeningFormat"]:checked').val(),
       submitType:jQuery('input[name="submitType"]').val(),
     },
-    success: function(data) {
-      if (jQuery.trim(data) == '') {  
+    statusCode: {
+      201: function(data) { // 200 OK
         jQuery('#addListeningText').val('');
         jQuery('input[name="addListeningFormat"]').prop('checked', false);
         jQuery('img.listeningFormat').removeClass('selected');
-        recentlyListened();
+        getListenings();
         topAlbum();
         topArtist();
-      }
-      jQuery('#addListeningText').focus();
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        jQuery('#addListeningText').focus();
+      },
+      400: function(data) {alert('400 Bad Request')},
+      401: function(data) {alert('401 Unauthorized')},
+      404: function(data) {alert('404 Not Found')}
     }
   });
   return false;
 });
 
-jQuery(function() {
+jQuery(document).ready(function() {
+  jQuery('#addListeningText').focus();
   jQuery('#addListeningText').autocomplete({
-    serviceUrl: '/autoComplete/addListening',
+    serviceUrl:'/autoComplete/addListening',
     minChars:3,
     maxHeight:312,
-    onSelect: function(value, data) {
-      jQuery('#addListeningText').value = data;
+    onSelect: function(value, ac_data) {
+      jQuery('#addListeningText').value = ac_data;
     },
-    observableElement: { },
+    observableElement:{},
     images:true,
     list:true
   });
-});
 
-jQuery(".listeningFormat").click(function() {
-  jQuery(".listeningFormat").removeClass('selected');
-  jQuery(this).addClass('selected');
-});
-jQuery(".listeningFormat").keypress(function(e) {
-  var code = (e.keyCode ? e.keyCode : e.which);
-   if (code == 13) {
-      jQuery(".listeningFormat").removeClass('selected');
-      jQuery(this).addClass('selected');
 
-      jQuery('#' + jQuery(this).parent().attr("for")).prop('checked', true);
-   }
-});
+  jQuery(".listeningFormat").click(function() {
+    jQuery(".listeningFormat").removeClass('selected');
+    jQuery(this).addClass('selected');
+  });
+  
+  jQuery(".listeningFormat").keypress(function(e) {
+    var code = (e.keyCode ? e.keyCode : e.which);
+     if (code == 13) {
+        jQuery(".listeningFormat").removeClass('selected');
+        jQuery(this).addClass('selected');
 
-jQuery("#addListeningShowmore").click(function() {
-  jQuery(".listeningFormat").removeClass('hidden');
-  jQuery(this).remove();
-});
+        jQuery('#' + jQuery(this).parent().attr("for")).prop('checked', true);
+     }
+  });
 
-jQuery("#addListeningShowmore").keypress(function(e) {
-  var code = (e.keyCode ? e.keyCode : e.which);
-  if (code == 13) {
+  jQuery("#addListeningShowmore").click(function() {
     jQuery(".listeningFormat").removeClass('hidden');
     jQuery(this).remove();
-  }
+  });
+
+  jQuery("#addListeningShowmore").keypress(function(e) {
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if (code == 13) {
+      jQuery(".listeningFormat").removeClass('hidden');
+      jQuery(this).remove();
+    }
+  });
+
+  jQuery("#recentlyListened").hover(function () {
+    var currentTime = new Date();    
+    if((currentTime.getTime() - jQuery("#recentlyUpdated").attr('value') > (60 * 2 * 1000))) {
+      getListenings();
+    }
+  });
 });
 
-jQuery("#recentlyListened").hover(function () {
-  var currentTime = new Date();    
-  if((currentTime.getTime() - jQuery("#recentlyUpdated").attr('value') > (60 * 2 * 1000))) {
-    recentlyListened();
-  }
-});
 
-function recentlyListened(isFirst) {
+function getListenings(isFirst) {
   if (isFirst != true) {
     jQuery('#recentlyListenedLoader2').show();
   }
@@ -86,39 +89,42 @@ function recentlyListened(isFirst) {
       limit:11,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
-    success: function(data) {
-      jQuery.ajax({
-        type:'POST',
-        url:'/ajax/chartTable',
-        data: {
-          json_data:data,
-        },
-        success: function(data) {
-          jQuery('#recentlyListenedLoader2').hide();
-          jQuery('#recentlyListenedLoader').hide();
-          jQuery('#recentlyListened').html(data);
+    statusCode: {
+      200: function(data) { // 200 OK
+        jQuery.ajax({
+          type:'POST',
+          url:'/ajax/chartTable',
+          data: {
+            json_data:data,
+          },
+          success: function(data) {
+            jQuery('#recentlyListenedLoader2').hide();
+            jQuery('#recentlyListenedLoader').hide();
+            jQuery('#recentlyListened').html(data);
 
-          var currentTime = new Date();
-          var hours = currentTime.getHours();
-          var minutes = currentTime.getMinutes();
-          if (minutes < 10) {
-            minutes = "0" + minutes;
+            var currentTime = new Date();
+            var hours = currentTime.getHours();
+            var minutes = currentTime.getMinutes();
+            if (minutes < 10) {
+              minutes = "0" + minutes;
+            }
+            jQuery('#recentlyUpdated').html('updated '+ hours + ':' + minutes);
+            jQuery('#recentlyUpdated').attr('value', currentTime.getTime());
           }
-          jQuery('#recentlyUpdated').html('updated '+ hours + ':' + minutes);
-          jQuery('#recentlyUpdated').attr('value', currentTime.getTime());
-        },
-        complete: function() {
-          setTimeout(recentlyListened, 60 * 10 * 1000);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
+        })
+      },
+      204: function() { // 204 No Content
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
+      },
+      400: function(data) {alert('400 Bad Request')}
     },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    complete: function() {
+      setTimeout(getListenings, 60 * 10 * 1000);
     }
   });
 }
-recentlyListened(true);
+getListenings(true);
 
 function topAlbum() {
   jQuery.ajax({
