@@ -20,47 +20,46 @@ function getFan(user_id) {
     },
     complete: function() {
       jQuery('#fanLoader').hide();
-      jQuery('.fanAdd').click(function() {
-        jQuery.ajax({
-          type:'POST',
-          url:'/api/fan/add',
-          data: {
-            artist_id:<?=$artist_id?>
-          },
-          statusCode: {
-            201: function(data) { // 201 Created
-              jQuery('#fan').removeClass('fanAdd').addClass('fanDel').prepend('<span class="fanMsg">You\'re a fan!</span>');
-              setTimeout(function() {
-                jQuery('.fanMsg').fadeOut();
-              }, 3000);
-              getFans();
-            },
-            400: function(data) {alert('400 Bad Request')},
-            401: function(data) {alert('401 Unauthorized')},
-            404: function(data) {alert('404 Not Found')}
-          }
-        });
-      });
-      jQuery('.fanDel').click(function() {
-        jQuery.ajax({
-          type:'DELETE',
-          url:'/api/fan/delete',
-          data: {
-            artist_id:<?=$artist_id?>
-          },
-          statusCode: {
-            204: function() { // 204 No Content
-              jQuery('#fan').removeClass('fanDel').addClass('fanAdd').prepend('<span class="fanMsg">You\'re no longer a fan!</span>');
-              setTimeout(function() {
-                jQuery('.fanMsg').fadeOut();
-              }, 3000);
-              artistFan();
-            },
-            400: function(data) {alert('400 Bad Request')},
-            401: function(data) {alert('401 Unauthorized')},
-            404: function(data) {alert('404 Not Found')}
-          }
-        });
+      jQuery('#fan').click(function() {
+        jQuery('.fanMsg').remove();
+        if (jQuery(this).hasClass('fanAdd')) {
+          jQuery.ajax({
+            type:'POST',
+            url:'/api/fan/add/<?=$artist_id?>',
+            data: {},
+            statusCode: {
+              201: function(data) { // 201 Created
+                jQuery('#fan').removeClass('fanAdd').addClass('fanDel').prepend('<span class="fanMsg">You\'re a fan!</span>');
+                setTimeout(function() {
+                  jQuery('.fanMsg').fadeOut();
+                }, 3000);
+                getFans();
+              },
+              400: function(data) {alert('400 Bad Request')},
+              401: function(data) {alert('401 Unauthorized')},
+              404: function(data) {alert('404 Not Found')}
+            }
+          });
+        }
+        if (jQuery(this).hasClass('fanDel')) {
+          jQuery.ajax({
+            type:'DELETE',
+            url:'/api/fan/delete/<?=$artist_id?>',
+            data: {},
+            statusCode: {
+              204: function() { // 204 No Content
+                jQuery('#fan').removeClass('fanDel').addClass('fanAdd').prepend('<span class="fanMsg">You\'re no longer a fan!</span>');
+                setTimeout(function() {
+                  jQuery('.fanMsg').fadeOut();
+                }, 3000);
+                getFans();
+              },
+              400: function(data) {alert('400 Bad Request')},
+              401: function(data) {alert('401 Unauthorized')},
+              404: function(data) {alert('404 Not Found')}
+            }
+          });
+        }
       });
     }
   });

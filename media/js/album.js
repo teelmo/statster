@@ -20,47 +20,46 @@ function getLove(user_id) {
     },
     complete: function() {
       jQuery('#loveLoader').hide();
-      jQuery('.loveAdd').click(function() {
-        jQuery.ajax({
-          type:'POST',
-          url:'/api/love/add',
-          data: {
-            album_id:<?=$album_id?>
-          },
-          statusCode: {
-            201: function(data) { // 201 Created
-              jQuery('#love').removeClass('loveAdd').addClass('loveDel').prepend('<span class="loveMsg">You\'re in love!</span>');
-              setTimeout(function() {
-                jQuery('.loveMsg').fadeOut();
-              }, 3000);
-              getLoves();
-            },
-            400: function(data) {alert('400 Bad Request')},
-            401: function(data) {alert('401 Unauthorized')},
-            404: function(data) {alert('404 Not Found')}
-          }
-        });
-      });
-      jQuery('.loveDel').click(function() {
-        jQuery.ajax({
-          type:'DELETE',
-          url:'/api/love/delete',
-          data: {
-            album_id:<?=$album_id?>
-          },
-          statusCode: {
-            204: function() { // 204 No Content
-              jQuery('#love').removeClass('loveDel').addClass('loveAdd').prepend('<span class="loveMsg">You\'re no longer in love!</span>');
-              setTimeout(function() {
-                jQuery('.loveMsg').fadeOut();
-              }, 3000);
-              artistFan();
-            },
-            400: function(data) {alert('400 Bad Request')},
-            401: function(data) {alert('401 Unauthorized')},
-            404: function(data) {alert('404 Not Found')}
-          }
-        });
+      jQuery('#love').click(function() {
+        jQuery('.loveMsg').remove();
+        if (jQuery(this).hasClass('loveAdd')) {
+          jQuery.ajax({
+            type:'POST',
+            url:'/api/love/add/<?=$album_id?>',
+            data: {},
+            statusCode: {
+              201: function(data) { // 201 Created
+                jQuery('#love').removeClass('loveAdd').addClass('loveDel').prepend('<span class="loveMsg">You\'re in love!</span>');
+                setTimeout(function() {
+                  jQuery('.loveMsg').fadeOut();
+                }, 3000);
+                getLoves();
+              },
+              400: function(data) {alert('400 Bad Request')},
+              401: function(data) {alert('401 Unauthorized')},
+              404: function(data) {alert('404 Not Found')}
+            }
+          });
+        }
+        if (jQuery(this).hasClass('loveDel')) {
+          jQuery.ajax({
+            type:'DELETE',
+            url:'/api/love/delete/<?=$album_id?>',
+            data: {},
+            statusCode: {
+              204: function() { // 204 No Content
+                jQuery('#love').removeClass('loveDel').addClass('loveAdd').prepend('<span class="loveMsg">You\'re no longer in love!</span>');
+                setTimeout(function() {
+                  jQuery('.loveMsg').fadeOut();
+                }, 3000);
+                getLoves();
+              },
+              400: function(data) {alert('400 Bad Request')},
+              401: function(data) {alert('401 Unauthorized')},
+              404: function(data) {alert('404 Not Found')}
+            }
+          });
+        }
       });
     }
   });

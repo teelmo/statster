@@ -5,32 +5,53 @@ class Fan extends CI_Controller {
   }
 
   /* List fans */
-  public function get($artist_id = FALSE) {
-    // Load helpers
-    $this->load->helper(array('fan_helper', 'return_helper'));
+  public function get($artist_id = 0) {
+    if (is_numeric($artist_id)) {
+      // Load helpers
+      $this->load->helper(array('fan_helper', 'return_helper'));
     
-    $_REQUEST['artist_id'] = $artist_id;
-    echo getFan($_REQUEST);
+      $_REQUEST['artist_id'] = $artist_id;
+      echo getFan($_REQUEST);
+    }
+    else {
+      header("HTTP/1.1 400 Bad Request");
+    }
   }
 
   /* Add a fan */
-  public function add() {
-    // Load helpers
-    $this->load->helper(array('fan_helper'));
+  public function add($artist_id = FALSE) {
+    if (is_numeric($artist_id)) {
+      // Load helpers
+      $this->load->helper(array('fan_helper'));
 
-    echo addFan($_POST);    
+      echo addFan($artist_id);
+    }
+    else {
+      header("HTTP/1.1 400 Bad Request");
+    }
   }
 
   /* Update fan information */
-  public function update() {
-    // Load helpers
-    
+  public function update($artist_id = FALSE) {
+    header("HTTP/1.1 501 Not Implemented");
+    if (is_numeric($artist_id)) {
+      // Load helpers
+
+    }
   }
 
   /* Delete fan information */
-  public function delete() {
-    // Load helpers
-    
+  public function delete($artist_id = FALSE) {
+    echo $artist_id;
+    if (is_numeric($artist_id)) {
+      // Load helpers
+      $this->load->helper(array('fan_helper'));
+
+      deleteFan($artist_id);      
+    }
+    else {
+      header("HTTP/1.1 400 Bad Request");
+    }
   }
 }
 ?>
