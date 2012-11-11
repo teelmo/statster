@@ -167,8 +167,8 @@ function getListenings() {
         });
       },
       204: function() { // 204 No Content
-        jQuery('#topListenerLoader').hide();
-        jQuery('#topListener').html('<?=ERR_NO_RESULTS?>');
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
       },
       400: function(data) {alert('400 Bad Request')}
     }
