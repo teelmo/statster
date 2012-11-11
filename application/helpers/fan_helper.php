@@ -15,9 +15,6 @@ if (!function_exists('getFan')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    // Load helpers
-    $ci->load->helper(array('return_helper'));
-
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;

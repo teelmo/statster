@@ -14,6 +14,7 @@ if (!function_exists('getAlbumInfo')) {
   function getAlbumInfo($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+    
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '';
     $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`, " . TBL_album . ".`id` as `album_id`, " . TBL_artist . ".`artist_name`, " . TBL_album . ".`album_name`, " . TBL_album . ".`year`
