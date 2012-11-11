@@ -50,7 +50,9 @@ define('DASH', '-');
 
 // Error msgs
 define('ERR_NO_RESULTS', 'No results.');
-define('ERR_NO_ARTIST', 'No artist given.');
+define('ERR_NO_ARTIST', 'Artist error.');
+define('ERR_NO_ALBUM', 'Album error.');
+define('ERR_NO_USER', 'Album error.');
 define('ERR_NO_EVENT', 'No events.');
 define('ERR_GENERAL', 'General error.');
 define('ERR_INCORRECT_CREDENTIALS', 'Username or password error.');
