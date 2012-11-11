@@ -5,10 +5,11 @@ class Love extends CI_Controller {
   }
 
   /* List loves */
-  public function get() {
+  public function get($album_id = FALSE) {
     // Load helpers
     $this->load->helper(array('love_helper', 'return_helper'));
     
+    $_REQUEST['album_id'] = $album_id;
     echo getLove($_REQUEST);
   }
 

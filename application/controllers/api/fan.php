@@ -5,10 +5,11 @@ class Fan extends CI_Controller {
   }
 
   /* List fans */
-  public function get() {
+  public function get($artist_id = FALSE) {
     // Load helpers
     $this->load->helper(array('fan_helper', 'return_helper'));
     
+    $_REQUEST['artist_id'] = $artist_id;
     echo getFan($_REQUEST);
   }
 

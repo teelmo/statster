@@ -5,9 +5,8 @@ function getFan(user_id) {
   }
   jQuery.ajax({
     type:'GET',
-    url:'/api/fan/get',
+    url:'/api/fan/get/<?=$artist_id?>',
     data: {
-      artist_id:<?=$artist_id?>,
       user_id:user_id
     },
     statusCode: {
@@ -71,10 +70,8 @@ getFan(<?=$this->session->userdata('user_id')?>);
 function getFans() {
   jQuery.ajax({
     type:'GET',
-    url:'/api/fan/get',
-    data: {
-      artist_id:<?=$artist_id?>
-    },
+    url:'/api/fan/get/<?=$artist_id?>',
+    data: {},
     statusCode: {
       200: function(data) { // 200 OK
         jQuery.ajax({

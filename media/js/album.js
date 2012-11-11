@@ -5,9 +5,8 @@ function getLove(user_id) {
   }
   jQuery.ajax({
     type:'GET',
-    url:'/api/love/get',
+    url:'/api/love/get/<?=$album_id?>',
     data: {
-      album_id:<?=$album_id?>,
       user_id:user_id
     },
     statusCode: {
@@ -71,10 +70,8 @@ getLove(<?=$this->session->userdata('user_id')?>);
 function getLoves() {
   jQuery.ajax({
     type:'GET',
-    url:'/api/love/get',
-    data: {
-      album_id:<?=$album_id?>
-    },
+    url:'/api/love/get/<?=$album_id?>',
+    data: {},
     statusCode: {
       200: function(data) { // 200 OK
         jQuery.ajax({
