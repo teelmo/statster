@@ -62,7 +62,8 @@ define('AUTOCOMPLETE_MAX_HEIGHT', 312); #px
 define('AUTOCOMPLETE_MIN_CHARS', 3); #px
 
 // Time constants
-define('JUST_LISTENED_INTERVAL', 1800); #30min
+define('MSG_FADEOUT', 3000);
+define('JUST_LISTENED_INTERVAL', 1800);
 define('CUR_DATE', date('Y-m-d')); #2009-12-15
 
 // Database variables

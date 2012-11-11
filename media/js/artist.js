@@ -31,8 +31,8 @@ function getFan(user_id) {
               201: function(data) { // 201 Created
                 jQuery('#fan').removeClass('fanAdd').addClass('fanDel').prepend('<span class="fanMsg">You\'re a fan!</span>');
                 setTimeout(function() {
-                  jQuery('.fanMsg').fadeOut();
-                }, 3000);
+                  jQuery('.fanMsg').fadeOut('slow');
+                }, <?=MSG_FADEOUT?>);
                 getFans();
               },
               400: function(data) {alert('400 Bad Request')},
@@ -50,8 +50,8 @@ function getFan(user_id) {
               204: function() { // 204 No Content
                 jQuery('#fan').removeClass('fanDel').addClass('fanAdd').prepend('<span class="fanMsg">You\'re no longer a fan!</span>');
                 setTimeout(function() {
-                  jQuery('.fanMsg').fadeOut();
-                }, 3000);
+                  jQuery('.fanMsg').fadeOut('slow');
+                }, <?=MSG_FADEOUT?>);
                 getFans();
               },
               400: function(data) {alert('400 Bad Request')},

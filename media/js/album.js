@@ -31,8 +31,8 @@ function getLove(user_id) {
               201: function(data) { // 201 Created
                 jQuery('#love').removeClass('loveAdd').addClass('loveDel').prepend('<span class="loveMsg">You\'re in love!</span>');
                 setTimeout(function() {
-                  jQuery('.loveMsg').fadeOut();
-                }, 3000);
+                  jQuery('.loveMsg').fadeOut('slow');
+                }, <?=MSG_FADEOUT?>);
                 getLoves();
               },
               400: function(data) {alert('400 Bad Request')},
@@ -50,8 +50,8 @@ function getLove(user_id) {
               204: function() { // 204 No Content
                 jQuery('#love').removeClass('loveDel').addClass('loveAdd').prepend('<span class="loveMsg">You\'re no longer in love!</span>');
                 setTimeout(function() {
-                  jQuery('.loveMsg').fadeOut();
-                }, 3000);
+                  jQuery('.loveMsg').fadeOut('slow');
+                }, <?=MSG_FADEOUT?>);
                 getLoves();
               },
               400: function(data) {alert('400 Bad Request')},
