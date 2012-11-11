@@ -1,31 +1,3 @@
-jQuery("#addListeningSubmit").click(function() {
-  jQuery.ajax({
-    type:'POST',
-    url:'/api/listening/add',
-    data: {
-      text:jQuery('#addListeningText').val(),
-      date:jQuery('#addListeningDate').val(),
-      format:jQuery('input[name="addListeningFormat"]:checked').val(),
-      submitType:jQuery('input[name="submitType"]').val(),
-    },
-    statusCode: {
-      201: function(data) { // 200 OK
-        jQuery('#addListeningText').val('');
-        jQuery('input[name="addListeningFormat"]').prop('checked', false);
-        jQuery('img.listeningFormat').removeClass('selected');
-        getListenings();
-        topAlbum();
-        topArtist();
-        jQuery('#addListeningText').focus();
-      },
-      400: function(data) {alert('400 Bad Request')},
-      401: function(data) {alert('401 Unauthorized')},
-      404: function(data) {alert('404 Not Found')}
-    }
-  });
-  return false;
-});
-
 jQuery(document).ready(function() {
   jQuery('#addListeningText').focus();
   jQuery('#addListeningText').autocomplete({
@@ -39,7 +11,6 @@ jQuery(document).ready(function() {
     images:true,
     list:true
   });
-
 
   jQuery(".listeningFormat").click(function() {
     jQuery(".listeningFormat").removeClass('selected');
@@ -71,9 +42,37 @@ jQuery(document).ready(function() {
 
   jQuery("#recentlyListened").hover(function () {
     var currentTime = new Date();    
-    if((currentTime.getTime() - jQuery("#recentlyUpdated").attr('value') > (60 * 2 * 1000))) {
+    if ((currentTime.getTime() - jQuery("#recentlyUpdated").attr('value') > (60 * 2 * 1000))) {
       getListenings();
     }
+  });
+
+  jQuery("#addListeningSubmit").click(function() {
+    jQuery.ajax({
+      type:'POST',
+      url:'/api/listening/add',
+      data: {
+        text:jQuery('#addListeningText').val(),
+        date:jQuery('#addListeningDate').val(),
+        format:jQuery('input[name="addListeningFormat"]:checked').val(),
+        submitType:jQuery('input[name="submitType"]').val(),
+      },
+      statusCode: {
+        201: function(data) { // 200 OK
+          jQuery('#addListeningText').val('');
+          jQuery('input[name="addListeningFormat"]').prop('checked', false);
+          jQuery('img.listeningFormat').removeClass('selected');
+          getListenings();
+          topAlbum();
+          topArtist();
+          jQuery('#addListeningText').focus();
+        },
+        400: function(data) {alert('400 Bad Request')},
+        401: function(data) {alert('401 Unauthorized')},
+        404: function(data) {alert('404 Not Found')}
+      }
+    });
+    return false;
   });
 });
 
