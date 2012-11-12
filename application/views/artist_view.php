@@ -69,15 +69,15 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h2>Similar artists</h2>
-    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="similarArtistLoader"/>
-    <ul id="similarArtist" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
-  </div>
-  <div class="container"><hr /></div>
-  <div class="container">
     <h2>Artist's albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
     <ul id="artistAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
+  </div>
+  <div class="container"><hr /></div>
+  <div class="container">
+    <h2>Similar artists</h2>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="similarArtistLoader"/>
+    <ul id="similarArtist" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
   <!--
   <div class="container"><hr /></div>
