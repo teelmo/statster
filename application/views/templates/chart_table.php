@@ -37,6 +37,17 @@ if (is_array($json_data)) {
             <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'))?>
             <?=anchor(array('tag', 'release+year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'))?>
           </span>
+          <?php
+          if (empty($hide['del'])) {
+            if ($this->session->userdata('user_id') == $row->user_id) {
+              ?>
+              <span class="barChartDel">
+                <img src="/media/img/icons/delete.png" class="icon" />
+              </span>
+              <?php
+            }
+          }
+          ?>
         <td class="love icon">
           <?php
           $love_data = json_decode(getLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)));

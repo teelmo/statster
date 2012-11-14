@@ -95,6 +95,9 @@ function getListenings(isFirst) {
           url:'/ajax/chartTable',
           data: {
             json_data:data,
+            hide: {
+              del:true
+            }
           },
           success: function(data) {
             jQuery('#recentlyListenedLoader2').hide();
