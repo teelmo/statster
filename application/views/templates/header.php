@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><?=TITLE?></title>
-    <script type="text/javascript" src="/media/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/media/js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="/media/js/jquery.autocomplete.min.js"></script>
     <script type="text/javascript" src="/media/js/dropdown.js"></script>
     <script type="text/javascript">
