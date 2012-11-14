@@ -9,7 +9,7 @@ class Album extends CI_Controller {
     $data['js_include'] = array('albums');
 
     $this->load->view('templates/header');
-    $this->load->view('albums_view');
+    $this->load->view('music/albums_view');
     $this->load->view('templates/footer', $data);
   }
 }

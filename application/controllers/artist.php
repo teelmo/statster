@@ -9,7 +9,7 @@ class Artist extends CI_Controller {
     $data['js_include'] = array('artists');
 
     $this->load->view('templates/header');
-    $this->load->view('artists_view');
+    $this->load->view('music/artists_view');
     $this->load->view('templates/footer', $data);
   }
 }

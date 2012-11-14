@@ -6,7 +6,7 @@ class Music extends CI_Controller {
     $data['js_include'] = array('music');
     
     $this->load->view('templates/header', $data);
-    $this->load->view('music_view');
+    $this->load->view('music/music_view');
     $this->load->view('templates/footer');
   }
 
@@ -32,7 +32,7 @@ class Music extends CI_Controller {
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
-      $this->load->view('artist_view', $data);
+      $this->load->view('music/artist_view', $data);
       $this->load->view('templates/footer');
     }
     else {
@@ -63,7 +63,7 @@ class Music extends CI_Controller {
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
-      $this->load->view('album_view', $data);
+      $this->load->view('music/album_view', $data);
       $this->load->view('templates/footer');
     }
     else {
@@ -79,7 +79,7 @@ class Music extends CI_Controller {
     $data += $_REQUEST;
 
     $this->load->view('templates/header');
-    $this->load->view('recent_view', $data);
+    $this->load->view('music/recent_view', $data);
     $this->load->view('templates/footer', $data);
   }
 
@@ -91,7 +91,7 @@ class Music extends CI_Controller {
     $data += $_REQUEST;
 
     $this->load->view('templates/header');
-    $this->load->view('listener_view', $data);
+    $this->load->view('music/listener_view', $data);
     $this->load->view('templates/footer', $data);
   }
 }
