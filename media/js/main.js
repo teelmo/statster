@@ -125,7 +125,7 @@ function getListenings(isFirst) {
 }
 getListenings(true);
 
-function topAlbum() {
+function getAlbums() {
   jQuery.ajax({
     type:'GET',
     url:'/api/album/get',
@@ -146,7 +146,7 @@ function topAlbum() {
           jQuery('#topAlbum').html(data); 
         },
         complete: function() {
-          setTimeout(topAlbum, 60 * 10 * 1000);
+          setTimeout(getAlbums, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -156,9 +156,9 @@ function topAlbum() {
     }
   });
 }
-topAlbum();
+getAlbums();
 
-function topArtist() {
+function getArtists() {
   jQuery.ajax({
     type:'GET',
     url:'/api/artist/get',
@@ -179,7 +179,7 @@ function topArtist() {
           jQuery('#topArtist').html(data);
         },
         complete: function() {
-          setTimeout(topArtist, 60 * 10 * 1000);
+          setTimeout(getArtists, 60 * 10 * 1000);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -189,7 +189,7 @@ function topArtist() {
     }
   });
 }
-topArtist();
+getArtists();
 
 function recommentedTopAlbum() {
   jQuery.ajax({
