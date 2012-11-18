@@ -20,8 +20,8 @@ if (!function_exists('getListenings')) {
     $ci->load->database();
     
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist_name = !empty($opts['artist_name']) ? decode($opts['artist_name']) : '%';
-    $album_name = !empty($opts['album_name']) ? decode($opts['album_name']) : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $date = !empty($opts['date']) ? $opts['date'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
