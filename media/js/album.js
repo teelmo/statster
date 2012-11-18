@@ -101,7 +101,7 @@ function getUsers() {
     url:'/api/user/get',
     data: {
       limit:6,
-      artist_name:'<?=$artist_name?>',
+      artist_name:'<?php echo $artist_name?>',
       album_name:'<?php echo $album_name?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
@@ -148,7 +148,7 @@ function getListenings() {
       200: function(data) { // 200 OK
         jQuery.ajax({
           type:'POST',
-          url:'/ajax/albumTable',
+          url:'/ajax/userTable',
           data: {
             json_data:data,
             size:32,
@@ -165,8 +165,8 @@ function getListenings() {
         });
       },
       204: function() { // 204 No Content
-        jQuery('#topListenerLoader').hide();
-        jQuery('#topListener').html('<?=ERR_NO_RESULTS?>');
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
       },
       400: function(data) {alert('400 Bad Request')}
     }
