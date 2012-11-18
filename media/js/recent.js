@@ -1,46 +1,39 @@
-function recentlyListened(isFirst) {
-  if (isFirst != true) {
-    jQuery('#recentlyListenedLoader2').show();
-  }
+function getListenings() {
   jQuery.ajax({
     type:'GET',
     url:'/api/listening/get',
     data: {
       limit:100,
-      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
       artist_name:'<?php echo $artist_name?>',
-      album_name:'<?php echo $album_name?>'
+      album_name:'<?php echo $album_name?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
-    success: function(data) {
-      jQuery.ajax({
-        type:'POST',
-        url:'/ajax/chartTable',
-        data: {
-          json_data:data
-        },
-        success: function(data) {
-          jQuery('#recentlyListenedLoader2').hide();
-          jQuery('#recentlyListenedLoader').hide();
-          jQuery('#recentlyListened').html(data);
-
-          var currentTime = new Date();
-          var hours = currentTime.getHours();
-          var minutes = currentTime.getMinutes();
-          if (minutes < 10) {
-            minutes = "0" + minutes;
+    statusCode: {
+      200: function(data) { // 200 OK
+        jQuery.ajax({
+          type:'POST',
+          url:'/ajax/chartTable',
+          data: {
+            json_data:data,
+            size:32,
+            hide: {
+              artist:true,
+              count:true,
+              rank:true
+            }
+          },
+          success: function(data) {
+            jQuery('#recentlyListenedLoader').hide();
+            jQuery('#recentlyListened').html(data);
           }
-          jQuery('#recentlyUpdated').html('updated '+ hours + ':' + minutes);
-          jQuery('#recentlyUpdated').attr('value', currentTime.getTime());
-        },
-        complete: function() {
-          setTimeout(recentlyListened, 60*10*1000);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        });
+      },
+      204: function() { // 204 No Content
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
+      },
+      400: function(data) {alert('400 Bad Request')}
     }
   });
 }
-recentlyListened(true);
+getListenings();
