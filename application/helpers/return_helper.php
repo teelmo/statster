@@ -30,19 +30,7 @@ if (!function_exists('_json_return_helper')) {
       return json_encode(array('error' => array('msg' => ERR_GENERAL)));
     }
     else {
-      if (!empty($human_readable) && $human_readable != 'false') {
-        $ci=& get_instance();
-        $ci->load->database();
-
-        // Load helpers
-        $ci->load->helper(array('text_helper'));
-        return header("HTTP/1.1 204 No Content");
-      }
-      else {
-        return header("HTTP/1.1 204 No Content");
-      }
-      header("HTTP/1.1 400 Bad Request");
-      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+      return header("HTTP/1.1 204 No Content");
     }
   }
 }
