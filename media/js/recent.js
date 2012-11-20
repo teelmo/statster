@@ -25,6 +25,9 @@ function getListenings() {
           success: function(data) {
             jQuery('#recentlyListenedLoader').hide();
             jQuery('#recentlyListened').html(data);
+            jQuery("span.delete").click(function() {
+              $(this).after('<div>&nbsp;&nbsp;<span class="small">Are you sure: <a href="javascript:;">Yes</a> / <a href="javascript:;">Cancel</span></a></div>');
+            });
           }
         });
       },
