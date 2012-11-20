@@ -43,7 +43,7 @@ if (!empty($json_data)) {
               if ($this->session->userdata('user_id') === $row->user_id) {
                 ?>
                 <span class="delete">
-                  <a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon" id="delete_<?=$idx?>"/></a>
+                  <a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon" id="delete_<?=$idx?>" /></a>
                 </span>
                 <?php
               }
@@ -51,7 +51,10 @@ if (!empty($json_data)) {
             ?>
           <td class="love icon">
             <?php
-            $love_data = json_decode(getLove(array('user_id' => $row->user_id, 'album_id' => $row->album_id)));
+            $love_data = json_decode(getLove(array(
+              'user_id' => $row->user_id, 
+              'album_id' => $row->album_id,
+            )));
             if (!empty($love_data)) {
               ?>
               <span class="loveIcon" title="Loved"></span>
