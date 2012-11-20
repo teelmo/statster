@@ -17,6 +17,12 @@
       <script type="text/javascript">
         jQuery(document).ready(function() {
           <?php
+          if (!empty($artist_name)) {
+            $artist_name = addslashes($artist_name);
+          }
+          if (!empty($album_name)) {
+            $album_name = addslashes($album_name);
+          }
           if (isset($js_include)) {
             foreach ($js_include as $file) {
               if (file_exists('./media/js/' . $file . '.js')) {
