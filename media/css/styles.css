@@ -510,6 +510,12 @@ table.chartTable thead tr td {
   color: #999;
   font-size: 11px;
 }
+table.chartTable tbody tr span.delete {
+  display: none;
+}
+table.chartTable tbody tr:hover span.delete {
+  display: inline;
+}
 /* albumTable */
 /* userTable */
 /* eventTable */
