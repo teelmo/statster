@@ -15,22 +15,17 @@
         <?=anchor(array('/'), '<img src="/media/img/icons/rss.png" alt="" class="middle icon" />', array('title' => 'RSS feed'))?>
       </div>
       <script type="text/javascript">
-        <?php
-        if (isset($js_include)) {
-          foreach ($js_include as $file) {
-            if (file_exists('./media/js/' . $file . '.js')) {
-              include('./media/js/' . $file . '.js');
+        jQuery(document).ready(function() {
+          <?php
+          if (isset($js_include)) {
+            foreach ($js_include as $file) {
+              if (file_exists('./media/js/' . $file . '.js')) {
+                include('./media/js/' . $file . '.js');
+              }
             }
           }
-        }
-        ?>
-        /*jQuery(document).ready(function() {
-          jQuery('a#addListeningLink').tipsy({delayIn: 350, delayOut: 125, gravity: 'ne', live: true});
-          jQuery('a').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
-          jQuery('img.listeningFormatType').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
-          jQuery('span.loveIcon').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
-          jQuery('img.listeningFormat').tipsy({delayIn: 350, delayOut: 125, gravity: 'nw', live: true});
-        });*/
+          ?>
+        });
       </script>
     </div>
   </body>
