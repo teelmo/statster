@@ -36,7 +36,7 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h2>Hop albums</h2>
+    <h2>Hot albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
     <ul id="topAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
