@@ -36,6 +36,13 @@
   ul.chartList {
     width: 321px;
   }
+  div.artistInfo,
+  div.albumInfo {
+    margin-left: 190px;
+  }
+  div.externalLink {
+    display: none;
+  }
 }
 
 /* Landscape smart phone */
@@ -57,6 +64,9 @@
 }
 
 @media all and (max-width: 320px) {
+  div#mainCont {
+    width: 319px;
+  }
   div#rightCont {
     display: none;
   }
@@ -71,18 +81,8 @@
   div#footer div.socialMedia {
     padding-right: 8px;
   }
-}
-
-@media all and (max-width: 500px) {
-  img.artistImg300,
-  img.albumImg300 {
-    width: 174px;
-  }
-  div.artistInfo,
-  div.albumInfo {
-    margin-left: 190px;
-  }
-  div.externalLink {
+  span.title span.artist,
+  span.title span.year {
     display: none;
   }
 }
