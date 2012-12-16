@@ -19,9 +19,7 @@ if (!empty($json_data)) {
 }
 else {
   ?>
-  <div class="container">
-    Internal error
-  </div>
+  No results
   <?php
 }
 ?>

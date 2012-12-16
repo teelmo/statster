@@ -42,7 +42,7 @@ if (!empty($json_data)) {
             if (empty($hide['del'])) {
               if ($this->session->userdata('user_id') === $row->user_id) {
                 ?>
-                <span class="delete">
+                <span class="delete deleteCont">
                   <a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon" id="delete_<?=$idx?>" /></a>
                 </span>
                 <?php
@@ -88,9 +88,7 @@ if (!empty($json_data)) {
 }
 else {
   ?>
-  <div class="container">
-    Internal error
-  </div>
+  No results
   <?php
 }
 ?>
