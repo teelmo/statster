@@ -33,10 +33,13 @@ if (!empty($json_data)) {
           </td>
           <td class="title">
             <span class="title">
-              <?=anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'))?>
-              <?=DASH?>
+              <span class="artist"><?=anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'))?>
+                <?=DASH?>
+              </span>
               <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'))?>
-              <?=anchor(array('tag', 'release+year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'))?>
+              <span class="year">
+                <?=anchor(array('tag', 'release+year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'))?>
+              </span>
             </span>
             <?php
             if (empty($hide['del'])) {
