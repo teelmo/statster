@@ -20,30 +20,19 @@
       <img src="<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>" alt="" class="albumImg albumImg300" />
     </div>
     <div class="albumInfo">
-      <table class="albumInfo">
-        <tr>
-          <th><?=$total_count?></th>
-          <?php
-          if (!empty($user_count)) {
-            ?>
-            <th><small><?=$user_count?></small></th>
-            <?php
-          }
-          ?>
-        </tr>
-        <tr>
-          <td>listenings</td>
-          <?php
-          if (!empty($user_count)) {
-            ?>
-            <td>in your library</td>
-            <?php
-          }
-          ?>
-        </tr>
-      </table>
-      <br />
-      <h3 class="albumLove">Album's loves</h3>
+      <div class="floatLeft">
+        <div class="count"><?=$total_count?></div><div class="desc"> listenings</div>
+      </div>
+      <?php
+      if (!empty($user_count)) {
+        ?>
+        <div class="floatLeft">
+          <div class="count"><small><?=$user_count?></small></div><div class="desc">in your library</div>
+        </div>
+        <?php
+      }
+      ?>
+      <h3 class="albumLove floatLeft">Album's loves</h3>
       <div>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
         <ul id="albumLove" class="likeList noBullets"><!-- Content is loaded with AJAX --></ul>
