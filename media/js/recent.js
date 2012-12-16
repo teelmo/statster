@@ -25,14 +25,16 @@ function getListenings() {
           success: function(data) {
             jQuery('#recentlyListenedLoader').hide();
             jQuery('#recentlyListened').html(data);
+            jQuery('div.confirmation').hide();
             jQuery('span.delete').click(function() {
               jQuery(this).removeClass('delete');
-              jQuery(this).after('<div class="confirmation"><span class="small">Are you sure: <a href="javascript:;" class="confirm">Ok</a> / <a href="javascript:;" class="cancel">Cancel</div></a></span>');
+              jQuery('div.confirmation[for="' + jQuery(this).attr('id') + '"]').show();
               jQuery('a.cancel').click(function() {
-                jQuery(this).closest('div').remove();
+                jQuery('#' + jQuery(this).attr('for')).addClass('delete');
+                jQuery(this).closest('div').hide();
               });
               jQuery('a.confirm').click(function() {
-                jQuery(this).closest('div').remove();
+
               });
             });
           }
