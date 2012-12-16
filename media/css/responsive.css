@@ -64,16 +64,11 @@
 }
 
 @media all and (max-width: 320px) {
-  div#mainCont {
-    width: 319px;
-  }
   div#rightCont {
     display: none;
   }
   div#leftCont {
-    width: 100%;
-    max-width: 480px;
-    min-width: 321px;
+    width: 320px;
   }
   div#footer div.floatLeft {
     display: none;
