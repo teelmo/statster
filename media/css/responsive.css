@@ -50,9 +50,14 @@
   div#rightCont {
     display: none;
   }
+  div#topCont {
+    width: 100%;
+    max-width: 600px;
+    min-width: 321px;
+  }
   div#leftCont {
     width: 100%;
-    max-width: 480px;
+    max-width: 600px;
     min-width: 321px;
   }
   div#footer div.floatLeft {
@@ -66,6 +71,9 @@
 @media all and (max-width: 320px) {
   div#rightCont {
     display: none;
+  }
+  div#topCont {
+    width: 320px;
   }
   div#leftCont {
     width: 320px;
