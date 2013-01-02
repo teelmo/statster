@@ -54,8 +54,6 @@ if (!function_exists('getEvents')) {
       $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
       if (!empty($lastfm_data['events']['event'])) {  
         $events = $lastfm_data['events']['event'];
-echo '<pre>';
-        print_r($events);
         foreach ($events as $idx => $event) {
           $data[] = array('name' => $event['venue']['name'],
                           'city' => $event['venue']['location']['city'],
