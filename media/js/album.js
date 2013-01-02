@@ -89,7 +89,10 @@ function getLoves() {
         jQuery('#albumLoveLoader').hide();
         jQuery('#albumLove').html('<?=ERR_NO_RESULTS?>');
       },
-      400: function(data) {alert('400 Bad Request')}
+      400: function() { // 400 Bad request
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+      }
     }
   });
 }
@@ -128,7 +131,10 @@ function getUsers() {
         jQuery('#topListenerLoader').hide();
         jQuery('#topListener').html('<?=ERR_NO_RESULTS?>');
       },
-      400: function(data) {alert('400 Bad Request')}
+      400: function() { // 400 Bad request
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+      }
     }
   });
 }
@@ -168,7 +174,10 @@ function getListenings() {
         jQuery('#recentlyListenedLoader').hide();
         jQuery('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
       },
-      400: function(data) {alert('400 Bad Request')}
+      400: function() { // 400 Bad request
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+      }
     }
   });
 }

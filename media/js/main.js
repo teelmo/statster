@@ -66,9 +66,15 @@ jQuery("#addListeningSubmit").click(function() {
         topArtist();
         jQuery('#addListeningText').focus();
       },
-      400: function(data) {alert('400 Bad Request')},
-      401: function(data) {alert('401 Unauthorized')},
-      404: function(data) {alert('404 Not Found')}
+      400: function() { // 400 Bad Request
+        alert('400 Bad Request');
+      },
+      401: function() { // 403 Forbidden
+        alert('401 Unauthorized');
+      },
+      404: function() { // 404 Not found
+        alert('404 Not Found');
+      }
     }
   });
   return false;

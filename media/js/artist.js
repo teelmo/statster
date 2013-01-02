@@ -16,7 +16,10 @@ function getFan(user_id) {
       204: function() { // 204 No Content
         jQuery('#fan').addClass('fanAdd');
       },
-      400: function(data) {alert('400 Bad Request')}
+      400: function() { // 400 Bad request
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+      }
     },
     complete: function() {
       jQuery('#fanLoader').hide();
