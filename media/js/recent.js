@@ -34,7 +34,25 @@ function getListenings() {
                 jQuery(this).closest('div').hide();
               });
               jQuery('a.confirm').click(function() {
-
+                jQuery.ajax({
+                  type:'DELETE',
+                  url:'/api/listening/delete/' + jQuery(this).attr('data-listening-id'),
+                  statusCode: {
+                    204: function() { // 204 No Content
+                      // Remove the tr
+                      console.log($(this))
+                    },
+                    400: function() { // 400 Bad Request
+                      alert('400 Bad Request');
+                    },
+                    401: function() { // 403 Forbidden
+                      alert('401 Unauthorized');
+                    },
+                    404: function() { // 404 Not found
+                      alert('404 Not Found');
+                    }
+                  }
+                });
               });
             });
           }
@@ -44,7 +62,10 @@ function getListenings() {
         jQuery('#recentlyListenedLoader').hide();
         jQuery('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
       },
-      400: function(data) {alert('400 Bad Request')}
+      400: function() { // 400 Bad request
+        jQuery('#recentlyListenedLoader').hide();
+        jQuery('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+      }
     }
   });
 }

@@ -48,7 +48,7 @@ if (!empty($json_data)) {
                 <span class="delete deleteCont" id="delete_<?=$idx?>">
                   <a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon" /></a>
                 </span>
-                <div class="confirmation" for="delete_<?=$idx?>"><span class="small">Are you sure: <a href="javascript:;" class="confirm" for="delete_<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel" for="delete_<?=$idx?>">Cancel</a></span></div>
+                <div class="confirmation" for="delete_<?=$idx?>"><span class="small">Are you sure: <a href="javascript:;" class="confirm" for="delete_<?=$idx?>" data-listening-id="<?=$row->listening_id?>">Ok</a> / <a href="javascript:;" class="cancel" for="delete_<?=$idx?>">Cancel</a></span></div>
                 <?php
               }
             }

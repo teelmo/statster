@@ -25,9 +25,11 @@ class Listening extends CI_Controller {
   }
 
   /* Delete listening information */
-  public function delete() {
+  public function delete($listening_id) {
     // Load helpers
+    $this->load->helper(array('listening_helper'));
     
+    echo deleteListening(array('listening_id' => $listening_id));
   }
 }
-?> 
+?>
