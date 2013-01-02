@@ -1,6 +1,6 @@
 <div id="leftCont">
   <div class="container">
-    <h1>Statster&nbsp; &middot; &nbsp; &middot; &nbsp;greetings!</h1>
+    <h1>Statster&nbsp; &middot; &middot; &middot; &nbsp;greetings!</h1>
     <p>
       Want to be reconciled with the music. Do it Statster like and <a href="javascript:" onclick="$('#registerForm').toggle(); return false;">register now!</a> 
     </p>
@@ -28,9 +28,11 @@
   <div class="container">
     <iframe width="570" height="321" src="http://www.youtube.com/embed/f0pdwd0miqs" frameborder="0" allowfullscreen></iframe>
   </div>-->
-  <div class="container"><hr /></div>
-  <div class="container">
-    <iframe width="570" height="321" src="http://www.youtube.com/embed/NmfzWpp0hMc" frameborder="0" allowfullscreen></iframe>
+  <div class="welcome">
+    <div class="container"><hr /></div>
+    <div class="container">
+      <iframe width="570" height="321" src="http://www.youtube.com/embed/NmfzWpp0hMc" frameborder="0"></iframe>
+    </div>
   </div>
   <!--<div class="container"><hr /></div>
   <div class="container">

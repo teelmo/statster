@@ -66,6 +66,9 @@
   div#footer div.socialMedia {
     padding-right: 8px;
   }
+  div.welcome {
+    display: none;
+  }
 }
 
 @media all and (max-width: 320px) {
@@ -86,6 +89,9 @@
   }
   span.title span.artist,
   span.title span.year {
+    display: none;
+  }
+  div.welcome {
     display: none;
   }
 }
