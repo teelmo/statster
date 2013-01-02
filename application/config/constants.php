@@ -49,6 +49,7 @@ define('TITLE', 'Statster');
 define('DASH', '-');
 
 // Error msgs
+define('ERR_BAD_REQUEST', '400: Bad request.');
 define('ERR_NO_RESULTS', 'No results.');
 define('ERR_NO_ARTIST', 'Artist error.');
 define('ERR_NO_ALBUM', 'Album error.');
