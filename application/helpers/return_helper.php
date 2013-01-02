@@ -19,18 +19,18 @@ if (!function_exists('_json_return_helper')) {
 
         // Load helpers
         $ci->load->helper(array('text_helper'));
-        header("HTTP/1.1 200 OK");
+        header('HTTP/1.1 200 OK');
         return indentJSON(json_encode($query->result()));
       }
       else {
-        header("HTTP/1.1 200 OK");
+        header('HTTP/1.1 200 OK');
         return json_encode($query->result());
       }
-      header("HTTP/1.1 400 Bad Request");
+      header('HTTP/1.1 400 Bad Request');
       return json_encode(array('error' => array('msg' => ERR_GENERAL)));
     }
     else {
-      return header("HTTP/1.1 204 No Content");
+      return header('HTTP/1.1 204 No Content');
     }
   }
 }

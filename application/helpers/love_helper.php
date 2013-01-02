@@ -42,7 +42,7 @@ if (!function_exists('addLove')) {
 
     // Get user id from session
     if (!$user_id = $ci->session->userdata('user_id')) {
-      return header("HTTP/1.1 401 Unauthorized");
+      return header('HTTP/1.1 401 Unauthorized');
     }
 
     // Add love data to DB
@@ -51,10 +51,10 @@ if (!function_exists('addLove')) {
               VALUES ($user_id, $album_id)";
     $query = $ci->db->query($sql);
     if ($ci->db->affected_rows() === 1) {
-      header("HTTP/1.1 201 Created");
+      header('HTTP/1.1 201 Created');
       return json_encode(array('success' => array('msg' => $ci->db->insert_id())));
     }
-    return header("HTTP/1.1 400 Bad Request");
+    return header('HTTP/1.1 400 Bad Request');
   }
 }
 
@@ -93,11 +93,11 @@ if (!function_exists('deleteLove')) {
       $ci->db->query('COMMIT');
       $ci->db->query('SET AUTOCOMMIT = 1');
       if ($ci->db->affected_rows() === 0) {
-        return header("HTTP/1.1 204 No Content");
+        return header('HTTP/1.1 204 No Content');
       }
-      return header("HTTP/1.1 400 Bad Request");
+      return header('HTTP/1.1 400 Bad Request');
     }
-    return header("HTTP/1.1 400 Bad Request");
+    return header('HTTP/1.1 400 Bad Request');
   }
 }
 ?>

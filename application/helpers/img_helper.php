@@ -42,7 +42,7 @@ if (!function_exists('getArtistImg')) {
     if (empty($opts['size'])) {
       return '';
     }
-    $empty_filename = './media/img/artist_img/' . $opts['size'] . '/' . 0 . '.jpg';
+    $empty_filename = './media/img/artist_img/' . $opts['size'] . '/0.jpg';
     if (empty($opts['artist_id'])) {
       return site_url() . $empty_filename;
     }
@@ -67,7 +67,7 @@ if (!function_exists('getAlbumImg')) {
     if (empty($opts['size'])) {
       return '';
     }
-    $empty_filename = './media/img/album_img/' . $opts['size'] . '/' . 0 . '.jpg';
+    $empty_filename = './media/img/album_img/' . $opts['size'] . '/0.jpg';
     if (empty($opts['album_id'])) {
       return site_url() . $empty_filename;
     }

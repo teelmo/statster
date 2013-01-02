@@ -42,7 +42,7 @@ if (!function_exists('addFan')) {
 
     // Get user id from session
     if (!$user_id = $ci->session->userdata('user_id')) {
-      return header("HTTP/1.1 401 Unauthorized");
+      return header('HTTP/1.1 401 Unauthorized');
     }
     
     // Add fan data to DB
@@ -54,7 +54,7 @@ if (!function_exists('addFan')) {
       header("HTTP/1.1 201 Created");
       return json_encode(array('success' => array('msg' => $ci->db->insert_id())));
     }
-    return header("HTTP/1.1 400 Bad Request");
+    return header('HTTP/1.1 400 Bad Request');
   }
 }
 
@@ -73,7 +73,7 @@ if (!function_exists('deleteFan')) {
 
     // Get user id from session
     if (!$user_id = $ci->session->userdata('user_id')) {
-      return header("HTTP/1.1 401 Unauthorized");
+      return header('HTTP/1.1 401 Unauthorized');
     }
 
     $ci->db->query('SET AUTOCOMMIT = 0');
@@ -93,11 +93,11 @@ if (!function_exists('deleteFan')) {
       $ci->db->query('COMMIT');
       $ci->db->query('SET AUTOCOMMIT = 1');
       if ($ci->db->affected_rows() === 0) {
-        return header("HTTP/1.1 204 No Content");
+        return header('HTTP/1.1 204 No Conten');
       }
-      return header("HTTP/1.1 400 Bad Request");
+      return header('HTTP/1.1 400 Bad Request');
     }
-    return header("HTTP/1.1 400 Bad Request");
+    return header('HTTP/1.1 400 Bad Request');
   }
 }
 ?>

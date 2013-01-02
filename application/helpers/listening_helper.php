@@ -6,8 +6,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *
   * @param array $opts.
   *          'username'        => Username
-  *          'artist_name'          => Artist name
-  *          'album_name'           => Album name
+  *          'artist_name'     => Artist name
+  *          'album_name'      => Album name
   *          'date'            => Listening date in yyyy/mm/dd format
   *          'limit'           => Limit
   *          'human_readable'  => Output format
@@ -61,8 +61,8 @@ if (!function_exists('getListenings')) {
 if (!function_exists('addListening')) {
   function addListening($opts = array()) {
     if (empty($opts)) {
-      header("HTTP/1.1 400 Bad Request");
-      return json_encode(array('error' => array('msg' => '$_POST parameters not delivered')));
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
     }
     if (strpos($opts['text'], DASH)) {
       $ci=& get_instance();
@@ -72,7 +72,7 @@ if (!function_exists('addListening')) {
       
       // Get user id from session
       if (!$data['user_id'] = $ci->session->userdata('user_id')) {
-        header("HTTP/1.1 401 Unauthorized");
+        header('HTTP/1.1 401 Unauthorized');
         return json_encode(array('error' => array('msg' => $data)));
       }
       list($data['artist'], $data['album']) = explode(DASH, $opts['text']);
@@ -81,7 +81,7 @@ if (!function_exists('addListening')) {
       $data['album'] = trim($data['album']);
       // Check that album exists
       if (!$data['album_id'] = getAlbumID($data)) {
-        header("HTTP/1.1 404 Not Found");
+        header('HTTP/1.1 404 Not Found');
         return json_encode(array('error' => array('msg' => $data)));
       }
       $data['date'] = trim($opts['date']);
@@ -90,7 +90,6 @@ if (!function_exists('addListening')) {
       $sql = "INSERT
                 INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
                 VALUES ({$data['user_id']}, {$data['album_id']}, '{$data['date']}')";
-                echo $sql;
       $query = $ci->db->query($sql);
       if ($ci->db->affected_rows() == 1) {
         $data['listening_id'] = $ci->db->insert_id();
@@ -99,17 +98,57 @@ if (!function_exists('addListening')) {
           list($data['format'], $data['format_type']) = explode(':', $_POST['format']);
           addListeningFormat($data);
         }
-        header("HTTP/1.1 201 Created");
+        header('HTTP/1.1 201 Created');
         return json_encode(array('success' => array('msg' => $data)));
       }
       else {
-        header("HTTP/1.1 400 Bad Request");
+        header('HTTP/1.1 400 Bad Request');
         return json_encode(array('error' => array('msg' => ERR_GENERAL)));
       }
     }
     else {
-      header("HTTP/1.1 404 Not Found");
+      header('HTTP/1.1 404 Not Found');
       return json_encode(array('error' => array('msg' => 'Format error.')));
+    }
+  }
+}
+
+/**
+  * Delete listening data
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('deleteListening')) {
+  function deleteListening($opts = array()) {
+    $data = array();
+    if (!$data['listening_id'] = $opts['listening_id']) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+    $ci=& get_instance();
+    $ci->load->database();
+
+    
+    // Get user id from session
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    // Delete listening data from DB
+    $sql = "DELETE 
+              FROM " . TBL_listening . "
+              WHERE " . TBL_listening . ".`id` = {$data['listening_id']}
+                AND " . TBL_listening . ".`user_id` = {$data['user_id']}";
+    $query = $ci->db->query($sql);
+    if ($ci->db->affected_rows() == 1) {
+      header('HTTP/1.1 200 OK');
+      return json_encode(array());
+    }
+    else {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
     }
   }
 }
@@ -159,9 +198,9 @@ if (!function_exists('addListeningFormats')) {
     
     $sql = "INSERT
               INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`) 
-              VALUES (" . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_id) . ", " . $ci->db->escape($user_id) . ")";
+              VALUES (' . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_id) . ", " . $ci->db->escape($user_id) . ")";
     $query = $ci->db->query($sql);
-    if($ci->db->affected_rows() == 1) {
+    if ($ci->db->affected_rows() == 1) {
       return $ci->db->insert_id();
     }
     else {
@@ -190,9 +229,9 @@ if (!function_exists('addListeningFormatTypes')) {
     $user_id = $opts['user_id'];
     $sql = "INSERT
               INTO " . TBL_listening_format_types . " (`listening_id`, `listening_format_type_id`, `user_id`)
-              VALUES (" . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_type_id) . ", " . $ci->db->escape($user_id) . ")";
+              VALUES (' . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_type_id) . ", " . $ci->db->escape($user_id) . ")";
     $query = $ci->db->query($sql);
-    if($ci->db->affected_rows() == 1) {
+    if ($ci->db->affected_rows() == 1) {
       return $ci->db->insert_id();
     }
     else {
