@@ -62,8 +62,8 @@ jQuery("#addListeningSubmit").click(function() {
         jQuery('input[name="addListeningFormat"]').prop('checked', false);
         jQuery('img.listeningFormat').removeClass('selected');
         getListenings();
-        topAlbum();
-        topArtist();
+        getArtists();
+        getAlbums();
         jQuery('#addListeningText').focus();
       },
       400: function() { // 400 Bad Request
