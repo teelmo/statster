@@ -198,7 +198,7 @@ if (!function_exists('addListeningFormats')) {
     
     $sql = "INSERT
               INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`) 
-              VALUES (' . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_id) . ", " . $ci->db->escape($user_id) . ")";
+              VALUES (" . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_id) . ", " . $ci->db->escape($user_id) . ")";
     $query = $ci->db->query($sql);
     if ($ci->db->affected_rows() == 1) {
       return $ci->db->insert_id();
@@ -229,7 +229,7 @@ if (!function_exists('addListeningFormatTypes')) {
     $user_id = $opts['user_id'];
     $sql = "INSERT
               INTO " . TBL_listening_format_types . " (`listening_id`, `listening_format_type_id`, `user_id`)
-              VALUES (' . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_type_id) . ", " . $ci->db->escape($user_id) . ")";
+              VALUES (" . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_type_id) . ", " . $ci->db->escape($user_id) . ")";
     $query = $ci->db->query($sql);
     if ($ci->db->affected_rows() == 1) {
       return $ci->db->insert_id();
