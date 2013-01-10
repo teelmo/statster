@@ -28,7 +28,7 @@
     <div id="topCont">
       <div id="topContInner">
         <div class="floatLeft">
-          <h1><?=anchor('/', 'Statster')?></h1>
+          <h1 title="Statster"><?=anchor('/', 'Statster', array('title' => 'Statster'))?></h1>
           <img src="/media/img/icons/beta.png" alt="" id="betaLogo" />
         </div>
         <div class="floatRight">
@@ -56,16 +56,18 @@
                 <li><?=anchor(array('logout'), 'Logout')?></li>
               </ul>
             </div>
-            <div>
+            <div id="addListeningCont">
               <span class="divider"></span>
               <?=anchor(array('/'), '<img src="/media/img/icons/bar_chart_20px.png" alt="" id="addlistening"/>', array('title' => 'Add listening', 'id' => 'addListeningLink'))?>
             </div>
+            <!-- This is here because otherwise the responsive layout breaks -->
+            <div>&nbsp;</div>
             <?
           }
           else {
             ?>
             <div id="userCont">
-              <?=anchor(array('login'), 'Login', array('title' => 'Login'))?>
+              <?=anchor(array('login'), 'Login', array('title' => 'Login', 'id' => 'loginLink'))?>
             </div>
             <?
           }

@@ -220,7 +220,7 @@ span.tag {
   letter-spacing: 0.1em;
   border-radius: 3px;
   display: inline-block;
-  font-size: 12px;
+  font-size: 10px;
 }
 span.tag a { 
   color: #FFF;
@@ -864,7 +864,7 @@ img.icon {
 #userCont {
   position: relative;
   cursor: pointer;
-  vertical-align: -7%;
+  top: 2px;
   padding: 10px 0 10px 0;
 }
 #userCont ul.subnav {

@@ -19,7 +19,7 @@ if (!empty($json_data)) {
           if ((time() - strtotime($row->created)) < JUST_LISTENED_INTERVAL && $row->date == CUR_DATE) {
             $class = 'justAdded';
             $size = 64;
-            $datetime = '<span id="nowPlaying"></span> just listened';
+            $datetime = '<span id="nowPlaying"></span> <span id="nowPlayingText">just listened</span>';
             $justAdded = TRUE;
           }
         }

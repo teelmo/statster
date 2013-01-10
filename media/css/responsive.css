@@ -27,6 +27,9 @@
 }
 
 @media all and (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
   img.artistImg300 {
     width: 174px;
   }
@@ -40,7 +43,31 @@
   div.albumInfo {
     margin-left: 190px;
   }
-  div.externalLink {
+  div#leftContInner,
+  div#rightCont {
+    display: none;
+  }
+  div#leftContOuter {
+    width: 100%;
+    margin-left: 0;
+  }
+  div.externalLink,
+  div#footer div.floatLeft {
+    display: none;
+  }
+  div#topContInner div#userCont a#loginLink,
+  div#footer div.socialMedia {
+    padding-right: 10px;
+  }
+  div#topCont h1 {
+    margin-left: 4px;
+  }
+  div.welcome,
+  span.title span.artist,
+  span.title span.year,
+  div#topContInner img#betaLogo,
+  div#topContInner div#addListeningCont,
+  span#nowPlayingText { 
     display: none;
   }
 }
@@ -60,38 +87,13 @@
     max-width: 600px;
     min-width: 321px;
   }
-  div#footer div.floatLeft {
-    display: none;
-  }
-  div#footer div.socialMedia {
-    padding-right: 8px;
-  }
-  div.welcome {
-    display: none;
-  }
 }
 
 @media all and (max-width: 320px) {
-  div#rightCont {
-    display: none;
-  }
   div#topCont {
     width: 320px;
   }
   div#leftCont {
     width: 320px;
-  }
-  div#footer div.floatLeft {
-    display: none;
-  }
-  div#footer div.socialMedia {
-    padding-right: 8px;
-  }
-  span.title span.artist,
-  span.title span.year {
-    display: none;
-  }
-  div.welcome {
-    display: none;
   }
 }
