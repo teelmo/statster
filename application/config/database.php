@@ -48,7 +48,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
+$db['default']['hostname'] = '127.0.0.1';
 $db['default']['username'] = 'statster';
 $db['default']['password'] = 'nCnnvDv2AnGR5Tu2';
 $db['default']['database'] = 'statster';
