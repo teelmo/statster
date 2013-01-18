@@ -2,30 +2,30 @@
  * Template styles
  */
 body {
-  background: #FFF url('/media/img/bg_body.jpg') repeat;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #fff url('/media/img/bg_body.jpg') repeat;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
   font-size: 12px;
-  margin-bottom: 50px;
   line-height: 1.3;
+  margin-bottom: 50px;
   overflow-x: hidden;
 }
 div.container {
-  font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
+  font-family: 'Lucida Grande', 'Arial', 'Helvetica', 'Verdana', 'sans-serif';
 }
 div#topCont {
-  color: #EEE;
   background: #222 url('/media/img/background_top_navi.gif') repeat-x center top;
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  color: #eee;
+  font-size: 13px;
   height: 36px;
   line-height: 36px;
+  position: fixed; left: 0; top: 0;
   vertical-align: middle;
   width: 100%;
-  font-size: 13px;
-  border-bottom: 1px solid #000;
-  position: fixed; left: 0; top: 0;
   z-index: 9999;
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
 }
 div#topContInner {
   max-width: 950px;
@@ -59,30 +59,30 @@ span#userContDropdown:hover {
   filter:alpha(opacity=10);
 }
 div#mainCont {
+  margin: 70px auto auto auto;
   max-width: 950px;
-  margin: auto auto;
-  margin-top: 70px;
 }
 div#leftCont {
-  background: #FFF;
-  /*background: #FFF url('/media/img/bg_leftCont.png') repeat;*/
-  -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  width: 600px;
-  float: left;
+  /* background: #fff url('/media/img/bg_leftCont.png') repeat; */
+  background: #fff;
   border: 1px solid #999;
   border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  float: left;
   margin-bottom: 20px;
+  min-height: 600px;
+  width: 600px;
+  -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 div#leftContInner {
-  width: 150px;
+  border-right: 1px dotted #ccc;
   float: left;
-  border-right: 1px dotted #CCC;
+  width: 150px;
 }
 div#leftContOuter {
-  width: 450px;
   margin-left: 150px;
+  width: 450px;
 }
 div#rightCont {
   background-color: transparent;
@@ -90,12 +90,12 @@ div#rightCont {
   width: 330px;
 }
 div#footer {
+  clear: both;
+  font-size: ;
   max-width: 950px;
   margin: auto auto;
   position: relative;
   top: -15px;
-  clear: both;
-  font-size: smaller;
 }
 div#footer div {
   padding: 0 10px 0 10px;
@@ -103,15 +103,26 @@ div#footer div {
 div#footer div.socialMedia {
   padding-right: 355px;
 }
+div#footer a,
+div#footer {
+  color: #aaa;
+}
+div#footer:hover a {
+  color: #000;
+}
+div#footer a:hover {
+  text-decoration: underline;
+}
+
 /* 
  * Heading styles
  */
 h1 {
+  text-shadow: 0 1px 0 #eee;
   font-size: 22px;
   font-style: normal;
   font-variant: normal;
   font-weight: bold;
-  text-shadow: 0 1px 0 #EEE;
   letter-spacing: 0.1em;
   margin: 20px 0 20px 0;
 }
@@ -119,20 +130,20 @@ h1 div.desc {
   font-size: 14px;
 }
 div#topCont h1 {
-  margin: 0;
-  padding: 2px;
   display: inline-block;
   font-family: "Helvetica";
-  letter-spacing: 3px;
   font-size: 20px;
-  text-shadow: 1px 0px 5px #CCC;
+  letter-spacing: 3px;
+  margin: 0;
+  padding: 2px;
+  text-shadow: 1px 0px 5px #ccc;
 }
 div#leftCont h1 {
   color: #555;
 }
 div#rightCont h1 {
-  font-size: 18px;
   color: #222;
+  font-size: 18px;
   margin-bottom: 10px;
 }
 h2 {
@@ -305,10 +316,6 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
-div#footer a {
-  color: #000;
-  font-weight: bold;
-}
 a:hover {
   color: #999;
 }
@@ -316,7 +323,6 @@ a:visited {
   color: #00E;
   text-decoration: none;
 }
-div#footer a:hover,
 a:visited:hover {
   color: #999;
   text-decoration: none;
