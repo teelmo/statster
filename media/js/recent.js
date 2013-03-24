@@ -35,6 +35,9 @@ function getListenings() {
               });
               jQuery('a.confirm').click(function() {
                 var row_id = jQuery(this).attr('data-row-id');
+                if (jQuery('#' + row_id).hasClass('justAdded')) {
+                  jQuery('tr').removeClass('justAddedRest');
+                }
                 jQuery.ajax({
                   type:'DELETE',
                   url:'/api/listening/delete/' + jQuery(this).attr('data-listening-id'),

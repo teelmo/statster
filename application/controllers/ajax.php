@@ -14,7 +14,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -27,7 +27,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -40,7 +40,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -53,7 +53,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -66,7 +66,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -76,7 +76,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -86,7 +86,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -96,7 +96,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -106,7 +106,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -116,7 +116,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -126,7 +126,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 
@@ -136,7 +136,7 @@ class Ajax extends CI_Controller {
       header("HTTP/1.1 200 OK");
     }
     else {
-      exit ('No direct script access allowed');
+      exit (ERR_NO_RESULTS);
     }
   }
 }
