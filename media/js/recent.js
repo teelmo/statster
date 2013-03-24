@@ -34,13 +34,13 @@ function getListenings() {
                 jQuery(this).closest('div').hide();
               });
               jQuery('a.confirm').click(function() {
+                var row_id = jQuery(this).attr('data-row-id');
                 jQuery.ajax({
                   type:'DELETE',
                   url:'/api/listening/delete/' + jQuery(this).attr('data-listening-id'),
                   statusCode: {
-                    204: function() { // 204 No Content
-                      // Remove the tr
-                      console.log($(this))
+                    200: function() { // 200 OK
+                      jQuery('#' + row_id).fadeOut('slow');
                     },
                     400: function() { // 400 Bad Request
                       alert('400 Bad Request');
