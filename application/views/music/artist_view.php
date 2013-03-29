@@ -12,7 +12,17 @@
         <?php
       }
       ?>
-      <span class="tag moretags"><?=anchor(array(), '+')?></span>
+      <span class="tag moretags"><a href="javascript:;">+</a></span>
+      <div class="tag" id="tagAdd">
+        <select id="tagAddSelect" data-placeholder="Add metadata" class="chzn-select" multiple>
+          <optgroup label="Genres" id="genre">
+          </optgroup>
+          <optgroup label="Keywords" id="keyword">
+          </optgroup>
+          <optgroup label="Nationality" id="nationalitiy">
+          </optgroup>
+        </select>
+      </div>
     </div>
   </div>
   <div class="container">

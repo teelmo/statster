@@ -234,10 +234,10 @@ span.tag {
   font-size: 10px;
 }
 span.tag a { 
-  color: #FFF;
+  color: #fff;
 }
 span.genre {
-  background-color: #0187C5;
+  background-color: #0187c5;
 }
 span.genre:hover {
   background-color: #0179B1;
@@ -252,6 +252,9 @@ span.moretags {
   background-color: #AAA;
   padding: 4px 6px;
   font-weight: bold;
+}
+select#tagAddSelect {
+  width: 100%;
 }
 span.moretags:hover {
   background-color: #999;

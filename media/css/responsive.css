@@ -96,4 +96,10 @@
   div#leftCont {
     width: 318px;
   }
+  table.chartTable img.albumImg {
+    display: none;
+  }
+  table.chartTable tbody tr td.img {
+    width: 6px;
+  }
 }

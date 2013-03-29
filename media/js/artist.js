@@ -1,3 +1,15 @@
+jQuery('.moretags').click(function() {
+  jQuery('#tagAdd').toggle();
+  if ($(this).text() == '+') {
+    $(this).html('<a href="javascript:;">-</a> ');
+  }
+  else {
+    $(this).html('<a href="javascript:;">+</a>');
+  }
+});
+jQuery('#tagAddSelect').chosen();
+jQuery('#tagAdd').hide();
+
 function getFan(user_id) {
   if (user_id === undefined) {
     jQuery('#fanLoader').hide();
