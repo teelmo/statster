@@ -77,7 +77,6 @@ if (!function_exists('addListening')) {
       }
       list($data['artist'], $data['album']) = explode(DASH, $opts['text']);
       $data['artist'] = trim($data['artist']);
-      $data['album'] = preg_replace('/^(.*)\(([0-9]){4}\)$/', '$1', $data['album']);
       $data['album'] = trim($data['album']);
       // Check that album exists
       if (!$data['album_id'] = getAlbumID($data)) {
