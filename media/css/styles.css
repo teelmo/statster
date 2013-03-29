@@ -356,7 +356,7 @@ input[type="submit"] {
   background: -moz-linear-gradient(100% 100% 90deg, #666, #333);
   background: -o-linear-gradient(100% 100% 90deg, #666, #333);
   background: linear-gradient(100% 100% 90deg, #666, #333);
-  border-color: #CACAD2 #B6B6BD #B6B6BD #CACAD2;
+  border-color: #cacad2 #b6b6bd #b6b6bd #cacad2;
   border-style: solid;
   border-width: 1px;
 }
@@ -375,18 +375,18 @@ form#addListeningForm input[type="text"] {
   padding: 4px 4px 4px 8px;
   font-size: 20px;
   width: 98%;
-  background-color: #EEE;
+  background-color: #eee;
 }
 form#addListeningForm input[type="text"]:active,
 form#addListeningForm input[type="text"]:focus {
-  background-color: #FF0;
+  background-color: #ff0;
   color: #222;
 }
 form#addListeningForm div#addListeningDateContainer {
   margin-left: 5px;
 }
-form#composeForm input[type="text"]:focus {
-
+form#addListeningForm input[type="text"].working {
+  background: #ff0 url('/media/img/ajax-loader-circle.gif') no-repeat 98% 50%;
 }
 form#composeForm input[type="text"] {
   border-radius: 3px;

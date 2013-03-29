@@ -1,52 +1,62 @@
+function highlightPatch() {
+  jQuery.ui.autocomplete.prototype._renderItem = function(ul, item) {
+    var t = String(item.label).replace(
+      new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>');
+    return jQuery('<li></li>')
+      .data('item.autocomplete', item)
+      .append('<a>' + t + '</a>')
+      .appendTo(ul);
+  };
+}
+
+
+highlightPatch();
+
 jQuery('#addListeningText').focus();
 jQuery('#addListeningText').autocomplete({
-  serviceUrl:'/autoComplete/addListening',
-  minChars:3,
-  maxHeight:312,
-  onSelect: function(value, ac_data) {
-    jQuery('#addListeningText').value = ac_data;
-  },
-  observableElement:{},
-  images:true,
-  list:true
+  source:'/autoComplete/addListening',
+  minLength:3,
+  html:true,
+  search: function(){$(this).addClass('working');},
+  open: function(){$(this).removeClass('working');}
 });
 
-jQuery(".listeningFormat").click(function() {
-  jQuery(".listeningFormat").removeClass('selected');
+jQuery('.listeningFormat').click(function() {
+  jQuery('.listeningFormat').removeClass('selected');
   jQuery(this).addClass('selected');
 });
 
-jQuery(".listeningFormat").keypress(function(e) {
+jQuery('.listeningFormat').keypress(function(e) {
   var code = (e.keyCode ? e.keyCode : e.which);
    if (code == 13) {
-      jQuery(".listeningFormat").removeClass('selected');
+      jQuery('.listeningFormat').removeClass('selected');
       jQuery(this).addClass('selected');
 
-      jQuery('#' + jQuery(this).parent().attr("for")).prop('checked', true);
+      jQuery('#' + jQuery(this).parent().attr('for')).prop('checked', true);
    }
 });
 
-jQuery("#addListeningShowmore").click(function() {
-  jQuery(".listeningFormat").removeClass('hidden');
+jQuery('#addListeningShowmore').click(function() {
+  jQuery('.listeningFormat').removeClass('hidden');
   jQuery(this).remove();
 });
 
-jQuery("#addListeningShowmore").keypress(function(e) {
+jQuery('#addListeningShowmore').keypress(function(e) {
   var code = (e.keyCode ? e.keyCode : e.which);
   if (code == 13) {
-    jQuery(".listeningFormat").removeClass('hidden');
+    jQuery('.listeningFormat').removeClass('hidden');
     jQuery(this).remove();
   }
 });
 
-jQuery("#recentlyListened").hover(function () {
+jQuery('#recentlyListened').hover(function () {
   var currentTime = new Date();    
-  if ((currentTime.getTime() - jQuery("#recentlyUpdated").attr('value') > (60 * 2 * 1000))) {
+  if ((currentTime.getTime() - jQuery('#recentlyUpdated').attr('value') > (60 * 2 * 1000))) {
     getListenings();
   }
 });
 
-jQuery("#addListeningSubmit").click(function() {
+jQuery('#addListeningSubmit').click(function() {
   jQuery.ajax({
     type:'POST',
     url:'/api/listening/add',

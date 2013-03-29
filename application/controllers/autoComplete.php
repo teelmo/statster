@@ -9,8 +9,8 @@ class AutoComplete extends CI_Controller {
     // Load helpers
     $this->load->helper(array('img_helper'));
     
-    $content = array();
-    $search_str = $_GET['query'];
+    $results = array();
+    $search_str = $_GET['term'];
     if (!empty($search_str)) {
       if (strpos($search_str, DASH)) {
         list($data['artist'], $data['album']) = explode(DASH, $search_str);
@@ -42,20 +42,21 @@ class AutoComplete extends CI_Controller {
       $query = $this->db->query($sql);
       if ($query->num_rows() > 0) {
         foreach ($query->result() as $row) {
-          $content['titles'][] = $row->artist_name . " " . DASH . " " . $row->album_name . "(" . $row->year . ")";
-          $content['suggestions'][] = $row->artist_name . " " . DASH . " " . $row->album_name . " (" . $row->year . ")";
-          $content['albums'][] = $row->artist_name . " " . DASH . " " . $row->album_name;
-          $content['data'][] = $row->artist_name . " " . DASH . " " . $row->album_name;
-          $content['images'][] = getAlbumImg(array('album_id' => $row->album_id, 'size' => 20));
+          $results[] = array(
+            'value' => $row->artist_name . " " . DASH . " " . $row->album_name . " (" . $row->year . ")",
+            'label' => '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => 20)) . '" alt="" />' . $row->artist_name . " " . DASH . " " . $row->album_name . " (" . $row->year . ")"
+          );
         }
-        echo json_encode(array('query' => $search_str, 'content' => array("" => $content)));
+        echo json_encode($results);
         return;
       }
-      echo json_encode(array('query' => $search_str, 'content' => null));
+      $results[] = array('value' => $search_str, 'label' => 'No results');
+      echo json_encode($results);
       return;
     }
     else {
-      echo json_encode(array('query' => $search_str, 'content' => null));
+      $results[] = array('value' => $search_str, 'label' => 'No results');
+      echo json_encode($results);
       return;
     }
   }

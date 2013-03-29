@@ -5,7 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="/media/js/libs/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="/media/js/libs/jquery.autocomplete.min.js"></script>
+    <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/media/js/libs/jquery.ui.autocomplete.html.js"></script>
     <script type="text/javascript" src="/media/js/libs/dropdown.js"></script>
     <script type="text/javascript">
       if (document.images) {
@@ -18,6 +19,7 @@
     <?php
     echo link_tag('media/css/reset.css');
     echo link_tag('media/css/styles.css');
+    echo link_tag('media/css/libs/jquery-ui-1.10.2.custom.min.css');
     echo link_tag('media/css/jquery.autocomplete.css');
     echo link_tag('media/css/responsive.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
