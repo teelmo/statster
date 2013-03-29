@@ -43,8 +43,8 @@ class AutoComplete extends CI_Controller {
       if ($query->num_rows() > 0) {
         foreach ($query->result() as $row) {
           $results[] = array(
-            'value' => $row->artist_name . " " . DASH . " " . $row->album_name . " (" . $row->year . ")",
-            'label' => '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => 20)) . '" alt="" />' . $row->artist_name . " " . DASH . " " . $row->album_name . " (" . $row->year . ")"
+            'value' => $row->artist_name . " " . DASH . " " . $row->album_name,
+            'label' => '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => 32)) . '" alt="" />' . $row->artist_name . " " . DASH . " " . $row->album_name . " (" . $row->year . ")"
           );
         }
         echo json_encode($results);

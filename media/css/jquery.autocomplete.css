@@ -10,13 +10,17 @@ ul.ui-autocomplete {
   margin: 0;
   overflow: auto;
   padding: 0;
+  font-size: 14px;
+  max-width: 570px;
 }
 ul.ui-autocomplete li.ui-menu-item {
   border-bottom: 1px dotted #ccc;
   font-weight: bold;
   margin: 0;
-  padding: 0;
   vertical-align: middle;
+}
+ul.ui-autocomplete li.ui-menu-item a {
+  line-height: 28px;
 }
 ul.ui-autocomplete img {
   margin-right: 6px;
