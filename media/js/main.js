@@ -9,7 +9,6 @@ function highlightPatch() {
   };
 }
 
-
 highlightPatch();
 
 jQuery('#addListeningText').focus();
@@ -90,7 +89,7 @@ jQuery('#addListeningSubmit').click(function() {
   return false;
 });
 
-function getListenings(isFirst) {
+function getListenings(isFirst, callback) {
   if (isFirst != true) {
     jQuery('#recentlyListenedLoader2').show();
   }
@@ -136,10 +135,13 @@ function getListenings(isFirst) {
     },
     complete: function() {
       setTimeout(getListenings, 60 * 10 * 1000);
+      if (callback != undefined) {
+        callback();
+      }
     }
   });
 }
-getListenings(true);
+getListenings(true, getAlbums);
 
 function getAlbums() {
   jQuery.ajax({
@@ -172,7 +174,6 @@ function getAlbums() {
     }
   });
 }
-getAlbums();
 
 function getArtists() {
   jQuery.ajax({
