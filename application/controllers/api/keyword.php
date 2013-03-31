@@ -1,5 +1,5 @@
 <?php
-class Genre extends CI_Controller {
+class Keyword extends CI_Controller {
 
   public function index() {
     exit ('No direct script access allowed');
