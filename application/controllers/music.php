@@ -28,6 +28,7 @@ class Music extends CI_Controller {
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getArtistTags($data);
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['js_include'] = array('artist', 'artistAlbum', 'lastfm');
       $data += $_REQUEST;
 
@@ -59,6 +60,7 @@ class Music extends CI_Controller {
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getAlbumTags($data);
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['js_include'] = array('album', 'artistAlbum', 'lastfm');
       $data += $_REQUEST;
 
