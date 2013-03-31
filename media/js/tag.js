@@ -1,5 +1,10 @@
+$(document).ready(function() {
+  topGenre();
+  topKeyword();
+});
+
 function topGenre() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET', 
     url:'/api/genre/get', 
     data: {
@@ -8,15 +13,15 @@ function topGenre() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/popularTag',
         data: {
           json_data:data
         },
         success: function(data) {
-          jQuery('#topGenreLoader').hide();
-          jQuery('#topGenre').html(data);
+          $('#topGenreLoader').hide();
+          $('#topGenre').html(data);
         },
         complete: function() {
         },
@@ -28,10 +33,9 @@ function topGenre() {
     }
   });
 }
-topGenre();
 
 function topKeyword() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/keyword/get',
     data: {
@@ -40,15 +44,15 @@ function topKeyword() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/popularTag',
         data: {
           json_data:data
         },
         success: function(data) {
-          jQuery('#topKeywordLoader').hide();
-          jQuery('#topKeyword').html(data);
+          $('#topKeywordLoader').hide();
+          $('#topKeyword').html(data);
         },
         complete: function() {
         },
@@ -60,4 +64,3 @@ function topKeyword() {
     }
   });
 }
-topKeyword();

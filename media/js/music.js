@@ -1,5 +1,10 @@
+$(document).ready(function() {
+  popularGenre();
+  topAlbum();
+});
+
 function popularGenre() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/genre/get',
     data: {
@@ -8,15 +13,15 @@ function popularGenre() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/popularTag',
         data: {
           json_data:data
         },
         success: function(data) {
-          jQuery('#popularGenreLoader').hide();
-          jQuery('#popularGenre').html(data);
+          $('#popularGenreLoader').hide();
+          $('#popularGenre').html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -26,10 +31,9 @@ function popularGenre() {
     }
   });
 }
-popularGenre();
 
 function topAlbum() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/album/get',
     data: {
@@ -38,7 +42,7 @@ function topAlbum() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumTable',
         data: {
@@ -51,8 +55,8 @@ function topAlbum() {
           }
         },
         success: function(data) {
-          jQuery('#popularAlbumLoader').hide();
-          jQuery('#popularAlbum').html(data);
+          $('#popularAlbumLoader').hide();
+          $('#popularAlbum').html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -62,4 +66,3 @@ function topAlbum() {
     }
   });
 }
-topAlbum();

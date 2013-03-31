@@ -1,12 +1,17 @@
+$(document).ready(function() {
+  recentlyListened();
+  topArtist();
+});
+
 function recentlyListened() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/listening/get',
     data: {
       limit:5,
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumTable',
         data: {
@@ -20,8 +25,8 @@ function recentlyListened() {
           },
         },
         success: function(data) {
-          jQuery('#recentlyListenedLoader').hide();
-          jQuery('#recentlyListened').html(data);
+          $('#recentlyListenedLoader').hide();
+          $('#recentlyListened').html(data);
         },
         complete: function() {
           setTimeout(recentlyListened, 60*10*1000);
@@ -34,10 +39,9 @@ function recentlyListened() {
     }
   });
 }
-recentlyListened();
 
 function topArtist() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/artist/get',
     data: {
@@ -45,15 +49,15 @@ function topArtist() {
       limit:15,
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/artistBar',
         data: {
           json_data:data,
         },
         success: function(data) {
-          jQuery('#topArtistLoader').hide();
-          jQuery('#topArtist').html(data);
+          $('#topArtistLoader').hide();
+          $('#topArtist').html(data);
         },
         complete: function() {
           setTimeout(topArtist, 60*10*1000);
@@ -66,4 +70,3 @@ function topArtist() {
     }
   });
 }
-topArtist();

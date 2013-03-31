@@ -1,5 +1,9 @@
+$(document).ready(function() {
+  topListeners();
+});
+
 function topListeners() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/user/get',
     data: {
@@ -9,20 +13,20 @@ function topListeners() {
       album_name:'<?php echo $album_name?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumTable',
         data: {
           json_data:data,
+          size:32,
           hide: {
             date:true,
             calendar:true
-          },
-          size:32
+          }
         },
         success: function(data) {
-          jQuery('#topListenerLoader').hide();
-          jQuery('#topListener').html(data);
+          $('#topListenerLoader').hide();
+          $('#topListener').html(data);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         }
@@ -32,4 +36,3 @@ function topListeners() {
     }
   });
 }
-topListeners();

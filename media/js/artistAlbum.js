@@ -1,5 +1,9 @@
+$(document).ready(function() {
+  artistAlbum();
+});
+
 function artistAlbum() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/artistAlbum',
     data: {
@@ -7,7 +11,7 @@ function artistAlbum() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumList',
         data: {
@@ -16,8 +20,8 @@ function artistAlbum() {
           rank:9
         },
         success: function(data) {
-          jQuery('#artistAlbumLoader').hide();
-          jQuery('#artistAlbum').html(data);
+          $('#artistAlbumLoader').hide();
+          $('#artistAlbum').html(data);
         },
         complete: function() {
         },
@@ -29,4 +33,3 @@ function artistAlbum() {
     }
   });
 }
-artistAlbum();

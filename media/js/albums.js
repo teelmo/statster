@@ -1,5 +1,10 @@
+$(document).ready(function() {
+  topAlbum10();
+  topAlbum();
+});
+
 function topAlbum10() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/album/get',
     data: {
@@ -8,15 +13,15 @@ function topAlbum10() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumList/124',
         data: {
           json_data:data
         },
         success: function(data) {
-          jQuery('#topAlbum10Loader').hide();
-          jQuery('#topAlbum10').html(data);
+          $('#topAlbum10Loader').hide();
+          $('#topAlbum10').html(data);
         },
         complete: function() {
         },
@@ -28,10 +33,9 @@ function topAlbum10() {
     }
   });
 }
-topAlbum10();
 
 function topAlbum() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/album/get',
     data: {
@@ -40,7 +44,7 @@ function topAlbum() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumBar',
         data: {
@@ -49,8 +53,8 @@ function topAlbum() {
           rank:9
         },
         success: function(data) {
-          jQuery('#topAlbumLoader').hide();
-          jQuery('#topAlbum').html(data);
+          $('#topAlbumLoader').hide();
+          $('#topAlbum').html(data);
         },
         complete: function() {
         },
@@ -62,4 +66,3 @@ function topAlbum() {
     }
   });
 }
-topAlbum();

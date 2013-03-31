@@ -1,99 +1,94 @@
-function highlightPatch() {
-  jQuery.ui.autocomplete.prototype._renderItem = function(ul, item) {
-    var t = String(item.label).replace(
-      new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>');
-    return jQuery('<li></li>')
-      .data('item.autocomplete', item)
-      .append('<a>' + t + '</a>')
-      .appendTo(ul);
-  };
-}
+$(document).ready(function() {
+  getListenings(true, getAlbums);
+  getArtists();
+  recommentedTopAlbum();
+  recommentedNewAlbum();
+  highlightPatch();
+ 
+  $('#addListeningText').focus();
+  $('#addListeningText').autocomplete({
+    source:'/autoComplete/addListening',
+    minLength:3,
+    html:true,
+    search: function(){$(this).addClass('working');},
+    open: function(){$(this).removeClass('working');}
+  });
 
-highlightPatch();
+  $('.listeningFormat').click(function() {
+    $('.listeningFormat').removeClass('selected');
+    $(this).addClass('selected');
+  });
 
-jQuery('#addListeningText').focus();
-jQuery('#addListeningText').autocomplete({
-  source:'/autoComplete/addListening',
-  minLength:3,
-  html:true,
-  search: function(){$(this).addClass('working');},
-  open: function(){$(this).removeClass('working');}
-});
+  $('.listeningFormat').keypress(function(e) {
+    var code = (e.keyCode ? e.keyCode : e.which);
+     if (code == 13) {
+        $('.listeningFormat').removeClass('selected');
+        $(this).addClass('selected');
 
-jQuery('.listeningFormat').click(function() {
-  jQuery('.listeningFormat').removeClass('selected');
-  jQuery(this).addClass('selected');
-});
+        $('#' + $(this).parent().attr('for')).prop('checked', true);
+     }
+  });
 
-jQuery('.listeningFormat').keypress(function(e) {
-  var code = (e.keyCode ? e.keyCode : e.which);
-   if (code == 13) {
-      jQuery('.listeningFormat').removeClass('selected');
-      jQuery(this).addClass('selected');
+  $('#addListeningShowmore').click(function() {
+    $('.listeningFormat').removeClass('hidden');
+    $(this).remove();
+  });
 
-      jQuery('#' + jQuery(this).parent().attr('for')).prop('checked', true);
-   }
-});
-
-jQuery('#addListeningShowmore').click(function() {
-  jQuery('.listeningFormat').removeClass('hidden');
-  jQuery(this).remove();
-});
-
-jQuery('#addListeningShowmore').keypress(function(e) {
-  var code = (e.keyCode ? e.keyCode : e.which);
-  if (code == 13) {
-    jQuery('.listeningFormat').removeClass('hidden');
-    jQuery(this).remove();
-  }
-});
-
-jQuery('#recentlyListened').hover(function () {
-  var currentTime = new Date();    
-  if ((currentTime.getTime() - jQuery('#recentlyUpdated').attr('value') > (60 * 2 * 1000))) {
-    getListenings();
-  }
-});
-
-jQuery('#addListeningSubmit').click(function() {
-  jQuery.ajax({
-    type:'POST',
-    url:'/api/listening/add',
-    data: {
-      text:jQuery('#addListeningText').val(),
-      date:jQuery('#addListeningDate').val(),
-      format:jQuery('input[name="addListeningFormat"]:checked').val(),
-      submitType:jQuery('input[name="submitType"]').val(),
-    },
-    statusCode: {
-      201: function(data) { // 200 OK
-        jQuery('#addListeningText').val('');
-        jQuery('input[name="addListeningFormat"]').prop('checked', false);
-        jQuery('img.listeningFormat').removeClass('selected');
-        getListenings();
-        getArtists();
-        getAlbums();
-        jQuery('#addListeningText').focus();
-      },
-      400: function() { // 400 Bad Request
-        alert('400 Bad Request');
-      },
-      401: function() { // 403 Forbidden
-        alert('401 Unauthorized');
-      },
-      404: function() { // 404 Not found
-        alert('404 Not Found');
-      }
+  $('#addListeningShowmore').keypress(function(e) {
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if (code == 13) {
+      $('.listeningFormat').removeClass('hidden');
+      $(this).remove();
     }
   });
-  return false;
+
+  $('#recentlyListened').hover(function () {
+    var currentTime = new Date();    
+    if ((currentTime.getTime() - $('#recentlyUpdated').attr('value') > (60 * 2 * 1000))) {
+      getListenings();
+    }
+  });
+
+  $('#addListeningSubmit').click(function() {
+    $.ajax({
+      type:'POST',
+      url:'/api/listening/add',
+      data: {
+        text:$('#addListeningText').val(),
+        date:$('#addListeningDate').val(),
+        format:$('input[name="addListeningFormat"]:checked').val(),
+        submitType:$('input[name="submitType"]').val(),
+      },
+      statusCode: {
+        201: function(data) { // 200 OK
+          $('#addListeningText').val('');
+          $('input[name="addListeningFormat"]').prop('checked', false);
+          $('img.listeningFormat').removeClass('selected');
+          getListenings();
+          getArtists();
+          getAlbums();
+          $('#addListeningText').focus();
+        },
+        400: function() { // 400 Bad Request
+          alert('400 Bad Request');
+        },
+        401: function() { // 403 Forbidden
+          alert('401 Unauthorized');
+        },
+        404: function() { // 404 Not found
+          alert('404 Not Found');
+        }
+      }
+    });
+    return false;
+  });
 });
 
 function getListenings(isFirst, callback) {
   if (isFirst != true) {
-    jQuery('#recentlyListenedLoader2').show();
+    $('#recentlyListenedLoader2').show();
   }
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/listening/get',
     data: {
@@ -102,7 +97,7 @@ function getListenings(isFirst, callback) {
     },
     statusCode: {
       200: function(data) { // 200 OK
-        jQuery.ajax({
+        $.ajax({
           type:'POST',
           url:'/ajax/chartTable',
           data: {
@@ -112,9 +107,9 @@ function getListenings(isFirst, callback) {
             }
           },
           success: function(data) {
-            jQuery('#recentlyListenedLoader2').hide();
-            jQuery('#recentlyListenedLoader').hide();
-            jQuery('#recentlyListened').html(data);
+            $('#recentlyListenedLoader2').hide();
+            $('#recentlyListenedLoader').hide();
+            $('#recentlyListened').html(data);
 
             var currentTime = new Date();
             var hours = currentTime.getHours();
@@ -122,14 +117,14 @@ function getListenings(isFirst, callback) {
             if (minutes < 10) {
               minutes = "0" + minutes;
             }
-            jQuery('#recentlyUpdated').html('updated '+ hours + ':' + minutes);
-            jQuery('#recentlyUpdated').attr('value', currentTime.getTime());
+            $('#recentlyUpdated').html('updated '+ hours + ':' + minutes);
+            $('#recentlyUpdated').attr('value', currentTime.getTime());
           }
         })
       },
       204: function() { // 204 No Content
-        jQuery('#recentlyListenedLoader').hide();
-        jQuery('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
+        $('#recentlyListenedLoader').hide();
+        $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
       },
       400: function(data) {alert('400 Bad Request')}
     },
@@ -141,10 +136,9 @@ function getListenings(isFirst, callback) {
     }
   });
 }
-getListenings(true, getAlbums);
 
 function getAlbums() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/album/get',
     data: {
@@ -153,15 +147,15 @@ function getAlbums() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumList/124',
         data: {
           json_data:data,
         },
         success: function(data) {
-          jQuery('#topAlbumLoader').hide();
-          jQuery('#topAlbum').html(data); 
+          $('#topAlbumLoader').hide();
+          $('#topAlbum').html(data); 
         },
         complete: function() {
           setTimeout(getAlbums, 60 * 10 * 1000);
@@ -176,7 +170,7 @@ function getAlbums() {
 }
 
 function getArtists() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/artist/get',
     data: {
@@ -185,15 +179,15 @@ function getArtists() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/artistBar',
         data: {
           json_data:data,
         },
         success: function(data) {
-          jQuery('#topArtistLoader').hide();
-          jQuery('#topArtist').html(data);
+          $('#topArtistLoader').hide();
+          $('#topArtist').html(data);
         },
         complete: function() {
           setTimeout(getArtists, 60 * 10 * 1000);
@@ -206,10 +200,9 @@ function getArtists() {
     }
   });
 }
-getArtists();
 
 function recommentedTopAlbum() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url: '/api/recommentedTopAlbum',
     data: {
@@ -218,7 +211,7 @@ function recommentedTopAlbum() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>' 
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumTable',
         data: {
@@ -233,8 +226,8 @@ function recommentedTopAlbum() {
           }
         },
         success: function(data) {
-          jQuery('#recommentedTopAlbumLoader').hide();
-          jQuery('#recommentedTopAlbum').html(data);
+          $('#recommentedTopAlbumLoader').hide();
+          $('#recommentedTopAlbum').html(data);
         },
         complete: function() {
           setTimeout(recommentedTopAlbum, 60 * 10 * 1000);
@@ -247,10 +240,9 @@ function recommentedTopAlbum() {
     }
   });
 }
-recommentedTopAlbum();
 
 function recommentedNewAlbum() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/recommentedNewAlbum',
     data: {
@@ -260,7 +252,7 @@ function recommentedNewAlbum() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/albumTable',
         data: {
@@ -275,8 +267,8 @@ function recommentedNewAlbum() {
           }
         },
         success: function(data) {
-          jQuery('#recommentedNewAlbumLoader').hide();
-          jQuery('#recommentedNewAlbum').html(data);
+          $('#recommentedNewAlbumLoader').hide();
+          $('#recommentedNewAlbum').html(data);
         },
         complete: function() {
           setTimeout(recommentedNewAlbum, 60 * 10 * 1000);
@@ -289,4 +281,14 @@ function recommentedNewAlbum() {
     }
   });
 }
-recommentedNewAlbum();
+
+function highlightPatch() {
+  $.ui.autocomplete.prototype._renderItem = function(ul, item) {
+    var t = String(item.label).replace(
+      new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>');
+    return $('<li></li>')
+      .data('item.autocomplete', item)
+      .append('<a>' + t + '</a>')
+      .appendTo(ul);
+  };
+}

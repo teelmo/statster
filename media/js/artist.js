@@ -1,21 +1,28 @@
-jQuery('.moretags').click(function() {
-  jQuery('#tagAdd').toggle();
-  if ($(this).text() == '+') {
-    $(this).html('<a href="javascript:;">-</a> ');
-  }
-  else {
-    $(this).html('<a href="javascript:;">+</a>');
-  }
+$(document).ready(function() {
+  getFan(<?=$this->session->userdata('user_id')?>);
+  getFans();
+  getUsers();
+  getListenings();
+
+  $('.moretags').click(function() {
+    $('#tagAdd').toggle();
+    if ($(this).text() == '+') {
+      $(this).html('<a href="javascript:;">-</a> ');
+    }
+    else {
+      $(this).html('<a href="javascript:;">+</a>');
+    }
+  });
+  $('#tagAddSelect').chosen();
+  $('#tagAdd').hide();
 });
-jQuery('#tagAddSelect').chosen();
-jQuery('#tagAdd').hide();
 
 function getFan(user_id) {
   if (user_id === undefined) {
-    jQuery('#fanLoader').hide();
+    $('#fanLoader').hide();
     return;
   }
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/fan/get/<?=$artist_id?>',
     data: {
@@ -23,30 +30,30 @@ function getFan(user_id) {
     },
     statusCode: {
       200: function(data) { // 200 OK
-        jQuery('#fan').addClass('fanDel');
+        $('#fan').addClass('fanDel');
       },
       204: function() { // 204 No Content
-        jQuery('#fan').addClass('fanAdd');
+        $('#fan').addClass('fanAdd');
       },
       400: function() { // 400 Bad request
-        jQuery('#recentlyListenedLoader').hide();
-        jQuery('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+        $('#recentlyListenedLoader').hide();
+        $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
       }
     },
     complete: function() {
-      jQuery('#fanLoader').hide();
-      jQuery('#fan').click(function() {
-        jQuery('.fanMsg').remove();
-        if (jQuery(this).hasClass('fanAdd')) {
-          jQuery.ajax({
+      $('#fanLoader').hide();
+      $('#fan').click(function() {
+        $('.fanMsg').remove();
+        if ($(this).hasClass('fanAdd')) {
+          $.ajax({
             type:'POST',
             url:'/api/fan/add/<?=$artist_id?>',
             data: {},
             statusCode: {
               201: function(data) { // 201 Created
-                jQuery('#fan').removeClass('fanAdd').addClass('fanDel').prepend('<span class="fanMsg">You\'re a fan!</span>');
+                $('#fan').removeClass('fanAdd').addClass('fanDel').prepend('<span class="fanMsg">You\'re a fan!</span>');
                 setTimeout(function() {
-                  jQuery('.fanMsg').fadeOut('slow');
+                  $('.fanMsg').fadeOut('slow');
                 }, <?=MSG_FADEOUT?>);
                 getFans();
               },
@@ -56,16 +63,16 @@ function getFan(user_id) {
             }
           });
         }
-        if (jQuery(this).hasClass('fanDel')) {
-          jQuery.ajax({
+        if ($(this).hasClass('fanDel')) {
+          $.ajax({
             type:'DELETE',
             url:'/api/fan/delete/<?=$artist_id?>',
             data: {},
             statusCode: {
               204: function() { // 204 No Content
-                jQuery('#fan').removeClass('fanDel').addClass('fanAdd').prepend('<span class="fanMsg">You\'re no longer a fan!</span>');
+                $('#fan').removeClass('fanDel').addClass('fanAdd').prepend('<span class="fanMsg">You\'re no longer a fan!</span>');
                 setTimeout(function() {
-                  jQuery('.fanMsg').fadeOut('slow');
+                  $('.fanMsg').fadeOut('slow');
                 }, <?=MSG_FADEOUT?>);
                 getFans();
               },
@@ -79,39 +86,37 @@ function getFan(user_id) {
     }
   });
 }
-getFan(<?=$this->session->userdata('user_id')?>);
 
 function getFans() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/fan/get/<?=$artist_id?>',
     data: {},
     statusCode: {
       200: function(data) { // 200 OK
-        jQuery.ajax({
+        $.ajax({
           type:'POST',
           url:'/ajax/artistFan',
           data: {
             json_data:data
           },
           success: function(data) {
-            jQuery('#artistFanLoader').hide();
-            jQuery('#artistFan').html(data);
+            $('#artistFanLoader').hide();
+            $('#artistFan').html(data);
           }
         });
       },
       204: function() { // 204 No Content
-        jQuery('#artistFanLoader').hide();
-        jQuery('#artistFan').html('<?=ERR_NO_RESULTS?>');
+        $('#artistFanLoader').hide();
+        $('#artistFan').html('<?=ERR_NO_RESULTS?>');
       },
       400: function(data) {alert('400 Bad Request')}
     }
   });
 }
-getFans();
 
 function getUsers() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/user/get',
     data: {
@@ -121,7 +126,7 @@ function getUsers() {
     },
     statusCode: {
       200: function(data) { // 200 OK
-        jQuery.ajax({
+        $.ajax({
           type:'POST',
           url:'/ajax/userTable',
           data: {
@@ -133,23 +138,22 @@ function getUsers() {
             }
           },
           success: function(data) {
-            jQuery('#topListenerLoader').hide();
-            jQuery('#topListener').html(data);
+            $('#topListenerLoader').hide();
+            $('#topListener').html(data);
           }
         });
       },
       204: function() { // 204 No Content
-        jQuery('#topListenerLoader').hide();
-        jQuery('#topListener').html('<?=ERR_NO_RESULTS?>');
+        $('#topListenerLoader').hide();
+        $('#topListener').html('<?=ERR_NO_RESULTS?>');
       },
       400: function(data) {alert('400 Bad Request')}
     }
   });
 }
-getUsers();
 
 function getListenings() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/listening/get',
     data: {
@@ -159,7 +163,7 @@ function getListenings() {
     },
     statusCode: {
       200: function(data) { // 200 OK
-        jQuery.ajax({
+        $.ajax({
           type:'POST',
           url:'/ajax/albumTable',
           data: {
@@ -172,17 +176,16 @@ function getListenings() {
             }
           },
           success: function(data) {
-            jQuery('#recentlyListenedLoader').hide();
-            jQuery('#recentlyListened').html(data);
+            $('#recentlyListenedLoader').hide();
+            $('#recentlyListened').html(data);
           }
         });
       },
       204: function() { // 204 No Content
-        jQuery('#recentlyListenedLoader').hide();
-        jQuery('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
+        $('#recentlyListenedLoader').hide();
+        $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
       },
       400: function(data) {alert('400 Bad Request')}
     }
   });
 }
-getListenings();

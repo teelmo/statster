@@ -1,5 +1,10 @@
+$(document).ready(function() {
+  topArtist10();
+  topArtist();
+});
+
 function topArtist10() {
-  jQuery.ajax({
+  $.ajax({
     type:'GET',
     url:'/api/artist/get',
     data: {
@@ -8,15 +13,15 @@ function topArtist10() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/artistList/124',
         data: {
           json_data:data
         },
         success: function(data) {
-          jQuery('#topArtist10Loader').hide();
-          jQuery('#topArtist10').html(data);
+          $('#topArtist10Loader').hide();
+          $('#topArtist10').html(data);
         },
         complete: function() {
         },
@@ -28,10 +33,9 @@ function topArtist10() {
     }
   });
 }
-topArtist10();
 
 function topArtist() {
-  jQuery.ajax({
+  $.ajax({
     type: 'GET',
     url: '/api/artist/get',
     data: {
@@ -40,7 +44,7 @@ function topArtist() {
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
-      jQuery.ajax({
+      $.ajax({
         type:'POST',
         url:'/ajax/artistBar',
         data: {
@@ -49,8 +53,8 @@ function topArtist() {
           rank:9
         },
         success: function(data) {
-          jQuery('#topArtistLoader').hide();
-          jQuery('#topArtist').html(data);
+          $('#topArtistLoader').hide();
+          $('#topArtist').html(data);
         },
         complete: function() {
         },
@@ -62,4 +66,3 @@ function topArtist() {
     }
   });
 }
-topArtist();
