@@ -5,6 +5,7 @@ $(document).ready(function() {
 function getListenings() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/listening/get',
     data: {
       limit:100,

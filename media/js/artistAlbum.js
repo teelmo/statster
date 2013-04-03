@@ -5,6 +5,7 @@ $(document).ready(function() {
 function artistAlbum() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/artistAlbum',
     data: {
       artist_name:'<?php echo $artist_name?>',

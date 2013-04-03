@@ -6,6 +6,7 @@ $(document).ready(function() {
 function topAlbum10() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/album/get',
     data: {
       limit:8,
@@ -37,6 +38,7 @@ function topAlbum10() {
 function topAlbum() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/album/get',
     data: {
       limit:'8, 200',

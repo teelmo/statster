@@ -52,6 +52,7 @@ $(document).ready(function() {
   $('#addListeningSubmit').click(function() {
     $.ajax({
       type:'POST',
+      dataType:'json',
       url:'/api/listening/add',
       data: {
         text:$('#addListeningText').val(),
@@ -90,6 +91,7 @@ function getListenings(isFirst, callback) {
   }
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/listening/get',
     data: {
       limit:11,
@@ -140,6 +142,7 @@ function getListenings(isFirst, callback) {
 function getAlbums() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/album/get',
     data: {
       limit:8,
@@ -172,6 +175,7 @@ function getAlbums() {
 function getArtists() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/artist/get',
     data: {
       limit:10,
@@ -204,6 +208,7 @@ function getArtists() {
 function recommentedTopAlbum() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url: '/api/recommentedTopAlbum',
     data: {
       limit:10,
@@ -244,6 +249,7 @@ function recommentedTopAlbum() {
 function recommentedNewAlbum() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/recommentedNewAlbum',
     data: {
       limit:10,

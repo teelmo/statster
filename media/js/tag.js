@@ -5,8 +5,9 @@ $(document).ready(function() {
 
 function topGenre() {
   $.ajax({
-    type:'GET', 
-    url:'/api/genre/get', 
+    type:'GET',
+    dataType:'json',
+    url:'/api/genre/get',
     data: {
       limit:7,
       lower_limit:'<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
@@ -37,6 +38,7 @@ function topGenre() {
 function topKeyword() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/keyword/get',
     data: {
       limit:7,

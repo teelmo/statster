@@ -5,6 +5,7 @@ $(document).ready(function() {
 function topListeners() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/user/get',
     data: {
       limit:100,

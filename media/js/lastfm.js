@@ -7,6 +7,7 @@ $(document).ready(function() {
 function getSimilar() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/lastfm/getSimilar',
     data: {
       limit:4,
@@ -40,6 +41,7 @@ function getSimilar() {
 function getEvents() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/lastfm/getEvents',
     data: {
       limit:15,
@@ -70,6 +72,7 @@ function getEvents() {
 function getBio() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/lastfm/getBio',
     data: {
       limit:4,

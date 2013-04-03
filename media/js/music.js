@@ -6,6 +6,7 @@ $(document).ready(function() {
 function popularGenre() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/genre/get',
     data: {
       limit:15,
@@ -35,6 +36,7 @@ function popularGenre() {
 function topAlbum() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/album/get',
     data: {
       limit:15,

@@ -24,6 +24,7 @@ function getFan(user_id) {
   }
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/fan/get/<?=$artist_id?>',
     data: {
       user_id:user_id
@@ -90,6 +91,7 @@ function getFan(user_id) {
 function getFans() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/fan/get/<?=$artist_id?>',
     data: {},
     statusCode: {
@@ -118,6 +120,7 @@ function getFans() {
 function getUsers() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/user/get',
     data: {
       limit:6,
@@ -155,6 +158,7 @@ function getUsers() {
 function getListenings() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/listening/get',
     data: {
       limit:6,

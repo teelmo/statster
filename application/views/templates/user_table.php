@@ -1,6 +1,5 @@
 <?php
 if (!empty($json_data)) {
-  $json_data = json_decode($json_data);
   $size = isset($size) ? $size : 64;
   if (is_array($json_data)) {
     if (!empty($limit)) {
@@ -17,7 +16,7 @@ if (!empty($json_data)) {
           ?>
           <td class="rank">
             <?php
-            if ($row->count != $prev_count) {
+            if ($row['count'] != $prev_count) {
               ?>
               <span class="rank"><?=$rank?>.</span>
               <?php
@@ -30,7 +29,7 @@ if (!empty($json_data)) {
           ?>
           <td class="barChartCalendar">
             <?php
-            $timestamp = strtotime($row->date);
+            $timestamp = strtotime($row['date']);
             ?>
             <span class="month"><?=date('M', $timestamp)?></span>
             <span class="day"><?=date('j', $timestamp)?></span>
@@ -39,24 +38,24 @@ if (!empty($json_data)) {
         }
         ?>
         <td class="img<?=$size?> userImg">
-          <?=anchor(array('user', 'profile', url_title($row->username)), '<img src="' . getUserImg(array('user_id' => $row->user_id, 'size' => $size)) . '" alt="" class="userImg userImg' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
+          <?=anchor(array('user', 'profile', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg userImg' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
         </td>
         <td class="title">
           <div class="title">
-            <?=anchor(array('user', 'profile', url_title($row->username)), $row->username, array('title' => 'Browse to user profile'))?>
+            <?=anchor(array('user', 'profile', url_title($row['username'])), $row['username'], array('title' => 'Browse to user profile'))?>
           </div>
           <?php
           if (empty($hide['date'])) {
             ?>
             <div class="datetime">
-              <?=timeAgo($row->date)?>
+              <?=timeAgo($row['date'])?>
             </div>
             <?php
           }
           if (empty($hide['count'])) {
             ?>
             <div class="count">
-              <?=$row->count?> listenings
+              <?=$row['count']?> listenings
             </div>
             <?php
           }
@@ -64,10 +63,10 @@ if (!empty($json_data)) {
         </td>
       </tr>
       <?php
-      if ($row->count != $prev_count) {
+      if ($row['count'] != $prev_count) {
         $rank++;
       }
-      $prev_count = $row->count;
+      $prev_count = $row['count'];
     }
   }
   elseif (is_object($json_data)) {

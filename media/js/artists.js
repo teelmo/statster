@@ -6,6 +6,7 @@ $(document).ready(function() {
 function topArtist10() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/artist/get',
     data: {
       limit:8,

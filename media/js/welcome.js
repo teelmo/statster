@@ -6,6 +6,7 @@ $(document).ready(function() {
 function recentlyListened() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/listening/get',
     data: {
       limit:5,
@@ -43,6 +44,7 @@ function recentlyListened() {
 function topArtist() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/artist/get',
     data: {
       lower_limit:'1970-01-01',

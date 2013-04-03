@@ -1,6 +1,5 @@
 <?php
 if (!empty($json_data)) {
-  $json_data = json_decode($json_data);
   $size = isset($size) ? $size : 64;
   if (is_array($json_data)) {
     if (!empty($limit)) {
@@ -17,7 +16,7 @@ if (!empty($json_data)) {
           ?>
           <td class="rank">
             <?php
-            if ($row->count != $prev_count) {
+            if ($row['count'] != $prev_count) {
               ?>
               <span class="rank"><?=$rank?>.</span>
               <?php
@@ -30,7 +29,7 @@ if (!empty($json_data)) {
           ?>
           <td class="barChartCalendar">
             <?php
-            $timestamp = strtotime($row->date);
+            $timestamp = strtotime($row['date']);
             ?>
             <span class="month"><?=date('M', $timestamp)?></span>
             <span class="day"><?=date('j', $timestamp)?></span>
@@ -39,32 +38,32 @@ if (!empty($json_data)) {
         }
         ?>
         <td class="img<?=$size?> albumImg">
-          <?=anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
+          <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<img src="' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
         </td>
         <td class="title">
           <div class="title">
             <?php
             if (empty($hide['artist'])) {
-              echo anchor(array('music', url_title($row->artist_name)), $row->artist_name, array('title' => 'Browse to artist\'s page'));
+              echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
               echo ' ' . DASH . ' ';
             }
-            echo anchor(array('music', url_title($row->artist_name), url_title($row->album_name)), $row->album_name, array('title' => 'Browse to album\'s page'));
+            echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
             echo ' ';
-            echo anchor(array('tag', 'release+year', url_title($row->year)), '<span class="albumYear">(' . $row->year . ')</span>', array('title' => 'Browse albums'));
+            echo anchor(array('tag', 'release+year', url_title($row['year'])), '<span class="albumYear">(' . $row['year'] . ')</span>', array('title' => 'Browse albums'));
             ?>
           </div>
           <?php
           if (empty($hide['date'])) {
             ?>
             <div class="datetime">
-              <?=timeAgo($row->date)?>
+              <?=timeAgo($row['date'])?>
             </div>
             <?php
           }
           if (empty($hide['count'])) {
             ?>
             <div class="count">
-              <?=$row->count?> listenings
+              <?=$row['count']?> listenings
             </div>
             <?php
           }
@@ -72,10 +71,10 @@ if (!empty($json_data)) {
         </td>
       </tr>
       <?php
-      if ($row->count != $prev_count) {
+      if ($row['count'] != $prev_count) {
         $rank++;
       }
-      $prev_count = $row->count;
+      $prev_count = $row['count'];
     }
   }
   elseif (is_object($json_data)) {

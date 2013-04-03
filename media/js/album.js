@@ -24,6 +24,7 @@ function getLove(user_id) {
   }
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/love/get/<?=$album_id?>',
     data: {
       user_id:user_id
@@ -87,6 +88,7 @@ function getLove(user_id) {
 function getLoves() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/love/get/<?=$album_id?>',
     data: {},
     statusCode: {
@@ -118,6 +120,7 @@ function getLoves() {
 function getUsers() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/user/get',
     data: {
       limit:6,
@@ -159,6 +162,7 @@ function getUsers() {
 function getListenings() {
   $.ajax({
     type:'GET',
+    dataType:'json',
     url:'/api/listening/get',
     data: {
       limit:6,
