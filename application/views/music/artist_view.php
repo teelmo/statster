@@ -20,7 +20,7 @@
             </optgroup>
             <optgroup label="Keywords" id="keyword">
             </optgroup>
-            <optgroup label="Nationality" id="nationalitiy">
+            <optgroup label="Nationality" id="nationality">
             </optgroup>
           </select>
         </div>

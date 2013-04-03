@@ -29,7 +29,7 @@ class Music extends CI_Controller {
       $data['limit'] = 9;
       $data += getArtistTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('artist', 'artistAlbum', 'lastfm');
+      $data['js_include'] = array('artist', 'artistAlbum', 'lastfm', 'populateTagSelect');
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
