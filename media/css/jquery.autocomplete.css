@@ -6,12 +6,12 @@ ul.ui-autocomplete {
   border: 1px solid #ccc !important;
   border-radius: 0;
   font-family: verdana;
-  max-height: 400px;
+  max-height: 450px;
   margin: 0;
   overflow: auto;
   padding: 0;
   font-size: 14px;
-  max-width: 570px;
+  max-width: 572px;
 }
 ul.ui-autocomplete li.ui-menu-item {
   border-bottom: 1px dotted #ccc;

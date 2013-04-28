@@ -57,7 +57,7 @@
   }
   div#topContInner div#userCont a#loginLink,
   div#footer div.socialMedia {
-    padding-right: 10px;
+    padding-right: 15px;
   }
   div#topCont h1 {
     margin-left: 4px;
@@ -74,6 +74,19 @@
 
 /* Landscape smart phone */
 @media all and (min-width: 321px) and (max-width: 600px) {
+  body {
+    margin-bottom: 0;
+  }
+  div.container {
+    margin: 7px 10px 15px 1px;
+  }
+  div#mainCont {
+    margin-top: 37px;
+  }
+  div#leftCont {
+    border-radius: 0;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
   div#rightCont {
     display: none;
   }

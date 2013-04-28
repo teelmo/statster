@@ -374,7 +374,7 @@ form#addListeningForm input[type="submit"] {
 }
 form#addListeningForm input[type="text"] {
   border-radius: 3px;
-  margin: 0 0 0 3px;
+  margin: 0 0 0 0;
   padding: 4px 4px 4px 8px;
   font-size: 20px;
   width: 98%;
@@ -384,9 +384,6 @@ form#addListeningForm input[type="text"]:active,
 form#addListeningForm input[type="text"]:focus {
   background-color: #ff0;
   color: #222;
-}
-form#addListeningForm div#addListeningDateContainer {
-  margin-left: 5px;
 }
 form#addListeningForm input[type="text"].working {
   background: #ff0 url('/media/img/ajax-loader-circle.gif') no-repeat 98% 50%;
