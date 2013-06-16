@@ -315,7 +315,7 @@ span.fanDel:hover {
  * Anchor styles
  */
 a {
-  color: #00E;
+  color: #0187C5;
   text-decoration: none;
   cursor: pointer;
 }
@@ -323,7 +323,7 @@ a:hover {
   color: #999;
 }
 a:visited {
-  color: #00E;
+  color: #0187C5;
   text-decoration: none;
 }
 a:visited:hover {
@@ -334,7 +334,6 @@ a:visited:hover {
   color: #999;
 }
 div#topCont a {
-  /*font-weight: normal;*/
   color: #FFF;
 }
 div#topCont h1 a:hover {
@@ -384,6 +383,19 @@ form#addListeningForm input[type="text"]:active,
 form#addListeningForm input[type="text"]:focus {
   background-color: #ff0;
   color: #222;
+}
+form#addListeningForm input#addListeningDate {
+  padding: 0;
+  background: 0;
+  border: 0;
+  color: #219dd1;
+  cursor: pointer;
+  font-family: arial;
+  font-size: 14px;
+  vertical-align: -5%;
+}
+form#addListeningForm input#addListeningDate:hover {
+  color: #999;
 }
 form#addListeningForm input[type="text"].working {
   background: #ff0 url('/media/img/ajax-loader-circle.gif') no-repeat 98% 50%;

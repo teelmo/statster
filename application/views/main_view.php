@@ -4,8 +4,7 @@
     <br />
     <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
       <div id="addListeningDateContainer" class="listeningDate">
-        Listening date: <a href="javascript:" title="Change date" onlick="return false;"><?=CUR_DATE?></a>
-        <input type="hidden" name="date" id="addListeningDate" value="<?=CUR_DATE?>"/>
+        Listening date: <input name="date" title="Change date" id="addListeningDate" value="<?=CUR_DATE?>" />
       </div>
       <div>
         <input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="What&rsquo;s ya listening?" name="addListeningText" />

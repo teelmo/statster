@@ -290,11 +290,35 @@ function recommentedNewAlbum() {
 
 function highlightPatch() {
   $.ui.autocomplete.prototype._renderItem = function(ul, item) {
-    var t = String(item.label).replace(
-      new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>');
+    var t = String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>');
     return $('<li></li>')
       .data('item.autocomplete', item)
       .append('<a>' + t + '</a>')
       .appendTo(ul);
   };
 }
+
+$(function() {
+  $('#addListeningDate').datepicker({
+    dateFormat: 'yy-mm-dd',
+    maxDate: 'today',
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    showAnim: 'slideDown'
+  });
+});
+
+$(function() {
+  var keyStop = {
+    8: ":not(input:text, textarea, input:file, input:password)",
+    13: "input:text, input:password",
+    end: null
+  };
+  $(document).bind("keydown", function(event) {
+    var selector = keyStop[event.which];
+    if(selector !== undefined && $(event.target).is(selector)) {
+      event.preventDefault();
+    }
+    return true;
+  });
+});
