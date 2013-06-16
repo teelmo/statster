@@ -81,3 +81,7 @@
     </div>
     <div id="logoCont"></div>
     <div id="mainCont">
+      <div id="topLinks">
+        <?=anchor(array('music'), 'Browse music')?>
+        <?=anchor(array('tag'), 'Browse tags')?>
+      </div>

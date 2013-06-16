@@ -1,118 +1,56 @@
 /* Portrait Tablet */
-@media all and (min-width: 601px) and (max-width: 960px) {
-  div#mainCont {
-    max-width: 790px;
-    width: 600px;
+@media all and (min-width: 960px) {
+  div#topLinks {
+    display: none;
+  }
+}
+@media all and (max-width: 960px) {
+  div#topCont {
+    width: 100%;
   }
   div#leftCont {
     width: 100%;
   }
-  div#topContInner {
-    width: 590px;
-    margin: auto auto;
-    padding: 0 5px 0 5px;
-  }
   div#rightCont {
     display: none;
   }
-  div#footer {
-    width: 600px;
+  div#topLinks {
+    font-size: 14px;
+    margin: -10px 0 15px -5px;
   }
-  div#footer div.socialMedia {
-    padding-right: 8px;
-  }
-  ul.chartList {
-    width: 570px;
+  div#topLinks a {
+    margin: 0 15px 0 15px;
   }
 }
-
-@media all and (max-width: 600px) {
-  body {
-    overflow-x: hidden;
-  }
-  img.artistImg300 {
-    width: 174px;
-  }
-  img.albumImg300 {
-    width: 174px;
-  }
-  ul.chartList {
-    width: 321px;
-  }
-  div.artistInfo,
-  div.albumInfo {
-    margin-left: 190px;
-  }
-  div#leftContInner,
-  div#rightCont {
-    display: none;
-  }
-  div#leftContOuter {
+@media all and (max-width: 400px) {
+  div#topCont {
     width: 100%;
-    margin-left: 0;
   }
-  div.externalLink,
-  div#footer div.floatLeft {
+  div#leftCont {
+    width: 100%;
+  }
+  div#rightCont {
     display: none;
   }
-  div#topContInner div#userCont a#loginLink,
-  div#footer div.socialMedia {
-    padding-right: 15px;
-  }
-  div#topCont h1 {
-    margin-left: 4px;
-  }
-  div.welcome,
-  span.title span.artist,
-  span.title span.year,
-  div#topContInner img#betaLogo,
-  div#topContInner div#addListeningCont,
-  span#nowPlayingText { 
+  table.chartTable .title {
     display: none;
-  }
-}
-
-/* Landscape smart phone */
-@media all and (min-width: 321px) and (max-width: 600px) {
-  body {
-    margin-bottom: 0;
   }
   div.container {
-    margin: 7px 10px 15px 1px;
+    margin: 7px 3px 15px 1px;
   }
-  div#mainCont {
-    margin-top: 37px;
-  }
-  div#leftCont {
-    border-radius: 0;
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  }
-  div#rightCont {
+  div.externalLink,
+  div.socialMedia {
     display: none;
   }
-  div#topCont {
-    width: 100%;
-    max-width: 600px;
-    min-width: 321px;
+  table.chartTable tbody tr td.albumImg {
+    width: 45%;
   }
-  div#leftCont {
-    width: 100%;
-    max-width: 600px;
-    min-width: 321px;
+  img.artistImg300,
+  img.albumImg300 {
+    width: 200px;
   }
-}
-
-@media all and (max-width: 320px) {
-  div#topCont {
-    width: 320px;
-  }
-  div#leftCont {
-    width: 318px;
-  }
-  table.chartTable img.albumImg {
-    display: none;
-  }
-  table.chartTable tbody tr td.img {
-    width: 6px;
+  div.albumInfo,
+  div.artistInfo {
+    margin-left: 210px;
   }
 }
