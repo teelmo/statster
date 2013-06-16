@@ -31,12 +31,12 @@
   <div class="welcome">
     <div class="container"><hr /></div>
     <div class="container">
-      <iframe width="570" height="321" src="http://www.youtube.com/embed/NmfzWpp0hMc" frameborder="0"></iframe>
+      <iframe width="100%" height="321" src="http://www.youtube.com/embed/NmfzWpp0hMc" frameborder="0"></iframe>
     </div>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <iframe width="570" height="321" src="http://www.youtube.com/embed/2bK4aeahcXc" frameborder="0" allowfullscreen></iframe>
+    <iframe width="100%" height="321" src="http://www.youtube.com/embed/2bK4aeahcXc" frameborder="0" allowfullscreen></iframe>
   </div>
   <div class="container"><hr /></div>
 </div>
