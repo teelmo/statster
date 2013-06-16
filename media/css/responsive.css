@@ -9,6 +9,7 @@
     width: 100%;
   }
   div#leftCont {
+    margin-top: 15px;
     width: 100%;
   }
   div#rightCont {
@@ -16,7 +17,7 @@
   }
   div#topLinks {
     font-size: 14px;
-    margin: -10px 0 15px -5px;
+    margin: -15px 0 0 -5px;
   }
   div#topLinks a {
     margin: 0 15px 0 15px;
@@ -32,8 +33,14 @@
   div#rightCont {
     display: none;
   }
+  span.statster_year,
+  div#leftContInner,
+  div#topContInner div#addListeningCont,
   table.chartTable .title {
     display: none;
+  }
+  div#leftContOuter {
+    margin-left: 0;
   }
   div.container {
     margin: 7px 3px 15px 1px;
