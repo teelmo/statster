@@ -60,4 +60,12 @@
   div.artistInfo {
     margin-left: 210px;
   }
+  form#addListeningForm input[type="text"] {
+    background-color: #eee;
+    border-radius: 3px;
+    font-size: 20px;
+    margin: 0 0 0 0;
+    padding: 4px 4px 4px 8px;
+    width: 90%;
+  }
 }

@@ -4,7 +4,7 @@ $(document).ready(function() {
   getUsers();
   getListenings();
   
-  $('.moretags').click(function() {
+  $('#moretags').click(function() {
     $('#tagAdd').toggle();
     if ($(this).text() == '+') {
       $(this).html('<a href="javascript:;">-</a> ');

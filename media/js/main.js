@@ -24,7 +24,6 @@ $(document).ready(function() {
      if (code == 13) {
         $('.listeningFormat').removeClass('selected');
         $(this).addClass('selected');
-
         $('#' + $(this).parent().attr('for')).prop('checked', true);
      }
   });
@@ -291,10 +290,7 @@ function recommentedNewAlbum() {
 function highlightPatch() {
   $.ui.autocomplete.prototype._renderItem = function(ul, item) {
     var t = String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>');
-    return $('<li></li>')
-      .data('item.autocomplete', item)
-      .append('<a>' + t + '</a>')
-      .appendTo(ul);
+    return $('<li></li>').data('item.autocomplete', item).append('<a>' + t + '</a>').appendTo(ul);
   };
 }
 

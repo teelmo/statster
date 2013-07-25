@@ -346,14 +346,16 @@ h1 div.desc a{
 /*
  * Form styles
  */
+input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
 input:focus, input:active {
   outline-width: 0;
   outline-color: #fff;
 }
 input[type="submit"] {
-  color: #FFF;
-  font-size: 13px;
-  padding: 3px 8px 3px 9px;
   background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#666));
   background: -moz-linear-gradient(100% 100% 90deg, #666, #333);
   background: -o-linear-gradient(100% 100% 90deg, #666, #333);
@@ -361,6 +363,9 @@ input[type="submit"] {
   border-color: #cacad2 #b6b6bd #b6b6bd #cacad2;
   border-style: solid;
   border-width: 1px;
+  color: #fff;
+  font-size: 13px;
+  padding: 3px 8px 3px 9px;
 }
 input[type="submit"]:focus {
   color: #FF8;
@@ -372,12 +377,12 @@ form#addListeningForm input[type="submit"] {
   cursor: pointer;
 }
 form#addListeningForm input[type="text"] {
+  background-color: #eee;
   border-radius: 3px;
+  font-size: 20px;
   margin: 0 0 0 0;
   padding: 4px 4px 4px 8px;
-  font-size: 20px;
   width: 98%;
-  background-color: #eee;
 }
 form#addListeningForm input[type="text"]:active,
 form#addListeningForm input[type="text"]:focus {

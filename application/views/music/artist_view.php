@@ -13,7 +13,7 @@
       }
       if ($logged_in === TRUE) {
         ?>
-        <span class="tag moretags"><a href="javascript:;">+</a></span>
+        <span class="tag moretags" id="moretags"><a href="javascript:;">+</a></span>
         <div class="tag" id="tagAdd">
           <select id="tagAddSelect" data-placeholder="Add metadata" class="chzn-select" multiple>
             <optgroup label="Genres" id="genre">
