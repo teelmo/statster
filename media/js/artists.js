@@ -48,7 +48,7 @@ function topArtist() {
     success: function(data) {
       $.ajax({
         type:'POST',
-        url:'/ajax/artistBar',
+        url:'/ajax/barTable',
         data: {
           json_data:data,
           size:32,

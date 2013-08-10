@@ -48,7 +48,7 @@ function topAlbum() {
     success: function(data) {
       $.ajax({
         type:'POST',
-        url:'/ajax/albumBar',
+        url:'/ajax/barTable',
         data: {
           json_data:data,
           size:32,
