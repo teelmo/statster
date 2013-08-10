@@ -1,10 +1,12 @@
 <div id="leftCont">
   <div class="container">
-    <h1><div class="desc"><?=anchor(array('tag', url_title($this->uri->segment(2))), $tag_type, array('title' => $tag_type))?></div><?=$tag_name?></h1>
+    <h1>Tags</h1>
+  </div>
+  <div class="container">
+    <?=CI_VERSION?>
   </div>
   <div class="container"><hr /></div>
 </div>
-
 <div id="rightCont">
   <div class="container">
     <h1>Statistics</h1>

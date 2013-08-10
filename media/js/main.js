@@ -60,7 +60,7 @@ $(document).ready(function() {
         submitType:$('input[name="submitType"]').val(),
       },
       statusCode: {
-        201: function(data) { // 200 OK
+        201: function(data) { // 201 Created
           $('#addListeningText').val('');
           $('input[name="addListeningFormat"]').prop('checked', false);
           $('img.listeningFormat').removeClass('selected');
@@ -72,7 +72,7 @@ $(document).ready(function() {
         400: function() { // 400 Bad Request
           alert('400 Bad Request');
         },
-        401: function() { // 403 Forbidden
+        401: function() { // 401 Unauthorized
           alert('401 Unauthorized');
         },
         404: function() { // 404 Not found
@@ -111,7 +111,6 @@ function getListenings(isFirst, callback) {
             $('#recentlyListenedLoader2').hide();
             $('#recentlyListenedLoader').hide();
             $('#recentlyListened').html(data);
-
             var currentTime = new Date();
             var hours = currentTime.getHours();
             var minutes = currentTime.getMinutes();
@@ -184,7 +183,7 @@ function getArtists() {
     success: function(data) {
       $.ajax({
         type:'POST',
-        url:'/ajax/artistBar',
+        url:'/ajax/barTable',
         data: {
           json_data:data,
         },

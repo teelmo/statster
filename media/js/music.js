@@ -1,7 +1,23 @@
 $(document).ready(function() {
   popularGenre();
   topAlbum();
+  recentlyFaned();
+  recentlyLoved();
+
+  $(document).ajaxStop(function(event, request, settings ) {
+    $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function(a, b) {
+      return compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
+    }));
+    $('#recentlyLikedLoader').hide();
+  });
+
 });
+
+function compareStrings(a, b) {
+  if (a > b) return -1;
+  else if (a < b) return 1;
+  return 0;
+}
 
 function popularGenre() {
   $.ajax({
@@ -9,26 +25,30 @@ function popularGenre() {
     dataType:'json',
     url:'/api/genre/get',
     data: {
-      limit:15,
+      limit:35,
       lower_limit:'<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
-    success: function(data) {
-      $.ajax({
-        type:'POST',
-        url:'/ajax/popularTag',
-        data: {
-          json_data:data
-        },
-        success: function(data) {
-          $('#popularGenreLoader').hide();
-          $('#popularGenre').html(data);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/popularTag',
+          data: {
+            json_data:data
+          },
+          success: function(data) {
+            $('#popularGenreLoader').hide();
+            $('#popularGenre').html(data);
+          }
+        });  
+      },
+      204: function() { // 204 No Content
+        alert('204 No Content');
+      },
+      404: function() { // 404 Not found
+        alert('404 Not Found');
+      }
     }
   });
 }
@@ -43,28 +63,86 @@ function topAlbum() {
       lower_limit:'<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
-    success: function(data) {
-      $.ajax({
-        type:'POST',
-        url:'/ajax/albumTable',
-        data: {
-          json_data:data,
-          hide: {
-            count:true,
-            rank:true,
-            date:true,
-            calendar:true
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/albumTable',
+          data: {
+            json_data:data,
+            hide: {
+              count:true,
+              rank:true,
+              date:true,
+              calendar:true
+            }
+          },
+          success: function(data) {
+            $('#popularAlbumLoader').hide();
+            $('#popularAlbum').html(data);
           }
-        },
-        success: function(data) {
-          $('#popularAlbumLoader').hide();
-          $('#popularAlbum').html(data);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
+        });
+      }
+    }
+  });
+}
+
+function recentlyFaned() {
+  $.ajax({
+    type:'GET',
+    dataType:'json',
+    url:'/api/fan/get',
+    data: {
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      limit: 10
     },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/likeTable',
+          data: {
+            json_data:data,
+            hide: {
+              rank:true
+            }
+          },
+          success: function(data) {
+            $('#recentlyFanedLoader').hide();
+            $('#recentlyFaned').html(data);
+          }
+        });
+      }
+    }
+  });
+}
+
+function recentlyLoved() {
+  $.ajax({
+    type:'GET',
+    dataType:'json',
+    url:'/api/love/get',
+    data: {
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+      limit: 10
+    },
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/likeTable',
+          data: {
+            json_data:data,
+            hide: {
+              rank:true
+            }
+          },
+          success: function(data) {
+            $('#recentlyLovedLoader').hide();
+            $('#recentlyLoved').html(data);
+          }
+        });
+      }
     }
   });
 }

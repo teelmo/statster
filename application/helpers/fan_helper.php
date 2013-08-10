@@ -15,13 +15,20 @@ if (!function_exists('getFan')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT " . TBL_fan . ".`id`, 'fan' as `type`
-            FROM " . TBL_fan . "
-            WHERE " . TBL_fan . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
-              AND " . TBL_fan . ".`artist_id` LIKE " . $ci->db->escape($artist_id);
+    $sql = "SELECT " . TBL_fan . ".`id`, " . TBL_artist . ".`id` as `artist_id`, " . TBL_artist . ".`artist_name`, " . TBL_user . ".`username`, " . TBL_fan . ".`created`, 'fan' as `type`
+            FROM " . TBL_fan . ", " . TBL_artist . ", " . TBL_user . "
+            WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_fan . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_fan . ".`artist_id` LIKE " . $ci->db->escape($artist_id) . "
+              AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
+              AND " . TBL_fan . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
+            ORDER BY " . TBL_fan . ".`created` DESC
+            LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }

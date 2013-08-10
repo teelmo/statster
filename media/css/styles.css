@@ -544,17 +544,20 @@ table.chartTable tbody tr:hover span.delete {
 /* albumTable */
 /* userTable */
 /* eventTable */
+table.likeTable tr,
 table.eventTable tr,
 table.userTable tr,
 table.albumTable tr {
   border-top: 1px solid #E1E1E1;
   border-bottom: 1px solid #E1E1E1;
 }
+table.likeTable tr td,
 table.eventTable tr td,
 table.userTable tr td,
 table.albumTable tr td {
   vertical-align: top;
 }
+table.likeTable tr td.img32,
 table.userTable tr td.img32,
 table.albumTable tr td.img32 {
   width: 32px;
@@ -563,6 +566,7 @@ table.userTable tr td.img64,
 table.albumTable tr td.img64 {
   width: 64px;
 }
+table.likeTable tr td.type,
 table.userTable tr td.rank,
 table.albumTable tr td.rank {
   width: 30px;
@@ -720,7 +724,6 @@ ul.chartList64 li {
 }
 ul.likeList {
   width: 100%;
-  display: block;
   overflow: hidden;
 }
 ul.likeList li {

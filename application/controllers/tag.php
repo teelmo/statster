@@ -5,32 +5,68 @@ class Tag extends CI_Controller {
     $data['request'] = array('tag');
 
     $this->load->view('templates/header');
-    $this->load->view('tag/tag_view');
+    $this->load->view('tag/meta_view');
     $this->load->view('templates/footer', $data);
   }
 
-  public function genre($genre = '') {
+  public function genre($tag_name = '') {
+    $data['tag_type'] = 'Genre';
     $this->load->view('templates/header');
-    $this->load->view('tag/genre_view');
-    $this->load->view('templates/footer'); 
+    
+    if (!empty($tag_name)) {
+      $data['tag_name'] = decode($tag_name);
+      
+      $this->load->view('tag/tag_view', $data);
+    }
+    else {
+      $this->load->view('tag/tags_view', $data);
+    }
+    $this->load->view('templates/footer');
   }
 
-  public function keyword($keyword = '') {
+  public function keyword($tag_name = '') {
+    $data['tag_type'] = 'Keyword';
     $this->load->view('templates/header');
-    $this->load->view('tag/keyword_view');
-    $this->load->view('templates/footer'); 
+    
+    if (!empty($tag_name)) {
+      $data['tag_name'] = decode($tag_name);
+      
+      $this->load->view('tag/tag_view', $data);
+    }
+    else {
+      $this->load->view('tag/tags_view', $data);
+    }
+    $this->load->view('templates/footer');
   }
 
-  public function release_year($release_year = '') {
+  public function year($tag_name = '') {
+    $data['tag_type'] = 'Release Year';
     $this->load->view('templates/header');
-    $this->load->view('tag/release_year_view');
-    $this->load->view('templates/footer'); 
+    
+    if (!empty($tag_name)) {
+      $data['tag_name'] = decode($tag_name);
+      
+      $this->load->view('tag/tag_view', $data);
+    }
+    else {
+      $this->load->view('tag/tags_view', $data);
+    }
+    $this->load->view('templates/footer');
   }
 
-  public function nationality($nationality = '') {
+  public function nationality($tag_name = '') {
+    $data['tag_type'] = 'Nationality';
     $this->load->view('templates/header');
-    $this->load->view('tag/nationality_view');
-    $this->load->view('templates/footer'); 
+    
+    if (!empty($tag_name)) {
+      $data['tag_name'] = decode($tag_name);
+      
+      $this->load->view('tag/tag_view', $data);
+    }
+    else {
+      $this->load->view('tag/tags_view', $data);
+    }
+    $this->load->view('templates/footer');
   }
 }
 ?>

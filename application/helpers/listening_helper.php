@@ -52,7 +52,7 @@ if (!function_exists('getListenings')) {
 }
 
 /**
-  * Add listening data
+  * Add listening data.
   *
   * @param array $opts.
   *
@@ -70,7 +70,7 @@ if (!function_exists('addListening')) {
 
       $data = array();
       
-      // Get user id from session
+      // Get user id from session.
       if (!$data['user_id'] = $ci->session->userdata('user_id')) {
         header('HTTP/1.1 401 Unauthorized');
         return json_encode(array('error' => array('msg' => $data)));
@@ -78,21 +78,21 @@ if (!function_exists('addListening')) {
       list($data['artist'], $data['album']) = explode(DASH, $opts['text']);
       $data['artist'] = trim($data['artist']);
       $data['album'] = trim($data['album']);
-      // Check that album exists
+      // Check that album exists.
       if (!$data['album_id'] = getAlbumID($data)) {
         header('HTTP/1.1 404 Not Found');
         return json_encode(array('error' => array('msg' => $data)));
       }
       $data['date'] = trim($opts['date']);
 
-      // Add listening data to DB
+      // Add listening data to DB.
       $sql = "INSERT
                 INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
                 VALUES ({$data['user_id']}, {$data['album_id']}, '{$data['date']}')";
       $query = $ci->db->query($sql);
       if ($ci->db->affected_rows() == 1) {
         $data['listening_id'] = $ci->db->insert_id();
-        // Add listening format data to DB
+        // Add listening format data to DB.
         if (!empty($_POST['format'])) {
           list($data['format'], $data['format_type']) = explode(':', $_POST['format']);
           addListeningFormat($data);
@@ -113,7 +113,7 @@ if (!function_exists('addListening')) {
 }
 
 /**
-  * Delete listening data
+  * Delete listening data.
   *
   * @param array $opts.
   *
@@ -130,12 +130,12 @@ if (!function_exists('deleteListening')) {
     $ci->load->database();
 
     
-    // Get user id from session
+    // Get user id from session.
     if (!$data['user_id'] = $ci->session->userdata('user_id')) {
       header('HTTP/1.1 401 Unauthorized');
       return json_encode(array('error' => array('msg' => $data)));
     }
-    // Delete listening data from DB
+    // Delete listening data from DB.
     $sql = "DELETE 
               FROM " . TBL_listening . "
               WHERE " . TBL_listening . ".`id` = {$data['listening_id']}

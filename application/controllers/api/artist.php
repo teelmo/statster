@@ -7,7 +7,7 @@ class Artist extends CI_Controller {
   /* List artists */
   public function get() {
     // Load helpers
-    $this->load->helper(array('music_helper', 'return_helper'));
+    $this->load->helper(array('music_helper', 'output_helper'));
     
     echo getArtists($_REQUEST);
   }

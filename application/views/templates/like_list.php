@@ -3,7 +3,9 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     foreach ($json_data as $idx => $row) {
       ?>
-      <li><img src="<?=site_url()?>/media/img/icons/<?=$row['type']?>.png" alt="" /></li>
+      <li data-created="<?=$row['created']?>">
+        <img src="<?=site_url()?>/media/img/icons/<?=$row['type']?>.png" alt="" />
+      </li>
       <?php
     }
   }

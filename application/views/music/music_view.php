@@ -24,7 +24,10 @@
 
 <div id="rightCont">
   <div class="container">
-    <h1>Recently favorited</h1>
-
+    <h1>Recently liked</h1>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
+    <table id="recentlyLiked" class="likeTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyFaned" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyLoved" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
   </div>
 </div>

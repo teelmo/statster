@@ -95,9 +95,10 @@ function getLoves() {
       200: function(data) { // 200 OK
         $.ajax({
           type:'POST',
-          url:'/ajax/albumLove',
+          url:'/ajax/likeList',
           data: {
-            json_data:data
+            json_data:data,
+            hide: {}
           },
           success: function(data) {
             $('#albumLoveLoader').hide();

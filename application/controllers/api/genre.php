@@ -8,7 +8,7 @@ class Genre extends CI_Controller {
   /* List genres */
   public function get() {
     // Load helpers
-    $this->load->helper(array('tag_helper', 'return_helper'));
+    $this->load->helper(array('tag_helper', 'output_helper'));
     
     echo getGenres($_REQUEST);
   }

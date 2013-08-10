@@ -8,7 +8,7 @@ class Nationality extends CI_Controller {
   /* List nationalities */
   public function get() {
     // Load helpers
-    $this->load->helper(array('tag_helper', 'return_helper'));
+    $this->load->helper(array('tag_helper', 'output_helper'));
     
     echo getNationalities($_REQUEST);
   }

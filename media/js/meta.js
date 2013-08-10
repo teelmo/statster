@@ -1,28 +1,28 @@
 $(document).ready(function() {
-  topArtist10();
-  topArtist();
+  topGenre();
+  topKeyword();
 });
 
-function topArtist10() {
+function topGenre() {
   $.ajax({
     type:'GET',
     dataType:'json',
-    url:'/api/artist/get',
+    url:'/api/genre/get',
     data: {
-      limit:8,
-      lower_limit:'1970-01-01',
+      limit:7,
+      lower_limit:'<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       $.ajax({
         type:'POST',
-        url:'/ajax/artistList/124',
+        url:'/ajax/popularTag',
         data: {
-          json_data:data,
+          json_data:data
         },
         success: function(data) {
-          $('#topArtist10Loader').hide();
-          $('#topArtist10').html(data);
+          $('#topGenreLoader').hide();
+          $('#topGenre').html(data);
         },
         complete: function() {
         },
@@ -35,28 +35,26 @@ function topArtist10() {
   });
 }
 
-function topArtist() {
+function topKeyword() {
   $.ajax({
     type:'GET',
     dataType:'json',
-    url:'/api/artist/get',
+    url:'/api/keyword/get',
     data: {
-      limit:'8, 200',
-      lower_limit:'1970-01-01',
+      limit:7,
+      lower_limit:'<?=date("Y-m-d", time() - (30 * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     success: function(data) {
       $.ajax({
         type:'POST',
-        url:'/ajax/artistBar',
+        url:'/ajax/popularTag',
         data: {
-          json_data:data,
-          size:32,
-          rank:9
+          json_data:data
         },
         success: function(data) {
-          $('#topArtistLoader').hide();
-          $('#topArtist').html(data);
+          $('#topKeywordLoader').hide();
+          $('#topKeyword').html(data);
         },
         complete: function() {
         },

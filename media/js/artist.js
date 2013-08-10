@@ -27,7 +27,11 @@ function getFan(user_id) {
     dataType:'json',
     url:'/api/fan/get/<?=$artist_id?>',
     data: {
-      user_id:user_id
+      user_id:user_id,
+      hide: {
+        title:true,
+        username:true
+      }
     },
     statusCode: {
       200: function(data) { // 200 OK
@@ -98,9 +102,10 @@ function getFans() {
       200: function(data) { // 200 OK
         $.ajax({
           type:'POST',
-          url:'/ajax/artistFan',
+          url:'/ajax/likeList',
           data: {
-            json_data:data
+            json_data:data,
+            hide: {}
           },
           success: function(data) {
             $('#artistFanLoader').hide();

@@ -32,7 +32,7 @@ if (!function_exists('indentJSON')) {
       } 
       elseif (($char == '}' || $char == ']') && $outOfQuotes) {
         $result .= $newLine;
-        $pos --;
+        $pos--;
         for ($jj = 0; $jj < $pos; $jj++) {
           $result .= $indentStr;
         }
@@ -73,23 +73,57 @@ if (!function_exists('timeAgo')) {
     $etime = time() - strtotime($ptime);
 
     $a = array(
-      12 * 30 * 24 * 60 * 60  =>  'year',
-      30 * 24 * 60 * 60       =>  'month',
-      48 * 60 * 60            =>  'day',
-      24 * 60 * 60            =>  'yesterday',
-      60 * 60                 =>  'today',
+      12 * 30 * 24 * 60 * 60 =>  'year',
+      30 * 24 * 60 * 60 =>  'month',
+      48 * 60 * 60 =>  'day',
+      24 * 60 * 60 =>  'yesterday',
+      60 * 60 =>  'today',
     );
 
     foreach ($a as $secs => $str) {
       $d = $etime / $secs;
 
       if ($d >= 1) {
-        $r = round($d);
+        $r = round($d) + 1;
         if ($secs < (48 * 60 * 60)) {
           return '<span title="' . $ptime . '">' . $str . '</span>';
         }
-        return $r . ' ' . $str . ( $r > 1 ? 's' : '' ) . ' ago';
+        return '<span title="' . $ptime . '">' . $r . ' ' . $str . ( $r > 1 ? 's' : '' ) . ' ago</span>';
       }
+    }
+  }
+}
+
+/**
+ * A helper function for returning music helper's responces.
+ *
+ * @param object $query.
+ *
+ * @param string $human_readable.
+ *
+ * @return string JSON.
+ */
+if (!function_exists('_json_return_helper')) {
+  function _json_return_helper($query, $human_readable) {
+    if ($query->num_rows() > 0) {
+      if (!empty($human_readable) && $human_readable != 'false') {
+        $ci=& get_instance();
+        $ci->load->database();
+
+        // Load helpers
+        $ci->load->helper(array('text_helper'));
+        header('HTTP/1.1 200 OK');
+        return indentJSON(json_encode($query->result()));
+      }
+      else {
+        header('HTTP/1.1 200 OK');
+        return json_encode($query->result());
+      }
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+    }
+    else {
+      return header('HTTP/1.1 204 No Content');
     }
   }
 }

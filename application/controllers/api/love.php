@@ -8,7 +8,7 @@ class Love extends CI_Controller {
   public function get($album_id = 0) {
     if (is_numeric($album_id)) {
       // Load helpers
-      $this->load->helper(array('love_helper', 'return_helper'));
+      $this->load->helper(array('love_helper', 'output_helper'));
       
       $_REQUEST['album_id'] = $album_id;
       echo getLove($_REQUEST);

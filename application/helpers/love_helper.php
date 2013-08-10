@@ -15,13 +15,20 @@ if (!function_exists('getLove')) {
     $ci=& get_instance();
     $ci->load->database();
     
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT " . TBL_love . ".`id`, 'love' as `type`
-            FROM " . TBL_love . "
-            WHERE " . TBL_love . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
-              AND " . TBL_love . ".`album_id` LIKE " . $ci->db->escape($album_id);
+    $sql = "SELECT " . TBL_love . ".`id`, " . TBL_album . ".`id` as `album_id`, ". TBL_artist . ".`artist_name`, " . TBL_album . ".`album_name`, " . TBL_user . ".`username`, " . TBL_love . ".`created`, 'love' as `type`
+            FROM " . TBL_love . ", " . TBL_artist . ", " . TBL_album . ", " . TBL_user . "
+            WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_love . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
+              AND " . TBL_love . ".`album_id` LIKE " . $ci->db->escape($album_id) . "
+            ORDER BY " . TBL_love . ".`created` DESC
+            LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }

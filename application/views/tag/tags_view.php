@@ -1,6 +1,10 @@
 <div id="leftCont">
   <div class="container">
-    <h1><div class="desc"><?=anchor(array('tag', url_title($this->uri->segment(2))), $tag_type, array('title' => $tag_type))?></div><?=$tag_name?></h1>
+    <h1><?=$tag_type?></h1>
+  </div>
+  <div class="container">
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popular<?=$tag_type?>Loader" />
+    <table id="popular<?=$tag_type?>" class="genre<?=$tag_type?>"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
 </div>
