@@ -4,7 +4,7 @@
     <title><?=TITLE?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="/media/js/libs/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/media/js/libs/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/jquery.ui.autocomplete.html.js"></script>
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
