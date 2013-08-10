@@ -672,6 +672,9 @@ table.barTable div.chartBar div {
   -moz-border-radius-topright: 5px;
   -moz-border-radius-bottomright: 5px;
 }
+table.bigBarTable tr:nth-child(2n) td.barChartName {
+  background-color: rgba(245, 245, 245, 0.5);
+}
 div.albumInfo,
 div.artistInfo {
   font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
