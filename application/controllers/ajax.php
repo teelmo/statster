@@ -44,12 +44,12 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function albumTable() {
+  public function sideTable() {
     if (!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('img_helper', 'output_helper'));
 
-      $this->load->view('templates/album_table', $_POST);
+      $this->load->view('templates/side_table', $_POST);
       header("HTTP/1.1 200 OK");
     }
     else {

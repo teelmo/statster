@@ -28,7 +28,7 @@
   <div class="container">
     <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
-    <table id="recentlyListened" class="chartTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyListened" class="chartTable" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
     <div class="more">
       <?=anchor('recent', 'See more/edit', array('title' => 'Browse more listenings'))?>
     </div>
@@ -64,10 +64,10 @@
     <h1>Statster recommends</h1>
     <h2>Popular albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
-    <table id="recommentedTopAlbum" class="albumTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recommentedTopAlbum" class="sideTable"><!-- Content is loaded with AJAX --></table>
     <h2>Recently released</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedNewAlbumLoader" />
-    <table id="recommentedNewAlbum" class="albumTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recommentedNewAlbum" class="sideTable"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
   <!--<div class="container">

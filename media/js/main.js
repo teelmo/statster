@@ -10,8 +10,12 @@ $(document).ready(function() {
     source:'/autoComplete/addListening',
     minLength:3,
     html:true,
-    search: function(){$(this).addClass('working');},
-    open: function(){$(this).removeClass('working');}
+    search: function() {
+      $(this).addClass('working');
+    },
+    open: function() {
+      $(this).removeClass('working');
+    }
   });
 
   $('.listeningFormat').click(function() {
@@ -217,7 +221,7 @@ function recommentedTopAlbum() {
       200: function(data) {
         $.ajax({
           type:'POST',
-          url:'/ajax/albumTable',
+          url:'/ajax/sideTable',
           data: {
             json_data:data,
             limit:3,
@@ -257,7 +261,7 @@ function recommentedNewAlbum() {
       200: function(data) {
         $.ajax({
           type:'POST',
-          url:'/ajax/albumTable',
+          url:'/ajax/sideTable',
           data: {
             json_data:data,
             limit:3,

@@ -36,27 +36,42 @@ if (!empty($json_data)) {
           </td>
           <?php
         }
+        if (empty($row['album_name'])) {
+          ?>
+          <td class="img<?=$size?> artistImg">
+            <?=anchor(array('music', url_title($row['artist_name'])), '<img src="' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . '" alt="" class="artistImg artistImg' . $size . '" />', array('title' => 'Browse to artist\'s page'))?>
+          </td>
+          <?php
+        }
+        else {
+          ?>
+          <td class="img<?=$size?> albumImg">
+            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<img src="' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
+          </td>
+          <?php
+        }
         ?>
-        <td class="img<?=$size?> albumImg">
-          <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<img src="' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
-        </td>
         <td class="title">
           <div class="title">
             <?php
             if (empty($hide['artist'])) {
               echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
+              if (!empty($row['album_name'])) {
               echo ' ' . DASH . ' ';
+              }
             }
-            echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
-            echo ' ';
-            echo anchor(array('tag', 'release+year', url_title($row['year'])), '<span class="albumYear">(' . $row['year'] . ')</span>', array('title' => 'Browse albums'));
+            if (!empty($row['album_name'])) {
+              echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
+              echo ' ';
+              echo anchor(array('tag', 'release+year', url_title($row['year'])), '<span class="albumYear">(' . $row['year'] . ')</span>', array('title' => 'Browse albums'));
+            }
             ?>
           </div>
           <?php
           if (empty($hide['date'])) {
             ?>
             <div class="datetime">
-              <?=timeAgo($row['date'])?>
+              <?=timeAgo($row['date'])?> by <?=anchor(array('user', 'profile', url_title($row['username'])), $row['username'], array('title' => 'Browse to user\'s page'))?>
             </div>
             <?php
           }

@@ -95,7 +95,7 @@
     <h1>Statistics</h1>
     <h2>Top listeners</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
-    <table id="topListener" class="userTable"><!-- Content is loaded with AJAX --></table>
+    <table id="topListener" class="sideTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
       <?=anchor(array('listener', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'))?>
     </div>
@@ -104,7 +104,7 @@
   <div class="container">
     <h2>Latest listenings</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
-    <table id="recentlyListened" class="albumTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyListened" class="sideTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
       <?=anchor(array('recent', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'))?>
     </div>
@@ -113,7 +113,7 @@
   <div class="container">
     <h2>On tour</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistEventLoader"/>
-    <table id="artistEvent" class="eventTable"><!-- Content is loaded with AJAX --></table>
+    <table id="artistEvent" class="sideTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
       <?=anchor('http://www.last.fm/music/' . urlencode($artist_name) . '/+events', 'See more', array('title' => 'Browse more events'))?>
     </div>

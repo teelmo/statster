@@ -67,7 +67,7 @@ function topAlbum() {
       200: function(data) {
         $.ajax({
           type:'POST',
-          url:'/ajax/albumTable',
+          url:'/ajax/sideTable',
           data: {
             json_data:data,
             hide: {
