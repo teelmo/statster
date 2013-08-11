@@ -72,7 +72,7 @@ class Ajax extends CI_Controller {
 
   public function eventTable() {
     if (!empty($_POST)) {
-      $this->load->view('templates/event_table', $_POST);
+      $this->load->view('templates/artist_events', $_POST);
       header("HTTP/1.1 200 OK");
     }
     else {
