@@ -113,7 +113,6 @@ div#footer:hover a {
 div#footer a:hover {
   text-decoration: underline;
 }
-
 /* 
  * Heading styles
  */
@@ -204,10 +203,6 @@ div.clear {
 .datetime {
   padding-right: 5px;
 }
-/*
-.playCount {
-  padding-left: 3px;
-}*/
 div.more {
   margin: 10px 5px;
   float: right;
@@ -236,20 +231,14 @@ span.tag {
 span.tag a { 
   color: #fff;
 }
-span.genre {
+span.tag {
   background-color: #0187c5;
 }
-span.genre:hover {
-  background-color: #0179B1;
-}
-span.keyword {
-  background-color: #0187C5;
-}
-span.keyword:hover {
-  background-color: #0179B1;
+span.tag:hover {
+  background-color: #0179b1;
 }
 span.moretags {
-  background-color: #AAA;
+  background-color: #aaa;
   padding: 4px 6px;
   font-weight: bold;
 }
@@ -657,6 +646,9 @@ table.barTable div.chartBar div {
 table.bigBarTable tr:nth-child(2n) td.barChartName {
   background-color: rgba(245, 245, 245, 0.5);
 }
+table.bigBarTable tr:hover td.barChartName {
+  background-color: rgba(175, 201, 215, 0.5)
+}
 div.albumInfo,
 div.artistInfo {
   font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
@@ -827,9 +819,9 @@ img.listeningFormat.selected {
 }
 img#betaLogo {
   vertical-align: -32%;
-  opacity: 0.6;
-  -moz-opacity: 0.6;
-  filter:alpha(opacity=6);
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  filter:alpha(opacity=5);
 }
 span#userContDropdown {
   vertical-align: 0%;
