@@ -85,7 +85,7 @@ if (!function_exists('timeAgo')) {
       $d = $etime / $secs;
 
       if ($d >= 1) {
-        $r = round($d) + 1;
+        $r = ($str == 'day') ? round($d) + 1: round($d); 
         if ($secs < (48 * 60 * 60)) {
           return '<span title="' . $ptime . '">' . $str . '</span>';
         }
