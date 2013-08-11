@@ -1,6 +1,6 @@
 <?php
 if (!empty($json_data)) {
-  if (!empty($json_data)) {
+  if (empty($json_data['error'])) {
     ?>
     <p class="summary"><?=nl2br($json_data['bio_summary'])?></p>
     <div class="more moreDown">
@@ -12,11 +12,8 @@ if (!empty($json_data)) {
     </div>
     <?php
   }
-  elseif (is_object($json_data)) {
-    echo $json_data->error->msg;
-  }
   else {
-    echo $json_data;
+    echo $json_data['error']['msg'];
   }
 }
 else {
