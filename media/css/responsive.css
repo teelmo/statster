@@ -1,9 +1,9 @@
-/* Portrait Tablet */
 @media all and (min-width: 960px) {
   div#topLinks {
     display: none;
   }
 }
+/* Portrait Tablet */
 @media all and (max-width: 960px) {
   div#topCont {
     width: 100%;
@@ -25,7 +25,11 @@
   div#leftContOuter {
     width: 100%;
   }
+  div#footer div.socialMedia {
+    padding-right: 10px;
+  }
 }
+/* Smart phone */
 @media all and (max-width: 400px) {
   div#topCont {
     width: 100%;
@@ -38,8 +42,9 @@
   }
   span.statster_year,
   div#leftContInner,
-  div#topContInner div#addListeningCont,
-  table.chartTable .title {
+  span.albumYear,
+  span.artist,
+  div#topContInner div#addListeningCont {
     display: none;
   }
   div#leftContOuter {
@@ -51,9 +56,6 @@
   div.externalLink,
   div.socialMedia {
     display: none;
-  }
-  table.chartTable tbody tr td.albumImg {
-    width: 45%;
   }
   img.artistImg300,
   img.albumImg300 {
@@ -69,6 +71,6 @@
     font-size: 20px;
     margin: 0 0 0 0;
     padding: 4px 4px 4px 8px;
-    width: 90%;
+    width: 96%;
   }
 }
