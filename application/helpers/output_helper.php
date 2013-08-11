@@ -70,6 +70,7 @@ if (!function_exists('timeAgo')) {
    * @return string Time ago style formatted version of the given datetime.
    */
   function timeAgo($ptime) {
+    $ptime = substr($ptime, 0, 10);
     $etime = time() - strtotime($ptime);
 
     $a = array(
