@@ -29,10 +29,19 @@ if (!empty($json_data)) {
           ?>
           <td class="barChartCalendar">
             <?php
-            $timestamp = strtotime($row['date']);
+            list($date['year'], $date['month'], $date['day']) = explode('-', $row['date']);
+            if ($date['month'] == '00' || $date['day'] == '00') {
+              $month = '–';
+              $day = '–';
+            }
+            else {
+              $timestamp = strtotime($row['date']);
+              $month = date('M', $timestamp);
+              $day = date('j', $timestamp);
+            } 
             ?>
-            <span class="month"><?=date('M', $timestamp)?></span>
-            <span class="day"><?=date('j', $timestamp)?></span>
+            <span class="month"><?=$month?></span>
+            <span class="day"><?=$day?></span>
           </td>
           <?php
         }
