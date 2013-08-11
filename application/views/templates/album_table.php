@@ -4,7 +4,7 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     if (!empty($limit)) {
       shuffle($json_data);
-      $json_data = array_slice($json_data, 0, 2);
+      $json_data = array_slice($json_data, 0, $limit);
     }
     $rank = 1;
     $prev_count = FALSE;
