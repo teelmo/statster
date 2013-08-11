@@ -484,9 +484,6 @@ td {
   padding: 0;
 }
 /* chartTable */
-table.chartTable {
-  margin-top: -12px; /* This because of the last updated time */
-}
 table.chartTable tbody tr {
   border-top: 1px solid #E8E8E8;
   border-bottom: 1px solid #E8E8E8;
@@ -541,49 +538,33 @@ table.chartTable tbody tr span.delete {
 table.chartTable tbody tr:hover span.delete {
   display: inline;
 }
-/* albumTable */
-/* userTable */
-/* eventTable */
-table.likeTable tr,
-table.eventTable tr,
-table.userTable tr,
-table.albumTable tr {
+/* sideTable */
+table.sideTable tr {
   border-top: 1px solid #E1E1E1;
   border-bottom: 1px solid #E1E1E1;
 }
-table.likeTable tr td,
-table.eventTable tr td,
-table.userTable tr td,
-table.albumTable tr td {
+table.sideTable td {
   vertical-align: top;
 }
-table.likeTable tr td.img32,
-table.userTable tr td.img32,
-table.albumTable tr td.img32 {
-  width: 32px;
+table.sideTable td.img32 {
+  width: 38px;
 }
-table.userTable tr td.img64,
-table.albumTable tr td.img64 {
-  width: 64px;
+table.sideTable td.img64 {
+  width: 74px;
 }
-table.likeTable tr td.type,
-table.userTable tr td.rank,
-table.albumTable tr td.rank {
-  width: 30px;
+table.sideTable td.rank,
+table.sideTable td.type {
   vertical-align: middle;
-  text-align: center;
+  text-align: center;  
+  width: 30px;
 }
-table.eventTable td.barChartCalendar,
-table.userTable td.barChartCalendar,
-table.albumTable td.barChartCalendar {
+table.sideTable td.barChartCalendar {
   width: 30px;
   font-size: 11px;
   font-weight: bold;
   opacity: 0.7;
 }
-table.eventTable td.barChartCalendar span.month,
-table.userTable td.barChartCalendar span.month,
-table.albumTable td.barChartCalendar span.month {
+table.sideTable td.barChartCalendar span.month {
   background-color: #D51007;
   border: 1px solid #CCC;
   border-bottom: 0px;
@@ -598,11 +579,9 @@ table.albumTable td.barChartCalendar span.month {
   -moz-border-radius-topright: 5px;
   -moz-border-radius-topleft: 5px;
 }
-table.eventTable td.barChartCalendar span.day,
-table.userTable td.barChartCalendar span.day,
-table.albumTable td.barChartCalendar span.day {
+table.sideTable td.barChartCalendar span.day {
   background-color: #FFF;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   width: 25px;
   text-align: center;
   line-height: 1.1em;
@@ -613,26 +592,28 @@ table.albumTable td.barChartCalendar span.day {
   -moz-border-radius-bottomright: 5px;
   -moz-border-radius-bottomleft: 5px;
 }
-table.userTable tr td.rank span.rank,
-table.albumTable tr td.rank span.rank {
+table.sideTableLeftCont tr:hover td.rank {
+  background-color: #fff;
+}
+table.sideTable tr td.rank span.rank {
   background: #0187C5;
   padding: 2px 3px 2px 5px;
   color: #FFF;
   vertical-align: middle;
   border-radius: 5px;
 }
-table.albumTableLeftCont tr:nth-child(2n) {
+table.sideTableLeftCont tr:nth-child(2n) {
   background-color: rgba(245, 245, 245, 0.5);
 }
-table.albumTableLeftCont tr:nth-child(2n+1) {
+table.sideTableLeftCont tr:nth-child(2n+1) {
   background-color: transparent;
 }
-table.albumTableLeftCont tr:hover {
+table.sideTableLeftCont tr:hover {
   background-color: rgba(175, 201, 215, 0.5);
 }
 /* genreTable */
 table.genreTable tr td {
-  border-bottom: 1px solid #E1E1E1;
+  border-bottom: 1px solid #e1e1e1;
   vertical-align: bottom;
   padding: 3px 0 0 0px;
 }
@@ -640,6 +621,7 @@ table.genreTable tr td {
 table.barTable tr td {
   padding: 1px 0 1px 0;
 }
+table.artistTable td.barChartRank,
 table.barTable td.barChartRank {
   width: 2%;
   text-align: right;
