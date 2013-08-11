@@ -153,8 +153,8 @@ function getUsers() {
         $('#topListener').html('<?=ERR_NO_RESULTS?>');
       },
       400: function() { // 400 Bad request
-        $('#recentlyListenedLoader').hide();
-        $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+        $('#topListenerLoader').hide();
+        $('#topListener').html('<?=ERR_BAD_REQUEST?>');
       }
     }
   });
