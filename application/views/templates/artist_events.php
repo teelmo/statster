@@ -23,11 +23,8 @@ if (!empty($json_data)) {
       <?php
     }
   }
-  elseif (is_object($json_data)) {
-    echo $json_data->error->msg;
-  }
   else {
-    echo $json_data;
+    echo $json_data['error']['msg'];
   }
 }
 else {
