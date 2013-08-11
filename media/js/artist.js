@@ -174,7 +174,7 @@ function getListenings() {
       200: function(data) { // 200 OK
         $.ajax({
           type:'POST',
-          url:'/ajax/albumTable',
+          url:'/ajax/sideTable',
           data: {
             json_data:data,
             size:32,
