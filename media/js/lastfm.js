@@ -13,27 +13,23 @@ function getSimilar() {
       limit:4,
       artist_name:'<?php echo $artist_name?>'
     },
-    success: function(data) {
-      $.ajax({
-        type:'POST',
-        url:'/ajax/artistList/124',
-        data: {
-          json_data:data,
-          hide: {
-            count:true
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/artistList/124',
+          data: {
+            json_data:data,
+            hide: {
+              count:true
+            }
           },
-        },
-        success: function(data) {
-          $('#similarArtistLoader').hide();
-          $('#similarArtist').html(data);
-        },
-        complete: function() {
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+          success: function(data) {
+            $('#similarArtistLoader').hide();
+            $('#similarArtist').html(data);
+          }
+        });
+      }
     }
   });
 }
@@ -47,24 +43,20 @@ function getEvents() {
       limit:15,
       artist_name:'<?php echo $artist_name?>'
     },
-    success: function(data) {
-      $.ajax({
-        type:'POST',
-        url:'/ajax/eventTable',
-        data: {
-          json_data:data,
-        },
-        success: function(data) {
-          $('#artistEventLoader').hide();
-          $('#artistEvent').html(data);
-        },
-        complete: function() {
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/eventTable',
+          data: {
+            json_data:data
+          },
+          success: function(data) {
+            $('#artistEventLoader').hide();
+            $('#artistEvent').html(data);
+          }
+        });
+      }
     }
   });
 }
@@ -78,39 +70,37 @@ function getBio() {
       limit:4,
       artist_name:'<?php echo $artist_name?>'
     },
-    success: function(data) {
-      $.ajax({
-        type:'POST',
-        url:'/ajax/artistBio',
-        data: {
-          json_data:data,
-          hide : {
-            count:true
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/artistBio',
+          data: {
+            json_data:data,
+            hide : {
+              count:true
+            }
           },
-        },
-        success: function(data) {
-          $('#artistBioLoader').hide();
-          $('#artistBio').html(data);
-        },
-        complete: function() {
-          $('#biographyMore').click(function() {
-            $('#biographyMore').hide();
-            $('.summary').hide();
-            $('#biographyLess').show();
-            $('.content').show();
-          });
-          $('#biographyLess').click(function() {
-            $('#biographyLess').hide();
-            $('.content').hide();
-            $('#biographyMore').show();
-            $('.summary').show();
-          });
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+          success: function(data) {
+            $('#artistBioLoader').hide();
+            $('#artistBio').html(data);
+          },
+          complete: function() {
+            $('#biographyMore').click(function() {
+              $('#biographyMore').hide();
+              $('.summary').hide();
+              $('#biographyLess').show();
+              $('.content').show();
+            });
+            $('#biographyLess').click(function() {
+              $('#biographyLess').hide();
+              $('.content').hide();
+              $('#biographyMore').show();
+              $('.summary').show();
+            });
+          }
+        });
+      }
     }
   });
 }
