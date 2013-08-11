@@ -1,6 +1,12 @@
 $(document).ready(function() {
   topArtist10();
-  topArtist();
+  vars = {
+    container: '#topArtist',
+    limit:'8, 200',
+    template:'/ajax/barTable'
+  }
+  topArtist('1970-01-01', '<?=CUR_DATE?>', vars);
+  topArtistYearly();
 });
 
 function topArtist10() {
@@ -13,54 +19,68 @@ function topArtist10() {
       lower_limit:'1970-01-01',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
-    success: function(data) {
-      $.ajax({
-        type:'POST',
-        url:'/ajax/artistList/124',
-        data: {
-          json_data:data,
-        },
-        success: function(data) {
-          $('#topArtist10Loader').hide();
-          $('#topArtist10').html(data);
-        },
-        complete: function() {
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/artistList/124',
+          data: {
+            json_data:data,
+          },
+          success: function(data) {
+            $('#topArtist10Loader').hide();
+            $('#topArtist10').html(data);
+          }
+        });
+      }
     }
   });
 }
 
-function topArtist() {
+function topArtist(lower_limit, upper_limit, vars) {
   $.ajax({
     type:'GET',
     dataType:'json',
     url:'/api/artist/get',
     data: {
-      limit:'8, 200',
-      lower_limit:'1970-01-01',
+      limit:vars.limit,
+      lower_limit:lower_limit,
+      upper_limit:upper_limit,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     statusCode: {
       200: function(data) { // 200 OK
         $.ajax({
           type:'POST',
-          url:'/ajax/barTable',
+          url:vars.template,
           data: {
             json_data:data,
             size:32,
-            rank:9
+            rank:9,
+            hide: vars.hide
           },
           success: function(data) {
-            $('#topArtistLoader').hide();
-            $('#topArtist').html(data);
+            $(vars.container + 'Loader').hide();
+            $(vars.container + '').html(data);
           }
         });
       }
     }
   });
+}
+
+function topArtistYearly() {
+  for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
+    $('<div class="container"><h2>' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist' + year + 'Loader"/><table id="topArtist' + year + '" class="sideTable"></table><div class="more"><a href="artist/' + year + '" title="Browse more">See more</a></div></div><div class="container"><hr /></div>').appendTo($('#years'));
+    vars = {
+      container:'#topArtist' + year,
+      limit:'0, 5',
+      template:'/ajax/sideTable',
+      hide: {
+        calendar:true,
+        date:true
+      }
+    }
+    topArtist(year + '-00-00', year + '-12-31', vars);
+  }
 }

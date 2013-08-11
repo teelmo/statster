@@ -11,18 +11,7 @@
 
 <div id="rightCont">
   <div class="container">
-    <h1>Yearly top artists</h1>
-    <!--
-    <h2>2012</h2>
-    <h2>2011</h2>
-    <h2>2010</h2>
-    <h2>2009</h2>
-    <h2>2008</h2>
-    <h2>2007</h2>
-    <h2>2006</h2>
-    <h2>2005</h2>
-    <h2>2004</h2>
-    <h2>2003</h2>
-    -->
+    <h1>Yearly top</h1>
   </div>
+  <div id="years"><!-- Content is loaded with AJAX --></div>
 </div>
