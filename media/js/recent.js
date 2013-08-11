@@ -1,5 +1,6 @@
 $(document).ready(function() {
   getListenings();
+  getUsers();
 });
 
 function getListenings() {
@@ -73,6 +74,48 @@ function getListenings() {
       400: function() { // 400 Bad request
         $('#recentlyListenedLoader').hide();
         $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+      }
+    }
+  });
+}
+
+function getUsers() {
+  $.ajax({
+    type:'GET',
+    dataType:'json',
+    url:'/api/user/get',
+    data: {
+      limit:14,
+      artist_name:'<?php echo $artist_name?>',
+      album_name:'<?php echo $album_name?>',
+      username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+    },
+    statusCode: {
+      200: function(data) { // 200 OK
+        $.ajax({
+          type:'POST',
+          url:'/ajax/userTable',
+          data: {
+            json_data:data,
+            size:32,
+            hide: {
+              date:true,
+              calendar:true
+            }
+          },
+          success: function(data) {
+            $('#topListenerLoader').hide();
+            $('#topListener').html(data);
+          }
+        });
+      },
+      204: function() { // 204 No Content
+        $('#topListenerLoader').hide();
+        $('#topListener').html('<?=ERR_NO_RESULTS?>');
+      },
+      400: function() { // 400 Bad request
+        $('#topListenerLoader').hide();
+        $('#topListener').html('<?=ERR_BAD_REQUEST?>');
       }
     }
   });
