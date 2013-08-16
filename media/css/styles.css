@@ -107,10 +107,10 @@ div#footer a,
 div#footer {
   color: #aaa;
 }
-div#footer:hover a {
+div#footer .links:hover a {
   color: #000;
 }
-div#footer a:hover {
+div#footer .links a:hover {
   text-decoration: underline;
 }
 /* 
@@ -723,10 +723,8 @@ img.albumImg,
 img.userImg {
   vertical-align: middle;
 }
-img.artistImg124:hover,
-img.albumImg124:hover,
-img.userImg124:hover {
-  border-color: #777;
+img.img124:hover {
+  border-color: #999;
 }
 img.img20 {
   width: 20px;
