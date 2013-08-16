@@ -618,7 +618,7 @@ table.barTable td.barChartRank {
   padding-right: 4px;
 }
 table.barTable tr td.barChartRank span.rank {
-  background: #0187C5;
+  background: #0187c5;
   padding: 2px 3px 2px 5px;
   color: #FFF;
   vertical-align: middle;
@@ -635,8 +635,8 @@ table.barTable td.barChartBar {
 }
 table.barTable div.chartBar div {
   padding: 2px 0 1px 6px;
-  background-color: #D71C2F;
-  color: #FFF;
+  background-color: #d71c2f;
+  color: #fff;
   margin-right: 2px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -655,7 +655,7 @@ div.artistInfo {
 }
 div.albumInfo div.count,
 div.artistInfo div.count {
-  color: #0187C5;
+  color: #0187c5;
   width: 100px;
   font-size: 26px;
   font-weight: bold;
@@ -728,65 +728,44 @@ img.albumImg124:hover,
 img.userImg124:hover {
   border-color: #777;
 }
-img.artistImg20,
-img.albumImg20,
-img.userImg20 {
+img.img20 {
   width: 20px;
   height: 20px;
   border: 1px solid #232323;
 }
-img.artistImg32,
-img.albumImg32,
-img.userImg32 {
+img.img32 {
   width: 32px;
   height: 32px;
   border: 1px solid #232323;
 }
-img.artistImg64,
-img.albumImg64,
-img.userImg64 {
+img.img64 {
   width: 64px;
   height: 64px;
   border: 3px double #232323;
 }
-img.artistImg124,
-img.albumImg124 {
+img.img124 {
   width: 124px;
-  border: 1px solid #232323;
-  border: 1px solid #E0E0E0;
-  margin: 0 0 5px 0;
-  box-shadow: 3px 3px 4px #888;
-  -moz-box-shadow: 3px 3px 4px #888;
-  -webkit-box-shadow: 3px 3px 4px #888;
 }
-img.albumImg124 {
+img.img174 {
+  width: 174px;
+}
+img.img300 {
+  width: 300px;
+}
+img.albumImg.img124 {
   height: 124px;
 }
-img.artistImg174,
-img.albumImg174 {
-  width: 174px;
-  border: 1px solid #232323;
-  border: 1px solid #E0E0E0;
-  margin: 0 0 5px 0;
-  box-shadow: 3px 3px 4px #888;
-  -moz-box-shadow: 3px 3px 4px #888;
-  -webkit-box-shadow: 3px 3px 4px #888;
-}
-img.albumImg174 {
+img.albumImg.img174 {
   height: 174px;
 }
-img.artistImg300,
-img.albumImg300 {
-  width: 300px;
+img.img124,
+img.img174,
+img.img300 {
   border: 1px solid #232323;
-  border: 1px solid #E0E0E0;
   margin: 0 0 5px 0;
   box-shadow: 3px 3px 4px #888;
   -moz-box-shadow: 3px 3px 4px #888;
   -webkit-box-shadow: 3px 3px 4px #888;
-}
-img.albumImg174 {
-  height: 300px;
 }
 img.artistPageImg {
   float: left;

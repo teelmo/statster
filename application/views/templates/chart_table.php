@@ -28,7 +28,7 @@ if (!empty($json_data)) {
         ?>
         <tr id="chartTable<?=$idx?>" class="row <?=$class?>">
           <td class="img albumImg">
-            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<img src="' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
+            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<img src="' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . '" alt="" class="albumImg img' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
           </td>
           <td class="title">
             <span class="title">
@@ -73,7 +73,7 @@ if (!empty($json_data)) {
           </td>
           <td class="datetime textRight"><?php echo !empty($datetime) ? $datetime : timeAgo($row['date'])?></td>
           <td class="img userImg">
-            <?=anchor(array('user', 'profile', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg userImg' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
+            <?=anchor(array('user', 'profile', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg img' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
           </td>
         </tr>
         <?php

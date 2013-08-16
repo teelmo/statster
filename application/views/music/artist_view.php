@@ -31,7 +31,7 @@
   </div>
   <div class="container">
     <div class="floatLeft">
-      <img src="<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>" alt="" class="artistImg artistImg300" />
+      <img src="<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>" alt="" class="artistImg img300" />
     </div>
     <div class="artistInfo">
       <div class="floatLeft">

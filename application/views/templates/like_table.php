@@ -11,10 +11,10 @@ if (!empty($json_data)) {
         <td class="img<?=$size?> albumImg">
           <?php
           if (empty($row['album_name'])) {
-            echo anchor(array('music', url_title($row['artist_name'])), '<img src="' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . '" alt="" class="artistImg artistImg' . $size . '" />', array('title' => 'Browse to artist\'s page'));
+            echo anchor(array('music', url_title($row['artist_name'])), '<img src="' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . '" alt="" class="artistImg img' . $size . '" />', array('title' => 'Browse to artist\'s page'));
           }
           else {
-            echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<img src="' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . '" alt="" class="albumImg albumImg' . $size . '" />', array('title' => 'Browse to album\'s page'));
+            echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<img src="' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . '" alt="" class="albumImg img' . $size . '" />', array('title' => 'Browse to album\'s page'));
           }
           ?>
         </td>
