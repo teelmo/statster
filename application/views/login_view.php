@@ -20,7 +20,5 @@
 </div>
 
 <div id="rightCont">
-  <div class="container">
-    
-  </div>
+  <div class="container"></div>
 </div>
