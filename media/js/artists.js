@@ -1,22 +1,23 @@
 $(document).ready(function() {
-  topArtist10();
+  topArtist10('<?=$lower_limit?>', '<?=$upper_limit?>');
   vars = {
     container: '#topArtist',
     limit:'8, 200',
     template:'/ajax/barTable'
   }
-  topArtist('1970-01-01', '<?=CUR_DATE?>', vars);
+  topArtist('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
   topArtistYearly();
 });
 
-function topArtist10() {
+function topArtist10(lower_limit, upper_limit) {
   $.ajax({
     type:'GET',
     dataType:'json',
     url:'/api/artist/get',
     data: {
       limit:8,
-      lower_limit:'1970-01-01',
+      lower_limit:lower_limit,
+      upper_limit:upper_limit,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     statusCode: {
@@ -71,7 +72,7 @@ function topArtist(lower_limit, upper_limit, vars) {
 
 function topArtistYearly() {
   for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-    $('<div class="container"><h2>' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist' + year + 'Loader"/><table id="topArtist' + year + '" class="sideTable"></table><div class="more"><a href="artist/' + year + '" title="Browse more">See more</a></div></div><div class="container"><hr /></div>').appendTo($('#years'));
+    $('<div class="container"><h2>' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist' + year + 'Loader"/><table id="topArtist' + year + '" class="sideTable"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">See more</a></div></div><div class="container"><hr /></div>').appendTo($('#years'));
     vars = {
       container:'#topArtist' + year,
       limit:'0, 5',

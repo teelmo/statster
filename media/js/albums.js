@@ -1,42 +1,39 @@
 $(document).ready(function() {
-  topAlbum10();
+  topAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
   vars = {
     container: '#topAlbum',
     limit:'8, 200',
     template:'/ajax/barTable'
   }
-  topAlbum('1970-01-01', '<?=CUR_DATE?>', vars);
+  topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
   topAlbumYearly();
 });
 
-function topAlbum10() {
+function topAlbum10(lower_limit, upper_limit) {
   $.ajax({
     type:'GET',
     dataType:'json',
     url:'/api/album/get',
     data: {
       limit:8,
-      lower_limit:'1970-01-01',
+      lower_limit:lower_limit,
+      upper_limit:upper_limit,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
-    success: function(data) {
-      $.ajax({
-        type:'POST',
-        url:'/ajax/albumList/124',
-        data: {
-          json_data:data
-        },
-        success: function(data) {
-          $('#topAlbum10Loader').hide();
-          $('#topAlbum10').html(data);
-        },
-        complete: function() {
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-        }
-      });
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    statusCode: {
+      200: function(data) {
+        $.ajax({
+          type:'POST',
+          url:'/ajax/albumList/124',
+          data: {
+            json_data:data
+          },
+          success: function(data) {
+            $('#topAlbum10Loader').hide();
+            $('#topAlbum10').html(data);
+          }
+        });
+      }
     }
   });
 }
@@ -75,7 +72,7 @@ function topAlbum(lower_limit, upper_limit, vars) {
 
 function topAlbumYearly() {
   for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-    $('<div class="container"><h2>' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist' + year + 'Loader"/><table id="topArtist' + year + '" class="sideTable"></table><div class="more"><a href="album/' + year + '" title="Browse more">See more</a></div></div><div class="container"><hr /></div>').appendTo($('#years'));
+    $('<div class="container"><h2>' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist' + year + 'Loader"/><table id="topArtist' + year + '" class="sideTable"></table><div class="more"><a href="/album/' + year + '" title="Browse more">See more</a></div></div><div class="container"><hr /></div>').appendTo($('#years'));
     vars = {
       container:'#topArtist' + year,
       limit:'0, 5',
@@ -89,4 +86,3 @@ function topAlbumYearly() {
     topAlbum(year + '-00-00', year + '-12-31', vars);
   }
 }
-

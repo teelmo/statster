@@ -43,7 +43,21 @@ $route['404_override'] = '';
 
 /*
  * Statster defined routes
+ * 
+ * http://ellislab.com/codeigniter/user-guide/general/routing.html
+ *
+ * You can match literal values or you can use two wildcard types:
+ *
+ * (:num) will match a segment containing only numbers.
+ * (:any) will match a segment containing any character.
  */
+
+/* Artist and albums page's routes */
+$route['artist/(:num)'] = "artist/stats/$1/$2/$3";
+$route['artist/(:num)/(:num)'] = "artist/stats/$1/$2/$3";
+
+$route['album/(:num)'] = "album/stats/$1/$2/$3";
+$route['album/(:num)/(:num)'] = "album/stats/$1/$2/$3";
 
 /* Artist and albums page's routes */
 $route['music/(:any)/(:any)'] = "music/album/$1/$2";
