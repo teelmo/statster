@@ -1,7 +1,7 @@
       </div>
     </div>
     <div id="footer">
-      <div class="floatLeft">
+      <div class="floatLeft links">
         © <span class="statster_year">2013</span> Statster&nbsp;&nbsp;&nbsp;<?=anchor(array('about'), 'About', array('title' => 'About Statster'))?>&nbsp;&nbsp;<?=anchor(array('terms'), 'Terms', array('title' => 'Terms of service'))?>&nbsp;&nbsp;<?=anchor(array('privacy'), 'Privacy', array('title' => 'Privacy policy'))?>&nbsp;&nbsp;<?=anchor(array('career'), 'Career', array('title' => 'Career'))?>&nbsp;&nbsp;<?=anchor(array('developers'), 'Developers', array('title' => 'Developers'))?>
       </div>
       <div class="floatRight socialMedia">
