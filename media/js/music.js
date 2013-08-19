@@ -26,7 +26,7 @@ function popularGenre() {
     url:'/api/genre/get',
     data: {
       limit:35,
-      lower_limit:'<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
+      lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     statusCode: {

@@ -19,7 +19,7 @@ function populateTagsMenu(type) {
       $.each(data, function(i, value) {
         $('#' + type).append('<option>' + value.name + '</option>')
       });
-      $("#tagAddSelect").trigger("liszt:updated");
+      $('#tagAddSelect').trigger('liszt:updated');
     }
   });
 }

@@ -119,7 +119,7 @@ function getListenings(isFirst, callback) {
             var hours = currentTime.getHours();
             var minutes = currentTime.getMinutes();
             if (minutes < 10) {
-              minutes = "0" + minutes;
+              minutes = '0' + minutes;
             }
             $('#recentlyUpdated').html('updated '+ hours + ':' + minutes);
             $('#recentlyUpdated').attr('value', currentTime.getTime());
@@ -148,7 +148,7 @@ function getAlbums() {
     url:'/api/album/get',
     data: {
       limit:8,
-      lower_limit:'<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+      lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     statusCode: {
@@ -165,8 +165,6 @@ function getAlbums() {
           },
           complete: function() {
             setTimeout(getAlbums, 60 * 10 * 1000);
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
           }
         });
       }
@@ -181,7 +179,7 @@ function getArtists() {
     url:'/api/artist/get',
     data: {
       limit:10,
-      lower_limit:'<?=date("Y-m-d", ($interval == "overall") ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+      lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     statusCode: {
@@ -198,8 +196,6 @@ function getArtists() {
           },
           complete: function() {
             setTimeout(getArtists, 60 * 10 * 1000);
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
           }
         });
       }
@@ -214,7 +210,7 @@ function recommentedTopAlbum() {
     url: '/api/recommentedTopAlbum',
     data: {
       limit:10,
-      lower_limit:'<?=date("Y-m-d", time() - (90 * 24 * 60 * 60))?>',
+      lower_limit:'<?=date('Y-m-d', time() - (90 * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>' 
     },
     statusCode: {
@@ -254,7 +250,7 @@ function recommentedNewAlbum() {
     data: {
       limit:10,
       order_by:'album.year DESC, album.created DESC',
-      lower_limit:'<?=date("Y-m-d", time() - (365 * 24 * 60 * 60))?>',
+      lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
     },
     statusCode: {
@@ -295,21 +291,21 @@ function highlightPatch() {
 
 $(function() {
   $('#addListeningDate').datepicker({
-    dateFormat: 'yy-mm-dd',
-    maxDate: 'today',
-    showOtherMonths: true,
-    selectOtherMonths: true,
-    showAnim: 'slideDown'
+    dateFormat:'yy-mm-dd',
+    maxDate:'today',
+    showOtherMonths:true,
+    selectOtherMonths:true,
+    showAnim:'slideDown'
   });
 });
 
 $(function() {
   var keyStop = {
-    8: ":not(input:text, textarea, input:file, input:password)",
-    13: "input:text, input:password",
+    8:':not(input:text, textarea, input:file, input:password)',
+    13:'input:text, input:password',
     end: null
   };
-  $(document).bind("keydown", function(event) {
+  $(document).bind('keydown', function(event) {
     var selector = keyStop[event.which];
     if(selector !== undefined && $(event.target).is(selector)) {
       event.preventDefault();

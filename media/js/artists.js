@@ -1,7 +1,7 @@
 $(document).ready(function() {
   topArtist10('<?=$lower_limit?>', '<?=$upper_limit?>');
   vars = {
-    container: '#topArtist',
+    container:'#topArtist',
     limit:'8, 200',
     template:'/ajax/barTable'
   }

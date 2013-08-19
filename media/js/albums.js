@@ -1,7 +1,7 @@
 $(document).ready(function() {
   topAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
   vars = {
-    container: '#topAlbum',
+    container:'#topAlbum',
     limit:'8, 200',
     template:'/ajax/barTable'
   }
@@ -58,7 +58,7 @@ function topAlbum(lower_limit, upper_limit, vars) {
             json_data:data,
             size:32,
             rank:9,
-            hide: vars.hide
+            hide:vars.hide
           },
           success: function(data) {
             $(vars.container + 'Loader').hide();

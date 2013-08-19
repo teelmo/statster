@@ -1,7 +1,7 @@
 $(document).ready(function() {
   jQuery('#loginUsername').focus();
 
-  $("#loginSubmit").click(function() {
+  $('#loginSubmit').click(function() {
     $.ajax({
       type:'POST',
       url:'/api/login',
@@ -12,13 +12,11 @@ $(document).ready(function() {
       },
       success: function(data) {
         if (data == '') {  
-          window.location.href = "/";
+          window.location.href = '/';
         }
         else {
           // @TODO error msgs.
         }
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
       }
     });
     return false;
