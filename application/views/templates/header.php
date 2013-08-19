@@ -8,14 +8,18 @@
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/jquery.ui.autocomplete.html.js"></script>
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/dropdown.js"></script>
     <script type="text/javascript">
       if (document.images) {
         preLoadImg1 = new Image();
-        preLoadImg1.src = "/media/img/ajax-loader-bar.gif";
+        preLoadImg1.src = '/media/img/ajax-loader-bar.gif';
         preLoadImg2 = new Image();
-        preLoadImg2.src = "/media/img/ajax-loader-circle.gif";
+        preLoadImg2.src = '/media/img/ajax-loader-circle.gif';
       }
+      Mousetrap.bind(['mod+k'], function(e) {
+        window.location = '/';
+      });
     </script>
     <?php
     echo link_tag('media/css/reset.css');
