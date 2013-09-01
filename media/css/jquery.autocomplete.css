@@ -30,3 +30,6 @@ ul.ui-autocomplete span.highlight {
   font-weight: bold;
   color: #3399ff;
 }
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+  border-radius: 0px; 
+}
