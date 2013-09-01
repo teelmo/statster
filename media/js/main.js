@@ -161,12 +161,16 @@ function getAlbums() {
           },
           success: function(data) {
             $('#topAlbumLoader').hide();
-            $('#topAlbum').html(data); 
+            $('#topAlbum').html(data);
           },
           complete: function() {
             setTimeout(getAlbums, 60 * 10 * 1000);
           }
         });
+      },
+      204: function() { // 204 No Content
+        $('#topAlbumLoader').hide();
+        $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
       }
     }
   });
@@ -198,6 +202,10 @@ function getArtists() {
             setTimeout(getArtists, 60 * 10 * 1000);
           }
         });
+      },
+      204: function() { // 204 No Content
+        $('#topArtistLoader').hide();
+        $('#topArtist').html('<?=ERR_NO_RESULTS?>');
       }
     }
   });
@@ -295,7 +303,13 @@ $(function() {
     maxDate:'today',
     showOtherMonths:true,
     selectOtherMonths:true,
-    showAnim:'slideDown'
+    showAnim:'slideDown',
+    firstDay: 1
+  });
+  $('#addListeningDate').change(function() {
+    setTimeout(function() {
+      $('#addListeningDate').val('<?=CUR_DATE?>');
+    }, 60 * 10 * 1000);
   });
 });
 
