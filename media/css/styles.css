@@ -70,7 +70,7 @@ div#leftCont {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   float: left;
   margin-bottom: 20px;
-  min-height: 600px;
+  min-height: 780px;
   width: 600px;
   -moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
@@ -729,19 +729,19 @@ img.img124:hover {
 img.img20 {
   width: 20px;
   height: 20px;
-  border: 1px solid #232323;
+  border: 1px solid #444;
 }
 img.img32 {
   width: 32px;
   height: 32px;
-  border: 1px solid #232323;
+  border: 1px solid #444;
 }
 img.img64 {
   width: 64px;
   height: 64px;
-  border: 3px double #232323;
+  border: 3px double #444;
 }
-img.img124 {
+img.img124 {
   width: 124px;
 }
 img.img174 {
