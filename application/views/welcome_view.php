@@ -45,7 +45,7 @@
   <div class="container">
     <h1>Recently listened albums</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader" />
-    <table id="recentlyListened" class="albumTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyListened" class="sideTable"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
   <div class="container">

@@ -15,7 +15,7 @@ function recentlyListened() {
       200: function(data) {
         $.ajax({
           type:'POST',
-          url:'/ajax/albumTable',
+          url:'/ajax/sideTable',
           data: {
             json_data:data,
             size:32,
@@ -49,7 +49,7 @@ function topArtist() {
       200: function(data) {
         $.ajax({
           type:'POST',
-          url:'/ajax/artistBar',
+          url:'/ajax/barTable',
           data: {
             json_data:data,
           },
