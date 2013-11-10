@@ -427,28 +427,31 @@ form#loginForm input[type="text"] {
   padding: 4px 4px 4px 4px;
 }
 form#searchForm input {
-  font-size: 14px;
-  border-radius: 4px;
-  padding: 4px 30px 4px 7px;
-  border: 1px solid #000;
-  width: 250px;
   background-color: #555;
+  border-radius: 4px;
+  border: 1px solid #000;
+  color: #bebebf;
+  font-size: 14px;
   margin-right: -20px;
-  margin-top: -1px;
+  margin-top: 3px;
+  padding: 4px 30px 4px 7px;
+  width: 250px;
 }
 form#searchForm input[type="text"]:hover {
   background-color: #666;
+  color: #bebebf;
 }
 form#searchForm input[type="text"]:focus {
   background-color: #EEE;
+  color: #222;
 }
 form#searchForm button#searchSubmit {
   position: relative;
   cursor: pointer;
   display: inline;
-  right: 11px;
-  background: url('/media/img/icons/search.png') no-repeat;
-  background-position: 0;
+  right: 8px;
+  top: 6px;
+  background: url('/media/img/icons/search.png') no-repeat 100% 0;
   outline: none;
   width: 16px;
   height: 16px;

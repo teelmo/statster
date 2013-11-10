@@ -29,21 +29,26 @@
     padding-right: 10px;
   }
 }
+@media all and (max-width: 660px) {
+  div#topContInner div#searchCont {
+    display: none;
+  }
+}
+
 /* Smart phone */
-@media all and (max-width: 400px) {
+@media all and (max-width: 410px) {
+  div#leftCont,
   div#topCont {
     width: 100%;
   }
-  div#leftCont {
-    width: 100%;
-  }
-  div#rightCont {
-    display: none;
-  }
-  span.statster_year,
   div#leftContInner,
+  span.statster_year,
+  div#rightCont,
   span.albumYear,
   span.artist,
+  div.externalLink,
+  div.socialMedia,
+  div#topContInner div#searchCont,
   div#topContInner div#addListeningCont {
     display: none;
   }
@@ -51,14 +56,9 @@
     margin-left: 0;
   }
   div.container {
-    margin: 7px 3px 15px 1px;
+    margin: 7px 5px 15px 5px;
   }
-  div.externalLink,
-  div.socialMedia {
-    display: none;
-  }
-  img.artistImg300,
-  img.albumImg300 {
+  img.img300 {
     width: 200px;
   }
   div.albumInfo,
