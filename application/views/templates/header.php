@@ -40,18 +40,16 @@
           <img src="/media/img/icons/beta.png" alt="" id="betaLogo" />
         </div>
         <div class="floatRight">
-          <!--
           <div id="searchCont">
             <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="" id="searchForm">
               <div style="display: none;">
                 <input type="hidden" name="searchType" value="form">
               </div>
-              <input type="text" class="middle searchForm" autocomplete="off" tabindex="10" id="searchString" placeholder="search.." name="searchStr" />
-              <button id="searchSubmit" type="submit" class="submit searchForm" title="Search"></button>
+              <input type="text" class="middle searchForm" autocomplete="off" tabindex="10" id="searchString" placeholder="search.. (not implemented)" name="searchStr" disabled="disabled" />
+              <button id="searchSubmit" type="submit" class="submit" title="Search"></button>
             </form>
+            <span class="divider"></span>
           </div>
-          <span class="divider"></span>
-          -->
           <?php
           if ($this->session->userdata('logged_in') === TRUE) {
             ?>
