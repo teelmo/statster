@@ -9,7 +9,7 @@ function getListenings() {
     dataType:'json',
     url:'/api/listening/get',
     data: {
-      limit:100,
+      limit:<?=($artist_name) ? 1000 : 100?>,
       artist_name:'<?php echo $artist_name?>',
       album_name:'<?php echo $album_name?>',
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
