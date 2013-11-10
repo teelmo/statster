@@ -25,11 +25,11 @@ $(document).ready(function() {
 
   $('.listeningFormat').keypress(function(e) {
     var code = (e.keyCode ? e.keyCode : e.which);
-     if (code == 13) {
-        $('.listeningFormat').removeClass('selected');
-        $(this).addClass('selected');
-        $('#' + $(this).parent().attr('for')).prop('checked', true);
-     }
+    if (code == 13) {
+      $('.listeningFormat').removeClass('selected');
+      $(this).addClass('selected');
+      $('#' + $(this).parent().attr('for')).prop('checked', true);
+    }
   });
 
   $('#addListeningShowmore').click(function() {
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
   $('#addListeningShowmore').keypress(function(e) {
     var code = (e.keyCode ? e.keyCode : e.which);
-    if (code == 13) {
+    if (code === 13) {
       $('.listeningFormat').removeClass('hidden');
       $(this).remove();
     }
@@ -53,21 +53,22 @@ $(document).ready(function() {
   });
 
   $('#addListeningSubmit').click(function() {
+    var text_value = $('#addListeningText').val();
+    var format_value = $('input[name="addListeningFormat"]:checked').val()
+    $('#recentlyListenedLoader2').show();
+    $('#addListeningText').val('');
+    $('input[name="addListeningFormat"]').prop('checked', false);
+    $('img.listeningFormat').removeClass('selected');
     $.ajax({
-      type:'POST',
-      dataType:'json',
-      url:'/api/listening/add',
+      type:'POST',dataType:'json',url:'/api/listening/add',
       data: {
-        text:$('#addListeningText').val(),
+        text:text_value,
+        format:format_value,
         date:$('#addListeningDate').val(),
-        format:$('input[name="addListeningFormat"]:checked').val(),
         submitType:$('input[name="submitType"]').val(),
       },
       statusCode: {
         201: function(data) { // 201 Created
-          $('#addListeningText').val('');
-          $('input[name="addListeningFormat"]').prop('checked', false);
-          $('img.listeningFormat').removeClass('selected');
           getListenings();
           getArtists();
           getAlbums();
@@ -88,14 +89,19 @@ $(document).ready(function() {
   });
 });
 
+function highlightPatch() {
+  $.ui.autocomplete.prototype._renderItem = function(ul, item) {
+    var t = String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>');
+    return $('<li></li>').data('item.autocomplete', item).append('<a>' + t + '</a>').appendTo(ul);
+  };
+}
+
 function getListenings(isFirst, callback) {
   if (isFirst != true) {
     $('#recentlyListenedLoader2').show();
   }
   $.ajax({
-    type:'GET',
-    dataType:'json',
-    url:'/api/listening/get',
+    type:'GET',dataType:'json',url:'/api/listening/get',
     data: {
       limit:11,
       username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
@@ -103,8 +109,7 @@ function getListenings(isFirst, callback) {
     statusCode: {
       200: function(data) { // 200 OK
         $.ajax({
-          type:'POST',
-          url:'/ajax/chartTable',
+          type:'POST',url:'/ajax/chartTable',
           data: {
             json_data:data,
             hide: {
@@ -143,9 +148,7 @@ function getListenings(isFirst, callback) {
 
 function getAlbums() {
   $.ajax({
-    type:'GET',
-    dataType:'json',
-    url:'/api/album/get',
+    type:'GET',dataType:'json',url:'/api/album/get',
     data: {
       limit:8,
       lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
@@ -154,8 +157,7 @@ function getAlbums() {
     statusCode: {
       200: function(data) {
         $.ajax({
-          type:'POST',
-          url:'/ajax/albumList/124',
+          type:'POST',url:'/ajax/albumList/124',
           data: {
             json_data:data,
           },
@@ -178,9 +180,7 @@ function getAlbums() {
 
 function getArtists() {
   $.ajax({
-    type:'GET',
-    dataType:'json',
-    url:'/api/artist/get',
+    type:'GET',dataType:'json',url:'/api/artist/get',
     data: {
       limit:10,
       lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
@@ -213,9 +213,7 @@ function getArtists() {
 
 function recommentedTopAlbum() {
   $.ajax({
-    type:'GET',
-    dataType:'json',
-    url: '/api/recommentedTopAlbum',
+    type:'GET',dataType:'json',url:'/api/recommentedTopAlbum',
     data: {
       limit:10,
       lower_limit:'<?=date('Y-m-d', time() - (90 * 24 * 60 * 60))?>',
@@ -245,6 +243,10 @@ function recommentedTopAlbum() {
             setTimeout(recommentedTopAlbum, 60 * 10 * 1000);
           }
         });
+      },
+      204: function() { // 204 No Content
+        $('#recommentedTopAlbumLoader').hide();
+        $('#recommentedTopAlbum').html('<?=ERR_NO_RESULTS?>');
       }
     }
   });
@@ -252,9 +254,7 @@ function recommentedTopAlbum() {
 
 function recommentedNewAlbum() {
   $.ajax({
-    type:'GET',
-    dataType:'json',
-    url:'/api/recommentedNewAlbum',
+    type:'GET',dataType:'json',url:'/api/recommentedNewAlbum',
     data: {
       limit:10,
       order_by:'album.year DESC, album.created DESC',
@@ -285,16 +285,13 @@ function recommentedNewAlbum() {
             setTimeout(recommentedNewAlbum, 60 * 10 * 1000);
           }
         });
+      },
+      204: function() { // 204 No Content
+        $('#recommentedNewAlbumLoader').hide();
+        $('#recommentedNewAlbum').html('<?=ERR_NO_RESULTS?>');
       }
     }
   });
-}
-
-function highlightPatch() {
-  $.ui.autocomplete.prototype._renderItem = function(ul, item) {
-    var t = String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>');
-    return $('<li></li>').data('item.autocomplete', item).append('<a>' + t + '</a>').appendTo(ul);
-  };
 }
 
 $(function() {
@@ -304,7 +301,7 @@ $(function() {
     showOtherMonths:true,
     selectOtherMonths:true,
     showAnim:'slideDown',
-    firstDay: 1
+    firstDay:1
   });
   $('#addListeningDate').change(function() {
     setTimeout(function() {
