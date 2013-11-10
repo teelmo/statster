@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  jQuery('#loginUsername').focus();
+  $('#loginUsername').focus();
 
   $('#loginSubmit').click(function() {
     $.ajax({
@@ -15,7 +15,7 @@ $(document).ready(function() {
           window.location.href = '/';
         }
         else {
-          // @TODO error msgs.
+          alert('Wrong username or password. Please try again.');
         }
       }
     });
