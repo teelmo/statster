@@ -7,9 +7,7 @@ $(document).ready(function() {
  
   $('#addListeningText').focus();
   $('#addListeningText').autocomplete({
-    source:'/autoComplete/addListening',
-    minLength:3,
-    html:true,
+    minLength:3,html:true,source:'/autoComplete/addListening',
     search: function() {
       $(this).addClass('working');
     },
@@ -296,12 +294,7 @@ function recommentedNewAlbum() {
 
 $(function() {
   $('#addListeningDate').datepicker({
-    dateFormat:'yy-mm-dd',
-    maxDate:'today',
-    showOtherMonths:true,
-    selectOtherMonths:true,
-    showAnim:'slideDown',
-    firstDay:1
+    dateFormat:'yy-mm-dd',maxDate:'today',showOtherMonths:true,selectOtherMonths:true,showAnim:'slideDown',firstDay:1
   });
   $('#addListeningDate').change(function() {
     setTimeout(function() {
@@ -312,13 +305,13 @@ $(function() {
 
 $(function() {
   var keyStop = {
-    8:':not(input:text, textarea, input:file, input:password)',
-    13:'input:text, input:password',
+    8:':not(input:text,textarea,input:file,input:password)',
+    13:'input:text,input:password',
     end: null
   };
   $(document).bind('keydown', function(event) {
     var selector = keyStop[event.which];
-    if(selector !== undefined && $(event.target).is(selector)) {
+    if (selector !== undefined && $(event.target).is(selector)) {
       event.preventDefault();
     }
     return true;
