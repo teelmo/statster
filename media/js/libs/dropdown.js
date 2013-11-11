@@ -1,7 +1,7 @@
-jQuery(document).ready(function() {
+$(document).ready(function() {
   // User dropdown menu
-  jQuery("#userContDropdown").click(function() {
-    var sub_nav = jQuery(this).parent().find('ul.subnav');
+  $("#userContDropdown").click(function() {
+    var sub_nav = $(this).parent().find('ul.subnav');
     if(sub_nav.is(':visible')) {
       sub_nav.slideUp('fast');
     }
@@ -13,8 +13,8 @@ jQuery(document).ready(function() {
       });
     }
   }).hover(function() {
-    jQuery(this).addClass('subhover');
+    $(this).addClass('subhover');
   }, function() {
-    jQuery(this).removeClass('subhover');
+    $(this).removeClass('subhover');
   });
 });
