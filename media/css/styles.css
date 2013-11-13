@@ -357,6 +357,10 @@ input[type="submit"] {
   height: 30px;
   width: 80px;
 }
+input[type="submit"]:hover {
+  background: #666;
+  border-color: #444;
+}
 input[type="submit"]:focus {
   color: #FF8;
 }
@@ -891,14 +895,18 @@ img.icon {
  */
 hr {
   -moz-opacity: 0.4;
-  filter:alpha(opacity=40);
   background-color: #9E9E9E;
   border: 0;
   color: #9E9E9E;
+  filter:alpha(opacity=40);
   height: 1px;
   opacity: 0.4;
   text-align: left;
   width: 100%;
+}
+img:active,
+img.selected {
+  outline: none;
 }
 .hidden {
   display: none;
