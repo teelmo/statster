@@ -10,6 +10,7 @@
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/dropdown.js"></script>
+    <script type="text/javascript" src="/media/js/statster.js"></script>
     <script type="text/javascript">
       if (document.images) {
         preLoadImg1 = new Image();
@@ -42,10 +43,7 @@
         <div class="floatRight">
           <div id="searchCont">
             <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="" id="searchForm">
-              <div style="display: none;">
-                <input type="hidden" name="searchType" value="form">
-              </div>
-              <input type="text" class="middle searchForm" autocomplete="off" tabindex="10" id="searchString" placeholder="search.. (not implemented)" name="searchStr" disabled="disabled" />
+              <input type="text" class="middle searchForm" autocomplete="off" tabindex="10" id="searchString" placeholder="search.. (not implemented)" name="searchStr" />
               <button id="searchSubmit" type="submit" class="submit" title="Search"></button>
             </form>
             <span class="divider"></span>

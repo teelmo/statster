@@ -60,5 +60,11 @@ class AutoComplete extends CI_Controller {
       return;
     }
   }
+  public function search() {
+    // Load helpers
+    $this->load->helper(array('img_helper'));
+    echo json_encode('');
+    return;
+  }
 }
 ?>
