@@ -10,7 +10,7 @@
         <?=anchor(array('/'), '<img src="/media/img/icons/rss.png" alt="" class="middle icon" />', array('title' => 'RSS feed'))?>
       </div>
       <script type="text/javascript">
-        jQuery(document).ready(function() {
+        $(document).ready(function() {
           <?php
           if (!empty($artist_name)) {
             $artist_name = addslashes($artist_name);

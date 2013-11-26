@@ -13,15 +13,17 @@ var view = {
         user_id:user_id
       },
       statusCode: {
-        200: function(data) { // 200 OK
+        200: function (data) { // 200 OK
           $('#love').addClass('loveDel');
         },
-        204: function() { // 204 No Content
+        204: function () { // 204 No Content
           $('#love').addClass('loveAdd');
         },
-        400: function(data) {alert('400 Bad Request')}
+        400: function (data) {
+          alert('400 Bad Request')
+        }
       },
-      complete: function() {
+      complete: function () {
         $('#loveLoader').hide();
         $('#love').click(function() {
           $('.loveMsg').remove();
@@ -50,16 +52,16 @@ var view = {
               url:'/api/love/delete/<?=$album_id?>',
               data: {},
               statusCode: {
-                204: function() { // 204 No Content
+                204: function () { // 204 No Content
                   $('#love').removeClass('loveDel').addClass('loveAdd').prepend('<span class="loveMsg">You\'re no longer in love!</span>');
                   setTimeout(function() {
                     $('.loveMsg').fadeOut('slow');
                   }, <?=MSG_FADEOUT?>);
                   getLoves();
                 },
-                400: function(data) {alert('400 Bad Request')},
-                401: function(data) {alert('401 Unauthorized')},
-                404: function(data) {alert('404 Not Found')}
+                400: function (data) {alert('400 Bad Request')},
+                401: function (data) {alert('401 Unauthorized')},
+                404: function (data) {alert('404 Not Found')}
               }
             });
           }
@@ -68,7 +70,7 @@ var view = {
     });
   },
   // Get album loves.
-  getLoves: function() {
+  getLoves: function () {
     $.ajax({
       type:'GET',
       dataType:'json',
@@ -89,11 +91,11 @@ var view = {
             }
           });
         },
-        204: function() { // 204 No Content
+        204: function () { // 204 No Content
           $('#albumLoveLoader').hide();
           $('#albumLove').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function() { // 400 Bad request
+        400: function () { // 400 Bad request
           $('#recentlyListenedLoader').hide();
           $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
         }
@@ -101,7 +103,7 @@ var view = {
     });
   },
   // Get album listeners.
-  getUsers: function() {
+  getUsers: function () {
     $.ajax({
       type:'GET',
       dataType:'json',
@@ -131,11 +133,11 @@ var view = {
             }
           });
         },
-        204: function() { // 204 No Content
+        204: function () { // 204 No Content
           $('#topListenerLoader').hide();
           $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function() { // 400 Bad request
+        400: function () { // 400 Bad request
           $('#topListenerLoader').hide();
           $('#topListener').html('<?=ERR_BAD_REQUEST?>');
         }
@@ -143,7 +145,7 @@ var view = {
     });
   },
   // Get album listenings.
-  getListenings: function() {
+  getListenings: function () {
     $.ajax({
       type:'GET',
       dataType:'json',
@@ -155,7 +157,7 @@ var view = {
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode: {
-        200: function(data) { // 200 OK
+        200: function (data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/userTable',
@@ -168,17 +170,17 @@ var view = {
                 rank:true
               }
             },
-            success: function(data) {
+            success: function (data) {
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
             }
           });
         },
-        204: function() { // 204 No Content
+        204: function () { // 204 No Content
           $('#recentlyListenedLoader').hide();
           $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function() { // 400 Bad request
+        400: function () { // 400 Bad request
           $('#recentlyListenedLoader').hide();
           $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
         }
@@ -187,7 +189,7 @@ var view = {
   }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
   view.getUsers();
