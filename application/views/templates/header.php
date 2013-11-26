@@ -4,24 +4,17 @@
     <title><?=TITLE?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery -->
     <script type="text/javascript" src="/media/js/libs/jquery-1.10.2.min.js"></script>
+    <!-- jQuery UI -->
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="/media/js/libs/jquery.ui.autocomplete.html.js"></script>
+    <!-- jQuery Chosen -->
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
+    <!-- Mousetrap -->
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
+    <!-- Dropdown -->
     <script type="text/javascript" src="/media/js/libs/dropdown.js"></script>
     <script type="text/javascript" src="/media/js/statster.js"></script>
-    <script type="text/javascript">
-      if (document.images) {
-        preLoadImg1 = new Image();
-        preLoadImg1.src = '/media/img/ajax-loader-bar.gif';
-        preLoadImg2 = new Image();
-        preLoadImg2.src = '/media/img/ajax-loader-circle.gif';
-      }
-      Mousetrap.bind(['mod+k'], function(e) {
-        window.location = '/';
-      });
-    </script>
     <?php
     echo link_tag('media/css/reset.css');
     echo link_tag('media/css/libs/jquery-ui-1.10.3.custom.min.css');
@@ -42,9 +35,9 @@
         </div>
         <div class="floatRight">
           <div id="searchCont">
-            <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="" id="searchForm">
-              <input type="text" class="middle searchForm" autocomplete="off" tabindex="10" id="searchString" placeholder="search.. (not implemented)" name="searchStr" />
-              <button id="searchSubmit" type="submit" class="submit" title="Search"></button>
+            <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="" id="searchForm" onsubmit="return false;">
+              <input type="text" class="middle searchForm" autocomplete="off" tabindex="10" id="searchString" placeholder="search.." name="searchStr" />
+              <button id="searchSubmit" disabled="disabled" type="submit" class="submit" title="Search"></button>
             </form>
             <span class="divider"></span>
           </div>

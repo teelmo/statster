@@ -204,7 +204,6 @@ $(document).ready(function() {
   view.getTopArtists();
   view.getRecommentedTopAlbum();
   view.getRecommentedNewAlbum();
-  app.highlightPatch();
  
   $('#addListeningText').focus();
   $('#addListeningText').autocomplete({
