@@ -63,3 +63,7 @@ ul.ui-autocomplete li.header span.title {
 ul.ui-autocomplete li.header span.meta {
   margin-left: 8px;
 }
+
+span.no_results {
+  padding-left: 10px;
+}

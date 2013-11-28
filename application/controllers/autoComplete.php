@@ -50,12 +50,12 @@ class AutoComplete extends CI_Controller {
         echo json_encode($results);
         return;
       }
-      $results[] = array('value' => $search_str, 'label' => 'No results');
+      $results[] = array('value' => $search_str, 'label' => '<span class="no_results">No results</span>');
       echo json_encode($results);
       return;
     }
     else {
-      $results[] = array('value' => $search_str, 'label' => 'No results');
+      $results[] = array('value' => $search_str, 'label' => '<span class="no_results">No results</span>');
       echo json_encode($results);
       return;
     }
@@ -122,7 +122,7 @@ class AutoComplete extends CI_Controller {
       return;
     }
     else {
-      $results[] = array('value' => $search_str, 'label' => 'No results');
+      $results[] = array('value' => $search_str, 'label' => '<span class="no_results">No results</span>');
       echo json_encode($results);
       return;
     }
