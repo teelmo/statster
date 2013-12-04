@@ -295,7 +295,7 @@ $(document).ready(function() {
   $('#addListeningDate').change(function() {
     setTimeout(function() {
       $('#addListeningDate').val('<?=CUR_DATE?>');
-    }, 60 * 10 * 1000);
+    }, 60 * 2 * 1000);
   });
 
   var keyStop = {
