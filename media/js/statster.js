@@ -18,7 +18,24 @@ var app = {
         return $('<li></li>').addClass('header').data('item.autocomplete', item).append(item.label).appendTo(ul);
       }
       else {
-        return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+        if (this.term.indexOf('–') !== -1) {
+          var item_arr = this.term.split('–');
+          if (item_arr[1] != '') {
+            item_arr[0] = item_arr[0].trim();
+            item_arr[1] = item_arr[1].trim();
+            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+          }
+          else {
+            item_arr[0] = item_arr[0].trim();
+            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(item_arr[0] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+
+          }
+        }
+        else {
+          this.term = this.term.trim();
+
+          return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+        }
       }
     }
   },
@@ -34,7 +51,6 @@ $(document).ready(function() {
   $('#searchString').autocomplete({
     minLength:3,html:true,source:'/autoComplete/search',
     select: function(event, ui) {
-      console.log(ui.item.url)
       window.location = ui.item.url;
     },
     search: function() {
