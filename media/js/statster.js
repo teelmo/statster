@@ -33,7 +33,6 @@ var app = {
         }
         else {
           this.term = this.term.trim();
-
           return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
         }
       }
