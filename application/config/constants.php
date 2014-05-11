@@ -43,6 +43,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 | These constants are defined by Statster and used only by Statster
 |
 */
+date_default_timezone_set('Europe/Helsinki');
 
 define('TITLE', 'Statster');
 //define('DASH', '–');
