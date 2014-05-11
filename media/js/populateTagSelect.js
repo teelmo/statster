@@ -17,9 +17,8 @@ function populateTagsMenu(type) {
     },
     success: function(data) {
       $.each(data, function(i, value) {
-        $('#' + type).append('<option>' + value.name + '</option>')
+        $('#' + type).append('<option class="' + type + '" name="' + value.name + '">' + value.name + '</option>')
       });
-      $('#tagAddSelect').trigger('liszt:updated');
     }
   });
 }

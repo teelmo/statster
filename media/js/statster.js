@@ -4,6 +4,7 @@ if (document.images) {
   preLoadImg2 = new Image();
   preLoadImg2.src = '/media/img/ajax-loader-circle.gif';
 }
+
 Mousetrap.bind(['mod+k'], function(e) {
   window.location = '/';
 });

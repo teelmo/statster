@@ -50,8 +50,9 @@ class AutoComplete extends CI_Controller {
                   AND (" . TBL_artist . ".`artist_name` LIKE " . $this->db->escape($search_str_db_artist_wc) . "
                    OR " . TBL_album . ".`album_name` LIKE " . $this->db->escape($search_str_db_album_wc) . ")
                 ORDER BY `artist_relevance`,
-                         " . TBL_album . ".`year` DESC, 
-                         `album_relevance`";
+                         `album_relevance`,
+                         " . TBL_album . ".`year` DESC 
+                LIMIT 0, 20";
       }
       $query = $this->db->query($sql);
       if ($query->num_rows() > 0) {
@@ -104,13 +105,14 @@ class AutoComplete extends CI_Controller {
       if ($query->num_rows() > 0) {
         $results[] = array(
           'value' => '',
-          'label' => '<span class="title">Artists</span><span class="meta">(limited to 10)</span>',
+          'label' => '<span class="title">Artists</span><span class="meta">(limited to 10)</span>'
         );
         foreach ($query->result() as $row) {
           $results[] = array(
             'value' => $row->artist_name,
             'url' => '/music/' . url_title($row->artist_name),
-            'label' => '<img src="' . getArtistImg(array('artist_id' => $row->artist_id, 'size' => 32)) . '" alt="" />' . $row->artist_name
+            'img' => '<img src="' . getArtistImg(array('artist_id' => $row->artist_id, 'size' => 32)) . '" alt="" />',
+            'label' => $row->artist_name
           );
         }
       }
@@ -136,7 +138,8 @@ class AutoComplete extends CI_Controller {
           $results[] = array(
             'value' => $row->album_name,
             'url' => '/music/' . url_title($row->artist_name) . '/' . url_title($row->album_name),
-            'label' => '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => 32)) . '" alt="" />' . $row->album_name
+            'img' => '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => 32)) . '" alt="" />',
+            'label' => $row->album_name
           );
         }
       }
