@@ -50,8 +50,8 @@ class AutoComplete extends CI_Controller {
                   AND (" . TBL_artist . ".`artist_name` LIKE " . $this->db->escape($search_str_db_artist_wc) . "
                    OR " . TBL_album . ".`album_name` LIKE " . $this->db->escape($search_str_db_album_wc) . ")
                 ORDER BY `artist_relevance`,
-                         `album_relevance`,
-                         " . TBL_album . ".`year` DESC 
+                         " . TBL_album . ".`year` DESC ,
+                         `album_relevance`
                 LIMIT 0, 20";
       }
       $query = $this->db->query($sql);
@@ -63,14 +63,14 @@ class AutoComplete extends CI_Controller {
             'label' => $row->artist_name . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')'
           );
         }
-        echo json_encode($results);
-        return;
       }
-      $results[] = array(
-        'value' => $search_str,
-        'img' => '', 
-        'label' => '<span class="no_results">No results</span>'
-      );
+      else {
+        $results[] = array(
+          'value' => $search_str,
+          'img' => '', 
+          'label' => '<span class="no_results">No results</span>'
+        );
+      }
       echo json_encode($results);
       return;
     }
@@ -142,6 +142,13 @@ class AutoComplete extends CI_Controller {
             'label' => $row->album_name
           );
         }
+      }
+      if (empty($results)) {
+        $results[] = array(
+          'value' => $search_str,
+          'img' => '', 
+          'label' => '<span class="no_results">No results</span>'
+        );
       }
       // Return all search results.
       echo json_encode($results);
