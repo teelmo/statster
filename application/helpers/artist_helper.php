@@ -30,23 +30,6 @@ if (!function_exists('getArtistInfo')) {
 }
 
 /**
-   * Gets artist's albums nationalities.
-   *
-   * @param array $opts.
-   *          'artist_id'  => Artist ID
-   *
-   * @return array Nationality information or boolean FALSE.
-   *
-   * @todo Not yet implemented!
-   */
-if (!function_exists('getArtistNationalities')) {
-  function getArtistNationalities($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-  }
-}
-
-/**
    * Gets artist's listenings.
    *
    * @param array $opts.

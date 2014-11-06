@@ -11,7 +11,7 @@ var view = {
       url:'/api/fan/get/<?=$artist_id?>',
       data: {
         user_id:user_id,
-        hide: {
+        hide:{
           title:true,
           username:true
         }
@@ -100,7 +100,7 @@ var view = {
             url:'/ajax/likeList',
             data: {
               json_data:data,
-              hide: {}
+              hide:{}
             },
             success: function (data) {
               $('#artistFanLoader').hide();
@@ -137,7 +137,7 @@ var view = {
             data: {
               json_data:data,
               size:32,
-              hide: {
+              hide:{
                 date:true,
                 calendar:true
               }
@@ -175,7 +175,7 @@ var view = {
             data: {
               json_data:data,
               size:32,
-              hide: {
+              hide:{
                 artist:true,
                 count:true,
                 rank:true

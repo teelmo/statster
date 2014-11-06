@@ -31,8 +31,9 @@ class AutoComplete extends CI_Controller {
                   AND (" . TBL_artist . ".`artist_name` LIKE " . $this->db->escape($search_str_db_artist_wc) . "
                    AND " . TBL_album . ".`album_name` LIKE " . $this->db->escape($search_str_db_album_wc) . ")
                 ORDER BY `artist_relevance`,
-                         " . TBL_album . ".`year` DESC, 
-                         `album_relevance`";
+                         " . TBL_album . ".`year` DESC,
+                         `album_relevance`
+                LIMIT 0, 20";
       }
       else {
         $search_str_db_artist = $search_str_db_album = trim($search_str) . '%';
@@ -50,7 +51,7 @@ class AutoComplete extends CI_Controller {
                   AND (" . TBL_artist . ".`artist_name` LIKE " . $this->db->escape($search_str_db_artist_wc) . "
                    OR " . TBL_album . ".`album_name` LIKE " . $this->db->escape($search_str_db_album_wc) . ")
                 ORDER BY `artist_relevance`,
-                         " . TBL_album . ".`year` DESC ,
+                         " . TBL_album . ".`year` DESC,
                          `album_relevance`
                 LIMIT 0, 20";
       }
