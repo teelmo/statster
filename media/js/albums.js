@@ -10,6 +10,7 @@ $(document).ready(function() {
 });
 
 function topAlbum10(lower_limit, upper_limit) {
+  
   $.ajax({
     type:'GET',
     dataType:'json',
@@ -29,6 +30,7 @@ function topAlbum10(lower_limit, upper_limit) {
             json_data:data
           },
           success: function(data) {
+        console.log('asd')
             $('#topAlbum10Loader').hide();
             $('#topAlbum10').html(data);
           }
