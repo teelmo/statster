@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
   *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
   *          'username'        => Username
-  *          'artist_name'          => Artist name
+  *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
   *          'order_by'        => Order by argument
   *          'limit'           => Limit
@@ -65,8 +65,8 @@ if (!function_exists('getArtists')) {
   *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
   *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
   *          'username'        => Username
-  *          'artist_name'          => Artist name
-  *          'album_name'           => Album name
+  *          'artist_name'     => Artist name
+  *          'album_name'      => Album name
   *          'group_by'        => Group by argument
   *          'order_by'        => Order by argument
   *          'limit'           => Limit
@@ -122,21 +122,21 @@ if (!function_exists('getAlbums')) {
 }
 
 /**
-   * Returns top albums for the given user.
-   *
-   * @param array $opts.
-   *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
-   *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
-   *          'username'        => Username
-   *          'artist_name'          => Artist name
-   *          'album_name'           => Album name
-   *          'group_by'        => Group by argument
-   *          'order_by'        => Order by argument
-   *          'limit'           => Limit
-   *          'human_readable'  => Output format
-   *
-   * @return string JSON encoded data containing album information.
-   */
+  * Returns top albums for the given user.
+  *
+  * @param array $opts.
+  *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
+  *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+  *          'username'        => Username
+  *          'artist_name'     => Artist name
+  *          'album_name'      => Album name
+  *          'group_by'        => Group by argument
+  *          'order_by'        => Order by argument
+  *          'limit'           => Limit
+  *          'human_readable'  => Output format
+  *
+  * @return string JSON encoded data containing album information.
+  */
 if (!function_exists('getListeners')) {
   function getListeners($opts = array()) {
     $ci=& get_instance();
@@ -178,10 +178,13 @@ if (!function_exists('getListeners')) {
 }
 
 /**
-  * Gets artist's albums which have listenings
+  * Gets artist's albums which have listenings.
   *
   * @param array $opts.
-  *          'artist_id'  => Artist ID
+  *          'username'        => Username
+  *          'artist_name'     => Artist name
+  *          'limit'           => Limit
+  *          'human_readable'  => Output format
   *
   * @return array Album information or boolean FALSE.
   *
@@ -193,8 +196,6 @@ if (!function_exists('getArtistAlbums')) {
 
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
-    $date = !empty($opts['date']) ? $opts['date'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT count(" . TBL_album . ".`id`) as `count`,
@@ -209,8 +210,6 @@ if (!function_exists('getArtistAlbums')) {
               AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
               AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_artist . ". `artist_name` LIKE " . $ci->db->escape($artist_name) . "
-              AND " . TBL_album . ". `album_name` LIKE " . $ci->db->escape($album_name) . "
-              AND " . TBL_listening . ". `date` LIKE " . $ci->db->escape($date) . "
             GROUP BY " . TBL_album . ".`id`
             ORDER BY count(" . TBL_album . ".`id`) DESC";
     $query = $ci->db->query($sql);
@@ -218,9 +217,40 @@ if (!function_exists('getArtistAlbums')) {
   }
 }
 
-/*
- * Helper function for sorting tags
- */
+/**
+  * Gets artist's or album's nationalities.
+  *
+  * @param array $opts.
+  *          'username'        => Username
+  *          'artist_name'     => Artist name
+  *          'limit'           => Limit
+  *          'human_readable'  => Output format
+  *
+  * @return array Nationality information or boolean FALSE.
+  *
+  */
+if (!function_exists('getAlbumNationalities')) {
+  function getAlbumNationalities($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`, " . TBL_album . ".`id` as `album_id`, " . TBL_artist . ".`artist_name`, " . TBL_album . ".`album_name`, " . TBL_album . ".`year`
+            FROM " . TBL_artist . ", " . TBL_album . "
+            WHERE ".TBL_album.".`artist_id` = " . TBL_artist . ".`id` 
+              AND " . TBL_artist . ".`artist_name` = " . $ci->db->escape($artist_name) . "
+              AND " . TBL_album . ".`album_name` = " . $ci->db->escape($album_name);
+    $query = $ci->db->query($sql);
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Helper function for sorting tags
+  */
 if (!function_exists('_tagsSortByCount')) {
   function _tagsSortByCount($a, $b) {
     if ($a['count'] == $b['count']) {

@@ -128,7 +128,6 @@ if (!function_exists('deleteListening')) {
     }
     $ci=& get_instance();
     $ci->load->database();
-
     
     // Get user id from session.
     if (!$data['user_id'] = $ci->session->userdata('user_id')) {
@@ -141,13 +140,14 @@ if (!function_exists('deleteListening')) {
               WHERE " . TBL_listening . ".`id` = {$data['listening_id']}
                 AND " . TBL_listening . ".`user_id` = {$data['user_id']}";
     $query = $ci->db->query($sql);
+    echo($ci->db->affected_rows());
     if ($ci->db->affected_rows() == 1) {
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }
     else {
       header('HTTP/1.1 401 Unauthorized');
-      return json_encode(array('error' => array('msg' => $data)));
+      return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
     }
   }
 }

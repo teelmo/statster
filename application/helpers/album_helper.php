@@ -34,23 +34,6 @@ if (!function_exists('getAlbumInfo')) {
 }
 
 /**
-   * Gets album's nationalities.
-   *
-   * @param array $opts.
-   *          'album_id'  => Album ID
-   *
-   * @return array Nationality information or boolean FALSE.
-   *
-   * @todo Not yet implemented!
-   */
-if (!function_exists('getAlbumNationalities')) {
-  function getAlbumNationalities($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-  }
-}
-
-/**
    * Gets album's listenings.
    *
    * @param array $opts.
@@ -64,6 +47,7 @@ if (!function_exists('getAlbumListenings')) {
   function getAlbumListenings($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $sql = "SELECT count(" . TBL_album . ".`id`) as `" . $count_type . "`
@@ -126,6 +110,7 @@ if (!function_exists('getAlbumGenres')) {
   function getAlbumGenres($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $sql = "SELECT " . TBL_genre . ".`name`, count(" . TBL_genre . ".`id`) as `count`, 'genre' as `type`
             FROM " . TBL_genre . ", " . TBL_genres . ", " . TBL_album . "
@@ -158,6 +143,7 @@ if (!function_exists('getAlbumKeywords')) {
   function getAlbumKeywords($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $sql = "SELECT " . TBL_keyword . ".`name`, count(" . TBL_keyword . ".`id`) as `count`, 'keyword' as `type`
             FROM " . TBL_keyword . ", " . TBL_keywords . ", " . TBL_album . "

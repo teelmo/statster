@@ -1,4 +1,4 @@
-var view = {
+$.extend(view, {
   // Get album love.
   getLove: function (user_id) { 
     if (user_id === undefined) {
@@ -50,7 +50,7 @@ var view = {
             $.ajax({
               type:'DELETE',
               url:'/api/love/delete/<?=$album_id?>',
-              data: {},
+              data:{},
               statusCode: {
                 204: function () { // 204 No Content
                   $('#love').removeClass('loveDel').addClass('loveAdd').prepend('<span class="loveMsg">You\'re no longer in love!</span>');
@@ -186,24 +186,27 @@ var view = {
         }
       }
     });
+  },
+  initAlbumEvents: function () {
+    $('#moretags').click(function() {
+      $('#tagAdd').toggle();
+      if ($(this).text() == '+') {
+        $(this).html('<a href="javascript:;">-</a>');
+      }
+      else {
+        $(this).html('<a href="javascript:;">+</a>');
+      }
+    });
   }
-}
+});
 
 $(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
   view.getUsers();
   view.getListenings();
-  
-  $('#moretags').click(function() {
-    $('#tagAdd').toggle();
-    if ($(this).text() == '+') {
-      $(this).html('<a href="javascript:;">-</a> ');
-    }
-    else {
-      $(this).html('<a href="javascript:;">+</a>');
-    }
-  });
+  view.initAlbumEvents();
+
   $('#tagAddSelect').chosen();
-  $('#tagAdd').hide();
+  $('#tagAdd').hide();  
 });

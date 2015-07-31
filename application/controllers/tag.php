@@ -10,11 +10,16 @@ class Tag extends CI_Controller {
   }
 
   public function genre($tag_name = '') {
+    // Load helpers
+    $this->load->helper(array('tag_helper'));
+
     $data['tag_type'] = 'Genre';
     $this->load->view('templates/header');
     
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
+      
+      // $data += getGenresMusic();
       
       $this->load->view('tag/tag_view', $data);
     }

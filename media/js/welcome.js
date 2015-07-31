@@ -1,18 +1,25 @@
-var view = {
+$.extend(view, {
   recentlyListened: function () {
     $.ajax({
-      type:'GET',dataType:'json',url:'/api/listening/get',
+      type:'GET',
+      dataType:'json',
+      url:'/api/listening/get',
       data: {
         limit:5,
       },
       statusCode: {
         200: function(data) {
           $.ajax({
-            type:'POST',url:'/ajax/sideTable',
+            type:'POST',
+            url:'/ajax/sideTable',
             data: {
-              json_data:data,size:32,
-              hide : {
-                artist:true,count:true,rank:true,calendar:true
+              json_data:data,
+              size:32,
+              hide: {
+                artist:true,
+                calendar:true,
+                count:true,
+                rank:true
               },
             },
             success: function(data) {
@@ -28,7 +35,8 @@ var view = {
     $.ajax({
       type:'GET',dataType:'json',url:'/api/artist/get',
       data: {
-        lower_limit:'1970-01-01',limit:15
+        limit:15,
+        lower_limit:'1970-01-01'
       },
       statusCode: {
         200: function(data) {
@@ -46,7 +54,7 @@ var view = {
       }
     });
   }
-}
+});
 
 $(document).ready(function() {
   view.recentlyListened();
