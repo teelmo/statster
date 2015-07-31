@@ -50,7 +50,7 @@ var view = {
             $.ajax({
               type:'DELETE',
               url:'/api/love/delete/<?=$album_id?>',
-              data: {},
+              data:{},
               statusCode: {
                 204: function () { // 204 No Content
                   $('#love').removeClass('loveDel').addClass('loveAdd').prepend('<span class="loveMsg">You\'re no longer in love!</span>');
@@ -198,7 +198,7 @@ $(document).ready(function () {
   $('#moretags').click(function() {
     $('#tagAdd').toggle();
     if ($(this).text() == '+') {
-      $(this).html('<a href="javascript:;">-</a> ');
+      $(this).html('<a href="javascript:;">-</a>');
     }
     else {
       $(this).html('<a href="javascript:;">+</a>');
