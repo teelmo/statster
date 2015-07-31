@@ -1,14 +1,14 @@
-var view = {
+$.extend(view, {
   topListeners: function () {
     $.ajax({
       type:'GET',
       dataType:'json',
       url:'/api/user/get',
       data: {
-        limit:100,
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+        album_name:'<?php echo $album_name?>',
         artist_name:'<?php echo $artist_name?>',
-        album_name:'<?php echo $album_name?>'
+        limit:100,
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode: {
         200: function(data) { // 200 OK
@@ -19,8 +19,8 @@ var view = {
               json_data:data,
               size:32,
               hide: {
-                date:true,
-                calendar:true
+                calendar:true,
+                date:true
               }
             },
             success: function(data) {
@@ -38,9 +38,9 @@ var view = {
       dataType:'json',
       url:'/api/listening/get',
       data: {
-        limit:14,
-        artist_name:'<?php echo $artist_name?>',
         album_name:'<?php echo $album_name?>',
+        artist_name:'<?php echo $artist_name?>',
+        limit:14,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode: {
@@ -74,7 +74,7 @@ var view = {
       }
     });
   }
-}
+});
 
 $(document).ready(function() {
   view.topListeners();

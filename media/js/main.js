@@ -1,4 +1,4 @@
-var view = {
+$.extend(view, {
   // Get recent listenings.
   getRecentListenings: function (isFirst, callback) {
     if (isFirst != true) {
@@ -196,118 +196,120 @@ var view = {
         }
       }
     });
+  },
+  initMainEvents: function () {
+    $('#addListeningText').focus();
+    $('#addListeningText').autocomplete({
+      minLength:3,html:true,source:'/autoComplete/addListening',
+      search: function () {
+        $(this).addClass('working');
+      },
+      open: function () {
+        $(this).removeClass('working');
+      }
+    });
+
+    $('.listeningFormat').click(function () {
+      $('.listeningFormat').removeClass('selected');
+      $(this).addClass('selected');
+    });
+
+    $('.listeningFormat').keypress(function (e) {
+      var code = (e.keyCode ? e.keyCode : e.which);
+      if (code == 13) {
+        $('.listeningFormat').removeClass('selected');
+        $(this).addClass('selected');
+        $('#' + $(this).parent().attr('for')).prop('checked', true);
+      }
+    });
+
+    $('#addListeningShowmore').click(function () {
+      $('.listeningFormat').removeClass('hidden');
+      $(this).remove();
+    });
+
+    $('#addListeningShowmore').keypress(function (e) {
+      var code = (e.keyCode ? e.keyCode : e.which);
+      if (code === 13) {
+        $('.listeningFormat').removeClass('hidden');
+        $(this).remove();
+      }
+    });
+
+    $('#recentlyListened').hover(function () {
+      var currentTime = new Date();    
+      if ((currentTime.getTime() - $('#recentlyUpdated').attr('value') > (60 * 2 * 1000))) {
+        view.getRecentListenings();
+      }
+    });
+
+    $('#addListeningSubmit').click(function () {
+      var text_value = $('#addListeningText').val();
+      var format_value = $('input[name="addListeningFormat"]:checked').val()
+      $('#recentlyListenedLoader2').show();
+      $('#addListeningText').val('');
+      $('input[name="addListeningFormat"]').prop('checked', false);
+      $('img.listeningFormat').removeClass('selected');
+      $.ajax({
+        type:'POST',dataType:'json',url:'/api/listening/add',
+        data:{
+          text:text_value,
+          format:format_value,
+          date:$('#addListeningDate').val(),
+          submitType:$('input[name="submitType"]').val(),
+        },
+        statusCode:{
+          201: function (data) { // 201 Created
+            view.getRecentListenings();
+            view.getTopArtists();
+            view.getTopAlbums();
+            $('#addListeningText').focus();
+          },
+          400: function () { // 400 Bad Request
+            alert('400 Bad Request');
+            $('#recentlyListenedLoader2').hide();
+          },
+          401: function () { // 401 Unauthorized
+            alert('401 Unauthorized');
+            $('#recentlyListenedLoader2').hide();
+          },
+          404: function () { // 404 Not found
+            alert('404 Not Found');
+            $('#recentlyListenedLoader2').hide();
+          }
+        }
+      });
+      return false;
+    });
+
+    $('#addListeningDate').datepicker({
+      dateFormat:'yy-mm-dd',maxDate:'today',showOtherMonths:true,selectOtherMonths:true,showAnim:'slideDown',firstDay:1
+    });
+    $('#addListeningDate').change(function () {
+      setTimeout(function () {
+        $('#addListeningDate').val('<?=CUR_DATE?>');
+      }, 60 * 2 * 1000);
+    });
+
+    var keyStop = {
+      8:':not(input:text,textarea,input:file,input:password)',
+      13:'input:text,input:password',
+      end: null
+    }
+    $(document).bind('keydown', function (event) {
+      var selector = keyStop[event.which];
+      if (selector !== undefined && $(event.target).is(selector)) {
+        event.preventDefault();
+      }
+      return true;
+    });
   }
-}
+});
 
 $(document).ready(function () {
   view.getRecentListenings(true, view.getTopAlbums);
   view.getTopArtists();
   view.getRecommentedTopAlbum();
   view.getRecommentedNewAlbum();
- 
-  $('#addListeningText').focus();
-  $('#addListeningText').autocomplete({
-    minLength:3,html:true,source:'/autoComplete/addListening',
-    search: function () {
-      $(this).addClass('working');
-    },
-    open: function () {
-      $(this).removeClass('working');
-    }
-  });
-
-  $('.listeningFormat').click(function () {
-    $('.listeningFormat').removeClass('selected');
-    $(this).addClass('selected');
-  });
-
-  $('.listeningFormat').keypress(function (e) {
-    var code = (e.keyCode ? e.keyCode : e.which);
-    if (code == 13) {
-      $('.listeningFormat').removeClass('selected');
-      $(this).addClass('selected');
-      $('#' + $(this).parent().attr('for')).prop('checked', true);
-    }
-  });
-
-  $('#addListeningShowmore').click(function () {
-    $('.listeningFormat').removeClass('hidden');
-    $(this).remove();
-  });
-
-  $('#addListeningShowmore').keypress(function (e) {
-    var code = (e.keyCode ? e.keyCode : e.which);
-    if (code === 13) {
-      $('.listeningFormat').removeClass('hidden');
-      $(this).remove();
-    }
-  });
-
-  $('#recentlyListened').hover(function () {
-    var currentTime = new Date();    
-    if ((currentTime.getTime() - $('#recentlyUpdated').attr('value') > (60 * 2 * 1000))) {
-      view.getRecentListenings();
-    }
-  });
-
-  $('#addListeningSubmit').click(function () {
-    var text_value = $('#addListeningText').val();
-    var format_value = $('input[name="addListeningFormat"]:checked').val()
-    $('#recentlyListenedLoader2').show();
-    $('#addListeningText').val('');
-    $('input[name="addListeningFormat"]').prop('checked', false);
-    $('img.listeningFormat').removeClass('selected');
-    $.ajax({
-      type:'POST',dataType:'json',url:'/api/listening/add',
-      data:{
-        text:text_value,
-        format:format_value,
-        date:$('#addListeningDate').val(),
-        submitType:$('input[name="submitType"]').val(),
-      },
-      statusCode:{
-        201: function (data) { // 201 Created
-          view.getRecentListenings();
-          view.getTopArtists();
-          view.getTopAlbums();
-          $('#addListeningText').focus();
-        },
-        400: function () { // 400 Bad Request
-          alert('400 Bad Request');
-          $('#recentlyListenedLoader2').hide();
-        },
-        401: function () { // 401 Unauthorized
-          alert('401 Unauthorized');
-          $('#recentlyListenedLoader2').hide();
-        },
-        404: function () { // 404 Not found
-          alert('404 Not Found');
-          $('#recentlyListenedLoader2').hide();
-        }
-      }
-    });
-    return false;
-  });
-
-  $('#addListeningDate').datepicker({
-    dateFormat:'yy-mm-dd',maxDate:'today',showOtherMonths:true,selectOtherMonths:true,showAnim:'slideDown',firstDay:1
-  });
-  $('#addListeningDate').change(function () {
-    setTimeout(function () {
-      $('#addListeningDate').val('<?=CUR_DATE?>');
-    }, 60 * 2 * 1000);
-  });
-
-  var keyStop = {
-    8:':not(input:text,textarea,input:file,input:password)',
-    13:'input:text,input:password',
-    end: null
-  }
-  $(document).bind('keydown', function (event) {
-    var selector = keyStop[event.which];
-    if (selector !== undefined && $(event.target).is(selector)) {
-      event.preventDefault();
-    }
-    return true;
-  });
+  view.initMainEvents();
 });

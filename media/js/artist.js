@@ -1,4 +1,4 @@
-var view = {
+$.extend(view, {
   // Get artist fan.
   getFan: function (user_id) {
     if (user_id === undefined) {
@@ -43,7 +43,7 @@ var view = {
                   setTimeout(function () {
                     $('.fanMsg').fadeOut('slow');
                   }, <?=MSG_FADEOUT?>);
-                  getFans();
+                  view.getFans();
                 },
                 400: function (data) {
                   alert('400 Bad Request')
@@ -68,7 +68,7 @@ var view = {
                   setTimeout(function () {
                     $('.fanMsg').fadeOut('slow');
                   }, <?=MSG_FADEOUT?>);
-                  getFans();
+                  view.getFans();
                 },
                 400: function (data) {
                   alert('400 Bad Request')
@@ -196,26 +196,30 @@ var view = {
         }
       }
     });
+  },
+  initArtistEvents: function () {
+    $('#moretags').click(function () {
+      $('#tagAdd').toggle();
+      if ($(this).text() == '+') {
+        $(this).html('<a href="javascript:;">-</a>');
+        $('#tagAddSelect').chosen({
+          inherit_select_classes: true
+        });
+      }
+      else {
+        $(this).html('<a href="javascript:;">+</a>');
+      }
+    });
   }
-}
+});
 
 $(document).ready(function () {
   view.getFan(<?=$this->session->userdata('user_id')?>);
   view.getFans();
   view.getUsers();
   view.getListenings();
-
-  $('#moretags').click(function () {
-    $('#tagAdd').toggle();
-    if ($(this).text() == '+') {
-      $(this).html('<a href="javascript:;">-</a>');
-      $('#tagAddSelect').chosen({
-        inherit_select_classes: true
-      });
-    }
-    else {
-      $(this).html('<a href="javascript:;">+</a>');
-    }
-  });
+  view.initArtistEvents();
+  
+  $('#tagAddSelect').chosen();
   $('#tagAdd').hide();
 });

@@ -1,4 +1,4 @@
-var view = {
+$.extend(view, {
   topAlbum10: function (lower_limit, upper_limit) {  
     $.ajax({
       type:'GET',
@@ -63,9 +63,6 @@ var view = {
           $(vars.container + 'Loader').hide();
           $(vars.container).html('<?php echo ERR_NO_DATA?>');
         }
-      },
-      success: function (data) {
-        console.log()      
       }
     });
   },
@@ -85,7 +82,7 @@ var view = {
       view.topAlbum(year + '-00-00', year + '-12-31', vars);
     }
   }
-}
+});
 
 $(document).ready(function () {
   view.topAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');

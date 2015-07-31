@@ -1,4 +1,4 @@
-var view = {
+$.extend(view, {
   getListenings: function () {
     $.ajax({
       type:'GET',
@@ -62,8 +62,8 @@ var view = {
               json_data:data,
               size:32,
               hide: {
-                date:true,
-                calendar:true
+                calendar:true,
+                date:true
               }
             },
             success: function (data) {
@@ -82,44 +82,46 @@ var view = {
         }
       }
     });
+  },
+  initRecentEvents: function () {
+    $('html body').on('click', 'span.delete', function () {
+      $(this).removeClass('delete');
+      $('div.confirmation[for="' + $(this).attr('id') + '"]').show();
+    });
+    $('html body').on('click', 'a.cancel', function () {
+      $('#' + $(this).attr('for')).addClass('delete');
+      $(this).closest('div').hide();
+    });
+    $('html body').on('click', 'a.confirm', function () {
+      var row_id = $(this).attr('data-row-id');
+      if ($('#' + row_id).hasClass('justAdded')) {
+        $('tr').removeClass('justAddedRest');
+      }
+      $.ajax({
+        type:'DELETE',
+        url:'/api/listening/delete/' + $(this).attr('data-listening-id'),
+        statusCode: {
+          200: function () { // 200 OK
+            $('#' + row_id).fadeOut('slow');
+          },
+          400: function () { // 400 Bad Request
+            alert('400 Bad Request');
+          },
+          401: function (data) { // 403 Forbidden
+            console.log(data)
+            alert('401 Unauthorized');
+          },
+          404: function () { // 404 Not found
+            alert('404 Not Found');
+          }
+        }
+      });
+    });
   }
-}
+});
 
 $(document).ready(function () {
   view.getListenings();
   view.getUsers();
-
-  $('html body').on('click', 'span.delete', function () {
-    $(this).removeClass('delete');
-    $('div.confirmation[for="' + $(this).attr('id') + '"]').show();
-  });
-  $('html body').on('click', 'a.cancel', function () {
-    $('#' + $(this).attr('for')).addClass('delete');
-    $(this).closest('div').hide();
-  });
-  $('html body').on('click', 'a.confirm', function () {
-    var row_id = $(this).attr('data-row-id');
-    if ($('#' + row_id).hasClass('justAdded')) {
-      $('tr').removeClass('justAddedRest');
-    }
-    $.ajax({
-      type:'DELETE',
-      url:'/api/listening/delete/' + $(this).attr('data-listening-id'),
-      statusCode: {
-        200: function () { // 200 OK
-          $('#' + row_id).fadeOut('slow');
-        },
-        400: function () { // 400 Bad Request
-          alert('400 Bad Request');
-        },
-        401: function (data) { // 403 Forbidden
-          console.log(data)
-          alert('401 Unauthorized');
-        },
-        404: function () { // 404 Not found
-          alert('404 Not Found');
-        }
-      }
-    });
-  });
+  view.initRecentEvents();
 });

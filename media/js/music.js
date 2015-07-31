@@ -1,10 +1,10 @@
-var view = {
+$.extend(view, {
   compareStrings: function (a, b) {
     if (a > b) return -1;
     else if (a < b) return 1;
     return 0;
   },
-  popularGenre: function() {
+  popularGenre: function () {
     $.ajax({
       type:'GET',
       dataType:'json',
@@ -15,23 +15,23 @@ var view = {
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode: {
-        200: function(data) {
+        200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/popularTag',
             data: {
               json_data:data
             },
-            success: function(data) {
+            success: function (data) {
               $('#popularGenreLoader').hide();
               $('#popularGenre').html(data);
             }
           });  
         },
-        204: function() { // 204 No Content
+        204: function () { // 204 No Content
           alert('204 No Content');
         },
-        404: function() { // 404 Not found
+        404: function () { // 404 Not found
           alert('404 Not Found');
         }
       }
@@ -48,7 +48,7 @@ var view = {
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode: {
-        200: function(data) {
+        200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/sideTable',
@@ -61,7 +61,7 @@ var view = {
                 calendar:true
               }
             },
-            success: function(data) {
+            success: function (data) {
               $('#popularAlbumLoader').hide();
               $('#popularAlbum').html(data);
             }
@@ -80,7 +80,7 @@ var view = {
         limit: 10
       },
       statusCode: {
-        200: function(data) {
+        200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/likeTable',
@@ -90,7 +90,7 @@ var view = {
                 rank:true
               }
             },
-            success: function(data) {
+            success: function (data) {
               $('#recentlyFanedLoader').hide();
               $('#recentlyFaned').html(data);
             }
@@ -99,7 +99,7 @@ var view = {
       }
     });
   },
-  recentlyLoved: function() {
+  recentlyLoved: function () {
     $.ajax({
       type:'GET',
       dataType:'json',
@@ -109,7 +109,7 @@ var view = {
         limit: 10
       },
       statusCode: {
-        200: function(data) {
+        200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/likeTable',
@@ -119,7 +119,7 @@ var view = {
                 rank:true
               }
             },
-            success: function(data) {
+            success: function (data) {
               $('#recentlyLovedLoader').hide();
               $('#recentlyLoved').html(data);
             }
@@ -128,16 +128,16 @@ var view = {
       }
     });
   }
-}
+});
 
-$(document).ready(function() {
+$(document).ready(function () {
   view.popularGenre();
   view.topAlbum();
   view.recentlyFaned();
   view.recentlyLoved();
 
-  $(document).ajaxStop(function(event, request, settings ) {
-    $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function(a, b) {
+  $(document).ajaxStop(function (event, request, settings ) {
+    $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function (a, b) {
       return view.compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
     }));
     $('#recentlyLikedLoader').hide();

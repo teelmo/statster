@@ -1,4 +1,4 @@
-var view = {
+$.extend(view, {
   // Get album love.
   getLove: function (user_id) { 
     if (user_id === undefined) {
@@ -186,24 +186,27 @@ var view = {
         }
       }
     });
+  },
+  initAlbumEvents: function () {
+    $('#moretags').click(function() {
+      $('#tagAdd').toggle();
+      if ($(this).text() == '+') {
+        $(this).html('<a href="javascript:;">-</a>');
+      }
+      else {
+        $(this).html('<a href="javascript:;">+</a>');
+      }
+    });
   }
-}
+});
 
 $(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
   view.getUsers();
   view.getListenings();
-  
-  $('#moretags').click(function() {
-    $('#tagAdd').toggle();
-    if ($(this).text() == '+') {
-      $(this).html('<a href="javascript:;">-</a>');
-    }
-    else {
-      $(this).html('<a href="javascript:;">+</a>');
-    }
-  });
+  view.initAlbumEvents();
+
   $('#tagAddSelect').chosen();
-  $('#tagAdd').hide();
+  $('#tagAdd').hide();  
 });

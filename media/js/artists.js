@@ -1,4 +1,4 @@
-var view = {
+$.extend(view, {
   topArtist10: function (lower_limit, upper_limit) {
     $.ajax({
       type:'GET',
@@ -11,14 +11,14 @@ var view = {
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode: {
-        200: function(data) {
+        200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/artistList/124',
             data: {
               json_data:data,
             },
-            success: function(data) {
+            success: function (data) {
               $('#topArtist10Loader').hide();
               $('#topArtist10').html(data);
             }
@@ -39,7 +39,7 @@ var view = {
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode: {
-        200: function(data) { // 200 OK
+        200: function (data) { // 200 OK
           $.ajax({
             type:'POST',
             url:vars.template,
@@ -49,7 +49,7 @@ var view = {
               rank:9,
               hide: vars.hide
             },
-            success: function(data) {
+            success: function (data) {
               $(vars.container + 'Loader').hide();
               $(vars.container + '').html(data);
             }
@@ -63,7 +63,7 @@ var view = {
       $('<div class="container"><h2>' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist' + year + 'Loader"/><table id="topArtist' + year + '" class="sideTable"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">See more</a></div></div><div class="container"><hr /></div>').appendTo($('#years'));
       vars = {
         container:'#topArtist' + year,
-        limit:'0, 5',
+        limit:'0,5',
         template:'/ajax/sideTable',
         hide: {
           calendar:true,
@@ -73,9 +73,9 @@ var view = {
       view.topArtist(year + '-00-00', year + '-12-31', vars);
     }
   }
-}
+});
 
-$(document).ready(function() {
+$(document).ready(function () {
   view.topArtist10('<?=$lower_limit?>', '<?=$upper_limit?>');
   vars = {
     container:'#topArtist',
