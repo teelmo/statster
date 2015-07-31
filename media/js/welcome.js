@@ -33,7 +33,9 @@ $.extend(view, {
   },
   topArtist: function () {
     $.ajax({
-      type:'GET',dataType:'json',url:'/api/artist/get',
+      type:'GET',
+      dataType:'json',
+      url:'/api/artist/get',
       data: {
         limit:15,
         lower_limit:'1970-01-01'

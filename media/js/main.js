@@ -210,31 +210,42 @@ $.extend(view, {
     });
 
     $('.listeningFormat').click(function () {
-      $('.listeningFormat').removeClass('selected');
-      $(this).addClass('selected');
+      if ($(this).hasClass('selected')) {
+        $(this).removeClass('selected');
+      }
+      else {
+        $('.listeningFormat').removeClass('selected');
+        $(this).addClass('selected');
+      }
     });
 
     $('.listeningFormat').keypress(function (e) {
       var code = (e.keyCode ? e.keyCode : e.which);
       if (code == 13) {
-        $('.listeningFormat').removeClass('selected');
-        $(this).addClass('selected');
-        $('#' + $(this).parent().attr('for')).prop('checked', true);
+        if ($(this).hasClass('selected')) {
+          $(this).removeClass('selected');
+          $('#' + $(this).parent().attr('for')).prop('checked', false);
+        }
+        else {
+          $('.listeningFormat').removeClass('selected');
+          $(this).addClass('selected');
+          $('#' + $(this).parent().attr('for')).prop('checked', true);
+        }
       }
     });
 
-    $('#addListeningShowmore').click(function () {
-      $('.listeningFormat').removeClass('hidden');
-      $(this).remove();
-    });
+    // $('#addListeningShowmore').click(function () {
+    //   $('.listeningFormat').removeClass('hidden');
+    //   $(this).remove();
+    // });
 
-    $('#addListeningShowmore').keypress(function (e) {
-      var code = (e.keyCode ? e.keyCode : e.which);
-      if (code === 13) {
-        $('.listeningFormat').removeClass('hidden');
-        $(this).remove();
-      }
-    });
+    // $('#addListeningShowmore').keypress(function (e) {
+    //   var code = (e.keyCode ? e.keyCode : e.which);
+    //   if (code === 13) {
+    //     $('.listeningFormat').removeClass('hidden');
+    //     $(this).remove();
+    //   }
+    // });
 
     $('#recentlyListened').hover(function () {
       var currentTime = new Date();    
