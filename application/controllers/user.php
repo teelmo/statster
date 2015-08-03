@@ -7,6 +7,13 @@ class User extends CI_Controller {
     $this->load->view('templates/footer');
   }
 
+  public function profile($username) {
+    $data['username'] = $username;
+    $this->load->view('templates/header');
+    $this->load->view('user/profile_view', $data);
+    $this->load->view('templates/footer');
+  }
+
   public function edit() {
     if ($this->session->userdata('logged_in') !== TRUE) {
       redirect('/login?redirect=user/edit', 'refresh');
