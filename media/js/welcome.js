@@ -4,18 +4,18 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/listening/get',
-      data: {
+      data:{
         limit:5,
       },
-      statusCode: {
+      statusCode:{
         200: function(data) {
           $.ajax({
             type:'POST',
             url:'/ajax/sideTable',
-            data: {
+            data:{
               json_data:data,
               size:32,
-              hide: {
+              hide:{
                 artist:true,
                 calendar:true,
                 count:true,
@@ -36,15 +36,15 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/artist/get',
-      data: {
+      data:{
         limit:15,
         lower_limit:'1970-01-01'
       },
-      statusCode: {
+      statusCode:{
         200: function(data) {
           $.ajax({
             type:'POST',url:'/ajax/barTable',
-            data: {
+            data:{
               json_data:data,
             },
             success: function(data) {

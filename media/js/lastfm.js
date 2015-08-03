@@ -4,7 +4,7 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/lastfm/getSimilar',
-      data: {
+      data:{
         artist_name:'<?php echo $artist_name?>',
         limit:4
       },
@@ -13,9 +13,9 @@ $.extend(view, {
           $.ajax({
             type:'POST',
             url:'/ajax/artistList/124',
-            data: {
+            data:{
               json_data:data,
-              hide: {
+              hide:{
                 count:true
               }
             },
@@ -33,7 +33,7 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/lastfm/getEvents',
-      data: {
+      data:{
         artist_name:'<?php echo $artist_name?>',
         limit:15
       },
@@ -42,7 +42,7 @@ $.extend(view, {
           $.ajax({
             type:'POST',
             url:'/ajax/eventTable',
-            data: {
+            data:{
               json_data:data
             },
             success: function (data) {
@@ -59,7 +59,7 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/lastfm/getBio',
-      data: {
+      data:{
         artist_name:'<?php echo $artist_name?>',
         limit:4
       },
@@ -68,7 +68,7 @@ $.extend(view, {
           $.ajax({
             type:'POST',
             url:'/ajax/artistBio',
-            data: {
+            data:{
               json_data:data,
               hide : {
                 count:true

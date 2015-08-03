@@ -5,7 +5,9 @@ $.extend(view, {
       $('#recentlyListenedLoader2').show();
     }
     $.ajax({
-      type:'GET',dataType:'json',url:'/api/listening/get',
+      type:'GET',
+      dataType:'json',
+      url:'/api/listening/get',
       data:{
         limit:11,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
@@ -52,7 +54,9 @@ $.extend(view, {
   // Get top albums.
   getTopAlbums: function () {
     $.ajax({
-      type:'GET',dataType:'json',url:'/api/album/get',
+      type:'GET',
+      dataType:'json',
+      url:'/api/album/get',
       data:{
         limit:8,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
@@ -84,7 +88,9 @@ $.extend(view, {
   // Get top artists.
   getTopArtists: function () {
     $.ajax({
-      type:'GET',dataType:'json',url:'/api/artist/get',
+      type:'GET',
+      dataType:'json',
+      url:'/api/artist/get',
       data:{
         limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
@@ -117,7 +123,9 @@ $.extend(view, {
   // Get recommented top albums.
   getRecommentedTopAlbum: function () {
     $.ajax({
-      type:'GET',dataType:'json',url:'/api/recommentedTopAlbum',
+      type:'GET',
+      dataType:'json',
+      url:'/api/recommentedTopAlbum',
       data:{
         limit:10,
         lower_limit:'<?=date('Y-m-d', time() - (90 * 24 * 60 * 60))?>',
@@ -158,7 +166,9 @@ $.extend(view, {
   // Get recommented new albums.
   getRecommentedNewAlbum: function () {
     $.ajax({
-      type:'GET',dataType:'json',url:'/api/recommentedNewAlbum',
+      type:'GET',
+      dataType:'json',
+      url:'/api/recommentedNewAlbum',
       data:{
         limit:10,
         order_by:'album.year DESC, album.created DESC',
@@ -200,7 +210,9 @@ $.extend(view, {
   initMainEvents: function () {
     $('#addListeningText').focus();
     $('#addListeningText').autocomplete({
-      minLength:3,html:true,source:'/autoComplete/addListening',
+      minLength:3,
+      html:true,
+      source:'/autoComplete/addListening',
       search: function () {
         $(this).addClass('working');
       },

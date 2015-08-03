@@ -9,24 +9,24 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/genre/get',
-      data: {
+      data:{
         limit:35,
         lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/popularTag',
-            data: {
+            data:{
               json_data:data
             },
             success: function (data) {
               $('#popularGenreLoader').hide();
               $('#popularGenre').html(data);
             }
-          });  
+          });
         },
         204: function () { // 204 No Content
           alert('204 No Content');
@@ -42,19 +42,19 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/album/get',
-      data: {
+      data:{
         limit:15,
         lower_limit:'<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/sideTable',
-            data: {
+            data:{
               json_data:data,
-              hide: {
+              hide:{
                 count:true,
                 rank:true,
                 date:true,
@@ -75,18 +75,18 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/fan/get',
-      data: {
+      data:{
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
         limit: 10
       },
-      statusCode: {
+      statusCode:{
         200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/likeTable',
-            data: {
+            data:{
               json_data:data,
-              hide: {
+              hide:{
                 rank:true
               }
             },
@@ -104,18 +104,18 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/love/get',
-      data: {
+      data:{
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
         limit: 10
       },
-      statusCode: {
+      statusCode:{
         200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/likeTable',
-            data: {
+            data:{
               json_data:data,
-              hide: {
+              hide:{
                 rank:true
               }
             },

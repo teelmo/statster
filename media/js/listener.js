@@ -4,21 +4,21 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/user/get',
-      data: {
+      data:{
         album_name:'<?php echo $album_name?>',
         artist_name:'<?php echo $artist_name?>',
         limit:100,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/userTable',
-            data: {
+            data:{
               json_data:data,
               size:32,
-              hide: {
+              hide:{
                 calendar:true,
                 date:true
               }
@@ -37,21 +37,21 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/listening/get',
-      data: {
+      data:{
         album_name:'<?php echo $album_name?>',
         artist_name:'<?php echo $artist_name?>',
         limit:14,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'<?php echo !empty($album_name) ? '/ajax/userTable' : '/ajax/sideTable'?>',
-            data: {
+            data:{
               json_data:data,
               size:32,
-              hide: {
+              hide:{
                 artist:true,
                 count:true,
                 rank:true

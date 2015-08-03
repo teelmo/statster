@@ -9,10 +9,10 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/love/get/<?=$album_id?>',
-      data: {
+      data:{
         user_id:user_id
       },
-      statusCode: {
+      statusCode:{
         200: function (data) { // 200 OK
           $('#love').addClass('loveDel');
         },
@@ -31,8 +31,8 @@ $.extend(view, {
             $.ajax({
               type:'POST',
               url:'/api/love/add/<?=$album_id?>',
-              data: {},
-              statusCode: {
+              data:{},
+              statusCode:{
                 201: function(data) { // 201 Created
                   $('#love').removeClass('loveAdd').addClass('loveDel').prepend('<span class="loveMsg">You\'re in love!</span>');
                   setTimeout(function() {
@@ -51,7 +51,7 @@ $.extend(view, {
               type:'DELETE',
               url:'/api/love/delete/<?=$album_id?>',
               data:{},
-              statusCode: {
+              statusCode:{
                 204: function () { // 204 No Content
                   $('#love').removeClass('loveDel').addClass('loveAdd').prepend('<span class="loveMsg">You\'re no longer in love!</span>');
                   setTimeout(function() {
@@ -75,15 +75,15 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/love/get/<?=$album_id?>',
-      data: {},
-      statusCode: {
+      data:{},
+      statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/likeList',
-            data: {
+            data:{
               json_data:data,
-              hide: {}
+              hide:{}
             },
             success: function(data) {
               $('#albumLoveLoader').hide();
@@ -108,21 +108,21 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/user/get',
-      data: {
+      data:{
         limit:6,
         artist_name:'<?php echo $artist_name?>',
         album_name:'<?php echo $album_name?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/userTable',
-            data: {
+            data:{
               json_data:data,
               size:32,
-              hide: {
+              hide:{
                 date:true,
                 calendar:true
               }
@@ -150,21 +150,21 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/listening/get',
-      data: {
+      data:{
         limit:6,
         artist_name:'<?php echo $artist_name?>',
         album_name:'<?php echo $album_name?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/userTable',
-            data: {
+            data:{
               json_data:data,
               size:32,
-              hide: {
+              hide:{
                 artist:true,
                 count:true,
                 rank:true
@@ -192,6 +192,7 @@ $.extend(view, {
       $('#tagAdd').toggle();
       if ($(this).text() == '+') {
         $(this).html('<a href="javascript:;">-</a>');
+        $('.search-field input[type="text"]').focus();
       }
       else {
         $(this).html('<a href="javascript:;">+</a>');
@@ -207,6 +208,5 @@ $(document).ready(function () {
   view.getListenings();
   view.initAlbumEvents();
 
-  $('#tagAddSelect').chosen();
   $('#tagAdd').hide();  
 });

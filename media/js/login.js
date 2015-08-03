@@ -6,7 +6,7 @@ $.extend(view, {
       $.ajax({
         type:'POST',
         url:'/api/login',
-        data: {
+        data:{
           password:$('#loginPassword').val(),
           submitType:$('input[name="submitType"]').val(),
           username:$('#loginUsername').val()

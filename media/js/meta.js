@@ -4,17 +4,17 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/genre/get',
-      data: {
+      data:{
         limit:7,
         lower_limit:'<?=date('Y-m-d', time() - (30 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function(data) {
           $.ajax({
             type:'POST',
             url:'/ajax/popularTag',
-            data: {
+            data:{
               json_data:data
             },
             success: function(data) {
@@ -31,17 +31,17 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/keyword/get',
-      data: {
+      data:{
         limit:7,
         lower_limit:'<?=date('Y-m-d', time() - (30 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function(data) {
           $.ajax({
             type:'POST',
             url:'/ajax/popularTag',
-            data: {
+            data:{
               json_data:data
             },
             success: function(data) {
@@ -58,17 +58,17 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/genre/get',
-      data: {
+      data:{
         limit:15,
         lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function(data) {
           $.ajax({
             type:'POST',
             url:'/ajax/popularTag',
-            data: {
+            data:{
               json_data:data
             },
             success: function(data) {

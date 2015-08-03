@@ -4,18 +4,18 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/artist/get',
-      data: {
+      data:{
         limit:8,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function (data) {
           $.ajax({
             type:'POST',
             url:'/ajax/artistList/124',
-            data: {
+            data:{
               json_data:data,
             },
             success: function (data) {
@@ -32,18 +32,18 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/artist/get',
-      data: {
+      data:{
         limit:vars.limit,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
             type:'POST',
             url:vars.template,
-            data: {
+            data:{
               json_data:data,
               size:32,
               rank:9,
@@ -65,7 +65,7 @@ $.extend(view, {
         container:'#topArtist' + year,
         limit:'0,5',
         template:'/ajax/sideTable',
-        hide: {
+        hide:{
           calendar:true,
           date:true
         }

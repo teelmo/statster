@@ -9,14 +9,14 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/fan/get/<?=$artist_id?>',
-      data: {
+      data:{
         user_id:user_id,
         hide:{
           title:true,
           username:true
         }
       },
-      statusCode: {
+      statusCode:{
         200: function (data) { // 200 OK
           $('#fan').addClass('fanDel');
         },
@@ -36,8 +36,8 @@ $.extend(view, {
             $.ajax({
               type:'POST',
               url:'/api/fan/add/<?=$artist_id?>',
-              data: {},
-              statusCode: {
+              data:{},
+              statusCode:{
                 201: function (data) { // 201 Created
                   $('#fan').removeClass('fanAdd').addClass('fanDel').prepend('<span class="fanMsg">You\'re a fan!</span>');
                   setTimeout(function () {
@@ -61,8 +61,8 @@ $.extend(view, {
             $.ajax({
               type:'DELETE',
               url:'/api/fan/delete/<?=$artist_id?>',
-              data: {},
-              statusCode: {
+              data:{},
+              statusCode:{
                 204: function () { // 204 No Content
                   $('#fan').removeClass('fanDel').addClass('fanAdd').prepend('<span class="fanMsg">You\'re no longer a fan!</span>');
                   setTimeout(function () {
@@ -92,13 +92,13 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/fan/get/<?=$artist_id?>',
-      data: {},
-      statusCode: {
+      data:{},
+      statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/likeList',
-            data: {
+            data:{
               json_data:data,
               hide:{}
             },
@@ -124,17 +124,17 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/user/get',
-      data: {
+      data:{
         limit:6,
         artist_name:'<?=$artist_name?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/userTable',
-            data: {
+            data:{
               json_data:data,
               size:32,
               hide:{
@@ -162,17 +162,17 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/listening/get',
-      data: {
+      data:{
         limit:6,
         artist_name:'<?php echo $artist_name?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      statusCode: {
+      statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/sideTable',
-            data: {
+            data:{
               json_data:data,
               size:32,
               hide:{
@@ -200,11 +200,10 @@ $.extend(view, {
   initArtistEvents: function () {
     $('#moretags').click(function () {
       $('#tagAdd').toggle();
+      $('#tagAddSelect').chosen();
       if ($(this).text() == '+') {
         $(this).html('<a href="javascript:;">-</a>');
-        $('#tagAddSelect').chosen({
-          inherit_select_classes: true
-        });
+        $('.search-field input[type="text"]').focus();
       }
       else {
         $(this).html('<a href="javascript:;">+</a>');
@@ -220,6 +219,5 @@ $(document).ready(function () {
   view.getListenings();
   view.initArtistEvents();
   
-  $('#tagAddSelect').chosen();
   $('#tagAdd').hide();
 });

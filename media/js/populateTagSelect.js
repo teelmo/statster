@@ -4,23 +4,29 @@ $.extend(view, {
       type:'GET',
       dataType:'json',
       url:'/api/' + type + '/get',
-      data: {
+      data:{
         limit:1000,
         lower_limit:'1970-01-01',
         order_by:'name',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
-      success: function (data) {
-        $.each(data, function (i, value) {
-          $('#' + type).append('<option class="' + type + '" name="' + value.name + '">' + value.name + '</option>')
-        });
+      statusCode:{
+        200: function (data) {
+          $.each(data, function (i, value) {
+            $('#' + type).append('<option class="' + type + '" name="' + value.name + '">' + value.name + '</option>');
+          });
+        }
       }
     });
   }
 });
 
 $(document).ready(function () {
-  view.populateTagsMenu('genre');
-  view.populateTagsMenu('keyword');
-  view.populateTagsMenu('nationality');
+  $.when(
+    view.populateTagsMenu('genre'),
+    view.populateTagsMenu('keyword'),
+    view.populateTagsMenu('nationality')
+  ).done(function () {
+    $('#tagAddSelect').trigger('chosen:updated');
+  });
 });
