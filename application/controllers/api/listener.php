@@ -1,18 +1,22 @@
 <?php
-class User extends CI_Controller {
+class Listener extends CI_Controller {
+
   public function index() {
     exit ('No direct script access allowed');
   }
 
+  /* List users */
   public function get() {
     // Load helpers
-    $this->load->helper(array('user_helper', 'output_helper'));
+    $this->load->helper(array('music_helper', 'output_helper'));
     
-    echo getUsers($_REQUEST);
+    echo getListeners($_REQUEST);
   }
 
+  /* Add a user */
   public function add() {
     // Load helpers
+    
   }
 
   /* Update user information */
@@ -21,9 +25,10 @@ class User extends CI_Controller {
     
   }
 
-  /* Delete suer information */
-  public function delete($listening_id) {
+  /* Delete user information */
+  public function delete() {
     // Load helpers
+    
   }
 }
 ?>

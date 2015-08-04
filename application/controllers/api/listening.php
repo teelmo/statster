@@ -6,7 +6,7 @@ class Listening extends CI_Controller {
 
   public function get() {
     // Load helpers
-    $this->load->helper(array('listening_helper', 'output_helper', 'love_helper', 'output_helper'));
+    $this->load->helper(array('listening_helper', 'love_helper', 'output_helper'));
     
     echo getListenings($_REQUEST);
   }

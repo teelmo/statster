@@ -36,7 +36,7 @@
 }
 
 /* Smart phone */
-@media all and (max-width: 410px) {
+@media all and (max-width: 500px) {
   div#leftCont,
   div#topCont {
     width: 100%;
@@ -61,6 +61,7 @@
   img.img300 {
     width: 200px;
   }
+  div.userInfo,
   div.albumInfo,
   div.artistInfo {
     margin-left: 210px;

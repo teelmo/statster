@@ -132,5 +132,18 @@ class Ajax extends CI_Controller {
       exit (ERR_NO_RESULTS);
     }
   }
+
+  public function userMosaik() {
+    if (!empty($_POST)) {
+      // Load helpers
+      $this->load->helper(array('img_helper'));
+
+      $this->load->view('templates/user_mosaik', $_POST);
+      header('HTTP/1.1 200 OK');
+    }
+    else {
+      exit (ERR_NO_RESULTS);
+    }
+  }
 }
 ?>

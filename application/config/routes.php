@@ -73,6 +73,12 @@ $route['listener'] = "music/listener";
 $route['listener/(:any)/(:any)'] = "music/listener/$1/$2";
 $route['listener/(:any)'] = "music/listener/$1";
 
+
+/* Recent page's routes */
+$route['user/profile/(:any)'] = "user/profile/$1";
+$route['user/(:any)'] = "user/profile/$1";
+$route['user/profile'] = "user";
+
 /* Meta page's routes */
 $route['about'] = "main/about";
 $route['career'] = "main/career";

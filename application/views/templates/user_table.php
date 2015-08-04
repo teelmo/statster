@@ -47,11 +47,11 @@ if (!empty($json_data)) {
         }
         ?>
         <td class="img<?=$size?> userImg">
-          <?=anchor(array('user', 'profile', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg img' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
+          <?=anchor(array('user', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg img' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
         </td>
         <td class="title">
           <div class="title">
-            <?=anchor(array('user', 'profile', url_title($row['username'])), $row['username'], array('title' => 'Browse to user profile'))?>
+            <?=anchor(array('user', url_title($row['username'])), $row['username'], array('title' => 'Browse to user profile'))?>
           </div>
           <?php
           if (empty($hide['date'])) {
