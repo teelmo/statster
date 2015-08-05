@@ -107,7 +107,7 @@ $.extend(view, {
     $.ajax({
       type:'GET',
       dataType:'json',
-      url:'/api/user/get',
+      url:'/api/listener/get',
       data:{
         limit:6,
         artist_name:'<?php echo $artist_name?>',
