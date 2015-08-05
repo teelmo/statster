@@ -17,7 +17,7 @@
         <div><span class="value"><?=date_diff(date_create($birthday), date_create('today'))->y;?> years</span></div>
         <?php
       }
-      if (!empty($homepage)) {
+      if (!empty($homepage) && $homepage != 'http://') {
         ?>
         <div><span class="value"><?=anchor($homepage, $homepage, array('title' => 'Homepage'))?></span></div>
         <?php
@@ -26,10 +26,39 @@
       <div><?=$about?></div>
     </div>
   </div>
+  <div class="clear"></div>
+  <div class="container">
+    <h2>Recent listenings</h2>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="recentlyListenedLoader"/>
+    <table id="recentlyListened" class="chartTable"><!-- Content is loaded with AJAX --></table>
+    <div class="more">
+      <?=anchor('recent', 'See more/edit', array('title' => 'Browse more listenings'))?>
+    </div>
+  </div>
+  <div class="container"><hr /></div>
+  <div class="container">
+    <h2>Favorite artist</h2>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id=""/>
+  </div>
+  <div class="container"><hr /></div>
+  <div class="container">
+    <h2>Favorite albums</h2>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id=""/>
+  </div>
+  <div class="container"><hr /></div>
+  <div class="container">
+    <h2>Favorite genres</h2>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id=""/>
+  </div>
+  <div class="container"><hr /></div>
 </div>
 
 <div id="rightCont">
   <div class="container">
-    <h1></h1>
+    <h1>Statistics</h1>
+    <div>Number of listenings</div>
+    <div>Joined</div>
+    <h2>Activity</h2>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id=""/>
   </div>
 </div>

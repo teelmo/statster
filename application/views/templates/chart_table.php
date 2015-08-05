@@ -72,9 +72,15 @@ if (!empty($json_data)) {
             <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon listeningFormatType"/>
           </td>
           <td class="datetime textRight"><?php echo !empty($datetime) ? $datetime : timeAgo($row['date'])?></td>
-          <td class="img userImg">
-            <?=anchor(array('user', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg img' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
-          </td>
+          <?php
+          if (empty($hide['user'])) {
+            ?>
+            <td class="img userImg">
+              <?=anchor(array('user', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg img' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
+            </td>
+            <?php
+          }
+          ?>
         </tr>
         <?php
       }

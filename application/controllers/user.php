@@ -11,9 +11,13 @@ class User extends CI_Controller {
 
   public function profile($username) {
     $this->load->helper(array('user_helper', 'img_helper'));
-    $data = array();
+
     $data['username'] = $username;
+    
     if ($data = getUser($data)) {
+      $data['js_include'] = array('profile');
+      $data['username'] = $this->uri->segment(2);
+      
       $this->load->view('templates/header');
       $this->load->view('user/profile_view', $data);
       $this->load->view('templates/footer');
