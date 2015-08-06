@@ -3,7 +3,7 @@ $.extend(view, {
     $.ajax({
       type:'GET',
       dataType:'json',
-      url:'/api/user/get',
+      url:'/api/listener/get',
       data:{
         album_name:'<?php echo $album_name?>',
         artist_name:'<?php echo $artist_name?>',
