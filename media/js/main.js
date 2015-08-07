@@ -65,7 +65,8 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',url:'/ajax/albumList/124',
+            type:'POST',
+            url:'/ajax/albumList/124',
             data:{
               json_data:data,
             },
@@ -207,11 +208,11 @@ $.extend(view, {
       }
     });
   },
-  initMainEvents: function () {
+  initAutocomplete: function () {
     $('#addListeningText').focus();
     $('#addListeningText').autocomplete({
-      minLength:3,
       html:true,
+      minLength:3,
       source:'/autoComplete/addListening',
       search: function () {
         $(this).addClass('working');
@@ -220,7 +221,38 @@ $.extend(view, {
         $(this).removeClass('working');
       }
     });
-
+  },
+  initDatepicker: function () {
+    $('#addListeningDate').datepicker({
+      dateFormat:'yy-mm-dd',
+      firstDay:1,
+      maxDate:'today',
+      selectOtherMonths:true,
+      showAnim:'slideDown',
+      showOtherMonths:true
+    });
+    $('#addListeningDate').change(function () {
+      setTimeout(function () {
+        $('#addListeningDate').val('<?=CUR_DATE?>');
+      }, 60 * 2 * 1000);
+    });
+  },
+  initKeystop: function () {
+    var keyStop = {
+      8:':not(input:text,textarea,input:file,input:password)',
+      13:'input:text,input:password',
+      end:null
+    }
+    $(document).bind('keydown', function (event) {
+      var selector = keyStop[event.which];
+      if (selector !== undefined && $(event.target).is(selector)) {
+        event.preventDefault();
+      }
+      return true;
+    });
+  },
+  initMainEvents: function () {
+    // Listening format click.
     $('.listeningFormat').click(function () {
       if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
@@ -230,7 +262,7 @@ $.extend(view, {
         $(this).addClass('selected');
       }
     });
-
+    // Listening format keypress.
     $('.listeningFormat').keypress(function (e) {
       var code = (e.keyCode ? e.keyCode : e.which);
       if (code == 13) {
@@ -245,27 +277,6 @@ $.extend(view, {
         }
       }
     });
-
-    // $('#addListeningShowmore').click(function () {
-    //   $('.listeningFormat').removeClass('hidden');
-    //   $(this).remove();
-    // });
-
-    // $('#addListeningShowmore').keypress(function (e) {
-    //   var code = (e.keyCode ? e.keyCode : e.which);
-    //   if (code === 13) {
-    //     $('.listeningFormat').removeClass('hidden');
-    //     $(this).remove();
-    //   }
-    // });
-
-    $('#recentlyListened').hover(function () {
-      var currentTime = new Date();    
-      if ((currentTime.getTime() - $('#recentlyUpdated').attr('value') > (60 * 2 * 1000))) {
-        view.getRecentListenings();
-      }
-    });
-
     $('#addListeningSubmit').click(function () {
       var text_value = $('#addListeningText').val();
       var format_value = $('input[name="addListeningFormat"]:checked').val()
@@ -304,28 +315,25 @@ $.extend(view, {
       });
       return false;
     });
-
-    $('#addListeningDate').datepicker({
-      dateFormat:'yy-mm-dd',maxDate:'today',showOtherMonths:true,selectOtherMonths:true,showAnim:'slideDown',firstDay:1
-    });
-    $('#addListeningDate').change(function () {
-      setTimeout(function () {
-        $('#addListeningDate').val('<?=CUR_DATE?>');
-      }, 60 * 2 * 1000);
-    });
-
-    var keyStop = {
-      8:':not(input:text,textarea,input:file,input:password)',
-      13:'input:text,input:password',
-      end: null
-    }
-    $(document).bind('keydown', function (event) {
-      var selector = keyStop[event.which];
-      if (selector !== undefined && $(event.target).is(selector)) {
-        event.preventDefault();
+    // Recently listened hover keypress.
+    $('#recentlyListened').hover(function () {
+      var currentTime = new Date();    
+      if ((currentTime.getTime() - $('#recentlyUpdated').attr('value') > (60 * 2 * 1000)) && $.active < 1) {
+        view.getRecentListenings();
       }
-      return true;
     });
+    // $('#addListeningShowmore').click(function () {
+    //   $('.listeningFormat').removeClass('hidden');
+    //   $(this).remove();
+    // });
+
+    // $('#addListeningShowmore').keypress(function (e) {
+    //   var code = (e.keyCode ? e.keyCode : e.which);
+    //   if (code === 13) {
+    //     $('.listeningFormat').removeClass('hidden');
+    //     $(this).remove();
+    //   }
+    // });
   }
 });
 
@@ -334,5 +342,8 @@ $(document).ready(function () {
   view.getTopArtists();
   view.getRecommentedTopAlbum();
   view.getRecommentedNewAlbum();
+  view.initAutocomplete();
+  view.initDatepicker();
+  view.initKeystop();
   view.initMainEvents();
 });
