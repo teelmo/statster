@@ -4,14 +4,24 @@
     <title><?=TITLE?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery -->
     <script type="text/javascript" src="/media/js/libs/jquery-1.10.2.min.js"></script>
+    <!-- jQuery UI -->
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
+    <!-- jQuery Chosen -->
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
+    <!-- Mousetrap -->
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
+    <!-- Dropdown -->
     <script type="text/javascript" src="/media/js/libs/dropdown.js"></script>
     <script type="text/javascript" src="/media/js/statster.js"></script>
     <?php
+    echo link_tag('media/css/reset.css');
+    echo link_tag('media/css/libs/jquery-ui-1.10.3.custom.min.css');
+    echo link_tag('media/css/libs/chosen.css');
+    echo link_tag('media/css/jquery.autocomplete.css');
     echo link_tag('media/css/styles.css');
+    echo link_tag('media/css/responsive.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>
