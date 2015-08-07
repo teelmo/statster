@@ -17,6 +17,7 @@ class User extends CI_Controller {
     if ($data = getUser($data)) {
       $data['js_include'] = array('profile');
       $data['username'] = $this->uri->segment(2);
+      $data['interval'] = 0;
       
       $this->load->view('templates/header');
       $this->load->view('user/profile_view', $data);
