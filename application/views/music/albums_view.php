@@ -1,6 +1,6 @@
 <div id="leftCont">
   <div class="container">
-    <h1>Top albums</h1>
+    <h1>Albums</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbum10Loader"/>
     <ul id="topAlbum10" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader"/>
@@ -11,7 +11,7 @@
 
 <div id="rightCont">
   <div class="container">
-    <h1>Yearly top</h1>
+    <h1>Yearly</h1>
   </div>
   <div id="years"><!-- Content is loaded with AJAX --></div>
 </div>

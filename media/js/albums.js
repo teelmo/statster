@@ -5,7 +5,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/album/get',
       data:{
-        limit:8,
+        limit:10,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'

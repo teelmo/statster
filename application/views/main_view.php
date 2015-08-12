@@ -26,20 +26,19 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h2>
+    <h1>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chartTable" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
     <div class="more">
-      <?=anchor('recent', 'See more/edit', array('title' => 'Browse more listenings'))?>
+      <?=anchor('recent', 'More listenings', array('title' => 'Browse more listenings'))?>
     </div>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h2>Hot albums</h2>
+    <h1>Hot albums</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
     <ul id="topAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
-  <div class="container"><hr /></div>
 </div>
 <div id="rightCont">
   <div class="container">
@@ -68,18 +67,5 @@
     <h2>Recently released</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedNewAlbumLoader" />
     <table id="recommentedNewAlbum" class="sideTable"><!-- Content is loaded with AJAX --></table>
-  </div>
-  <div class="container"><hr /></div>
-  <!--<div class="container">
-    <h1>Latest blog posts</h1>
-  </div>
-  <div class="container"><hr /></div>-->
-  <div class="container">
-    <h1>Browse Statster</h1>
-    <ul class="noBullets">
-      <li>&raquo; <?=anchor(array('music'), 'Browse music', array('title' => 'Browse music'))?></li>
-      <li>&raquo; <?=anchor(array('tag'), 'Browse tags', array('title' => 'Browse tags'))?></li>
-      <!--<li>&raquo; <?=anchor(array('user'), 'Browse users', array('title' => 'Browse users'))?></li>-->
-    </ul>
   </div>
 </div>

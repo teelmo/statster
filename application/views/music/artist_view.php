@@ -72,13 +72,13 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h2>Artist's albums</h2>
+    <h2>Albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
     <ul id="artistAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h2>Similar artists</h2>
+    <h2>Similar</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="similarArtistLoader"/>
     <ul id="similarArtist" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
@@ -97,7 +97,7 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
     <table id="topListener" class="sideTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
-      <?=anchor(array('listener', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'))?>
+      <?=anchor(array('listener', url_title($artist_name)), 'More listeners', array('title' => 'Browse more listenings'))?>
     </div>
   </div>
   <div class="container"><hr /></div>
@@ -106,7 +106,7 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="sideTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
-      <?=anchor(array('recent', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'))?>
+      <?=anchor(array('recent', url_title($artist_name)), 'More listenings', array('title' => 'Browse more listenings'))?>
     </div>
   </div>
   <div class="container"><hr /></div>
@@ -115,7 +115,7 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistEventLoader"/>
     <table id="artistEvent" class="sideTable"><!-- Content is loaded with AJAX --></table>
     <div class="more">
-      <?=anchor('http://www.last.fm/music/' . urlencode($artist_name) . '/+events', 'See more', array('title' => 'Browse more events'))?>
+      <?=anchor('http://www.last.fm/music/' . urlencode($artist_name) . '/+events', 'More events', array('title' => 'Browse more events'))?>
     </div>
   </div>
 </div>

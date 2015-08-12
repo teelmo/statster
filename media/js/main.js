@@ -15,7 +15,8 @@ $.extend(view, {
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',url:'/ajax/chartTable',
+            type:'POST',
+            url:'/ajax/chartTable',
             data:{
               json_data:data,
               hide:{
@@ -32,7 +33,7 @@ $.extend(view, {
               if (minutes < 10) {
                 minutes = '0' + minutes;
               }
-              $('#recentlyUpdated').html('updated '+ hours + ':' + minutes);
+              $('#recentlyUpdated').html('updated ' + hours + ':' + minutes);
               $('#recentlyUpdated').attr('value', currentTime.getTime());
             }
           })
@@ -44,7 +45,7 @@ $.extend(view, {
         400: function (data) {alert('400 Bad Request')}
       },
       complete: function () {
-        setTimeout(view.getRecentListenings, 60 * 10 * 1000);
+        // setTimeout(view.getRecentListenings, 60 * 10 * 1000);
         if (callback != undefined) {
           callback();
         }
@@ -58,7 +59,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/album/get',
       data:{
-        limit:8,
+        limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
@@ -285,7 +286,9 @@ $.extend(view, {
       $('input[name="addListeningFormat"]').prop('checked', false);
       $('img.listeningFormat').removeClass('selected');
       $.ajax({
-        type:'POST',dataType:'json',url:'/api/listening/add',
+        type:'POST',
+        dataType:'json',
+        url:'/api/listening/add',
         data:{
           text:text_value,
           format:format_value,

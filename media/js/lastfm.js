@@ -6,7 +6,7 @@ $.extend(view, {
       url:'/api/lastfm/getSimilar',
       data:{
         artist_name:'<?php echo $artist_name?>',
-        limit:4
+        limit:5
       },
       statusCode: {
         200: function (data) {
