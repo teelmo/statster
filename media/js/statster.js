@@ -40,7 +40,7 @@ var app = {
     });
   },
   initStatsterEvents: function () {
-    $('#searchString').autocomplete({
+    $('.search_text').autocomplete({
       minLength:3,
       html:true,
       source:'/autoComplete/search',

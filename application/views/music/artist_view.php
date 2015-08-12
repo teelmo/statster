@@ -54,10 +54,10 @@
       <br />
       <div>
         <div>
-          <div class="externalLink">
+          <div class="external_link">
             <?=anchor('http://spotify', '<img src="' . site_url() . '/media/img/format_img/format_icons/spotify.png" alt="" class="icon" /> Search on Spotify')?>
           </div>
-          <div class="externalLink">
+          <div class="external_link">
             <?=anchor('http://lastfm', '<img src="' . site_url() . '/media/img/format_img/format_icons/lastfm.png" alt="" class="icon" /> Search on Last.fm')?>
           </div>
         </div>

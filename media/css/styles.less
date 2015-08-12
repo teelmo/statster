@@ -449,10 +449,9 @@ form#addListeningForm {
     }
   }
 }
-form#searchForm,
 form#addListeningForm {
   input[type="text"].working {
-    background: #ff0 url('/media/img/ajax-loader-circle.gif') no-repeat 90% 50%;
+    background: #fff url('/media/img/ajax-loader-circle.gif') no-repeat 99% 50%;
   }
 }
 form#composeForm {
@@ -492,14 +491,17 @@ form#loginForm input[type="text"] {
 .search_container {
   position: relative;
   .search_form input {
-    background-color: #fff;
-    color: #bebebf;
-    border: 0;
     .border-radius(10px);
+    background-color: #fff;
+    border: 0;
+    color: #bebebf;
     font-size: 15px;
     margin-right: -20px;
     padding: 5px 30px 5px 7px;
     width: 250px;
+    &.working {
+      background: #fff url('/media/img/ajax-loader-circle.gif') no-repeat 89% 50%;
+    }
     &:hover {
       background-color: #f9f9f9;
       color: #bebebf;
