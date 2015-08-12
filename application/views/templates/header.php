@@ -62,6 +62,5 @@
       <div id="topLinks">
         <?=anchor(array(''), 'Overview')?>
         <?=anchor(array('music'), 'Music')?>
-        <?=anchor(array('tag'), 'Tags')?>
         <?=anchor(array('user'), 'Users')?>
       </div>

@@ -60,11 +60,11 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h1>Statster recommends</h1>
+    <h1>What's hot</h1>
     <h2>Popular albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
     <table id="recommentedTopAlbum" class="sideTable"><!-- Content is loaded with AJAX --></table>
-    <h2>Recently released</h2>
+    <h2>New releases</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedNewAlbumLoader" />
     <table id="recommentedNewAlbum" class="sideTable"><!-- Content is loaded with AJAX --></table>
   </div>

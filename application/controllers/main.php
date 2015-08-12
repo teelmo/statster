@@ -8,7 +8,7 @@ class Main extends CI_Controller {
 
       $data = array();
       $data['js_include'] = array('main');
-      $data['interval'] = 12;
+      $data['interval'] = 14;
       
       $this->load->view('templates/header');
       $this->load->view('main_view', $data);
