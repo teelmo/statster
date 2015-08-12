@@ -46,8 +46,8 @@ $.extend(view, {
             data:{
               json_data:data,
               size:32,
-              rank:9,
-              hide: vars.hide
+              rank:11,
+              hide:vars.hide
             },
             success: function (data) {
               $(vars.container + 'Loader').hide();
@@ -60,7 +60,7 @@ $.extend(view, {
   },
   topArtistYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-      $('<div class="container"><h2>' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist' + year + 'Loader"/><table id="topArtist' + year + '" class="sideTable"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More from ' + year + '</a></div></div><div class="container"><hr /></div>').appendTo($('#years'));
+      $('<div class="container"><h2>' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist' + year + 'Loader"/><table id="topArtist' + year + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More ' + year + '</a></div></div><div class="container"><hr /></div>').appendTo($('#years'));
       vars = {
         container:'#topArtist' + year,
         limit:'0,5',
@@ -79,7 +79,7 @@ $(document).ready(function () {
   view.topArtist10('<?=$lower_limit?>', '<?=$upper_limit?>');
   vars = {
     container:'#topArtist',
-    limit:'8, 200',
+    limit:'10, 200',
     template:'/ajax/barTable'
   }
   view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>', vars);

@@ -1,10 +1,10 @@
 <div id="leftCont">
   <div class="container">
-    <h1>Artists</h1>
+    <h1><?=$title?></h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist10Loader"/>
-    <ul id="topArtist10" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
+    <ul id="topArtist10" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader"/>
-    <table id="topArtist" class="barTable bigBarTable"><!-- Content is loaded with AJAX --></table>
+    <table id="topArtist" class="bar_table full"><!-- Content is loaded with AJAX --></table>
   </div>
 </div>
 

@@ -28,7 +28,7 @@
   <div class="container">
     <h1>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
-    <table id="recentlyListened" class="chartTable" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyListened" class="chart_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
     <div class="more">
       <?=anchor('recent', 'More listenings', array('title' => 'Browse more listenings'))?>
     </div>
@@ -37,7 +37,7 @@
   <div class="container">
     <h1>Hot albums</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
-    <ul id="topAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
+    <ul id="topAlbum" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
   </div>
 </div>
 <div id="rightCont">
@@ -56,16 +56,16 @@
     -->
     <h2>Hot artists</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
-    <table id="topArtist" class="barTable"><!-- Content is loaded with AJAX --></table>
+    <table id="topArtist" class="bar_table"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
     <h1>What's hot</h1>
     <h2>Popular albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
-    <table id="recommentedTopAlbum" class="sideTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recommentedTopAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
     <h2>New releases</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedNewAlbumLoader" />
-    <table id="recommentedNewAlbum" class="sideTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recommentedNewAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
   </div>
 </div>

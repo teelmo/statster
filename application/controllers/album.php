@@ -9,9 +9,10 @@ class Album extends CI_Controller {
     $data['js_include'] = array('albums');
     $data['lower_limit'] = '1970-01-01';
     $data['upper_limit'] = CUR_DATE;
+    $data['title'] = 'Artists';
 
     $this->load->view('templates/header');
-    $this->load->view('music/albums_view');
+    $this->load->view('music/albums_view', $data);
     $this->load->view('templates/footer', $data);
   }
 
@@ -19,16 +20,18 @@ class Album extends CI_Controller {
     if ($month != FALSE) {
       $data['lower_limit'] = $year . '-' . $month . '-' . '00'; 
       $data['upper_limit'] = $year . '-' . $month . '-' . '31';
+      $data['title'] = 'Artists <span class="meta">' . $year . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year . '</span>';
     }
     else {
       $data['lower_limit'] = $year . '-00-' . '00'; 
       $data['upper_limit'] = $year . '-12-' . '31';
+      $data['title'] = 'Artists <span class="meta">' . $year . '</span>';
     }
 
     $data['js_include'] = array('albums');
 
     $this->load->view('templates/header');
-    $this->load->view('music/albums_view');
+    $this->load->view('music/albums_view', $data);
     $this->load->view('templates/footer', $data);
   }
 }
