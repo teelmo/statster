@@ -30,24 +30,24 @@
     </div>
   </div>
   <div class="container">
-    <div class="floatLeft">
+    <div class="float_left">
       <img src="<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>" alt="" class="artistImg img300" />
     </div>
-    <div class="artistInfo">
-      <div class="floatLeft">
+    <div class="artist_info">
+      <div class="float_left">
         <div class="count"><?=$total_count?></div><div class="desc"> listenings</div>
       </div>
       <?php
       if (!empty($user_count)) {
         ?>
-        <div class="floatLeft">
+        <div class="float_left">
           <div class="count"><small><?=$user_count?></small></div><div class="desc">in your library</div>
         </div>
         <?php
       }
       ?>
-      <h3 class="artistFan floatLeft">Artist's fans</h3>
       <div>
+      <h3 class="artistFan float_left">Artist's fans</h3>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/>
         <ul id="artistFan" class="likeList noBullets"><!-- Content is loaded with AJAX --></ul>
       </div>

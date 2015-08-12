@@ -14,6 +14,12 @@
   }
 }
 
+@media all and (max-width: 700px) {
+  div#topCont .inner .search_container {
+    display: none;
+  }
+}
+
 /* Smart phone */
 @media all and (max-width: 500px) {
   div#leftCont {
@@ -27,6 +33,9 @@
   .artist,
   .external_link,
   .socialMedia {
+    display: none;
+  }
+  div#leftContInner {
     display: none;
   }
   div#leftContOuter {
@@ -44,12 +53,6 @@
     margin-left: 210px;
   }
   img.desktopFormat {
-    display: none;
-  }
-}
-
-@media all and (max-width: 430px) {
-  div#topCont .inner .search_container {
     display: none;
   }
 }

@@ -3,8 +3,8 @@
     <h1><div class="desc"><?=anchor(array('user'), 'Users', array('title' => 'Browse to artist\'s page'))?></div><?=$username?></h1>
   </div>
   <div class="container">
-    <div class="floatLeft"><img src="<?=getUserImg(array('user_id' => $id, 'size' => 300))?>" alt="" class="userImg img300" /></div>
-    <div class="userInfo">
+    <div class="float_left"><img src="<?=getUserImg(array('user_id' => $id, 'size' => 300))?>" alt="" class="userImg img300" /></div>
+    <div class="user_info">
       <?php
       if (!empty($real_name)) {
         ?>

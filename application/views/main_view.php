@@ -3,11 +3,11 @@
     <!--<h1></h1>-->
     <br />
     <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
-      <div id="addListeningDateContainer" class="listeningDate">
+      <div id="addListeningDateContainer" class="listening_date">
         Listening date: <input name="date" title="Change date" id="addListeningDate" value="<?=CUR_DATE?>" />
       </div>
       <div>
-        <input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="What&rsquo;s ya listening?" name="addListeningText" />
+        <input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="♪ ♪ ♪" name="addListeningText" />
       </div>
       <div>
         <input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="Statster" />

@@ -1,6 +1,6 @@
 $(document).ready(function() {
   // User dropdown menu
-  $('.userContDropdown').click(function() {
+  $('.user_container').click(function() {
     var sub_nav = $(this).parent().find('ul.subnav');
     if(sub_nav.is(':visible')) {
       sub_nav.slideUp('fast');

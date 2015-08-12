@@ -35,9 +35,9 @@ if (!empty($json_data)) {
               <span class="artist"><?=anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'))?>
                 <?=DASH?>
               </span>
-              <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'))?>
+              <span class="album"><?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'))?></span>
               <span class="year">
-                <?=anchor(array('tag', 'release+year', url_title($row['year'])), '<span class="albumYear">(' . $row['year'] . ')</span>', array('title' => 'Browse albums'))?>
+                <?=anchor(array('tag', 'release+year', url_title($row['year'])), '<span class="album_year">' . $row['year'] . '</span>', array('title' => 'Browse albums'))?>
               </span>
             </span>
             <?php
@@ -71,7 +71,7 @@ if (!empty($json_data)) {
             ?>
             <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon listeningFormatType"/>
           </td>
-          <td class="datetime textRight"><?php echo !empty($datetime) ? $datetime : timeAgo($row['date'])?></td>
+          <td class="datetime text_right"><?php echo !empty($datetime) ? $datetime : timeAgo($row['date'])?></td>
           <?php
           if (empty($hide['user'])) {
             ?>

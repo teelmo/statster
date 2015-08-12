@@ -20,7 +20,7 @@
   <body>
     <div id="topCont">
       <div class="inner">
-        <div class="floatLeft">
+        <div class="float_left">
           <div class="search_container">
             <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="search_form">
               <input type="text" class="middle search_text" autocomplete="off" tabindex="10" placeholder="search…" name="searchStr" />
@@ -28,11 +28,16 @@
             </form>
           </div>
         </div>
-        <div class="floatRight">
+        <div class="float_right">
+          <div class="top_links">
+            <?=anchor(array(''), 'Overview')?>
+            <?=anchor(array('music'), 'Music')?>
+            <?=anchor(array('user'), 'Users')?>
+          </div>
           <?php
           if ($this->session->userdata('logged_in') === TRUE) {
             ?>
-            <div id="userCont" class="userContDropdown">
+            <div class="user_container">
               <span class="profile_text"><?=$this->session->userdata('username')?></span>
               <span class="profile_img" style="background-image: url('<?=$this->session->userdata('user_image')?>');"><img src="<?=$this->session->userdata('user_image')?>" alt="" /></span>
               <ul class="subnav" style="display: none;">
@@ -57,10 +62,9 @@
         </div>
       </div>
     </div>
-    <div id="logoCont"></div>
     <div id="mainCont">
-      <div id="topLinks">
-        <?=anchor(array(''), 'Overview')?>
-        <?=anchor(array('music'), 'Music')?>
-        <?=anchor(array('user'), 'Users')?>
+      <div class="page_links">
+        <?=anchor(array('artist'), 'Artists')?>
+        <?=anchor(array('album'), 'Albums')?>
+        <?=anchor(array('tag'), 'Tags')?>
       </div>

@@ -1,7 +1,7 @@
 <div id="leftCont">
   <div class="container">
     <span id="love"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/></span>
-    <h1><div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div><?=$album_name?> <span class="albumYear">(<?=$year?>)</span></h1>
+    <h1><div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div><?=$album_name?> <span class="album_year"><?=$year?></span></h1>
   </div>
   <div class="container">
     <div class="tags">
@@ -30,23 +30,23 @@
     </div>
   </div>
   <div class="container">
-    <div class="floatLeft">
+    <div class="float_left">
       <img src="<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>" alt="" class="albumImg img300" />
     </div>
-    <div class="albumInfo">
-      <div class="floatLeft">
+    <div class="album_info">
+      <div class="float_left">
         <div class="count"><?=$total_count?></div><div class="desc"> listenings</div>
       </div>
       <?php
       if (!empty($user_count)) {
         ?>
-        <div class="floatLeft">
+        <div class="float_left">
           <div class="count"><small><?=$user_count?></small></div><div class="desc">in your library</div>
         </div>
         <?php
       }
       ?>
-      <h3 class="albumLove floatLeft">Album's loves</h3>
+      <h3 class="albumLove float_left">Album's loves</h3>
       <div>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
         <ul id="albumLove" class="likeList noBullets"><!-- Content is loaded with AJAX --></ul>
