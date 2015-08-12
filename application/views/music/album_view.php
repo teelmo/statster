@@ -34,34 +34,19 @@
       <img src="<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>" alt="" class="albumImg img300" />
     </div>
     <div class="album_info">
-      <div class="float_left">
-        <div class="count"><?=$total_count?></div><div class="desc"> listenings</div>
-      </div>
-      <?php
-      if (!empty($user_count)) {
-        ?>
-        <div class="float_left">
-          <div class="count"><small><?=$user_count?></small></div><div class="desc">in your library</div>
-        </div>
+      <div class="listening_count">
+        <div class="nowrap"><span class="value"><?=$total_count?></span> <span class="label"> times listened</span></div>
         <?php
-      }
-      ?>
-      <h3 class="albumLove float_left">Album's loves</h3>
-      <div>
-        <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
-        <ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
+        if (!empty($user_count)) {
+          ?>
+          <div class="nowrap"><span class="value"><?=$user_count?></span> <span class="label">in your library</span></div>
+          <?php
+        }
+        ?>
       </div>
-      <br />
-      <div>
-        <div>
-          <div class="external_link">
-            <?=anchor('http://spotify', '<img src="' . site_url() . '/media/img/format_img/format_icons/spotify.png" alt="" class="icon" /> Search on Spotify')?>
-          </div>
-          <div class="external_link">
-            <?=anchor('http://lastfm', '<img src="' . site_url() . '/media/img/format_img/format_icons/lastfm.png" alt="" class="icon" /> Search on Last.fm')?>
-          </div>
-        </div>
-      </div>
+      <h3 class="album_love">Album's loves</h3>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
+      <ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>      
     </div>
   </div>
   <div class="clear"></div>
