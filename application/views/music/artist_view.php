@@ -88,7 +88,6 @@
     <h2>Shoutbox</h2>
   </div>
   -->
-  <div class="container"><hr /></div>
 </div>
 <div id="rightCont">
   <div class="container">

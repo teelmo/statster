@@ -20,7 +20,6 @@
       </fieldset>
     </form>
   </div>
-  <div class="container"><hr /></div>
 </div>
 
 <div id="rightCont">

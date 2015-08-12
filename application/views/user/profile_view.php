@@ -58,7 +58,6 @@
     <h2>Favorite genres</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id=""/>
   </div>
-  <div class="container"><hr /></div>
 </div>
 
 <div id="rightCont">

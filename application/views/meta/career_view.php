@@ -12,7 +12,6 @@
       Updated: 2. of July 2012
     </p>
   </div>
-  <div class="container"><hr /></div>
 </div>
 
 <div id="rightCont">

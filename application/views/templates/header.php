@@ -60,7 +60,7 @@
     <div id="logoCont"></div>
     <div id="mainCont">
       <div id="topLinks">
-        <?=anchor(array(''), 'What\'s new')?>
+        <?=anchor(array(''), 'Overview')?>
         <?=anchor(array('music'), 'Music')?>
         <?=anchor(array('tag'), 'Tags')?>
         <?=anchor(array('user'), 'Users')?>

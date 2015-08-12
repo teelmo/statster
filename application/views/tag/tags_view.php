@@ -6,7 +6,6 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popular<?=$tag_type?>Loader" />
     <table id="popular<?=$tag_type?>" class="genre<?=$tag_type?>"><!-- Content is loaded with AJAX --></table>
   </div>
-  <div class="container"><hr /></div>
 </div>
 
 <div id="rightCont">

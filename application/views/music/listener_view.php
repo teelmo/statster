@@ -17,7 +17,6 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
     <table id="topListener" class="sideTable sideTableLeftCont"><!-- Content is loaded with AJAX --></table>
   </div>
-  <div class="container"><hr /></div>
 </div>
 <div id="rightCont">
   <div class="container">

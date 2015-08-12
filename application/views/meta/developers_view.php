@@ -70,7 +70,6 @@
       Updated: 10. of November 2012
     </p>
   </div>
-  <div class="container"><hr /></div>
 </div>
 
 <div id="rightCont">

@@ -82,14 +82,12 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="similarArtistLoader"/>
     <ul id="similarArtist" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
   </div>
-
   <!--
   <div class="container"><hr /></div>
   <div class="container">
     <h2>Shoutbox</h2>
   </div>
   -->
-  <div class="container"><hr /></div>
 </div>
 <div id="rightCont">
   <div class="container">
