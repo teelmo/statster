@@ -10,7 +10,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/genre/get',
       data:{
-        limit:35,
+        limit:45,
         lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
@@ -77,7 +77,7 @@ $.extend(view, {
       url:'/api/fan/get',
       data:{
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        limit: 10
+        limit:15
       },
       statusCode:{
         200: function (data) {
@@ -106,7 +106,7 @@ $.extend(view, {
       url:'/api/love/get',
       data:{
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        limit: 10
+        limit:15
       },
       statusCode:{
         200: function (data) {
