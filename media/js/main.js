@@ -129,7 +129,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/recommentedTopAlbum',
       data:{
-        limit:10,
+        limit:15,
         lower_limit:'<?=date('Y-m-d', time() - (90 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>' 
       },
@@ -140,7 +140,7 @@ $.extend(view, {
             url:'/ajax/sideTable',
             data:{
               json_data:data,
-              limit:3,
+              limit:4,
               hide:{
                 artist:true,
                 count:true,
@@ -172,7 +172,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/recommentedNewAlbum',
       data:{
-        limit:10,
+        limit:15,
         order_by:'album.year DESC, album.created DESC',
         lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
@@ -184,7 +184,7 @@ $.extend(view, {
             url:'/ajax/sideTable',
             data:{
               json_data:data,
-              limit:3,
+              limit:4,
               hide:{
                 artist:true,
                 count:true,
