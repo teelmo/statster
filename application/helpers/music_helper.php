@@ -5,8 +5,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * Returns top artists for the given user.
   *
   * @param array $opts.
-  *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
-  *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
@@ -62,8 +62,8 @@ if (!function_exists('getArtists')) {
   * Returns top albums for the given user.
   *
   * @param array $opts.
-  *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
-  *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
   *          'artist_name'     => Artist name
   *          'album_name'      => Album name
@@ -125,8 +125,8 @@ if (!function_exists('getAlbums')) {
   * Returns top albums for the given user.
   *
   * @param array $opts.
-  *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
-  *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
   *          'artist_name'     => Artist name
   *          'album_name'      => Album name

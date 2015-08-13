@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'username'        => Username
   *          'artist_name'     => Artist name
   *          'album_name'      => Album name
-  *          'date'            => Listening date in yyyy/mm/dd format
+  *          'date'            => Listening date in yyyy-mm-dd format
   *          'limit'           => Limit
   *          'human_readable'  => Output format
   *

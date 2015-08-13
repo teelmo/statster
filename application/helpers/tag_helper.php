@@ -5,8 +5,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
  * Returns top genres for the given user.
  *
  * @param array $opts.
- *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
- *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+ *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+ *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
  *          'username'        => Username
  *          'artist'          => Artist name
  *          'album'           => Album name
@@ -58,8 +58,8 @@ if (!function_exists('getGenres')) {
  * Returns top keywords for the given user.
  *
  * @param array $opts.
- *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
- *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+ *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+ *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
  *          'username'        => Username
  *          'artist'          => Artist name
  *          'album'           => Album name
@@ -111,8 +111,8 @@ if (!function_exists('getKeywords')) {
  * Returns top nationalities for the given user.
  *
  * @param array $opts.
- *          'lower_limit'     => Lower date limit in yyyy/mm/dd format
- *          'upper_limit'     => Upper date limit in yyyy/mm/dd format
+ *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+ *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
  *          'username'        => Username
  *          'artist'          => Artist name
  *          'album'           => Album name
