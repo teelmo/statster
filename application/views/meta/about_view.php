@@ -9,25 +9,15 @@
   </div>
   <div class="container">
     <h2>Team</h2>
-    <p>
-      <strong>Teemo Tebest</strong>
-    </p>
-    <p>
-      Founder and main developer.
-    </p>
-  </div>
-  <div class="container">
-    <h2>Contact</h2>
-    <p>
-      <strong>Email</strong>
-    </p>
-    <p>
-      email: teemo (dot) tebest (at) gmail (dot) com
-    </p>
+    <h3>Teemo Tebest</h3>
+    <ul>
+      <li>Founder and head developer.</li>
+      <li>teemo (dot) tebest (at) gmail (dot) com</li>
+    </ul>
   </div>
   <div class="container">
     <p class="updated">
-      Updated: 2. of July 2012
+      Updated: 13. of August 2015
     </p>
   </div>
 </div>

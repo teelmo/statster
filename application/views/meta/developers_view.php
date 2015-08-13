@@ -3,71 +3,71 @@
     <h1>Developers</h1>
   </div>
   <div class="container">
-    <p>
-      Here are the available information for the developers.
-    </p>
+    <p>Here are the available information for the developers.</p>
   </div>
+  <div class="container"><hr /></div>
   <div class="container">
-    <h2>API</h2>
-    <p>
-      HTTP API responces are in JSON-format.
-    </p>
-    <h3>api/listening</h3>
-    <h3>api/artist</h3>
-    <code>
-      Returns listened artists for the given user.</br />
-      <br  />
-      @param array $opts.</br />
-      &nbsp;&nbsp;'username' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => Username</br />
-      &nbsp;&nbsp;'order_by' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => Order by argument</br />
-      &nbsp;&nbsp;'limit' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => Limit</br />
-      &nbsp;&nbsp;'human_readable' => Output</br />
-      </br />
-      @return string JSON encoded data containing artist information.</br />
-    </code>
-    <p class="small">
-      <?=anchor('api/listAlbum?username=teelmo&order_by=artist_name+asc&limit=10&human_readable=true', 'http://statster.info/api/listAlbum?username=teelmo&order_by=artist_name+asc&limit=10&human_readable=false')?>
-    </p>
-      <h3>api/album</h3>
-    <code>
-      Returns listened albums for the given user.</br />
-      <br  />
-      @param array $opts.</br />
-      &nbsp;&nbsp;'username' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => Username</br />
-      &nbsp;&nbsp;'order_by' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => Order by argument</br />
-      &nbsp;&nbsp;'limit' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => Limit</br />
-      &nbsp;&nbsp;'human_readable' => Output</br />
-      </br />
-      @return string JSON encoded data containing album information.</br />
-    </code>
-    <p class="small">
-      <?=anchor('api/listAlbum?username=teelmo&order_by=album_name+asc&limit=10&human_readable=true', 'http://statster.info/api/listAlbum?username=teelmo&order_by=album_name+asc&limit=10&human_readable=false')?>
-    </p>
-    <h3>api/listening/get</h3>
-    <code>
-      Returns recently listened albums for the given user.</br />
-      </br />
-      @param array $opts.
-      &nbsp;&nbsp;'username' &nbsp;&nbsp;&nbsp;&nbsp; => Username</br />
-      &nbsp;&nbsp;'artist' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => Artist name</br />
-      &nbsp;&nbsp;'album' &nbsp;&nbsp;&nbsp;&nbsp; => Album name</br />
-      &nbsp;&nbsp;'date' &nbsp;&nbsp;&nbsp;&nbsp; => Listening date in yyyy/mm/dd format</br />
-      &nbsp;&nbsp;'limit' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => Limit</br />
-      &nbsp;&nbsp;'human_readable' => Output format</br />
-      </br />
-      @return string JSON encoded data containing album information.
-    </code>
-    <p class="small">
-      <?=anchor('api/recentlyListened?username=teelmo&artist=tool&album=lateralus&date=2008-11-%&limit=10&human_readable=true', 'http://statster.info/api/recentlyListened?username=teelmo&artist=tool&album=lateralus&date=2008-11-%&limit=10&human_readable=true')?>
-    </p>
+    <h2>api/artist/get</h2>
+    <p>Returns listened artists for the given user.</p>
+    <h3>@param array $opts.</h3>
+    <pre>
+      'lower_limit' => Lower date limit in yyyy-mm-dd format
+      'upper_limit' => Upper date limit in yyyy-mm-dd format
+      'username' => Username
+      'artist_name' => Artist name
+      'group_by' => Group by argument
+      'order_by' => Order by argument
+      'limit' => Limit
+      'human_readable' => Output format</pre>
+    <h3>@return string</h3>
+    <pre>
+      JSON encoded data containing artist information.</pre>
+    <h3>Example request</h3>
+    <p class="meta"><?=anchor('api/artist/get?username=teelmo&limit=10&lower_limit=1970-00-00&human_readable=true', 'http://statster.info/api/artist/get?username=teelmo&limit=10&lower_limit=1970-00-00&human_readable=true')?></p>
   </div>
-      
+  <div class="container"><hr /></div>
   <div class="container">
-    <h2>Plugins</h2>
+    <h2>api/album/get</h2>
+    <p>Returns listened albums for the given user.</p>
+    <h3>@param array $opts.</h3>
+    <pre>
+      'lower_limit' => Lower date limit in yyyy-mm-dd format
+      'upper_limit' => Upper date limit in yyyy-mm-dd format
+      'username' => Username
+      'artist_name' => Artist name
+      'album_name' => Album name
+      'group_by' => Group by argument
+      'order_by' => Order by argument
+      'limit' => Limit
+      'human_readable' => Output format</pre>
+    <h3>@return string</h3>
+    <pre>
+      JSON encoded data containing album information.</pre>
+    <h3>Example request</h3>
+    <p class="meta"><?=anchor('api/album/get?username=teelmo&limit=10&lower_limit=1970-00-00&human_readable=true', 'http://statster.info/api/album/get?username=teelmo&limit=10&lower_limit=1970-00-00&human_readable=true')?></p>
+  </div>
+  <div class="container"><hr /></div>
+  <div class="container">
+    <h2>api/listening/get</h2>
+    <p>Returns recently listened albums for the given user.</p>
+    <h3>@param array $opts.</h3>
+    <pre>
+      'username' => Username
+      'artist_name' => Artist name
+      'album_name' => Album name
+      'date' => Listening date in yyyy-mm-dd format
+      'limit' => Limit
+      'human_readable' => Output format</pre>
+    <h3>@return string</h3>
+    <pre>
+      JSON encoded data containing listening information</pre>
+    </pre>
+    <h3>Example request</h3>
+    <p class="meta"><?=anchor('api/listening/get?username=teelmo&album_name=lateralus&date=2008-11-%&limit=10&human_readable=true', 'http://statster.info/api/listening/get?username=teelmo&album_name=lateralus&date=2008-11-%&limit=10&human_readable=true')?></p>
   </div>
   <div class="container">
     <p class="updated">
-      Updated: 10. of November 2012
+      Updated: 13. of August 2015
     </p>
   </div>
 </div>
