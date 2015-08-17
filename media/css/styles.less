@@ -24,8 +24,11 @@ div#topCont {
   position: fixed;
   top: 0;
   width: 100%;
+  height: 36px;
+  line-height: 36px;
   z-index: 2;
   .inner {
+    padding: 0 2px;
     color: #eee;
     font-size: 13px;
     height: 36px;
@@ -54,14 +57,16 @@ div#topCont {
     }
     form, 
     div {
-      display: inline;
+      display: inline-block;
+      height: 36px;
+      line-height: 36px;
     }
     .top_links {
       color: #fff;
       font-size: 18px;
       margin-right: 40px;
-      vertical-align: middle;
       padding: 0;
+      vertical-align: top;
       a {
         display: inline-block;
         margin: 0 10px 0px 10px;
@@ -70,26 +75,37 @@ div#topCont {
           color: #e9e9e9;
         }
       }
+
     }
     .user_container {
       .user-select(none);
       color: #fff;
       cursor: pointer;
-      padding: 0 0 20px 0;
+      height: 36px;
+      line-height: 36px;
       position: relative;
+      vertical-align: top;
+      white-space: nowrap;
       &:hover {
         color: #ccc;
       }
       .profile_text {
+        display: inline-block;
+        height: 36px;
+        line-height: 36px;
         margin-right: 70px;
-        vertical-align: middle;
+        vertical-align: top;
         &::before {
           content:"\2304";
+          display: inline-block;
           font-size: 30px;
-          left: -18px;
-          position: absolute;
+          height: 36px;
+          left: -3px;
+          line-height: 36px;
+          position: relative;
+          top: -2px;
+          vertical-align: top;
         }
-
       }
       .profile_img {
         .border-radius(32px);
@@ -116,7 +132,7 @@ div#topCont {
         padding: 0;
         position: absolute;
         right: -4px;
-        top: 36px;
+        top: 35px;
         width: 140px;
         li {
           border-bottom: 1px solid #444; 
@@ -148,7 +164,7 @@ div#mainCont {
   .page_links {
     background-color: #fff;
     font-size: 18px;
-    padding: 0;
+    padding: 0 2px;
     a {
       display: inline-block;
       margin: 5px 20px 5px 0;
@@ -166,9 +182,10 @@ div#leftCont {
   float: left;
   min-height: 780px;
   padding-bottom: 30px;
-  width: 680px;
+  width: 684px;
   .container {
     margin: 15px 15px 15px 0;
+    padding: 0 2px;
   }
   #leftContInner {
     float: left;
@@ -188,7 +205,7 @@ div#leftCont {
 }
 div#rightCont {
   border-top: 1px solid #ccc;
-  margin-left: 680px;
+  margin-left: 684px;
   .container {
     margin: 7px 15px 15px 15px;
   }
@@ -286,6 +303,9 @@ div.clear {
 div.more {
   a {
     color: #666;
+    &:hover {
+      color: #000;
+    }
   }
   font-size: 10px;
   font-weight: bold;
@@ -506,7 +526,7 @@ form#loginForm input[type="text"] {
   width: 70%;
 }
 .search_container {
-  position: relative;
+  vertical-align: top;
   .search_form input {
     .border-radius(10px);
     background-color: #fff;

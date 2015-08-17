@@ -9,7 +9,7 @@ $(document).ready(function() {
       sub_nav.slideDown('fast').show();
       $(this).parent().hover(function() {
       }, function() {
-        sub_nav.slideUp('slow');
+        // sub_nav.slideUp('slow');
       });
     }
   }).hover(function() {

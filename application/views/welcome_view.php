@@ -24,33 +24,40 @@
       </div>
     </form>
   </div>
-  <!--<div class="container"><hr /></div>
+  <style>
+    .embed-container { 
+      height: 0;
+      max-width: 100%;
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      position: relative;
+    }
+    .embed-container iframe, 
+    .embed-container object, 
+    .embed-container embed { 
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  </style>
   <div class="container">
-    <iframe width="570" height="321" src="http://www.youtube.com/embed/f0pdwd0miqs" frameborder="0" allowfullscreen></iframe>
-  </div>-->
-  <div class="welcome">
     <div class="container"><hr /></div>
-    <div class="container">
-      <iframe width="100%" height="321" src="http://www.youtube.com/embed/NmfzWpp0hMc" frameborder="0"></iframe>
-    </div>
+    <div class="embed-container"><iframe src="http://www.youtube.com/embed/NmfzWpp0hMc" frameborder="0" allowfullscreen></iframe></div>
   </div>
-  <div class="container"><hr /></div>
-  <div class="container">
-    <iframe width="100%" height="321" src="http://www.youtube.com/embed/2bK4aeahcXc" frameborder="0" allowfullscreen></iframe>
-  </div>
-  <div class="container"><hr /></div>
 </div>
 
 <div id="rightCont">
   <div class="container">
-    <h1>Recently listened albums</h1>
+    <h1>Recently listened</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader" />
-    <table id="recentlyListened" class="sideTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h1>All time top artists</h1>
+    <h1>All time top</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
-    <table id="topArtist" class="barTable"><!-- Content is loaded with AJAX --></table>
+    <table id="topArtist" class="bar_table"><!-- Content is loaded with AJAX --></table>
   </div>
 </div>

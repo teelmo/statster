@@ -38,8 +38,8 @@
           if ($this->session->userdata('logged_in') === TRUE) {
             ?>
             <div class="user_container">
-              <span class="profile_text"><?=$this->session->userdata('username')?></span>
-              <span class="profile_img" style="background-image: url('<?=$this->session->userdata('user_image')?>');"><img src="<?=$this->session->userdata('user_image')?>" alt="" /></span>
+              <div class="profile_text"><?=$this->session->userdata('username')?></div>
+              <div class="profile_img" style="background-image: url('<?=$this->session->userdata('user_image')?>');"><img src="<?=$this->session->userdata('user_image')?>" alt="" /></div>
               <ul class="subnav" style="display: none;">
                 <li><?=anchor(array('user', $this->session->userdata('username')), 'Profile')?></li>
                 <li><?=anchor(array('user', 'edit'), 'Edit')?></li>
@@ -47,18 +47,17 @@
                 <li><?=anchor(array('logout'), 'Logout')?></li>
               </ul>
             </div>
-            <!-- This is here because otherwise the responsive layout breaks -->
-            <div>&nbsp;</div>
             <?
           }
           else {
             ?>
-            <div id="userCont">
+            <div class="user_container">
               <?=anchor(array('login'), 'Login', array('title' => 'Login', 'id' => 'loginLink'))?>
             </div>
             <?
           }
           ?>
+          <div>&nbsp;</div>
         </div>
       </div>
     </div>

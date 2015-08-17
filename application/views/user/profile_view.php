@@ -29,7 +29,7 @@
   <div class="container">
     <h2>Recent listenings</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="recentlyListenedLoader"/>
-    <table id="recentlyListened" class="chartTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyListened" class="chart_table"><!-- Content is loaded with AJAX --></table>
     <div class="more">
       <?=anchor('recent?u=' . $username, 'More listenings', array('title' => 'Browse more listenings'))?>
     </div>
@@ -38,7 +38,7 @@
   <div class="container">
     <h2>Favorite albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="topAlbumLoader"/>
-    <ul id="topAlbum" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
+    <ul id="topAlbum" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     <div class="more">
       <?=anchor('album?u=' . $username, 'More albums', array('title' => 'Browse more albums'))?>
     </div>
@@ -47,7 +47,7 @@
   <div class="container">
     <h2>Favorite artist</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="topArtistLoader"/>
-    <ul id="topArtist" class="chartList chartList124 noBullets"><!-- Content is loaded with AJAX --></ul>
+    <ul id="topArtist" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     <div class="more">
       <?=anchor('artist?u=' . $username, 'More artists', array('title' => 'Browse more artists'))?>
     </div>
