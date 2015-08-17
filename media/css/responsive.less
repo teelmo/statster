@@ -21,19 +21,24 @@
 }
 
 /* Smart phone */
-@media all and (max-width: 500px) {
+@media all and (max-width: 480px) {
   div#leftCont {
     width: 100%;
     .container {
       margin: 7px 0 15px 0;
     }
   }
+  #footer {
+    font-size: 10px
+  }
   .profile_img,
   .statster_year,
-  .albumYear,
+  .album_year,
   .artist,
+  .format,
+  .love,
   .external_link,
-  .socialMedia {
+  .social_media {
     display: none !important;
   }
   .profile_text  {
@@ -49,12 +54,14 @@
     margin: 7px 5px 15px 5px;
   }
   img.img300 {
-    width: 200px;
+    width: 100%;
   }
   div.user_info,
   div.album_info,
   div.artist_info {
-    margin-left: 210px;
+    clear: both;
+    float: none;
+    margin-left: 0;
   }
   img.desktopFormat {
     display: none;
