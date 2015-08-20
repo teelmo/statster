@@ -51,7 +51,7 @@ if (!function_exists('getEvents')) {
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {
       $data = array();
-      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
+      $lastfm_data = json_decode(@file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getevents&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
       if (!empty($lastfm_data['events']['event'])) {
         $events_tmp = $lastfm_data['events']['event'];
         if (empty($events_tmp[0])) {

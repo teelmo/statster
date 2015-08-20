@@ -10,7 +10,7 @@
     <div class="container">
       <h1>Popular albums</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularAlbumLoader" />
-      <table id="popularAlbum" class="sideTable sideTableLeftCont"><!-- Content is loaded with AJAX --></table>
+      <table id="popularAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
     <h1>Statistics</h1>
     <h2>Latest likes</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
-    <table id="recentlyLiked" class="sideTable"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
     <table id="recentlyFaned" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
     <table id="recentlyLoved" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
   </div>

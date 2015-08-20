@@ -44,7 +44,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/artist/get',
       data:{
-        limit:4,
+        limit:5,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
@@ -79,7 +79,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/album/get',
       data:{
-        limit:4,
+        limit:5,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
