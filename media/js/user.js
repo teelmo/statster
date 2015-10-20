@@ -1,4 +1,5 @@
 $.extend(view, {
+  // Get users.
   getUsers: function () {
     $.ajax({
       type:'GET',

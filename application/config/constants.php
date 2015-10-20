@@ -110,6 +110,33 @@ define('TBL_user_album', 'user_album');
 define('TBL_user_comment', 'user_comment');
 define('TBL_user_info', 'user_info');
 
+/* Highcharts */
+define('TBL_highchart_tooltip', "
+  backgroundColor:'#fff',
+  borderColor:'#ccc',
+  borderRadius:0,
+  borderWidth:1,
+  formatter: function () {
+    return '<strong>' + this.y + '</strong>';
+  },
+  shadow:false,
+  style:{
+    fontWeight:'normal',
+    fontSize:14,
+    fontFamily:'arial',
+    color:'#444'
+  }
+");
+define('TBL_highchart_yaxis', "
+  labels: {
+    formatter: function () {
+      return this.value;
+    }
+  },
+  title:{
+    enabled:false
+  }
+");
 /* API keys */
 define('LASTFM_API_KEY', 'b43a6b2eed67fe3672dbe43c102be8e6');
 

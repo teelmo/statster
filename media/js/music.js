@@ -4,6 +4,45 @@ $.extend(view, {
     else if (a < b) return 1;
     return 0;
   },
+  getListenings: function () {
+    $.ajax({
+      type:'GET',
+      dataType:'json',
+      url:'/api/listener/get',
+      data:{
+        limit:100,
+        group_by:'year(<?=TBL_listening?>.`date`)',
+        order_by:'`date` ASC'
+      },
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            type:'POST',
+            url:'/ajax/barChart',
+            data:{
+              json_data:data,
+            },
+            success: function (data) {
+              $('#userListeningsLoader').hide();
+              $('#userListenings').html(data).bind('highchartTable.beforeRender', function(event, highChartConfig) {
+                highChartConfig.tooltip = {
+                  <?=TBL_highchart_tooltip?>
+                }
+                highChartConfig.yAxis = {
+                  <?=TBL_highchart_yaxis?>
+                }
+              }).highchartTable().hide();
+            }
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function (data) {alert('400 Bad Request')}
+      }
+    });
+  },
   popularGenre: function () {
     $.ajax({
       type:'GET',
@@ -131,6 +170,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
+  view.getListenings();
   view.popularGenre();
   view.topAlbum();
   view.recentlyFaned();

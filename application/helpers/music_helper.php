@@ -143,26 +143,29 @@ if (!function_exists('getListeners')) {
     $ci->load->database();
 
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-01-01';
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_user . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_user . ".`id`) as `count`, 
-                   " . TBL_user . ". `username`, 
+    $sql = "SELECT year(" . TBL_listening . ".`date`) as `date`,
+                   count(" . TBL_user . ".`id`) as `count`,
+                   " . TBL_user . ". `username`,
                    " . TBL_user . ". `id` as user_id,
-                   " . TBL_artist . ".`artist_name`, 
-                   " . TBL_artist . ".`id` as artist_id, 
-                   " . TBL_album . ".`album_name`, 
-                   " . TBL_album . ".`id` as album_id, 
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`id` as artist_id,
+                   " . TBL_album . ".`album_name`,
+                   " . TBL_album . ".`id` as album_id,
                    " . TBL_album . ".`year`
             FROM " . TBL_album . ", 
                  " . TBL_artist . ", 
                  " . TBL_listening . " , 
                  " . TBL_user . "
-            WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+            WHERE " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
+              AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . " 
                                                    AND " . $ci->db->escape($upper_limit) . "
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`

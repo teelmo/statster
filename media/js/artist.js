@@ -126,8 +126,7 @@ $.extend(view, {
       url:'/api/listener/get',
       data:{
         limit:6,
-        artist_name:'<?=$artist_name?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        artist_name:'<?=$artist_name?>'
       },
       statusCode:{
         200: function (data) { // 200 OK

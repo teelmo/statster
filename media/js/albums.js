@@ -89,7 +89,7 @@ $(document).ready(function () {
   vars = {
     container:'#topAlbum',
     limit:'10, 200',
-    template:'/ajax/barTable'
+    template:'/ajax/columnTable'
   }
   view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
   view.topAlbumYearly();

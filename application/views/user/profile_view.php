@@ -27,6 +27,12 @@
   </div>
   <div class="clear"></div>
   <div class="container">
+    <h2>History</h2>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="userListeningsLoader"/>
+    <table id="userListenings" class="" data-graph-container-before="1" data-graph-type="column" data-graph-height="300" data-graph-color-1="rgba(182, 192, 191, 0.5)" data-graph-legend-disabled="1"><!-- Content is loaded with AJAX --></table>
+  </div>
+  <div class="container"><hr /></div>
+  <div class="container">
     <h2>Recent listenings</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chart_table"><!-- Content is loaded with AJAX --></table>
@@ -64,7 +70,10 @@
     <h1>Statistics</h1>
     <div>Number of listenings</div>
     <div>Joined</div>
-    <h2>Activity</h2>
-    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id=""/>
+    <h2>Likes</h2>
+    <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
+    <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyFaned" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
+    <table id="recentlyLoved" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
   </div>
 </div>

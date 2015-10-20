@@ -27,7 +27,7 @@ if (!empty($json_data)) {
         }
         if (empty($hide['calendar'])) {
           ?>
-          <td class="barChartCalendar">
+          <td class="calendar">
             <?php
             list($date['year'], $date['month'], $date['day']) = explode('-', $row['date']);
             if ($date['month'] == '00' || $date['day'] == '00') {

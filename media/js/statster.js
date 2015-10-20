@@ -69,6 +69,4 @@ $(document).ready(function () {
   app.highlightPatch();
   app.initMouseTrap();
   app.initStatsterEvents();
-
-  $('#mainCont').css({'min-height': $(window).height() - 37 - 57 - 47})
 });

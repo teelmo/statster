@@ -8,11 +8,11 @@ if (!empty($json_data)) {
         $highest_count = $row['count'];
       }
       ?>
-      <tr id="barTable<?=$idx?>">
+      <tr id="column_table_<?=$idx?>">
         <?php
         if (empty($hide['rank'])) {
           ?>
-          <td class="barChartRank">
+          <td class="rank">
             <?php
             if ($row['count'] != $prev_count) {
               ?>
@@ -24,7 +24,7 @@ if (!empty($json_data)) {
           <?php
         }
         ?>
-        <td class="barChartName">
+        <td class="name">
           <?php
           if (!empty($row['album_name'])) {
             echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
@@ -34,7 +34,7 @@ if (!empty($json_data)) {
           }
           ?>
         </td>
-        <td class="barChartBar">
+        <td class="bar">
           <?
           $width = ceil(($row['count'] / $highest_count) * 100);
           $min_width = ($row['count'] < 10) ? 'min-width: 22px' : 'min-width: 30px';

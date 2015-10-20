@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="/media/js/libs/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/media/js/libs/highcharts.js"></script>
+    <script type="text/javascript" src="/media/js/libs/jquery.highchartTable.js"></script>
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/dropdown.js"></script>

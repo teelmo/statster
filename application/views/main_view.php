@@ -30,7 +30,7 @@
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chart_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
     <div class="more">
-      <?=anchor('recent', 'More listenings', array('title' => 'Browse more listenings'))?>
+      <?=anchor('recent', 'More', array('title' => 'Browse more listenings'))?>
     </div>
   </div>
   <div class="container"><hr /></div>
@@ -56,7 +56,7 @@
     -->
     <h2>Hot artists</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
-    <table id="topArtist" class="bar_table"><!-- Content is loaded with AJAX --></table>
+    <table id="topArtist" class="column_table"><!-- Content is loaded with AJAX --></table>
   </div>
   <div class="container"><hr /></div>
   <div class="container">

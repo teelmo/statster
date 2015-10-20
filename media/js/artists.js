@@ -80,7 +80,7 @@ $(document).ready(function () {
   vars = {
     container:'#topArtist',
     limit:'10, 200',
-    template:'/ajax/barTable'
+    template:'/ajax/columnTable'
   }
   view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
   view.topArtistYearly();

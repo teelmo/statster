@@ -111,8 +111,7 @@ $.extend(view, {
       data:{
         limit:6,
         artist_name:'<?php echo $artist_name?>',
-        album_name:'<?php echo $album_name?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        album_name:'<?php echo $album_name?>'
       },
       statusCode:{
         200: function(data) { // 200 OK

@@ -9,7 +9,7 @@ class Album extends CI_Controller {
     $data['js_include'] = array('albums');
     $data['lower_limit'] = '1970-01-01';
     $data['upper_limit'] = CUR_DATE;
-    $data['title'] = 'Artists';
+    $data['title'] = 'Albums';
 
     $this->load->view('templates/header');
     $this->load->view('music/albums_view', $data);
@@ -25,7 +25,7 @@ class Album extends CI_Controller {
     else {
       $data['lower_limit'] = $year . '-00-' . '00'; 
       $data['upper_limit'] = $year . '-12-' . '31';
-      $data['title'] = 'Artists <span class="meta">' . $year . '</span>';
+      $data['title'] = 'Albums <span class="meta">' . $year . '</span>';
     }
 
     $data['js_include'] = array('albums');

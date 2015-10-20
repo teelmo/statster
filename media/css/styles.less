@@ -191,11 +191,11 @@ div#leftCont {
   #leftContInner {
     float: left;
     width: 150px;
+    .container {
+      margin-top: -20px;
+    }
   }
   #leftContOuter {
-    .container {
-      margin: 7px 0;
-    }
     color: #222;
     font-size: 22px;
     font-weight: normal;
@@ -210,7 +210,6 @@ div#rightCont {
   .container {
     margin: 7px 15px 15px 15px;
   }
-  
 }
 div#footer {
   background-color: #444;
@@ -580,6 +579,9 @@ td {
   margin: 0;
   padding: 0;
 }
+th {
+  text-align: left;
+}
 /* chartTable */
 table.chart_table {
   tbody {
@@ -616,6 +618,16 @@ table.chart_table {
         span.delete {
           display: inline;
           position: absolute;
+          img {
+            .opacity(0.3);
+            height: 12px;
+            margin-left: 5px;
+            vertical-align: -10%;
+            width: 12px;
+            &:hover {
+              .opacity(1);
+            }
+          }
         }
       }
       &.justAddedRest {
@@ -624,8 +636,8 @@ table.chart_table {
           right: -36px;
         }
         td.title {
-          position: relative;
           left: -36px;
+          position: relative;
         }
       }
       &.justAdded {
@@ -676,7 +688,7 @@ table.side_table {
           vertical-align: middle;
         }
       }
-      &.barChartCalendar {
+      &.calendar {
         font-size: 11px;
         width: 30px;
         .month {
@@ -724,18 +736,18 @@ table.genreTable tr td {
   vertical-align: bottom;
 }
 
-table.artistTable td.barChartRank {
+table.artistTable td.columnChartRank {
   padding-left: 3px;
   padding-right: 4px;
   text-align: right;
   width: 2%;
 }
 /* barTable */
-table.bar_table {
+table.column_table {
   tr {
     td {
       padding: 1px 0 1px 0;
-      &.barChartRank {
+      &.rank {
         padding-left: 3px;
         padding-right: 4px;
         text-align: right;
@@ -749,11 +761,11 @@ table.bar_table {
           vertical-align: middle;
         }
       }
-      &.barChartName {
+      &.name {
         padding-left: 5px;
         width: 58%;
       }
-      &.barChartBar {
+      &.bar {
         background-color: transparent;
         padding-right: 1px;
         width: 42%;
@@ -767,7 +779,7 @@ table.bar_table {
   }
   &.full {
     margin-top: 20px;
-    tr:nth-child(2n) td.barChartName {
+    tr:nth-child(2n) td.columnChartName {
       background-color: #f9f9f9;
     }
   }
@@ -928,7 +940,7 @@ span.divider {
   padding-top: 2px;
 }
 span#nowPlaying {
-  background-image: url('/media/img/icons/now_playing.gif');
+  background-image: url('/media/img/icons/eq_icon.gif');
   background-position: left center;
   background-repeat: no-repeat;
   padding-left: 17px;
@@ -938,7 +950,6 @@ img.icon {
   vertical-align: -25%;
   width: 16px;
 }
-
 /* 
  * Other
  */
