@@ -26,7 +26,7 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h1>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h1>
+    <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
     <table id="recentlyListened" class="chart_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
     <div class="more">
@@ -35,7 +35,7 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h1>Hot albums</h1>
+    <h2>Hot albums</h2>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
     <ul id="topAlbum" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
   </div>

@@ -159,7 +159,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/fan/get',
       data:{
-        limit:13,
+        limit:30,
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
       statusCode:{
@@ -189,7 +189,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/love/get',
       data:{
-        limit:13,
+        limit:30,
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
       statusCode:{
