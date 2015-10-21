@@ -1,19 +1,15 @@
 $.extend(view, {
-  compareStrings: function (a, b) {
-    if (a > b) return -1;
-    else if (a < b) return 1;
-    return 0;
-  },
   getListenings: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listener/get',
       data:{
-        limit:100,
         group_by:'year(<?=TBL_listening?>.`date`)',
-        order_by:'`date` ASC'
+        limit:100,
+        order_by:'`date` ASC',
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
+      type:'GET',
+      url:'/api/listener/get',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
@@ -45,26 +41,26 @@ $.extend(view, {
   },
   popularGenre: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/genre/get',
       data:{
         limit:40,
         lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
+      type:'GET',
+      url:'/api/genre/get',
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/popularTag',
             data:{
               json_data:data
             },
             success: function (data) {
               $('#popularGenreLoader').hide();
               $('#popularGenre').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/popularTag'
           });
         },
         204: function () { // 204 No Content
@@ -78,14 +74,14 @@ $.extend(view, {
   },
   topAlbum: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/album/get',
       data:{
         limit:15,
         lower_limit:'<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
+      type:'GET',
+      url:'/api/album/get',
       statusCode:{
         200: function (data) {
           $.ajax({
@@ -178,7 +174,7 @@ $(document).ready(function () {
 
   $(document).ajaxStop(function (event, request, settings ) {
     $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function (a, b) {
-      return view.compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
+      return app.compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
     }));
     $('#recentlyLikedLoader').hide();
   });

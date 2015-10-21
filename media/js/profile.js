@@ -1,9 +1,4 @@
 $.extend(view, {
-  compareStrings: function (a, b) {
-    if (a > b) return -1;
-    else if (a < b) return 1;
-    return 0;
-  },
   // Get listening by year.
   getListenings: function () {
     $.ajax({
@@ -225,7 +220,7 @@ $(document).ready(function () {
 
   $(document).ajaxStop(function (event, request, settings ) {
     $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function (a, b) {
-      return view.compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
+      return app.compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
     }));
     $('#recentlyLikedLoader').hide();
   });

@@ -39,6 +39,11 @@ var app = {
       $('#searchString').focus();
     });
   },
+  compareStrings: function (a, b) {
+    if (a > b) return -1;
+    else if (a < b) return 1;
+    return 0;
+  },
   initStatsterEvents: function () {
     $('.search_text').autocomplete({
       minLength:3,
