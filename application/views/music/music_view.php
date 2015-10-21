@@ -1,6 +1,6 @@
 <div id="leftCont">
   <div class="container">
-    <h1>Statistics</h1>
+    <h1>Album statistics</h1>
     <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="userListeningsLoader"/>
     <table id="userListenings" class="" data-graph-container-before="1" data-graph-type="column" data-graph-height="300" data-graph-color-1="rgba(182, 192, 191, 0.5)" data-graph-legend-disabled="1"><!-- Content is loaded with AJAX --></table>
   </div>
