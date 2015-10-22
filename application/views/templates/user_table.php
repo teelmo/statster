@@ -47,7 +47,7 @@ if (!empty($json_data)) {
         }
         ?>
         <td class="img<?=$size?> userImg">
-          <?=anchor(array('user', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg img' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
+          <?=anchor(array('user', url_title($row['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
         </td>
         <td class="title">
           <div class="title">

@@ -16,19 +16,19 @@ if (!empty($json_data)) {
         $datetime = '';
         if ($idx == 0) {
           if ((time() - strtotime($row['created'])) < JUST_LISTENED_INTERVAL && $row['date'] == CUR_DATE) {
-            $class = 'justAdded';
+            $class = 'just_added';
             $size = 64;
-            $datetime = '<span id="nowPlaying"></span> <span id="nowPlayingText">now playing</span>';
+            $datetime = '<span class="now_playing"></span> <span>Now playing</span>';
             $justAdded = TRUE;
           }
         }
         elseif ($justAdded === TRUE) {
-          $class = 'justAddedRest';
+          $class = 'just_added_rest';
         }
         ?>
         <tr id="chartTable<?=$idx?>" class="row <?=$class?>">
-          <td class="img albumImg">
-            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<img src="' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . '" alt="" class="albumImg img' . $size . '" />', array('title' => 'Browse to album\'s page'))?>
+          <td class="img album_img">
+            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
           </td>
           <td class="title">
             <span class="title">
@@ -60,7 +60,7 @@ if (!empty($json_data)) {
             ));
             if (!empty($love_data)) {
               ?>
-              <span class="loveIcon" title="Loved"></span>
+              <span class="love_icon" title="Loved"></span>
               <?php
             }
             ?>
@@ -71,12 +71,12 @@ if (!empty($json_data)) {
             ?>
             <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon listeningFormatType"/>
           </td>
-          <td class="datetime text_right"><?php echo !empty($datetime) ? $datetime : timeAgo($row['date'])?></td>
+          <td class="datetime"><?php echo !empty($datetime) ? $datetime : timeAgo($row['date'])?></td>
           <?php
           if (empty($hide['user'])) {
             ?>
-            <td class="img userImg">
-              <?=anchor(array('user', url_title($row['username'])), '<img src="' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . '" alt="" class="userImg img' . $size . '" />', array('title' => 'Browse to user\'s page'))?>
+            <td class="img user_img">
+              <?=anchor(array('user', url_title($row['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
             </td>
             <?php
           }
