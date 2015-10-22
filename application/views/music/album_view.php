@@ -1,52 +1,44 @@
 <div id="leftCont">
   <div class="container">
-    <span id="love"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/></span>
-    <h1><div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div><?=$album_name?> <span class="album_year"><?=$year?></span></h1>
-  </div>
-  <div class="container">
-    <div class="tags">
-      <?php
-      foreach ($tags as $tag) {
-        ?>
-        <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
-        <?php
-      }
-      if ($logged_in === TRUE) {
-        ?>
-        <span class="tag moretags" id="moretags"><a href="javascript:;">+</a></span>
-        <div class="tag" id="tagAdd">
-          <select id="tagAddSelect" data-placeholder="Add metadata" class="chzn-select" multiple>
-            <optgroup label="Genres" id="genre">
-            </optgroup>
-            <optgroup label="Keywords" id="keyword">
-            </optgroup>
-            <optgroup label="Nationality" id="nationality">
-            </optgroup>
-          </select>
-        </div>
-        <?php
-      }
-      ?>
-    </div>
-  </div>
-  <div class="container">
     <div class="float_left">
-      <img src="<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>" alt="" class="albumImg img300" />
+      <div class="cover album_img img300" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>')"><span class="title"><?=$album_name?></span></div>
     </div>
     <div class="album_info">
-      <div class="listening_count">
-        <div class="nowrap"><span class="value"><?=$total_count?></span> <span class="label"> times listened</span></div>
+      <span id="love" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/></span>
+      <div class="tags">
         <?php
-        if (!empty($user_count)) {
+        foreach ($tags as $tag) {
           ?>
-          <div class="nowrap"><span class="value"><?=$user_count?></span> <span class="label">in your library</span></div>
+          <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
+          <?php
+        }
+        if ($logged_in === TRUE) {
+          ?>
+          <span class="tag moretags" id="moretags"><a href="javascript:;">+</a></span>
+          <div class="tag" id="tagAdd">
+            <select data-placeholder="Add metadata" class="chosen-select" multiple>
+              <optgroup label="Genres" id="genre"></optgroup>
+              <optgroup label="Keywords" id="keyword"></optgroup>
+              <optgroup label="Nationality" id="nationality"></optgroup>
+            </select>
+          </div>
           <?php
         }
         ?>
       </div>
-      <h3 class="album_love">Album's loves</h3>
+      <table class="listening_count">
+        <tr>
+          <td class="label">Listenings</td>
+          <td class="label">Your library</td>
+        </tr>
+        <tr>
+          <td class="value"><?=$total_count?></td>
+          <td class="value"><?=$user_count?></td>
+        </tr>
+      </table>
+      <h3 class="album_love">Loves</h3>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
-      <ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>      
+      <ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div class="clear"></div>
