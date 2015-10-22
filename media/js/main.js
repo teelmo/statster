@@ -254,17 +254,17 @@ $.extend(view, {
   },
   initMainEvents: function () {
     // Listening format click.
-    $('.listeningFormat').click(function () {
+    $('.listening_format').click(function () {
       if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
       }
       else {
-        $('.listeningFormat').removeClass('selected');
+        $('.listening_format').removeClass('selected');
         $(this).addClass('selected');
       }
     });
     // Listening format keypress.
-    $('.listeningFormat').keypress(function (e) {
+    $('.listening_format').keypress(function (e) {
       var code = (e.keyCode ? e.keyCode : e.which);
       if (code == 13) {
         if ($(this).hasClass('selected')) {
@@ -272,7 +272,7 @@ $.extend(view, {
           $('#' + $(this).parent().attr('for')).prop('checked', false);
         }
         else {
-          $('.listeningFormat').removeClass('selected');
+          $('.listening_format').removeClass('selected');
           $(this).addClass('selected');
           $('#' + $(this).parent().attr('for')).prop('checked', true);
         }
@@ -284,7 +284,7 @@ $.extend(view, {
       $('#recentlyListenedLoader2').show();
       $('#addListeningText').val('');
       $('input[name="addListeningFormat"]').prop('checked', false);
-      $('img.listeningFormat').removeClass('selected');
+      $('.listening_format').removeClass('selected');
       $.ajax({
         type:'POST',
         dataType:'json',
