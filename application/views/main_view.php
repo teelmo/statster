@@ -13,14 +13,14 @@
         <input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="Statster" />
       </div>
       <div>
-        <input type="radio" name="addListeningFormat" value="Stream:Spotify Unlimited" id="format_0" class="hidden" /><label for="format_0"><img src="./media/img/format_img/spotify_logo.png" tabindex="2" class="listeningFormat desktopFormat" title="Spotify Unlimited" alt="" /></label>
-        <input type="radio" name="addListeningFormat" value="File:XBMC Media Center" id="format_1" class="hidden" /><label for="format_1"><img src="./media/img/format_img/xbmc_logo.png" tabindex="2" class="listeningFormat desktopFormat" title="XBMC Media Center" alt="" /></label>
-        <input type="radio" name="addListeningFormat" value="File:Samsung Galaxy S II" id="format_2" class="hidden" /><label for="format_2"><img src="./media/img/format_img/smartphone_logo.png" tabindex="2" class="listeningFormat" title="Samsung Galaxy S II" alt="" /></label>
-        <input type="radio" name="addListeningFormat" value="File:Portable Device" id="format_3" class="hidden" /><label for="format_3"><img src="./media/img/format_img/headphones_logo.png" tabindex="2" class="listeningFormat" title="Portable Device" alt="" /></label>
-        <input type="radio" name="addListeningFormat" value="Compact Disc:Compact Disc" id="format_4" class="hidden" /><label for="format_4"><img src="./media/img/format_img/cdrom_logo.png" tabindex="2" class="listeningFormat desktopFormat" title="Compact Disc" alt="" /></label>
-        <!--<input type="radio" name="addListeningFormat" id="winampFormat" class="hidden" /><label for="winampFormat"><img src="/media/img/format_img/winamp_logo.png" tabindex="3" class="listeningFormat hidden" title="Winamp" alt="" /></label>
-        <input type="radio" name="addListeningFormat" id="itunesFormat" class="" /><label for="itunesFormat"><img src="/media/img/format_img/itunes_logo.png" tabindex="3" class="listeningFormat hidden" title="iTunes" alt="" /></label>
-        <input type="radio" name="addListeningFormat" id="showmoreFormat" class="" /><label for="showmoreFormat"><img src="/media/img/format_img/showmore_logo.png" tabindex="3" class="listeningFormat" id="addListeningShowmore" title="" alt="" /></label>-->
+        <input type="radio" name="addListeningFormat" value="Stream:Spotify Unlimited" id="format_0" class="hidden" /><label for="format_0"><img src="./media/img/format_img/spotify_logo.png" tabindex="2" class="listening_format desktop_format" title="Spotify Unlimited" alt="" /></label>
+        <input type="radio" name="addListeningFormat" value="File:XBMC Media Center" id="format_1" class="hidden" /><label for="format_1"><img src="./media/img/format_img/xbmc_logo.png" tabindex="2" class="listening_format desktop_format" title="XBMC Media Center" alt="" /></label>
+        <input type="radio" name="addListeningFormat" value="File:Samsung Galaxy S II" id="format_2" class="hidden" /><label for="format_2"><img src="./media/img/format_img/smartphone_logo.png" tabindex="2" class="listening_format" title="Samsung Galaxy S II" alt="" /></label>
+        <input type="radio" name="addListeningFormat" value="File:Portable Device" id="format_3" class="hidden" /><label for="format_3"><img src="./media/img/format_img/headphones_logo.png" tabindex="2" class="listening_format" title="Portable Device" alt="" /></label>
+        <input type="radio" name="addListeningFormat" value="Compact Disc:Compact Disc" id="format_4" class="hidden" /><label for="format_4"><img src="./media/img/format_img/cdrom_logo.png" tabindex="2" class="listening_format desktop_format" title="Compact Disc" alt="" /></label>
+        <!--<input type="radio" name="addListeningFormat" id="winampFormat" class="hidden" /><label for="winampFormat"><img src="/media/img/format_img/winamp_logo.png" tabindex="3" class="listening_format _fidden" title="Winamp" alt="" /></label>
+        <input type="radio" name="addListeningFormat" id="itunesFormat" class="" /><label for="itunesFormat"><img src="/media/img/format_img/itunes_logo.png" tabindex="3" class="listening_format _fidden" title="iTunes" alt="" /></label>
+        <input type="radio" name="addListeningFormat" id="showmoreFormat" class="" /><label for="showmoreFormat"><img src="/media/img/format_img/showmore_logo.png" tabindex="3" class="listening_format" id="addListeningShowmore" title="" alt="" /></label>-->
       </div>
     </form>
   </div>
