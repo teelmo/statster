@@ -17,7 +17,7 @@ if (!function_exists('loginUser')) {
     $username = trim($opts['username']);
     $password = md5(trim($opts['password'])); 
 
-    $sql = "SELECT " . TBL_user . ".`id`,
+    $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
                    " . TBL_user_info . ".`email`,
                    " . TBL_user_info . ".`real_name`,
@@ -37,7 +37,7 @@ if (!function_exists('loginUser')) {
       $result = $result[0];
       // http://codeigniter.com/user_guide/libraries/sessions.html
       $userdata = array(
-                   'user_id'      => $result->id,
+                   'user_id'      => $result->user_id,
                    'username'     => $result->username,
                    'email'        => $result->email,
                    'real_name'    => $result->real_name,
@@ -88,7 +88,7 @@ if (!function_exists('getUsers')) {
 
     $exclude_username = !empty($opts['exclude_username']) ? explode(',', $opts['exclude_username']) : 'admin,testi,admin,quest';
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT " . TBL_user . ".`id`,
+    $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
                    " . TBL_user_info . ".`email`,
                    " . TBL_user_info . ".`homepage`,
@@ -120,7 +120,7 @@ if (!function_exists('getUserData')) {
 
     $username = !empty($opts['username']) ? $opts['username'] : '';
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT " . TBL_user . ".`id`,
+    $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
                    " . TBL_user_info . ".`email`,
                    " . TBL_user_info . ".`homepage`,
