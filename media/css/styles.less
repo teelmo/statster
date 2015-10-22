@@ -8,7 +8,6 @@
  * Template styles
  */
 body {
-  // background: #fff url('/media/img/bg_body.jpg') repeat;
   font-family: 'Open Sans', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 1.3;
@@ -45,7 +44,6 @@ div#topCont {
     }
     h1 {
       display: inline-block;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 20px;
       letter-spacing: 3px;
       margin: 0;
@@ -280,9 +278,6 @@ h3 {
 /*
  * Text styles
  */
-div.clear {
-  clear: both;
-}
 .updated,
 .playCount,
 .album_year,
@@ -297,9 +292,87 @@ div.clear {
 .listening_date {
   color: #999;
 }
-.datetime {
-  padding-right: 5px;
+
+/* Artist album and user page infos */
+.like_toggle {
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  float: right;
+  height: 16px;
+  line-height: 16px;
+  padding-right: 20px;
+  .like_msg {
+    color: #0F0;
+    font-weight: bold;
+    opacity: 0.7;
+    position: absolute;
+  }
+  .loveAdd {
+    background-image: url('/media/img/icons/love_add.png');
+  }
+  .fanAdd {
+    background-image: url('/media/img/icons/fan_add.png');
+  }
+  .loveDel {
+    background-image: url('/media/img/icons/love.png');
+    &:hover {
+      background-image: url('/media/img/icons/love_delete.png');
+    }
+  }
+  .fanDel {
+    background-image: url('/media/img/icons/fan.png');
+    &:hover {
+      background-image: url('/media/img/icons/fan_delete.png');
+    }
+  }
 }
+.user_info,
+.album_info,
+.artist_info {
+  margin-left: 310px;
+  .tags { 
+    span.moretags {
+      background-color: #aaa;
+      font-weight: bold;
+      padding: 4px 6px;
+      &:hover {
+        background-color: #999;
+      }
+    }
+    .chosen-select {
+      width: 100%;
+    }
+  }
+  .listening_count {
+    margin-top: 20px;
+    width: auto;
+    td {
+      width: 120px;
+    }
+    .value {
+      color: #222;
+      font-size: 30px;
+      font-weight: bold;
+      margin-right: 5px
+    }
+    .label {
+      color: #222;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+  }
+  .album_love {
+    font-size: 13px;
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+}
+#artistBio p.content {
+  display: none;
+}
+
 div.more {
   a {
     color: #666;
@@ -315,11 +388,12 @@ div.more {
   text-align: right;
   text-transform: uppercase;
 }
+
+/* Tag styles */
 span.tag {
   background-color: #444;
   display: inline-block;
   font-size: 9px;
-  font-family: 'Lucida Grande', Arial, Helvetica, Verdana, sans-serif;
   letter-spacing: 0.01em;
   margin-bottom: 3px;
   padding: 4px;
@@ -336,68 +410,7 @@ span.tag {
     
   }
 }
-span.moretags {
-  background-color: #aaa;
-  font-weight: bold;
-  padding: 4px 6px;
-  &:hover {
-    background-color: #999;
-  }
-}
-select#tagAddSelect {
-  width: 100%;
-}
-div.user_info,
-div.album_info,
-div.artist_info {
-  margin-left: 310px; 
-  padding-top: 10px;
-  .external_link {
-    color: #666;
-    font-family: 'Lucida Grande', Arial, Helvetica, Verdana, sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    margin: 7px 0 7px 0;
-    vertical-align: middle;
-  }
-}
-div#artistBio p.content {
-  display: none;
-}
-span#love,
-span#fan {
-  background-position: 100% 50%;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  float: right;
-  height: 16px;
-  line-height: 16px;
-  padding-right: 20px;
-}
-span.loveMsg,
-span.fanMsg {
-  color: #0F0;
-  font-weight: bold;
-  opacity: 0.7;
-}
-span.loveAdd {
-  background-image: url('/media/img/icons/love_add.png');
-}
-span.fanAdd {
-  background-image: url('/media/img/icons/fan_add.png');
-}
-span.loveDel {
-  background-image: url('/media/img/icons/love.png');
-  &:hover {
-    background-image: url('/media/img/icons/love_delete.png');
-  }
-}
-span.fanDel {
-  background-image: url('/media/img/icons/fan.png');
-  &:hover {
-    background-image: url('/media/img/icons/fan_delete.png');
-  }
-}
+
 
 /*
  * Anchor styles
@@ -477,7 +490,6 @@ form#addListeningForm {
     border: 0;
     color: #219dd1;
     cursor: pointer;
-    font-family: arial;
     font-size: 14px;
     padding: 0;
     vertical-align: -5%;
@@ -591,21 +603,36 @@ table.chart_table {
       height: 32px;
       td {
         vertical-align: middle;
-        &.userImg {
+        &.user_img {
+          float: right;
+        }
+        &.album_img {
+          float: left;
+        }
+        &.icon {
+          width: 26px;
+          text-align: center;
+        }
+        &.datetime {
           text-align: right;
-          width: 32px;
-        }
-        &.albumImg {
-          width: 32px;
-        }
-        .icon {
-          padding: 0 2px;
+          width: 82px;
         }
         .delete {
           display: none;
         }
-        .datetime {
-          width: 82px;
+        .now_playing {
+          background-image: url('/media/img/icons/eq_icon.gif');
+          background-position: left center;
+          background-repeat: no-repeat;
+          padding-left: 17px;
+        }
+        .love_icon {
+          background-image: url('/media/img/icons/love.png');
+          background-position: center;
+          background-repeat: no-repeat;
+          margin: 3px 2px 0 0;
+          padding: 0 20px 3px 0;
+          vertical-align: 0;
         }
       }
       &:nth-child(2n) {
@@ -630,23 +657,25 @@ table.chart_table {
           }
         }
       }
-      &.justAddedRest {
+      &.just_added {
+        background-color: #ff8;
+      }
+      td.datetime {
+        position: relative;
+        right: -6px;
+      }
+      td.title {
+        left: -6px;
+        position: relative;
+      }
+      &.just_added_rest {
         td.datetime {
           position: relative;
-          right: -36px;
+          right: -40px;
         }
         td.title {
-          left: -36px;
+          left: -40px;
           position: relative;
-        }
-      }
-      &.justAdded {
-        background-color: #ff8;
-        td {
-          &.userImg,
-          &.albumImg {
-            width: 64px;
-          }
         }
       }
     }
@@ -682,7 +711,6 @@ table.side_table {
         .rank {
           background: #444;
           color: #fff;
-          font-family: "Lucida Grande", Arial, Helvetica, Verdana, sans-serif;
           font-size: 10px;
           padding: 3px 5px 3px 5px;
           vertical-align: middle;
@@ -755,7 +783,6 @@ table.column_table {
         span.rank {
           background: #444;
           color: #fff;
-          font-family: 'Lucida Grande', Arial, Helvetica, Verdana, sans-serif;
           font-size: 10px;
           padding: 3px 5px 3px 5px;
           vertical-align: middle;
@@ -782,24 +809,6 @@ table.column_table {
     tr:nth-child(2n) td.columnChartName {
       background-color: #f9f9f9;
     }
-  }
-}
-
-div.album_info,
-div.artist_info {
-  .value {
-    color: #222;
-    font-family: 'Lucida Grande', Arial, Helvetica, Verdana, sans-serif;
-    font-size: 28px;
-    font-weight: bold;
-    margin-right: 5px
-  }
-  .label {
-    color: #222;
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    line-height: 36px;
-    vertical-align: top;
   }
 }
 
@@ -846,92 +855,123 @@ ul {
 img {
   margin: 0;
   padding: 0;
-}
-img.albumImg,
-table.userTable img.userImg {
-  margin-right: 4px;
-}
-img.artistImg,
-img.albumImg,
-img.userImg {
-  vertical-align: middle;
-}
-img.img124:hover {
-  border-color: #999;
-}
-img.img20 {
-  border: 1px solid #444;
-  height: 20px;
-  width: 20px;
-}
-img.img32 {
-  border: 1px solid #444;
-  height: 32px;
-  width: 32px;
-}
-img.img64 {
-  border: 3px double #444;
-  height: 64px;
-  width: 64px;
-}
-img.img124 {
-  width: 124px;
-}
-img.img174 {
-  width: 174px;
-}
-img.img300 {
-  width: 300px;
-}
-img.albumImg.img124 {
-  height: 124px;
-}
-img.albumImg.img174 {
-  height: 174px;
-}
-img.img124,
-img.img174,
-img.img300 {
-  .box-shadow(3px 3px 4px #ddd);
-  border: 1px solid #232323;
-  margin: 0 0 5px 0;
-}
-img.artistPageImg {
-  float: left;
-  margin-right: 15px;
-}
-span.loveIcon {
-  background-image: url('/media/img/icons/love.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  margin: 3px 2px 0 0;
-  padding: 0 20px 3px 0;
-  vertical-align: 0;
-}
-img.listeningFormat {
-  .opacity(0.3);
-  cursor: pointer;
-  height: 64px;
-  margin: 8px;
-  width: 64px;
-}
-img.listeningFormat:hover {
-  cursor: pointer;
-}
-img.listeningFormat.selected {
-  .opacity(1);
-}
-img#betaLogo {
-  .opacity(0.4);
-  vertical-align: -32%;
-}
-img#addlistening {
-  .opacity(0.6);
-  vertical-align: -20%;
-  &:hover {
-    .opacity(1);
+  &:active,
+  &.selected {
+    outline: none;
+  }
+  &.icon {
+    height: 16px;
+    vertical-align: -25%;
+    width: 16px;
+  }
+  &.listening_format {
+    .opacity(0.3);
+    cursor: pointer;
+    height: 64px;
+    margin: 8px;
+    width: 64px;
+    &:hover {
+      cursor: pointer;
+    }
+    &.selected {
+      .opacity(1);
+    }
   }
 }
+div.cover {
+  background-size: 100%;
+  &.img32,
+  &.img64 {
+    border: 1px solid #444;
+  }
+  &.img124,
+  &.img174,
+  &.img300 {
+    .box-shadow(3px 3px 4px #ddd);
+    border: 1px solid #232323;
+  }
+  &.img32 {
+    height: 32px;
+    width: 32px;
+  }
+  &.img64 {
+    height: 64px;
+    width: 64px;
+  }
+  &.img124 {
+    width: 124px;
+    &.album_img {
+      height: 124px;
+    }
+    &.artist_img {
+      height: 80px;
+    }
+  }
+  &.img174 {
+    height: 174px;
+    width: 174px;
+  }
+  &.img300 {
+    width: 300px;
+    &.album_img {
+      height: 300px;
+    }
+    &.user_img,
+    &.artist_img {
+      height: 200px;
+    }
+    .title {
+      font-size: 20px;
+      font-weight: normal;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+  }
+  &.artist_img {
+    background-position: 50% 0%;
+  }
+  &.user_img,
+  &.album_img {
+    background-position: 50% 50%;
+  }
+  &.img32,
+  &.img64,
+  &.img124,
+  &.img174,
+  &.img300 {
+    position: relative;
+    &::after {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 100%);
+      content: '';
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+  }
+  a {
+    position: absolute;
+    z-index: 3;
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  .title {
+    bottom: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    left: 7px;
+    padding-right: 5px;
+    position: absolute;
+    z-index: 4;
+  }
+  &:hover a {
+    .title {
+      text-decoration: underline;
+    }
+  }
+}
+
 span.divider {
   border-left: 1px solid #111;
   border-right: 1px solid #555;
@@ -939,17 +979,13 @@ span.divider {
   padding-bottom: 5px;
   padding-top: 2px;
 }
-span#nowPlaying {
-  background-image: url('/media/img/icons/eq_icon.gif');
-  background-position: left center;
-  background-repeat: no-repeat;
-  padding-left: 17px;
+div.cover_shadow {
+  position: absolute;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
+  height: 300px;
+  width: 300px;
 }
-img.icon {
-  height: 16px;
-  vertical-align: -25%;
-  width: 16px;
-}
+
 /* 
  * Other
  */
@@ -961,10 +997,6 @@ hr {
   height: 1px;
   text-align: left;
   width: 100%;
-}
-img:active,
-img.selected {
-  outline: none;
 }
 .hidden {
   display: none;
@@ -999,6 +1031,8 @@ img.selected {
 .nowrap {
   white-space: nowrap;
 }
+.clear {
+  clear: both;
+}
 
 @import 'responsive.less';
-
