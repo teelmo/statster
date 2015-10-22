@@ -120,7 +120,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/artist/get',
       data:{
-        limit:5,
+        limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
