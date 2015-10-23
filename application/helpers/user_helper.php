@@ -129,6 +129,7 @@ if (!function_exists('getUserData')) {
                    " . TBL_user_info . ".`gender`,
                    " . TBL_user_info . ".`birthday`,
                    " . TBL_user_info . ".`about`,
+                   YEAR(" . TBL_user . ".`created`) as `joined_year`,
                    " . TBL_user . ".`created`,
                    " . TBL_user . ".`last_login`,
                    " . TBL_user . ".`last_access`

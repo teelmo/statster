@@ -5,7 +5,7 @@
     </div>
     <div class="info">
       <div class="top_info album_info">
-        <span id="love" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/></span>
+       <div class="spotify_container">Spotify</div>
         <h2><?=anchor(array('music', $artist_name), $artist_name)?></h2>
         <h1><?=$album_name?><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/><ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul></h1>
         <div class="tags">

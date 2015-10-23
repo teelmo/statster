@@ -15,16 +15,15 @@ body {
 div.container {
   font-size: 13px;
 }
-div#topCont {
-  .box-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
-  background: #222;
+#topCont {
+  background: #111;
   border-bottom: 1px solid #000;
+  height: 40px;
   left: 0;
+  line-height: 40px;
   position: fixed;
   top: 0;
   width: 100%;
-  height: 36px;
-  line-height: 36px;
   z-index: 2;
   .inner {
     padding: 0 2px;
@@ -42,22 +41,11 @@ div#topCont {
         text-decoration: none;
       }
     }
-    h1 {
-      display: inline-block;
-      font-size: 20px;
-      letter-spacing: 3px;
-      margin: 0;
-      padding: 2px;
-      text-shadow: 1px 0px 5px #ccc;
-      a:hover {
-        color: #fff;
-      }
-    }
     form, 
     div {
       display: inline-block;
-      height: 36px;
-      line-height: 36px;
+      height: 40px;
+      line-height: 40px;
     }
     .top_links {
       color: #fff;
@@ -80,8 +68,8 @@ div#topCont {
       .user-select(none);
       color: #fff;
       cursor: pointer;
-      height: 36px;
-      line-height: 36px;
+      height: 40px;
+      line-height: 40px;
       position: relative;
       vertical-align: top;
       white-space: nowrap;
@@ -90,8 +78,8 @@ div#topCont {
       }
       .profile_text {
         display: inline-block;
-        height: 36px;
-        line-height: 36px;
+        height: 40px;
+        line-height: 40px;
         margin-right: 70px;
         margin-top: 1px;
         vertical-align: top;
@@ -99,9 +87,9 @@ div#topCont {
           content:"\2304";
           display: inline-block;
           font-size: 30px;
-          height: 36px;
+          height: 40px;
           left: -3px;
-          line-height: 36px;
+          line-height: 40px;
           position: relative;
           top: -2px;
           vertical-align: top;
@@ -110,7 +98,7 @@ div#topCont {
       .profile_img {
         .border-radius(32px);
         .box-shadow(0 0 8px rgba(0, 0, 0, .8));
-        background-repeat:  no-repeat;
+        background-repeat: no-repeat;
         display: inline-block;
         height: 64px;
         position: absolute;
@@ -118,6 +106,15 @@ div#topCont {
         margin-top: -8px;
         width: 64px;
         z-index: 3;
+        &::after {
+          .border-radius(32px);
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 100%);
+          content: '';
+          height: 64px;
+          left: 0;
+          position: absolute;
+          width: 64px;
+        }
         img {
           .opacity(0);
         }
@@ -156,11 +153,119 @@ div#topCont {
     }
   }
 }
-div#mainCont {
+#headingCont {
+  background-color: #111;
+  height: 150px;
+  margin-top: 37px;
+  width: 100%;
+  color: #fff;
+  .inner {
+    margin: auto auto;
+    padding: 20px;
+    max-width: 1000px;
+    .img174 {
+      background-color: transparent;
+      box-shadow: none;
+      &.user_img,
+      &.artist_img {
+        border-radius: 87px;
+        border: 2px solid #333;
+        &::after {
+          background-color: transparent;
+          border-radius: 87px;
+        }
+      }
+    }
+    .info {
+      margin-left: 200px;
+      .top_info {
+        margin: 5px 0 10px 0;
+        height: 125px;
+        h1 {
+          color: #fff;
+          font-size: 36px;
+          font-weight: bold;
+          letter-spacing: normal;
+          margin: 0 0 5px 0;
+          ul {
+            display: inline;
+          }
+        }
+        h2 {
+          font-size: 20px;
+          margin: 0 0 -5px 0;
+          a {
+            color: #fff;
+            &:hover {
+              text-decoration: none;
+            }
+          }
+        }
+        h4 {
+          font-size: 14px;
+          color: #ccc;
+          .username {
+            color: #fff;
+          }
+        }
+        .tags {
+          .moretags {
+            background-color: #aaa;
+            font-weight: bold;
+            padding: 4px 6px;
+            &:hover {
+              background-color: #999;
+            }
+          }
+          .chosen-select {
+            width: 100%;
+          }
+        }
+        .spotify_container {
+          .border-radius(15px);
+          background-image: url('/media/img/icons/play.png');
+          background-position: 100% 50%;
+          background-repeat: no-repeat;
+          display: inline-block;
+          float: right;
+          font-size: 20px;
+          font-weight: bold;
+          height: 40px;
+          letter-spacing: 0.01em;
+          line-height: 40px;
+          margin-top: 30px;
+          padding-right: 47px;
+          vertical-align: middle;
+        }
+      }
+      .listening_count {
+        width: auto;
+        td {
+          width: 120px;
+        }
+        .value {
+          color: #222;
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .label {
+          color: #222;
+          font-size: 12px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
+#mainCont {
   background-color: #f9f9f9;
   margin: 70px auto auto auto;
   max-width: 1000px;
   position: relative;
+  &.heading_container {
+    margin-top: 30px;
+  }
   .page_links {
     background-color: #fff;
     font-size: 18px;
@@ -174,42 +279,42 @@ div#mainCont {
       }
     }
   }
-}
-div#leftCont {
-  background: #fff;
-  border-right: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-  float: left;
-  padding-bottom: 30px;
-  width: 684px;
-  .container {
-    margin: 15px 15px 15px 0;
-    padding: 0 2px;
-  }
-  #leftContInner {
+  #leftCont {
+    background: #fff;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
     float: left;
-    width: 150px;
+    padding-bottom: 30px;
+    width: 684px;
     .container {
-      margin-top: -20px;
+      margin: 15px 15px 15px 0;
+      padding: 0 2px;
+    }
+    #leftContInner {
+      float: left;
+      width: 150px;
+      .container {
+        margin-top: -20px;
+      }
+    }
+    #leftContOuter {
+      color: #222;
+      font-size: 22px;
+      font-weight: normal;
+      letter-spacing: 0.01em;
+      margin-left: 150px;
+      width: 534px;
     }
   }
-  #leftContOuter {
-    color: #222;
-    font-size: 22px;
-    font-weight: normal;
-    letter-spacing: 0.01em;
-    margin-left: 150px;
-    width: 534px;
+  #rightCont {
+    border-top: 1px solid #ccc;
+    margin-left: 684px;
+    .container {
+      margin: 7px 15px 15px 15px;
+    }
   }
 }
-div#rightCont {
-  border-top: 1px solid #ccc;
-  margin-left: 684px;
-  .container {
-    margin: 7px 15px 15px 15px;
-  }
-}
-div#footer {
+#footer {
   background-color: #444;
   clear: both;
   margin: auto auto;
@@ -246,10 +351,8 @@ h1 {
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  letter-spacing: 0.01em;
   letter-spacing: 0.1em;
   margin: 20px 0 20px 0;
-  text-shadow: 0 1px 0 #eee;
   div.desc {
     font-size: 14px;
   }
@@ -325,48 +428,6 @@ h3 {
     &:hover {
       background-image: url('/media/img/icons/fan_delete.png');
     }
-  }
-}
-.user_info,
-.album_info,
-.artist_info {
-  margin-left: 310px;
-  .tags { 
-    span.moretags {
-      background-color: #aaa;
-      font-weight: bold;
-      padding: 4px 6px;
-      &:hover {
-        background-color: #999;
-      }
-    }
-    .chosen-select {
-      width: 100%;
-    }
-  }
-  .listening_count {
-    margin-top: 20px;
-    width: auto;
-    td {
-      width: 120px;
-    }
-    .value {
-      color: #222;
-      font-size: 30px;
-      font-weight: bold;
-      margin-right: 5px
-    }
-    .label {
-      color: #222;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-  }
-  .album_love {
-    font-size: 13px;
-    margin-top: 20px;
-    text-transform: uppercase;
   }
 }
 #artistBio p.content {
@@ -539,25 +600,35 @@ form#loginForm input[type="text"] {
 }
 .search_container {
   vertical-align: top;
+  ::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  :-moz-placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  ::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  :-ms-input-placeholder {  
+    color: rgba(255, 255, 255, 0.3);
+  }
   .search_form input {
-    .border-radius(10px);
-    background-color: #fff;
-    border: 0;
-    color: #bebebf;
-    font-size: 15px;
-    margin-right: -20px;
-    padding: 5px 30px 5px 7px;
+    .border-radius(15px);
+    background-color: #111;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    margin-top: -1px;
+    padding: 4px 35px 4px 15px;
     width: 250px;
-    &.working {
-      background: #fff url('/media/img/ajax-loader-circle.gif') no-repeat 89% 50%;
-    }
-    &:hover {
-      background-color: #f9f9f9;
-      color: #bebebf;
-    }
     &:focus {
-      background-color: #ff8;
-      color: #222;
+      background-color: #111;
+      color: #fff;
+      &.working {
+        background-image: url('/media/img/ajax-loader-circle.gif');
+        background-position: 85% 50%;
+        background-repeat: no-repeat;
+      }
     }
   }
   .submit {
@@ -566,12 +637,11 @@ form#loginForm input[type="text"] {
     cursor: pointer;
     display: inline;
     height: 16px;
-    margin: 0;
     outline: none;
     padding: 0;
     position: relative;
-    right: 8px;
-    top: 6px;
+    right: 35px;
+    top: 5px;
     width: 16px;
   }
 }
@@ -934,6 +1004,9 @@ div.cover {
   &.album_img {
     background-position: 50% 50%;
   }
+  &.user_img {
+    background-origin: padding-box;
+  }
   &.img32,
   &.img64,
   &.img124,
@@ -941,11 +1014,23 @@ div.cover {
   &.img300 {
     position: relative;
     &::after {
-      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 100%);
       content: '';
       height: 100%;
       position: absolute;
       width: 100%;
+    }
+  }
+  &.img32,
+  &.img64,
+  &.img174,
+  &.img300 {
+    &::after {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 100%);
+    }
+  }
+  &.img124 {
+    &::after {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
     }
   }
   a {
