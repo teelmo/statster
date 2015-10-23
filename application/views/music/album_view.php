@@ -44,7 +44,7 @@
   </div>
 </div>
 <div class="clear"></div>
-<div id="mainCont">
+<div id="mainCont" class="heading_container">
   <div class="page_links">
     <?=anchor(array('listener', $artist_name, $album_name), 'Listeners')?>
     <?=anchor(array('recent', $artist_name, $album_name), 'Listenings')?>
