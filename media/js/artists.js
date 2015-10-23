@@ -44,10 +44,10 @@ $.extend(view, {
             type:'POST',
             url:vars.template,
             data:{
+              hide:vars.hide,
               json_data:data,
-              size:32,
               rank:11,
-              hide:vars.hide
+              size:32
             },
             success: function (data) {
               $(vars.container + 'Loader').hide();

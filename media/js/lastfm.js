@@ -101,7 +101,7 @@ $.extend(view, {
 
 $(document).ready(function () {
   view.getSimilar();
-  view.getEvents();
+  // view.getEvents();
   view.getBio();
 });
 
