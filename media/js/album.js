@@ -82,8 +82,8 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/likeList',
             data:{
-              json_data:data,
-              hide:{}
+              hide:{},
+              json_data:data
             },
             success: function(data) {
               $('#albumLoveLoader').hide();
@@ -93,11 +93,9 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#albumLoveLoader').hide();
-          $('#albumLove').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function () { // 400 Bad request
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+        400: function (data) {
+          alert('400 Bad Request')
         }
       }
     });
@@ -109,9 +107,9 @@ $.extend(view, {
       dataType:'json',
       url:'/api/listener/get',
       data:{
-        limit:6,
+        album_name:'<?php echo $album_name?>',
         artist_name:'<?php echo $artist_name?>',
-        album_name:'<?php echo $album_name?>'
+        limit:6
       },
       statusCode:{
         200: function(data) { // 200 OK
@@ -119,12 +117,12 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/userTable',
             data:{
-              json_data:data,
-              size:32,
               hide:{
-                date:true,
-                calendar:true
-              }
+                calendar:true,
+                date:true
+              },
+              json_data:data,
+              size:32
             },
             success: function(data) {
               $('#topListenerLoader').hide();
@@ -161,13 +159,13 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/userTable',
             data:{
-              json_data:data,
-              size:32,
               hide:{
                 artist:true,
                 count:true,
                 rank:true
-              }
+              },
+              json_data:data,
+              size:32
             },
             success: function (data) {
               $('#recentlyListenedLoader').hide();

@@ -110,7 +110,6 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#artistFanLoader').hide();
-          $('#artistFan').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {
           alert('400 Bad Request')
@@ -125,8 +124,8 @@ $.extend(view, {
       dataType:'json',
       url:'/api/listener/get',
       data:{
-        limit:6,
-        artist_name:'<?=$artist_name?>'
+        artist_name:'<?=$artist_name?>',
+        limit:6
       },
       statusCode:{
         200: function (data) { // 200 OK
@@ -134,12 +133,12 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/userTable',
             data:{
-              json_data:data,
-              size:32,
               hide:{
-                date:true,
-                calendar:true
-              }
+                calendar:true,
+                date:true
+              },
+              json_data:data,
+              size:32
             },
             success: function (data) {
               $('#topListenerLoader').hide();
@@ -172,13 +171,13 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/sideTable',
             data:{
-              json_data:data,
-              size:32,
               hide:{
                 artist:true,
                 count:true,
                 rank:true
-              }
+              },
+              json_data:data,
+              size:32
             },
             success: function (data) {
               $('#recentlyListenedLoader').hide();
