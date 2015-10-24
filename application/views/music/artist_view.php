@@ -6,9 +6,9 @@
     <div class="info">
       <div class="top_info artist_info">
         <?php
-        if ($spotify_id) {
+        if ($spotify_id) {
           ?>
-          <a href="spotify:artist:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container" style="background-image:url('<?=getAlbumImg(array('artist_id' => $artist_id, 'size' => 64))?>')">Spotify</div></a>
+          <a href="spotify:artist:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 64))?>')"></div></a>
           <?php
         }
         ?>

@@ -30,7 +30,7 @@ class Music extends CI_Controller {
       $data += getArtistTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['js_include'] = array('artist', 'artistAlbum', 'lastfm', 'populateTagSelect');
-      $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
+      $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], '');
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
