@@ -5,7 +5,13 @@
     </div>
     <div class="info">
       <div class="top_info artist_info">
-        <div class="spotify_container">Spotify</div>
+        <?php
+        if ($spotify_id) {
+          ?>
+          <a href="spotify:artist:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container" style="background-image:url('<?=getAlbumImg(array('artist_id' => $artist_id, 'size' => 64))?>')">Spotify</div></a>
+          <?php
+        }
+        ?>
         <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/></span>
         <h1><?=$artist_name?><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/><ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul></h1>
         <div class="tags">

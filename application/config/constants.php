@@ -69,6 +69,7 @@ define('MSG_FADEOUT', 3000);
 define('JUST_LISTENED_INTERVAL', 1800);
 define('CUR_DATE', date('Y-m-d')); #2009-12-15
 define('CUR_YEAR', date('Y')); #2009
+define('SPOTIFY_TIMEOUT', 3); #seconds
 
 // Database variables
 define('TBL_album', 'album');

@@ -221,21 +221,40 @@ div.container {
             width: 100%;
           }
         }
-        .spotify_container {
-          .border-radius(15px);
-          background-image: url('/media/img/icons/play.png');
-          background-position: 100% 0%;
-          background-repeat: no-repeat;
-          display: inline-block;
-          float: right;
-          font-size: 20px;
-          font-weight: bold;
-          height: 48px;
-          letter-spacing: 0.01em;
-          line-height: 48px;
-          margin-top: 30px;
-          padding-right: 54px;
-          vertical-align: middle;
+        .spotify_link {
+          color: #fff;
+          .spotify_container {
+            position: relative;
+            &::after {
+              background-image: url('/media/img/icons/play.png');
+              background-position: 100% 0%;
+              background-repeat: no-repeat;
+              top: 8px;
+              height: 48px;
+              width: 48px;
+              right: 8px;
+              position: absolute;
+              content: '';
+            }
+            &:hover {
+              background-position: 100% 100%;
+              &::after {
+                background-position: 100% 100%;
+              }
+            }
+            background-position: 100% 0%;
+            background-repeat: no-repeat;
+            display: inline-block;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            height: 64px;
+            letter-spacing: 0.01em;
+            line-height: 64px;
+            margin-top: 30px;
+            padding-right: 70px;
+            vertical-align: middle;
+          }
         }
       }
       .listening_count {

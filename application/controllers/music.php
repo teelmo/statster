@@ -12,7 +12,7 @@ class Music extends CI_Controller {
 
   public function artist($artist_name) {
     // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'artist_helper'));
+    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper'));
 
     $data = array();
     // Decode artist information
@@ -30,6 +30,7 @@ class Music extends CI_Controller {
       $data += getArtistTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['js_include'] = array('artist', 'artistAlbum', 'lastfm', 'populateTagSelect');
+      $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
       $data += $_REQUEST;
 
       $this->load->view('templates/header', $data);
@@ -43,7 +44,7 @@ class Music extends CI_Controller {
 
   public function album($artist_name, $album_name) {
     // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'album_helper'));
+    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper'));
 
     $data = array();
     $data['artist_name'] = decode($artist_name);
@@ -62,7 +63,9 @@ class Music extends CI_Controller {
       $data += getAlbumTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['js_include'] = array('album', 'artistAlbum', 'lastfm', 'populateTagSelect');
+      $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
       $data += $_REQUEST;
+
 
       $this->load->view('templates/header', $data);
       $this->load->view('music/album_view', $data);
