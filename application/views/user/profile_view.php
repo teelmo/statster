@@ -24,9 +24,9 @@
           <td class="label">Albums</td>
         </tr>
         <tr>
-          <td class="value">0</td>
-          <td class="value">0</td>
-          <td class="value">0</td>
+          <td class="value"><?=$listening_count?></td>
+          <td class="value"><?=$artist_count?></td>
+          <td class="value"><?=$album_count?></td>
         </tr>
       </table>
     </div>

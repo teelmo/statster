@@ -8,6 +8,42 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
+  *
+  * @return string JSON encoded data containing artist information.
+  */
+if (!function_exists('getListeningCount')) {
+  function getListeningCount($opts = array(), $type) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  $type . '.`id`';
+    $sql = "SELECT count(" . $type . ".`id`) as `count`
+            FROM " . TBL_album . ",
+                 " . TBL_artist . ",
+                 " . TBL_listening . ",
+                 " . TBL_user . "
+            WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . "
+                                                   AND " . $ci->db->escape($upper_limit) . "
+              AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
+            GROUP BY " . mysql_real_escape_string($group_by);
+    $query = $ci->db->query($sql);
+    return $query->num_rows();
+  }
+}
+
+/**
+  * Returns top artists for the given user.
+  *
+  * @param array $opts.
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
+  *          'username'        => Username
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
   *          'order_by'        => Order by argument
@@ -21,13 +57,13 @@ if (!function_exists('getArtists')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $limit = !empty($opts['limit']) ? $opts['limit'] : '10';
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT count(" . TBL_artist . ".`id`) as `count`,
                    " . TBL_artist . ".`artist_name`, 
@@ -41,13 +77,13 @@ if (!function_exists('getArtists')) {
               ) AS `love`
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
-                 " . TBL_listening . " ,
+                 " . TBL_listening . ",
                  " . TBL_user . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-              AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . "
-                                                   AND " . $ci->db->escape($upper_limit) . "
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . "
+                                                   AND " . $ci->db->escape($upper_limit) . "
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
               GROUP BY " . mysql_real_escape_string($group_by) . "

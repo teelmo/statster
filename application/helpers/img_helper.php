@@ -96,7 +96,7 @@ if (!function_exists('getListeningsFormatImg')) {
       return $format_img;
     }
     else {
-      return array('filename' => site_url() . '/media/img/format_img/format_icons/empty.png', 'nae' => '');
+      return array('filename' => site_url() . '/media/img/format_img/format_icons/empty.png', 'name' => '');
     }
   }
 }    

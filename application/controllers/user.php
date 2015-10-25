@@ -19,6 +19,9 @@ class User extends CI_Controller {
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
       $data += getUserTags($data);
+      $data['artist_count'] = getListeningCount($data, TBL_artist);
+      $data['album_count'] = getListeningCount($data, TBL_album);
+      $data['listening_count'] = getListeningCount($data, TBL_listening);
 
       $this->load->view('templates/header');
       $this->load->view('user/profile_view', $data);

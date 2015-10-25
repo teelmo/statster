@@ -693,6 +693,8 @@ th {
 }
 /* chartTable */
 table.chart_table {
+  border-collapse: collapse;
+  border: 0;
   tbody {
     tr {
       border-bottom: 1px solid #e9e9e9;
@@ -700,19 +702,26 @@ table.chart_table {
       height: 32px;
       td {
         vertical-align: middle;
-        &.user_img {
-          float: right;
-        }
-        &.album_img {
-          float: left;
-        }
         &.icon {
           width: 26px;
           text-align: center;
         }
         &.datetime {
           text-align: right;
+          padding-right: 5px;
           width: 82px;
+        }
+        &.title {
+          padding-left: 5px;
+          .title {
+            float: left;
+            display: block;
+          }
+        }
+        &.user_img {
+          .user_img {
+            float: right;
+          }
         }
         .delete {
           display: none;
@@ -756,23 +765,23 @@ table.chart_table {
       }
       &.just_added {
         background-color: #ff8;
-      }
-      td.datetime {
-        position: relative;
-        right: -6px;
-      }
-      td.title {
-        left: -6px;
-        position: relative;
+        td.user_img,
+        td.album_img {
+          width: 64px;
+        }
       }
       &.just_added_rest {
-        td.datetime {
-          position: relative;
-          right: -40px;
+        td.user_img,
+        td.album_img {
+          width: 32px;
         }
         td.title {
-          left: -40px;
           position: relative;
+          left: -32px;
+        }
+        td.datetime {
+          position: relative;
+          right: -32px;
         }
       }
     }
