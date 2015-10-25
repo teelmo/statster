@@ -8,7 +8,7 @@
       <?php
         if ($spotify_id) {
           ?>
-          <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
+          <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
           <?php
         }
         ?>

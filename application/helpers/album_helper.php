@@ -97,7 +97,7 @@ if (!function_exists('getAlbumTags')) {
 }
 
 /**
-   * Gets artist's genres.
+   * Gets album's genres.
    *
    * @param array $opts.
    *          'album_id'  => Album ID

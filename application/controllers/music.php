@@ -66,7 +66,6 @@ class Music extends CI_Controller {
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
       $data += $_REQUEST;
 
-
       $this->load->view('templates/header', $data);
       $this->load->view('music/album_view', $data);
       $this->load->view('templates/footer');
