@@ -169,6 +169,7 @@ div.container {
       &.user_img,
       &.artist_img {
         border-radius: 87px;
+        background-position: 50% 50%;
         border: 2px solid #333;
         &::after {
           background-color: transparent;
@@ -202,8 +203,9 @@ div.container {
           }
         }
         h4 {
-          font-size: 14px;
           color: #ccc;
+          font-size: 14px;
+          margin-bottom: 10px;
           .username {
             color: #fff;
           }
@@ -243,7 +245,12 @@ div.container {
               }
             }
             .opacity(0.5);
-            background-position: 100% 0%;
+            &.artist_spotify_container {
+              background-position: 50% 50%;
+            }
+            &.album_spotify_container {
+              background-position: 100% 50%;
+            }
             background-repeat: repeat-y;
             display: inline-block;
             float: right;
