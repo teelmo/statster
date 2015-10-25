@@ -184,6 +184,51 @@ $.extend(view, {
       }
     });
   },
+  getListeningHistory: function () {
+    $.ajax({
+      type:'GET',
+      dataType:'json',
+      url:'/api/listener/get',
+      data:{
+        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?php echo $album_name?>',
+        group_by:'month(<?=TBL_listening?>.`date`)',
+        limit:100,
+        order_by:'month(<?=TBL_listening?>.`date`) ASC',
+        select:'month(<?=TBL_listening?>.`date`) as `bar_date`',
+        username:'<?php echo !empty($username) ? $username: ''?>',
+        where:'month(<?=TBL_listening?>.`date`) <> \'00\''
+      },
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            type:'POST',
+            url:'/ajax/barChart',
+            data:{
+              json_data:data,
+              type:'Month'
+            },
+            success: function (data) {
+              $('#userListeningsLoader').hide();
+              $('#userListenings').html(data).bind('highchartTable.beforeRender', function(event, highChartConfig) {
+                highChartConfig.tooltip = {
+                  <?=TBL_highchart_tooltip?>
+                }
+                highChartConfig.yAxis = {
+                  <?=TBL_highchart_yaxis?>
+                }
+              }).highchartTable().hide();
+            }
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function (data) {alert('400 Bad Request')}
+      }
+    });
+  },
   initAlbumEvents: function () {
     $('#moretags').click(function() {
       $('#tagAdd').toggle();
@@ -201,6 +246,7 @@ $.extend(view, {
 $(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
+  view.getListeningHistory();
   view.getUsers();
   view.getListenings();
   view.initAlbumEvents();

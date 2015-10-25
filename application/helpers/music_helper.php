@@ -178,17 +178,18 @@ if (!function_exists('getListeners')) {
     $ci=& get_instance();
     $ci->load->database();
 
+    $select = !empty($opts['select']) ? ', ' . $opts['select'] : '';
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-01-01';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_user . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT year(" . TBL_listening . ".`date`) as `date`,
-                   count(" . TBL_user . ".`id`) as `count`,
+    $sql = "SELECT count(" . TBL_user . ".`id`) as `count`,
                    " . TBL_user . ". `username`,
                    " . TBL_user . ". `id` as user_id,
                    " . TBL_artist . ".`artist_name`,
@@ -196,6 +197,7 @@ if (!function_exists('getListeners')) {
                    " . TBL_album . ".`album_name`,
                    " . TBL_album . ".`id` as album_id,
                    " . TBL_album . ".`year`
+                  " . $select . "
             FROM " . TBL_album . ", 
                  " . TBL_artist . ", 
                  " . TBL_listening . " , 
@@ -208,6 +210,7 @@ if (!function_exists('getListeners')) {
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
               AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album_name) . "
+              " . $where . "
               GROUP BY " . mysql_real_escape_string($group_by) . "
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);

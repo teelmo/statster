@@ -1,14 +1,15 @@
 $.extend(view, {
   // Get listening by year.
-  getListenings: function () {
+  getListeningHistory: function () {
     $.ajax({
       type:'GET',
       dataType:'json',
       url:'/api/listener/get',
       data:{
-        limit:100,
         group_by:'year(<?=TBL_listening?>.`date`)',
-        order_by:'`date` ASC',
+        limit:100,
+        order_by:'year(<?=TBL_listening?>.`date`) ASC',
+        select:'year(<?=TBL_listening?>.`date`) as `bar_date`',
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
       statusCode:{
@@ -18,6 +19,7 @@ $.extend(view, {
             url:'/ajax/barChart',
             data:{
               json_data:data,
+              type:'Year'
             },
             success: function (data) {
               $('#userListeningsLoader').hide();
@@ -211,7 +213,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getListenings();
+  view.getListeningHistory();
   view.getRecentListenings();
   view.getTopAlbums();
   view.getTopArtists();

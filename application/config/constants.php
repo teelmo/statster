@@ -129,6 +129,7 @@ define('TBL_highchart_tooltip', "
   }
 ");
 define('TBL_highchart_yaxis', "
+  allowDecimals: false,
   labels: {
     formatter: function () {
       return this.value;
