@@ -206,7 +206,7 @@ $.extend(view, {
         limit:100,
         order_by:'month(<?=TBL_listening?>.`date`) ASC',
         select:'month(<?=TBL_listening?>.`date`) as `bar_date`',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
         where:'month(<?=TBL_listening?>.`date`) <> \'00\''
       },
       statusCode:{
