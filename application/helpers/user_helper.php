@@ -147,4 +147,101 @@ if (!function_exists('getUserData')) {
     }
   }
 }
+
+/**
+   * Gets user's tags (genres and keywords).
+   *
+   * @param array $opts.
+   *          'album_id'  => Album ID
+   *          'user_id'  => User ID
+   *
+   * @return array User information.
+   *
+   */
+if (!function_exists('getUserTags')) {
+  function getUserTags($opts = array()) {
+    $tags_array = array();
+    $tags_array[] = getUserGenres($opts);
+    $tags_array[] = getUserKeywords($opts);
+    if (is_array($tags_array)) {
+      $data = array();
+      foreach ($tags_array as $idx => $tags) {
+        foreach ($tags as $idx => $tag) {
+          $data['tags'][] = $tag;
+        }
+      }
+      uasort($data, '_tagsSortByCount');
+      $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
+      return $data;
+    }
+    return array();
+  }
+}
+
+/**
+   * Gets user's genres.
+   *
+   * @param array $opts.
+   *          'user_id'  => User ID
+   *
+   * @return array user's Keyword information.
+   *
+   */
+if (!function_exists('getUserGenres')) {
+  function getUserGenres($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
+    $sql = "SELECT " . TBL_genre . ".`name`, count(" . TBL_genre . ".`id`) as `count`, 'genre' as `type`
+            FROM " . TBL_genre . ", " . TBL_genres . ", " . TBL_album . ", " . TBL_listening . "
+            WHERE " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
+              AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
+              AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+              AND " . TBL_listening . ".`user_id` = " . $opts['user_id'] . "
+            GROUP BY " . TBL_genre . ".`id`
+            ORDER BY count(" . TBL_genre . ".`id`) DESC";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      return $query->result(0);
+    }
+    else {
+      return array();
+    }
+  }
+}
+
+/**
+   * Gets user's keywords.
+   *
+   * @param array $opts.
+   *          'user_id'  => User ID
+   *
+   * @return array user's Keyword information.
+   *
+   */
+if (!function_exists('getUserKeywords')) {
+  function getUserKeywords($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
+    $sql = "SELECT " . TBL_keyword . ".`name`, count(" . TBL_keyword . ".`id`) as `count`, 'keyword' as `type`
+            FROM " . TBL_keyword . ", " . TBL_keywords . ", " . TBL_album . ", " . TBL_listening . "
+            WHERE " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
+              AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
+              AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+              AND " . TBL_listening . ".`user_id` = " . $opts['user_id'] . "
+            GROUP BY " . TBL_keyword . ".`id`
+            ORDER BY count(" . TBL_keyword . ".`id`) DESC";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      return $query->result(0);
+    }
+    else {
+      return array();
+    }
+  }
+}
+
 ?>

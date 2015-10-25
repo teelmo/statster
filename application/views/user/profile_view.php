@@ -5,8 +5,17 @@
     </div>
     <div class="info">
       <div class="top_info user_info">
-        <h1><?=$real_name?></h1>
+        <h1><?=($real_name) ? $real_name : $username ?></h1>
         <h4><span class="username"><?=$username?></span> • <?=($joined_year) ? 'active since ' + $joined_year : 'active since long time ago'?></h4>
+        <div class="tags">
+          <?php
+          foreach ($tags as $tag) {
+            ?>
+            <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
+            <?php
+          }
+          ?>
+        </div>
       </div>
       <table class="listening_count">
         <tr>
@@ -23,7 +32,14 @@
     </div>
   </div>
 </div>
-<div id="mainCont">
+<div class="clear"></div>
+<div id="mainCont" class="heading_container">
+  <div class="page_links">
+    <?=anchor('recent?u=' . $username, 'Listenings')?>
+    <?=anchor('artist?u=' . $username, 'Artists')?>
+    <?=anchor('album?u=' . $username, 'Albums')?>
+    <?=anchor('tag?u=' . $username, 'Tags')?>
+  </div>
   <div id="leftCont">
     <div class="container">
       <div class="user_info">
@@ -70,18 +86,11 @@
         <?=anchor('artist?u=' . $username, 'More artists', array('title' => 'Browse more artists'))?>
       </div>
     </div>
-    <div class="container"><hr /></div>
-    <div class="container">
-      <h2>Favorite genres</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id=""/>
-    </div>
   </div>
 
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>
-      <div>Number of listenings</div>
-      <div>Joined</div>
       <h2>Likes</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>

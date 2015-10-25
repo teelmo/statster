@@ -10,7 +10,7 @@ class User extends CI_Controller {
   }
 
   public function profile($username) {
-    $this->load->helper(array('user_helper', 'img_helper'));
+    $this->load->helper(array('user_helper', 'img_helper', 'music_helper'));
 
     $data['username'] = $username;
     
@@ -18,6 +18,7 @@ class User extends CI_Controller {
       $data['js_include'] = array('profile');
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
+      $data += getUserTags($data);
 
       $this->load->view('templates/header');
       $this->load->view('user/profile_view', $data);
