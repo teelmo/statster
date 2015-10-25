@@ -6,7 +6,7 @@
     <div class="info">
       <div class="top_info user_info">
         <h1><?=($real_name) ? $real_name : $username ?></h1>
-        <h4><span class="username"><?=$username?></span> • <?=($joined_year) ? 'active since ' + $joined_year : 'active since long time ago'?></h4>
+        <h4><span class="username"><?=$username?></span> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></h4>
         <div class="tags">
           <?php
           foreach ($tags as $tag) {
