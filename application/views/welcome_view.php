@@ -59,6 +59,6 @@
     <div class="container">
       <h1>All time top</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
-      <table id="topArtist" class="bar_table"><!-- Content is loaded with AJAX --></table>
+      <table id="topArtist" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
