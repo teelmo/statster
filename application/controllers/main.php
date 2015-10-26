@@ -10,9 +10,9 @@ class Main extends CI_Controller {
       $data['js_include'] = array('main');
       $data['interval'] = 14;
       
-      $this->load->view('templates/header');
+      $this->load->view('site_templates/header');
       $this->load->view('main_view', $data);
-      $this->load->view('templates/footer', $data);  
+      $this->load->view('site_templates/footer', $data);  
     }
     else {
       // Load helpers
@@ -21,9 +21,9 @@ class Main extends CI_Controller {
       $data = array();
       $data['js_include'] = array('welcome');
 
-      $this->load->view('templates/header');
+      $this->load->view('site_templates/header');
       $this->load->view('welcome_view');
-      $this->load->view('templates/footer', $data);  
+      $this->load->view('site_templates/footer', $data);  
     }
   }
 
@@ -31,33 +31,33 @@ class Main extends CI_Controller {
    * Meta page's controllers 
    */
   public function about() {
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('meta/about_view');
-    $this->load->view('templates/footer');  
+    $this->load->view('site_templates/footer');  
   }
 
   public function career() {
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('meta/career_view');
-    $this->load->view('templates/footer');  
+    $this->load->view('site_templates/footer');  
   }
 
   public function developers() {
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('meta/developers_view');
-    $this->load->view('templates/footer');  
+    $this->load->view('site_templates/footer');  
   }
 
   public function privacy() {
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('meta/privacy_view');
-    $this->load->view('templates/footer');  
+    $this->load->view('site_templates/footer');  
   }
 
   public function terms() {
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('meta/terms_view');
-    $this->load->view('templates/footer');  
+    $this->load->view('site_templates/footer');  
   }
 }
 ?>

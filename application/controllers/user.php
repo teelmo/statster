@@ -23,9 +23,9 @@ class User extends CI_Controller {
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
 
-      $this->load->view('templates/header');
+      $this->load->view('site_templates/header');
       $this->load->view('user/profile_view', $data);
-      $this->load->view('templates/footer');
+      $this->load->view('site_templates/footer');
     }
     else {
       show_404();
@@ -40,9 +40,9 @@ class User extends CI_Controller {
     // Load helpers
     $this->load->helper(array('form'));
       
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('user/edit_view');
-    $this->load->view('templates/footer');
+    $this->load->view('site_templates/footer');
   }
 }
 ?>

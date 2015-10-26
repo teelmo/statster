@@ -5,9 +5,9 @@ class Music extends CI_Controller {
     $data = array();
     $data['js_include'] = array('music');
     
-    $this->load->view('templates/header', $data);
+    $this->load->view('site_templates/header', $data);
     $this->load->view('music/music_view');
-    $this->load->view('templates/footer');
+    $this->load->view('site_templates/footer');
   }
 
   public function artist($artist_name) {
@@ -33,9 +33,9 @@ class Music extends CI_Controller {
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], '');
       $data += $_REQUEST;
 
-      $this->load->view('templates/header', $data);
+      $this->load->view('site_templates/header', $data);
       $this->load->view('music/artist_view', $data);
-      $this->load->view('templates/footer');
+      $this->load->view('site_templates/footer');
     }
     else {
       show_404();
@@ -66,9 +66,9 @@ class Music extends CI_Controller {
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
       $data += $_REQUEST;
 
-      $this->load->view('templates/header', $data);
+      $this->load->view('site_templates/header', $data);
       $this->load->view('music/album_view', $data);
-      $this->load->view('templates/footer');
+      $this->load->view('site_templates/footer');
     }
     else {
       show_404();
@@ -82,9 +82,9 @@ class Music extends CI_Controller {
     $data['js_include'] = array('recent');
     $data += $_REQUEST;
 
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('music/recent_view', $data);
-    $this->load->view('templates/footer', $data);
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function listener($artist_name = '', $album_name = FALSE) {
@@ -94,9 +94,9 @@ class Music extends CI_Controller {
     $data['js_include'] = array('listener');
     $data += $_REQUEST;
 
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('music/listener_view', $data);
-    $this->load->view('templates/footer', $data);
+    $this->load->view('site_templates/footer', $data);
   }
 }
 ?>

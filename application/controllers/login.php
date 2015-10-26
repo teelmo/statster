@@ -14,9 +14,9 @@ class Login extends CI_Controller {
     $data = array();
     $data['js_include'] = array('login');
 
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('login_view');
-    $this->load->view('templates/footer', $data);  
+    $this->load->view('site_templates/footer', $data);  
   }
 }
 ?>

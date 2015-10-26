@@ -11,9 +11,9 @@ class Artist extends CI_Controller {
     $data['upper_limit'] = CUR_DATE;
     $data['title'] = 'Artists';
 
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
-    $this->load->view('templates/footer', $data);
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function stats($year, $month = FALSE) {
@@ -30,9 +30,9 @@ class Artist extends CI_Controller {
 
     $data['js_include'] = array('artists');
 
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
-    $this->load->view('templates/footer', $data);
+    $this->load->view('site_templates/footer', $data);
   }
 }
 ?>

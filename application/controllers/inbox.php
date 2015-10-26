@@ -8,9 +8,9 @@ class Inbox extends CI_Controller {
     // Load helpers
     $this->load->helper(array('form'));
 
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('inbox/inbox_view');
-    $this->load->view('templates/footer');
+    $this->load->view('site_templates/footer');
   }
 }
 ?>
