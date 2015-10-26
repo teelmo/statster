@@ -422,6 +422,25 @@ h3 {
 .listening_date {
   color: #999;
 }
+.settings,
+.more {
+  a {
+    color: #666;
+    &:hover {
+      color: #000;
+    }
+    &.unactive {
+      font-weight: normal;
+    }
+  }
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  line-height: 16px;
+  margin: 10px 5px;
+  text-align: right;
+  text-transform: uppercase;
+}
 
 /* Artist album and user page infos */
 .like_toggle {
@@ -461,24 +480,8 @@ h3 {
   display: none;
 }
 
-div.more {
-  a {
-    color: #666;
-    &:hover {
-      color: #000;
-    }
-  }
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  line-height: 16px;
-  margin: 10px 5px;
-  text-align: right;
-  text-transform: uppercase;
-}
-
 /* Tag styles */
-span.tag {
+.tag {
   background-color: #444;
   display: inline-block;
   font-size: 9px;
@@ -486,7 +489,8 @@ span.tag {
   margin-bottom: 3px;
   padding: 4px;
   text-transform: uppercase;
-  a { 
+  a, 
+  a:visited { 
     color: #fff;
     &:hover {
       color: #eee;

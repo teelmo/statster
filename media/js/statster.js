@@ -59,6 +59,10 @@ var app = {
         $(this).removeClass('working');
       }
     });
+    $('.settings a').click(function () {
+      $(this).parent('.settings').find('a').addClass('unactive');
+      $(this).removeClass('unactive');
+    });
   }
 }
 var view = {}

@@ -1,12 +1,13 @@
 $.extend(view, {
-  getListeningHistory: function () {
+  getListeningHistory: function (type) {
     $.ajax({
       data:{
-        group_by:'year(<?=TBL_listening?>.`date`)',
+        group_by:type + '(<?=TBL_listening?>.`date`)',
         limit:100,
-        order_by:'year(<?=TBL_listening?>.`date`) ASC',
-        select:'year(<?=TBL_listening?>.`date`) as `bar_date`',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        order_by:type + '(<?=TBL_listening?>.`date`) ASC',
+        select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+        where:type + '(<?=TBL_listening?>.`date`) <> \'00\''
       },
       dataType:'json',
       type:'GET',
@@ -18,18 +19,11 @@ $.extend(view, {
             url:'/ajax/barChart',
             data:{
               json_data:data,
-              type:'Year'
+              type:type
             },
             success: function (data) {
               $('#historyLoader').hide();
-              $('#history').html(data).bind('highchartTable.beforeRender', function(event, highChartConfig) {
-                highChartConfig.tooltip = {
-                  <?=TBL_highchart_tooltip?>
-                }
-                highChartConfig.yAxis = {
-                  <?=TBL_highchart_yaxis?>
-                }
-              }).highchartTable().hide();
+              $('#history').html(data);
             }
           });
         },
@@ -168,7 +162,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getListeningHistory();
+  view.getListeningHistory('year');
   view.popularGenre();
   view.topAlbum();
   view.recentlyFaned();

@@ -220,14 +220,7 @@ $.extend(view, {
             },
             success: function (data) {
               $('#historyLoader').hide();
-              $('#history').html(data).bind('highchartTable.beforeRender', function (event, highChartConfig) {
-                highChartConfig.tooltip = {
-                  <?=TBL_highchart_tooltip?>
-                }
-                highChartConfig.yAxis = {
-                  <?=TBL_highchart_yaxis?>
-                }
-              }).highchartTable().hide();
+              $('#history').html(data);
             }
           });
         },
@@ -257,7 +250,7 @@ $.extend(view, {
 $(document).ready(function () {
   view.getFan(<?=$this->session->userdata('user_id')?>);
   view.getFans();
-  view.getListeningHistory('year');
+  view.getListeningHistory('month');
   view.getUsers();
   view.getListenings();
   view.initArtistEvents();

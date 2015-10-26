@@ -184,7 +184,7 @@ $.extend(view, {
       }
     });
   },
-  getListeningHistory: function () {
+  getListeningHistory: function (type) {
     $.ajax({
       type:'GET',
       dataType:'json',
@@ -192,12 +192,12 @@ $.extend(view, {
       data:{
         artist_name:'<?php echo $artist_name?>',
         album_name:'<?php echo $album_name?>',
-        group_by:'year(<?=TBL_listening?>.`date`)',
+        group_by:type + '(<?=TBL_listening?>.`date`)',
         limit:100,
-        order_by:'year(<?=TBL_listening?>.`date`) ASC',
-        select:'year(<?=TBL_listening?>.`date`) as `bar_date`',
+        order_by:type + '(<?=TBL_listening?>.`date`) ASC',
+        select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        where:'year(<?=TBL_listening?>.`date`) <> \'00\''
+        where:type + '(<?=TBL_listening?>.`date`) <> \'00\''
       },
       statusCode:{
         200: function (data) { // 200 OK
@@ -206,18 +206,11 @@ $.extend(view, {
             url:'/ajax/barChart',
             data:{
               json_data:data,
-              type:'Year'
+              type:type
             },
             success: function (data) {
               $('#historyLoader').hide();
-              $('#history').html(data).bind('highchartTable.beforeRender', function(event, highChartConfig) {
-                highChartConfig.tooltip = {
-                  <?=TBL_highchart_tooltip?>
-                }
-                highChartConfig.yAxis = {
-                  <?=TBL_highchart_yaxis?>
-                }
-              }).highchartTable().hide();
+              $('#history').html(data);
             }
           });
         },
@@ -246,7 +239,7 @@ $.extend(view, {
 $(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
-  view.getListeningHistory();
+  view.getListeningHistory('year');
   view.getUsers();
   view.getListenings();
   view.initAlbumEvents();

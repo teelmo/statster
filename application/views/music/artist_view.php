@@ -63,9 +63,8 @@
     </div>
     <div class="container">
       <h2>History</h2>
-      <div class="float_right">
-        <a href="javascript:;" onclick="view.getListeningHistory('month')">Month</a> | 
-        <a href="javascript:;" onclick="view.getListeningHistory('year')">Year</a>
+      <div class="float_right settings">
+        <a href="javascript:;" class="" onclick="view.getListeningHistory('month')">Month</a> | <a href="javascript:;" onclick="view.getListeningHistory('year')" class="unactive">Year</a>
       </div>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="historyLoader"/>
       <div class="chart_container"></div>
