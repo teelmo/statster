@@ -2,7 +2,7 @@ $.extend(view, {
   initEvents: function () {
     $('#loginUsername').focus();
 
-    $('#loginSubmit').click(function() {
+    $('#loginSubmit').click(function () {
       $.ajax({
         type:'POST',
         url:'/api/login',
@@ -11,11 +11,12 @@ $.extend(view, {
           submitType:$('input[name="submitType"]').val(),
           username:$('#loginUsername').val()
         },
-        success: function(data) {
+        success: function (data) {
           if (data == '') {  
             window.location.href = '/';
           }
           else {
+            console.log(data)
             alert('Wrong username or password. Please try again.');
           }
         }

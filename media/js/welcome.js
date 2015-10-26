@@ -43,7 +43,7 @@ $.extend(view, {
       statusCode:{
         200: function(data) {
           $.ajax({
-            type:'POST',url:'/ajax/barTable',
+            type:'POST',url:'/ajax/columnTable',
             data:{
               json_data:data,
             },
