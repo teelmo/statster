@@ -5,7 +5,7 @@ if (!empty($json_data)) {
     <thead>
       <tr>
         <th><?=ucfirst($type)?></th>
-        <th>Count</th>
+        <th>Listenings</th>
       </tr>
     </thead>
     <tbody>
@@ -20,24 +20,16 @@ if (!empty($json_data)) {
         while (intval($row['bar_date']) != $prev_bar_date) {
           ?>
           <tr>
-            <td class="time">
-              <?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
-            </td>
-            <td class="count">
-              0
-            </td>
+            <th class="time"><?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?></th>
+            <td class="count">0</td>
           </tr>
           <?php
           $prev_bar_date++;
         }
         ?>
         <tr>
-          <td class="time">
-            <?=($type == 'month') ? DateTime::createFromFormat('!m', $row['bar_date'])->format('M') : $row['bar_date'] ?>
-          </td>
-          <td class="count">
-            <?=$row['count']?>
-          </td>
+          <th class="time"><?=($type == 'month') ? DateTime::createFromFormat('!m', $row['bar_date'])->format('M') : $row['bar_date'] ?></th>
+          <td class="count"><?=$row['count']?></td>
         </tr>
         <?
         $last_bar_date = $prev_bar_date;
@@ -47,12 +39,8 @@ if (!empty($json_data)) {
         while ($prev_bar_date <= 12) {
           ?>
           <tr>
-            <td class="time">
-              <?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
-            </td>
-            <td class="count">
-              0
-            </td>
+            <th class="time"><?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?></th>
+            <td class="count">0</td>
           </tr>
           <?php
           $prev_bar_date++;
@@ -62,12 +50,8 @@ if (!empty($json_data)) {
         while ($prev_bar_date <= CUR_YEAR) {
           ?>
           <tr>
-            <td class="time">
-              <?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
-            </td>
-            <td class="count">
-              0
-            </td>
+            <th class="time"><?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?></th>
+            <td class="count">0</td>
           </tr>
           <?php
           $prev_bar_date++;

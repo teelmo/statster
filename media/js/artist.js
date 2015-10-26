@@ -196,6 +196,7 @@ $.extend(view, {
     });
   },
   getListeningHistory: function (type) {
+    app.initChart();
     $.ajax({
       type:'GET',
       dataType:'json',
@@ -220,7 +221,17 @@ $.extend(view, {
             },
             success: function (data) {
               $('#historyLoader').hide();
-              $('#history').html(data);
+              $('#history').html(data).hide();
+              var categories = [];
+              var data = [];
+              $.each($('#history .time'), function (i, el) {
+                categories.push($(this).html());
+              });
+              $.each($('#history .count'), function (i, el) {
+                data.push(parseInt($(this).html()));
+              });
+              app.chart.xAxis[0].setCategories(categories, false);
+              app.chart.series[0].setData(data, true);
             }
           });
         },

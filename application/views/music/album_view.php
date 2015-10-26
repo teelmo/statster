@@ -67,7 +67,8 @@
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('month')">Month</a> | <a href="javascript:;" onclick="view.getListeningHistory('year')" class="">Year</a>
       </div>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="historyLoader"/>
-      <table id="history" class="" data-graph-container-before="1" data-graph-type="column" data-graph-height="300" data-graph-color-1="rgba(182, 192, 191, 0.5)" data-graph-legend-disabled="1"><!-- Content is loaded with AJAX --></table>
+      <table id="history"><!-- Content is loaded with AJAX --></table>
+      <div class="bar_chart"></div>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
