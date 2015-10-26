@@ -2,7 +2,7 @@
 $script = 'view.categories=[];view.chart_data=[];';
 if (!empty($json_data)) {
   if (is_array($json_data)) {    
-    $weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    $weekdays = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
     ?>
     <thead>
       <tr>
