@@ -63,8 +63,13 @@
     </div>
     <div class="container">
       <h2>History</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="userListeningsLoader"/>
-      <table id="userListenings" class="" data-graph-container-before="1" data-graph-type="column" data-graph-height="300" data-graph-color-1="rgba(182, 192, 191, 0.5)" data-graph-legend-disabled="1"><!-- Content is loaded with AJAX --></table>
+      <div class="float_right">
+        <a href="javascript:;" onclick="view.getListeningHistory('month')">Month</a> | 
+        <a href="javascript:;" onclick="view.getListeningHistory('year')">Year</a>
+      </div>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="historyLoader"/>
+      <div class="chart_container"></div>
+      <table id="history" class="" data-graph-container-before="1" data-graph-type="column" data-graph-height="300" data-graph-color-1="rgba(182, 192, 191, 0.5)" data-graph-legend-disabled="1"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">

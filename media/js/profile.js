@@ -22,8 +22,8 @@ $.extend(view, {
               type:'Year'
             },
             success: function (data) {
-              $('#userListeningsLoader').hide();
-              $('#userListenings').html(data).bind('highchartTable.beforeRender', function(event, highChartConfig) {
+              $('#historyLoader').hide();
+              $('#history').html(data).bind('highchartTable.beforeRender', function(event, highChartConfig) {
                 highChartConfig.tooltip = {
                   <?=TBL_highchart_tooltip?>
                 }

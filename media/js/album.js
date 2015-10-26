@@ -192,12 +192,12 @@ $.extend(view, {
       data:{
         artist_name:'<?php echo $artist_name?>',
         album_name:'<?php echo $album_name?>',
-        group_by:'month(<?=TBL_listening?>.`date`)',
+        group_by:'year(<?=TBL_listening?>.`date`)',
         limit:100,
-        order_by:'month(<?=TBL_listening?>.`date`) ASC',
-        select:'month(<?=TBL_listening?>.`date`) as `bar_date`',
+        order_by:'year(<?=TBL_listening?>.`date`) ASC',
+        select:'year(<?=TBL_listening?>.`date`) as `bar_date`',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        where:'month(<?=TBL_listening?>.`date`) <> \'00\''
+        where:'year(<?=TBL_listening?>.`date`) <> \'00\''
       },
       statusCode:{
         200: function (data) { // 200 OK
@@ -206,11 +206,11 @@ $.extend(view, {
             url:'/ajax/barChart',
             data:{
               json_data:data,
-              type:'Month'
+              type:'Year'
             },
             success: function (data) {
-              $('#userListeningsLoader').hide();
-              $('#userListenings').html(data).bind('highchartTable.beforeRender', function(event, highChartConfig) {
+              $('#historyLoader').hide();
+              $('#history').html(data).bind('highchartTable.beforeRender', function(event, highChartConfig) {
                 highChartConfig.tooltip = {
                   <?=TBL_highchart_tooltip?>
                 }

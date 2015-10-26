@@ -4,13 +4,13 @@ if (!empty($json_data)) {
     ?>
     <thead>
       <tr>
-        <th><?=$type?></th>
+        <th><?=ucfirst($type)?></th>
         <th>Count</th>
       </tr>
     </thead>
     <tbody>
       <?php
-      if ($type == 'Month') {
+      if ($type == 'month') {
         $prev_bar_date = 1;
       }
       else {
@@ -21,7 +21,7 @@ if (!empty($json_data)) {
           ?>
           <tr>
             <td class="time">
-              <?=($type == 'Month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
+              <?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
             </td>
             <td class="count">
               0
@@ -33,7 +33,7 @@ if (!empty($json_data)) {
         ?>
         <tr>
           <td class="time">
-            <?=($type == 'Month') ? DateTime::createFromFormat('!m', $row['bar_date'])->format('M') : $row['bar_date'] ?>
+            <?=($type == 'month') ? DateTime::createFromFormat('!m', $row['bar_date'])->format('M') : $row['bar_date'] ?>
           </td>
           <td class="count">
             <?=$row['count']?>
@@ -43,12 +43,12 @@ if (!empty($json_data)) {
         $last_bar_date = $prev_bar_date;
         $prev_bar_date++;
       }
-      if ($type == 'Month') {
+      if ($type == 'month') {
         while ($prev_bar_date <= 12) {
           ?>
           <tr>
             <td class="time">
-              <?=($type == 'Month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
+              <?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
             </td>
             <td class="count">
               0
@@ -63,7 +63,7 @@ if (!empty($json_data)) {
           ?>
           <tr>
             <td class="time">
-              <?=($type == 'Month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
+              <?=($type == 'month') ? DateTime::createFromFormat('!m', $prev_bar_date)->format('M') : $prev_bar_date ?>
             </td>
             <td class="count">
               0
