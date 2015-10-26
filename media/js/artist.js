@@ -208,7 +208,7 @@ $.extend(view, {
         order_by:type + '(<?=TBL_listening?>.`date`) ASC',
         select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        where:type + '(<?=TBL_listening?>.`date`) <> \'00\''
+        where:(type == 'weekday') ? type + '(<?=TBL_listening?>.`date`) IS NOT NULL' : type + '(<?=TBL_listening?>.`date`) != \'00\''
       },
       statusCode:{
         200: function (data) { // 200 OK
@@ -222,16 +222,8 @@ $.extend(view, {
             success: function (data) {
               $('#historyLoader').hide();
               $('#history').html(data).hide();
-              var categories = [];
-              var data = [];
-              $.each($('#history .time'), function (i, el) {
-                categories.push($(this).html());
-              });
-              $.each($('#history .count'), function (i, el) {
-                data.push(parseInt($(this).html()));
-              });
-              app.chart.xAxis[0].setCategories(categories, false);
-              app.chart.series[0].setData(data, true);
+              app.chart.xAxis[0].setCategories(view.categories, false);
+              app.chart.series[0].setData(view.chart_data, true);
             }
           });
         },

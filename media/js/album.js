@@ -198,7 +198,7 @@ $.extend(view, {
         order_by:type + '(<?=TBL_listening?>.`date`) ASC',
         select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        where:type + '(<?=TBL_listening?>.`date`) <> \'00\''
+        where:(type == 'weekday') ? type + '(<?=TBL_listening?>.`date`) IS NOT NULL' : type + '(<?=TBL_listening?>.`date`) != \'00\''
       },
       statusCode:{
         200: function (data) { // 200 OK
