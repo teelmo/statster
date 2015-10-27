@@ -268,7 +268,7 @@ div.container {
       .listening_count {
         width: auto;
         td {
-          width: 120px;
+          padding-right: 30px;
         }
         .value {
           color: #222;
@@ -409,8 +409,6 @@ h3 {
  * Text styles
  */
 .updated,
-.playCount,
-.album_year,
 .separator,
 .meta,
 .count,
@@ -482,9 +480,9 @@ h3 {
 
 /* Tag styles */
 .tag {
-  background-color: #444;
+  background-color: #333;
   display: inline-block;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.01em;
   margin-bottom: 3px;
   padding: 4px;
@@ -567,10 +565,12 @@ form#addListeningForm {
   input[type="text"] {
     background-color: #eee;
     border-radius: 3px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
     font-size: 20px;
-    margin: 0 0 0 0;
-    padding: 4px 4px 4px 8px;
-    width: 98%;
+    margin: 0;
+    padding: 6px 4px 6px 8px;
+    width: 100%;
     &:active,
     &:focus {
       background-color: #ff8;
@@ -1081,6 +1081,17 @@ div.cover {
     display: block;
     height: 100%;
     width: 100%;
+    &.album_year {
+      bottom: 0;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      height: auto;
+      letter-spacing: 0.2em;
+      padding: 4px 6px;
+      right: 0;
+      width: auto;
+    }
   }
   .title {
     bottom: 5px;

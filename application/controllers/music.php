@@ -19,7 +19,7 @@ class Music extends CI_Controller {
     $data['artist_name'] = decode($artist_name);
     // Get artist information aka. artist's name and id
     if ($data = getArtistInfo($data)) {
-      // Get artist's totaol listening data
+      // Get artist's total listening data
       $data += getArtistListenings($data);
       // Get logged in user's listening data
       if ($data['user_id'] = $this->session->userdata('user_id')) {

@@ -40,10 +40,12 @@
         <tr>
           <td class="label">Listenings</td>
           <td class="label">Your library</td>
+          <td class="label">Added in</td>
         </tr>
         <tr>
           <td class="value"><?=$total_count?></td>
           <td class="value"><?=$user_count?></td>
+          <td class="value"><?=$created?></td>
         </tr>
       </table>
     </div>

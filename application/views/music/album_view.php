@@ -1,7 +1,7 @@
 <div id="headingCont">
   <div class="inner">
     <div class="float_left">
-      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"></div>
+      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year"><?=anchor(array('tag', 'release+year', $year), $year, array('class' => 'album_year'))?></span></div>
     </div>
     <div class="info">
       <div class="top_info album_info">
@@ -40,10 +40,12 @@
         <tr>
           <td class="label">Listenings</td>
           <td class="label">Your library</td>
+          <td class="label">Added in</td>
         </tr>
         <tr>
           <td class="value"><?=$total_count?></td>
           <td class="value"><?=$user_count?></td>
+          <td class="value"><?=$created?></td>
         </tr>
       </table>
     </div>
