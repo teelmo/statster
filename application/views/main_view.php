@@ -8,8 +8,15 @@ if (date('j') <= 7) {
       </div>
       <div class="info">
         <div class="top_info album_info">
+          <?php
+          if ($spotify_id) {
+            ?>
+            <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
+            <?php
+          }
+          ?>
           <h4>#1 album in <?=date('F', strtotime('-1 month'))?></h4>
-          <h3><?=anchor(array('music', $artist_name), $album_name, $album_name)?> by <?=anchor(array('music', $artist_name), $artist_name)?></h3>
+          <h3><?=anchor(array('music', $artist_name), $album_name, $album_name)?> <span class="by">by</span> <?=anchor(array('music', $artist_name), $artist_name)?></h3>
           <h4>listened <?=$count?> times</h4>
           <div class="tags">
             <?php
