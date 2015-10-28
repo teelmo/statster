@@ -5,7 +5,7 @@
     </div>
     <div class="info">
       <div class="top_info album_info">
-      <?php
+        <?php
         if ($spotify_id) {
           ?>
           <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
@@ -36,15 +36,22 @@
           ?>
         </div>
       </div>
-      <table class="listening_count">
+      <table class="album_meta">
         <tr>
           <td class="label">Listenings</td>
-          <td class="label">Your library</td>
+          <td class="label">Listeners</td>
           <td class="label">Added in</td>
+          <?php
+          if ($logged_in === TRUE) {
+            ?>
+            <td class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value"><?=$user_count?></span> in your library</span></td>
+            <?php
+          }
+          ?>
         </tr>
         <tr>
           <td class="value"><?=$total_count?></td>
-          <td class="value"><?=$user_count?></td>
+          <td class="value"><?=$listener_count?></td>
           <td class="value"><?=$created?></td>
         </tr>
       </table>
