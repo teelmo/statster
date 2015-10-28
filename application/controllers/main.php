@@ -14,13 +14,14 @@ class Main extends CI_Controller {
         'limit' => '1',
         'human_readable' => true
       );
-      $data += json_decode(getAlbums($opts), true)[0];
+      $data_tmp = json_decode(getAlbums($opts), true);
+      $data += $data_tmp[0];
       $data += getAlbumTags($data);
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
 
       $this->load->view('site_templates/header');
       $this->load->view('main_view', $data);
-      $this->load->view('site_templates/footer', $data);  
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       // Load helpers
@@ -34,7 +35,8 @@ class Main extends CI_Controller {
         'limit' => '1',
         'human_readable' => true
       );
-      $data += json_decode(getAlbums($opts), true)[0];
+      $data_tmp = json_decode(getAlbums($opts), true);
+      $data += $data_tmp[0];
       $data += getAlbumTags($data);
 
       $this->load->view('site_templates/header');
