@@ -2,7 +2,7 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-  * Returns top artists for the given user.
+  * Returns listening count for given artist or album.
   *
   * @param array $opts.
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format

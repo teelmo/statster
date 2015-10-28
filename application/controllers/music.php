@@ -12,7 +12,7 @@ class Music extends CI_Controller {
 
   public function artist($artist_name) {
     // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper'));
+    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'output_helper'));
 
     $data = array();
     // Decode artist information
@@ -25,6 +25,7 @@ class Music extends CI_Controller {
       if ($data['user_id'] = $this->session->userdata('user_id')) {
         $data += getArtistListenings($data);
       }
+      $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getArtistTags($data);
@@ -44,7 +45,7 @@ class Music extends CI_Controller {
 
   public function album($artist_name, $album_name) {
     // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper'));
+    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'output_helper'));
 
     $data = array();
     $data['artist_name'] = decode($artist_name);
@@ -58,6 +59,7 @@ class Music extends CI_Controller {
       if ($data['user_id'] = $this->session->userdata('user_id')) {
         $data += getAlbumListenings($data);
       }
+      $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
       // Get artists tags (genres, keywords) data
       $data['limit'] = 9;
       $data += getAlbumTags($data);
