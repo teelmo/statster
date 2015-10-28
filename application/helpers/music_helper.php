@@ -114,9 +114,8 @@ if (!function_exists('getAlbums')) {
   function getAlbums($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
-
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
@@ -158,7 +157,7 @@ if (!function_exists('getAlbums')) {
 }
 
 /**
-  * Returns top albums for the given user.
+  * Returns listeners for given artist or album.
   *
   * @param array $opts.
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format

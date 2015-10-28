@@ -1,4 +1,39 @@
-<div id="mainCont">
+<?php
+if (date('j') <= 7) {
+  ?>
+  <div id="headingCont">
+    <div class="inner">
+      <div class="float_left">
+        <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year"><?=anchor(array('tag', 'release+year', $year), $year, array('class' => 'album_year'))?></span></div>
+      </div>
+      <div class="info">
+        <div class="top_info album_info">
+          <h4>#1 album in <?=date('F', strtotime('-1 month'))?></h4>
+          <h3><?=anchor(array('music', $artist_name), $album_name, $album_name)?> by <?=anchor(array('music', $artist_name), $artist_name)?></h3>
+          <h4>listened <?=$count?> times</h4>
+          <div class="tags">
+            <?php
+            foreach ($tags as $tag) {
+              ?>
+              <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
+              <?php
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div id="mainCont" class="heading_container">
+  <?php
+}
+else {
+  ?>
+  <div id="mainCont">
+  <?php
+}
+?>
   <div class="page_links">
     <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('album'), 'Albums')?>

@@ -182,6 +182,17 @@ div.container {
       .top_info {
         margin: 5px 0 10px 0;
         height: 125px;
+        h1,
+        h2,
+        h3 {
+          a {
+            color: #fff;
+            &:hover {
+              color: #ccc;
+              text-decoration: none;
+            }
+          }
+        }
         h1 {
           color: #fff;
           font-size: 36px;
@@ -195,11 +206,14 @@ div.container {
         h2 {
           font-size: 20px;
           margin: 0 0 -5px 0;
+        }
+        h3 {
+          color: #ccc;
+          font-size: 20px;
+          line-height: 36px;
+          margin: -5px 0 0 0;
           a {
-            color: #fff;
-            &:hover {
-              text-decoration: none;
-            }
+            font-size: 36px;
           }
         }
         h4 {
@@ -539,18 +553,16 @@ input {
     outline-width: 0;
   }
   &[type="submit"] {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666666), to(#333), color-stop(.6, #333));
-    border-color: #cacad2 #b6b6bd #b6b6bd #cacad2;
-    border-style: solid;
-    border-width: 1px;
-    color: #fff;
+    background: #333; 
+    border: 1px solid #444;
+    color: #eee;
     font-size: 13px;
     height: 30px;
     width: 80px;
     &:focus,
     &:hover {
       background: #333;
-      color: #ffb;
+      color: #fff;
       border-color: #444;
     }
   }
@@ -1091,6 +1103,10 @@ div.cover {
       padding: 4px 6px;
       right: 0;
       width: auto;
+      &:hover {
+        text-decoration: none;
+        color: #ccc;
+      }
     }
   }
   .title {
