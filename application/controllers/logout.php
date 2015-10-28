@@ -7,7 +7,7 @@ class Logout extends CI_Controller {
 
     // Redirect user to the first page if logout successful.
     $logout = logoutUser();
-    if (empty($logout)) {
+    if ($logout == 1) {
       redirect('/', 'refresh');
     }
     else {
