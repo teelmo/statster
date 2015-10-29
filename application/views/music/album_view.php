@@ -12,7 +12,7 @@
           <?php
         }
         ?>
-        <h2><?=anchor(array('music', $artist_name), $artist_name)?></h2>
+        <h2><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h2>
         <h1><?=$album_name?><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/><ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul></h1>
         <div class="tags">
           <?php
@@ -44,14 +44,14 @@
           <?php
           if ($logged_in === TRUE) {
             ?>
-            <td class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value"><?=anchor(array('recent', $artist_name, $album_name . '?u=' . $this->session->userdata('username')), $user_count)?></span> in your library</span></td>
+            <td class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), $user_count)?></span> in your library</span></td>
             <?php
           }
           ?>
         </tr>
         <tr>
-          <td class="value"><?=anchor(array('recent', $artist_name, $album_name), $total_count)?></td>
-          <td class="value"><?=anchor(array('listener', $artist_name, $album_name), $listener_count)?></td></td>
+          <td class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), $total_count)?></td>
+          <td class="value"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), $listener_count)?></td></td>
           <td class="value"><?=anchor(array('tag', 'year', $created), $created)?></td>
         </tr>
       </table>
@@ -61,8 +61,8 @@
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
   <div class="page_links">
-    <?=anchor(array('listener', $artist_name, $album_name), 'Listeners')?>
-    <?=anchor(array('recent', $artist_name, $album_name), 'Listenings')?>
+    <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'Listeners')?>
+    <?=anchor(array('recent', url_title($artist_name, url_title($album_name)), 'Listenings')?>
   </div>
   <div id="leftCont">
     <div class="container">
