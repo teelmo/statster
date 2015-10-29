@@ -4,9 +4,9 @@ class User extends CI_Controller {
   public function index() {
     $data['js_include'] = array('user');
 
-    $this->load->view('templates/header');
+    $this->load->view('site_templates/header');
     $this->load->view('user/user_view', $data);
-    $this->load->view('templates/footer');
+    $this->load->view('site_templates/footer');
   }
 
   public function profile($username) {
