@@ -37,7 +37,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/artist/get',
       data:{
-        limit:15,
+        limit:5,
         lower_limit:'1970-01-01'
       },
       statusCode:{
