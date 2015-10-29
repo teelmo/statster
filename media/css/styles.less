@@ -284,6 +284,7 @@ div.container {
           }
         }
       }
+      .user_info,
       .artist_meta,
       .album_meta {
         width: auto;
@@ -294,6 +295,12 @@ div.container {
             font-size: 20px;
             vertical-align: top;
             font-weight: bold;
+            a {
+              &:hover {
+                color: #666;
+                text-decoration: none;
+              }
+            }
           }
           &.label {
             vertical-align: top;
