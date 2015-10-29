@@ -17,16 +17,16 @@
           ?>
         </div>
       </div>
-      <table class="listening_count">
+      <table class="album_meta">
         <tr>
           <td class="label">Listenings</td>
           <td class="label">Artists</td>
           <td class="label">Albums</td>
         </tr>
         <tr>
-          <td class="value"><?=$listening_count?></td>
-          <td class="value"><?=$artist_count?></td>
-          <td class="value"><?=$album_count?></td>
+          <td class="value"><?=anchor(array('recent', $username), $listening_count)?></td>
+          <td class="value"><?=anchor(array('artist?u=' . $username), $artist_count)?></td>
+          <td class="value"><?=anchor(array('album?u=' . $username), $album_count)?></td>
         </tr>
       </table>
     </div>

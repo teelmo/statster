@@ -50,9 +50,9 @@
           ?>
         </tr>
         <tr>
-          <td class="value"><?=$total_count?></td>
-          <td class="value"><?=$listener_count?></td>
-          <td class="value"><?=$created?></td>
+          <td class="value"><?=anchor(array('recent', $artist_name), $total_count)?></td>
+          <td class="value"><?=anchor(array('recent', $artist_name), $listener_count)?></td></td>
+          <td class="value"><?=anchor(array('tag', 'year', $created), $created)?></td>
         </tr>
       </table>
     </div>
