@@ -26,7 +26,7 @@ class Tag extends CI_Controller {
     else {
       $this->load->view('tag/tags_view', $data);
     }
-    $this->load->view('site_site_templates/footer');
+    $this->load->view('site_templates/footer');
   }
 
   public function keyword($tag_name = '') {
