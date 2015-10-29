@@ -62,7 +62,7 @@
 <div id="mainCont" class="heading_container">
   <div class="page_links">
     <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'Listeners')?>
-    <?=anchor(array('recent', url_title($artist_name, url_title($album_name)), 'Listenings')?>
+    <?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'Listenings')?>
   </div>
   <div id="leftCont">
     <div class="container">
