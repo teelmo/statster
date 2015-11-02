@@ -2,11 +2,33 @@
 class Music extends CI_Controller {
 
   public function index() {
+    // Load helpers
+    $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'output_helper', 'spotify_helper'));
+
     $data = array();
     $data['js_include'] = array('music');
     
+    $opts = array(
+      'lower_limit' => date('Y') . '-' . date('m', strtotime('-1 month')) . '-00',
+      'upper_limit' => date('Y') . '-' . date('m', strtotime('-1 month')) . '-31',
+      'limit' => '1',
+      'human_readable' => true
+    );
+    $data_tmp = json_decode(getAlbums($opts), true);
+    $data += $data_tmp[0];
+    $data += getAlbumInfo($data);
+    unset($data['user_id']);
+    $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+    $data += getAlbumListenings($data);
+    if ($data['user_id'] = $this->session->userdata('user_id')) {
+      $data += getAlbumListenings($data);
+    }
+    $data += getAlbumTags($data);
+    $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+    $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
+
     $this->load->view('site_templates/header', $data);
-    $this->load->view('music/music_view');
+    $this->load->view('music/music_view', $data);
     $this->load->view('site_templates/footer');
   }
 
@@ -68,6 +90,7 @@ class Music extends CI_Controller {
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
       $data += $_REQUEST;
 
+      pr($data);
       $this->load->view('site_templates/header', $data);
       $this->load->view('music/album_view', $data);
       $this->load->view('site_templates/footer');

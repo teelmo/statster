@@ -1,4 +1,54 @@
-<div id="mainCont">
+<div id="headingCont" class="artist_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
+  <div class="inner">
+    <div class="float_left">
+      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year"><?=anchor(array('tag', 'year', $year), $year, array('class' => 'album_year'))?></span></div>
+    </div>
+    <div class="info">
+      <div class="top_info album_info">
+        <?php
+        if ($spotify_id) {
+          ?>
+          <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
+          <?php
+        }
+        ?>
+        <h4>#1 album in <?=date('F', strtotime('-1 month'))?></h4>
+        <h3><?=anchor(array('music', $artist_name), $album_name, $album_name)?><!-- <span class="by">by</span> <?=anchor(array('music', $artist_name), $artist_name)?>--></h3>
+        <h4>listened <?=$count?> times</h4>
+        <div class="tags">
+          <?php
+          foreach ($tags as $tag) {
+            ?>
+            <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
+            <?php
+          }
+          ?>
+        </div>
+      </div>
+      <table class="album_meta">
+        <tr>
+          <td class="label">Listenings</td>
+          <td class="label">Listeners</td>
+          <td class="label">Added in</td>
+          <?php
+          if ($logged_in === TRUE) {
+            ?>
+            <td class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), $user_count)?></span> in your library</span></td>
+            <?php
+          }
+          ?>
+        </tr>
+        <tr>
+          <td class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), $total_count)?></td>
+          <td class="value"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), $listener_count)?></td>
+          <td class="value"><?=anchor(array('tag', 'year', $created), $created)?></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<div id="mainCont" class="heading_container">
   <div class="page_links">
     <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('album'), 'Albums')?>

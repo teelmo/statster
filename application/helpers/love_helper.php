@@ -25,8 +25,9 @@ if (!function_exists('getLove')) {
             WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_love . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
+              AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_love . ".`album_id` LIKE " . $ci->db->escape($album_id) . "
+              AND " . TBL_love . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
             ORDER BY " . TBL_love . ".`created` DESC
             LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);

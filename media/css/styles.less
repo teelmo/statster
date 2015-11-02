@@ -24,7 +24,7 @@ div.container {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 1000;
   .inner {
     padding: 0 2px;
     color: #eee;
@@ -155,14 +155,31 @@ div.container {
 }
 #headingCont {
   background-color: #111;
+  color: #fff;
   height: 150px;
   margin-top: 37px;
   width: 100%;
-  color: #fff;
+  &.artist_heading_cont {
+    background-position: 50% 30%;
+    background-repeat: repeat;
+    position: relative;
+    z-index: 2;
+    &::after {
+      background-color: rgba(0, 0, 0, 0.85);
+      content: '';
+      height: 100%;
+      width: 100%;
+      top: 0;
+      z-index: 2;
+      position: absolute;
+    }
+  }
   .inner {
     margin: auto auto;
-    padding: 20px;
     max-width: 1000px;
+    padding: 20px;
+    position: relative;
+    z-index: 3;
     .img174 {
       background-color: transparent;
       box-shadow: none;
@@ -245,7 +262,33 @@ div.container {
         .spotify_link {
           color: #fff;
           .spotify_container {
+            .opacity(0.5);
+            background-repeat: repeat-y;
+            display: inline-block;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            height: 64px;
+            letter-spacing: 0.01em;
+            line-height: 64px;
+            margin-top: 30px;
+            padding-right: 70px;
             position: relative;
+            transition-duration: 0.1s;
+            vertical-align: middle;
+            &:hover {
+              .opacity(1);
+              transition-duration: 0.3s;
+              &::after {
+                background-position: 100% 100%;
+              }
+            }
+            &.artist_spotify_container {
+              background-position: 100% 50%;
+            }
+            &.album_spotify_container {
+              background-position: 100% 50%;
+            }
             &::after {
               background-image: url('/media/img/icons/play.png');
               background-position: 100% 0%;
@@ -257,30 +300,6 @@ div.container {
               position: absolute;
               content: '';
             }
-            &:hover {
-              .opacity(1);
-              &::after {
-                background-position: 100% 100%;
-              }
-            }
-            .opacity(0.5);
-            &.artist_spotify_container {
-              background-position: 100% 50%;
-            }
-            &.album_spotify_container {
-              background-position: 100% 50%;
-            }
-            background-repeat: repeat-y;
-            display: inline-block;
-            float: right;
-            font-size: 20px;
-            font-weight: bold;
-            height: 64px;
-            letter-spacing: 0.01em;
-            line-height: 64px;
-            margin-top: 30px;
-            padding-right: 70px;
-            vertical-align: middle;
           }
         }
       }

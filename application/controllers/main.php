@@ -3,22 +3,21 @@ class Main extends CI_Controller {
   public function index() {
     if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers
-      $this->load->helper(array('form', 'img_helper', 'music_helper', 'album_helper', 'output_helper', 'spotify_helper'));
+      $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
 
       $data = array();
       $data['js_include'] = array('main');
       $data['interval'] = 14;
+
       $opts = array(
         'lower_limit' => date('Y') . '-' . date('m', strtotime('-1 month')) . '-00',
         'upper_limit' => date('Y') . '-' . date('m', strtotime('-1 month')) . '-31',
         'limit' => '1',
         'human_readable' => true
       );
-      $data_tmp = json_decode(getAlbums($opts), true);
+      $data_tmp = json_decode(getArtists($opts), true);
       $data += $data_tmp[0];
-      $data += getAlbumTags($data);
-      $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
-
+      
       $this->load->view('site_templates/header');
       $this->load->view('main_view', $data);
       $this->load->view('site_templates/footer', $data);

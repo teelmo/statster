@@ -1,4 +1,4 @@
-<div id="headingCont">
+<div id="headingCont" class="artist_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
   <div class="inner">
     <div class="float_left">
       <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year"><?=anchor(array('tag', 'year', $year), $year, array('class' => 'album_year'))?></span></div>
@@ -51,7 +51,7 @@
         </tr>
         <tr>
           <td class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), $total_count)?></td>
-          <td class="value"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), $listener_count)?></td></td>
+          <td class="value"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), $listener_count)?></td>
           <td class="value"><?=anchor(array('tag', 'year', $created), $created)?></td>
         </tr>
       </table>

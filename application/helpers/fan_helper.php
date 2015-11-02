@@ -24,8 +24,8 @@ if (!function_exists('getFan')) {
             FROM " . TBL_fan . ", " . TBL_artist . ", " . TBL_user . "
             WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_fan . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_fan . ".`artist_id` LIKE " . $ci->db->escape($artist_id) . "
               AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
+              AND " . TBL_fan . ".`artist_id` LIKE " . $ci->db->escape($artist_id) . "
               AND " . TBL_fan . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
             ORDER BY " . TBL_fan . ".`created` DESC
             LIMIT " . mysql_real_escape_string($limit);

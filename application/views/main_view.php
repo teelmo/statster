@@ -1,46 +1,7 @@
-<?php
-if (date('j') <= 7) {
-  ?>
-  <div id="headingCont">
-    <div class="inner">
-      <div class="float_left">
-        <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year"><?=anchor(array('tag', 'release+year', $year), $year, array('class' => 'album_year'))?></span></div>
-      </div>
-      <div class="info">
-        <div class="top_info album_info">
-          <?php
-          if ($spotify_id) {
-            ?>
-            <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
-            <?php
-          }
-          ?>
-          <h4>#1 album in <?=date('F', strtotime('-1 month'))?></h4>
-          <h3><?=anchor(array('music', $artist_name), $album_name, $album_name)?><!-- <span class="by">by</span> <?=anchor(array('music', $artist_name), $artist_name)?>--></h3>
-          <h4>listened <?=$count?> times</h4>
-          <div class="tags">
-            <?php
-            foreach ($tags as $tag) {
-              ?>
-              <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
-              <?php
-            }
-            ?>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="clear"></div>
-  <div id="mainCont" class="heading_container">
-  <?php
-}
-else {
-  ?>
-  <div id="mainCont">
-  <?php
-}
-?>
+<div id="headingCont" class="artist_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>'); height: 100px;" title="#1 artist in <?=date('F', strtotime('-1 month'))?>: <?=$artist_name?>">
+</div>
+<div class="clear"></div>
+<div id="mainCont" class="heading_container">
   <div class="page_links">
     <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('album'), 'Albums')?>
