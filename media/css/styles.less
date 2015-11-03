@@ -168,10 +168,15 @@ div.container {
       background-color: rgba(0, 0, 0, 0.9);
       content: '';
       height: 100%;
-      width: 100%;
-      top: 0;
-      z-index: 2;
       position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 2;
+    }
+    &.profile_heading_cont {
+      &::after {
+        background-color: rgba(0, 0, 0, 0.85);
+      }
     }
     &.main_heading_cont {
       &::after {

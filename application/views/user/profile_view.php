@@ -1,4 +1,4 @@
-<div id="headingCont">
+<div id="headingCont" class="artist_heading_cont profile_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')" title="#1 artist: <?=$artist_name?>">
   <div class="inner">
     <div class="float_left">
       <div class="cover user_img img174" style="background-image:url('<?=getUserImg(array('user_id' => $user_id, 'size' => 174))?>')"></div>

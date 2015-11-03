@@ -10,14 +10,22 @@ class User extends CI_Controller {
   }
 
   public function profile($username) {
-    $this->load->helper(array('user_helper', 'img_helper', 'music_helper'));
+    $this->load->helper(array('user_helper', 'img_helper', 'music_helper', 'output_helper'));
 
     $data['username'] = $username;
-    
+
     if ($data = getUser($data)) {
       $data['js_include'] = array('profile');
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
+      $opts = array(
+        'lower_limit' => '1970-00-00',
+        'limit' => '1',
+        'username' => $username,
+        'human_readable' => true
+      );
+      $data_tmp = json_decode(getArtists($opts), true);
+      $data += $data_tmp[0];
       $data += getUserTags($data);
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
