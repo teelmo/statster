@@ -5,8 +5,8 @@
     </div>
     <div class="info">
       <div class="top_info user_info">
-        <h1><?=($real_name) ? $real_name : $username ?></h1>
-        <h4><span class="username"><?=$username?></span> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></h4>
+        <h1><?=$username?></h1>
+        <h4><span class="username"><?=($real_name) ? $real_name : $username ?></span><span class="meta"> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></span></h4>
         <div class="tags">
           <?php
           foreach ($tags as $tag) {
@@ -17,7 +17,7 @@
           ?>
         </div>
       </div>
-      <table class="album_meta">
+      <table class="user_meta">
         <tr>
           <td class="label">Listenings</td>
           <td class="label">Artists</td>

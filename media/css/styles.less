@@ -179,6 +179,7 @@ div.container {
       }
     }
     &.main_heading_cont {
+      height: 100px;
       &::after {
         background-color: rgba(0, 0, 0, 0.8);
       }
@@ -256,6 +257,9 @@ div.container {
             color: #fff;
           }
         }
+        .meta {
+          color: #999;
+        }
         .tags {
           .moretags {
             background-color: #aaa;
@@ -313,7 +317,7 @@ div.container {
           }
         }
       }
-      .user_info,
+      .user_meta,
       .artist_meta,
       .album_meta {
         width: auto;
@@ -487,8 +491,6 @@ h3 {
  * Text styles
  */
 .updated,
-.separator,
-.meta,
 .count,
 .location,
 .datetime {

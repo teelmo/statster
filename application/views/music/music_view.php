@@ -12,9 +12,9 @@
           <?php
         }
         ?>
-        <h4>#1 in <?=date('F', strtotime('-1 month'))?></h4>
-        <h3><?=anchor(array('music', $artist_name, $album_name), $album_name)?><!-- <span class="by">by</span> <?=anchor(array('music', $artist_name), $artist_name)?>--></h3>
-        <h4>listened <?=$count?> times</h4>
+        <h4 class="meta">#1 in <?=date('F', strtotime('-1 month'))?></h4>
+        <h3><?=anchor(array('music', $artist_name, $album_name), $album_name)?> <span class="meta">by</span> <?=anchor(array('music', $artist_name), $artist_name)?></h3>
+        <h4 class="meta">listened <?=$count?> times</h4>
         <div class="tags">
           <?php
           foreach ($tags as $tag) {
