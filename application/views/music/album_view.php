@@ -1,7 +1,7 @@
 <div id="headingCont" class="artist_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
   <div class="inner">
     <div class="float_left">
-      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year"><?=anchor(array('tag', 'year', $year), $year, array('class' => 'album_year'))?></span></div>
+      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span></div>
     </div>
     <div class="info">
       <div class="top_info album_info">
@@ -18,7 +18,7 @@
           <?php
           foreach ($tags as $tag) {
             ?>
-            <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
+            <span class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name'])), $tag['name'])?></span>
             <?php
           }
           if ($logged_in === TRUE) {
