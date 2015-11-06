@@ -22,8 +22,8 @@ if (!function_exists('getGenres')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
     $album = !empty($opts['album']) ? $opts['album'] : '%';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
@@ -75,8 +75,8 @@ if (!function_exists('getKeywords')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
     $album = !empty($opts['album']) ? $opts['album'] : '%';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
@@ -128,8 +128,8 @@ if (!function_exists('getNationalities')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
     $album = !empty($opts['album']) ? $opts['album'] : '%';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
@@ -165,8 +165,8 @@ if (!function_exists('getGenresMusic')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date("Y-m-d", time() - (31 * 24 * 60 * 60));
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date("Y-m-d");
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $artist = !empty($opts['artist']) ? $opts['artist'] : '%';
     $album = !empty($opts['album']) ? $opts['album'] : '%';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';

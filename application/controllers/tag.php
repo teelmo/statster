@@ -13,6 +13,7 @@ class Tag extends CI_Controller {
     // Load helpers
     $this->load->helper(array('tag_helper'));
 
+    $data['js_include'] = array('tag');
     $data['tag_type'] = 'Genre';
     $this->load->view('site_templates/header');
     
