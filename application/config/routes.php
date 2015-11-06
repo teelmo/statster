@@ -63,6 +63,11 @@ $route['album/(:num)/(:num)'] = "album/stats/$1/$2/$3";
 $route['music/(:any)/(:any)'] = "music/album/$1/$2";
 $route['music/(:any)'] = "music/artist/$1";
 
+/* Genres, tags and release years page's routes */
+$route['genre/(:any)'] = "tag/genre/$1";
+$route['keyword/(:any)'] = "tag/keyword/$1";
+$route['year/(:any)'] = "tag/year/$1";
+
 /* Recent page's routes */
 $route['recent'] = "music/recent";
 $route['recent/(:any)/(:any)'] = "music/recent/$1/$2";
