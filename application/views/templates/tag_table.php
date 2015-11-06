@@ -4,7 +4,7 @@ if (!empty($json_data)) {
     foreach ($json_data as $idx => $row) {
       ?>
       <tr id="genreTable<?=$idx?>">
-        <td><span class="tag <?=$row['type']?>"><?=anchor(array('tag', $row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse ' . $row['type']))?></a></td>
+        <td><span class="tag <?=$row['type']?>"><?=anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse ' . $row['type']))?></a></td>
       </tr>
       <?php
     }
