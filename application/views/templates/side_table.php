@@ -72,7 +72,7 @@ if (!empty($json_data)) {
             if (!empty($row['album_name'])) {
               echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
               echo ' ';
-              echo anchor(array('tag', 'release+year', url_title($row['year'])), '<span class="album_year">' . $row['year'] . '</span>', array('title' => 'Browse release year'));
+              echo anchor(array('year', url_title($row['year'])), '<span class="album_year">' . $row['year'] . '</span>', array('title' => 'Browse release year'));
             }
             ?>
           </div>
