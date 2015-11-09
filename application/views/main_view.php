@@ -3,8 +3,8 @@
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
   <div class="page_links">
-    <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('album'), 'Albums')?>
+    <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">
