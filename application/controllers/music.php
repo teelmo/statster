@@ -20,10 +20,12 @@ class Music extends CI_Controller {
     unset($data['user_id']);
     $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
     $data += getAlbumListenings($data);
+    // pr($data);
     if ($data['user_id'] = $this->session->userdata('user_id')) {
       $data += getAlbumListenings($data);
     }
     $data += getAlbumTags($data);
+    unset($data['username']);
     $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
     $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
 
