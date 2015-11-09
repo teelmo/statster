@@ -50,8 +50,8 @@
           ?>
         </tr>
         <tr>
-          <td class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), $total_count)?></td>
-          <td class="value"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), $listener_count)?></td>
+          <td class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), number_format($total_count))?></td>
+          <td class="value"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), number_format($listener_count))?></td>
           <td class="value"><?=anchor(array('tag', 'year', $created), $created)?></td>
         </tr>
       </table>

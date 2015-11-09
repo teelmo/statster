@@ -85,7 +85,7 @@ var app = {
         allowDecimals:false,
         labels:{
           formatter: function () {
-            return this.value;
+            return app.formatNr(this.value);
           },
           style:{
             color:'#444',
@@ -100,7 +100,7 @@ var app = {
       },
       tooltip:{
         formatter: function () {
-          return this.y;
+          return app.formatNr(this.y);
         },
         backgroundColor:'#fff',
         borderColor:'#ccc',
@@ -125,6 +125,10 @@ var app = {
         type:'column'
       }]
     }).highcharts();
+  },
+  formatNr: function (x) {
+    x = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return (x == '') ? 0 : x;
   },
   initStatsterEvents: function () {
     $('.search_text').autocomplete({

@@ -24,9 +24,9 @@
           <td class="label">Albums</td>
         </tr>
         <tr>
-          <td class="value"><?=anchor(array('recent', $username), $listening_count)?></td>
-          <td class="value"><?=anchor(array('artist?u=' . $username), $artist_count)?></td>
-          <td class="value"><?=anchor(array('album?u=' . $username), $album_count)?></td>
+          <td class="value"><?=anchor(array('recent', $username), number_format($listening_count))?></td>
+          <td class="value"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></td>
+          <td class="value"><?=anchor(array('album?u=' . $username), number_format($album_count))?></td>
         </tr>
       </table>
     </div>
