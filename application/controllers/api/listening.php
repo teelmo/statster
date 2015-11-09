@@ -1,5 +1,6 @@
 <?php
 class Listening extends CI_Controller {
+
   public function index() {
     exit ('No direct script access allowed');
   }

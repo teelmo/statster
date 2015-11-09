@@ -1,5 +1,6 @@
 <?php
 class User extends CI_Controller {
+
   public function index() {
     exit ('No direct script access allowed');
   }
@@ -7,7 +8,7 @@ class User extends CI_Controller {
   public function get() {
     // Load helpers
     $this->load->helper(array('user_helper', 'output_helper'));
-    
+
     echo getUsers($_REQUEST);
   }
 
