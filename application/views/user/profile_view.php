@@ -20,13 +20,13 @@
       <table class="user_meta">
         <tr>
           <td class="label">Listenings</td>
-          <td class="label">Artists</td>
           <td class="label">Albums</td>
+          <td class="label">Artists</td>
         </tr>
         <tr>
-          <td class="value"><?=anchor(array('recent', $username), number_format($listening_count))?></td>
-          <td class="value"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></td>
+          <td class="value"><?=anchor(array('recent?u=', $username), number_format($listening_count))?></td>
           <td class="value"><?=anchor(array('album?u=' . $username), number_format($album_count))?></td>
+          <td class="value"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></td>
         </tr>
       </table>
     </div>
@@ -36,8 +36,8 @@
 <div id="mainCont" class="heading_container">
   <div class="page_links">
     <?=anchor('recent?u=' . $username, 'Listenings')?>
-    <?=anchor('artist?u=' . $username, 'Artists')?>
     <?=anchor('album?u=' . $username, 'Albums')?>
+    <?=anchor('artist?u=' . $username, 'Artists')?>
     <?=anchor('tag?u=' . $username, 'Tags')?>
   </div>
   <div id="leftCont">
