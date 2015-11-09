@@ -1163,6 +1163,12 @@ div.cover {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
     }
   }
+  &.no_cover {
+    border: 0 !important;
+    &::after {
+      background-image: none !important;
+    }
+  }
   a {
     position: absolute;
     z-index: 3;

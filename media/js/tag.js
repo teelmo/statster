@@ -1,17 +1,18 @@
 $.extend(view, {
-  getListeningHistory: function (type) {
+  getListeningHistory: function (type, tag_type) {
     app.initChart();
     $.ajax({
       type:'GET',
       dataType:'json',
-      url:'/api/listener/get',
+      url:'/api/tag/get/<?=strtolower($tag_type)?>',
       data:{
         group_by:type + '(<?=TBL_listening?>.`date`)',
-        limit:100,
+        lower_limit:'1970-00-00',
         order_by:type + '(<?=TBL_listening?>.`date`) ASC',
         select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
-        from:', <?=TBL_genres?>, <?=TBL_genre?>',
+        tag_name:'<?=$tag_name?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+        limit:100,
         where:(type == 'weekday') ? type + '(<?=TBL_listening?>.`date`) IS NOT NULL' : type + '(<?=TBL_listening?>.`date`) != \'00\''
       },
       statusCode:{

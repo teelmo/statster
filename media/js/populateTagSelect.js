@@ -1,5 +1,5 @@
 $.extend(view, {
-  populateTagsMenu: function (type) {
+  populateTagsMenu: function (type, order_by) {
     $.ajax({
       type:'GET',
       dataType:'json',
@@ -7,7 +7,7 @@ $.extend(view, {
       data:{
         limit:1000,
         lower_limit:'1970-01-01',
-        order_by:'name',
+        order_by:order_by,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode:{
@@ -23,9 +23,9 @@ $.extend(view, {
 
 $(document).ready(function () {
   $.when(
-    view.populateTagsMenu('genre'),
-    view.populateTagsMenu('keyword'),
-    view.populateTagsMenu('nationality')
+    view.populateTagsMenu('genre', 'name'),
+    view.populateTagsMenu('keyword', 'name'),
+    view.populateTagsMenu('nationality', 'country')
   ).done(function () {
     $('#tagAddSelect').trigger('chosen:updated');
   });

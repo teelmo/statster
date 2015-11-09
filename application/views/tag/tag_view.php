@@ -1,5 +1,8 @@
 <div id="headingCont" class="artist_heading_cont" style="background-image: url('')">
   <div class="inner">
+    <div class="float_left">
+      <div class="cover no_cover img174" style="background-image:url('')"><span class="album_year"></span></div>
+    </div>
     <div class="info">
       <div class="top_info tag_info">
         <h2><?=anchor(array('tag', url_title($this->uri->segment(2))), $tag_type, array('title' => $tag_type))?></h2>
@@ -49,12 +52,12 @@
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>
-      <h2>Genres</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
-      <table id="topGenre" class="barTable"><!-- Content is loaded with AJAX --></table>
-      <h2>Keywords</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
-      <table id="topKeyword" class="barTable"><!-- Content is loaded with AJAX --></table>
+      <h2>Top listeners</h2>
+      <!-- <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" /> -->
+      <table id="" class="barTable"><!-- Content is loaded with AJAX --></table>
+      <h2>Latest listenings</h2>
+      <!-- <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" /> -->
+      <table id="" class="barTable"><!-- Content is loaded with AJAX --></table>
       <?php
       /*
       <h2>Nationalities</h2>
