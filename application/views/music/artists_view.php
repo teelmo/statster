@@ -1,7 +1,7 @@
 <div id="mainCont">
   <div class="page_links">
-    <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('album'), 'Albums')?>
+    <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">

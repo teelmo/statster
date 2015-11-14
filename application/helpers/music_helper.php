@@ -114,40 +114,44 @@ if (!function_exists('getAlbums')) {
   function getAlbums($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+    $from = !empty($opts['from']) ? $opts['from'] : '';
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_album . '.`id`';
+    $where = !empty($opts['where']) ? $opts['where'] : '';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_album . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_album . ".`id`) as `count`, 
-                   " . TBL_artist . ".`artist_name`, 
-                   " . TBL_artist . ".`id` as artist_id, 
-                   " . TBL_album . ".`album_name`, 
-                   " . TBL_album . ".`id` as album_id, 
+    $sql = "SELECT count(" . TBL_album . ".`id`) as `count`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`id` as artist_id,
+                   " . TBL_album . ".`album_name`,
+                   " . TBL_album . ".`id` as album_id,
                    " . TBL_album . ".`year`,
-                   " . TBL_user . ". `username`, 
-                   " . TBL_user . ". `id` as user_id, 
+                   " . TBL_user . ". `username`,
+                   " . TBL_user . ". `id` as user_id,
                   (SELECT count(" . TBL_love . ".`album_id`)
                     FROM " . TBL_love . "
-                    WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id` 
+                    WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
                       AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
                   ) AS `love`
-            FROM " . TBL_album . ", 
-                 " . TBL_artist . ", 
-                 " . TBL_listening . " , 
+            FROM " . TBL_album . ",
+                 " . TBL_artist . ",
+                 " . TBL_listening . ",
                  " . TBL_user . "
+                 " . $from . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-              AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . " 
+              AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . "
                                                    AND " . $ci->db->escape($upper_limit) . "
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
               AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album_name) . "
+              " . $where . "
               GROUP BY " . mysql_real_escape_string($group_by) . "
               ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
