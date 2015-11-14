@@ -12,6 +12,7 @@ if (!function_exists('getSpotifyResourceId')) {
         $q = str_replace(array(':','%23',' '), '%20', $album);
         $q = str_replace(array('Ä','ä'), array('A', 'a'), $q);
         $q = str_replace(array('Ö','ö'), array('O', 'o'), $q);
+        $q = str_replace(array('á','Á'), array('A', 'a'), $q);
         $content = $curl->getXML('http://ws.spotify.com/search/1/album?q=' . $q);
         $xml = new SimpleXMLElement($content, LIBXML_NOWARNING);
         if (!empty($xml->album) &&  is_object($xml->album)) {
