@@ -26,13 +26,13 @@ div.container {
   width: 100%;
   z-index: 1000;
   .inner {
-    padding: 0 2px;
     color: #eee;
     font-size: 13px;
     height: 36px;
     line-height: 36px;
     margin: auto auto;
     max-width: 1000px;
+    padding: 0 2px;
     vertical-align: middle;
     z-index: 2;
     a {
@@ -165,7 +165,7 @@ div.container {
     position: relative;
     z-index: 2;
     &::after {
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0, 0, 0, 0.85);
       content: '';
       height: 100%;
       position: absolute;
@@ -175,13 +175,13 @@ div.container {
     }
     &.profile_heading_cont {
       &::after {
-        background-color: rgba(0, 0, 0, 0.85);
+        background-color: rgba(0, 0, 0, 0.80);
       }
     }
     &.main_heading_cont {
       height: 100px;
       &::after {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.75);
       }
     }
   }
@@ -299,6 +299,7 @@ div.container {
             }
             &.artist_spotify_container {
               background-position: 100% 50%;
+              background-size: cover;
             }
             &.album_spotify_container {
               background-position: 100% 50%;
@@ -424,7 +425,7 @@ div.container {
   }
 }
 #footer {
-  background-color: #444;
+  background-color: #111;
   clear: both;
   margin: auto auto;
   padding: 20px 0;
@@ -1104,7 +1105,8 @@ div.cover {
       height: 124px;
     }
     &.artist_img {
-      height: 80px;
+      background-size: cover;
+      height: 90px;
     }
   }
   &.img174 {
@@ -1129,6 +1131,7 @@ div.cover {
   }
   &.artist_img {
     background-position: 50% 0%;
+    background-size: cover;
   }
   &.user_img,
   &.album_img {

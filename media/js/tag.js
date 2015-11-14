@@ -48,6 +48,76 @@ $.extend(view, {
       }
     });
   },
+  // Get top albums.
+  getTopAlbums: function () {
+    $.ajax({
+      type:'GET',
+      dataType:'json',
+      url:'/api/tag/get',
+      data:{
+        limit:10,
+        tag_name:'<?=$tag_name?>'
+      },
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            type:'POST',
+            url:'/ajax/albumList/124',
+            data:{
+              json_data:data,
+            },
+            success: function (data) {
+              $('#topAlbumLoader').hide();
+              $('#topAlbum').html(data);
+            },
+            complete: function () {
+              setTimeout(view.getTopAlbums, 60 * 10 * 1000);
+            }
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topAlbumLoader').hide();
+          $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
+        }
+      }
+    });
+  },
+  // Get top artists.
+  getTopArtists: function () {
+    $.ajax({
+      type:'GET',
+      dataType:'json',
+      url:'/api/tag/get',
+      data:{
+        limit:10,
+        tag_name:'<?=$tag_name?>',
+        group_by:'<?=TBL_artist?>.`id`, <?=TBL_genres?>.`user_id`',
+        order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC'
+      },
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            type:'POST',
+            url:'/ajax/artistList/124',
+            data:{
+              json_data:data,
+            },
+            success: function (data) {
+              $('#topArtistLoader').hide();
+              $('#topArtist').html(data);
+            },
+            complete: function () {
+              setTimeout(view.getTopAlbums, 60 * 10 * 1000);
+            }
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topArtistLoader').hide();
+          $('#topArtist').html('<?=ERR_NO_RESULTS?>');
+        }
+      }
+    });
+  },
   initTagEvents: function () {
   
   }
@@ -55,4 +125,6 @@ $.extend(view, {
 
 $(document).ready(function () {
   view.getListeningHistory('month');
+  view.getTopAlbums();
+  // view.getTopArtists();
 });

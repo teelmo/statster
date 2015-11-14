@@ -6,12 +6,17 @@ class Tag extends CI_Controller {
   }
 
   /* List tags */
-  public function get($tag_type) {
+  public function get($tag_type = '') {
     // Load helpers
     $this->load->helper(array('tag_helper', 'output_helper'));
-    
-    $_REQUEST['tag_type'] = $tag_type;
-    echo getGenres($_REQUEST);
+
+    if (in_array($tag_type, array('genre', 'tag', 'release year', 'nationality'))) {
+      $_REQUEST['tag_type'] = $tag_type;
+      echo getGenres($_REQUEST);
+    }
+    else {
+      echo getMusicByGenre($_REQUEST);
+    }
   }
 
   /* Add a tag */
