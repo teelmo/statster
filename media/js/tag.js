@@ -91,7 +91,7 @@ $.extend(view, {
       data:{
         limit:10,
         tag_name:'<?=$tag_name?>',
-        group_by:'<?=TBL_artist?>.`id`, <?=TBL_genres?>.`user_id`',
+        group_by:'`artist_id`',
         order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC'
       },
       statusCode:{
@@ -126,5 +126,5 @@ $.extend(view, {
 $(document).ready(function () {
   view.getListeningHistory('month');
   view.getTopAlbums();
-  // view.getTopArtists();
+  view.getTopArtists();
 });

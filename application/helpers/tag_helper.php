@@ -212,21 +212,27 @@ if (!function_exists('getMusicByGenre')) {
     $tag_name = !empty($opts['tag_name']) ? $opts['tag_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_listening . '.`album_id`, ' . TBL_genres . '.`user_id`';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : '`album_id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_album . '.`album_name` ASC';
 
-    $sql = "SELECT DISTINCT count(" . TBL_listening . ".`album_id`) as 'count',
-                            " . TBL_artist . ".`artist_name`,
-                            " . TBL_artist . ".`id` as `artist_id`,
-                            " . TBL_album . ".`album_name`,
-                            " . TBL_album . ".`id` as `album_id`,
-                            " . TBL_album . ".`year`
-            FROM " . TBL_genres . "
-            INNER JOIN " . TBL_album . " ON " . TBL_genres . ".`album_id` = " . TBL_album . ".`id`
-            INNER JOIN " . TBL_genre . " ON " . TBL_genres . ".`genre_id` = " . TBL_genre . ".`id`
-            INNER JOIN " . TBL_listening . " ON " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-            INNER JOIN " . TBL_artist . " ON " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
+    $sql = "SELECT count(*) as 'count',
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`id` as `artist_id`,
+                   " . TBL_album . ".`album_name`,
+                   " . TBL_album . ".`id` as `album_id`,
+                   " . TBL_album . ".`year`
+            FROM " . TBL_artist . ",
+                 " . TBL_album . ",
+                 " . TBL_genre . ",
+                 " . TBL_listening . ",
+                 (SELECT " . TBL_genres . ".`genre_id`, " . TBL_genres . ".`album_id`
+                  FROM " . TBL_genres . "
+                  GROUP BY " . TBL_genres . ".`genre_id`, " . TBL_genres . ".`album_id`) as " . TBL_genres . "
             WHERE " . TBL_genre . ".`name` LIKE " . $ci->db->escape($tag_name) . "
+              AND " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
+              AND " . TBL_genres . ".`genre_id` = " . TBL_genre . ".`id`
+              AND " . TBL_genres . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
             GROUP BY " . mysql_real_escape_string($group_by) . "
             ORDER BY " . mysql_real_escape_string($order_by) . " 
             LIMIT " . mysql_real_escape_string($limit);
