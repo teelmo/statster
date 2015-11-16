@@ -137,10 +137,68 @@ if (!function_exists('getFormatTypeID')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $formatType = isset($opts['format_type']) ? $opts['format_type'] : '';
+    $format_type = isset($opts['format_type']) ? $opts['format_type'] : '';
     $sql = "SELECT " . TBL_listening_format_type . ".`id`
             FROM " . TBL_listening_format_type . "
-            WHERE " . TBL_listening_format_type . ".`name` = " . $ci->db->escape($formatType) . "
+            WHERE " . TBL_listening_format_type . ".`name` = " . $ci->db->escape($format_type) . "
+            LIMIT 1";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      $result = $query->result();
+      return $result[0]->id;
+    }
+    else {
+      return FALSE;
+    }
+  }   
+}
+
+/**
+   * Get genre's ID.
+   *
+   * @param array $opts.
+   *          'tag_name'  => Genre name
+   *
+   * @return int Genre ID or boolean FALSE.
+   */
+if (!function_exists('getGenreID')) {
+  function getGenreID($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $tag_name = isset($opts['tag_name']) ? $opts['tag_name'] : '';
+    $sql = "SELECT " . TBL_genre . ".`id`
+            FROM " . TBL_genre . "
+            WHERE " . TBL_genre . ".`name` = " . $ci->db->escape($tag_name) . "
+            LIMIT 1";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      $result = $query->result();
+      return $result[0]->id;
+    }
+    else {
+      return FALSE;
+    }
+  }   
+}
+/**
+   * Get keyword's ID.
+   *
+   * @param array $opts.
+   *          'tag_name'  => Keyword name
+   *
+   * @return int Keyword ID or boolean FALSE.
+   */
+if (!function_exists('getKeywordID')) {
+  function getKeywordID($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $tag_name = isset($opts['tag_name']) ? $opts['tag_name'] : '';
+    
+    $sql = "SELECT " . TBL_keyword . ".`id`
+            FROM " . TBL_keyword . "
+            WHERE " . TBL_keyword . ".`name` = " . $ci->db->escape($tag_name) . "
             LIMIT 1";
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {
