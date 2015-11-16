@@ -1,11 +1,11 @@
 <div id="headingCont" class="artist_heading_cont" style="background-image: url('')">
   <div class="inner">
     <div class="float_left">
-      <div class="cover no_cover img174" style="background-image:url('')"><span class="album_year"></span></div>
+      <div class="cover no_cover img174" style="background-image:url('')"></div>
     </div>
     <div class="info">
       <div class="top_info tag_info">
-        <h2><?=anchor(array('tag', url_title($this->uri->segment(2))), $tag_type, array('title' => $tag_type))?></h2>
+        <h2><?=anchor(array(url_title($this->uri->segment(1))), $tag_type, array('title' => $tag_type))?></h2>
         <h1><?=$tag_name?></h1>
       </div>
       <table class="tag_meta">

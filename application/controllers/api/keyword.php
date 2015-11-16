@@ -8,7 +8,7 @@ class Keyword extends CI_Controller {
   /* List keywords */
   public function get() {
     // Load helpers
-    $this->load->helper(array('tag_helper', 'output_helper'));
+    $this->load->helper(array('keyword_helper', 'output_helper'));
     
     echo getKeywords($_REQUEST);
   }
