@@ -59,7 +59,8 @@ $.extend(view, {
             data:{
               json_data:data,
               hide:{
-                del:true
+                del:true,
+                user:true
               }
             },
             success: function (data) {
