@@ -6,14 +6,14 @@ $.extend(view, {
       dataType:'json',
       url:'/api/tag/get/<?=strtolower($tag_type)?>',
       data:{
-        select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
-        where:(type == 'weekday') ? type + '(<?=TBL_listening?>.`date`) IS NOT NULL' : type + '(<?=TBL_listening?>.`date`) != \'00\'',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        lower_limit:'1970-00-00',
-        tag_id:'<?=$tag_id?>',
         group_by:type + '(<?=TBL_listening?>.`date`)',
+        limit:100,
+        lower_limit:'1970-00-00',
         order_by:type + '(<?=TBL_listening?>.`date`) ASC',
-        limit:100
+        select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
+        tag_id:'<?=$tag_id?>',
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+        where:(type == 'weekday') ? type + '(<?=TBL_listening?>.`date`) IS NOT NULL' : type + '(<?=TBL_listening?>.`date`) != \'00\''
       },
       statusCode:{
         200: function (data) { // 200 OK
