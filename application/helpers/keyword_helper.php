@@ -35,7 +35,7 @@ if (!function_exists('getKeywords')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_keyword . ".`id`) as `count`, 
+    $sql = "SELECT count(*) as `count`, 
                    " .  TBL_keyword . ".`name`,
                    'keyword' as `type`
                    " . $select . "
@@ -69,7 +69,7 @@ if (!function_exists('getKeywords')) {
    * Gets keyword's listenings.
    *
    * @param array $opts.
-   *          'keyword_id'  => Keyword ID
+   *          'tag_id'      => Keyword ID
    *          'user_id'     => User ID
    *
    * @return array Listening information.
@@ -83,7 +83,7 @@ if (!function_exists('getKeywordListenings')) {
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $opts['tag_id'] = empty($opts['tag_id']) ? '%' : $opts['tag_id'];
-    $sql = "SELECT count(" . TBL_album . ".`id`) as `" . $count_type . "`
+    $sql = "SELECT count(*) as `" . $count_type . "`
             FROM " . TBL_album . ",
                  " . TBL_listening . ",
                  (SELECT " . TBL_keywords . ".`keyword_id`,
@@ -109,7 +109,7 @@ if (!function_exists('getKeywordListenings')) {
  * Returns top music for given keyword.
  *
  * @param array $opts.
- *          'tag_name'        => Tag name
+ *          'tag'             => Keyword id
  *          'group_by'        => Group by argument
  *          'order_by'        => Order by argument
  *          'limit'           => Limit

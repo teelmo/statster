@@ -35,7 +35,7 @@ if (!function_exists('getNationalities')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_nationality . ".`id`) as `count`, 
+    $sql = "SELECT count(*) as `count`, 
                    " .  TBL_nationality . ".`country`,
                    'nationality' as `type`
                    " . $select . "
@@ -59,6 +59,95 @@ if (!function_exists('getNationalities')) {
               GROUP BY " . mysql_real_escape_string($group_by) . "
               ORDER BY " . mysql_real_escape_string($order_by) . " 
               LIMIT " . mysql_real_escape_string($limit);
+    $query = $ci->db->query($sql);
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+   * Gets nationality's listenings.
+   *
+   * @param array $opts.
+   *          'tag_id'      => Nationality ID
+   *          'user_id'     => User ID
+   *
+   * @return array Listening information.
+   *
+   */
+if (!function_exists('getNationalityListenings')) {
+  function getNationalityListenings($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
+    $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
+    $opts['tag_id'] = empty($opts['tag_id']) ? '%' : $opts['tag_id'];
+    $sql = "SELECT count(" . TBL_album . ".`id`) as `" . $count_type . "`
+            FROM " . TBL_album . ",
+                 " . TBL_listening . ",
+                 (SELECT " . TBL_nationalities . ".`nationality_id`,
+                         " . TBL_nationalities . ".`album_id`
+                  FROM " . TBL_nationalities . "
+                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) as " . TBL_nationalities . "
+            WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+              AND " . TBL_listening . ".`user_id` LIKE " . $ci->db->escape($opts['user_id']) . "
+              AND " . TBL_nationalities . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_nationalities . ".`nationality_id` LIKE " . $ci->db->escape($opts['tag_id']);
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      $result = $query->result(0);
+      return $result[0];
+    }
+    else {
+      return array($count_type => 0);
+    }
+  }
+}
+
+/**
+ * Returns top music for given nationality.
+ *
+ * @param array $opts.
+ *          'tag_id'          => Tag id
+ *          'group_by'        => Group by argument
+ *          'order_by'        => Order by argument
+ *          'limit'           => Limit
+ *          'human_readable'  => Output format
+ *
+ * @return string JSON encoded data containing album information.
+ *
+ **/
+if (!function_exists('getMusicByNationality')) {
+  function getMusicByNationality($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : '`album_id`';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_album . '.`album_name` ASC';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+
+    $sql = "SELECT count(*) as 'count',
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`id` as `artist_id`,
+                   " . TBL_album . ".`album_name`,
+                   " . TBL_album . ".`id` as `album_id`,
+                   " . TBL_album . ".`year`
+            FROM " . TBL_artist . ",
+                 " . TBL_album . ",
+                 " . TBL_listening . ",
+                 (SELECT " . TBL_nationalities . ".`nationality_id`,
+                         " . TBL_nationalities . ".`album_id`
+                  FROM " . TBL_nationalities . "
+                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) as " . TBL_nationalities . "
+            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
+              AND " . TBL_nationalities . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_nationalities . ".`nationality_id` = " . $tag_id . "
+            GROUP BY " . mysql_real_escape_string($group_by) . "
+            ORDER BY " . mysql_real_escape_string($order_by) . " 
+            LIMIT " . mysql_real_escape_string($limit);
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }

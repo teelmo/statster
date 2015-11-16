@@ -35,7 +35,7 @@ if (!function_exists('getGenres')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_genre . ".`id`) as `count`, 
+    $sql = "SELECT count(*) as `count`, 
                    " .  TBL_genre . ".`name`,
                    'genre' as `type`
                    " . $select . "
@@ -68,7 +68,7 @@ if (!function_exists('getGenres')) {
    * Gets genres's listenings.
    *
    * @param array $opts.
-   *          'genre_id'  => Genre ID
+   *          'tag_id'   => Genre ID
    *          'user_id'  => User ID
    *
    * @return array Listening information.
@@ -81,7 +81,7 @@ if (!function_exists('getGenreListenings')) {
 
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
-    $sql = "SELECT count(" . TBL_album . ".`id`) as `" . $count_type . "`
+    $sql = "SELECT count(*) as `" . $count_type . "`
             FROM " . TBL_album . ",
                  " . TBL_listening . ",
                  (SELECT " . TBL_genres . ".`genre_id`,
@@ -103,12 +103,11 @@ if (!function_exists('getGenreListenings')) {
   }
 }
 
-
 /**
  * Returns top music for given genre.
  *
  * @param array $opts.
- *          'tag_name'        => Tag name
+ *          'tag_id'          => Tag id
  *          'group_by'        => Group by argument
  *          'order_by'        => Order by argument
  *          'limit'           => Limit

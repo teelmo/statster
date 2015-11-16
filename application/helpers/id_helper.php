@@ -181,6 +181,7 @@ if (!function_exists('getGenreID')) {
     }
   }   
 }
+
 /**
    * Get keyword's ID.
    *
@@ -199,6 +200,36 @@ if (!function_exists('getKeywordID')) {
     $sql = "SELECT " . TBL_keyword . ".`id`
             FROM " . TBL_keyword . "
             WHERE " . TBL_keyword . ".`name` = " . $ci->db->escape($tag_name) . "
+            LIMIT 1";
+    $query = $ci->db->query($sql);
+    if ($query->num_rows() > 0) {
+      $result = $query->result();
+      return $result[0]->id;
+    }
+    else {
+      return FALSE;
+    }
+  }   
+}
+
+/**
+   * Get nationality's ID.
+   *
+   * @param array $opts.
+   *          'tag_name'  => Nationality name
+   *
+   * @return int nationality ID or boolean FALSE.
+   */
+if (!function_exists('getNationalityID')) {
+  function getNationalityID($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $tag_name = isset($opts['tag_name']) ? $opts['tag_name'] : '';
+    
+    $sql = "SELECT " . TBL_nationality . ".`id`
+            FROM " . TBL_nationality . "
+            WHERE " . TBL_nationality . ".`country` = " . $ci->db->escape($tag_name) . "
             LIMIT 1";
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {

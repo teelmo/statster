@@ -67,6 +67,7 @@ $route['music/(:any)'] = "music/artist/$1";
 $route['genre/(:any)'] = "tag/genre/$1";
 $route['keyword/(:any)'] = "tag/keyword/$1";
 $route['year/(:any)'] = "tag/year/$1";
+$route['nationality/(:any)'] = "tag/nationality/$1";
 
 /* Recent page's routes */
 $route['recent'] = "music/recent";

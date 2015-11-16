@@ -19,6 +19,10 @@ class Tag extends CI_Controller {
         $this->load->helper(array('keyword_helper'));
         echo getKeywords($_REQUEST);
       }
+      else if ($tag_type == 'nationality') {
+        $this->load->helper(array('nationality_helper'));
+        echo getNationalities($_REQUEST);
+      }
     }
     else {
       if ($_GET['tag_type'] == 'Genre') {
@@ -28,6 +32,10 @@ class Tag extends CI_Controller {
       else if ($_GET['tag_type'] == 'Keyword') {
         $this->load->helper(array('keyword_helper'));
         echo getMusicByKeyword($_REQUEST);
+      }
+      else if ($_GET['tag_type'] == 'Nationality') {
+        $this->load->helper(array('nationality_helper'));
+        echo getMusicByNationality($_REQUEST);
       }
     }
   }
