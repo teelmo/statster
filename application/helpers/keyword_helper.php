@@ -10,7 +10,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
  *          'username'        => Username
  *          'artist'          => Artist name
  *          'album'           => Album name
- *          'tag_name'        => Tag name
+ *          'tag_id'          => Tag id
  *          'group_by'        => Group by argument
  *          'order_by'        => Order by argument
  *          'limit'           => Limit
@@ -35,15 +35,15 @@ if (!function_exists('getKeywords')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(*) as `count`, 
+    $sql = "SELECT count(*) as `count`,
                    " .  TBL_keyword . ".`name`,
                    'keyword' as `type`
                    " . $select . "
-            FROM " . TBL_album . ", 
-                 " . TBL_artist . ", 
-                 " . TBL_listening . ", 
-                 " . TBL_user . ", 
-                 " . TBL_keyword . ", 
+            FROM " . TBL_album . ",
+                 " . TBL_artist . ",
+                 " . TBL_listening . ",
+                 " . TBL_user . ",
+                 " . TBL_keyword . ",
                  " . TBL_keywords . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
@@ -57,9 +57,8 @@ if (!function_exists('getKeywords')) {
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               " . $where . "
               GROUP BY " . mysql_real_escape_string($group_by) . "
-              ORDER BY " . mysql_real_escape_string($order_by) . " 
+              ORDER BY " . mysql_real_escape_string($order_by) . "
               LIMIT " . mysql_real_escape_string($limit);
-              // echo $sql;
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }
@@ -109,7 +108,7 @@ if (!function_exists('getKeywordListenings')) {
  * Returns top music for given keyword.
  *
  * @param array $opts.
- *          'tag'             => Keyword id
+ *          'tag_id'             => Keyword id
  *          'group_by'        => Group by argument
  *          'order_by'        => Order by argument
  *          'limit'           => Limit
