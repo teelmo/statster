@@ -10,7 +10,7 @@ class Tag extends CI_Controller {
     // Load helpers
     $this->load->helper(array('output_helper'));
 
-    if (in_array($tag_type, array('genre', 'keyword', 'release year', 'nationality'))) {
+    if (in_array($tag_type, array('genre', 'keyword', 'year', 'nationality'))) {
       if ($tag_type == 'genre') {
         $this->load->helper(array('genre_helper'));
         echo getGenres($_REQUEST);
@@ -22,6 +22,10 @@ class Tag extends CI_Controller {
       else if ($tag_type == 'nationality') {
         $this->load->helper(array('nationality_helper'));
         echo getNationalities($_REQUEST);
+      }
+      else if ($tag_type == 'year') {
+        $this->load->helper(array('year_helper'));
+        echo getYears($_REQUEST);
       }
     }
     else {
@@ -36,6 +40,10 @@ class Tag extends CI_Controller {
       else if ($_GET['tag_type'] == 'Nationality') {
         $this->load->helper(array('nationality_helper'));
         echo getMusicByNationality($_REQUEST);
+      }
+      else if ($_GET['tag_type'] == 'Year') {
+        $this->load->helper(array('year_helper'));
+        echo getMusicByYear($_REQUEST);
       }
     }
   }
