@@ -10,12 +10,21 @@ class Tag extends CI_Controller {
     // Load helpers
     $this->load->helper(array('tag_helper', 'output_helper'));
 
-    if (in_array($tag_type, array('genre', 'tag', 'release year', 'nationality'))) {
-      $_REQUEST['tag_type'] = $tag_type;
-      echo getGenres($_REQUEST);
+    if (in_array($tag_type, array('genre', 'keyword', 'release year', 'nationality'))) {
+      if ($tag_type == 'genre') {
+        echo getGenres($_REQUEST);
+      }
+      else if ($tag_type == 'keyword') {
+        echo getKeywords($_REQUEST);
+      }
     }
     else {
-      echo getMusicByGenre($_REQUEST);
+      if ($_GET['tag_type'] == 'Genre') {
+        echo getMusicByGenre($_REQUEST);
+      }
+      else if ($_GET['tag_type'] == 'Keyword') {
+        echo getMusicByKeyword($_REQUEST);
+      }
     }
   }
 
