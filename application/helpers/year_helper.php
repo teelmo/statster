@@ -36,7 +36,7 @@ if (!function_exists('getYears')) {
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT count(*) as `count`,
-                   " .  TBL_album . ".`year`,
+                   " . TBL_album . ".`year`,
                    'year' as `type`
                    " . $select . "
             FROM " . TBL_album . ",
@@ -77,13 +77,12 @@ if (!function_exists('getYearListenings')) {
 
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
-    $opts['tag_id'] = empty($opts['tag_id']) ? '%' : $opts['tag_id'];
     $sql = "SELECT count(*) as `" . $count_type . "`
             FROM " . TBL_album . ",
                  " . TBL_listening . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` LIKE " . $ci->db->escape($opts['user_id']) . "
-              AND " . TBL_album . ".`year` LIKE " . $ci->db->escape($opts['tag_id']);
+              AND " . TBL_album . ".`year` = " . $ci->db->escape($opts['tag_id']);
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {
       $result = $query->result(0);
@@ -113,6 +112,7 @@ if (!function_exists('getMusicByYear')) {
     $ci->load->database();
 
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  '`album_id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_album . '.`album_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -126,9 +126,12 @@ if (!function_exists('getMusicByYear')) {
                    " . TBL_album . ".`year`
             FROM " . TBL_artist . ",
                  " . TBL_album . ",
-                 " . TBL_listening . "
+                 " . TBL_listening . ",
+                 " . TBL_user . "
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_album . ".`year` LIKE " . $ci->db->escape($tag_id) . "
             GROUP BY " . mysql_real_escape_string($group_by) . "
             ORDER BY " . mysql_real_escape_string($order_by) . " 

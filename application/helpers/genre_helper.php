@@ -36,7 +36,7 @@ if (!function_exists('getGenres')) {
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT count(*) as `count`,
-                   " .  TBL_genre . ".`name`,
+                   " . TBL_genre . ".`name`,
                    'genre' as `type`
                    " . $select . "
             FROM " . TBL_album . ",
@@ -89,9 +89,9 @@ if (!function_exists('getGenreListenings')) {
                   FROM " . TBL_genres . "
                   GROUP BY " . TBL_genres . ".`genre_id`, " . TBL_genres . ".`album_id`) as " . TBL_genres . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-              AND " . TBL_listening . ".`user_id` LIKE '" . $opts['user_id'] . "'
               AND " . TBL_genres . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_genres . ".`genre_id` = " . $opts['tag_id'];
+              AND " . TBL_listening . ".`user_id` LIKE " . $ci->db->escape($opts['user_id']) . "
+              AND " . TBL_genres . ".`genre_id` = " . $ci->db->escape($opts['tag_id']);
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {
       $result = $query->result(0);
@@ -122,6 +122,7 @@ if (!function_exists('getMusicByGenre')) {
     $ci->load->database();
 
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : '`album_id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_album . '.`album_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -136,6 +137,7 @@ if (!function_exists('getMusicByGenre')) {
             FROM " . TBL_artist . ",
                  " . TBL_album . ",
                  " . TBL_listening . ",
+                 " . TBL_user . ",
                  (SELECT " . TBL_genres . ".`genre_id`,
                          " . TBL_genres . ".`album_id`
                   FROM " . TBL_genres . "
@@ -143,6 +145,8 @@ if (!function_exists('getMusicByGenre')) {
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
               AND " . TBL_genres . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_genres . ".`genre_id` = " . $tag_id . "
             GROUP BY " . mysql_real_escape_string($group_by) . "
             ORDER BY " . mysql_real_escape_string($order_by) . " 
