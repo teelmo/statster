@@ -92,7 +92,7 @@ if (!function_exists('getNationalityListenings')) {
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` LIKE " . $ci->db->escape($opts['user_id']) . "
               AND " . TBL_nationalities . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_nationalities . ".`nationality_id` LIKE " . $ci->db->escape($opts['tag_id']);
+              AND " . TBL_nationalities . ".`nationality_id` LIKE " . $opts['tag_id'];
     $query = $ci->db->query($sql);
     if ($query->num_rows() > 0) {
       $result = $query->result(0);

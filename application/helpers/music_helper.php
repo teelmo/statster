@@ -178,6 +178,7 @@ if (!function_exists('getListeners')) {
     $ci->load->database();
 
     $select = !empty($opts['select']) ? ', ' . $opts['select'] : '';
+    $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-01-01';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
@@ -201,6 +202,7 @@ if (!function_exists('getListeners')) {
                  " . TBL_artist . ", 
                  " . TBL_listening . " , 
                  " . TBL_user . "
+                 " . $from . "
             WHERE " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . " 

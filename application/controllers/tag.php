@@ -14,7 +14,7 @@ class Tag extends CI_Controller {
     $this->load->helper(array('genre_helper', 'id_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
   
-    $data['tag_type'] = 'Genre';
+    $data['tag_type'] = 'genre';
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getGenreID($data)) {
@@ -44,7 +44,7 @@ class Tag extends CI_Controller {
     $this->load->helper(array('keyword_helper', 'id_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
 
-    $data['tag_type'] = 'Keyword';
+    $data['tag_type'] = 'keyword';
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getKeywordID($data)) {
@@ -73,7 +73,7 @@ class Tag extends CI_Controller {
     $this->load->helper(array('nationality_helper', 'id_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
     
-    $data['tag_type'] = 'Nationality';
+    $data['tag_type'] = 'nationality';
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getNationalityID($data)) {
@@ -102,7 +102,7 @@ class Tag extends CI_Controller {
     $this->load->helper(array('year_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
     
-    $data['tag_type'] = 'Year';
+    $data['tag_type'] = 'year';
     if (!empty($tag_name)) {
       $data['tag_id'] = decode($tag_name);
       $data['tag_name'] = decode($tag_name);

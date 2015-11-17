@@ -1,11 +1,8 @@
-<div id="headingCont" class="artist_heading_cont" style="background-image: url('')">
+<div id="headingCont" class="artist_heading_cont tag_heading_cont" style="background-image: url('')">
   <div class="inner">
-    <div class="float_left">
-      <div class="cover no_cover img174" style="background-image:url('')"></div>
-    </div>
     <div class="info">
       <div class="top_info tag_info">
-        <h2><?=anchor(array(url_title($this->uri->segment(1))), $tag_type, array('title' => $tag_type))?></h2>
+        <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
         <h1><?=$tag_name?></h1>
       </div>
       <table class="tag_meta">
@@ -29,7 +26,7 @@
   </div>
 </div>
 <div class="clear"></div>
-<div id="mainCont" class="heading_container">
+<div id="mainCont" class="tag_heading_container">
   <div class="page_links">
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>
@@ -58,10 +55,10 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Top listeners</h2>
-      <!-- <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" /> -->
-      <table id="" class="barTable"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader" />
+      <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <h2>Latest listenings</h2>
-      <!-- <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" /> -->
-      <table id="" class="barTable"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader" />
+      <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

@@ -57,7 +57,8 @@ $.extend(view, {
       data:{
         limit:10,
         tag_id:'<?=$tag_id?>',
-        tag_type:'<?=$tag_type?>'
+        tag_type:'<?=$tag_type?>',
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode:{
         200: function (data) {
@@ -87,11 +88,12 @@ $.extend(view, {
       dataType:'json',
       url:'/api/tag/get',
       data:{
+        group_by:'`artist_id`',
         limit:10,
+        order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC',
         tag_id:'<?=$tag_id?>',
         tag_type:'<?=$tag_type?>',
-        group_by:'`artist_id`',
-        order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC'
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode:{
         200: function (data) {
@@ -114,6 +116,109 @@ $.extend(view, {
       }
     });
   },
+  // Get tag listeners.
+  getUsers: function () {
+    switch ('<?=$tag_type?>') {
+      case 'genre':
+        var from = '(SELECT <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id` FROM <?=TBL_genres?> GROUP BY <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id`) as <?=TBL_genres?>';
+        var where = '<?=TBL_genres?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_genres?>.`genre_id` = <?=$tag_id?>';
+        break;
+      case 'keyword':
+        var from = '(SELECT <?=TBL_keywords?>.`keyword_id`, <?=TBL_keywords?>.`album_id` FROM <?=TBL_keywords?> GROUP BY <?=TBL_keywords?>.`keyword_id`, <?=TBL_keywords?>.`album_id`) as <?=TBL_keywords?>';
+        var where = '<?=TBL_keywords?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_keywords?>.`keyword_id` = <?=$tag_id?>';
+        break;
+      case 'nationality':
+        var from = '(SELECT <?=TBL_nationalities?>.`nationality_id`, <?=TBL_nationalities?>.`album_id` FROM <?=TBL_nationalities?> GROUP BY <?=TBL_nationalities?>.`nationality_id`, <?=TBL_nationalities?>.`album_id`) as <?=TBL_nationalities?>';
+        var where = '<?=TBL_nationalities?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_nationalities?>.`nationality_id` = <?=$tag_id?>';
+        break;
+      case 'year':
+        var from = ''; 
+        var where = '<?=TBL_album?>.`year` = <?=$tag_id?>';
+        break;
+      default:
+        var from = '';
+        var where = '';
+        break;
+    }
+    $.ajax({
+      type:'GET',
+      dataType:'json',
+      url:'/api/listener/get',
+      data:{
+        from:from,
+        limit:6,
+        where:where
+      },
+      statusCode:{
+        200: function(data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:{
+                calendar:true,
+                date:true
+              },
+              json_data:data,
+              size:32
+            },
+            type:'POST',
+            url:'/ajax/userTable',
+            success: function(data) {
+              $('#topListenerLoader').hide();
+              $('#topListener').html(data);
+            }
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
+        }
+      }
+    });
+  },
+  // Get tag listenings.
+  getListenings: function () {
+    $.ajax({
+      type:'GET',
+      dataType:'json',
+      url:'/api/listening/get',
+      data:{
+        limit:6,
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      },
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            type:'POST',
+            url:'/ajax/sideTable',
+            data:{
+              hide:{
+                artist:true,
+                count:true,
+                rank:true
+              },
+              json_data:data,
+              size:32
+            },
+            success: function (data) {
+              $('#recentlyListenedLoader').hide();
+              $('#recentlyListened').html(data);
+            }
+          });
+        },
+        204: function () { // 204 No Content
+          $('#recentlyListenedLoader').hide();
+          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function (data) {
+          alert('400 Bad Request')
+        }
+      }
+    });
+  },
   initTagEvents: function () {
   
   }
@@ -123,4 +228,6 @@ $(document).ready(function () {
   view.getListeningHistory('month');
   view.getTopAlbums();
   view.getTopArtists();
+  view.getUsers();
+  view.getListenings();
 });
