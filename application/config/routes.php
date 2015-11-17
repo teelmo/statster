@@ -53,34 +53,39 @@ $route['404_override'] = '';
  */
 
 /* Artist and albums page's routes */
-$route['artist/(:num)'] = "artist/stats/$1/$2/$3";
-$route['artist/(:num)/(:num)'] = "artist/stats/$1/$2/$3";
+$route['artist/(:num)'] = "artist/stats/$1";
+$route['artist/(:num)/(:num)'] = "artist/stats/$1/$2";
+$route['artist/(:num)/(:num)/(:num)'] = "artist/stats/$1/$2/$3";
 
-$route['album/(:num)'] = "album/stats/$1/$2/$3";
-$route['album/(:num)/(:num)'] = "album/stats/$1/$2/$3";
+$route['album/(:num)'] = "album/stats/$1";
+$route['album/(:num)/(:num)'] = "album/stats/$1/$2";
+$route['album/(:num)/(:num)/(:num)'] = "album/stats/$1/$2/$3";
 
 /* Artist and albums page's routes */
 $route['music/(:any)/(:any)'] = "music/album/$1/$2";
 $route['music/(:any)'] = "music/artist/$1";
 
 /* Genres, tags and release years page's routes */
+$route['genre'] = "tag/genre";
 $route['genre/(:any)'] = "tag/genre/$1";
+$route['keyword'] = "tag/keyword";
 $route['keyword/(:any)'] = "tag/keyword/$1";
-$route['year/(:any)'] = "tag/year/$1";
+$route['nationality'] = "tag/nationality";
 $route['nationality/(:any)'] = "tag/nationality/$1";
+$route['year'] = "tag/year";
+$route['year/(:any)'] = "tag/year/$1";
 
 /* Recent page's routes */
 $route['recent'] = "music/recent";
 $route['recent/(:any)/(:any)'] = "music/recent/$1/$2";
 $route['recent/(:any)'] = "music/recent/$1";
 
-/* Recent page's routes */
+/* Listener page's routes */
 $route['listener'] = "music/listener";
 $route['listener/(:any)/(:any)'] = "music/listener/$1/$2";
 $route['listener/(:any)'] = "music/listener/$1";
 
-
-/* Recent page's routes */
+/* User page's routes */
 $route['user/profile/(:any)'] = "user/profile/$1";
 $route['user/(:any)'] = "user/profile/$1";
 $route['user/profile'] = "user";
@@ -91,9 +96,6 @@ $route['career'] = "main/career";
 $route['developers'] = "main/developers";
 $route['privacy'] = "main/privacy";
 $route['terms'] = "main/terms";
-
-/* Release year's routes */
-$route['tag/release+year'] = "tag/release_year";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
