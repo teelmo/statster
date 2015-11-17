@@ -19,10 +19,12 @@ if (!function_exists('getListenings')) {
     $ci=& get_instance();
     $ci->load->database();
     
+    $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $date = !empty($opts['date']) ? $opts['date'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT " . TBL_listening . ". `id` as `listening_id`,
@@ -35,7 +37,11 @@ if (!function_exists('getListenings')) {
                    " . TBL_artist . ". `id` as `artist_id`,
                    " . TBL_album . ". `id` as `album_id`,
                    " . TBL_user . ". `id` as `user_id`
-            FROM " . TBL_album . ", " . TBL_artist . ", " . TBL_listening . ", " . TBL_user . "
+            FROM " . TBL_album . ",
+                 " . TBL_artist . ",
+                 " . TBL_listening . ",
+                 " . TBL_user . "
+                 " . $from . "
             WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
               AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
@@ -43,6 +49,7 @@ if (!function_exists('getListenings')) {
               AND " . TBL_artist . ". `artist_name` LIKE " . $ci->db->escape($artist_name) . "
               AND " . TBL_album . ". `album_name` LIKE " . $ci->db->escape($album_name) . "
               AND " . TBL_listening . ". `date` LIKE " . $ci->db->escape($date) . "
+              " . $where . "
             ORDER BY " . TBL_listening . ". `date` DESC, 
                      " . TBL_listening . ". `id` DESC
             LIMIT " . mysql_real_escape_string($limit);

@@ -26,7 +26,7 @@
   </div>
 </div>
 <div class="clear"></div>
-<div id="mainCont" class="tag_heading_container">
+<div id="mainCont" class="heading_container_no_image">
   <div class="page_links">
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>
