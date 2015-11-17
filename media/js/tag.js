@@ -124,7 +124,7 @@ $.extend(view, {
       url:'/api/listener/get',
       data:{
         from:from,
-        limit:6,
+        limit:10,
         where:where
       },
       statusCode:{
@@ -165,7 +165,7 @@ $.extend(view, {
       url:'/api/listening/get',
       data:{
         from:from,
-        limit:6,
+        limit:10,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
         where:where
       },

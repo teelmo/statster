@@ -25,6 +25,7 @@ class Tag extends CI_Controller {
           $data += getGenreListenings($data);
         }
         $data['group_by'] = TBL_listening . '.`user_id`';
+        $data['limit'] = '100';
         $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
 
         $this->load->view('tag/tag_view', $data);
@@ -55,6 +56,7 @@ class Tag extends CI_Controller {
           $data += getKeywordListenings($data);
         }
         $data['group_by'] = TBL_listening . '.`user_id`';
+        $data['limit'] = '100';
         $data['listener_count'] = sizeof(json_decode(getMusicByKeyword($data), true));
 
         $this->load->view('tag/tag_view', $data);
@@ -84,6 +86,7 @@ class Tag extends CI_Controller {
           $data += getNationalityListenings($data);
         }
         $data['group_by'] = TBL_listening . '.`user_id`';
+        $data['limit'] = '100';
         $data['listener_count'] = sizeof(json_decode(getMusicByNationality($data), true));
 
         $this->load->view('tag/tag_view', $data);
@@ -113,6 +116,7 @@ class Tag extends CI_Controller {
         $data += getYearListenings($data);
       }
       $data['group_by'] = TBL_listening . '.`user_id`';
+      $data['limit'] = '100';
       $data['listener_count'] = sizeof(json_decode(getMusicByYear($data), true));
 
       $this->load->view('tag/tag_view', $data);
