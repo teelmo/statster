@@ -20,7 +20,7 @@ if (!function_exists('getListeningCount')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  $type . '.`id`';
-    $sql = "SELECT count(" . $type . ".`id`) as `count`
+    $sql = "SELECT count(*) as `count`
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
                  " . TBL_listening . ",
@@ -65,7 +65,7 @@ if (!function_exists('getArtists')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : '10';
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_artist . ".`id`) as `count`,
+    $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`artist_name`, 
                    " . TBL_artist . ".`id` as artist_id,
                    " . TBL_user . ". `username`, 
@@ -123,7 +123,7 @@ if (!function_exists('getAlbums')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_album . ".`id`) as `count`,
+    $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_artist . ".`id` as artist_id,
                    " . TBL_album . ".`album_name`,
@@ -189,7 +189,7 @@ if (!function_exists('getListeners')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_user . ".`id`) as `count`,
+    $sql = "SELECT count(*) as `count`,
                    " . TBL_user . ". `username`,
                    " . TBL_user . ". `id` as user_id,
                    " . TBL_artist . ".`artist_name`,
@@ -241,7 +241,7 @@ if (!function_exists('getArtistAlbums')) {
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $sql = "SELECT count(" . TBL_album . ".`id`) as `count`,
+    $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ". `artist_name`,
                    " . TBL_album . ". `album_name`,
                    " . TBL_album . ". `year`, 
@@ -288,7 +288,7 @@ if (!function_exists('getAlbumNationalities')) {
                    " . TBL_album . ".`year`
             FROM " . TBL_artist . ",
                  " . TBL_album . "
-            WHERE ".TBL_album.".`artist_id` = " . TBL_artist . ".`id` 
+            WHERE " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id` 
               AND " . TBL_artist . ".`artist_name` = " . $ci->db->escape($artist_name) . "
               AND " . TBL_album . ".`album_name` = " . $ci->db->escape($album_name);
     $query = $ci->db->query($sql);

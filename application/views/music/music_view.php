@@ -12,18 +12,10 @@
           <?php
         }
         ?>
+        <br />
         <h4 class="meta">#1 in <?=date('F', strtotime('-1 month'))?></h4>
         <h3><?=anchor(array('music', $artist_name, $album_name), $album_name)?> <span class="meta">by</span> <?=anchor(array('music', $artist_name), $artist_name)?></h3>
         <h4 class="meta">listened <?=$count?> times</h4>
-        <div class="tags">
-          <?php
-          foreach ($tags as $tag) {
-            ?>
-            <span class="tag <?=$tag['type']?>"><?=anchor(array('tag', $tag['type'], url_title($tag['name'])), $tag['name'])?></span>
-            <?php
-          }
-          ?>
-        </div>
       </div>
       <table class="album_meta">
         <tr>

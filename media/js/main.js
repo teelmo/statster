@@ -143,10 +143,10 @@ $.extend(view, {
               limit:4,
               hide:{
                 artist:true,
+                calendar:true,
                 count:true,
-                rank:true,
                 date:true,
-                calendar:true
+                rank:true,
               }
             },
             success: function (data) {
@@ -187,10 +187,10 @@ $.extend(view, {
               limit:4,
               hide:{
                 artist:true,
+                calendar:true,
                 count:true,
-                rank:true,
                 date:true,
-                calendar:true
+                rank:true,
               }
             },
             success: function (data) {
