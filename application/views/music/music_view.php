@@ -13,7 +13,7 @@
         }
         ?>
         <br />
-        <h4 class="meta">#1 in <?=date('F', strtotime('-1 month'))?></h4>
+        <h4 class="meta">#1 in <?=date('F', strtotime('first day of last month'))?></h4>
         <h3><?=anchor(array('music', $artist_name, $album_name), $album_name)?> <span class="meta">by</span> <?=anchor(array('music', $artist_name), $artist_name)?></h3>
         <h4 class="meta">listened <?=$count?> times</h4>
       </div>

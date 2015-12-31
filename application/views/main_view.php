@@ -1,4 +1,4 @@
-<div id="headingCont" class="artist_heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>');" title="#1 artist in <?=date('F', strtotime('-1 month'))?>: <?=$artist_name?>">
+<div id="headingCont" class="artist_heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>');" title="#1 artist in <?=date('F', strtotime('first day of last month'))?>: <?=$artist_name?>">
 </div>
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
