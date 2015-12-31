@@ -11,8 +11,8 @@ class Main extends CI_Controller {
       $data['interval'] = 14;
 
       $opts = array(
-        'lower_limit' => date('Y') . '-' . date('m', strtotime('-1 month')) . '-00',
-        'upper_limit' => date('Y') . '-' . date('m', strtotime('-1 month')) . '-31',
+        'lower_limit' => date('Y') . '-' . date('m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y') . '-' . date('m', strtotime('first day of last month')) . '-31',
         'limit' => '1',
         'human_readable' => true
       );
@@ -30,8 +30,8 @@ class Main extends CI_Controller {
       $data = array();
       $data['js_include'] = array('welcome');
       $opts = array(
-        'lower_limit' => date('Y') . '-' . date('m', strtotime('-1 month')) . '-00',
-        'upper_limit' => date('Y') . '-' . date('m', strtotime('-1 month')) . '-31',
+        'lower_limit' => date('Y') . '-' . date('m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y') . '-' . date('m', strtotime('first day of last month')) . '-31',
         'limit' => '1',
         'human_readable' => true
       );
