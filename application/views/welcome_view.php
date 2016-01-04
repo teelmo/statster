@@ -5,7 +5,7 @@
     </div>
     <div class="info">
       <div class="top_info album_info">
-        <h4>#1 album in <?=date('F', strtotime('-1 month'))?></h4>
+        <h4>#1 album in <?=date('F', strtotime('first day of last month'))?></h4>
         <h3><?=anchor(array('music', $artist_name, $album_name), $album_name)?><!-- <span class="by">by</span> <?=anchor(array('music', $artist_name), $artist_name)?>--></h3>
         <h4>listened <?=$count?> times</h4>
         <div class="tags">
@@ -24,14 +24,15 @@
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
   <div class="page_links">
-    <?=anchor(array('register'), 'Register')?>
-    <?=anchor(array('login'), 'Login')?>
+    <?=anchor(array('album'), 'Albums')?>
+    <?=anchor(array('artist'), 'Artists')?>
+    <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">
     <div class="container">
       <h1>Statster&nbsp; &middot; &middot; &middot; &nbsp;greetings!</h1>
       <p>
-        Want to be reconciled with the music. Do it Statster like and <a href="javascript:" onclick="$('#registerForm').toggle(); return false;">register now!</a> 
+        Want to be reconciled with the music. Do it Statster like!<!-- and <a href="javascript:" onclick="$('#registerForm').toggle(); return false;">register now!</a--> 
       </p>
       <?=form_open('', array('class' => 'hidden', 'id' => 'registerForm'), array('addListeningType' => 'form'))?>
         <div>

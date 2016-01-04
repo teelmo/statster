@@ -9,8 +9,8 @@ class Music extends CI_Controller {
     $data['js_include'] = array('music');
     
     $opts = array(
-      'lower_limit' => date('Y') . '-' . date('m', strtotime('first day of last month')) . '-00',
-      'upper_limit' => date('Y') . '-' . date('m', strtotime('first day of last month')) . '-31',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'limit' => '1',
       'human_readable' => true
     );
