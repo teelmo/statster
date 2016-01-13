@@ -29,7 +29,7 @@ if (!function_exists('getNationalities')) {
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $tag_name = !empty($opts['tag_name']) ? $opts['tag_name'] : '%';
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_nationality . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
@@ -53,7 +53,7 @@ if (!function_exists('getNationalities')) {
               AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . " AND " . $ci->db->escape($upper_limit) . "
               AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
               AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album_name) . "
-              AND " . TBL_nationality . ".`country` LIKE " . $ci->db->escape($tag_name) . "
+              AND " . TBL_nationalities . ".`nationality_id` LIKE " . $ci->db->escape($tag_id) . "
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               " . $where . "
               GROUP BY " . $group_by . "
