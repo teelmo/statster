@@ -23,7 +23,7 @@ if (!function_exists('getSpotifyResourceId')) {
               // Haettu albumi löytyy
               if (stristr($territories, 'FI') == TRUE || stristr($territories, 'worldwide') == TRUE) {
                 // On kuunneltavissa
-                $first = each($album_node->attributes());
+                $first = @each($album_node->attributes());
                 $resource = explode(':', $first['value']['href']);
                 return $resource[sizeof($resource) - 1];
               }
@@ -44,7 +44,7 @@ if (!function_exists('getSpotifyResourceId')) {
       $content = $curl->getXML('http://ws.spotify.com/search/1/artist?q=' . $q);
       $xml = new SimpleXMLElement($content, LIBXML_NOWARNING);
       if (!empty($xml->artist) && is_object($xml->artist)) {
-        $first = each($xml->artist->attributes());
+        $first = @each($xml->artist->attributes());
         $resource = explode(':', $first['value']['href']);
         return $resource[sizeof($resource)-1];
       }
