@@ -55,7 +55,7 @@
             <div class="user_container">
               <?=anchor(array('login'), 'Login', array('title' => 'Login', 'id' => 'loginLink'))?>
             </div>
-            <?
+            <?php
           }
           ?>
           <div>&nbsp;</div>
