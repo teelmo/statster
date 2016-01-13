@@ -6,22 +6,22 @@ $.extend(view, {
     }
     $.ajax({
       type:'GET',
-      dataType:'json',
-      url:'/api/listening/get',
       data:{
         limit:11,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
+      url:'/api/listening/get',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
             type:'POST',
             url:'/ajax/chartTable',
             data:{
-              json_data:data,
               hide:{
                 del:true
-              }
+              },
+              json_data:data
             },
             success: function (data) {
               $('#recentlyListenedLoader2').hide();
@@ -55,28 +55,28 @@ $.extend(view, {
   // Get top albums.
   getTopAlbums: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/album/get',
       data:{
         limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
+      url:'/api/album/get',
+      type:'GET',
       statusCode:{
         200: function (data) {
           $.ajax({
+            data:{
+              json_data:data
+            },
             type:'POST',
             url:'/ajax/albumList/124',
-            data:{
-              json_data:data,
-            },
             success: function (data) {
               $('#topAlbumLoader').hide();
               $('#topAlbum').html(data);
             },
             complete: function () {
-              setTimeout(view.getTopAlbums, 60 * 10 * 1000);
+              // setTimeout(view.getTopAlbums, 60 * 10 * 1000);
             }
           });
         },
@@ -101,17 +101,17 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/columnTable',
             data:{
-              json_data:data,
+              json_data:data
             },
+            url:'/ajax/columnTable',
+            type:'POST',
             success: function (data) {
               $('#topArtistLoader').hide();
               $('#topArtist').html(data);
             },
             complete: function () {
-              setTimeout(view.getTopArtists, 60 * 10 * 1000);
+              // setTimeout(view.getTopArtists, 60 * 10 * 1000);
             }
           });
         },
@@ -146,7 +146,7 @@ $.extend(view, {
                 calendar:true,
                 count:true,
                 date:true,
-                rank:true,
+                rank:true
               }
             },
             success: function (data) {
@@ -154,7 +154,7 @@ $.extend(view, {
               $('#recommentedTopAlbum').html(data);
             },
             complete: function () {
-              setTimeout(recommentedTopAlbum, 60 * 10 * 1000);
+              setTimeout(view.recommentedTopAlbum, 60 * 10 * 1000);
             }
           });
         },
@@ -190,7 +190,7 @@ $.extend(view, {
                 calendar:true,
                 count:true,
                 date:true,
-                rank:true,
+                rank:true
               }
             },
             success: function (data) {
