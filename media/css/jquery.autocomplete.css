@@ -45,6 +45,9 @@ ul#ui-id-1 {
 .ui-menu .ui-menu-item a {
   padding: 0;
 }
+.group-result {
+  text-transform: uppercase;
+}
 
 /* Search related autocomplete styles */
 ul.ui-autocomplete li.header {
