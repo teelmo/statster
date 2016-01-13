@@ -158,9 +158,7 @@ if (!function_exists('getFormatTypeImg')) {
     if ($query->num_rows() > 0) {
       $result = $query->result();
       $filename = 'media/img/format_img/format_icons/' . $result[0]->img;
-      return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 
-                                            'name' => $result[0]->name, 
-                                            'empty' => FALSE) : FALSE;
+      return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
     }
     else {
       return FALSE;
