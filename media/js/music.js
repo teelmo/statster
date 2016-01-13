@@ -1,14 +1,23 @@
 $.extend(view, {
   getListeningHistory: function (type) {
     app.initChart();
+    if (type == '%w') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+    }
+    else if (type == '%Y%m') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
+    }
+    else {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+    }
     $.ajax({
       data:{
-        group_by:type + '(<?=TBL_listening?>.`date`)',
+        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
         limit:100,
-        order_by:type + '(<?=TBL_listening?>.`date`) ASC',
-        select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
+        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
+        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        where:(type == 'weekday') ? type + '(<?=TBL_listening?>.`date`) IS NOT NULL' : type + '(<?=TBL_listening?>.`date`) != \'00\''
+        where:where
       },
       dataType:'json',
       type:'GET',
@@ -92,21 +101,21 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/sideTable',
             data:{
               json_data:data,
               hide:{
+                calendar:true,
                 count:true,
-                rank:true,
                 date:true,
-                calendar:true
+                rank:true
               }
             },
             success: function (data) {
               $('#popularAlbumLoader').hide();
               $('#popularAlbum').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/sideTable'
           });
         }
       }
@@ -124,8 +133,6 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/likeTable',
             data:{
               json_data:data,
               hide:{
@@ -135,7 +142,9 @@ $.extend(view, {
             success: function (data) {
               $('#recentlyFanedLoader').hide();
               $('#recentlyFaned').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/likeTable'
           });
         }
       }
@@ -153,8 +162,6 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/likeTable',
             data:{
               json_data:data,
               hide:{
@@ -164,7 +171,9 @@ $.extend(view, {
             success: function (data) {
               $('#recentlyLovedLoader').hide();
               $('#recentlyLoved').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/likeTable'
           });
         }
       }
@@ -173,7 +182,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getListeningHistory('year');
+  view.getListeningHistory('%Y');
   view.popularGenre();
   view.topAlbum();
   view.recentlyFaned();

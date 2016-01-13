@@ -24,16 +24,16 @@
           if ($logged_in === TRUE) {
             ?>
             <span class="tag moretags" id="moretags"><a href="javascript:;">+</a></span>
-            <div class="tag" id="tagAdd">
-              <select data-placeholder="Add metadata" class="chosen-select" multiple>
-                <optgroup label="Genres" id="genre"></optgroup>
-                <optgroup label="Keywords" id="keyword"></optgroup>
-                <optgroup label="Nationality" id="nationality"></optgroup>
-              </select>
-            </div>
             <?php
           }
           ?>
+        </div>
+        <div id="tagAdd" class="hidden">
+          <select data-placeholder="Add metadata" class="chosen-select" multiple>
+            <optgroup label="Genres" id="genre"></optgroup>
+            <optgroup label="Keywords" id="keyword"></optgroup>
+            <optgroup label="Nationality" id="nationality"></optgroup>
+          </select>
         </div>
       </div>
       <table class="artist_meta">
@@ -73,7 +73,7 @@
     <div class="container">
       <h2>History</h2>
       <div class="float_right settings">
-        <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('weekday')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('day')">Day</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('month')">Month</a> | <a href="javascript:;" onclick="view.getListeningHistory('year')" class="unactive">Year</a>
+        <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%Y%m')">Montly</a>
       </div>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>

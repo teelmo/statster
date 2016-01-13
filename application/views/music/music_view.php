@@ -13,9 +13,9 @@
         }
         ?>
         <br />
-        <h4 class="meta">#1 in <?=date('F', strtotime('first day of last month'))?></h4>
-        <h3><?=anchor(array('music', $artist_name, $album_name), $album_name)?> <span class="meta">by</span> <?=anchor(array('music', $artist_name), $artist_name)?></h3>
-        <h4 class="meta">listened <?=$count?> times</h4>
+        <h4 class="meta">#1 in <?=date('F', strtotime('first day of last month'))?> • listened <?=$count?> times</h4>
+        <h3><?=anchor(array('music', $artist_name, $album_name), $album_name)?></h3>
+        <h4 class="meta">from <?=anchor(array('music', $artist_name), $artist_name)?></h4>
       </div>
       <table class="album_meta">
         <tr>
@@ -51,7 +51,7 @@
       <h1>Statistics</h1>
       <h2>History</h2>
       <div class="float_right settings">
-        <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('weekday')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('day')">Day</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('month')">Month</a> | <a href="javascript:;" onclick="view.getListeningHistory('year')" class="unactive">Year</a>
+        <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>

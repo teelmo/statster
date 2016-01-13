@@ -31,7 +31,7 @@ if (!function_exists('getListeningCount')) {
               AND " . TBL_listening . ".`date` BETWEEN " . $ci->db->escape($lower_limit) . "
                                                    AND " . $ci->db->escape($upper_limit) . "
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
-            GROUP BY " . mysql_real_escape_string($group_by);
+            GROUP BY " . $group_by;
     $query = $ci->db->query($sql);
     return $query->num_rows();
   }
@@ -86,9 +86,9 @@ if (!function_exists('getArtists')) {
                                                    AND " . $ci->db->escape($upper_limit) . "
               AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
-              GROUP BY " . mysql_real_escape_string($group_by) . "
-              ORDER BY " . mysql_real_escape_string($order_by) . "
-              LIMIT " . mysql_real_escape_string($limit);
+              GROUP BY " . $group_by . "
+              ORDER BY " . $order_by . "
+              LIMIT " . $limit;
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }
@@ -148,9 +148,9 @@ if (!function_exists('getAlbums')) {
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
               AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album_name) . "
-              GROUP BY " . mysql_real_escape_string($group_by) . "
-              ORDER BY " . mysql_real_escape_string($order_by) . "
-              LIMIT " . mysql_real_escape_string($limit);
+              GROUP BY " . $group_by . "
+              ORDER BY " . $order_by . "
+              LIMIT " . $limit;
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }
@@ -185,7 +185,7 @@ if (!function_exists('getListeners')) {
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_user . '.`id`';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_user . '.`id`';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
@@ -200,7 +200,7 @@ if (!function_exists('getListeners')) {
                   " . $select . "
             FROM " . TBL_album . ", 
                  " . TBL_artist . ", 
-                 " . TBL_listening . " , 
+                 " . TBL_listening . ", 
                  " . TBL_user . "
                  " . $from . "
             WHERE " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
@@ -212,9 +212,9 @@ if (!function_exists('getListeners')) {
               AND " . TBL_artist . ".`artist_name` LIKE " . $ci->db->escape($artist_name) . "
               AND " . TBL_album . ".`album_name` LIKE " . $ci->db->escape($album_name) . "
               " . $where . "
-              GROUP BY " . mysql_real_escape_string($group_by) . "
-              ORDER BY " . mysql_real_escape_string($order_by) . "
-              LIMIT " . mysql_real_escape_string($limit);
+              GROUP BY " . $group_by . "
+              ORDER BY " . $order_by . "
+              LIMIT " . $limit;
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }

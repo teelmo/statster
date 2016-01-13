@@ -181,7 +181,7 @@ div.container {
     &.main_heading_cont {
       height: 100px;
       &::after {
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: rgba(0, 0, 0, 0.85);
       }
     }
     &.tag_heading_cont {
@@ -271,19 +271,71 @@ div.container {
         }
         .meta {
           color: #999;
+          a {
+            color: #fff;
+            &:hover {
+              color: #ccc;
+              text-decoration: none;
+            }
+          }
         }
         .tags {
           .moretags {
             background-color: #aaa;
             font-weight: bold;
-            padding: 4px 6px;
+            padding: 4px 0;
+            text-align: center;
+            width: 20px;
             &:hover {
               background-color: #999;
             }
           }
-          .chosen-select {
-            width: 100%;
+        }
+        /* Chosen styles */
+        .chosen-container {
+          color: #000;
+          outline: none;
+          text-transform: none;
+          width: 450px !important;
+          .chosen-results {
+            li {
+              &.second {
+                padding-left: 12px;
+              }
+              &.group-option {
+                padding-left: 15px;
+              }
+              &.highlighted {
+                background: #f1f1f1;
+                border-left: 5px solid #444;
+                color: #000;
+                font-size: 13px;
+                padding-left: 7px;
+                &.group-option {
+                  padding-left: 10px;
+                }
+              }
+            }
           }
+          &.chosen-container-active {
+            .chosen-choices {
+              border: 1px solid #aaa;
+            }
+          }
+          .chosen-choices {
+            .search-choice {
+              background: #666;
+              border: 0;
+              border-radius: 0;
+              box-shadow: none;
+              padding: 4px 20px 5px 4px;
+              color: #fff;
+              .search-choice-close {
+                top: 5px;
+              }
+            }
+          }
+
         }
         .spotify_link {
           color: #fff;

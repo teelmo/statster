@@ -197,18 +197,27 @@ $.extend(view, {
   },
   getListeningHistory: function (type) {
     app.initChart();
+    if (type == '%w') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+    }
+    else if (type == '%Y%m') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
+    }
+    else {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+    }
     $.ajax({
       type:'GET',
       dataType:'json',
       url:'/api/listener/get',
       data:{
         artist_name:'<?php echo $artist_name?>',
-        group_by:type + '(<?=TBL_listening?>.`date`)',
+        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
         limit:100,
-        order_by:type + '(<?=TBL_listening?>.`date`) ASC',
-        select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
+        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
+        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        where:(type == 'weekday') ? type + '(<?=TBL_listening?>.`date`) IS NOT NULL' : type + '(<?=TBL_listening?>.`date`) != \'00\''
+        where:where
       },
       statusCode:{
         200: function (data) { // 200 OK
@@ -238,7 +247,6 @@ $.extend(view, {
   initArtistEvents: function () {
     $('#moretags').click(function () {
       $('#tagAdd').toggle();
-      $('#tagAddSelect').chosen();
       if ($(this).text() == '+') {
         $(this).html('<a href="javascript:;">-</a>');
         $('.search-field input[type="text"]').focus();
@@ -253,10 +261,8 @@ $.extend(view, {
 $(document).ready(function () {
   view.getFan(<?=$this->session->userdata('user_id')?>);
   view.getFans();
-  view.getListeningHistory('month');
+  view.getListeningHistory('%m');
   view.getUsers();
   view.getListenings();
   view.initArtistEvents();
-  
-  $('#tagAdd').hide();
 });

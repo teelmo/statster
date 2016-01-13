@@ -1,19 +1,28 @@
 $.extend(view, {
   getListeningHistory: function (type) {
     app.initChart();
+    if (type == '%w') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+    }
+    else if (type == '%Y%m') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
+    }
+    else {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+    }
     $.ajax({
       type:'GET',
       dataType:'json',
       url:'/api/tag/get/<?=strtolower($tag_type)?>',
       data:{
-        group_by:type + '(<?=TBL_listening?>.`date`)',
+        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
         limit:100,
         lower_limit:'1970-00-00',
-        order_by:type + '(<?=TBL_listening?>.`date`) ASC',
-        select:type + '(<?=TBL_listening?>.`date`) as `bar_date`',
+        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
+        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
         tag_id:'<?=$tag_id?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        where:(type == 'weekday') ? type + '(<?=TBL_listening?>.`date`) IS NOT NULL' : type + '(<?=TBL_listening?>.`date`) != \'00\''
+        where:where
       },
       statusCode:{
         200: function (data) { // 200 OK
@@ -205,7 +214,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getListeningHistory('month');
+  view.getListeningHistory('%m');
   view.getTopAlbums();
   view.getTopArtists();
   switch ('<?=$tag_type?>') {

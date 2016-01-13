@@ -56,9 +56,9 @@ if (!function_exists('getNationalities')) {
               AND " . TBL_nationality . ".`country` LIKE " . $ci->db->escape($tag_name) . "
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               " . $where . "
-              GROUP BY " . mysql_real_escape_string($group_by) . "
-              ORDER BY " . mysql_real_escape_string($order_by) . "
-              LIMIT " . mysql_real_escape_string($limit);
+              GROUP BY " . $group_by . "
+              ORDER BY " . $order_by . "
+              LIMIT " . $limit;
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }
@@ -148,9 +148,9 @@ if (!function_exists('getMusicByNationality')) {
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username) . "
               AND " . TBL_nationalities . ".`nationality_id` = " . $tag_id . "
-            GROUP BY " . mysql_real_escape_string($group_by) . "
-            ORDER BY " . mysql_real_escape_string($order_by) . " 
-            LIMIT " . mysql_real_escape_string($limit);
+            GROUP BY " . $group_by . "
+            ORDER BY " . $order_by . " 
+            LIMIT " . $limit;
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }

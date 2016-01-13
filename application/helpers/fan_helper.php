@@ -28,7 +28,7 @@ if (!function_exists('getFan')) {
               AND " . TBL_fan . ".`artist_id` LIKE " . $ci->db->escape($artist_id) . "
               AND " . TBL_fan . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
             ORDER BY " . TBL_fan . ".`created` DESC
-            LIMIT " . mysql_real_escape_string($limit);
+            LIMIT " . $ci->db->conn_id->real_escape_string($limit);
     $query = $ci->db->query($sql);
     return _json_return_helper($query, $human_readable);
   }

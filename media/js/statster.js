@@ -48,6 +48,7 @@ var app = {
     app.chart = $('.bar_chart').highcharts({
       chart:{
         height:300,
+        zoomType:'x'
       },
       credits:{
         enabled:false
