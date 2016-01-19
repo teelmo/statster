@@ -54,6 +54,10 @@ $.extend(view, {
               $(vars.container + '').html(data);
             }
           });
+        },
+        204: function (data) { // 204 No Content
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html('<?php echo ERR_NO_DATA?>');
         }
       }
     });
