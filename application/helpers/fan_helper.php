@@ -27,7 +27,7 @@ if (!function_exists('getFan')) {
               AND " . TBL_fan . ".`user_id` LIKE ?
             ORDER BY " . TBL_fan . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($username, $artist_id, $user_id));
+    $query = $ci->db->query($sql, array($artist_id, $user_id));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
