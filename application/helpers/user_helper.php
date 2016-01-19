@@ -33,7 +33,7 @@ if (!function_exists('loginUser')) {
               AND " . TBL_user . ".`password` = ?";
     $query = $ci->db->query($sql, array($username, $password));
     if ($query->num_rows() === 1) {
-      $result = $query->result()[0];
+      $result = ${!${false}=$query->result()}[0];
       // http://codeigniter.com/user_guide/libraries/sessions.html
       $userdata = array(
                    'user_id'      => $result->user_id,
