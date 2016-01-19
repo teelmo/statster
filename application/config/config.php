@@ -14,7 +14,13 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+  $config['base_url'] = 'http://statster.dev';
+
+}
+else {
+  $config['base_url']	= 'http://beta.statster.info';
+}
 
 /*
 |--------------------------------------------------------------------------
