@@ -5,7 +5,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
    * Get artist's ID.
    *
    * @param array $opts.
-   *          'artist'  => Artist name
+   *          'artist_name'  => Artist name
    *
    * @return int Artist ID or boolean FALSE.
    */
@@ -14,19 +14,13 @@ if (!function_exists('getArtistID')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist = isset($opts['artist']) ? $opts['artist'] : '';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '';
     $sql = "SELECT " . TBL_artist . ".`id`
             FROM " . TBL_artist . "
             WHERE " . TBL_artist . ".`artist_name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql, array($artist));
-    if ($query->num_rows() > 0) {
-      $result = $query->result();
-      return $result[0]->id;
-    }
-    else {
-      return FALSE;
-    }
+    $query = $ci->db->query($sql, array($artist_name));
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result()}[0]->id : FALSE;
   }
 }
 
@@ -57,12 +51,7 @@ if (!function_exists('getAlbumID')) {
               AND " . TBL_album . ".`album_name` = ?
             LIMIT 1";
     $query = $ci->db->query($sql, array($year, $artist_name, $album_name));
-    if ($query->num_rows() > 0) {
-      return $query->result()[0]->id;
-    }
-    else {
-      return FALSE;
-    }
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result()}[0]->id : FALSE;
   }
 }
 
@@ -85,12 +74,7 @@ if (!function_exists('getUserID')) {
             WHERE " . TBL_user . ".`username` = ?
             LIMIT 1";
     $query = $ci->db->query($sql, array($username));
-    if ($query->num_rows() > 0) {
-      return $query->result()[0]->id;
-    }
-    else {
-      return FALSE;
-    }
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result()}[0]->id : FALSE;
   }
 }
 
@@ -113,12 +97,7 @@ if (!function_exists('getFormatID')) {
             WHERE " . TBL_listening_format . ".`name` = ?
             LIMIT 1";
     $query = $ci->db->query($sql, array($format));
-    if ($query->num_rows() > 0) {
-      return $query->result()[0]->id;
-    }
-    else {
-      return FALSE;
-    }
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result()}[0]->id : FALSE;
   }   
 }
 
@@ -141,12 +120,7 @@ if (!function_exists('getFormatTypeID')) {
             WHERE " . TBL_listening_format_type . ".`name` = ?
             LIMIT 1";
     $query = $ci->db->query($sql, array($format_type));
-    if ($query->num_rows() > 0) {
-      return $query->result()[0]->id;;
-    }
-    else {
-      return FALSE;
-    }
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result()}[0]->id : FALSE;
   }   
 }
 
@@ -169,12 +143,7 @@ if (!function_exists('getGenreID')) {
             WHERE " . TBL_genre . ".`name` = ?
             LIMIT 1";
     $query = $ci->db->query($sql, array($tag_name));
-    if ($query->num_rows() > 0) {
-      return $query->result()[0]->id;;
-    }
-    else {
-      return FALSE;
-    }
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result()}[0]->id : FALSE;
   }   
 }
 
@@ -197,12 +166,7 @@ if (!function_exists('getKeywordID')) {
             WHERE " . TBL_keyword . ".`name` = ?
             LIMIT 1";
     $query = $ci->db->query($sql, array($tag_name));
-    if ($query->num_rows() > 0) {
-      return $query->result()[0]->id;;
-    }
-    else {
-      return FALSE;
-    }
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result()}[0]->id : FALSE;
   }   
 }
 
@@ -226,12 +190,7 @@ if (!function_exists('getNationalityID')) {
             WHERE " . TBL_nationality . ".`country` = ?
             LIMIT 1";
     $query = $ci->db->query($sql, array($tag_name));
-    if ($query->num_rows() > 0) {
-      return $query->result()[0]->id;;
-    }
-    else {
-      return FALSE;
-    }
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result()}[0]->id : FALSE;
   }   
 }
 ?>

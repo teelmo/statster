@@ -207,7 +207,7 @@ if (!function_exists('addListeningFormats')) {
               INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`) 
               VALUES (?, ?, ?)";
     $query = $ci->db->query($sql, array($listening_id), $format_id, $user_id);
-    return (($ci->db->affected_rows() === 1)) ? $ci->db->insert_id() : FALSE;
+    return ($ci->db->affected_rows() === 1) ? $ci->db->insert_id() : FALSE;
   }
 }
 
@@ -233,7 +233,7 @@ if (!function_exists('addListeningFormatTypes')) {
               INTO " . TBL_listening_format_types . " (`listening_id`, `listening_format_type_id`, `user_id`)
               VALUES (?, ?, ?)";
     $query = $ci->db->query($sql, array($listening_id, $format_type_id, $user_id));
-    return (($ci->db->affected_rows() === 1)) ? $ci->db->insert_id() : FALSE;
+    return ($ci->db->affected_rows() === 1) ? $ci->db->insert_id() : FALSE;
   }
 }
 ?>
