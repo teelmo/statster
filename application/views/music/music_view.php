@@ -14,8 +14,8 @@
         ?>
         <br />
         <h4 class="meta">#1 in <?=date('F', strtotime('first day of last month'))?> • listened <?=$count?> times</h4>
-        <h3><?=anchor(array('music', $artist_name, $album_name), $album_name)?></h3>
-        <h4 class="meta">from <?=anchor(array('music', $artist_name), $artist_name)?></h4>
+        <h3><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $album_name)?></h3>
+        <h4 class="meta">from <?=anchor(array('music', url_title($artist_name)), $artist_name)?></h4>
       </div>
       <table class="album_meta">
         <tr>
