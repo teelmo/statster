@@ -137,7 +137,7 @@ if (!function_exists('getUserData')) {
             WHERE " . TBL_user . ".`id` = " . TBL_user_info . ".`user_id`
               AND " . TBL_user . ".`username` LIKE ?";
     $query = $ci->db->query($sql, array($username));
-    return (($query->num_rows() > 0)) ? $query->result(0)[0] : FALSE;
+    return (($query->num_rows() > 0)) ? ${!${false}=$query->result(0)}[0] : FALSE;
   }
 }
 

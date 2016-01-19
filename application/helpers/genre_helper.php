@@ -95,7 +95,7 @@ if (!function_exists('getGenreListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_genres . ".`genre_id` = ?";
     $query = $ci->db->query($sql, array($user_id, $tag_id));
-    return (($query->num_rows() > 0)) ? $query->result(0)[0] : array($count_type => 0);
+    return (($query->num_rows() > 0)) ? ${!${false}=$query->result(0)}[0] : array($count_type => 0);
   }
 }
 

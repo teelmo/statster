@@ -29,13 +29,7 @@ if (!function_exists('getAlbumInfo')) {
               AND " . TBL_artist . ".`artist_name` = ?
               AND " . TBL_album . ".`album_name` = ?";
     $query = $ci->db->query($sql, array($artist_name, $album_name));
-    if ($query->num_rows() > 0) {
-      $result = $query->result(0);
-      return $result[0];
-    }
-    else {
-      return FALSE;
-    }
+    return (($query->num_rows() > 0)) ? ${!${false}=$query->result(0)}[0] : FALSE;
   }
 }
 
@@ -64,12 +58,7 @@ if (!function_exists('getAlbumListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_album . ".`id` LIKE ?";
     $query = $ci->db->query($sql, array($user_id, $album_id));
-    if ($query->num_rows() > 0) {
-      return $query->result(0)[0];
-    }
-    else {
-      return array($count_type => 0);
-    }
+    return (($query->num_rows() > 0)) ? ${!${false}=$query->result(0)}[0] : array($count_type => 0);
   }
 }
 
@@ -128,12 +117,7 @@ if (!function_exists('getAlbumGenres')) {
             GROUP BY " . TBL_genre . ".`id`
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($album_id));
-    if ($query->num_rows() > 0) {
-      return $query->result(0);
-    }
-    else {
-      return array();
-    }
+    return (($query->num_rows() > 0)) ? $query->result(0) : array();
   }
 }
 
@@ -162,12 +146,7 @@ if (!function_exists('getAlbumKeywords')) {
             GROUP BY " . TBL_keyword . ".`id`
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($album_id));
-    if ($query->num_rows() > 0) {
-      return $query->result(0);
-    }
-    else {
-      return array();
-    }
+    return (($query->num_rows() > 0)) ? $query->result(0) : array();
   }
 }
 ?>
