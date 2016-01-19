@@ -17,9 +17,9 @@ if (!function_exists('getArtistID')) {
     $artist = isset($opts['artist']) ? $opts['artist'] : '';
     $sql = "SELECT " . TBL_artist . ".`id`
             FROM " . TBL_artist . "
-            WHERE " . TBL_artist . ".`artist_name` = " . $ci->db->escape($artist) . "
+            WHERE " . TBL_artist . ".`artist_name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($artist));
     if ($query->num_rows() > 0) {
       $result = $query->result();
       return $result[0]->id;
@@ -34,8 +34,9 @@ if (!function_exists('getArtistID')) {
    * Get album's ID.
    *
    * @param array $opts.
-   *          'artist'  => Artist name
-   *          'album'  => Album name
+   *          'artist_name'  => Artist name
+   *          'album_name'  => Album name
+   *          'year'  => Year
    *
    * @return int Album ID or boolean FALSE.
    */
@@ -44,21 +45,20 @@ if (!function_exists('getAlbumID')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist = isset($opts['artist']) ? $opts['artist'] : '';
-    $album = isset($opts['album']) ? $opts['album'] : '';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '';
+    $album_name = isset($opts['album_name']) ? $opts['album_name'] : '';
     $year = isset($opts['year']) ? $opts['year'] : '%';
     $sql = "SELECT " . TBL_album . ".`id`
             FROM " . TBL_album . ", 
                  " . TBL_artist . "
             WHERE " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_album . ".`year` LIKE '$year'
-              AND " . TBL_artist . ".`artist_name` = " . $ci->db->escape($artist) . "
-              AND " . TBL_album . ".`album_name` = " . $ci->db->escape($album) . "
+              AND " . TBL_album . ".`year` LIKE ?
+              AND " . TBL_artist . ".`artist_name` = ?
+              AND " . TBL_album . ".`album_name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($year, $artist_name, $album_name));
     if ($query->num_rows() > 0) {
-      $result = $query->result();
-      return $result[0]->id;
+      return $query->result()[0]->id;
     }
     else {
       return FALSE;
@@ -82,12 +82,11 @@ if (!function_exists('getUserID')) {
     $username = isset($opts['username']) ? $opts['username'] : '';
     $sql = "SELECT " . TBL_user . ".`id`
             FROM " . TBL_user . "
-            WHERE " . TBL_user . ".`username` = " . $ci->db->escape($username) . "
+            WHERE " . TBL_user . ".`username` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($username));
     if ($query->num_rows() > 0) {
-      $result = $query->result();
-      return $result[0]->id;
+      return $query->result()[0]->id;
     }
     else {
       return FALSE;
@@ -111,12 +110,11 @@ if (!function_exists('getFormatID')) {
     $format = isset($opts['format']) ? $opts['format'] : '';
     $sql = "SELECT " . TBL_listening_format . ".`id`
             FROM " . TBL_listening_format . "
-            WHERE " . TBL_listening_format . ".`name` = " . $ci->db->escape($format) . "
+            WHERE " . TBL_listening_format . ".`name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($format));
     if ($query->num_rows() > 0) {
-      $result = $query->result();
-      return $result[0]->id;
+      return $query->result()[0]->id;
     }
     else {
       return FALSE;
@@ -140,12 +138,11 @@ if (!function_exists('getFormatTypeID')) {
     $format_type = isset($opts['format_type']) ? $opts['format_type'] : '';
     $sql = "SELECT " . TBL_listening_format_type . ".`id`
             FROM " . TBL_listening_format_type . "
-            WHERE " . TBL_listening_format_type . ".`name` = " . $ci->db->escape($format_type) . "
+            WHERE " . TBL_listening_format_type . ".`name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($format_type));
     if ($query->num_rows() > 0) {
-      $result = $query->result();
-      return $result[0]->id;
+      return $query->result()[0]->id;;
     }
     else {
       return FALSE;
@@ -169,12 +166,11 @@ if (!function_exists('getGenreID')) {
     $tag_name = isset($opts['tag_name']) ? $opts['tag_name'] : '';
     $sql = "SELECT " . TBL_genre . ".`id`
             FROM " . TBL_genre . "
-            WHERE " . TBL_genre . ".`name` = " . $ci->db->escape($tag_name) . "
+            WHERE " . TBL_genre . ".`name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($tag_name));
     if ($query->num_rows() > 0) {
-      $result = $query->result();
-      return $result[0]->id;
+      return $query->result()[0]->id;;
     }
     else {
       return FALSE;
@@ -196,15 +192,13 @@ if (!function_exists('getKeywordID')) {
     $ci->load->database();
 
     $tag_name = isset($opts['tag_name']) ? $opts['tag_name'] : '';
-    
     $sql = "SELECT " . TBL_keyword . ".`id`
             FROM " . TBL_keyword . "
-            WHERE " . TBL_keyword . ".`name` = " . $ci->db->escape($tag_name) . "
+            WHERE " . TBL_keyword . ".`name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($tag_name));
     if ($query->num_rows() > 0) {
-      $result = $query->result();
-      return $result[0]->id;
+      return $query->result()[0]->id;;
     }
     else {
       return FALSE;
@@ -229,12 +223,11 @@ if (!function_exists('getNationalityID')) {
     
     $sql = "SELECT " . TBL_nationality . ".`id`
             FROM " . TBL_nationality . "
-            WHERE " . TBL_nationality . ".`country` = " . $ci->db->escape($tag_name) . "
+            WHERE " . TBL_nationality . ".`country` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($tag_name));
     if ($query->num_rows() > 0) {
-      $result = $query->result();
-      return $result[0]->id;
+      return $query->result()[0]->id;;
     }
     else {
       return FALSE;

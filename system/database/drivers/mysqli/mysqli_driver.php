@@ -311,17 +311,20 @@ class CI_DB_mysqli_driver extends CI_DB {
 			return $str;
 		}
 
+		$search = array('\\\'%Y%m\\\'', '\\\'%Y\\\'', '\\\'%m\\\'', '\\\'%d\\\'', '\\\'%w\\\'', '\\\'00\\\'');
+		$replace = array('\'%Y%m\'', '\'%Y\'', '\'%m\'', '\'%d\'', '\'%w\'', '00');
 		if (function_exists('mysqli_real_escape_string') AND is_object($this->conn_id))
 		{
-			$str = mysqli_real_escape_string($this->conn_id, $str);
+			$str = str_replace($search, $replace, mysqli_real_escape_string($this->conn_id, $str));
 		}
 		elseif (function_exists('mysql_escape_string'))
 		{
-			$str = mysql_escape_string($str);
+
+			$str = str_replace($search, $replace, mysql_escape_string($str));
 		}
 		else
 		{
-			$str = addslashes($str);
+			$str = str_replace(addslashes($str));
 		}
 
 		// escape LIKE condition wildcards

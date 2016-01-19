@@ -119,15 +119,13 @@ if (!function_exists('getFormatImg')) {
             FROM " . TBL_listening_format . ", " . TBL_listening_formats . ", " . TBL_listening . "
             WHERE " . TBL_listening_format . ".`id` = " . TBL_listening_formats . ".`listening_format_id`
               AND " . TBL_listening . ".`id` = " . TBL_listening_formats . ".`listening_id`
-              AND " . TBL_listening . ".`id` = " . $ci->db->escape($listening_id);
-    $query = $ci->db->query($sql);
+              AND " . TBL_listening . ".`id` = ?";
+    $query = $ci->db->query($sql, array($listening_id));
     if ($query->num_rows() > 0) {
       $result = $query->result();
       $filename = 'media/img/format_img/format_icons/' . $result[0]->img;
-      return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 
-                                            'name' => $result[0]->name, 
-                                            'empty' => FALSE) : FALSE;
-                                    
+      return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
+                                            
     }
     else {
       return FALSE;
@@ -153,8 +151,8 @@ if (!function_exists('getFormatTypeImg')) {
             FROM " . TBL_listening_format_type . ", " . TBL_listening_format_types . ", " . TBL_listening . "
             WHERE " . TBL_listening_format_type . ".`id` = " . TBL_listening_format_types . ".`listening_format_type_id`
               AND " . TBL_listening . ".`id` = " . TBL_listening_format_types . ".`listening_id`
-              AND " . TBL_listening . ".`id` = " . $ci->db->escape($listening_id);
-    $query = $ci->db->query($sql);
+              AND " . TBL_listening . ".`id` = ?";
+    $query = $ci->db->query($sql, array($listening_id));
     if ($query->num_rows() > 0) {
       $result = $query->result();
       $filename = 'media/img/format_img/format_icons/' . $result[0]->img;

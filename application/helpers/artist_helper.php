@@ -14,16 +14,15 @@ if (!function_exists('getArtistInfo')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                    " . TBL_artist . ".`artist_name`, 
                    YEAR(" . TBL_artist . ".`created`) as `created`
             FROM " . TBL_artist . "
-            WHERE " . TBL_artist . ".`artist_name` = " . $ci->db->escape($artist_name);
-    $query = $ci->db->query($sql);
+            WHERE " . TBL_artist . ".`artist_name` LIKE ?";
+    $query = $ci->db->query($sql, array($artist_name));
     if ($query->num_rows() > 0) {
-      $result = $query->result(0);
-      return $result[0];
+      return $query->result(0)[0];
     }
     else {
       return FALSE;
@@ -45,20 +44,21 @@ if (!function_exists('getArtistListenings')) {
   function getArtistListenings($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
     $count_type = !empty($opts['user_id']) ? 'user_count': 'total_count';
-    $opts['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT count(" . TBL_artist . ".`id`) as `" . $count_type . "`
             FROM " . TBL_artist . ",
                  " . TBL_album . ",
                  " . TBL_listening . "
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
               AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-              AND " . TBL_listening . ".`user_id` LIKE '" . $opts['user_id'] . "'
-              AND " . TBL_artist . ".`id` = " . $opts['artist_id'];
-    $query = $ci->db->query($sql);
+              AND " . TBL_listening . ".`user_id` LIKE ?
+              AND " . TBL_artist . ".`id` LIKE ?";
+    $query = $ci->db->query($sql, array($user_id, $artist_id));
     if ($query->num_rows() > 0) {
-      $result = $query->result(0);
-      return $result[0];
+      return $query->result(0)[0];
     }
     else {
       return array($count_type => 0);
@@ -98,7 +98,6 @@ if (!function_exists('getArtistTags')) {
    *
    * @param array $opts.
    *          'artist_id'  => Artist ID
-   *          'user_id'    => User ID
    *
    * @return array artist's Keyword information.
    *
@@ -107,7 +106,8 @@ if (!function_exists('getArtistGenres')) {
   function getArtistGenres($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
-    $opts['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
     $sql = "SELECT count(" . TBL_genre . ".`id`) as `count`,
                    " . TBL_genre . ".`name`,
                    'genre' as `type`
@@ -118,10 +118,10 @@ if (!function_exists('getArtistGenres')) {
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
               AND " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
               AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
-              AND " . TBL_artist . ".`id` = " . $opts['artist_id'] . "
+              AND " . TBL_artist . ".`id` LIKE ?
             GROUP BY " . TBL_genre . ".`id`
             ORDER BY `count` DESC";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($artist_id));
     if ($query->num_rows() > 0) {
       return $query->result(0);
     }
@@ -136,7 +136,6 @@ if (!function_exists('getArtistGenres')) {
    *
    * @param array $opts.
    *          'artist_id'  => Artist ID
-   *          'user_id'    => User ID
    *
    * @return array artist's Keyword information.
    *
@@ -145,7 +144,8 @@ if (!function_exists('getArtistKeywords')) {
   function getArtistKeywords($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
-    $opts['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
     $sql = "SELECT count(" . TBL_keyword . ".`id`) as `count`,
                    " . TBL_keyword . ".`name`,
                    'keyword' as `type`
@@ -156,10 +156,10 @@ if (!function_exists('getArtistKeywords')) {
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
               AND " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
               AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
-              AND " . TBL_artist . ".`id` = " . $opts['artist_id'] . "
+              AND " . TBL_artist . ".`id` = ?
             GROUP BY " . TBL_keyword . ".`id`
             ORDER BY `count` DESC";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($artist_id));
     if ($query->num_rows() > 0) {
       return $query->result(0);
     }

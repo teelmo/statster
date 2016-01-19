@@ -15,22 +15,21 @@ if (!function_exists('getLove')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT " . TBL_love . ".`id`, " . TBL_album . ".`id` as `album_id`, ". TBL_artist . ".`artist_name`, " . TBL_album . ".`album_name`, " . TBL_user . ".`username`, " . TBL_love . ".`created`, 'love' as `type`
             FROM " . TBL_love . ", " . TBL_artist . ", " . TBL_album . ", " . TBL_user . "
             WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
-              AND " . TBL_love . ".`album_id` LIKE " . $ci->db->escape($album_id) . "
-              AND " . TBL_love . ".`user_id` LIKE " . $ci->db->escape($user_id) . "
+              AND " . TBL_love . ".`album_id` LIKE ?
+              AND " . TBL_love . ".`user_id` LIKE ?
             ORDER BY " . TBL_love . ".`created` DESC
-            LIMIT " . mysql_real_escape_string($limit);
-    $query = $ci->db->query($sql);
+            LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array($album_id, $user_id));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
   }
 }
@@ -56,8 +55,8 @@ if (!function_exists('addLove')) {
     // Add love data to DB
     $sql = "INSERT
               INTO " . TBL_love . " (`user_id`, `album_id`)
-              VALUES ($user_id, $album_id)";
-    $query = $ci->db->query($sql);
+              VALUES (?, ?)";
+    $query = $ci->db->query($sql, array($user_id, $album_id));
     if ($ci->db->affected_rows() === 1) {
       header('HTTP/1.1 201 Created');
       return json_encode(array('success' => array('msg' => $ci->db->insert_id())));
@@ -88,12 +87,12 @@ if (!function_exists('deleteLove')) {
     // Add log data
     $sql = "INSERT
               INTO " . TBL_love_log . " (`user_id`, `album_id`, `added`)
-              VALUES ($user_id, $album_id,
+              VALUES (?, ?,
                (SELECT " . TBL_love . ".`created`
                 FROM " . TBL_love . "
-                WHERE " . TBL_love . ".`user_id` = $user_id
-                  AND " . TBL_love . ".`album_id` = $album_id))";
-    $query = $ci->db->query($sql);
+                WHERE " . TBL_love . ".`user_id` = ?
+                  AND " . TBL_love . ".`album_id` = ?))";
+    $query = $ci->db->query($sql, array($user_id, $album_id, $user_id, $album_id));
     if ($ci->db->affected_rows() === 1) {
       // Delete love data from DB
       $query = $ci->db->delete(TBL_love, array('user_id' => $user_id,

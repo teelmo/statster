@@ -5,12 +5,12 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * Returns recently listened albums for the given user.
   *
   * @param array $opts.
-  *          'username'        => Username
-  *          'artist_name'     => Artist name
   *          'album_name'      => Album name
+  *          'artist_name'     => Artist name
   *          'date'            => Listening date in yyyy-mm-dd format
-  *          'limit'           => Limit
   *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'username'        => Username
   *
   * @return string JSON.
   */
@@ -19,14 +19,13 @@ if (!function_exists('getListenings')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $date = !empty($opts['date']) ? $opts['date'] : '%';
-    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
+    $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT " . TBL_listening . ". `id` as `listening_id`,
                    " . TBL_artist . ". `artist_name`,
                    " . TBL_album . ". `album_name`,
@@ -41,19 +40,21 @@ if (!function_exists('getListenings')) {
                  " . TBL_artist . ",
                  " . TBL_listening . ",
                  " . TBL_user . "
-                 " . $from . "
+                 " . $ci->db->escape_str($from) . "
             WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
               AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
-              AND " . TBL_user . ". `username` LIKE " . $ci->db->escape($username) . "
-              AND " . TBL_artist . ". `artist_name` LIKE " . $ci->db->escape($artist_name) . "
-              AND " . TBL_album . ". `album_name` LIKE " . $ci->db->escape($album_name) . "
-              AND " . TBL_listening . ". `date` LIKE " . $ci->db->escape($date) . "
-              " . $where . "
+              AND " . TBL_user . ". `username` LIKE ?
+              AND " . TBL_artist . ". `artist_name` LIKE ?
+              AND " . TBL_album . ". `album_name` LIKE ?
+              AND " . TBL_listening . ". `date` LIKE ?
+              " . $ci->db->escape_str($where) . "
             ORDER BY " . TBL_listening . ". `date` DESC, 
                      " . TBL_listening . ". `id` DESC
-            LIMIT " . mysql_real_escape_string($limit);
-    $query = $ci->db->query($sql);
+            LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array($username, $artist_name, $album_name, $date));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
   }
 }
@@ -95,8 +96,8 @@ if (!function_exists('addListening')) {
       // Add listening data to DB.
       $sql = "INSERT
                 INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
-                VALUES ({$data['user_id']}, {$data['album_id']}, '{$data['date']}')";
-      $query = $ci->db->query($sql);
+                VALUES (?, ?, ?)";
+      $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date']));
       if ($ci->db->affected_rows() == 1) {
         $data['listening_id'] = $ci->db->insert_id();
         // Add listening format data to DB.
@@ -144,11 +145,11 @@ if (!function_exists('deleteListening')) {
     // Delete listening data from DB.
     $sql = "DELETE 
               FROM " . TBL_listening . "
-              WHERE " . TBL_listening . ".`id` = {$data['listening_id']}
-                AND " . TBL_listening . ".`user_id` = {$data['user_id']}";
-    $query = $ci->db->query($sql);
-    echo($ci->db->affected_rows());
-    if ($ci->db->affected_rows() == 1) {
+              WHERE " . TBL_listening . ".`id` = ?
+                AND " . TBL_listening . ".`user_id` = ?";
+    $query = $ci->db->query($sql, array($data['listening_id'], $data['user_id']));
+
+    if ($ci->db->affected_rows() === 1) {
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }
@@ -204,14 +205,9 @@ if (!function_exists('addListeningFormats')) {
     
     $sql = "INSERT
               INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`) 
-              VALUES (" . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_id) . ", " . $ci->db->escape($user_id) . ")";
-    $query = $ci->db->query($sql);
-    if ($ci->db->affected_rows() == 1) {
-      return $ci->db->insert_id();
-    }
-    else {
-      return FALSE;
-    }
+              VALUES (?, ?, ?)";
+    $query = $ci->db->query($sql, array($listening_id), $format_id, $user_id);
+    return (($ci->db->affected_rows() === 1)) ? $ci->db->insert_id() : FALSE;
   }
 }
 
@@ -235,14 +231,9 @@ if (!function_exists('addListeningFormatTypes')) {
     $user_id = $opts['user_id'];
     $sql = "INSERT
               INTO " . TBL_listening_format_types . " (`listening_id`, `listening_format_type_id`, `user_id`)
-              VALUES (" . $ci->db->escape($listening_id) . ", " . $ci->db->escape($format_type_id) . ", " . $ci->db->escape($user_id) . ")";
-    $query = $ci->db->query($sql);
-    if ($ci->db->affected_rows() == 1) {
-      return $ci->db->insert_id();
-    }
-    else {
-      return FALSE;
-    }
+              VALUES (?, ?, ?)";
+    $query = $ci->db->query($sql, array($listening_id, $format_type_id, $user_id));
+    return (($ci->db->affected_rows() === 1)) ? $ci->db->insert_id() : FALSE;
   }
 }
 ?>

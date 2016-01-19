@@ -29,12 +29,11 @@ if (!function_exists('loginUser')) {
             FROM " . TBL_user . ",
                  " . TBL_user_info . "
             WHERE " . TBL_user . ".`id` = " . TBL_user_info . ".`user_id`
-              AND " . TBL_user . ".`username` = " . $ci->db->escape($username) . "
-              AND " . TBL_user . ".`password` = '" . $password . "'";
-    $query = $ci->db->query($sql);
-    if ($query->num_rows() == 1) {
-      $result = $query->result();
-      $result = $result[0];
+              AND " . TBL_user . ".`username` = ?
+              AND " . TBL_user . ".`password` = ?";
+    $query = $ci->db->query($sql, array($username, $password));
+    if ($query->num_rows() === 1) {
+      $result = $query->result()[0];
       // http://codeigniter.com/user_guide/libraries/sessions.html
       $userdata = array(
                    'user_id'      => $result->user_id,
@@ -87,7 +86,6 @@ if (!function_exists('getUsers')) {
     $ci->load->database();
 
     $exclude_username = !empty($opts['exclude_username']) ? explode(',', $opts['exclude_username']) : 'admin,testi,admin,quest';
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
                    " . TBL_user_info . ".`email`,
@@ -103,8 +101,10 @@ if (!function_exists('getUsers')) {
             FROM " . TBL_user . ",
                  " . TBL_user_info . "
             WHERE " . TBL_user . ".`id` = " . TBL_user_info . ".`user_id`
-              AND FIND_IN_SET(" . TBL_user. ".`username`, " . $ci->db->escape($exclude_username) . ") = 0";
-    $query = $ci->db->query($sql);
+              AND FIND_IN_SET(" . TBL_user. ".`username`, ?) = 0";
+    $query = $ci->db->query($sql, array($exclude_username));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
   }
 }
@@ -119,7 +119,6 @@ if (!function_exists('getUserData')) {
     $ci->load->database();
 
     $username = !empty($opts['username']) ? $opts['username'] : '';
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
                    " . TBL_user_info . ".`email`,
@@ -136,15 +135,9 @@ if (!function_exists('getUserData')) {
             FROM " . TBL_user . ",
                  " . TBL_user_info . "
             WHERE " . TBL_user . ".`id` = " . TBL_user_info . ".`user_id`
-              AND " . TBL_user . ".`username` LIKE " . $ci->db->escape($username);
-    $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      $result = $query->result(0);
-      return $result[0];
-    }
-    else {
-      return FALSE;
-    }
+              AND " . TBL_user . ".`username` LIKE ?";
+    $query = $ci->db->query($sql, array($username));
+    return (($query->num_rows() > 0)) ? $query->result(0)[0] : FALSE;
   }
 }
 
@@ -192,22 +185,17 @@ if (!function_exists('getUserGenres')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
+    $user_id = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $sql = "SELECT " . TBL_genre . ".`name`, count(" . TBL_genre . ".`id`) as `count`, 'genre' as `type`
             FROM " . TBL_genre . ", " . TBL_genres . ", " . TBL_album . ", " . TBL_listening . "
             WHERE " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
               AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
               AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-              AND " . TBL_listening . ".`user_id` = " . $opts['user_id'] . "
+              AND " . TBL_listening . ".`user_id` = ?
             GROUP BY " . TBL_genre . ".`id`
             ORDER BY count(" . TBL_genre . ".`id`) DESC";
-    $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      return $query->result(0);
-    }
-    else {
-      return array();
-    }
+    $query = $ci->db->query($sql, array($user_id));
+    return (($query->num_rows() > 0)) ? $query->result(0) : array();
   }
 }
 
@@ -235,12 +223,7 @@ if (!function_exists('getUserKeywords')) {
             GROUP BY " . TBL_keyword . ".`id`
             ORDER BY count(" . TBL_keyword . ".`id`) DESC";
     $query = $ci->db->query($sql);
-    if ($query->num_rows() > 0) {
-      return $query->result(0);
-    }
-    else {
-      return array();
-    }
+    return (($query->num_rows() > 0)) ? $query->result(0) : array();
   }
 }
 

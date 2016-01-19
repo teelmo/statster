@@ -15,8 +15,8 @@ if (!function_exists('getAlbumInfo')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
     $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                    " . TBL_album . ".`id` as `album_id`,
                    " . TBL_artist . ".`artist_name`,
@@ -26,9 +26,9 @@ if (!function_exists('getAlbumInfo')) {
             FROM " . TBL_artist . ",
                  " . TBL_album . "
             WHERE ".TBL_album.".`artist_id` = " . TBL_artist . ".`id` 
-              AND " . TBL_artist . ".`artist_name` = " . $ci->db->escape($artist_name) . "
-              AND " . TBL_album . ".`album_name` = " . $ci->db->escape($album_name);
-    $query = $ci->db->query($sql);
+              AND " . TBL_artist . ".`artist_name` = ?
+              AND " . TBL_album . ".`album_name` = ?";
+    $query = $ci->db->query($sql, array($artist_name, $album_name));
     if ($query->num_rows() > 0) {
       $result = $query->result(0);
       return $result[0];
@@ -54,18 +54,18 @@ if (!function_exists('getAlbumListenings')) {
     $ci=& get_instance();
     $ci->load->database();
 
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $count_type = !empty($opts['user_id']) ? 'user_count': 'total_count';
-    $opts['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT count(" . TBL_album . ".`id`) as `" . $count_type . "`
             FROM " . TBL_album . ",
                  " . TBL_listening . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-              AND " . TBL_listening . ".`user_id` LIKE '" . $opts['user_id'] . "'
-              AND " . TBL_album . ".`id` = " . $opts['album_id'];
-    $query = $ci->db->query($sql);
+              AND " . TBL_listening . ".`user_id` LIKE ?
+              AND " . TBL_album . ".`id` LIKE ?";
+    $query = $ci->db->query($sql, array($user_id, $album_id));
     if ($query->num_rows() > 0) {
-      $result = $query->result(0);
-      return $result[0];
+      return $query->result(0)[0];
     }
     else {
       return array($count_type => 0);
@@ -108,7 +108,6 @@ if (!function_exists('getAlbumTags')) {
    *
    * @param array $opts.
    *          'album_id'  => Album ID
-   *          'user_id'   => User ID
    *
    * @return array album's Keyword information.
    *
@@ -118,17 +117,17 @@ if (!function_exists('getAlbumGenres')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $opts['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $sql = "SELECT count(" . TBL_genre . ".`id`) as `count`, " . TBL_genre . ".`name`, 'genre' as `type`
             FROM " . TBL_genre . ",
                  " . TBL_genres . ",
                  " . TBL_album . "
             WHERE " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
               AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
-              AND " . TBL_album . ".`id` = " . $opts['album_id'] . "
+              AND " . TBL_album . ".`id` LIKE ?
             GROUP BY " . TBL_genre . ".`id`
             ORDER BY `count` DESC";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($album_id));
     if ($query->num_rows() > 0) {
       return $query->result(0);
     }
@@ -143,7 +142,6 @@ if (!function_exists('getAlbumGenres')) {
    *
    * @param array $opts.
    *          'album_id'  => Album ID
-   *          'user_id'   => User ID
    *
    * @return array album's Keyword information.
    *
@@ -153,17 +151,17 @@ if (!function_exists('getAlbumKeywords')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $opts['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $sql = "SELECT count(" . TBL_keyword . ".`id`) as `count`, " . TBL_keyword . ".`name`, 'keyword' as `type`
             FROM " . TBL_keyword . ",
                  " . TBL_keywords . ",
                  " . TBL_album . "
             WHERE " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
               AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
-              AND " . TBL_album . ".`id` = " . $opts['album_id'] . "
+              AND " . TBL_album . ".`id` LIKE ?
             GROUP BY " . TBL_keyword . ".`id`
             ORDER BY `count` DESC";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($album_id));
     if ($query->num_rows() > 0) {
       return $query->result(0);
     }
