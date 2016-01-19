@@ -18,6 +18,7 @@ if (!function_exists('getLove')) {
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT " . TBL_love . ".`id`, " . TBL_album . ".`id` as `album_id`, ". TBL_artist . ".`artist_name`, " . TBL_album . ".`album_name`, " . TBL_user . ".`username`, " . TBL_love . ".`created`, 'love' as `type`
             FROM " . TBL_love . ", " . TBL_artist . ", " . TBL_album . ", " . TBL_user . "
             WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
@@ -25,9 +26,10 @@ if (!function_exists('getLove')) {
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_love . ".`album_id` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
+              AND " . TBL_love . ".`user_id` LIKE ?
             ORDER BY " . TBL_love . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($album_id, $username));
+    $query = $ci->db->query($sql, array($album_id, $username, $user_id));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
