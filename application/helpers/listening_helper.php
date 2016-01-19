@@ -83,9 +83,9 @@ if (!function_exists('addListening')) {
         header('HTTP/1.1 401 Unauthorized');
         return json_encode(array('error' => array('msg' => $data)));
       }
-      list($data['artist'], $data['album']) = explode(DASH, $opts['text']);
-      $data['artist'] = trim($data['artist']);
-      $data['album'] = trim($data['album']);
+      list($data['artist_name'], $data['album_name']) = explode(DASH, $opts['text']);
+      $data['artist_name'] = trim($data['artist_name']);
+      $data['album_name'] = trim($data['album_name']);
       // Check that album exists.
       if (!$data['album_id'] = getAlbumID($data)) {
         header('HTTP/1.1 404 Not Found');
@@ -98,7 +98,7 @@ if (!function_exists('addListening')) {
                 INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
                 VALUES (?, ?, ?)";
       $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date']));
-      if ($ci->db->affected_rows() == 1) {
+      if ($ci->db->affected_rows() === 1) {
         $data['listening_id'] = $ci->db->insert_id();
         // Add listening format data to DB.
         if (!empty($_POST['format'])) {
@@ -206,7 +206,7 @@ if (!function_exists('addListeningFormats')) {
     $sql = "INSERT
               INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`) 
               VALUES (?, ?, ?)";
-    $query = $ci->db->query($sql, array($listening_id), $format_id, $user_id);
+    $query = $ci->db->query($sql, array($listening_id, $format_id, $user_id));
     return ($ci->db->affected_rows() === 1) ? $ci->db->insert_id() : FALSE;
   }
 }
