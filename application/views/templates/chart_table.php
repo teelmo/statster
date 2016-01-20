@@ -45,7 +45,7 @@ if (!empty($json_data)) {
               if ($this->session->userdata('user_id') === $row['user_id']) {
                 ?>
                 <span class="delete deleteCont" id="delete_<?=$idx?>">
-                  <a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon" /></a>
+                  <a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon delete_icon" /></a>
                 </span>
                 <div class="confirmation" for="delete_<?=$idx?>"><span class="small">Are you sure: <a href="javascript:;" class="confirm" for="delete_<?=$idx?>" data-listening-id="<?=$row['listening_id']?>" data-row-id="chartTable<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel" for="delete_<?=$idx?>">Cancel</a></span></div>
                 <?php
