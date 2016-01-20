@@ -24,7 +24,7 @@ class User extends CI_Controller {
         'lower_limit' => '1970-00-00',
         'username' => $username
       );
-      $data += (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+      $data += (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
       $data += getUserTags($data);
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);

@@ -20,7 +20,7 @@ class Artist extends CI_Controller {
     if ($month != FALSE) {
       $data['lower_limit'] = $year . '-' . $month . '-' . '00'; 
       $data['upper_limit'] = $year . '-' . $month . '-' . '31';
-      $data['title'] = 'Artists <span class="meta">' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year . '</span>';
+      $data['title'] = 'Artists <span class="meta">' . $year . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year . '</span>';
     }
     else {
       $data['lower_limit'] = $year . '-00-' . '00'; 

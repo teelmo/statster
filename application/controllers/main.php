@@ -16,8 +16,7 @@ class Main extends CI_Controller {
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
-      $data_tmp = json_decode(getArtists($opts), true);
-      $data += $data_tmp[0];
+      $data += (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
       
       $this->load->view('site_templates/header');
       $this->load->view('main_view', $data);
@@ -35,7 +34,7 @@ class Main extends CI_Controller {
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
-      $data += (json_decode(getAlbums($opts), true)[0] !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
+      $data += (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
       $data += getAlbumTags($data);
 
       $this->load->view('site_templates/header');
