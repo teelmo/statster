@@ -27,7 +27,7 @@ if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
 
 }
 else {
-  $config['base_url']	= 'http://beta.statster.info';
+  $config['base_url'] = 'http://beta.statster.info';
 }
 
 /*
