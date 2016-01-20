@@ -13,7 +13,7 @@ $.extend(view, {
     $.ajax({
       data:{
         group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
-        limit:100,
+        limit:200,
         order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
         select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',

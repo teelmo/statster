@@ -203,7 +203,7 @@ $.extend(view, {
         artist_name:'<?php echo $artist_name?>',
         album_name:'<?php echo $album_name?>',
         group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
-        limit:100,
+        limit:200,
         order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
         select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
