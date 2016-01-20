@@ -21,7 +21,7 @@ if (!function_exists('getArtistInfo')) {
             FROM " . TBL_artist . "
             WHERE " . TBL_artist . ".`artist_name` LIKE ?";
     $query = $ci->db->query($sql, array($artist_name));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result(0)}[0] : FALSE;
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : FALSE;
   }
 }
 
@@ -52,7 +52,7 @@ if (!function_exists('getArtistListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_artist . ".`id` LIKE ?";
     $query = $ci->db->query($sql, array($user_id, $artist_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result(0)}[0] : array($count_type => 0);
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array($count_type => 0);
   }
 }
 
@@ -112,7 +112,7 @@ if (!function_exists('getArtistGenres')) {
             GROUP BY " . TBL_genre . ".`id`
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($artist_id));
-    return ($query->num_rows() > 0) ? $query->result(0) : array();
+    return ($query->num_rows() > 0) ? $query->result() : array();
   }
 }
 
@@ -145,7 +145,7 @@ if (!function_exists('getArtistKeywords')) {
             GROUP BY " . TBL_keyword . ".`id`
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($artist_id));
-    return ($query->num_rows() > 0) ? $query->result(0) : array();
+    return ($query->num_rows() > 0) ? $query->result() : array();
   }
 }
 ?>

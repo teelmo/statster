@@ -14,8 +14,7 @@ class Music extends CI_Controller {
       'limit' => '1',
       'human_readable' => true
     );
-    $data_tmp = json_decode(getAlbums($opts), true);
-    $data += $data_tmp[0];
+    $data += (json_decode(getAlbums($opts), true)[0] !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
     $data += getAlbumInfo($data);
     unset($data['user_id']);
     $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;

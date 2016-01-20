@@ -96,7 +96,7 @@ if (!function_exists('getNationalityListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_nationalities . ".`nationality_id` = ?";
     $query = $ci->db->query($sql, array($user_id, $tag_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result(0)}[0] : array($count_type => 0);
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array($count_type => 0);
   }
 }
 
@@ -143,7 +143,7 @@ if (!function_exists('getMusicByNationality')) {
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_nationalities . ".`nationality_id` ?
+              AND " . TBL_nationalities . ".`nationality_id` = ?
             GROUP BY " . $ci->db->escape_str($group_by) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);

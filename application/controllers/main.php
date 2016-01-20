@@ -11,10 +11,10 @@ class Main extends CI_Controller {
       $data['interval'] = 14;
 
       $opts = array(
-        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'human_readable' => false,
         'limit' => '1',
-        'human_readable' => true
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data_tmp = json_decode(getArtists($opts), true);
       $data += $data_tmp[0];
@@ -30,13 +30,12 @@ class Main extends CI_Controller {
       $data = array();
       $data['js_include'] = array('welcome');
       $opts = array(
-        'lower_limit' => date('Y') . '-' . date('m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y') . '-' . date('m', strtotime('first day of last month')) . '-31',
+        'human_readable' => false,
         'limit' => '1',
-        'human_readable' => true
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
-      $data_tmp = json_decode(getAlbums($opts), true);
-      $data += $data_tmp[0];
+      $data += (json_decode(getAlbums($opts), true)[0] !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
       $data += getAlbumTags($data);
 
       $this->load->view('site_templates/header');

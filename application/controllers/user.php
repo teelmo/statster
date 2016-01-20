@@ -19,13 +19,12 @@ class User extends CI_Controller {
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
       $opts = array(
-        'lower_limit' => '1970-00-00',
+        'human_readable' => true,
         'limit' => '1',
-        'username' => $username,
-        'human_readable' => true
+        'lower_limit' => '1970-00-00',
+        'username' => $username
       );
-      $data_tmp = json_decode(getArtists($opts), true);
-      $data += $data_tmp[0];
+      $data += (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data += getUserTags($data);
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);

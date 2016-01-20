@@ -115,11 +115,5 @@ define('TBL_user_info', 'user_info');
 /* API keys */
 define('LASTFM_API_KEY', 'b43a6b2eed67fe3672dbe43c102be8e6');
 
-function pr($val) {
-  echo '<pre style="margin-top: 40px; margin-bottom:-35px;">';
-  print_r($val);
-  echo '</pre>';
-}
-
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

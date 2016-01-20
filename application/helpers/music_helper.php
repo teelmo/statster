@@ -117,14 +117,15 @@ if (!function_exists('getAlbums')) {
   function getAlbums($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+    
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_album . '.`id`';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_album . '.`id`';
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_artist . ".`id` as artist_id,
