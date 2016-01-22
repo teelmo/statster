@@ -27,7 +27,7 @@ if (!function_exists('url_title')) {
  */
 if (!function_exists('decode')) {
   function decode($str) {
-    return html_entity_decode(urldecode(urldecode(urldecode($str))));
+    return html_entity_decode(rawurldecode(urldecode(urldecode($str))));
   }
 }
 ?>
