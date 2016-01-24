@@ -1,3 +1,10 @@
+########
+Statster
+########
+
+Want to be reconciled with the music. Do it Statster like! Statster is a 
+web service which collects and visualizes your listened albums.
+
 ###################
 What is CodeIgniter
 ###################
