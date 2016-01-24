@@ -5,7 +5,7 @@ class Tag extends CI_Controller {
     $data['request'] = array('tag');
 
     $this->load->view('site_templates/header');
-    $this->load->view('tag/meta_view');
+    $this->load->view('tag/tags_view');
     $this->load->view('site_templates/footer', $data);
   }
 
@@ -35,7 +35,7 @@ class Tag extends CI_Controller {
       }
     }
     else {
-      $this->load->view('tag/tags_view', $data);
+      $this->load->view('tag/genre_view', $data);
     }
     $this->load->view('site_templates/footer');
   }
@@ -66,7 +66,7 @@ class Tag extends CI_Controller {
       }
     }
     else {
-      $this->load->view('tag/tags_view', $data);
+      $this->load->view('tag/keyword_view', $data);
     }
     $this->load->view('site_templates/footer');
   }
@@ -96,7 +96,7 @@ class Tag extends CI_Controller {
       }
     }
     else {
-      $this->load->view('tag/tags_view', $data);
+      $this->load->view('tag/nationality_view', $data);
     }
     $this->load->view('site_templates/footer');
   }
@@ -122,7 +122,7 @@ class Tag extends CI_Controller {
       $this->load->view('tag/tag_view', $data);
     }
     else {
-      $this->load->view('tag/tags_view', $data);
+      $this->load->view('tag/year_view', $data);
     }
     $this->load->view('site_templates/footer');
   }
