@@ -5,6 +5,27 @@ class Ajax extends CI_Controller {
     exit ('No direct script access allowed');
   }
 
+  public function selectYourself($type) {
+    switch ($type) {
+      case 'get':
+        echo (!empty($_SESSION['get_username'])) ? $_SESSION['get_username'] : '';
+        header('HTTP/1.1 200 OK');
+      case 'add':
+      case 'update':
+        $_SESSION['get_username'] = $_SESSION['username'];
+        header('HTTP/1.1 200 OK');
+        break;
+      case 'delete':
+        unset($_SESSION['get_username']);
+        header('HTTP/1.1 200 OK');
+        break;
+      
+      default:
+        header('HTTP/1.1 200 OK');
+        break;
+    }
+  }
+
   public function chartTable() {
     if (!empty($_POST)) {
       // Load helpers
