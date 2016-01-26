@@ -1,4 +1,13 @@
 var app = {
+  compareStrings: function (a, b) {
+    if (a > b) return -1;
+    else if (a < b) return 1;
+    return 0;
+  },
+  formatNr: function (x) {
+    x = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return (x == '') ? 0 : x;
+  },
   highlightPatch: function () {
     $.ui.autocomplete.prototype._renderItem = function (ul, item) {
       if (item.value == '') {
@@ -38,11 +47,6 @@ var app = {
     Mousetrap.bind(['mod+shift+s'], function (e) {
       $('#searchString').focus();
     });
-  },
-  compareStrings: function (a, b) {
-    if (a > b) return -1;
-    else if (a < b) return 1;
-    return 0;
   },
   initChart: function () {
     app.chart = $('.bar_chart').highcharts({
@@ -127,10 +131,6 @@ var app = {
       }]
     }).highcharts();
   },
-  formatNr: function (x) {
-    x = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return (x == '') ? 0 : x;
-  },
   initStatsterEvents: function () {
     $('.search_text').autocomplete({
       minLength:3,
@@ -151,7 +151,30 @@ var app = {
       $(this).removeClass('unactive');
     });
     $('.toggle_username').click(function () {
-      
+      if ($(this).hasClass('active')) {
+        $.ajax({
+          type:'GET',
+          dataType:'json',
+          url:'/Ajax/selectYourself/delete',
+          statusCode:{
+            200: function () { // 200 OK
+              location.reload();
+            }
+          }
+        });
+      }
+      else {
+        $.ajax({
+          type:'GET',
+          dataType:'json',
+          url:'/Ajax/selectYourself/add',
+          statusCode:{
+            200: function () { // 200 OK
+              location.reload();
+            }
+          }
+        });
+      } 
     });
   }
 }
