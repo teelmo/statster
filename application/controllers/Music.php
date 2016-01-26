@@ -52,7 +52,7 @@ class Music extends CI_Controller {
       $data['limit'] = 9;
       $data += getArtistTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('artist', 'artistAlbum', 'lastfm', 'populateTagSelect');
+      $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper');
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], '');
       $data += $_REQUEST;
 
@@ -86,7 +86,7 @@ class Music extends CI_Controller {
       $data['limit'] = 9;
       $data += getAlbumTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('album', 'artistAlbum', 'lastfm', 'populateTagSelect');
+      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper');
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
       $data += $_REQUEST;
 

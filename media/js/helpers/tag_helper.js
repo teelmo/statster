@@ -1,6 +1,6 @@
 $.extend(view, {
   populateTagsMenu: function (type, order_by) {
-    $.ajax({
+    return $.ajax({
       type:'GET',
       dataType:'json',
       url:'/api/' + type + '/get',
@@ -13,7 +13,7 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.each(data, function (i, value) {
-            $('#' + type).append('<option class="' + type + '" name="' + value.name + '">' + value.name + '</option>');
+            $('<option class="' + type + '" data-type="' + type + '" name="' + value[order_by] + '">' + value[order_by] + '</option>').appendTo($('#' + type));
           });
         }
       }
@@ -27,6 +27,8 @@ $(document).ready(function () {
     view.populateTagsMenu('keyword', 'name'),
     view.populateTagsMenu('nationality', 'country')
   ).done(function () {
-    $('#tagAddSelect').trigger('chosen:updated');
+    $(document).ajaxStop(function () {
+      $('#tagAdd select').chosen();
+    });
   });
 });
