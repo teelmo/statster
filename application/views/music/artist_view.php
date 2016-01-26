@@ -34,6 +34,7 @@
             <optgroup label="Keywords" id="keyword"></optgroup>
             <optgroup label="Nationality" id="nationality"></optgroup>
           </select>
+          <button type="submit" class="submit" title="Add"></button>
         </div>
       </div>
       <table class="artist_meta">
