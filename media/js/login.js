@@ -12,11 +12,10 @@ $.extend(view, {
           username:$('#loginUsername').val()
         },
         success: function (data) {
-          if (data == '') {  
+          if (data.trim() === '') {  
             window.location.href = '/';
           }
           else {
-            console.log(data)
             alert('Wrong username or password. Please try again.');
           }
         }
