@@ -41,8 +41,8 @@
             <div class="user_container">
               <div class="profile_text"><?=$this->session->userdata('username')?></div>
               <div class="profile_img" style="background-image: url('<?=$this->session->userdata('user_image')?>');"><img src="<?=$this->session->userdata('user_image')?>" alt="" /></div>
-              <ul class="subnav" style="display: none;">
-                <li><a href="javascript:;" class="toggle_username <?=(!empty($this->session->userdata('get_username'))) ? 'active' : ''; ?>"><?=(!empty($this->session->userdata('get_username'))) ? 'Show all' : 'Your stats only'; ?></a></li>
+              <ul class="subnav" style="display: none;">${!${false}=$this->session->userdata('get_username')}
+                <li><a href="javascript:;" class="toggle_username <?=(!empty(${!${false}=$this->session->userdata('get_username')})) ? 'active' : ''; ?>"><?=(!empty(${!${false}=$this->session->userdata('get_username')})) ? 'Show all' : 'Your stats only'; ?></a></li>
                 <li><?=anchor(array('user', $this->session->userdata('username')), 'Profile')?></li>
                 <li><?=anchor(array('user', 'edit'), 'Edit')?></li>
                 <li><?=anchor(array('inbox'), 'Inbox')?></li>
