@@ -261,7 +261,7 @@ $.extend(view, {
 $(document).ready(function () {
   view.getFan(<?=$this->session->userdata('user_id')?>);
   view.getFans();
-  view.getListeningHistory('%m');
+  view.getListeningHistory('%Y');
   view.getUsers();
   view.getListenings();
   view.initArtistEvents();

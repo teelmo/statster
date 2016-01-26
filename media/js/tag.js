@@ -214,7 +214,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getListeningHistory('%m');
+  view.getListeningHistory('%Y');
   view.getTopAlbums();
   view.getTopArtists();
   switch ('<?=$tag_type?>') {
