@@ -1,5 +1,5 @@
 <div id="headingCont" class="artist_heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>');" title="#1 artist in <?=date('F', strtotime('first day of last month'))?>: <?=$artist_name?>">
-  <h1>Statster – <span class="meta">reconcile with music</span></h1>
+  <h1><span class="stats">Stats</span><span class="ter">ter</span> <span class="circle">•</span> <span class="meta">reconcile with music</span></h1>
 </div>
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">

@@ -11,7 +11,6 @@
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/dropdown.js"></script>
     <script type="text/javascript" src="/media/js/statster.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700">
     <?php
     echo link_tag('media/css/styles.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');

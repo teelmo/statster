@@ -3,6 +3,8 @@
 @import 'libs/jquery-ui-1.10.3.custom.min.css';
 @import 'libs/chosen.css';
 @import 'jquery.autocomplete.css';
+@import 'http://fonts.googleapis.com/css?family=Open+Sans:400,700';
+@import 'http://fonts.googleapis.com/css?family=Poiret+One:400';
 
 /*
  * Template styles
@@ -154,6 +156,7 @@ div.container {
   }
 }
 #headingCont {
+  // -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(90%, transparent) , to(rgba(255, 255, 255, 0.9)));
   background-color: #111;
   color: #fff;
   height: 150px;
@@ -184,17 +187,29 @@ div.container {
         background-color: rgba(0, 0, 0, 0.85);
       }
       h1 {
+        .user-select(none);
         color: #fff;
-        font-size: 30px;
-        height: 30px;
-        line-height: 30px;
+        font-size: 40px;
+        line-height: 40px;
         margin: auto auto;
         max-width: 1000px;
-        padding-top: 35px;
+        padding-top: 30px;
         position: relative;
+        font-family: 'Poiret One', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         z-index: 3;
+        .stats {
+          text-shadow: 0px 5px 15px #fff;
+        }
+        .ter {
+          color: #999;
+          text-shadow: 0px 5px 15px #999;
+        }
+        .circle {
+          color: #999;
+          font-size: 20px;
+        }
         .meta {
-          color: #ccc;
+          color: #999;
           font-size: 16px;
           line-height: 16px;
           vertical-align: middle;
