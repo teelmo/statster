@@ -35,7 +35,16 @@ class Main extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data += (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
+      $data += getAlbumInfo($data);
+      unset($data['user_id']);
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+      $data += getAlbumListenings($data);
+      if ($data['user_id'] = $this->session->userdata('user_id')) {
+        $data += getAlbumListenings($data);
+      }
       $data += getAlbumTags($data);
+      unset($data['username']);
+      $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
 
       $this->load->view('site_templates/header');
       $this->load->view('welcome_view', $data);
