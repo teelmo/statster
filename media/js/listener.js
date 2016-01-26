@@ -7,9 +7,7 @@ $.extend(view, {
       data:{
         album_name:'<?php echo $album_name?>',
         artist_name:'<?php echo $artist_name?>',
-        limit:100,
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
-      },
+        limit:100      },
       statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
