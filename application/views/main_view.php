@@ -1,5 +1,12 @@
-<div id="headingCont" class="artist_heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>');" title="#1 artist in <?=date('F', strtotime('first day of last month'))?>: <?=$artist_name?>">
-  <h1><span class="stats">stats</span><span class="ter">ter</span> <span class="circle">•</span> <span class="meta">reconcile with music</span></h1>
+<div id="headingCont" class="artist_heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');">
+  <h1>
+    <div><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span></div>
+    <div class="top_music">
+      <div class="date">#1 in <?=date('F', strtotime('first day of last month'))?></div>
+      <div><span class="info">artist</span> <?=anchor(array('music', url_title($top_album['artist_name'])), $top_album['artist_name'])?></div>
+      <div><span class="info">album</span> <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), $top_album['album_name'])?></div>
+    </div>
+  </h1>
 </div>
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
@@ -14,13 +21,13 @@
       <br />
       <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
         <div id="addListeningDateContainer" class="listening_date">
-          Listening date: <input name="date" title="Change date" id="addListeningDate" value="<?=CUR_DATE?>" />
+          Listening date: <input name="date" title="Change date" id="addListeningDate" class="number" value="<?=CUR_DATE?>" />
         </div>
         <div>
           <input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="♪ ♪ ♪" name="addListeningText" />
         </div>
         <div>
-          <input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="Statster" />
+          <input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="statster" />
         </div>
         <div>
           <input type="radio" name="addListeningFormat" value="Stream:Spotify Unlimited" id="format_0" class="hidden" /><label for="format_0"><img src="./media/img/format_img/spotify_logo.png" tabindex="2" class="listening_format desktop_format" title="Spotify Unlimited" alt="" /></label>

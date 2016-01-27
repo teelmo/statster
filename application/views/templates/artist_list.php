@@ -8,7 +8,7 @@ if (!empty($json_data)) {
         <?php
         if (empty($hide['count'])) {
           ?>
-          <span class="playCount"><?=$row['count']?> plays</span>
+          <span class="play_count number"><?=$row['count']?></span> plays
           <?php
         }
         ?>

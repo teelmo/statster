@@ -1,43 +1,12 @@
-<div id="headingCont" class="artist_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
-  <div class="inner">
-    <div class="float_left">
-      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year"><?=anchor(array('tag', 'year', $year), $year, array('class' => 'album_year'))?></span></div>
+<div id="headingCont" class="artist_heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');">
+  <h1>
+    <div><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span></div>
+    <div class="top_music">
+      <div class="date">#1 in <?=date('F', strtotime('first day of last month'))?></div>
+      <div><span class="info">artist</span> <?=anchor(array('music', url_title($top_album['artist_name'])), $top_album['artist_name'])?></div>
+      <div><span class="info">album</span> <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), $top_album['album_name'])?></div>
     </div>
-    <div class="info">
-      <div class="top_info album_info">
-        <?php
-        if ($spotify_id) {
-          ?>
-          <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
-          <?php
-        }
-        ?>
-        <br />
-        <h4 class="meta">#1 in <?=date('F', strtotime('first day of last month'))?> • listened <?=$count?> times</h4>
-        <h3><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $album_name)?></h3>
-        <h4 class="meta">from <?=anchor(array('music', url_title($artist_name)), $artist_name)?></h4>
-      </div>
-      <table class="album_meta">
-        <tr>
-          <td class="label">Listenings</td>
-          <td class="label">Listeners</td>
-          <td class="label">Added in</td>
-          <?php
-          if ($logged_in === TRUE) {
-            ?>
-            <td class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), $user_count)?></span> in your library</span></td>
-            <?php
-          }
-          ?>
-        </tr>
-        <tr>
-          <td class="value"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), $total_count)?></td>
-          <td class="value"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), $listener_count)?></td>
-          <td class="value"><?=anchor(array('tag', 'year', $created), $created)?></td>
-        </tr>
-      </table>
-    </div>
-  </div>
+  </h1>
 </div>
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
@@ -62,7 +31,7 @@
       <div class="container">
         <h2>Browse</h2>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularGenreLoader" />
-        <table id="popularGenre" class="genreTable"><!-- Content is loaded with AJAX --></table>
+        <table id="popularGenre" class="genre_table"><!-- Content is loaded with AJAX --></table>
       </div>
     </div>
     <div id="leftContOuter">

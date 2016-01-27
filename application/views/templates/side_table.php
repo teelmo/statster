@@ -10,7 +10,7 @@ if (!empty($json_data)) {
     $prev_count = FALSE;
     foreach ($json_data as $idx => $row) {
       ?>
-      <tr id="albumTable<?=$idx?>">
+      <tr>
         <?php
         if (empty($hide['rank'])) {
           ?>
@@ -18,7 +18,7 @@ if (!empty($json_data)) {
             <?php
             if ($row['count'] != $prev_count) {
               ?>
-              <span class="rank"><?=$rank?></span>
+              <span class="rank number"><?=$rank?></span>
               <?php
             }
             ?>
@@ -47,14 +47,14 @@ if (!empty($json_data)) {
         }
         if (empty($row['album_name'])) {
           ?>
-          <td class="img<?=$size?> artistImg">
+          <td class="img<?=$size?> artist_img">
             <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
           </td>
           <?php
         }
         else {
           ?>
-          <td class="img<?=$size?> albumImg">
+          <td class="img<?=$size?> album_img">
             <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
           </td>
           <?php
@@ -72,7 +72,7 @@ if (!empty($json_data)) {
             if (!empty($row['album_name'])) {
               echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
               echo ' ';
-              echo anchor(array('year', url_title($row['year'])), '<span class="album_year">' . $row['year'] . '</span>', array('title' => 'Browse release year'));
+              echo anchor(array('year', url_title($row['year'])), '<span class="album_year number">' . $row['year'] . '</span>', array('title' => 'Browse release year'));
             }
             ?>
           </div>
@@ -86,9 +86,7 @@ if (!empty($json_data)) {
           }
           if (empty($hide['count'])) {
             ?>
-            <div class="count">
-              <?=$row['count']?> listenings
-            </div>
+            <div class="count"><span class="number"><?=$row['count']?></span> listenings</div>
             <?php
           }
           ?>

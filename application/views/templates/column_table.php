@@ -16,7 +16,7 @@ if (!empty($json_data)) {
             <?php
             if ($row['count'] != $prev_count) {
               ?>
-              <span class="rank"><?=$rank?></span>
+              <span class="rank number"><?=$rank?></span>
               <?php
             }
             ?>
@@ -42,8 +42,8 @@ if (!empty($json_data)) {
             $min_width = 'min-width: 38px;';
           }
           ?>
-          <div style="width: <?=$width?>%; <?=$min_width?>;" class="chartBar">
-            <div><?=$row['count']?></div>
+          <div style="width: <?=$width?>%; <?=$min_width?>;">
+            <div class="number"><?=$row['count']?></div>
           </div>
         </td>
       </tr>

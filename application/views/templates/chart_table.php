@@ -37,7 +37,7 @@ if (!empty($json_data)) {
               </span>
               <span class="album"><?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'))?></span>
               <span class="year">
-                <?=anchor(array('year', url_title($row['year'])), '<span class="album_year">' . $row['year'] . '</span>', array('title' => 'Browse albums'))?>
+                <?=anchor(array('year', url_title($row['year'])), '<span class="album_year number">' . $row['year'] . '</span>', array('title' => 'Browse albums'))?>
               </span>
             </span>
             <?php

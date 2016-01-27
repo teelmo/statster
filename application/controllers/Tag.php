@@ -18,7 +18,7 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getGenreID($data)) {
-        $data['js_include'] = array('tag');
+        $data['js_include'] = array('tag', 'helpers/chart_helper');
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getGenreListenings($data);
         if ($data['user_id'] = $this->session->userdata('user_id')) {
@@ -49,7 +49,7 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getKeywordID($data)) {
-        $data['js_include'] = array('tag');
+        $data['js_include'] = array('tag', 'helpers/chart_helper');
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getKeywordListenings($data);
         if ($data['user_id'] = $this->session->userdata('user_id')) {
@@ -79,7 +79,7 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getNationalityID($data)) {
-        $data['js_include'] = array('tag');
+        $data['js_include'] = array('tag', 'helpers/chart_helper');
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getNationalityListenings($data);
         if ($data['user_id'] = $this->session->userdata('user_id')) {
@@ -109,7 +109,7 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_id'] = decode($tag_name);
       $data['tag_name'] = decode($tag_name);
-      $data['js_include'] = array('tag');
+      $data['js_include'] = array('tag', 'helpers/chart_helper');
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data += getYearListenings($data);
       if ($data['user_id'] = $this->session->userdata('user_id')) {

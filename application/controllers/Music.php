@@ -6,7 +6,7 @@ class Music extends CI_Controller {
     $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'output_helper', 'spotify_helper'));
 
     $data = array();
-    $data['js_include'] = array('music');
+    $data['js_include'] = array('music', 'helpers/chart_helper');
     
     $opts = array(
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
@@ -14,18 +14,8 @@ class Music extends CI_Controller {
       'limit' => '1',
       'human_readable' => true
     );
-    $data += (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
-    $data += getAlbumInfo($data);
-    unset($data['user_id']);
-    $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-    $data += getAlbumListenings($data);
-    if ($data['user_id'] = $this->session->userdata('user_id')) {
-      $data += getAlbumListenings($data);
-    }
-    $data += getAlbumTags($data);
-    unset($data['username']);
-    $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
-    $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
+    $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
+      $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
 
     $this->load->view('site_templates/header', $data);
     $this->load->view('music/music_view', $data);
@@ -52,7 +42,7 @@ class Music extends CI_Controller {
       $data['limit'] = 9;
       $data += getArtistTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper');
+      $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper');
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], '');
       $data += $_REQUEST;
 
@@ -86,7 +76,7 @@ class Music extends CI_Controller {
       $data['limit'] = 9;
       $data += getAlbumTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper');
+      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper');
       $data['spotify_id'] = getSpotifyResourceId($data['artist_name'], $data['album_name']);
       $data += $_REQUEST;
 

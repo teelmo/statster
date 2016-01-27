@@ -196,7 +196,7 @@ $.extend(view, {
     });
   },
   getListeningHistory: function (type) {
-    app.initChart();
+    view.initChart();
     if (type == '%w') {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
     }

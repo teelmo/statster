@@ -74,11 +74,11 @@ if (!function_exists('timeAgo')) {
     $etime = time() - strtotime($ptime);
 
     $a = array(
-      12 * 30 * 24 * 60 * 60 =>  'year',
-      30 * 24 * 60 * 60 =>  'month',
-      48 * 60 * 60 =>  'day',
-      24 * 60 * 60 =>  'yesterday',
-      60 * 60 =>  'today',
+      12 * 30 * 24 * 60 * 60 => 'year',
+      30 * 24 * 60 * 60 => 'month',
+      48 * 60 * 60 => 'day',
+      24 * 60 * 60 => 'yesterday',
+      60 * 60 => 'today',
     );
 
     foreach ($a as $secs => $str) {
@@ -89,7 +89,7 @@ if (!function_exists('timeAgo')) {
         if ($secs < (48 * 60 * 60)) {
           return '<span title="' . $ptime . '">' . $str . '</span>';
         }
-        return '<span title="' . $ptime . '">' . $r . ' ' . $str . ( $r > 1 ? 's' : '' ) . ' ago</span>';
+        return '<span title="' . $ptime . '"><span class="number">' . $r . '</span> ' . $str . ($r > 1 ? 's' : '') . ' ago</span>';
       }
     }
   }
