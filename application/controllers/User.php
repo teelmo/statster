@@ -26,7 +26,7 @@ class User extends CI_Controller {
     $data['username'] = $username;
 
     if ($data = getUser($data)) {
-      $data['js_include'] = array('profile');
+      $data['js_include'] = array('profile', 'helpers/chart_helper');
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
       $opts = array(
