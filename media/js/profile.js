@@ -12,9 +12,6 @@ $.extend(view, {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
     }
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listener/get',
       data:{
         group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
         limit:200,
@@ -23,11 +20,10 @@ $.extend(view, {
         username:'<?php echo !empty($username) ? $username: ''?>',
         where:where
       },
+      dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',
-            url:'/ajax/barChart',
             data:{
               json_data:data,
               type:type
@@ -37,7 +33,9 @@ $.extend(view, {
               $('#history').html(data).hide();
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
-            }
+            },
+            type:'POST',
+            url:'/ajax/barChart'
           });
         },
         204: function () { // 204 No Content
@@ -45,7 +43,9 @@ $.extend(view, {
           $('#history').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {alert('400 Bad Request')}
-      }
+      },
+      type:'GET',
+      url:'/api/listener/get'
     });
   },
   // Get recent listenings.
@@ -54,28 +54,27 @@ $.extend(view, {
       $('#recentlyListenedLoader2').show();
     }
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listening/get',
       data:{
         limit:10,
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',url:'/ajax/chartTable',
             data:{
-              json_data:data,
               hide:{
                 del:true
-              }
+              },
+              json_data:data
             },
             success: function (data) {
               $('#recentlyListenedLoader2').hide();
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/chartTable'
           })
         },
         204: function () { // 204 No Content
@@ -83,42 +82,44 @@ $.extend(view, {
           $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {alert('400 Bad Request')}
-      }
+      },
+      type:'GET',
+      url:'/api/listening/get'
     });
   },
   // Get top albums.
   getTopAlbums: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/album/get',
       data:{
         limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/albumList/124',
             data:{
               json_data:data,
+            },
+            complete: function () {
+              setTimeout(view.getTopAlbums, 60 * 10 * 1000);
             },
             success: function (data) {
               $('#topAlbumLoader').hide();
               $('#topAlbum').html(data);
             },
-            complete: function () {
-              setTimeout(view.getTopAlbums, 60 * 10 * 1000);
-            }
+            type:'POST',
+            url:'/ajax/albumList/124',
           });
         },
         204: function () { // 204 No Content
           $('#topAlbumLoader').hide();
           $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/album/get'
     });
   },
   // Get top artists.
@@ -158,62 +159,62 @@ $.extend(view, {
   },
   recentlyFaned: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/fan/get',
       data:{
         limit:20,
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/likeTable',
             data:{
-              json_data:data,
               hide:{
                 rank:true,
                 user:true
-              }
+              },
+              json_data:data
             },
             success: function (data) {
               $('#recentlyFanedLoader').hide();
               $('#recentlyFaned').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/likeTable'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/fan/get'
     });
   },
   recentlyLoved: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/love/get',
       data:{
         limit:20,
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/likeTable',
             data:{
-              json_data:data,
               hide:{
                 rank:true,
                 user:true
-              }
+              },
+              json_data:data
             },
             success: function (data) {
               $('#recentlyLovedLoader').hide();
               $('#recentlyLoved').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/likeTable'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/love/get'
     });
   }
 });
