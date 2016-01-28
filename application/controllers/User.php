@@ -8,13 +8,14 @@ class User extends CI_Controller {
     $data['js_include'] = array('user');
 
     $opts = array(
-        'human_readable' => false,
-        'limit' => '1',
-        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
-      );
-      $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
-      $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
+      'human_readable' => false,
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+    );
+    $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
+    $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
+    
     $this->load->view('site_templates/header');
     $this->load->view('user/user_view', $data);
     $this->load->view('site_templates/footer');

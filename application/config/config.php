@@ -22,7 +22,7 @@
 | a PHP script and you can easily do that on your own.
 |
 */
-if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+if (ENVIRONMENT === 'development') {
   $config['base_url'] = 'http://statster.dev';
 }
 else {
