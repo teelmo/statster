@@ -1317,6 +1317,19 @@ div.cover {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
     }
   }
+  &.img124,
+  &.img174,
+  &.img300 {
+    &:after {
+      transition: all 1s;
+    }
+    &:hover {
+      &:after {
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+    }
+  }
   &.no_cover {
     border: 0 !important;
     &::after {
