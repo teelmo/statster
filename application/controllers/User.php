@@ -31,7 +31,7 @@ class User extends CI_Controller {
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
       $opts = array(
-        'human_readable' => true,
+        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => '1970-00-00',
         'username' => $username
