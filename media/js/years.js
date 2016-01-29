@@ -10,7 +10,8 @@ $.extend(view, {
         lower_limit:'1970-00-00',
         order_by:'<?=TBL_album?>.`year` ASC',
         select:'<?=TBL_album?>.`year` as bar_date',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+        where:'<?=TBL_album?>.`year` <> 0'
       },
       statusCode:{
         200: function (data) { // 200 OK
