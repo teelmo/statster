@@ -756,12 +756,15 @@ input {
     outline-width: 0;
   }
   &[type="submit"] {
+    appereance: none;
     background: #333; 
     border: 1px solid #444;
     color: #eee;
-    font-size: 13px;
-    height: 30px;
-    width: 80px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    padding: 5px 13px;
+    text-align: center;
     &:focus,
     &:hover {
       background: #333;
@@ -775,11 +778,6 @@ form#addListeningForm input[type="submit"] {
   cursor: pointer;
   float: right;
   margin: 10px 0 15px 0;
-}
-form#addListeningForm input[type="submit"] {
-  font-family: 'Raleway', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.1em;
 }
 form#addListeningForm {
   input[type="text"] {
