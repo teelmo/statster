@@ -8,11 +8,9 @@
   <div id="leftCont">
     <div class="container">
       <h1><?=ucfirst($tag_type)?></h1>
-    </div>
-    <div class="container">
-      <p>Most popular <?=$tag_type?>.</p>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popular<?=$tag_type?>Loader" />
-      <table id="popular<?=$tag_type?>" class="genre<?=$tag_type?>"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
+      <table id="history"><!-- Content is loaded with AJAX --></table>
+      <div class="bar_chart"></div>
     </div>
   </div>
 

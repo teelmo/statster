@@ -16,7 +16,7 @@ $.extend(view, {
       url:'/api/tag/get/<?=strtolower($tag_type)?>',
       data:{
         group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
-        limit:100,
+        limit:200,
         lower_limit:'1970-00-00',
         order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
         select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',

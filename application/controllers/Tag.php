@@ -122,6 +122,7 @@ class Tag extends CI_Controller {
       $this->load->view('tag/tag_view', $data);
     }
     else {
+      $data['js_include'] = array('years', 'helpers/chart_helper');
       $this->load->view('tag/year_view', $data);
     }
     $this->load->view('site_templates/footer');

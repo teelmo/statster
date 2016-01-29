@@ -17,7 +17,6 @@ $.extend(view, {
       xAxis:{
         allowDecimals:false,
         labels:{
-          rotation:0,
           y:17,
           style:{
             color:'#444',
@@ -60,7 +59,7 @@ $.extend(view, {
           color:'#444',
           fontFamily:'Raleway',
           fontSize:14,
-          fontWeight:'bold'
+          fontWeight:'normal'
         }
       },
       plotOptions:{
