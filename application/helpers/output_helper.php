@@ -108,6 +108,7 @@ if (!function_exists('_json_return_helper')) {
   function _json_return_helper($query, $human_readable) {
     if ($query->num_rows() > 0) {
       if (!empty($human_readable) && $human_readable != 'false') {
+        $ci=& get_instance();
 
         // Load helpers
         $ci->load->helper(array('text_helper'));
