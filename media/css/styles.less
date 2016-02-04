@@ -461,6 +461,12 @@ div.container {
       .artist_meta,
       .album_meta {
         width: auto;
+        a {
+          &:hover {
+            color: #666;
+            text-decoration: none;
+          }
+        }
         td {
           padding-right: 30px;
           &.value {
@@ -938,12 +944,13 @@ table.chart_table {
         &.title {
           width: 100%;
           padding: 0 5px;
-          .title {
-            float: left;
-          }
           .album_year {
             color: #999;
             font-size: 11px;
+          }
+          .confirmation {
+            text-align: left;
+            font-size: 10px;
           }
         }
         &.user_img {
