@@ -35,12 +35,14 @@ if (!function_exists('getGenres')) {
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
-                   'genre' as `type`
+                   'genre' as `type`,
+                   " . TBL_genre . ".`name`
                    " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
                  " . TBL_listening . ",
                  " . TBL_user . ",
+                 " . TBL_genre . ",
                  (SELECT " . TBL_genres . ".`genre_id`,
                          " . TBL_genres . ".`album_id`
                   FROM " . TBL_genres . "
@@ -50,10 +52,11 @@ if (!function_exists('getGenres')) {
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
+              AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?
-              AND " . TBL_genres . ".`genre_id` = ?
+              AND " . TBL_genres . ".`genre_id` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
             GROUP BY " . $ci->db->escape_str($group_by) . "

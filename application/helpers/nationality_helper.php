@@ -35,12 +35,14 @@ if (!function_exists('getNationalities')) {
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
-                   'nationality' as `type`
+                   'nationality' as `type`,
+                   " . TBL_nationality . ".`country` as `name`
                    " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
                  " . TBL_listening . ",
                  " . TBL_user . ",
+                 " . TBL_nationality . ",
                  (SELECT " . TBL_nationalities . ".`nationality_id`,
                          " . TBL_nationalities . ".`album_id`
                   FROM " . TBL_nationalities . "
@@ -49,6 +51,7 @@ if (!function_exists('getNationalities')) {
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
+              AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?
