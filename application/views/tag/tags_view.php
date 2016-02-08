@@ -2,8 +2,8 @@
   <div class="page_links">
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>
-    <?=anchor(array('year'), 'Release years')?>
     <?=anchor(array('nationality'), 'Nationalities')?>
+    <?=anchor(array('year'), 'Release years')?>
   </div>
   <div id="leftCont">
     <div class="container">
@@ -20,8 +20,8 @@
       <p>Top genres</p>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
       <table id="topGenre" class="barTable"><!-- Content is loaded with AJAX --></table>
-      <p>Top keywords</p>
       <h2>Keywords</h2>
+      <p>Top keywords</p>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
       <table id="topKeyword" class="barTable"><!-- Content is loaded with AJAX --></table>
       <h2>Nationalities</h2>

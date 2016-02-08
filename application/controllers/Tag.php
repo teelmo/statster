@@ -35,6 +35,7 @@ class Tag extends CI_Controller {
       }
     }
     else {
+      $data['js_include'] = array('genres');
       $this->load->view('tag/genre_view', $data);
     }
     $this->load->view('site_templates/footer');
@@ -66,6 +67,7 @@ class Tag extends CI_Controller {
       }
     }
     else {
+      $data['js_include'] = array('keywords');
       $this->load->view('tag/keyword_view', $data);
     }
     $this->load->view('site_templates/footer');
@@ -96,6 +98,7 @@ class Tag extends CI_Controller {
       }
     }
     else {
+      $data['js_include'] = array('nationalities');
       $this->load->view('tag/nationality_view', $data);
     }
     $this->load->view('site_templates/footer');

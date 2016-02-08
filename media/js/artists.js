@@ -1,9 +1,7 @@
 $.extend(view, {
   topArtist10: function (lower_limit, upper_limit) {
     $.ajax({
-      type:'GET',
       dataType:'json',
-      url:'/api/artist/get',
       data:{
         limit:10,
         lower_limit:lower_limit,
@@ -13,18 +11,20 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/artistList/124',
             data:{
               json_data:data,
             },
             success: function (data) {
               $('#topArtist10Loader').hide();
               $('#topArtist10').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/artistList/124'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/artist/get'
     });
   },
   topArtist: function (lower_limit, upper_limit, vars) {
@@ -46,8 +46,7 @@ $.extend(view, {
             data:{
               hide:vars.hide,
               json_data:data,
-              rank:11,
-              size:32
+              rank:11
             },
             success: function (data) {
               $(vars.container + 'Loader').hide();

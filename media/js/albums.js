@@ -1,9 +1,7 @@
 $.extend(view, {
   topAlbum10: function (lower_limit, upper_limit) {  
     $.ajax({
-      type:'GET',
       dataType:'json',
-      url:'/api/album/get',
       data:{
         limit:10,
         lower_limit:lower_limit,
@@ -13,22 +11,24 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/albumList/124',
             data:{
               json_data:data
             },
             success: function (data) {
               $('#topAlbum10Loader').hide();
               $('#topAlbum10').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/albumList/124'
           });
         },
         204: function (data) { // 204 No Content
           $('#topAlbum10Loader').hide();
           $('#topAlbum10').html('<?php echo ERR_NO_DATA?>');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/album/get'
     });
   },
   topAlbum: function (lower_limit, upper_limit, vars) {
@@ -50,8 +50,7 @@ $.extend(view, {
             data:{
               hide:vars.hide,
               json_data:data,
-              rank:11,
-              size:32
+              rank:11
             },
             success: function (data) {
               $(vars.container + 'Loader').hide();

@@ -26,16 +26,21 @@ if (!empty($json_data)) {
         ?>
         <td class="name">
           <?php
-          if (!empty($row['album_name'])) {
-            echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
+          if (!empty($row['type'])) {
+            echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to genre\'s page'));
           }
           else {
-            echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
+            if (!empty($row['album_name'])) {
+              echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
+            }
+            else {
+              echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
+            }
           }
           ?>
         </td>
         <td class="bar">
-          <?
+          <?php
           $width = ceil(($row['count'] / $highest_count) * 100);
           $min_width = ($row['count'] < 10) ? 'min-width: 22px' : 'min-width: 30px';
           if ($row['count'] > 100) {

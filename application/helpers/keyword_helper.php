@@ -110,7 +110,7 @@ if (!function_exists('getKeywordListenings')) {
  *          'human_readable'  => Output format
  *          'limit'           => Limit
  *          'order_by'        => Order by argument
- *          'tag_id'             => Keyword id
+ *          'tag_id'          => Keyword id
  *
  * @return string JSON encoded data containing album information.
  *
