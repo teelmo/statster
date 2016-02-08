@@ -1,10 +1,7 @@
 $.extend(view, {
-  getYears: function (type) {
+  getYearsHistory: function (type) {
     view.initChart();
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/year/get/',
       data:{
         limit:200,
         lower_limit:'1970-00-00',
@@ -13,11 +10,10 @@ $.extend(view, {
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
         where:'<?=TBL_album?>.`year` <> 0'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',
-            url:'/ajax/barChart',
             data:{
               json_data:data,
               type:type
@@ -35,7 +31,9 @@ $.extend(view, {
               });
               app.chart.xAxis[0].setCategories(categories, false);
               app.chart.series[0].setData(data, true);
-            }
+            },
+            type:'POST',
+            url:'/ajax/barChart'
           });
         },
         204: function () { // 204 No Content
@@ -43,8 +41,62 @@ $.extend(view, {
           $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {alert('400 Bad Request')}
-      }
+      },
+      type:'GET',
+      url:'/api/year/get/'
     });
+  },
+  topYear: function (lower_limit, upper_limit, vars) {
+    $.ajax({
+      data:{
+        limit:vars.limit,
+        lower_limit:lower_limit,
+        select:'<?=TBL_album?>.`year` as name',
+        upper_limit:upper_limit,
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:vars.hide,
+              json_data:data,
+              rank:1
+            },
+            success: function (data) {
+              $(vars.container + 'Loader').hide();
+              $(vars.container + '').html(data);
+            },
+            type:'POST',
+            url:vars.template
+          });
+        },
+        204: function (data) { // 204 No Content
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html('<?php echo ERR_NO_DATA?>');
+        }
+      },
+      type:'GET',
+      url:'/api/year/get'
+    });
+  },
+  topYearYearly: function () {
+    for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
+      $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYear' + year + 'Loader"/><table id="topYear' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
+      var vars = {
+        container:'#topYear' + year,
+        limit:'0,5',
+        template:'/ajax/sideTable',
+        hide:{
+          calendar:true,
+          calendar:true,
+          date:true,
+          size:32
+        }
+      }
+      view.topYear(year + '-00-00', year + '-12-31', vars);
+    }
   },
   initYearEvents: function () {
   
@@ -52,5 +104,6 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getYears('%Y');
+  view.getYearsHistory('%Y');
+  view.topYearYearly();
 });
