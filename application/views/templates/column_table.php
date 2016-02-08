@@ -27,7 +27,7 @@ if (!empty($json_data)) {
         <td class="name">
           <?php
           if (!empty($row['type'])) {
-            echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to genre\'s page'));
+            echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
           }
           else {
             if (!empty($row['album_name'])) {

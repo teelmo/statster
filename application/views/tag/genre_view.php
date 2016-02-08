@@ -10,8 +10,8 @@
       <h1><?=ucfirst($tag_type)?></h1>
     </div>
     <div class="container">
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popular<?=ucfirst($tag_type)?>Loader" />
-      <table id="popular<?=ucfirst($tag_type)?>" class="column_table full"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="top<?=ucfirst($tag_type)?>Loader" />
+      <table id="top<?=ucfirst($tag_type)?>" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
 
