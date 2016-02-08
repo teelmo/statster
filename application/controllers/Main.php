@@ -26,7 +26,7 @@ class Main extends CI_Controller {
     }
     else {
       // Load helpers
-      $this->load->helper(array('form', 'img_helper', 'music_helper', 'album_helper', 'output_helper'));
+      $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
 
       $data = array();
       $data['js_include'] = array('welcome');
@@ -37,7 +37,6 @@ class Main extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
-      $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
 
       $this->load->view('site_templates/header');
       $this->load->view('welcome_view', $data);
