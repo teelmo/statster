@@ -2,9 +2,7 @@
   <h1>
     <div><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span></div>
     <div class="top_music">
-      <div class="date">Top in <?=date('F', strtotime('first day of last month'))?></div>
-      <div><span class="info">artist</span> <?=anchor(array('music', url_title($top_artist['artist_name'])), $top_artist['artist_name'], array('title' => $top_artist['count'] . ' listenings'))?></div>
-      <div><span class="info">album</span> <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), $top_album['album_name'], array('title' => $top_album['count'] . ' listenings'))?></div>
+      <div><?=anchor(array('music', url_title($top_artist['artist_name'])), $top_artist['artist_name'], array('title' => $top_artist['count'] . ' listenings'))?></div>
     </div>
   </h1>
 </div>
@@ -62,15 +60,6 @@
       <h1>Statistics</h1>
     </div>
     <div class="container">
-      <!--
-      <ul class="noBullets">
-        <li>Most Listened Album Last Month: Tool - Lateralus</li>
-        <li>Most Listened Artist Last Month: Penniless</li>
-        <li>Listenings in March: 0 <span>(0 in total)</span></li>
-        <li>Listenings in 2012: 0 <span>(0 in total)</span></li>
-        <li>Your listening count: 13817 <span>(32293 in total)</span></li>
-      </ul>
-      -->
       <h2>Hot artists</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
       <table id="topArtist" class="column_table"><!-- Content is loaded with AJAX --></table>
@@ -78,6 +67,12 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h1>What's hot</h1>
+      <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>
+      <div class="stats">
+        <div><span class="info">album</span> <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), $top_album['album_name'], array('title' => $top_album['count'] . ' listenings'))?> <span class="album_year number"><?=$top_album['year']?></span></div>
+        <div><span class="info">artist</span> <?=anchor(array('music', url_title($top_artist['artist_name'])), $top_artist['artist_name'], array('title' => $top_artist['count'] . ' listenings'))?></div>
+        <div><span class="info">genre</span> <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'], array('title' => $top_album['count'] . ' listenings'))?></div>
+      </div>
       <h2>Popular albums</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
       <table id="recommentedTopAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>

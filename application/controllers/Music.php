@@ -3,7 +3,7 @@ class Music extends CI_Controller {
 
   public function index() {
     // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'output_helper', 'spotify_helper'));
+    $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
 
     $data = array();
     $data['js_include'] = array('music', 'helpers/chart_helper');
@@ -15,7 +15,6 @@ class Music extends CI_Controller {
       'human_readable' => true
     );
     $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
-      $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
 
     $this->load->view('site_templates/header', $data);
     $this->load->view('music/music_view', $data);
@@ -57,7 +56,7 @@ class Music extends CI_Controller {
 
   public function album($artist_name, $album_name) {
     // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'output_helper'));
+    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'genre_helper', 'output_helper'));
 
     $data = array();
     $data['artist_name'] = decode($artist_name);

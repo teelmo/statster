@@ -232,14 +232,6 @@ div.container {
             text-decoration: none;
           }
         }
-        .info {
-          color: #999;
-          display: inline-block;
-          width: 43px;
-        }
-        .date {
-          color: #999;
-        }
       }
     }
     &.tag_heading_cont {
@@ -569,6 +561,17 @@ div.container {
     margin-left: 684px;
     .container {
       margin: 7px 15px 15px 15px;
+    }
+    .stats {
+      .info {
+        color: #999;
+        display: inline-block;
+        min-width: 43px;
+      }
+      .album_year {
+        color: #999;
+        font-size: 11px;
+      }
     }
   }
 }
@@ -1146,6 +1149,7 @@ table.column_table {
       }
       &.name {
         padding-left: 5px;
+        vertical-align: middle;
         width: 58%;
       }
       &.bar {

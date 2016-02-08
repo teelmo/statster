@@ -4,7 +4,7 @@ class Main extends CI_Controller {
   public function index() {
     if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers
-      $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
+      $this->load->helper(array('form', 'img_helper','music_helper', 'genre_helper', 'output_helper'));
 
       $data = array();
       $data['js_include'] = array('main');
@@ -16,6 +16,7 @@ class Main extends CI_Controller {
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
+      $data['top_genre'] = (${!${false}=json_decode(getGenres($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getGenres($opts), true)}[0] : array();
       $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
       $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
 

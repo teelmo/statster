@@ -95,6 +95,12 @@
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>
+      <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>
+      <div class="stats">
+        <div><span class="info">album</span> <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), $top_album['album_name'], array('title' => $top_album['count'] . ' listenings'))?> <span class="album_year number"><?=$top_album['year']?></span></div>
+        <div><span class="info">artist</span> <?=anchor(array('music', url_title($top_artist['artist_name'])), $top_artist['artist_name'], array('title' => $top_artist['count'] . ' listenings'))?></div>
+        <div><span class="info">genre</span> <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'], array('title' => $top_album['count'] . ' listenings'))?></div>
+      </div>
       <h2>Likes</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>

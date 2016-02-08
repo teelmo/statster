@@ -14,7 +14,6 @@ class User extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
-    $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
     
     $this->load->view('site_templates/header');
     $this->load->view('user/user_view', $data);
@@ -22,7 +21,7 @@ class User extends CI_Controller {
   }
 
   public function profile($username) {
-    $this->load->helper(array('user_helper', 'img_helper', 'music_helper', 'output_helper'));
+    $this->load->helper(array('user_helper', 'img_helper', 'music_helper', 'genre_helper', 'output_helper'));
 
     $data['username'] = $username;
 
@@ -30,6 +29,17 @@ class User extends CI_Controller {
       $data['js_include'] = array('profile', 'helpers/chart_helper');
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
+      $opts = array(
+        'human_readable' => false,
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => $username
+      );
+      $data['top_genre'] = (${!${false}=json_decode(getGenres($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getGenres($opts), true)}[0] : array();
+      $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
+      $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
+      
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
