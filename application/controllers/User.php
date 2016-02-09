@@ -21,7 +21,7 @@ class User extends CI_Controller {
   }
 
   public function profile($username) {
-    $this->load->helper(array('user_helper', 'img_helper', 'music_helper', 'genre_helper', 'output_helper'));
+    $this->load->helper(array('user_helper', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
     $data['username'] = $username;
 
@@ -36,9 +36,11 @@ class User extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => $username
       );
-      $data['top_genre'] = (${!${false}=json_decode(getGenres($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getGenres($opts), true)}[0] : array();
-      $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
       $data['top_album'] = (${!${false}=json_decode(getAlbums($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
+      $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
+      $data['top_genre'] = (${!${false}=json_decode(getGenres($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getGenres($opts), true)}[0] : array();
+      $data['top_nationality'] = (${!${false}=json_decode(getNationalities($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getNationalities($opts), true)}[0] : array();
+      $data['top_year'] = (${!${false}=json_decode(getYears($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getYears($opts), true)}[0] : array();
       
       $opts = array(
         'human_readable' => false,

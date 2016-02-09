@@ -5,7 +5,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/listening/get',
       data:{
-        limit:5,
+        limit:4,
       },
       statusCode:{
         200: function(data) {
@@ -14,7 +14,7 @@ $.extend(view, {
             url:'/ajax/sideTable',
             data:{
               json_data:data,
-              size:32,
+              size:64,
               hide:{
                 artist:true,
                 calendar:true,
