@@ -3,7 +3,7 @@ class Music extends CI_Controller {
 
   public function index() {
     // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
+    $this->load->helper(array('img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
     $data = array();
     $data['js_include'] = array('music', 'helpers/chart_helper');
@@ -14,7 +14,11 @@ class Music extends CI_Controller {
       'limit' => '1',
       'human_readable' => true
     );
-    $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
+    $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
+    $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? ${!${false}=json_decode(getGenres($opts), true)}[0] : array();
+    $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? ${!${false}=json_decode(getNationalities($opts), true)}[0] : array();
+    $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? ${!${false}=json_decode(getYears($opts), true)}[0] : array();
 
     $this->load->view('site_templates/header', $data);
     $this->load->view('music/music_view', $data);

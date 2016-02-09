@@ -12,7 +12,7 @@ $.extend(view, {
         }
       },
       data:{
-        limit:17,
+        limit:11,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       dataType:'json',

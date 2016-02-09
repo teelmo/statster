@@ -126,7 +126,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>All time top</h2>
+      <h2>All time artists</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
       <table id="topArtist" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>

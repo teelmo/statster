@@ -128,7 +128,7 @@ $.extend(view, {
       url:'/api/fan/get',
       data:{
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        limit:18
+        limit:15
       },
       statusCode:{
         200: function (data) {
@@ -157,7 +157,7 @@ $.extend(view, {
       url:'/api/love/get',
       data:{
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        limit:18
+        limit:15
       },
       statusCode:{
         200: function (data) {

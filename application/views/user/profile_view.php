@@ -97,51 +97,81 @@
       <h1>Statistics</h1>
       <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>
       <table class="side_table">
-        <tr>
-          <td class="img64 album_img">
-            <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), '<div class="cover album_img img64" style="background-image:url(' . getAlbumImg(array('album_id' => $top_album['album_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
-          </td>
-          <td class="title">
-            <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), $top_album['album_name'], array('title' => $top_album['count'] . ' listenings'))?> <?=anchor(array('year', url_title($top_album['year'])), '<span class="album_year number">' . $top_album['year'] . '</span>', array('title' => 'Browse release year'))?>
-            <div class="count"><span class="number"><?=$top_album['count']?></span> listenings</div>
-          </td>
-        </tr>
-        <tr>
-          <td class="img64 artist_img">
-            <?=anchor(array('music', url_title($top_artist['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
-          </td>
-          <td class="title">
-            <?=anchor(array('music', url_title($top_artist['artist_name'])), $top_artist['artist_name'], array('title' => $top_artist['count'] . ' listenings'))?>
-            <div class="count"><span class="number"><?=$top_artist['count']?></span> listenings</div>
-          </td>
-        </tr>
-        <tr>
-          <td class="img64 tag_img">
-            Genre
-          </td>
-          <td class="title">
-            <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'])?>
-            <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
-          </td>
-        </tr>
-        <tr>
-          <td class="img64 tag_img">
-            Nationality
-          </td>
-          <td class="title">
-            <?=anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name'])?>
-            <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
-          </td>
-        </tr>
-        <tr>
-          <td class="img64 tag_img">
-            Year
-          </td>
-          <td class="title">
-            <?=anchor(array('year', url_title($top_year['year'])), $top_year['year'])?>
-            <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>
-          </td>
-        </tr>
+        <?php
+        if ($top_album) {
+          ?>
+          <tr>
+            <td class="img64 album_img">
+              <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), '<div class="cover album_img img64" style="background-image:url(' . getAlbumImg(array('album_id' => $top_album['album_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
+            </td>
+            <td class="title">
+              <?=anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), $top_album['album_name'], array('title' => $top_album['count'] . ' listenings'))?> <?=anchor(array('year', url_title($top_album['year'])), '<span class="album_year number">' . $top_album['year'] . '</span>', array('title' => 'Browse release year'))?>
+              <div class="count"><span class="number"><?=$top_album['count']?></span> listenings</div>
+            </td>
+          </tr>
+          <?php
+        }
+        $data_found = false;
+         if ($top_artist) {
+          $data_found = true;
+          ?>
+          <tr>
+            <td class="img64 artist_img">
+              <?=anchor(array('music', url_title($top_artist['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
+            </td>
+            <td class="title">
+              <?=anchor(array('music', url_title($top_artist['artist_name'])), $top_artist['artist_name'], array('title' => $top_artist['count'] . ' listenings'))?>
+              <div class="count"><span class="number"><?=$top_artist['count']?></span> listenings</div>
+            </td>
+          </tr>
+          <?php
+        }
+        if ($top_album) {
+          $data_found = true;
+          ?>
+          <tr>
+            <td class="img64 tag_img">
+              Genre
+            </td>
+            <td class="title">
+              <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'])?>
+              <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
+            </td>
+          </tr>
+          <?php
+        }
+        if ($top_album) {
+          $data_found = true;
+          ?>
+          <tr>
+            <td class="img64 tag_img">
+              Nationality
+            </td>
+            <td class="title">
+              <?=anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name'])?>
+              <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
+            </td>
+          </tr>
+          <?php
+        }
+        if ($top_album) {
+          $data_found = true;
+          ?>
+          <tr>
+            <td class="img64 tag_img">
+              Year
+            </td>
+            <td class="title">
+              <?=anchor(array('year', url_title($top_year['year'])), $top_year['year'])?>
+              <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>
+            </td>
+          </tr>
+          <?php
+        }
+        if ($data_found === false) {
+          echo ERR_NO_DATA;
+        }
+        ?>
       </table>
       <h2>Likes</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
