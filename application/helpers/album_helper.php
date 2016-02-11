@@ -22,6 +22,7 @@ if (!function_exists('getAlbumInfo')) {
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_album . ".`album_name`,
                    " . TBL_album . ".`year`,
+                   " . TBL_album . ".`spotify_uri`,
                    YEAR(" . TBL_album . ".`created`) as `created`
             FROM " . TBL_artist . ",
                  " . TBL_album . "

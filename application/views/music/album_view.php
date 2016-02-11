@@ -6,13 +6,13 @@
     <div class="info">
       <div class="top_info album_info">
         <?php
-        if ($spotify_id) {
+        if ($spotify_uri !== FALSE) {
           ?>
-          <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
+          <a href="<?=$spotify_uri?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
           <?php
         }
         ?>
-        <span id="love" class="love_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/></span>
+        <!-- <span id="love" class="love_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/></span> -->
         <h2><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h2>
         <h1><?=$album_name?><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/><ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul></h1>
         <div class="tags">

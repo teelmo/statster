@@ -69,6 +69,7 @@ if (!function_exists('getArtists')) {
     $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`artist_name`, 
                    " . TBL_artist . ".`id` as artist_id,
+                   " . TBL_artist . ".`spotify_uri`,
                    " . TBL_user . ". `username`, 
                    " . TBL_user . ". `id` as user_id, 
               (SELECT count(" . TBL_fan . ".`artist_id`)
@@ -132,6 +133,7 @@ if (!function_exists('getAlbums')) {
                    " . TBL_album . ".`album_name`,
                    " . TBL_album . ".`id` as album_id,
                    " . TBL_album . ".`year`,
+                   " . TBL_album . ".`spotify_uri`,
                    " . TBL_user . ". `username`,
                    " . TBL_user . ". `id` as user_id,
                   (SELECT count(" . TBL_love . ".`album_id`)

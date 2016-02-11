@@ -30,6 +30,7 @@ if (!function_exists('getListenings')) {
                    " . TBL_artist . ". `artist_name`,
                    " . TBL_album . ". `album_name`,
                    " . TBL_album . ". `year`, 
+                   " . TBL_album . ". `spotify_uri`, 
                    " . TBL_user . ". `username`,
                    " . TBL_listening . ". `date`, 
                    " . TBL_listening . ". `created`,

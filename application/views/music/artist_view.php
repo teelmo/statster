@@ -6,13 +6,13 @@
     <div class="info">
       <div class="top_info artist_info">
         <?php
-        if ($spotify_id) {
+        if ($spotify_uri !== FALSE) {
           ?>
-          <a href="spotify:artist:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container artist_spotify_container" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 64))?>')"></div></a>
+          <a href="<?=$spotify_uri?>" class="spotify_link"><div class="spotify_container artist_spotify_container" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 64))?>')"></div></a>
           <?php
         }
         ?>
-        <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/></span>
+        <!-- <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/></span> -->
         <h1><?=$artist_name?><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/><ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul></h1>
         <div class="tags">
           <?php

@@ -17,6 +17,7 @@ if (!function_exists('getArtistInfo')) {
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                    " . TBL_artist . ".`artist_name`, 
+                   " . TBL_artist . ".`spotify_uri`, 
                    YEAR(" . TBL_artist . ".`created`) as `created`
             FROM " . TBL_artist . "
             WHERE " . TBL_artist . ".`artist_name` LIKE ?";

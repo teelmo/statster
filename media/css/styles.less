@@ -85,7 +85,7 @@ div.container {
         margin-right: 70px;
         margin-top: 1px;
         vertical-align: top;
-        &::before {
+        &:before {
           content:"\2304";
           display: inline-block;
           font-size: 30px;
@@ -108,7 +108,7 @@ div.container {
         margin-top: -8px;
         width: 64px;
         z-index: 3;
-        &::after {
+        &:after {
           .border-radius(32px);
           background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 100%);
           content: '';
@@ -167,7 +167,7 @@ div.container {
     background-repeat: repeat;
     position: relative;
     z-index: 2;
-    &::after {
+    &:after {
       background-color: rgba(0, 0, 0, 0.85);
       content: '';
       height: 100%;
@@ -177,13 +177,13 @@ div.container {
       z-index: 2;
     }
     &.profile_heading_cont {
-      &::after {
+      &:after {
         background-color: rgba(0, 0, 0, 0.80);
       }
     }
     &.main_heading_cont {
       height: 100px;
-      &::after {
+      &:after {
         background-color: rgba(0, 0, 0, 0.85);
       }
       h1 {
@@ -236,7 +236,7 @@ div.container {
     }
     &.tag_heading_cont {
       height: 100px;
-      // &::after {
+      // &:after {
       //   background-color: rgba(0, 0, 0, 0.75);
       // }
       .inner .info {
@@ -261,7 +261,7 @@ div.container {
         background-position: 50% 50%;
         border-radius: 87px;
         border: 2px solid #333;
-        &::after {
+        &:after {
           background-color: transparent;
           border-radius: 87px;
         }
@@ -416,14 +416,14 @@ div.container {
             letter-spacing: 0.01em;
             line-height: 64px;
             margin-top: 30px;
-            padding-right: 70px;
+            padding-right: 64px;
             position: relative;
             transition-duration: 0.1s;
             vertical-align: middle;
             &:hover {
               .opacity(1);
               transition-duration: 0.3s;
-              &::after {
+              &:after {
                 background-position: 100% 100%;
               }
             }
@@ -434,16 +434,16 @@ div.container {
             &.album_spotify_container {
               background-position: 100% 50%;
             }
-            &::after {
+            &:after {
               background-image: url('/media/img/icons/play.png');
               background-position: 100% 0%;
               background-repeat: no-repeat;
-              top: 8px;
-              height: 48px;
-              width: 48px;
-              right: 8px;
-              position: absolute;
               content: '';
+              height: 48px;
+              position: absolute;
+              right: 8px;
+              top: 8px;
+              width: 48px;
             }
           }
         }
@@ -485,7 +485,7 @@ div.container {
               .user_listenings_img {
                 display: inline-block;
                 .border-radius(16px);
-                &::after {
+                &:after {
                   .border-radius(16px);
                 }
               }
@@ -849,13 +849,13 @@ form#loginForm input[type="text"] {
 }
 .search_container {
   vertical-align: top;
-  ::-webkit-input-placeholder {
+  :-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.3);
   }
   :-moz-placeholder {
     color: rgba(255, 255, 255, 0.3);
   }
-  ::-moz-placeholder {
+  :-moz-placeholder {
     color: rgba(255, 255, 255, 0.3);
   }
   :-ms-input-placeholder {  
@@ -1041,6 +1041,51 @@ table.side_table {
     td {
       padding: 2px 0; 
       vertical-align: middle;
+      .spotify_link {
+        color: #fff;
+        .spotify_container {
+          background-repeat: repeat-y;
+          display: inline-block;
+          font-size: 20px;
+          font-weight: bold;
+          height: 64px;
+          letter-spacing: 0.01em;
+          line-height: 64px;
+          padding-right: 64px;
+          position: relative;
+          margin-right: 8px;
+          border: 1px solid #444;
+          transition-duration: 0.1s;
+          vertical-align: middle;
+          &:hover {
+            .opacity(1);
+            transition-duration: 0.3s;
+            &:after {
+              .opacity(0.8);
+              background-position: 100% 100%;
+            }
+          }
+          &.artist_spotify_container {
+            background-position: 100% 50%;
+            background-size: cover;
+          }
+          &.album_spotify_container {
+            background-position: 100% 50%;
+          }
+          &:after {
+            .opacity(0.3);
+            background-image: url('/media/img/icons/play.png');
+            background-position: 100% 0%;
+            background-repeat: no-repeat;
+            content: '';
+            height: 48px;
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            width: 48px;
+          }
+        }
+      }
       &.img32 {
         width: 38px;
       }
@@ -1295,7 +1340,7 @@ div.cover {
   &.img174,
   &.img300 {
     position: relative;
-    &::after {
+    &:after {
       content: '';
       height: 100%;
       position: absolute;
@@ -1306,12 +1351,12 @@ div.cover {
   &.img64,
   &.img174,
   &.img300 {
-    &::after {
+    &:after {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.8) 100%);
     }
   }
   &.img124 {
-    &::after {
+    &:after {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
     }
   }
@@ -1330,7 +1375,7 @@ div.cover {
   }
   &.no_cover {
     border: 0 !important;
-    &::after {
+    &:after {
       background-image: none !important;
     }
   }
