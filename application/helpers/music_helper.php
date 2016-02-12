@@ -250,6 +250,7 @@ if (!function_exists('getArtistAlbums')) {
                    " . TBL_artist . ". `artist_name`,
                    " . TBL_album . ". `album_name`,
                    " . TBL_album . ". `year`, 
+                   " . TBL_album . ". `spotify_uri`, 
                    " . TBL_artist . ". `id` as `artist_id`,
                    " . TBL_album . ". `id` as `album_id`
             FROM " . TBL_listening . ", " . TBL_artist . ", " . TBL_album . ", " . TBL_user . " 

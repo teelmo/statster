@@ -49,43 +49,29 @@ if (!empty($json_data)) {
           if (empty($row['album_name'])) {
             ?>
             <td class="img<?=$size?> artist_img">
-              <?php
-              if (empty($hide['spotify']) && $row['spotify_uri']) {
-                ?>
-                <a href="<?=$row['spotify_uri']?>" class="spotify_link"><div class="spotify_container artist_spotify_container" style="background-image:url('<?=getArtistImg(array('album_id' => $row['artist_id'], 'size' => 64))?>')"></div></a>
-                <?php
-              }
-              else {
-                ?>
-                <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
-                <?php
-              }
-              ?>
+              <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
             </td>
             <?php
           }
           else {
             ?>
             <td class="img<?=$size?> album_img">
-              <?php
-              if (empty($hide['spotify']) && $row['spotify_uri']) {
-                ?>
-                <a href="<?=$row['spotify_uri']?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $row['album_id'], 'size' => 64))?>')"></div></a>
-                <?php
-              }
-              else {
-                ?>
-                <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
-                <?php
-              }
-              ?>
+              <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
             </td>
             <?php
           }
         }
         ?>
         <td class="title">
+
           <div class="title">
+            <?php
+            if (empty($hide['spotify']) && $row['spotify_uri']) {
+              ?>
+                <a href="<?=$row['spotify_uri']?>" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>
+              <?php
+            }
+            ?>
             <?php
             if (!empty($row['type'])) {
               echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));

@@ -1,20 +1,21 @@
 <div id="headingCont" class="artist_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
   <div class="inner">
     <div class="float_left">
-      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')"><span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span></div>
-    </div>
-    <div class="info">
-      <div class="top_info album_info">
+      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')">
         <?php
         if ($spotify_uri !== FALSE) {
           ?>
-          <a href="<?=$spotify_uri?>" class="spotify_link"><div class="spotify_container album_spotify_container" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 64))?>')"></div></a>
+          <a href="<?=$spotify_uri?>" class="spotify_link"><div class="spotify_container album_spotify_container"></div></a>
           <?php
         }
         ?>
-        <!-- <span id="love" class="love_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/></span> -->
+        <span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span>
+      </div>
+    </div>
+    <div class="info">
+      <div class="top_info album_info">
         <h2><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h2>
-        <h1><?=$album_name?><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/><ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul></h1>
+        <h1><?=$album_name?></h1>
         <div class="tags">
           <?php
           foreach ($tags as $tag) {
@@ -54,7 +55,7 @@
         <tr>
           <td class="value number"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), number_format($total_count))?></td>
           <td class="value number"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), number_format($listener_count))?></td>
-          <td class="value number"><?=anchor(array('tag', ' number', $created), $created)?></td>
+          <td class="value number"><?=anchor(array('tag', 'year', $created), $created)?></td>
         </tr>
       </table>
     </div>
@@ -65,6 +66,11 @@
   <div class="page_links">
     <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'Listeners')?>
     <?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'Listenings')?>
+    <div class="float_right">
+      <!-- <span id="love" class="love_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/></span> -->
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
+      <ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
+    </div>
   </div>
   <div id="leftCont">
     <div class="container">

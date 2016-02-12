@@ -266,6 +266,31 @@ div.container {
           border-radius: 87px;
         }
       }
+      .spotify_link {
+        color: #fff;
+        display: inline;
+        height: auto;
+        position: relative;
+        .spotify_container {
+          .opacity(0.3);
+          background-image: url('/media/img/icons/play.png');
+          background-position: 100% 0%;
+          background-repeat: no-repeat;
+          content: '';
+          height: 48px;
+          left: 4px;
+          position: absolute;
+          top: 4px;
+          width: 48px;
+          &:hover {
+            .opacity(1);
+            transition-duration: 0.3s;
+            &:after {
+              background-position: 100% 100%;
+            }
+          }
+        }
+      }
     }
     .info {
       margin-left: 200px;
@@ -402,50 +427,6 @@ div.container {
           right: 35px;
           top: 7px;
           width: 20px;
-        }
-        .spotify_link {
-          color: #fff;
-          .spotify_container {
-            .opacity(0.5);
-            background-repeat: repeat-y;
-            display: inline-block;
-            float: right;
-            font-size: 20px;
-            font-weight: bold;
-            height: 64px;
-            letter-spacing: 0.01em;
-            line-height: 64px;
-            margin-top: 30px;
-            padding-right: 64px;
-            position: relative;
-            transition-duration: 0.1s;
-            vertical-align: middle;
-            &:hover {
-              .opacity(1);
-              transition-duration: 0.3s;
-              &:after {
-                background-position: 100% 100%;
-              }
-            }
-            &.artist_spotify_container {
-              background-position: 100% 50%;
-              background-size: cover;
-            }
-            &.album_spotify_container {
-              background-position: 100% 50%;
-            }
-            &:after {
-              background-image: url('/media/img/icons/play.png');
-              background-position: 100% 0%;
-              background-repeat: no-repeat;
-              content: '';
-              height: 48px;
-              position: absolute;
-              right: 8px;
-              top: 8px;
-              width: 48px;
-            }
-          }
         }
       }
       .tag_meta,
@@ -961,6 +942,29 @@ table.chart_table {
           background-repeat: no-repeat;
           padding-left: 17px;
         }
+        .spotify_link {
+          color: #fff;
+          position: relative;
+          display: inline-block;
+          width: 16px;
+          height: 0;
+          .spotify_container {
+            background-image: url('/media/img/icons/play.png');
+            background-position: 0% 0%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            content: '';
+            display: inline-block;
+            height: 16px;
+            margin-top: -12px;
+            position: absolute;
+            width: 16px;
+            &:hover {
+              .opacity(1);
+              background-position: 100% 100%;
+            }
+          }
+        }
         .love_icon {
           background-image: url('/media/img/icons/love.png');
           background-position: center;
@@ -1041,51 +1045,6 @@ table.side_table {
     td {
       padding: 2px 0; 
       vertical-align: middle;
-      .spotify_link {
-        color: #fff;
-        .spotify_container {
-          background-repeat: repeat-y;
-          display: inline-block;
-          font-size: 20px;
-          font-weight: bold;
-          height: 64px;
-          letter-spacing: 0.01em;
-          line-height: 64px;
-          padding-right: 64px;
-          position: relative;
-          margin-right: 8px;
-          border: 1px solid #444;
-          transition-duration: 0.1s;
-          vertical-align: middle;
-          &:hover {
-            .opacity(1);
-            transition-duration: 0.3s;
-            &:after {
-              .opacity(0.8);
-              background-position: 100% 100%;
-            }
-          }
-          &.artist_spotify_container {
-            background-position: 100% 50%;
-            background-size: cover;
-          }
-          &.album_spotify_container {
-            background-position: 100% 50%;
-          }
-          &:after {
-            .opacity(0.3);
-            background-image: url('/media/img/icons/play.png');
-            background-position: 100% 0%;
-            background-repeat: no-repeat;
-            content: '';
-            height: 48px;
-            position: absolute;
-            right: 8px;
-            top: 8px;
-            width: 48px;
-          }
-        }
-      }
       &.img32 {
         width: 38px;
       }
@@ -1111,6 +1070,29 @@ table.side_table {
         }
       }
       &.title {
+        .spotify_link {
+          color: #fff;
+          position: relative;
+          display: inline-block;
+          width: 20px;
+          height: 0;
+          .spotify_container {
+            background-image: url('/media/img/icons/play.png');
+            background-position: 0% 0%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            content: '';
+            display: inline-block;
+            height: 20px;
+            margin-top: -14px;
+            position: absolute;
+            width: 20px;
+            &:hover {
+              .opacity(1);
+              background-position: 100% 100%;
+            }
+          }
+        }
         .album_year {
           color: #999;
           font-size: 11px;
@@ -1236,10 +1218,10 @@ ul {
     }
   }
   &.like_list {
-    overflow: hidden;
-    width: 100%;
+    margin-top: 8px;
     li {
       display: inline-block;
+      margin: 0;
     }
   }
 }

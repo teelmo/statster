@@ -1,19 +1,19 @@
 <div id="headingCont" class="artist_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
   <div class="inner">
     <div class="float_left">
-      <div class="cover artist_img img174" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 174))?>')"></div>
-    </div>
-    <div class="info">
-      <div class="top_info artist_info">
+      <div class="cover artist_img img174" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 174))?>')">
         <?php
         if ($spotify_uri !== FALSE) {
           ?>
-          <a href="<?=$spotify_uri?>" class="spotify_link"><div class="spotify_container artist_spotify_container" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 64))?>')"></div></a>
+          <a href="<?=$spotify_uri?>" class="spotify_link"><div class="spotify_container artist_spotify_container"></div></a>
           <?php
         }
         ?>
-        <!-- <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/></span> -->
-        <h1><?=$artist_name?><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/><ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul></h1>
+      </div>
+    </div>
+    <div class="info">
+      <div class="top_info artist_info">
+        <h1><?=$artist_name?></h1>
         <div class="tags">
           <?php
           foreach ($tags as $tag) {
@@ -64,6 +64,11 @@
   <div class="page_links">
     <?=anchor(array('listener', url_title($artist_name)), 'Listeners')?>
     <?=anchor(array('recent', url_title($artist_name)), 'Listenings')?>
+    <div class="float_right">
+      <!-- <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/></span> -->
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/>
+      <ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
+    </div>
   </div>
   <div id="leftCont">
     <div class="container">

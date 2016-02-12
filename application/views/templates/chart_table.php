@@ -31,6 +31,13 @@ if (!empty($json_data)) {
             <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
           </td>
           <td class="title">
+            <?php
+            if (empty($hide['spotify']) && $row['spotify_uri']) {
+              ?>
+                <a href="<?=$row['spotify_uri']?>" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>
+              <?php
+            }
+            ?>
             <span class="title">
               <span class="artist"><?=anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'))?>
                 <?=DASH?>
@@ -52,6 +59,10 @@ if (!empty($json_data)) {
               }
             }
             ?>
+          </td>
+          <td>
+            
+          </td>
           <td class="love icon">
             <?php
             $love_data = getLove(array(

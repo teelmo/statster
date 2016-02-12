@@ -144,7 +144,8 @@ $.extend(view, {
                 calendar:true,
                 count:true,
                 date:true,
-                rank:true
+                rank:true,
+                spotify:true
               },
               limit:4
             },
@@ -188,7 +189,8 @@ $.extend(view, {
                 calendar:true,
                 count:true,
                 date:true,
-                rank:true
+                rank:true,
+                spotify:true
               },
               limit:4
             },
