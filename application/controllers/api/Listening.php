@@ -14,7 +14,7 @@ class Listening extends CI_Controller {
 
   public function add() {
     // Load helpers
-    $this->load->helper(array('listening_helper', 'id_helper'));
+    $this->load->helper(array('listening_helper', 'spotify_helper', 'id_helper', 'album_helper'));
 
     echo addListening($_POST);
   }

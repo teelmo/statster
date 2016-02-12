@@ -4,7 +4,7 @@ class Main extends CI_Controller {
   public function index() {
     if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers
-      $this->load->helper(array('form', 'img_helper','music_helper', 'output_helper'));
+      $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
 
       $data = array();
       $data['js_include'] = array('main');

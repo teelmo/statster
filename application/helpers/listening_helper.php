@@ -88,12 +88,16 @@ if (!function_exists('addListening')) {
       $data['artist_name'] = trim($data['artist_name']);
       $data['album_name'] = trim($data['album_name']);
       // Check that album exists.
-      if (!$data['album_id'] = getAlbumID($data)) {
+      $data += getAlbumInfo($data);
+      if (!$data['album_id']) {
         header('HTTP/1.1 404 Not Found');
         return json_encode(array('error' => array('msg' => $data)));
       }
       $data['date'] = trim($opts['date']);
 
+      if (empty($data['spotify_uri'])) {
+        $data['spotify_uri'] = getSpotifyResourceId($data);
+      } 
       // Add listening data to DB.
       $sql = "INSERT
                 INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
