@@ -60,9 +60,6 @@ if (!empty($json_data)) {
             }
             ?>
           </td>
-          <td>
-            
-          </td>
           <td class="love icon">
             <?php
             $love_data = getLove(array(
