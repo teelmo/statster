@@ -2,7 +2,7 @@
 class Tag extends CI_Controller {
 
   public function index() {
-    $data['request'] = array('tag');
+    $data['js_include'] = array('tags');
 
     $this->load->view('site_templates/header');
     $this->load->view('tag/tags_view');
