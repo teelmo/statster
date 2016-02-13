@@ -19,7 +19,8 @@ $.extend(view, {
                 artist:true,
                 calendar:true,
                 count:true,
-                rank:true
+                rank:true,
+                spotify:true
               },
             },
             success: function(data) {
