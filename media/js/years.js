@@ -92,7 +92,8 @@ $.extend(view, {
           calendar:true,
           calendar:true,
           date:true,
-          size:32
+          size:32,
+          spotify:true
         }
       }
       view.topYear(year + '-00-00', year + '-12-31', vars);

@@ -44,7 +44,8 @@ $.extend(view, {
           calendar:true,
           calendar:true,
           date:true,
-          size:32
+          size:32,
+          spotify:true
         }
       }
       view.topGenre(year + '-00-00', year + '-12-31', vars);
