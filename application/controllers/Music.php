@@ -41,9 +41,6 @@ class Music extends CI_Controller {
         $data += getArtistListenings($data);
       }
       $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
-      // Get artists tags (genres, keywords) data
-      $data['limit'] = 9;
-      $data += getArtistTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper');
       if (empty($data['spotify_uri'])) {
@@ -77,9 +74,6 @@ class Music extends CI_Controller {
         $data += getAlbumListenings($data);
       }
       $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
-      // Get artists tags (genres, keywords) data
-      $data['limit'] = 9;
-      $data += getAlbumTags($data);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper');
       if (empty($data['spotify_uri'])) {
