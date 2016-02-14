@@ -187,7 +187,8 @@ $.extend(view, {
               hide:{
                 artist:true,
                 count:true,
-                rank:true
+                rank:true,
+                spotify:true
               },
               json_data:data,
               size:32

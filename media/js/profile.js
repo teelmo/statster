@@ -160,7 +160,7 @@ $.extend(view, {
   recentlyFaned: function () {
     $.ajax({
       data:{
-        limit:20,
+        limit:28,
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
       dataType:'json',
@@ -190,7 +190,7 @@ $.extend(view, {
   recentlyLoved: function () {
     $.ajax({
       data:{
-        limit:20,
+        limit:18,
         username:'<?php echo !empty($username) ? $username: ''?>'
       },
       dataType:'json',
