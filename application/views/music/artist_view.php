@@ -45,7 +45,10 @@
           <?php
           if ($logged_in === TRUE) {
             ?>
-            <td class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library</span></td>
+            <td class="label user_listening" rowspan="3">
+              <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library</span>
+              <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/></span>
+            </td>
             <?php
           }
           ?>
@@ -65,7 +68,6 @@
     <?=anchor(array('listener', url_title($artist_name)), 'Listeners')?>
     <?=anchor(array('recent', url_title($artist_name)), 'Listenings')?>
     <div class="float_right">
-      <!-- <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/></span> -->
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/>
       <ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
