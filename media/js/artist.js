@@ -207,7 +207,7 @@ $.extend(view, {
       }
     });
 
-    $('html, body').on('click', '#fan', function () {
+    $('html').on('click', '#fan', function () {
       $('.fanMsg').remove();
       if ($(this).hasClass('fan_add')) {
         $.ajax({
