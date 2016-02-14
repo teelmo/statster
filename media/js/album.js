@@ -224,7 +224,7 @@ $.extend(view, {
           data:{},
           statusCode:{
             201: function (data) { // 201 Created
-              $('#love').removeClass('love_add').addClass('love_del').prepend('<span class="like_msg">You\'re in love!</span>');
+              $('#love').removeClass('love_add').addClass('love_del').find('.like_msg').html('You\'re in love!').show();
               setTimeout(function() {
                 $('.like_msg').fadeOut('slow');
               }, <?=MSG_FADEOUT?>);
@@ -249,7 +249,7 @@ $.extend(view, {
           data:{},
           statusCode:{
             204: function () { // 204 No Content
-              $('#love').removeClass('love_del').addClass('love_add').prepend('<span class="like_msg">You\'re no longer in love!</span>');
+              $('#love').removeClass('love_del').addClass('love_add').find('.like_msg').html('You\'re not in love!').show();
               setTimeout(function() {
                 $('.like_msg').fadeOut('slow');
               }, <?=MSG_FADEOUT?>);

@@ -214,7 +214,7 @@ $.extend(view, {
           data:{},
           statusCode:{
             201: function (data) { // 201 Created
-              $('#fan').removeClass('fan_add').addClass('fan_del').prepend('<span class="like_msg">You\'re a fan!</span>');
+              $('#fan').removeClass('fan_add').addClass('fan_del').find('.like_msg').html('You\'re a fan!').show();
               setTimeout(function () {
                 $('.like_msg').fadeOut('slow');
               }, <?=MSG_FADEOUT?>);
@@ -239,7 +239,7 @@ $.extend(view, {
           data:{},
           statusCode:{
             204: function () { // 204 No Content
-              $('#fan').removeClass('fan_del').addClass('fan_add').prepend('<span class="like_msg">You\'re no longer a fan!</span>');
+              $('#fan').removeClass('fan_del').addClass('fan_add').find('.like_msg').html('You\'re not a fan!').show();
               setTimeout(function () {
                 $('.like_msg').fadeOut('slow');
               }, <?=MSG_FADEOUT?>);
