@@ -69,6 +69,48 @@ if (!function_exists('getKeywords')) {
 }
 
 /**
+  * Add keyword data.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('addKeyword')) {
+  function addKeyword($opts = array()) {
+    if (empty($opts)) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    $data = array();
+    
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    $data += $opts;
+  
+    // Add keyword data to DB.
+    $sql = "INSERT
+              INTO " . TBL_keywords . " (`album_id`, `keyword_id`, `user_id`)
+              VALUES (?, ?, ?)";
+    $query = $ci->db->query($sql, array($data['album_id'], $data['tag_id'], $data['user_id']));
+    if ($ci->db->affected_rows() === 1) {
+      header('HTTP/1.1 201 Created');
+      return json_encode(array('success' => array('msg' => $data)));
+    }
+    else {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+    }
+  }
+}
+
+/**
    * Gets keyword's listenings.
    *
    * @param array $opts.

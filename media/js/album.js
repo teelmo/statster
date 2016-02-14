@@ -60,6 +60,42 @@ $.extend(view, {
       url:'/api/love/get/<?=$album_id?>'
     });
   },
+  // Get album tags.
+  getTags: function () {
+    $.ajax({
+      data:{
+        album_id:'<?=$album_id?>',
+        limit:9
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              logged_in:'<?=$logged_in?>'
+            },
+            success: function (data) {
+              $('#tagsLoader').hide();
+              $('#tags').html(data);
+            },
+            type:'POST',
+            url:'/ajax/tagList'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/tag/get/album'
+    });
+  },
   // Get album listeners.
   getUsers: function () {
     $.ajax({
@@ -207,7 +243,7 @@ $.extend(view, {
     });
   },
   initAlbumEvents: function () {
-    $('#moretags').click(function() {
+    $('html').on('click', '#moretags', function () {
       $('#tagAdd').toggle();
       if ($(this).text() == '+') {
         $(this).html('<a href="javascript:;">-</a>');
@@ -270,12 +306,47 @@ $.extend(view, {
         });
       }
     });
+    $('html').on('click', '#submitTags', function () {
+      $.when(
+        $.each($('.chosen-select').val(), function (i, el) {
+          var tag = el.split(':');
+          $.ajax({
+            data:{
+              album_id:'<?=$album_id?>',
+              tag_id:tag[1]
+            },
+            statusCode:{
+              201: function (data) { // 201 Created
+              },
+              400: function () { // 400 Bad request
+                alert('<?=ERR_BAD_REQUEST?>');
+              },
+              401: function () {
+                alert('401 Unauthorized');
+              },
+              404: function () {
+                alert('404 Not Found');
+              }
+            },
+            type:'POST',
+            url:'/api/tag/add/' + tag[0]
+          });
+        })
+      ).done(function () {
+        $('.chosen-select option').removeAttr('selected');
+        $('#tagAdd select').chosen('updated');
+        view.getTags();
+      });
+      $('#tagAdd').hide();
+      $('#moretags').html('<a href="javascript:;">+</a>');
+    });
   }
 });
 
 $(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
+  view.getTags();
   view.getListeningHistory('%Y');
   view.getUsers();
   view.getListenings();

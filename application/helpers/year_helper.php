@@ -63,6 +63,36 @@ if (!function_exists('getYears')) {
 }
 
 /**
+  * Add year data.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('addYear')) {
+  function addYear($opts = array()) {
+    if (empty($opts)) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    $data = array();
+    
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    $data += $opts;
+  
+    // Add year data to DB.
+  }
+}
+
+/**
    * Gets year's listenings.
    *
    * @param array $opts.

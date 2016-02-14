@@ -76,7 +76,7 @@ $.extend(view, {
               $('#popularGenre').html(data);
             },
             type:'POST',
-            url:'/ajax/popularTag'
+            url:'/ajax/tagTable'
           });
         },
         204: function () { // 204 No Content

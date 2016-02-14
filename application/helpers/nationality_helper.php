@@ -36,7 +36,8 @@ if (!function_exists('getNationalities')) {
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
                    'nationality' as `type`,
-                   " . TBL_nationality . ".`country` as `name`
+                   " . TBL_nationality . ".`country` as `name`,
+                   " . TBL_nationality . ".`id` as `tag_id`
                    " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
@@ -65,6 +66,48 @@ if (!function_exists('getNationalities')) {
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Add nationality data.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('addNationality')) {
+  function addNationality($opts = array()) {
+    if (empty($opts)) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    $data = array();
+    
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    $data += $opts;
+  
+    // Add nationality data to DB.
+    $sql = "INSERT
+              INTO " . TBL_nationalities . " (`album_id`, `nationality_id`, `user_id`)
+              VALUES (?, ?, ?)";
+    $query = $ci->db->query($sql, array($data['album_id'], $data['tag_id'], $data['user_id']));
+    if ($ci->db->affected_rows() === 1) {
+      header('HTTP/1.1 201 Created');
+      return json_encode(array('success' => array('msg' => $data)));
+    }
+    else {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+    }
   }
 }
 
@@ -155,3 +198,12 @@ if (!function_exists('getMusicByNationality')) {
     return _json_return_helper($query, $human_readable);
   }
 }
+
+/*
+ Get albums with out nationality
+select nationalities.nationality_id, nationalities.album_id, album_name
+
+from nationalities right join album 
+
+on nationalities.album_id = album.id  
+*/

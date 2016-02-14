@@ -13,7 +13,7 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.each(data, function (i, value) {
-            $('<option class="' + type + '" data-type="' + type + '" name="' + value[order_by] + '">' + value[order_by] + '</option>').appendTo($('#' + type));
+            $('<option class="' + type + '" value="' + type + ':' + value['tag_id'] + '">' + value['name'] + '</option>').appendTo($('#' + type));
           });
         }
       }

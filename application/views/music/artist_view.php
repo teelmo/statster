@@ -14,27 +14,15 @@
     <div class="info">
       <div class="top_info artist_info">
         <h1><?=$artist_name?></h1>
-        <div class="tags">
-          <?php
-          foreach ($tags as $tag) {
-            ?>
-            <span class="tag <?=$tag->type?>"><?=anchor(array($tag->type, url_title($tag->name)), $tag->name)?></span>
-            <?php
-          }
-          if ($logged_in === TRUE) {
-            ?>
-            <span class="tag moretags" id="moretags"><a href="javascript:;">+</a></span>
-            <?php
-          }
-          ?>
-        </div>
+        <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="tagsLoader"/>
+        <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
           <select data-placeholder="Add metadata" class="chosen-select" multiple>
             <optgroup label="Genres" id="genre"></optgroup>
             <optgroup label="Keywords" id="keyword"></optgroup>
             <optgroup label="Nationality" id="nationality"></optgroup>
           </select>
-          <button type="submit" class="submit" title="Add"></button>
+          <button type="submit" id="submitTags" class="submit" title="Add"></button>
         </div>
       </div>
       <table class="artist_meta">

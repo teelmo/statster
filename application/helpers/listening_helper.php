@@ -74,11 +74,11 @@ if (!function_exists('addListening')) {
       return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
     }
     if (strpos($opts['text'], DASH)) {
+      $data = array();
+      
       $ci=& get_instance();
       $ci->load->database();
 
-      $data = array();
-      
       // Get user id from session.
       if (!$data['user_id'] = $ci->session->userdata('user_id')) {
         header('HTTP/1.1 401 Unauthorized');
@@ -95,9 +95,11 @@ if (!function_exists('addListening')) {
       }
       $data['date'] = trim($opts['date']);
 
+      // Get Spotify information.
       if (empty($data['spotify_uri'])) {
         $data['spotify_uri'] = getSpotifyResourceId($data);
       } 
+
       // Add listening data to DB.
       $sql = "INSERT
                 INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)

@@ -87,7 +87,8 @@ if (!function_exists('getAlbumTags')) {
       }
       uasort($data, '_tagsSortByCount');
       $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
-      return $data;
+
+      return json_encode($data['tags']);
     }
     return array();
   }
