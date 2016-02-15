@@ -3,7 +3,7 @@
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>
     <?=anchor(array('nationality'), 'Nationalities')?>
-    <?=anchor(array('year'), 'Release years')?>
+    <?=anchor(array('year'), 'Years')?>
   </div>
   <div id="leftCont">
     <div class="container">

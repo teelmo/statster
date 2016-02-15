@@ -3,11 +3,11 @@
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>
     <?=anchor(array('nationality'), 'Nationalities')?>
-    <?=anchor(array('year'), 'Release years')?>
+    <?=anchor(array('year'), 'Years')?>
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1><?=ucfirst($tag_type)?></h1>
+      <h1>Top years</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="bar_chart"></div>

@@ -30,8 +30,8 @@
   <div class="page_links">
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>
-    <?=anchor(array('year'), 'Release years')?>
     <?=anchor(array('nationality'), 'Nationalities')?>
+    <?=anchor(array('year'), 'Years')?>
   </div>
   <div id="leftCont">
     <div class="container">

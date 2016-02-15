@@ -3,11 +3,11 @@
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>
     <?=anchor(array('nationality'), 'Nationalities')?>
-    <?=anchor(array('year'), 'Release years')?>
+    <?=anchor(array('year'), 'Years')?>
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1><?=ucfirst($tag_type)?></h1>
+      <h1>Top genres</h1>
     </div>
     <div class="container">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="top<?=ucfirst($tag_type)?>Loader" />
