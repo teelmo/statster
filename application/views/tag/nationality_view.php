@@ -7,7 +7,7 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1>Top nationalities></h1>
+      <h1>Top nationalities</h1>
     </div>
     <div class="container">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="top<?=ucfirst($tag_type)?>Loader" />
