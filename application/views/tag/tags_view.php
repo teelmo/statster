@@ -16,7 +16,7 @@
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>
-      <h2>Genres</h2>
+      <h2>Top genres</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
       <table id="topGenre" class="column_table full"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -25,7 +25,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Keywords</h2>
+      <h2>Top keywords</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
       <table id="topKeyword" class="column_table full"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -34,7 +34,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Nationalities</h2>
+      <h2>Top nationalities</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
       <table id="topNationality" class="column_table full"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -43,7 +43,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Release Years</h2>
+      <h2>Top years</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
       <table id="topYear" class="column_table full"><!-- Content is loaded with AJAX --></table>
       <div class="more">
