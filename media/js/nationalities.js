@@ -38,7 +38,7 @@ $.extend(view, {
       $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationality' + year + 'Loader"/><table id="topNationality' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
       var vars = {
         container:'#topNationality' + year,
-        limit:'0,5',
+        limit:3,
         template:'/ajax/sideTable',
         hide:{
           calendar:true,

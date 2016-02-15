@@ -2,7 +2,7 @@ $.extend(view, {
   topTags: function (container, type, select) {
     $.ajax({
       data:{
-        limit:5,
+        limit:3,
         lower_limit:'1970-00-00',
         select:select,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
