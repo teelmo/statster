@@ -9,7 +9,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
  *          'artist_name'  => Artist name
  *          'user_id'      => User ID
  *
- * @return array Album information or boolean FALSE.
+ * @return array Album ID or boolean FALSE.
  */
 if (!function_exists('addAlbum')) {
   function addAlbum($opts = array()) {
@@ -20,14 +20,20 @@ if (!function_exists('addAlbum')) {
     $data['album_info'] = !empty($opts['album_name']) ? $opts['album_name'] : '';
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
     $data['artist_id'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
+    if (empty($data['artist_id'])) {
+      $data['artist_name'] = $opts['artist_name'];
+      if (!$data['artist_id'] = addArtist($data)) {
+        return FALSE;
+      }
+    }
     preg_match('/(.*)\(([0-9]{4})\)/', $data['album_info'], $matches);
     $data['album_name'] = ucwords(trim($matches[1]));
     $data['album_year'] = trim($matches[2]);
 
     if (!empty($data['album_name']) && (intval($data['album_year']) > 1900 && intval($data['album_year']) < (CUR_YEAR + 1))) {
       $sql = "INSERT
-                INTO " . TBL_album . " (`artist_id`, `user_id`, `album_name`, `year`)
-                VALUES (?, ?, ?, ?)";
+                INTO " . TBL_album . " (`artist_id`, `user_id`, `album_name`, `year`, `created`)
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP())";
       $query = $ci->db->query($sql, array($data['artist_id'], $data['user_id'], $data['album_name'], $data['album_year']));
       if ($ci->db->affected_rows() === 1) {
         $data['album_id'] = $ci->db->insert_id();

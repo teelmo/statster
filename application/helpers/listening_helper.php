@@ -95,13 +95,14 @@ if (!function_exists('addListening')) {
           return json_encode(array('error' => array('msg' => 'Format error.')));
         }
       }
+      else {
+        // Get Spotify information only if existing album.
+        if (empty($data['spotify_uri'])) {
+          $data['spotify_uri'] = getSpotifyResourceId($data);
+        } 
+      }
 
       $data['date'] = trim($opts['date']);
-
-      // Get Spotify information.
-      if (empty($data['spotify_uri'])) {
-        $data['spotify_uri'] = getSpotifyResourceId($data);
-      } 
 
       // Add listening data to DB.
       $sql = "INSERT

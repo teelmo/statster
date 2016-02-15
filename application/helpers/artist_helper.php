@@ -2,6 +2,37 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
+ * Add new album.
+ *
+ * @param array $opts.
+ *          'artist_name'  => Artist name
+ *          'user_id'      => User ID
+ *
+ * @return array Artist ID or boolean FALSE.
+ */
+if (!function_exists('addArtist')) {
+  function addArtist($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    // Load helpers.
+    $data['artist_name'] = !empty($opts['artist_name']) ? ucwords($opts['artist_name']) : '';
+    $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
+
+    if (!empty($data['artist_name'])) {
+      $sql = "INSERT
+                INTO " . TBL_artist . " (`user_id`, `artist_name`, `created`)
+                VALUES (?, ?, CURRENT_TIMESTAMP())";
+      $query = $ci->db->query($sql, array($data['user_id'], $data['artist_name']));
+      if ($ci->db->affected_rows() === 1) {
+        return $ci->db->insert_id();
+      }
+    }
+    return FALSE;
+  }
+}
+
+/**
  * Gets artist's info.
  *
  * @param array $opts.
