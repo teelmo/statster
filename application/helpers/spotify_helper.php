@@ -6,11 +6,11 @@ if (!function_exists('getSpotifyResourceId')) {
     $curl = curl_init();
     if (!empty($data['album_name'])) {
       $q = urlencode($data['artist_name'] . ' '  . $data['album_name']);
-      $type = 'album';
+      $type = urlencode('album,track');
     }
     else {
       $q = urlencode($data['artist_name']);
-      $type = 'artist';
+      $type = urlencode('artist');
     }
     curl_setopt($curl, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=' . $type . '&limit=1');
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

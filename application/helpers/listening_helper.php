@@ -73,11 +73,11 @@ if (!function_exists('addListening')) {
       header('HTTP/1.1 400 Bad Request');
       return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
     }
-    if (strpos($opts['text'], DASH)) {
-      $data = array();
-      
+    else if (strpos($opts['text'], DASH)) {
       $ci=& get_instance();
       $ci->load->database();
+
+      $data = array();
 
       // Get user id from session.
       if (!$data['user_id'] = $ci->session->userdata('user_id')) {
@@ -88,11 +88,14 @@ if (!function_exists('addListening')) {
       $data['artist_name'] = trim($data['artist_name']);
       $data['album_name'] = trim($data['album_name']);
       // Check that album exists.
-      $data += getAlbumInfo($data);
-      if (!$data['album_id']) {
-        header('HTTP/1.1 404 Not Found');
-        return json_encode(array('error' => array('msg' => $data)));
+      if (!$data['album_id'] = getAlbumID($data)) {
+        // Try to add if it doesn't.
+        if (!$data['album_id'] = addAlbum($data)) {
+          header('HTTP/1.1 404 Not Found');
+          return json_encode(array('error' => array('msg' => 'Format error.')));
+        }
       }
+
       $data['date'] = trim($opts['date']);
 
       // Get Spotify information.
