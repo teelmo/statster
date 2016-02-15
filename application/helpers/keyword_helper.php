@@ -36,7 +36,8 @@ if (!function_exists('getKeywords')) {
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
                    'keyword' as `type`,
-                   " . TBL_keyword . ".`name`
+                   " . TBL_keyword . ".`name`,
+                   " . TBL_keyword . ".`id` as `tag_id`
                    " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
