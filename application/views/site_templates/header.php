@@ -23,8 +23,8 @@
         <div class="float_left">
           <div class="search_container">
             <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="search_form">
-              <button disabled="disabled" type="submit" class="submit" title="Search…"></button>
-              <input type="text" class="middle search_text" autocomplete="off" tabindex="10" placeholder="Search" name="searchStr" />
+              <button disabled="disabled" type="submit" class="submit" title="Search!"></button>
+              <input type="text" class="middle search_text" autocomplete="off" tabindex="10" placeholder="Search music…" name="searchStr" />
             </form>
           </div>
         </div>
