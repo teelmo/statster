@@ -99,18 +99,18 @@ $.extend(view, {
       statusCode:{
         200: function (data) {
           $.ajax({
+            complete: function () {
+              // setTimeout(view.getTopArtists, 60 * 10 * 1000);
+            },
             data:{
               json_data:data
             },
-            url:'/ajax/columnTable',
-            type:'POST',
             success: function (data) {
               $('#topArtistLoader').hide();
               $('#topArtist').html(data);
             },
-            complete: function () {
-              // setTimeout(view.getTopArtists, 60 * 10 * 1000);
-            }
+            type:'POST',
+            url:'/ajax/columnTable'
           });
         },
         204: function () { // 204 No Content
@@ -216,12 +216,12 @@ $.extend(view, {
     $('#addListeningText').autocomplete({
       html:true,
       minLength:3,
+      open: function () {
+        $(this).removeClass('working');
+      },
       source:'/autoComplete/addListening',
       search: function () {
         $(this).addClass('working');
-      },
-      open: function () {
-        $(this).removeClass('working');
       }
     });
   },
@@ -289,10 +289,10 @@ $.extend(view, {
       $('.listening_format').removeClass('selected');
       $.ajax({
         data:{
-          text:text_value,
-          format:format_value,
           date:$('#addListeningDate').val(),
+          format:format_value,
           submitType:$('input[name="submitType"]').val(),
+          text:text_value
         },
         dataType:'json',
         statusCode:{

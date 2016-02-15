@@ -1,17 +1,13 @@
 $.extend(view, {
   recentlyListened: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listening/get',
       data:{
         limit:4,
       },
+      dataType:'json',
       statusCode:{
         200: function(data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/sideTable',
             data:{
               json_data:data,
               size:64,
@@ -26,35 +22,40 @@ $.extend(view, {
             success: function(data) {
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/sideTable'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/listening/get'
     });
   },
   topArtist: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/artist/get',
       data:{
         limit:5,
         lower_limit:'1970-01-01'
       },
+      dataType:'json',
       statusCode:{
         200: function(data) {
           $.ajax({
-            type:'POST',url:'/ajax/columnTable',
             data:{
               json_data:data,
             },
             success: function(data) {
               $('#topArtistLoader').hide();
               $('#topArtist').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/artist/get'
     });
   }
 });
