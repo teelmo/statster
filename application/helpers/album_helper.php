@@ -21,7 +21,7 @@ if (!function_exists('addAlbum')) {
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
     $data['artist_id'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
     preg_match('/(.*)\(([0-9]{4})\)/', $data['album_info'], $matches);
-    $data['album_name'] = trim($matches[1]);
+    $data['album_name'] = ucwords(trim($matches[1]));
     $data['album_year'] = trim($matches[2]);
 
     if (!empty($data['album_name']) && (intval($data['album_year']) > 1900 && intval($data['album_year']) < (CUR_YEAR + 1))) {
@@ -31,8 +31,8 @@ if (!function_exists('addAlbum')) {
       $query = $ci->db->query($sql, array($data['artist_id'], $data['user_id'], $data['album_name'], $data['album_year']));
       if ($ci->db->affected_rows() === 1) {
         $data['album_id'] = $ci->db->insert_id();
-        $ci->load->helper(array('keyword_helper'));
         $data['tag_name'] = (floor((int)$data['album_year'] / 10) * 10) . '\'s';
+        $ci->load->helper(array('keyword_helper'));
         $data['tag_id'] = getKeywordID($data);
         addKeyword($data);
         return $data['album_id'];
