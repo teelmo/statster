@@ -334,7 +334,7 @@ $.extend(view, {
         })
       ).done(function () {
         $('.chosen-select option').removeAttr('selected');
-        $('#tagAdd select').chosen('updated');
+        $('#tagAdd select').trigger('chosen:updated');
         view.getTags();
       });
       $('#tagAdd').hide();
