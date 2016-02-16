@@ -194,7 +194,7 @@ div.container {
         line-height: 45px;
         margin: auto auto;
         max-width: 1000px;
-        padding-top: 23px;
+        padding: 23px 0 0 2px;
         position: relative;
         z-index: 3;
         .stats {
@@ -835,16 +835,27 @@ form#loginForm input[type="text"] {
 }
 .search_container {
   vertical-align: top;
-  :-webkit-input-placeholder {
+  &:hover {
+    ::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 1);
+      transition-duration: 0.3s;
+    }
+    ::-moz-placeholder {
+      color: rgba(255, 255, 255, 1);
+      transition-duration: 0.3s;
+    }
+    ::-ms-input-placeholder {  
+      color: rgba(255, 255, 255, 1);
+      transition-duration: 0.3s;
+    }
+  }
+  ::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.3);
   }
-  :-moz-placeholder {
+  ::-moz-placeholder {
     color: rgba(255, 255, 255, 0.3);
   }
-  :-moz-placeholder {
-    color: rgba(255, 255, 255, 0.3);
-  }
-  :-ms-input-placeholder {  
+  ::-ms-input-placeholder {  
     color: rgba(255, 255, 255, 0.3);
   }
   .search_form input {
@@ -857,6 +868,15 @@ form#loginForm input[type="text"] {
     &:focus {
       background-color: #111;
       color: #fff;
+      &::-webkit-input-placeholder {
+        color: rgba(255, 255, 255, 1);
+      }
+      &::-moz-placeholder {
+        color: rgba(255, 255, 255, 1);
+      }
+      &::-ms-input-placeholder {  
+        color: rgba(255, 255, 255, 1);
+      }
       &.working {
         background-image: url('/media/img/ajax-loader-circle.gif');
         background-position: 85% 50%;
