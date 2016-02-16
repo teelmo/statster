@@ -19,7 +19,7 @@ var app = {
           if (item_arr[1] != '') {
             item_arr[0] = item_arr[0].trim();
             item_arr[1] = item_arr[1].trim();
-            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(item_arr[0].replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(item_arr[0].replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + '|' + item_arr[1].replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
           }
           else {
             item_arr[0] = item_arr[0].trim();
