@@ -41,6 +41,7 @@ if (!function_exists('addAlbum')) {
         $ci->load->helper(array('keyword_helper'));
         $data['tag_id'] = getKeywordID($data);
         addKeyword($data);
+        getSpotifyResourceId($data);
         return $data['album_id'];
       }
     }
