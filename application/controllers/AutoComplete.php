@@ -59,8 +59,8 @@ class AutoComplete extends CI_Controller {
       if ($query->num_rows() > 0) {
         $results[] = array(
           'img' => '', 
-          'label' => '' . $query->result()[0]->artist_name . ' – ? (year)',
-          'value' => $query->result()[0]->artist_name . ' – '
+          'label' => '' . ${!${false}=$query->result()}[0]->artist_name . ' – ? (year)',
+          'value' => ${!${false}=$query->result()}[0]->artist_name . ' – '
         );
         foreach ($query->result() as $row) {
           $results[] = array(
