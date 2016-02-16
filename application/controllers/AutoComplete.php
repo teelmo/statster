@@ -171,7 +171,7 @@ class AutoComplete extends CI_Controller {
       return;
     }
     else {
-      $$results[] = array(
+      $results[] = array(
           'img' => '',
           'label' => 'No results',
           'value' => $search_str
