@@ -17,18 +17,18 @@ var app = {
         if (this.term.indexOf('–') !== -1) {
           var item_arr = this.term.split('–');
           if (item_arr[1] != '') {
-            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-            item_arr[1] = item_arr[1].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+            item_arr[0] = item_arr[0].trim().replace(/<\/?[^>]+(>|$)/g, '').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+            item_arr[1] = item_arr[1].trim().replace(/<\/?[^>]+(>|$)/g, '').replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
             return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
           }
           else {
-            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/<\/?[^>]+(>|$)/g, '');;
             return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(item_arr[0] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
 
           }
         }
         else {
-          this.term = this.term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+          this.term = this.term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/<\/?[^>]+(>|$)/g, '');;
           return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
         }
       }

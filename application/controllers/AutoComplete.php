@@ -58,8 +58,8 @@ class AutoComplete extends CI_Controller {
       $query = $this->db->query($sql, array($search_str_db_artist, $search_str_db_album, $search_str_db_artist_wc, $search_str_db_album_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'img' => '<img src="/media/img/album_img/32/0.jpg" alt="" />', 
-          'label' => $query->result()[0]->artist_name . ' – ? (year)',
+          'img' => '', 
+          'label' => '' . $query->result()[0]->artist_name . ' – ? (year)',
           'value' => $query->result()[0]->artist_name . ' – '
         );
         foreach ($query->result() as $row) {
@@ -74,15 +74,15 @@ class AutoComplete extends CI_Controller {
         if (strpos($search_str, DASH)) {
           list($data['artist'], $data['album']) = explode(DASH, $search_str);
           $results[] = array(
-            'img' => '<img src="/media/img/album_img/32/0.jpg" alt="" />',
-            'label' => $data['artist'] . ' – ? (year)',
+            'img' => '',
+            'label' => '' . $data['artist'] . ' – ? (year)',
             'value' => $search_str
           );
         }
         else {
           $results[] = array(
             'img' => '',
-            'label' => '<span class="no_results">No results</span>',
+            'label' => 'No results',
             'value' => $search_str
           );
         }
@@ -93,7 +93,7 @@ class AutoComplete extends CI_Controller {
     else {
       $results[] = array(
         'img' => '',
-        'label' => '<span class="no_results">No results</span>',
+        'label' => 'No results',
         'value' => $search_str
       );
       echo json_encode($results);
@@ -120,8 +120,8 @@ class AutoComplete extends CI_Controller {
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Artists</span><span class="meta">(limited to 10)</span>'
-          'value' => '',
+          'label' => '<span class="title">Artists</span><span class="meta">(limited to 10)</span>',
+          'value' => ''
         );
         foreach ($query->result() as $row) {
           $results[] = array(
@@ -162,7 +162,7 @@ class AutoComplete extends CI_Controller {
       if (empty($results)) {
         $results[] = array(
           'img' => '',
-          'label' => '<span class="no_results">No results</span>',
+          'label' => 'No results',
           'value' => $search_str
         );
       }
@@ -173,7 +173,7 @@ class AutoComplete extends CI_Controller {
     else {
       $$results[] = array(
           'img' => '',
-          'label' => '<span class="no_results">No results</span>',
+          'label' => 'No results',
           'value' => $search_str
         );
       echo json_encode($results);
