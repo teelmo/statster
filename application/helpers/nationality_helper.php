@@ -100,8 +100,17 @@ if (!function_exists('addNationality')) {
               INTO " . TBL_nationalities . " (`album_id`, `nationality_id`, `user_id`)
               VALUES (?, ?, ?)";
     $query = $ci->db->query($sql, array($data['album_id'], $data['tag_id'], $data['user_id']));
+
     if ($ci->db->affected_rows() === 1) {
       header('HTTP/1.1 201 Created');
+      // Remove unknown.
+      if ($data['tag_id'] != '242') {
+        $sql = "DELETE 
+                  FROM " . TBL_nationalities . "
+                  WHERE " . TBL_nationalities . ".`album_id` = ?
+                    AND " . TBL_nationalities . ".`nationality_id` = '242'";
+        $query = $ci->db->query($sql, array($data['album_id']));
+      }
       return json_encode(array('success' => array('msg' => $data)));
     }
     else {
