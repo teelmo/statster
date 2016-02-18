@@ -59,7 +59,7 @@ class Music extends CI_Controller {
 
   public function album($artist_name, $album_name) {
     // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'genre_helper', 'output_helper'));
+    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'nationality_helper', 'output_helper'));
 
     $data = array();
     $data['artist_name'] = decode($artist_name);

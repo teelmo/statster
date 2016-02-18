@@ -131,9 +131,19 @@ class Ajax extends CI_Controller {
     }
   }
 
-   public function tagList() {
+  public function tagList() {
     if (!empty($_POST)) {
       $this->load->view('templates/tag_list', $_POST);
+      header('HTTP/1.1 200 OK');
+    }
+    else {
+      exit (ERR_NO_RESULTS);
+    }
+  }
+
+  public function nationalityList() {
+    if (!empty($_POST)) {
+      $this->load->view('templates/nationality_list', $_POST);
       header('HTTP/1.1 200 OK');
     }
     else {

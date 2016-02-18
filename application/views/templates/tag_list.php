@@ -2,9 +2,20 @@
 if (!empty($json_data)) {
   if (is_array($json_data)) {
     foreach ($json_data as $idx => $row) {
-      ?>
-      <li class="tag <?=$row['type']?>"><?=anchor(array($row['type'], url_title($row['name'])), $row['name'])?></li>
-      <?php
+      if ($row['type'] === 'nationality') {
+        ?>
+        <li class="tag <?=$row['type']?>">
+          <?=anchor(array($row['type'], url_title($row['country'])), '<img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['country'] . '" />')?>
+        </li>
+        <?php
+      }
+      else {
+        ?>
+        <li class="tag <?=$row['type']?>">
+          <?=anchor(array($row['type'], url_title($row['name'])), $row['name'])?>
+        </li>
+        <?php
+      }
     }
     if ($logged_in == '1' && empty($hide['add'])) {
       ?>

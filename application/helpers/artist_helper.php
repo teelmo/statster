@@ -100,18 +100,22 @@ if (!function_exists('getArtistListenings')) {
    */
 if (!function_exists('getArtistTags')) {
   function getArtistTags($opts = array()) {
-    $data = array();
     $tags_array = array();
+    $tags_array[] = getArtistNationalities($opts);
     $tags_array[] = getArtistGenres($opts);
     $tags_array[] = getArtistKeywords($opts);
-    foreach ($tags_array as $idx => $tags) {
-      foreach ($tags as $idx => $tag) {
-        $data['tags'][] = $tag;
+
+    if (is_array($tags_array)) {
+      foreach ($tags_array as $idx => $tags) {
+        foreach ($tags as $idx => $tag) {
+          $data['tags'][] = $tag;
+        }
       }
+      uasort($data, '_tagsSortByCount');
+      $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
+      return json_encode($data['tags']);
     }
-    uasort($data, '_tagsSortByCount');
-    $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
-    return json_encode($data['tags']);
+    return array();
   }
 }
 
@@ -175,6 +179,40 @@ if (!function_exists('getArtistKeywords')) {
               AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
               AND " . TBL_artist . ".`id` = ?
             GROUP BY " . TBL_keyword . ".`id`
+            ORDER BY `count` DESC";
+    $query = $ci->db->query($sql, array($artist_id));
+    return ($query->num_rows() > 0) ? $query->result() : array();
+  }
+}
+
+/**
+   * Gets artist's nationalities.
+   *
+   * @param array $opts.
+   *          'artist_id'  => Artist ID
+   *
+   * @return array artist's Nationality information.
+   *
+   */
+if (!function_exists('getArtistNationalities')) {
+  function getArtistNationalities($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
+    $sql = "SELECT count(" . TBL_nationality . ".`id`) as `count`,
+                   " . TBL_nationality . ".`country`,
+                   " . TBL_nationality . ".`country_code`,
+                   'nationality' as `type`
+            FROM " . TBL_nationality . ",
+                 " . TBL_nationalities . ",
+                 " . TBL_artist . ",
+                 " . TBL_album . "
+            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
+              AND " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
+              AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
+              AND " . TBL_artist . ".`id` = ?
+            GROUP BY " . TBL_nationality . ".`id`
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($artist_id));
     return ($query->num_rows() > 0) ? $query->result() : array();

@@ -37,11 +37,25 @@ if (!function_exists('addAlbum')) {
       $query = $ci->db->query($sql, array($data['artist_id'], $data['user_id'], $data['album_name'], $data['album_year']));
       if ($ci->db->affected_rows() === 1) {
         $data['album_id'] = $ci->db->insert_id();
+        // Add decade keyword.
         $data['tag_name'] = (floor((int)$data['album_year'] / 10) * 10) . '\'s';
         $ci->load->helper(array('keyword_helper'));
         $data['tag_id'] = getKeywordID($data);
         addKeyword($data);
+        // Add nationality information.
+        $ci->load->helper(array('artist_helper', 'nationality_helper'));
+        $nationalities = json_decode(getArtistNationalities(array('artist_id' => $data['artist_id'])));
+        if (!empty($nationalities)) {
+          foreach ($nationalities as $key => $nationality) {
+            addNationality(array('album_id' => $data['album_id'], 'tag_id' => $nationality->tag_id));
+          }
+        }
+        else {
+          addNationality(array('album_id' => $data['album_id'], 'tag_id' => '242'));
+        }
+        // Add Spotify resource.
         getSpotifyResourceId($data);
+        // Return album ID.
         return $data['album_id'];
       }
     }
@@ -53,8 +67,8 @@ if (!function_exists('addAlbum')) {
  * Gets album's info.
  *
  * @param array $opts.
- *          'artist_name'  => Artist name
  *          'album_name'   => Album name
+ *          'artist_name'  => Artist name
  *
  * @return array Album information or boolean FALSE.
  */
@@ -124,8 +138,10 @@ if (!function_exists('getAlbumListenings')) {
 if (!function_exists('getAlbumTags')) {
   function getAlbumTags($opts = array()) {
     $tags_array = array();
+    $tags_array[] = getAlbumNationalities($opts);
     $tags_array[] = getAlbumGenres($opts);
     $tags_array[] = getAlbumKeywords($opts);
+
     if (is_array($tags_array)) {
       $data = array();
       foreach ($tags_array as $idx => $tags) {
@@ -135,7 +151,6 @@ if (!function_exists('getAlbumTags')) {
       }
       uasort($data, '_tagsSortByCount');
       $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
-
       return json_encode($data['tags']);
     }
     return array();
@@ -157,7 +172,9 @@ if (!function_exists('getAlbumGenres')) {
     $ci->load->database();
 
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
-    $sql = "SELECT count(" . TBL_genre . ".`id`) as `count`, " . TBL_genre . ".`name`, 'genre' as `type`
+    $sql = "SELECT count(" . TBL_genre . ".`id`) as `count`,
+                   " . TBL_genre . ".`name`,
+                   'genre' as `type`
             FROM " . TBL_genre . ",
                  " . TBL_genres . ",
                  " . TBL_album . "
@@ -186,7 +203,9 @@ if (!function_exists('getAlbumKeywords')) {
     $ci->load->database();
 
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
-    $sql = "SELECT count(" . TBL_keyword . ".`id`) as `count`, " . TBL_keyword . ".`name`, 'keyword' as `type`
+    $sql = "SELECT count(" . TBL_keyword . ".`id`) as `count`,
+                   " . TBL_keyword . ".`name`,
+                   'keyword' as `type`
             FROM " . TBL_keyword . ",
                  " . TBL_keywords . ",
                  " . TBL_album . "
@@ -194,6 +213,38 @@ if (!function_exists('getAlbumKeywords')) {
               AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
               AND " . TBL_album . ".`id` LIKE ?
             GROUP BY " . TBL_keyword . ".`id`
+            ORDER BY `count` DESC";
+    $query = $ci->db->query($sql, array($album_id));
+    return ($query->num_rows() > 0) ? $query->result() : array();
+  }
+}
+
+/**
+   * Gets album's nationalities.
+   *
+   * @param array $opts.
+   *          'album_id'  => Album ID
+   *
+   * @return array album's Nationality information.
+   *
+   */
+if (!function_exists('getAlbumNationalities')) {
+  function getAlbumNationalities($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
+    $sql = "SELECT count(" . TBL_nationality . ".`id`) as `count`,
+                   " . TBL_nationality . ".`country`,
+                   " . TBL_nationality . ".`country_code`,
+                   'nationality' as `type`
+            FROM " . TBL_nationality . ",
+                 " . TBL_nationalities . ",
+                 " . TBL_album . "
+            WHERE " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
+              AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
+              AND " . TBL_album . ".`id` LIKE ?
+            GROUP BY " . TBL_nationality . ".`id`
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($album_id));
     return ($query->num_rows() > 0) ? $query->result() : array();

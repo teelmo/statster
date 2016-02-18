@@ -269,42 +269,6 @@ if (!function_exists('getArtistAlbums')) {
 }
 
 /**
-  * Gets artist's or album's nationalities.
-  *
-  * @param array $opts.
-  *          'username'        => Username
-  *          'artist_name'     => Artist name
-  *          'limit'           => Limit
-  *          'human_readable'  => Output format
-  *
-  * @return array Nationality information or boolean FALSE.
-  *
-  */
-if (!function_exists('getAlbumNationalities')) {
-  function getAlbumNationalities($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '';
-    $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
-                   " . TBL_album . ".`id` as `album_id`,
-                   " . TBL_artist . ".`artist_name`,
-                   " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`year`
-            FROM " . TBL_artist . ",
-                 " . TBL_album . "
-            WHERE " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id` 
-              AND " . TBL_artist . ".`artist_name` = ?
-              AND " . TBL_album . ".`album_name` = ?";
-    $query = $ci->db->query($sql, array($artist_name, $album_name));
-
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
-  }
-}
-
-/**
   * Helper function for sorting tags
   */
 if (!function_exists('_tagsSortByCount')) {

@@ -688,12 +688,20 @@ h3 {
 
 /* Tag styles */
 .tag {
-  background-color: #333;
+  &.moretags,
+  &.genre,
+  &.keyword {
+    background-color: #333;
+    padding: 4px;
+  }
+  &.nationality {
+    position: relative;
+    top: 2px;
+  }
   display: inline-block;
   font-size: 10px;
   letter-spacing: 0.01em;
   margin-bottom: 3px;
-  padding: 4px;
   text-transform: uppercase;
   a, 
   a:visited { 
