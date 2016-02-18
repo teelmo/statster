@@ -42,12 +42,24 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="bar_chart"></div>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h2>Top albums</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
       <ul id="topAlbum" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <div class="more">
+        <?=anchor(array(), 'More', array('title' => 'Browse more albums'))?>
+      </div>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h2>Top artists</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
       <ul id="topArtist" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <div class="more">
+        <?=anchor(array(), 'More', array('title' => 'Browse more artists'))?>
+      </div>
     </div>
   </div>
 

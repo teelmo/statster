@@ -44,7 +44,7 @@ if (!function_exists('addAlbum')) {
         addKeyword($data);
         // Add nationality information.
         $ci->load->helper(array('artist_helper', 'nationality_helper'));
-        $nationalities = json_decode(getArtistNationalities(array('artist_id' => $data['artist_id'])));
+        $nationalities = getArtistNationalities(array('artist_id' => $data['artist_id']));
         if (!empty($nationalities)) {
           foreach ($nationalities as $key => $nationality) {
             addNationality(array('album_id' => $data['album_id'], 'tag_id' => $nationality->tag_id));
@@ -174,6 +174,7 @@ if (!function_exists('getAlbumGenres')) {
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $sql = "SELECT count(" . TBL_genre . ".`id`) as `count`,
                    " . TBL_genre . ".`name`,
+                   " . TBL_genre . ".`id` as `tag_id`,
                    'genre' as `type`
             FROM " . TBL_genre . ",
                  " . TBL_genres . ",
@@ -205,6 +206,7 @@ if (!function_exists('getAlbumKeywords')) {
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $sql = "SELECT count(" . TBL_keyword . ".`id`) as `count`,
                    " . TBL_keyword . ".`name`,
+                   " . TBL_keyword . ".`id` as `tag_id`,
                    'keyword' as `type`
             FROM " . TBL_keyword . ",
                  " . TBL_keywords . ",
@@ -237,6 +239,7 @@ if (!function_exists('getAlbumNationalities')) {
     $sql = "SELECT count(" . TBL_nationality . ".`id`) as `count`,
                    " . TBL_nationality . ".`country`,
                    " . TBL_nationality . ".`country_code`,
+                   " . TBL_nationality . ".`id` as `tag_id`,
                    'nationality' as `type`
             FROM " . TBL_nationality . ",
                  " . TBL_nationalities . ",

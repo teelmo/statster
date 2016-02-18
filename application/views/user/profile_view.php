@@ -35,10 +35,12 @@
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
   <div class="page_links">
-    <?=anchor('recent?u=' . $username, 'Listenings')?>
+    <?=anchor('recent?u=' . $username, 'Library')?>
     <?=anchor('album?u=' . $username, 'Albums')?>
     <?=anchor('artist?u=' . $username, 'Artists')?>
     <?=anchor('tag?u=' . $username, 'Tags')?>
+    <?=anchor('like?u=' . $username, 'Likes')?>
+    <?=anchor('shout?u=' . $username, 'Shots')?>
   </div>
   <div id="leftCont">
     <div class="container">
