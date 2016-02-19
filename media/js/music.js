@@ -20,13 +20,9 @@ $.extend(view, {
         where:where
       },
       dataType:'json',
-      type:'GET',
-      url:'/api/listener/get',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',
-            url:'/ajax/barChart',
             data:{
               json_data:data,
               type:type
@@ -44,7 +40,9 @@ $.extend(view, {
               });
               app.chart.xAxis[0].setCategories(categories, false);
               app.chart.series[0].setData(data, true);
-            }
+            },
+            type:'POST',
+            url:'/ajax/barChart'
           });
         },
         204: function () { // 204 No Content
@@ -52,7 +50,9 @@ $.extend(view, {
           $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {alert('400 Bad Request')}
-      }
+      },
+      type:'GET',
+      url:'/api/listener/get'
     });
   },
   popularGenre: function () {
@@ -63,8 +63,6 @@ $.extend(view, {
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
-      type:'GET',
-      url:'/api/genre/get',
       statusCode:{
         200: function (data) {
           $.ajax({
@@ -85,7 +83,9 @@ $.extend(view, {
         404: function () { // 404 Not found
           alert('404 Not Found');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/genre/get'
     });
   },
   topAlbum: function () {
@@ -96,8 +96,6 @@ $.extend(view, {
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
-      type:'GET',
-      url:'/api/album/get',
       statusCode:{
         200: function (data) {
           $.ajax({
@@ -118,18 +116,18 @@ $.extend(view, {
             url:'/ajax/sideTable'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/album/get'
     });
   },
   recentlyFaned: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/fan/get',
       data:{
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        limit:15
+        limit:15,
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
@@ -147,17 +145,17 @@ $.extend(view, {
             url:'/ajax/likeTable'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/fan/get'
     });
   },
   recentlyLoved: function () {
     $.ajax({
-      type:'GET',
       dataType:'json',
-      url:'/api/love/get',
       data:{
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
-        limit:15
+        limit:15,
+        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       statusCode:{
         200: function (data) {
@@ -176,7 +174,9 @@ $.extend(view, {
             url:'/ajax/likeTable'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/love/get'
     });
   }
 });
