@@ -165,10 +165,12 @@ div.container {
   &.artist_heading_cont {
     background-position: 50% 30%;
     background-repeat: repeat;
+    background-size: cover;
     position: relative;
     z-index: 2;
     &:after {
-      background-color: rgba(0, 0, 0, 0.85);
+      background-color: rgba(0, 0, 0, 0.05);
+      background-image: url('/media/img/artist_cover.png');
       content: '';
       height: 100%;
       position: absolute;
@@ -178,13 +180,13 @@ div.container {
     }
     &.profile_heading_cont {
       &:after {
-        background-color: rgba(0, 0, 0, 0.80);
+        background-color: rgba(0, 0, 0, 0.05);
       }
     }
     &.main_heading_cont {
       height: 100px;
       &:after {
-        background-color: rgba(0, 0, 0, 0.85);
+        background-color: rgba(0, 0, 0, 0.5);
       }
       h1 {
         .user-select(none);
