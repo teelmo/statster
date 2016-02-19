@@ -216,7 +216,7 @@ $.extend(view, {
     $('#addListeningText').autocomplete({
       html:true,
       minLength:3,
-      open: function () {
+      response: function () {
         $(this).removeClass('working');
       },
       source:'/autoComplete/addListening',

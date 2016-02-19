@@ -17,19 +17,39 @@ var app = {
         if (this.term.indexOf('–') !== -1) {
           var item_arr = this.term.split('–');
           if (item_arr[1] != '') {
-            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
-            item_arr[1] = item_arr[1].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
-            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+            item_arr[1] = item_arr[1].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+            if (item.label != item_arr[0] + ' – ') {
+              if (item.img) {
+                return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><div class="cover album_img img40" style="background-image: url(' + item.img + ')"></div>' + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+              }
+              else {
+                return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><span class="no_img">' + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</span></a>').appendTo(ul);
+              }
+            }
+            else {
+              $('#addListeningText').attr('data-placeholder', this.term + ' (yyyy)');
+              return $('<li></li>');
+            }
           }
           else {
-            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/<\/?[^>]+(>|$)/g, '');;
-            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(item_arr[0] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
-
+            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/<\/?[^>]+(>|$)/g, '');
+            if (item.img) {
+              return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><div class="cover album_img img40" style="background-image: url(' + item.img + ')"></div>' + String(item.label).replace(new RegExp(item_arr[0] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+            }
+            else {
+              return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><span class="no_img">' + String(item.label).replace(new RegExp(item_arr[0] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</span></a>').appendTo(ul);
+            }
           }
         }
         else {
-          this.term = this.term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/<\/?[^>]+(>|$)/g, '');;
-          return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a>' + item.img + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+          this.term = this.term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/<\/?[^>]+(>|$)/g, '');
+          if (item.img) {
+            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><div class="cover album_img img40" style="background-image: url(' + item.img + ')"></div>' + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+          }
+          else {
+            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><span class="no_img">' + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</span></a>').appendTo(ul);
+          }
         }
       }
     }
@@ -54,7 +74,9 @@ var app = {
       html:true,
       source:'/autoComplete/search',
       select: function (event, ui) {
-        window.location = ui.item.url;
+        if (ui.item.url !== undefined) {
+          window.location = ui.item.url;
+        }
       },
       search: function () {
         $(this).addClass('working');

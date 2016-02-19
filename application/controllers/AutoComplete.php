@@ -59,7 +59,7 @@ class AutoComplete extends CI_Controller {
       if ($query->num_rows() > 0) {
         $results[] = array(
           'img' => '', 
-          'label' => '' . ${!${false}=$query->result()}[0]->artist_name . ' – ? (year)',
+          'label' => ${!${false}=$query->result()}[0]->artist_name . ' – ',
           'value' => ${!${false}=$query->result()}[0]->artist_name . ' – '
         );
         foreach ($query->result() as $row) {
@@ -71,15 +71,7 @@ class AutoComplete extends CI_Controller {
         }
       }
       else {
-        if (strpos($search_str, DASH)) {
-          list($data['artist'], $data['album']) = explode(DASH, $search_str);
-          $results[] = array(
-            'img' => '',
-            'label' => '' . $data['artist'] . ' – ? (year)',
-            'value' => $search_str
-          );
-        }
-        else {
+        if (!strpos($search_str, DASH)) {
           $results[] = array(
             'img' => '',
             'label' => 'No results',
@@ -120,12 +112,12 @@ class AutoComplete extends CI_Controller {
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Artists</span><span class="meta">(limited to 10)</span>',
+          'label' => '<span class="title">Artists</span>',
           'value' => ''
         );
         foreach ($query->result() as $row) {
           $results[] = array(
-            'img' => '<img src="' . getArtistImg(array('artist_id' => $row->artist_id, 'size' => 32)) . '" alt="" />',
+            'img' => getArtistImg(array('artist_id' => $row->artist_id, 'size' => 64)),
             'label' => $row->artist_name,
             'url' => '/music/' . url_title($row->artist_name),
             'value' => $row->artist_name
@@ -147,12 +139,12 @@ class AutoComplete extends CI_Controller {
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Albums</span><span class="meta">(limited to 10)</span>',
+          'label' => '<span class="title">Albums</span>',
           'value' => '',
         );
         foreach ($query->result() as $row) {
           $results[] = array(
-            'img' => '<img src="' . getAlbumImg(array('album_id' => $row->album_id, 'size' => 32)) . '" alt="" />',
+            'img' => getAlbumImg(array('album_id' => $row->album_id, 'size' => 64)),
             'label' => $row->album_name,
             'url' => '/music/' . url_title($row->artist_name) . '/' . url_title($row->album_name),
             'value' => $row->album_name

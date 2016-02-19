@@ -1,0 +1,65 @@
+/* Autocomplete related styles. */
+ul.ui-autocomplete {
+  background: #fff;
+  border-radius: 0;
+  border: 1px solid #ccc !important;
+  font-size: 14px;
+  margin: 10px 0 0 0;
+  max-height: 450px;
+  overflow-x: hidden;
+  padding: 0;
+  position: fixed !important;
+  top: 31px !important;
+  white-space: nowrap;
+  width: 350px !important;
+  z-index: 2;
+  li.ui-menu-item {
+    border-bottom: 1px dotted #ccc;
+    font-weight: bold;
+    margin: 0;
+    padding-right: 10px;
+    vertical-align: middle;
+  }
+  li.ui-menu-item a {
+    line-height: 40px;
+    padding: 0;
+    vertical-align: middle;
+  }
+  div {
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+  }
+  span.highlight { 
+    color: #3399ff;
+    font-weight: bold;
+  }
+  .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+    border-radius: 0; 
+  }
+  .ui-state-focus {
+    background: #f1f1f1;
+  }
+  .group-result {
+    text-transform: uppercase;
+  }
+
+  /* Search related autocomplete styles */
+  li.header {
+    background-color: #000;
+    border-bottom: 0px;
+    color: #fff;
+    font-size: 11px;
+    height: 24px;
+    line-height: 24px;
+    padding-left: 5px;
+  }
+  li.header span.title {
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  li .no_img {
+    padding-left: 5px;
+  }
+}
