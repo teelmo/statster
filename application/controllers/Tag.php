@@ -25,12 +25,13 @@ class Tag extends CI_Controller {
         }
         $data['lower_limit'] = '1970-01-01';
         $data['upper_limit'] = CUR_DATE;
-        $data['limit'] = 1;
-        $data['group_by'] = TBL_artist . '.`id`';
-        $data['artist'] = ${!${false}=json_decode(getMusicByGenre($data), true)}[0];
         $data['limit'] = 100;
         $data['group_by'] = TBL_listening . '.`user_id`';
         $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
+        $data['limit'] = 1;
+        $data['username'] = $_GET['u'];
+        $data['group_by'] = TBL_artist . '.`id`';
+        $data['artist'] = ${!${false}=json_decode(getMusicByGenre($data), true)}[0];
         if (!empty($type)) {
           $data['type'] = $type;
           $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
@@ -63,17 +64,31 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getKeywordID($data)) {
-        $data['js_include'] = array('tag', 'helpers/chart_helper');
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getKeywordListenings($data);
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getKeywordListenings($data);
         }
+        $data['lower_limit'] = '1970-01-01';
+        $data['upper_limit'] = CUR_DATE;
+        $data['limit'] = 100;
         $data['group_by'] = TBL_listening . '.`user_id`';
-        $data['limit'] = '100';
         $data['listener_count'] = sizeof(json_decode(getMusicByKeyword($data), true));
-
-        $this->load->view('tag/tag_view', $data);
+        $data['limit'] = 1;
+        $data['username'] = $_GET['u'];
+        $data['group_by'] = TBL_artist . '.`id`';
+        $data['artist'] = ${!${false}=json_decode(getMusicByKeyword($data), true)}[0];
+        if (!empty($type)) {
+          $data['type'] = $type;
+          $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
+          $data['js_include'] = array('tags');
+          $data['title'] = ucfirst($type) . 's';
+          $this->load->view('tag/tags_view', $data);
+        }
+        else {
+          $data['js_include'] = array('tag', 'helpers/chart_helper');
+          $this->load->view('tag/tag_view', $data);
+        }
       }
       else {
         show_404();
@@ -94,17 +109,31 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getNationalityID($data)) {
-        $data['js_include'] = array('tag', 'helpers/chart_helper');
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getNationalityListenings($data);
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getNationalityListenings($data);
         }
+        $data['lower_limit'] = '1970-01-01';
+        $data['upper_limit'] = CUR_DATE;
+        $data['limit'] = 100;
         $data['group_by'] = TBL_listening . '.`user_id`';
-        $data['limit'] = '100';
         $data['listener_count'] = sizeof(json_decode(getMusicByNationality($data), true));
-
-        $this->load->view('tag/tag_view', $data);
+        $data['limit'] = 1;
+        $data['username'] = $_GET['u'];
+        $data['group_by'] = TBL_artist . '.`id`';
+        $data['artist'] = ${!${false}=json_decode(getMusicByNationality($data), true)}[0];
+        if (!empty($type)) {
+          $data['type'] = $type;
+          $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
+          $data['js_include'] = array('tags');
+          $data['title'] = ucfirst($type) . 's';
+          $this->load->view('tag/tags_view', $data);
+        }
+        else {
+          $data['js_include'] = array('tag', 'helpers/chart_helper');
+          $this->load->view('tag/tag_view', $data);
+        }
       }
       else {
         show_404();
@@ -131,11 +160,26 @@ class Tag extends CI_Controller {
       if ($data['user_id'] = $this->session->userdata('user_id')) {
         $data += getYearListenings($data);
       }
+      $data['lower_limit'] = '1970-01-01';
+      $data['upper_limit'] = CUR_DATE;
+      $data['limit'] = 100;
       $data['group_by'] = TBL_listening . '.`user_id`';
-      $data['limit'] = '100';
       $data['listener_count'] = sizeof(json_decode(getMusicByYear($data), true));
-
-      $this->load->view('tag/tag_view', $data);
+      $data['limit'] = 1;
+      $data['username'] = $_GET['u'];
+      $data['group_by'] = TBL_artist . '.`id`';
+      $data['artist'] = ${!${false}=json_decode(getMusicByYear($data), true)}[0];
+      if (!empty($type)) {
+        $data['type'] = $type;
+        $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
+        $data['js_include'] = array('tags');
+        $data['title'] = ucfirst($type) . 's';
+        $this->load->view('tag/tags_view', $data);
+      }
+      else {
+        $data['js_include'] = array('tag', 'helpers/chart_helper');
+        $this->load->view('tag/tag_view', $data);
+      }
     }
     else {
       $data['js_include'] = array('years', 'helpers/chart_helper');
