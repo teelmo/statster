@@ -66,8 +66,8 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topMusicLoader').hide();
-          $('#topMusic').html('<?=ERR_NO_RESULTS?>');
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
