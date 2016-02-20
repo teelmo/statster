@@ -8,11 +8,16 @@ ul.ui-autocomplete {
   max-height: 450px;
   overflow-x: hidden;
   padding: 0;
-  position: fixed !important;
-  top: 31px !important;
   white-space: nowrap;
-  width: 350px !important;
   z-index: 2;
+  &#ui-id-1 {
+    position: fixed !important;
+    top: 31px !important;
+    width: 350px !important;
+  }
+  &#ui-id-2 {
+    max-width: 450px !important;
+  }
   li.ui-menu-item {
     border-bottom: 1px dotted #ccc;
     font-weight: bold;
