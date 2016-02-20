@@ -1,4 +1,4 @@
-<div id="headingCont" class="artist_heading_cont tag_heading_cont" style="background-image: url('')">
+<div id="headingCont" class="artist_heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
   <div class="inner">
     <div class="info">
       <div class="top_info tag_info">
@@ -26,7 +26,7 @@
   </div>
 </div>
 <div class="clear"></div>
-<div id="mainCont" class="heading_container_no_image">
+<div id="mainCont">
   <div class="page_links">
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>

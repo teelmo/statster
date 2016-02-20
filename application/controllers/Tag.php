@@ -25,7 +25,10 @@ class Tag extends CI_Controller {
         }
         $data['lower_limit'] = '1970-01-01';
         $data['upper_limit'] = CUR_DATE;
-        $data['limit'] = '100';
+        $data['limit'] = 1;
+        $data['group_by'] = TBL_artist . '.`id`';
+        $data['artist'] = ${!${false}=json_decode(getMusicByGenre($data), true)}[0];
+        $data['limit'] = 100;
         $data['group_by'] = TBL_listening . '.`user_id`';
         $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
         if (!empty($type)) {
