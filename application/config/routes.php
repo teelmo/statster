@@ -68,12 +68,16 @@ $route['music/(:any)'] = "music/artist/$1";
 /* Genres, tags and release years page's routes */
 $route['genre'] = "tag/genre";
 $route['genre/(:any)'] = "tag/genre/$1";
+$route['genre/(:any)/(artist|album)'] = "tag/genre/$1/$2";
 $route['keyword'] = "tag/keyword";
 $route['keyword/(:any)'] = "tag/keyword/$1";
+$route['keyword/(:any)/(artist|album)'] = "tag/genre/$1/$2";
 $route['nationality'] = "tag/nationality";
 $route['nationality/(:any)'] = "tag/nationality/$1";
+$route['nationality/(:any)/(artist|album)'] = "tag/genre/$1/$2";
 $route['year'] = "tag/year";
 $route['year/(:any)'] = "tag/year/$1";
+$route['year/(:any)/(artist|album)'] = "tag/genre/$1/$2";
 
 /* Recent page's routes */
 $route['recent'] = "music/recent";

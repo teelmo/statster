@@ -2,33 +2,43 @@
 class Tag extends CI_Controller {
 
   public function index() {
-    $data['js_include'] = array('tags');
 
+    $data['js_include'] = array('meta');
     $this->load->view('site_templates/header');
-    $this->load->view('tag/tags_view');
+    $this->load->view('tag/meta_view');
     $this->load->view('site_templates/footer', $data);
   }
 
-  public function genre($tag_name = '') {
+  public function genre($tag_name = '', $type = '') {
     // Load helpers
     $this->load->helper(array('genre_helper', 'id_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
-  
+
     $data['tag_type'] = 'genre';
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getGenreID($data)) {
-        $data['js_include'] = array('tag', 'helpers/chart_helper');
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getGenreListenings($data);
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getGenreListenings($data);
         }
-        $data['group_by'] = TBL_listening . '.`user_id`';
+        $data['lower_limit'] = '1970-01-01';
+        $data['upper_limit'] = CUR_DATE;
         $data['limit'] = '100';
+        $data['group_by'] = TBL_listening . '.`user_id`';
         $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
-
-        $this->load->view('tag/tag_view', $data);
+        if (!empty($type)) {
+          $data['type'] = $type;
+          $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
+          $data['js_include'] = array('tags');
+          $data['title'] = ucfirst($type) . 's';
+          $this->load->view('tag/tags_view', $data);
+        }
+        else {
+          $data['js_include'] = array('tag', 'helpers/chart_helper');
+          $this->load->view('tag/tag_view', $data);
+        }
       }
       else {
         show_404();

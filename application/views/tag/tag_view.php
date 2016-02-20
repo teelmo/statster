@@ -49,7 +49,7 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
       <ul id="topAlbum" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
-        <?=anchor(array(), 'More', array('title' => 'Browse more albums'))?>
+        <?=anchor(array(url_title($this->uri->segment(1)), url_title($tag_name), 'album'), 'More', array('title' => 'Browse more albums'))?>
       </div>
     </div>
     <div class="container"><hr /></div>
@@ -58,7 +58,7 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
       <ul id="topArtist" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
-        <?=anchor(array(), 'More', array('title' => 'Browse more artists'))?>
+        <?=anchor(array(url_title($this->uri->segment(1)), url_title($tag_name), 'artist'), 'More', array('title' => 'Browse more artists'))?>
       </div>
     </div>
   </div>
@@ -69,6 +69,9 @@
       <h2>Top listeners</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader" />
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h2>Latest listenings</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader" />
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>

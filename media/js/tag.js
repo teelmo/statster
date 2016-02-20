@@ -11,9 +11,6 @@ $.extend(view, {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
     }
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/tag/get/<?=strtolower($tag_type)?>',
       data:{
         group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
         limit:200,
@@ -21,14 +18,13 @@ $.extend(view, {
         order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
         select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
         tag_id:'<?=$tag_id?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
+      dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',
-            url:'/ajax/barChart',
             data:{
               json_data:data,
               type:type
@@ -46,7 +42,9 @@ $.extend(view, {
               });
               app.chart.xAxis[0].setCategories(categories, false);
               app.chart.series[0].setData(data, true);
-            }
+            },
+            type:'POST',
+            url:'/ajax/barChart'
           });
         },
         204: function () { // 204 No Content
@@ -54,61 +52,61 @@ $.extend(view, {
           $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {alert('400 Bad Request')}
-      }
+      },
+      type:'GET',
+      url:'/api/tag/get/<?=strtolower($tag_type)?>'
     });
   },
   // Get top albums.
   getTopAlbums: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/tag/get',
       data:{
         limit:10,
+        lower_limit:'1970-00-00',
         tag_id:'<?=$tag_id?>',
         tag_type:'<?=$tag_type?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/albumList/124',
             data:{
-              json_data:data,
+              json_data:data
             },
             success: function (data) {
               $('#topAlbumLoader').hide();
               $('#topAlbum').html(data);
             },
+            type:'POST',
+            url:'/ajax/albumList/124'
           });
         },
         204: function () { // 204 No Content
           $('#topAlbumLoader').hide();
           $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/tag/get'
     });
   },
   // Get top artists.
   getTopArtists: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/tag/get',
       data:{
         group_by:'`artist_id`',
         limit:10,
+        lower_limit:'1970-00-00',
         order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC',
         tag_id:'<?=$tag_id?>',
         tag_type:'<?=$tag_type?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/artistList/124',
             data:{
               json_data:data,
             },
@@ -116,26 +114,28 @@ $.extend(view, {
               $('#topArtistLoader').hide();
               $('#topArtist').html(data);
             },
+            type:'POST',
+            url:'/ajax/artistList/124'
           });
         },
         204: function () { // 204 No Content
           $('#topArtistLoader').hide();
           $('#topArtist').html('<?=ERR_NO_RESULTS?>');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/tag/get'
     });
   },
   // Get tag listeners.
   getUsers: function (from, where) {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listener/get',
       data:{
         from:from,
         limit:10,
         where:where
       },
+      dataType:'json',
       statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
@@ -147,12 +147,12 @@ $.extend(view, {
               json_data:data,
               size:32
             },
-            type:'POST',
-            url:'/ajax/userTable',
             success: function(data) {
               $('#topListenerLoader').hide();
               $('#topListener').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/userTable'
           });
         },
         204: function () { // 204 No Content
@@ -163,26 +163,24 @@ $.extend(view, {
           $('#topListenerLoader').hide();
           $('#topListener').html('<?=ERR_BAD_REQUEST?>');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/listener/get'
     });
   },
   // Get tag listenings.
   getListenings: function (from, where) {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listening/get',
       data:{
         from:from,
         limit:10,
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
+      dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',
-            url:'/ajax/sideTable',
             data:{
               hide:{
                 artist:true,
@@ -196,7 +194,9 @@ $.extend(view, {
             success: function (data) {
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/sideTable'
           });
         },
         204: function () { // 204 No Content
@@ -206,7 +206,9 @@ $.extend(view, {
         400: function (data) {
           alert('400 Bad Request')
         }
-      }
+      },
+      type:'GET',
+      url:'/api/listening/get'
     });
   },
   initTagEvents: function () {

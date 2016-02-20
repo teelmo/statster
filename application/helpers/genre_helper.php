@@ -153,8 +153,10 @@ if (!function_exists('getGenreListenings')) {
  *          'group_by'        => Group by argument
  *          'human_readable'  => Output format
  *          'limit'           => Limit
+ *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
  *          'order_by'        => Order by argument
  *          'tag_id'          => Tag id
+ *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
  *
  * @return string JSON encoded data containing album information.
  *
@@ -166,8 +168,10 @@ if (!function_exists('getMusicByGenre')) {
 
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : '`album_id`';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_album . '.`album_name` ASC';
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT count(*) as 'count',
                    " . TBL_artist . ".`artist_name`,
@@ -188,12 +192,13 @@ if (!function_exists('getMusicByGenre')) {
               AND " . TBL_genres . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_genres . ".`genre_id` = ?
             GROUP BY " . $ci->db->escape_str($group_by) . "
             ORDER BY " . $ci->db->escape_str($order_by) . " 
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($username, $tag_id));
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

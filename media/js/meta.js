@@ -4,7 +4,7 @@ $.extend(view, {
       data:{
         limit:7,
         lower_limit:'<?=date('Y-m-d', time() - (30 * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -31,7 +31,7 @@ $.extend(view, {
       data:{
         limit:7,
         lower_limit:'<?=date('Y-m-d', time() - (30 * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -58,7 +58,7 @@ $.extend(view, {
       data:{
         limit:15,
         lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
