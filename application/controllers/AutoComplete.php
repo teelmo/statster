@@ -146,6 +146,93 @@ class AutoComplete extends CI_Controller {
           );
         }
       }
+      // Genres search.
+      $sql = "SELECT " . TBL_genre . ".`id` as genre_id,
+                     " . TBL_genre . ".`name`
+              FROM " . TBL_genre . "
+              WHERE " . TBL_genre . ".`name` LIKE ?
+              ORDER BY " . TBL_genre . ".`name`
+              LIMIT 0, 10";
+      $query = $this->db->query($sql, array($search_str_wc));
+      if ($query->num_rows() > 0) {
+        $results[] = array(
+          'label' => '<span class="title">Genres</span>',
+          'value' => '',
+        );
+        foreach ($query->result() as $row) {
+          $results[] = array(
+            'img' => '',
+            'label' => $row->name,
+            'url' => '/genre/' . url_title($row->name),
+            'value' => $row->name
+          );
+        }
+      }
+      // Keywords search.
+      $sql = "SELECT " . TBL_keyword . ".`id` as keyword_id,
+                     " . TBL_keyword . ".`name`
+              FROM " . TBL_keyword . "
+              WHERE " . TBL_keyword . ".`name` LIKE ?
+              ORDER BY " . TBL_keyword . ".`name`
+              LIMIT 0, 10";
+      $query = $this->db->query($sql, array($search_str_wc));
+      if ($query->num_rows() > 0) {
+        $results[] = array(
+          'label' => '<span class="title">Keywords</span>',
+          'value' => '',
+        );
+        foreach ($query->result() as $row) {
+          $results[] = array(
+            'img' => '',
+            'label' => $row->name,
+            'url' => '/keyword/' . url_title($row->name),
+            'value' => $row->name
+          );
+        }
+      }
+      // Nationalities search.
+      $sql = "SELECT " . TBL_nationality . ".`id` as nationality_id,
+                     " . TBL_nationality . ".`country`
+              FROM " . TBL_nationality . "
+              WHERE " . TBL_nationality . ".`country` LIKE ?
+              ORDER BY " . TBL_nationality . ".`country`
+              LIMIT 0, 10";
+      $query = $this->db->query($sql, array($search_str_wc));
+      if ($query->num_rows() > 0) {
+        $results[] = array(
+          'label' => '<span class="title">Nationalities</span>',
+          'value' => '',
+        );
+        foreach ($query->result() as $row) {
+          $results[] = array(
+            'img' => '',
+            'label' => $row->country,
+            'url' => '/nationality/' . url_title($row->country),
+            'value' => $row->country
+          );
+        }
+      }
+      // Years search.
+      $sql = "SELECT DISTINCT " . TBL_album . ".`year`
+              FROM " . TBL_album . "
+              WHERE " . TBL_album . ".`year` LIKE ?
+              ORDER BY " . TBL_album . ".`year`
+              LIMIT 0, 10";
+      $query = $this->db->query($sql, array($search_str_wc));
+      if ($query->num_rows() > 0) {
+        $results[] = array(
+          'label' => '<span class="title">Years</span>',
+          'value' => '',
+        );
+        foreach ($query->result() as $row) {
+          $results[] = array(
+            'img' => '',
+            'label' => $row->year,
+            'url' => '/year/' . url_title($row->year),
+            'value' => $row->year
+          );
+        }
+      }
       if (empty($results)) {
         $results[] = array(
           'img' => '',
