@@ -13,7 +13,7 @@ $.extend(view, {
       },
       data:{
         limit:12,
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -58,7 +58,7 @@ $.extend(view, {
       data:{
         limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -93,7 +93,7 @@ $.extend(view, {
       data:{
         limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -128,7 +128,7 @@ $.extend(view, {
       data:{
         limit:15,
         lower_limit:'<?=date('Y-m-d', time() - (90 * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>' 
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>' 
       },
       dataType:'json',
       statusCode:{
@@ -173,7 +173,7 @@ $.extend(view, {
         limit:15,
         order_by:'album.year DESC, album.created DESC',
         lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{

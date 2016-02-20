@@ -39,12 +39,11 @@ $.extend(view, {
       var vars = {
         container:'#topGenre' + year,
         limit:3,
+        size:32,
         template:'/ajax/sideTable',
         hide:{
           calendar:true,
-          calendar:true,
           date:true,
-          size:32,
           spotify:true
         }
       }

@@ -5,8 +5,8 @@ $.extend(view, {
       dataType:'json',
       url:'/api/listener/get',
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:100      },
       statusCode:{
         200: function(data) { // 200 OK
@@ -36,15 +36,15 @@ $.extend(view, {
       dataType:'json',
       url:'/api/listening/get',
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:14
       },
       statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
             type:'POST',
-            url:'<?php echo !empty($album_name) ? '/ajax/userTable' : '/ajax/sideTable'?>',
+            url:'<?=(!empty($album_name)) ? '/ajax/userTable' : '/ajax/sideTable'?>',
             data:{
               json_data:data,
               size:32,

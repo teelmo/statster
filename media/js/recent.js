@@ -6,9 +6,9 @@ $.extend(view, {
       url:'/api/listening/get',
       data:{
         limit:<?=($artist_name) ? 1000 : 100?>,
-        artist_name:'<?php echo $artist_name?>',
-        album_name:'<?php echo $album_name?>',
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        artist_name:'<?=$artist_name?>',
+        album_name:'<?=$album_name?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       statusCode:{
         200: function (data) { // 200 OK
@@ -48,8 +48,8 @@ $.extend(view, {
       dataType:'json',
       url:'/api/listener/get',
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:14
       },
       statusCode:{

@@ -17,7 +17,7 @@ $.extend(view, {
         limit:200,
         order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
         select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
-        username:'<?php echo !empty($username) ? $username: ''?>',
+        username:'<?=(!empty($username)) ? $username: ''?>',
         where:where
       },
       dataType:'json',
@@ -56,7 +56,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:12,
-        username:'<?php echo !empty($username) ? $username: ''?>'
+        username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -93,7 +93,7 @@ $.extend(view, {
       data:{
         limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($username) ? $username: ''?>'
+        username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -131,7 +131,7 @@ $.extend(view, {
       data:{
         limit:10,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-        username:'<?php echo !empty($username) ? $username: ''?>'
+        username:'<?=(!empty($username)) ? $username: ''?>'
       },
       statusCode:{
         200: function (data) {
@@ -161,7 +161,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        username:'<?php echo !empty($username) ? $username: ''?>'
+        username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -191,7 +191,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        username:'<?php echo !empty($username) ? $username: ''?>'
+        username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
       statusCode:{

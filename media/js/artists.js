@@ -5,14 +5,14 @@ $.extend(view, {
         limit:10,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
             data:{
-              json_data:data,
+              json_data:data
             },
             success: function (data) {
               $('#topArtist10Loader').hide();
@@ -33,7 +33,7 @@ $.extend(view, {
         limit:vars.limit,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -47,7 +47,7 @@ $.extend(view, {
             },
             success: function (data) {
               $(vars.container + 'Loader').hide();
-              $(vars.container + '').html(data);
+              $(vars.container).html(data);
             },
             type:'POST',
             url:vars.template
@@ -55,7 +55,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?php echo ERR_NO_DATA?>');
+          $(vars.container).html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
@@ -69,9 +69,10 @@ $.extend(view, {
         container:'#topArtist' + year,
         hide:{
           calendar:true,
-          date:true
+          date:true,
+          spotify:true
         },
-        limit:'0,5',
+        limit:5,
         template:'/ajax/sideTable'
       }
       view.topArtist(year + '-00-00', year + '-12-31', vars);

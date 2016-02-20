@@ -2,10 +2,8 @@ $.extend(view, {
   // Get users.
   getUsers: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/user/get',
       data:{},
+      dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
@@ -26,7 +24,9 @@ $.extend(view, {
         404: function () { // 404 Not found
           alert('404 Not Found');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/user/get'
     });
   }
 });
