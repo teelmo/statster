@@ -40,7 +40,7 @@
     <?=anchor('artist?u=' . $username, 'Artists')?>
     <?=anchor('tag?u=' . $username, 'Tags')?>
     <?=anchor('like?u=' . $username, 'Likes')?>
-    <?=anchor('shout?u=' . $username, 'Shots')?>
+    <!--<?=anchor('shout?u=' . $username, 'Shouts')?>-->
   </div>
   <div id="leftCont">
     <div class="container">
