@@ -2,22 +2,23 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Returns top years for the given user.
- *
- * @param array $opts.
- *          'album'           => Album name
- *          'artist'          => Artist name
- *          'group_by'        => Group by argument
- *          'human_readable'  => Output format
- *          'limit'           => Limit
- *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
- *          'order_by'        => Order by argument
- *          'tag_id'          => Year
- *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
- *          'username'        => Username
- *
- * @return string JSON encoded the data.
- */
+  * Returns top years for the given user.
+  *
+  * @param array $opts.
+  *          'album'           => Album name
+  *          'artist'          => Artist name
+  *          'group_by'        => Group by argument
+  *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'order_by'        => Order by argument
+  *          'tag_id'          => Year
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
+  *          'username'        => Username
+  *          'where'           => Where
+  *
+  * @return string JSON encoded the data.
+  */
 if (!function_exists('getYears')) {
   function getYears($opts = array()) {
     $ci=& get_instance();
@@ -121,18 +122,18 @@ if (!function_exists('getYearListenings')) {
   }
 }
 /**
- * Returns top music for given year.
- *
- * @param array $opts.
- *          'group_by'        => Group by argument
- *          'human_readable'  => Output format
- *          'limit'           => Limit
- *          'order_by'        => Order by argument
- *          'tag_id'          => Year
- *
- * @return string JSON encoded data containing album information.
- *
- **/
+  * Returns top music for given year.
+  *
+  * @param array $opts.
+  *          'group_by'        => Group by argument
+  *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'order_by'        => Order by argument
+  *          'tag_id'          => Year
+  *
+  * @return string JSON encoded data containing album information.
+  *
+  **/
 if (!function_exists('getMusicByYear')) {
   function getMusicByYear($opts = array()) {
     $ci=& get_instance();

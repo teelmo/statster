@@ -2,22 +2,22 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Returns top nationalities for the given user.
- *
- * @param array $opts.
- *          'album_name'      => Album name
- *          'artist_name'     => Artist name
- *          'group_by'        => Group by argument
- *          'human_readable'  => Output format
- *          'limit'           => Limit
- *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
- *          'order_by'        => Order by argument
- *          'tag_id'          => Tag id
- *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
- *          'username'        => Username
- *
- * @return string JSON encoded data containing album information.
- */
+  * Returns top nationalities for the given user.
+  *
+  * @param array $opts.
+  *          'album_name'      => Album name
+  *          'artist_name'     => Artist name
+  *          'group_by'        => Group by argument
+  *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'order_by'        => Order by argument
+  *          'tag_id'          => Tag id
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
+  *          'username'        => Username
+  *
+  * @return string JSON encoded data containing album information.
+  */
 if (!function_exists('getNationalities')) {
   function getNationalities($opts = array()) {
     $ci=& get_instance();
@@ -155,18 +155,18 @@ if (!function_exists('getNationalityListenings')) {
 }
 
 /**
- * Returns top music for given nationality.
- *
- * @param array $opts.
- *          'group_by'        => Group by argument
- *          'human_readable'  => Output format
- *          'limit'           => Limit
- *          'order_by'        => Order by argument
- *          'tag_id'          => Tag id
- *
- * @return string JSON encoded data containing album information.
- *
- **/
+  * Returns top music for given nationality.
+  *
+  * @param array $opts.
+  *          'group_by'        => Group by argument
+  *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'order_by'        => Order by argument
+  *          'tag_id'          => Tag id
+  *
+  * @return string JSON encoded data containing album information.
+  *
+  **/
 if (!function_exists('getMusicByNationality')) {
   function getMusicByNationality($opts = array()) {
     $ci=& get_instance();

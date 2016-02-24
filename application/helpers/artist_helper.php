@@ -2,14 +2,14 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Add new album.
- *
- * @param array $opts.
- *          'artist_name'  => Artist name
- *          'user_id'      => User ID
- *
- * @return array Artist ID or boolean FALSE.
- */
+  * Add new album.
+  *
+  * @param array $opts.
+  *          'artist_name'  => Artist name
+  *          'user_id'      => User ID
+  *
+  * @return array Artist ID or boolean FALSE.
+  */
 if (!function_exists('addArtist')) {
   function addArtist($opts = array()) {
     $ci=& get_instance();
@@ -33,13 +33,13 @@ if (!function_exists('addArtist')) {
 }
 
 /**
- * Gets artist's info.
- *
- * @param array $opts.
- *          'artist_name'  => Artist name
- *
- * @return array Artist information or boolean FALSE.
- */
+  * Gets artist's info.
+  *
+  * @param array $opts.
+  *          'artist_name'  => Artist name
+  *
+  * @return array Artist information or boolean FALSE.
+  */
 if (!function_exists('getArtistInfo')) {
   function getArtistInfo($opts = array()) {
     $ci=& get_instance();

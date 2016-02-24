@@ -2,22 +2,22 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Returns top genres for the given user.
- *
- * @param array $opts.
- *          'album'           => Album name
- *          'artist'          => Artist name
- *          'group_by'        => Group by argument
- *          'human_readable'  => Output format
- *          'limit'           => Limit
- *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
- *          'order_by'        => Order by argument
- *          'tag_id'          => Tag id
- *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
- *          'username'        => Username
- *
- * @return string JSON encoded the data
- */
+  * Returns top genres for the given user.
+  *
+  * @param array $opts.
+  *          'album'           => Album name
+  *          'artist'          => Artist name
+  *          'group_by'        => Group by argument
+  *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'order_by'        => Order by argument
+  *          'tag_id'          => Tag id
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
+  *          'username'        => Username
+  *
+  * @return string JSON encoded the data
+  */
 if (!function_exists('getGenres')) {
   function getGenres($opts = array()) {
     $ci=& get_instance();
@@ -147,20 +147,20 @@ if (!function_exists('getGenreListenings')) {
 }
 
 /**
- * Returns top music for given genre.
- *
- * @param array $opts.
- *          'group_by'        => Group by argument
- *          'human_readable'  => Output format
- *          'limit'           => Limit
- *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
- *          'order_by'        => Order by argument
- *          'tag_id'          => Tag id
- *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
- *
- * @return string JSON encoded data containing album information.
- *
- **/
+  * Returns top music for given genre.
+  *
+  * @param array $opts.
+  *          'group_by'        => Group by argument
+  *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'order_by'        => Order by argument
+  *          'tag_id'          => Tag id
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
+  *
+  * @return string JSON encoded data containing album information.
+  *
+  **/
 if (!function_exists('getMusicByGenre')) {
   function getMusicByGenre($opts = array()) {
     $ci=& get_instance();

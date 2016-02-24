@@ -2,15 +2,15 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Add new album.
- *
- * @param array $opts.
- *          'album_name'   => Album info containing year
- *          'artist_name'  => Artist name
- *          'user_id'      => User ID
- *
- * @return array Album ID or boolean FALSE.
- */
+  * Add new album.
+  *
+  * @param array $opts.
+  *          'album_name'   => Album info containing year
+  *          'artist_name'  => Artist name
+  *          'user_id'      => User ID
+  *
+  * @return array Album ID or boolean FALSE.
+  */
 if (!function_exists('addAlbum')) {
   function addAlbum($opts = array()) {
     $ci=& get_instance();
@@ -64,14 +64,14 @@ if (!function_exists('addAlbum')) {
 }
 
 /**
- * Gets album's info.
- *
- * @param array $opts.
- *          'album_name'   => Album name
- *          'artist_name'  => Artist name
- *
- * @return array Album information or boolean FALSE.
- */
+  * Gets album's info.
+  *
+  * @param array $opts.
+  *          'album_name'   => Album name
+  *          'artist_name'  => Artist name
+  *
+  * @return array Album information or boolean FALSE.
+  */
 if (!function_exists('getAlbumInfo')) {
   function getAlbumInfo($opts = array()) {
     $ci=& get_instance();

@@ -2,14 +2,14 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-   * Get path to user's profile image.
-   *
-   * @param array $opts.
-   *          'size'     => Desired image size
-   *          'user_id'  => User ID
-   *
-   * @return string Absolute path to image file.
-   */
+  * Get path to user's profile image.
+  *
+  * @param array $opts.
+  *          'size'     => Desired image size
+  *          'user_id'  => User ID
+  *
+  * @return string Absolute path to image file.
+  */
 if (!function_exists('getUserImg')) {
   function getUserImg($opts = array()) {
     $ci=& get_instance();
@@ -27,14 +27,14 @@ if (!function_exists('getUserImg')) {
 }
 
 /**
-   * Get path to artist's art.
-   *
-   * @param array $opts.
-   *          'size'        => Desired image size
-   *          'artist_id'   => Artist ID
-   *
-   * @return string Absolute path to image file.
-   */
+  * Get path to artist's art.
+  *
+  * @param array $opts.
+  *          'size'        => Desired image size
+  *          'artist_id'   => Artist ID
+  *
+  * @return string Absolute path to image file.
+  */
 if (!function_exists('getArtistImg')) {
   function getArtistImg($opts = array()) {
     $ci=& get_instance();
@@ -52,14 +52,14 @@ if (!function_exists('getArtistImg')) {
 }
 
 /**
-   * Get path to album's art.
-   *
-   * @param array $opts.
-   *          'size'      => Desired image size
-   *          'album_id'  => Artist ID
-   *
-   * @return string Absolute path to image file.
-   */
+  * Get path to album's art.
+  *
+  * @param array $opts.
+  *          'size'      => Desired image size
+  *          'album_id'  => Artist ID
+  *
+  * @return string Absolute path to image file.
+  */
 if (!function_exists('getAlbumImg')) {
   function getAlbumImg($opts = array()) {
     $ci=& get_instance();
@@ -77,14 +77,14 @@ if (!function_exists('getAlbumImg')) {
 }
 
 /**
-   * Collection function for getting the listening's
-   * format or format type information 
-   *
-   * @param array $opts.
-   *          'listening_id'  => Listening ID
-   *
-   * @return string Absolute path to image file.
-   */
+  * Collection function for getting the listening's
+  * format or format type information 
+  *
+  * @param array $opts.
+  *          'listening_id'  => Listening ID
+  *
+  * @return string Absolute path to image file.
+  */
 if (!function_exists('getListeningsFormatImg')) {
   function getListeningsFormatImg($opts = array()) {
     $format_type_img = getFormatTypeImg($opts);
@@ -102,13 +102,13 @@ if (!function_exists('getListeningsFormatImg')) {
 }    
 
 /**
-   * Get listening's format image.
-   *
-   * @param array $opts.
-   *          'listening_id'  => Listening ID
-   *
-   * @return string Absolute path to image file.
-   */
+  * Get listening's format image.
+  *
+  * @param array $opts.
+  *          'listening_id'  => Listening ID
+  *
+  * @return string Absolute path to image file.
+  */
 if (!function_exists('getFormatImg')) {
   function getFormatImg($opts = array()) {
     $ci=& get_instance();
@@ -134,13 +134,13 @@ if (!function_exists('getFormatImg')) {
 }
 
 /**
-   * Get listening's format type image.
-   *
-   * @param array $opts.
-   *          'listening_id'  => Listening ID
-   *
-   * @return string Absolute path to image file.
-   */
+  * Get listening's format type image.
+  *
+  * @param array $opts.
+  *          'listening_id'  => Listening ID
+  *
+  * @return string Absolute path to image file.
+  */
 if (!function_exists('getFormatTypeImg')) {
   function getFormatTypeImg($opts = array()) {
     $ci=& get_instance();

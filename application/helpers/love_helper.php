@@ -2,14 +2,16 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Tells if the given album is loved by the given user.
- *
- * @param array $opts.
- *          'album_id'  => Album ID
- *          'user_id'   => User ID
- *
- * @return string JSON.
- */
+  * Tells if the given album is loved by the given user.
+  *
+  * @param array $opts.
+  *          'album_id'  => Album ID
+  *          'limit'     => Limit
+  *          'user_id'   => User ID
+  *          'username'  => Username
+  *
+  * @return string JSON.
+  */
 if (!function_exists('getLove')) {
   function getLove($opts = array()) {
     $ci=& get_instance();
@@ -17,10 +19,20 @@ if (!function_exists('getLove')) {
     
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
-    $sql = "SELECT " . TBL_love . ".`id`, " . TBL_album . ".`id` as `album_id`, ". TBL_artist . ".`artist_name`, " . TBL_album . ".`album_name`, " . TBL_user . ".`username`, " . TBL_love . ".`created`, 'love' as `type`
-            FROM " . TBL_love . ", " . TBL_artist . ", " . TBL_album . ", " . TBL_user . "
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $select = !empty($opts['select']) ? $opts['select'] : '%';
+    $sql = "SELECT " . TBL_love . ".`id`,
+                   " . TBL_album . ".`id` as `album_id`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_album . ".`album_name`,
+                   " . TBL_user . ".`username`,
+                   " . TBL_love . ".`created`,
+                   'love' as `type`
+            FROM " . TBL_love . ",
+                 " . TBL_artist . ",
+                 " . TBL_album . ",
+                 " . TBL_user . "
             WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
@@ -37,13 +49,50 @@ if (!function_exists('getLove')) {
 }
 
 /**
- * Add love information
- *
- * @param array $opts.
- *          'album_id'  => Album ID
- *
- * @return string JSON.
- */
+  * Get most loved albums.
+  *
+  * @param array $opts.
+  *          'album_id'  => Album ID
+  *          'limit'     => Limit
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getLoves')) {
+  function getLoves($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $sql = "SELECT count(*) as `count`,
+                   " . TBL_album . ".`id` as `album_id`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_album . ".`album_name`,
+                   'love' as `type`
+            FROM " . TBL_love . ",
+                 " . TBL_artist . ",
+                 " . TBL_album . "
+            WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_love . ".`album_id` LIKE ?
+            GROUP BY " . TBL_love . ".`album_id`
+            ORDER BY `count` DESC
+            LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array($album_id));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Add love information
+  *
+  * @param array $opts.
+  *          'album_id'  => Album ID
+  *
+  * @return string JSON.
+  */
 if (!function_exists('addLove')) {
   function addLove($album_id) {
     $ci=& get_instance();
@@ -68,13 +117,13 @@ if (!function_exists('addLove')) {
 }
 
 /**
- * Delete love information
- *
- * @param array $opts.
- *          'album_id'  => Album ID
- *
- * @return string JSON.
- */
+  * Delete love information
+  *
+  * @param array $opts.
+  *          'album_id'  => Album ID
+  *
+  * @return string JSON.
+  */
 if (!function_exists('deleteLove')) {
   function deleteLove($album_id) {
     $ci=& get_instance();

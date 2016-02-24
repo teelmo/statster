@@ -2,15 +2,16 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-   * Tells if the given artist is faned by the given user.
-   *
-   * @param array $opts.
-   *          'user_id'   => User ID
-   *          'artist_id' => Artist ID
-   *          'limit'     => Limit
-   *
-   * @return string JSON.
-   */
+  * Tells if the given artist is faned by the given user.
+  *
+  * @param array $opts.
+  *          'artist_id' => Artist ID
+  *          'limit'     => Limit
+  *          'user_id'   => User ID
+  *          'username'  => Username
+  *
+  * @return string JSON.
+  */
 if (!function_exists('getFan')) {
   function getFan($opts = array()) {
     $ci=& get_instance();
@@ -18,10 +19,17 @@ if (!function_exists('getFan')) {
 
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
-    $sql = "SELECT " . TBL_fan . ".`id`, " . TBL_artist . ".`id` as `artist_id`, " . TBL_artist . ".`artist_name`, " . TBL_user . ".`username`, " . TBL_fan . ".`created`, 'fan' as `type`
-            FROM " . TBL_fan . ", " . TBL_artist . ", " . TBL_user . "
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $sql = "SELECT " . TBL_fan . ".`id`,
+                   " . TBL_artist . ".`id` as `artist_id`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_user . ".`username`,
+                   " . TBL_fan . ".`created`,
+                   'fan' as `type`
+            FROM " . TBL_fan . ",
+                 " . TBL_artist . ",
+                 " . TBL_user . "
             WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_fan . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_fan . ".`artist_id` LIKE ?
@@ -37,13 +45,47 @@ if (!function_exists('getFan')) {
 }
 
 /**
- * Add fan information
- *
- * @param array $opts.
- *          'artist_id'  => Artist ID
- *
- * @return string JSON.
- */
+  * Get most faned artists.
+  *
+  * @param array $opts.
+  *          'artist_id'  => Artist ID
+  *          'limit'      => Limit
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getLoves')) {
+  function getFans($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $sql = "SELECT count(*) as `count`,
+                   " . TBL_artist . ".`id` as `artist_id`,
+                   " . TBL_artist . ".`artist_name`,
+                   'fan' as `type`
+            FROM " . TBL_fan . ",
+                 " . TBL_artist . "
+            WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_fan . ".`artist_id` LIKE ?
+            GROUP BY " . TBL_fan . ".`artist_id`
+            ORDER BY `count` DESC
+            LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array($artist_id));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Add fan information
+  *
+  * @param array $opts.
+  *          'artist_id'  => Artist ID
+  *
+  * @return string JSON.
+  */
 if (!function_exists('addFan')) {
   function addFan($artist_id) {
     $ci=& get_instance();
@@ -68,13 +110,13 @@ if (!function_exists('addFan')) {
 }
 
 /**
- * Delete fan information
- *
- * @param array $opts.
- *          'artist_id'  => Artist ID
- *
- * @return string JSON.
- */
+  * Delete fan information
+  *
+  * @param array $opts.
+  *          'artist_id'  => Artist ID
+  *
+  * @return string JSON.
+  */
 if (!function_exists('deleteFan')) {
   function deleteFan($artist_id) {
     $ci=& get_instance();

@@ -3,13 +3,13 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 if (!function_exists('indentJSON')) {
   /**
-   * Indents a flat JSON string to make it more human-readable.
-   * @see http://recursive-design.com/blog/2008/03/11/format-json-with-php/
-   *
-   * @param string $json The original JSON string to process.
-   *
-   * @return string Indented version of the original JSON string.
-   */
+  * Indents a flat JSON string to make it more human-readable.
+  * @see http://recursive-design.com/blog/2008/03/11/format-json-with-php/
+  *
+  * @param string $json The original JSON string to process.
+  *
+  * @return string Indented version of the original JSON string.
+  */
   function indentJSON($json) {
     $result      = '';
     $pos         = 0;
@@ -62,13 +62,13 @@ if (!function_exists('indentJSON')) {
 
 if (!function_exists('timeAgo')) {
   /**
-   * Converts datetimes to timeago strings
-   * @see http://tutorialfeed.net/development/timeago-style-php-timestamps
-   *
-   * @param string $ptime Datetime.
-   *
-   * @return string Time ago style formatted version of the given datetime.
-   */
+  * Converts datetimes to timeago strings
+  * @see http://tutorialfeed.net/development/timeago-style-php-timestamps
+  *
+  * @param string $ptime Datetime.
+  *
+  * @return string Time ago style formatted version of the given datetime.
+  */
   function timeAgo($ptime) {
     $ptime = substr($ptime, 0, 10);
     $etime = time() - strtotime($ptime);
@@ -96,14 +96,14 @@ if (!function_exists('timeAgo')) {
 }
 
 /**
- * A helper function for returning music helper's responces.
- *
- * @param object $query.
- *
- * @param string $human_readable.
- *
- * @return string JSON.
- */
+  * A helper function for returning music helper's responces.
+  *
+  * @param object $query.
+  *
+  * @param string $human_readable.
+  *
+  * @return string JSON.
+  */
 if (!function_exists('_json_return_helper')) {
   function _json_return_helper($query, $human_readable) {
     if ($query->num_rows() > 0) {

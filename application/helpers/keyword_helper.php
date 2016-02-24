@@ -2,22 +2,22 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Returns top keywords for the given user.
- *
- * @param array $opts.
- *          'album'           => Album name
- *          'artist'          => Artist name
- *          'group_by'        => Group by argument
- *          'human_readable'  => Output format
- *          'limit'           => Limit
- *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
- *          'order_by'        => Order by argument
- *          'tag_id'          => Tag id
- *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
- *          'username'        => Username
- *
- * @return string JSON encoded the data.
- */
+  * Returns top keywords for the given user.
+  *
+  * @param array $opts.
+  *          'album'           => Album name
+  *          'artist'          => Artist name
+  *          'group_by'        => Group by argument
+  *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'order_by'        => Order by argument
+  *          'tag_id'          => Tag id
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
+  *          'username'        => Username
+  *
+  * @return string JSON encoded the data.
+  */
 if (!function_exists('getKeywords')) {
   function getKeywords($opts = array()) {
     $ci=& get_instance();
@@ -146,18 +146,18 @@ if (!function_exists('getKeywordListenings')) {
 }
 
 /**
- * Returns top music for given keyword.
- *
- * @param array $opts.
- *          'group_by'        => Group by argument
- *          'human_readable'  => Output format
- *          'limit'           => Limit
- *          'order_by'        => Order by argument
- *          'tag_id'          => Keyword id
- *
- * @return string JSON encoded data containing album information.
- *
- **/
+  * Returns top music for given keyword.
+  *
+  * @param array $opts.
+  *          'group_by'        => Group by argument
+  *          'human_readable'  => Output format
+  *          'limit'           => Limit
+  *          'order_by'        => Order by argument
+  *          'tag_id'          => Keyword id
+  *
+  * @return string JSON encoded data containing album information.
+  *
+  **/
 if (!function_exists('getMusicByKeyword')) {
   function getMusicByKeyword($opts = array()) {
     $ci=& get_instance();

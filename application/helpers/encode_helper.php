@@ -2,13 +2,13 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Convert elements so that they can be used in urls
- *
- * @param string $url.
- *
- * @return string url encoded string.
- *
- */
+  * Convert elements so that they can be used in urls
+  *
+  * @param string $url.
+  *
+  * @return string url encoded string.
+  *
+  */
 if (!function_exists('url_title')) {
   function url_title($url) {
     $search = array('#','?','+','/',' ','&','"','<','>');
@@ -18,13 +18,13 @@ if (!function_exists('url_title')) {
 }
 
 /**
- * Convert a string so that it can be used by the system
- *
- * @param string $str.
- *
- * @return string str decoded string.
- *
- */
+  * Convert a string so that it can be used by the system
+  *
+  * @param string $str.
+  *
+  * @return string str decoded string.
+  *
+  */
 if (!function_exists('decode')) {
   function decode($str) {
     return html_entity_decode(rawurldecode(urldecode(urldecode($str))));

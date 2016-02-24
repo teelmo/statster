@@ -2,13 +2,13 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-   * Get artist's ID.
-   *
-   * @param array $opts.
-   *          'artist_name'  => Artist name
-   *
-   * @return int Artist ID or boolean FALSE.
-   */
+  * Get artist's ID.
+  *
+  * @param array $opts.
+  *          'artist_name'  => Artist name
+  *
+  * @return int Artist ID or boolean FALSE.
+  */
 if (!function_exists('getArtistID')) {
   function getArtistID($opts = array()) {
     $ci=& get_instance();
@@ -25,15 +25,15 @@ if (!function_exists('getArtistID')) {
 }
 
 /**
-   * Get album's ID.
-   *
-   * @param array $opts.
-   *          'artist_name'  => Artist name
-   *          'album_name'  => Album name
-   *          'year'  => Year
-   *
-   * @return int Album ID or boolean FALSE.
-   */
+  * Get album's ID.
+  *
+  * @param array $opts.
+  *          'artist_name'  => Artist name
+  *          'album_name'  => Album name
+  *          'year'  => Year
+  *
+  * @return int Album ID or boolean FALSE.
+  */
 if (!function_exists('getAlbumID')) {
   function getAlbumID($opts = array()) {
     $ci=& get_instance();
@@ -56,13 +56,13 @@ if (!function_exists('getAlbumID')) {
 }
 
 /**
-   * Get user's ID.
-   *
-   * @param array $opts.
-   *          'username'  => Username
-   *
-   * @return int User ID or boolean FALSE.
-   */
+  * Get user's ID.
+  *
+  * @param array $opts.
+  *          'username'  => Username
+  *
+  * @return int User ID or boolean FALSE.
+  */
 if (!function_exists('getUserID')) {
   function getUserID($opts = array()) {
     $ci=& get_instance();
@@ -79,13 +79,13 @@ if (!function_exists('getUserID')) {
 }
 
 /**
-   * Get format's ID.
-   *
-   * @param array $opts.
-   *          'format'  => Format name
-   *
-   * @return int Format ID or boolean FALSE.
-   */
+  * Get format's ID.
+  *
+  * @param array $opts.
+  *          'format'  => Format name
+  *
+  * @return int Format ID or boolean FALSE.
+  */
 if (!function_exists('getFormatID')) {
   function getFormatID($opts = array()) {
     $ci=& get_instance();
@@ -102,13 +102,13 @@ if (!function_exists('getFormatID')) {
 }
 
 /**
-   * Get format type's ID.
-   *
-   * @param array $opts.
-   *          'format_type'  => Format type name
-   *
-   * @return int Format type ID or boolean FALSE.
-   */
+  * Get format type's ID.
+  *
+  * @param array $opts.
+  *          'format_type'  => Format type name
+  *
+  * @return int Format type ID or boolean FALSE.
+  */
 if (!function_exists('getFormatTypeID')) {
   function getFormatTypeID($opts = array()) {
     $ci=& get_instance();
@@ -125,13 +125,13 @@ if (!function_exists('getFormatTypeID')) {
 }
 
 /**
-   * Get genre's ID.
-   *
-   * @param array $opts.
-   *          'tag_name'  => Genre name
-   *
-   * @return int Genre ID or boolean FALSE.
-   */
+  * Get genre's ID.
+  *
+  * @param array $opts.
+  *          'tag_name'  => Genre name
+  *
+  * @return int Genre ID or boolean FALSE.
+  */
 if (!function_exists('getGenreID')) {
   function getGenreID($opts = array()) {
     $ci=& get_instance();
@@ -148,13 +148,13 @@ if (!function_exists('getGenreID')) {
 }
 
 /**
-   * Get keyword's ID.
-   *
-   * @param array $opts.
-   *          'tag_name'  => Keyword name
-   *
-   * @return int Keyword ID or boolean FALSE.
-   */
+  * Get keyword's ID.
+  *
+  * @param array $opts.
+  *          'tag_name'  => Keyword name
+  *
+  * @return int Keyword ID or boolean FALSE.
+  */
 if (!function_exists('getKeywordID')) {
   function getKeywordID($opts = array()) {
     $ci=& get_instance();
@@ -171,13 +171,13 @@ if (!function_exists('getKeywordID')) {
 }
 
 /**
-   * Get nationality's ID.
-   *
-   * @param array $opts.
-   *          'tag_name'  => Nationality name
-   *
-   * @return int nationality ID or boolean FALSE.
-   */
+  * Get nationality's ID.
+  *
+  * @param array $opts.
+  *          'tag_name'  => Nationality name
+  *
+  * @return int nationality ID or boolean FALSE.
+  */
 if (!function_exists('getNationalityID')) {
   function getNationalityID($opts = array()) {
     $ci=& get_instance();

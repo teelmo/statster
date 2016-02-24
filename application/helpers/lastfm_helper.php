@@ -2,14 +2,14 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
- * Gets artist's similar artists from Last.fm
- *
- * @param array $opts.
- *          'artist'   => Artist name
- *
- * @return array Artist's similar artists.
- *
- */
+  * Gets artist's similar artists from Last.fm
+  *
+  * @param array $opts.
+  *          'artist'   => Artist name
+  *
+  * @return array Artist's similar artists.
+  *
+  */
 if (!function_exists('getSimilar')) {
   function getSimilar($opts = array()) {
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
@@ -35,14 +35,14 @@ if (!function_exists('getSimilar')) {
 }
 
 /**
- * Gets artist's events from Last.fm
- *
- * @param array $opts.
- *          'artist'   => Artist name
- *
- * @return array Artist's events.
- *
- */
+  * Gets artist's events from Last.fm
+  *
+  * @param array $opts.
+  *          'artist'   => Artist name
+  *
+  * @return array Artist's events.
+  *
+  */
 if (!function_exists('getEvents')) {
   function getEvents($opts = array()) {
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
@@ -78,14 +78,14 @@ if (!function_exists('getEvents')) {
 }
 
 /**
- * Gets artist's biography from Last.fm
- *
- * @param array $opts.
- *          'artist'   => Artist name
- *
- * @return string Artist's bio.
- *
- */
+  * Gets artist's biography from Last.fm
+  *
+  * @param array $opts.
+  *          'artist'   => Artist name
+  *
+  * @return string Artist's bio.
+  *
+  */
 if (!function_exists('getBio')) {
   function getBio($opts = array()) {
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
