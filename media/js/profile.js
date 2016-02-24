@@ -35,7 +35,7 @@ $.extend(view, {
               app.chart.series[0].setData(view.chart_data, true);
             },
             type:'POST',
-            url:'/ajax/barChart'
+            url:'/ajax/musicBar'
           });
         },
         204: function () { // 204 No Content

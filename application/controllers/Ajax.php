@@ -52,6 +52,16 @@ class Ajax extends CI_Controller {
     }
   }
 
+  public function musicBar() {
+    if (!empty($_POST)) {
+      $this->load->view('templates/music_bar', $_POST);
+      header('HTTP/1.1 200 OK');
+    }
+    else {
+      exit (ERR_NO_RESULTS);
+    }
+  }
+
   public function albumList($size = 124) {
     if (!empty($_POST)) {
       // Load helpers
@@ -117,16 +127,6 @@ class Ajax extends CI_Controller {
   public function columnTable() {
     if (!empty($_POST)) {
       $this->load->view('templates/column_table', $_POST);
-      header('HTTP/1.1 200 OK');
-    }
-    else {
-      exit (ERR_NO_RESULTS);
-    }
-  }
-
-  public function barChart() {
-    if (!empty($_POST)) {
-      $this->load->view('templates/bar_chart', $_POST);
       header('HTTP/1.1 200 OK');
     }
     else {

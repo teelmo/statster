@@ -1,6 +1,6 @@
 $.extend(view, {
   initChart: function () {
-    app.chart = $('.bar_chart').highcharts({
+    app.chart = $('.music_bar').highcharts({
       chart:{
         height:300,
         zoomType:'x'

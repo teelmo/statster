@@ -23,7 +23,7 @@
       </div>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
-      <div class="bar_chart"></div>
+      <div class="music_bar"></div>
     </div>
     <div class="container"><hr /></div>
     <div id="leftContInner">
