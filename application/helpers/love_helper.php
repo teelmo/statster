@@ -76,7 +76,8 @@ if (!function_exists('getLoves')) {
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_love . ".`album_id` LIKE ?
             GROUP BY " . TBL_love . ".`album_id`
-            ORDER BY `count` DESC
+            ORDER BY `count` DESC, 
+                     " . TBL_album . ".`album_name` ASC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($album_id));
 
