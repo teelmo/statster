@@ -11,6 +11,7 @@
   <div class="page_links">
     <?=anchor(array('album'), 'Albums')?>
     <?=anchor(array('artist'), 'Artists')?>
+    <?=anchor(array('like'), 'Likes')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">
@@ -43,7 +44,7 @@
     <div class="container">
       <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
-      <table id="recentlyListened" class="chart_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('recent', 'More', array('title' => 'Browse more listenings'))?>
       </div>
@@ -52,7 +53,7 @@
     <div class="container">
       <h2>Hot albums</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
-      <ul id="topAlbum" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <ul id="topAlbum" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div id="rightCont">

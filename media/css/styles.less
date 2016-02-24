@@ -7,9 +7,9 @@
 @import 'http://fonts.googleapis.com/css?family=Poiret+One:400';
 @import 'http://fonts.googleapis.com/css?family=Raleway:400';
 
-/*
- * Template styles
- */
+/**
+  * Template styles
+  */
 body {
   font-family: 'Open Sans', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
@@ -369,7 +369,7 @@ div.container {
             }
           }
         }
-        /* Chosen styles */
+        /** Chosen styles */
         .chosen-container {
           color: #000;
           outline: none;
@@ -576,9 +576,9 @@ div.container {
   }
 }
 
-/* 
- * Heading styles
- */
+/** 
+  * Heading styles
+  */
 h1 {
   color: #222;
   font-size: 22px;
@@ -612,9 +612,9 @@ h3 {
   }
 }
 
-/*
- * Text styles
- */
+/**
+  * Text styles
+  */
 .updated,
 .count,
 .location,
@@ -648,7 +648,7 @@ h3 {
   text-transform: uppercase;
 }
 
-/* Artist album and user page infos */
+/** Artist album and user page infos */
 .like_toggle {
   background-position: 100% 50%;
   background-repeat: no-repeat;
@@ -688,7 +688,7 @@ h3 {
   display: none;
 }
 
-/* Tag styles */
+/** Tag styles */
 .tag {
   &.moretags,
   &.genre,
@@ -720,9 +720,9 @@ h3 {
 }
 
 
-/*
- * Anchor styles
- */
+/**
+  * Anchor styles
+  */
 a {
   color: #222;
   cursor: pointer;
@@ -740,9 +740,9 @@ a {
   }
 }
 
-/*
- * Form styles
- */
+/**
+  * Form styles
+  */
 input {
   box-sizing: border-box;
   &:focus,
@@ -911,9 +911,9 @@ form#loginForm input[type="text"] {
   }
 }
 
-/*
- * Table styles
- */ 
+/**
+  * Table styles
+  */ 
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -929,8 +929,8 @@ td {
 th {
   text-align: left;
 }
-/* chartTable */
-table.chart_table {
+/** Music Table */
+table.music_table {
   border-collapse: collapse;
   border: 0;
   tbody {
@@ -1074,7 +1074,7 @@ table.chart_table {
   }
 }
 
-/* sideTable */
+/** sideTable */
 table.side_table {
   tr {
     td {
@@ -1175,14 +1175,14 @@ table.side_table {
   }
 }
 
-/* genreTable */
+/** genreTable */
 table.genre_table tr td {
   border-bottom: 1px solid #e9e9e9;
   padding: 3px 0 0 0px;
   vertical-align: bottom;
 }
 
-/* barTable */
+/** barTable */
 table.column_table {
   tr {
     td {
@@ -1225,27 +1225,58 @@ table.column_table {
   }
 }
 
-/*
- * List styles
- */
+/**
+  * Album wall
+  */
+
+div.music_wall {
+  .left_container {
+    float: left;
+  }
+  .right_container {
+    div {
+      float: left;
+    }
+  }
+
+  .cover {
+    &.img150,
+    &.img300 {
+      &:hover {
+        &:after {
+          opacity: 0.8;
+        }
+      }
+    }
+    &.img300 {
+      border: 2px solid #000;
+      &.artist_img {
+        height: 300px;
+      }
+    }
+  }
+}
+/**
+  * List styles
+  */
 ul {
   &.no_bullets {
     list-style-type: none;
     margin: 0;
     padding: 0;
   }
-  &.chart_list {
+  &.music_list {
     display: block;
     overflow: hidden;
     width: 100%;
-    &.chart_list_124 li {
+    &.music_list_124 li {
       display: inline-block;
       margin: 0 0 20px 0;
       overflow: visible;
       vertical-align: top;
       width: 130px;
     }
-    &.chart_list_64 li {
+    &.music_list_64 li {
       display: inline-block;
       margin: 0 9px 0px 0;
       overflow: visible;
@@ -1262,9 +1293,9 @@ ul {
   }
 }
 
-/* 
- * Icons / images
- */
+/** 
+  * Icons / images
+  */
 img {
   margin: 0;
   padding: 0;
@@ -1298,6 +1329,7 @@ div.cover {
     border: 1px solid #444;
   }
   &.img124,
+  &.img150,
   &.img174,
   &.img300 {
     .box-shadow(3px 3px 4px #ddd);
@@ -1325,6 +1357,10 @@ div.cover {
       height: 90px;
     }
   }
+  &.img150 {
+    height: 150px;
+    width: 150px;
+  }
   &.img174 {
     height: 174px;
     width: 174px;
@@ -1337,12 +1373,6 @@ div.cover {
     &.user_img,
     &.artist_img {
       height: 200px;
-    }
-    .title {
-      font-size: 20px;
-      font-weight: normal;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
     }
   }
   &.artist_img {
@@ -1359,6 +1389,7 @@ div.cover {
   &.img32,
   &.img64,
   &.img124,
+  &.img150,
   &.img174,
   &.img300 {
     position: relative;
@@ -1371,6 +1402,7 @@ div.cover {
   }
   &.img32,
   &.img64,
+  &.img150,
   &.img174,
   &.img300 {
     &:after {
@@ -1383,6 +1415,7 @@ div.cover {
     }
   }
   &.img174,
+  &.img150,
   &.img300 {
     &:after {
       border: 1px solid #232323;
@@ -1456,9 +1489,9 @@ div.cover_shadow {
   width: 300px;
 }
 
-/* 
- * Other
- */
+/** 
+  * Other
+  */
 hr {
   .opacity(0.3);
   height: 1px;
@@ -1500,6 +1533,17 @@ hr {
 }
 .clear {
   clear: both;
+}
+.clearfix {
+  zoom: 1;
+  &:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    height: 0;
+    margin-bottom: 20px;
+    visibility: hidden;
+  }
 }
 
 @import 'responsive.less';

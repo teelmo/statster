@@ -39,7 +39,7 @@ $.extend(view, {
               $('#recentlyUpdated').attr('value', currentTime.getTime());
             },
             type:'POST',
-            url:'/ajax/chartTable'
+            url:'/ajax/musicTable'
           });
         },
         204: function () { // 204 No Content

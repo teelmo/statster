@@ -7,15 +7,14 @@ class Fan extends CI_Controller {
 
   /* List fans */
   public function get($artist_id = 0) {
+    // Load helpers
+    $this->load->helper(array('fan_helper', 'output_helper'));
     if (is_numeric($artist_id)) {
-      // Load helpers
-      $this->load->helper(array('fan_helper', 'output_helper'));
-    
       $_REQUEST['artist_id'] = $artist_id;
       echo getFan($_REQUEST);
     }
     else {
-      header("HTTP/1.1 400 Bad Request");
+      echo getFans($_REQUEST);
     }
   }
 

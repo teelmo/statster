@@ -53,6 +53,7 @@
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
   <div class="page_links">
+    <?=anchor(array('like', url_title($artist_name)), 'Likes')?>
     <?=anchor(array('listener', url_title($artist_name)), 'Listeners')?>
     <?=anchor(array('recent', url_title($artist_name)), 'Listenings')?>
     <div class="float_right">
@@ -79,13 +80,13 @@
     <div class="container">
       <h2>Albums</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
-      <ul id="artistAlbum" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <ul id="artistAlbum" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Similar</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="similarArtistLoader"/>
-      <ul id="similarArtist" class="chart_list chart_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <ul id="similarArtist" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <!--
     <div class="container"><hr /></div>

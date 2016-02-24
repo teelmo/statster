@@ -26,12 +26,25 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function chartTable() {
+  public function musicTable() {
     if (!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('img_helper', 'love_helper', 'output_helper'));
 
-      $this->load->view('templates/chart_table', $_POST);
+      $this->load->view('templates/music_table', $_POST);
+      header('HTTP/1.1 200 OK');
+    }
+    else {
+      exit (ERR_NO_RESULTS);
+    }
+  }
+  
+  public function musicWall() {
+    if (!empty($_POST)) {
+      // Load helpers
+      $this->load->helper(array('img_helper', 'output_helper'));
+
+      $this->load->view('templates/music_wall', $_POST);
       header('HTTP/1.1 200 OK');
     }
     else {

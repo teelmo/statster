@@ -1,7 +1,7 @@
 <div id="mainCont">
   <div class="page_links">
-    <?=anchor(array('love'), 'Loves')?>
     <?=anchor(array('fan'), 'Fans')?>
+    <?=anchor(array('love'), 'Loves')?>
   </div>
   <div id="leftCont">
     <div class="container">

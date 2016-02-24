@@ -132,13 +132,12 @@ $.extend(view, {
         200: function (data) {
           $.ajax({
             data:{
-              json_data:data,
               hide:{
                 rank:true
-              }
+              },
+              json_data:data
             },
             success: function (data) {
-              $('#recentlyFanedLoader').hide();
               $('#recentlyFaned').html(data);
             },
             type:'POST',
@@ -152,22 +151,21 @@ $.extend(view, {
   },
   recentlyLoved: function () {
     $.ajax({
-      dataType:'json',
       data:{
         limit:15,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
             data:{
-              json_data:data,
               hide:{
                 rank:true
-              }
+              },
+              json_data:data
             },
             success: function (data) {
-              $('#recentlyLovedLoader').hide();
               $('#recentlyLoved').html(data);
             },
             type:'POST',
@@ -189,7 +187,7 @@ $(document).ready(function () {
   view.recentlyLoved();
 
   $(document).ajaxStop(function (event, request, settings ) {
-    $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function (a, b) {
+    $('#recentlyLiked').append($('.recently_liked tr').detach().sort(function (a, b) {
       return app.compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
     }));
     $('#recentlyLikedLoader').hide();

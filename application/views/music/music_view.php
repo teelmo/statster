@@ -11,6 +11,7 @@
   <div class="page_links">
     <?=anchor(array('album'), 'Albums')?>
     <?=anchor(array('artist'), 'Artists')?>
+    <?=anchor(array('like'), 'Likes')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">
@@ -63,27 +64,21 @@
           </td>
         </tr>
         <tr>
-          <td class="img64 tag_img">
-            
-          </td>
+          <td class="img64 tag_img"></td>
           <td class="title">
             <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'])?>
             <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
           </td>
         </tr>
         <tr>
-          <td class="img64 tag_img">
-            
-          </td>
+          <td class="img64 tag_img"></td>
           <td class="title">
             <?=anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name'])?>
             <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
           </td>
         </tr>
         <tr>
-          <td class="img64 tag_img">
-            
-          </td>
+          <td class="img64 tag_img"></td>
           <td class="title">
             <?=anchor(array('year', url_title($top_year['year'])), $top_year['year'])?>
             <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>
@@ -96,7 +91,10 @@
       <h1>Likes</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
-      <table id="recentlyFaned" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
-      <table id="recentlyLoved" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyFaned" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyLoved" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor(array('like'), 'More', array('title' => 'Browse more'))?>
+      </div>
     </div>
   </div>

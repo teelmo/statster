@@ -74,7 +74,7 @@ $.extend(view, {
               $('#recentlyListened').html(data);
             },
             type:'POST',
-            url:'/ajax/chartTable'
+            url:'/ajax/musicTable'
           })
         },
         204: function () { // 204 No Content

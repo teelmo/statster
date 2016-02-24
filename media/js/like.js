@@ -1,0 +1,127 @@
+$.extend(view, {
+  topLoved: function () {
+    $.ajax({
+      data:{
+        limit:9
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            data:{
+              hide:{
+                rank:true
+              },
+              json_data:data,
+              limit:9,
+              type:'album'
+            },
+            success: function (data) {
+              $('#topLovedLoader').hide();
+              $('#topLoved').html(data);
+            },
+            type:'POST',
+            url:'/ajax/musicWall'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/love/get/top'
+    });
+  },
+  topFaned: function () {
+    $.ajax({
+      data:{
+        limit:9
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            data:{
+              hide:{
+                rank:true
+              },
+              json_data:data,
+              limit:9,
+              type:'artist'
+            },
+            success: function (data) {
+              $('#topFanedLoader').hide();
+              $('#topFaned').html(data);
+            },
+            type:'POST',
+            url:'/ajax/musicWall'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/fan/get/top'
+    });
+  },
+  recentlyLoved: function () {
+    $.ajax({
+      data:{
+        limit:10,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            data:{
+              hide:{
+                rank:true
+              },
+              json_data:data
+            },
+            success: function (data) {
+              $('#recentlyLovedLoader').hide();
+              $('#recentlyLoved').html(data);
+            },
+            type:'POST',
+            url:'/ajax/likeTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/love/get'
+    });
+  },
+  recentlyFaned: function () {
+    $.ajax({
+      data:{
+        limit:10,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            data:{
+              hide:{
+                rank:true
+              },
+              json_data:data
+            },
+            success: function (data) {
+              $('#recentlyFanedLoader').hide();
+              $('#recentlyFaned').html(data);
+            },
+            type:'POST',
+            url:'/ajax/likeTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/fan/get'
+    });
+  }
+});
+
+$(document).ready(function () {
+  view.topLoved();
+  view.topFaned();
+  view.recentlyLoved();
+  view.recentlyFaned();
+});

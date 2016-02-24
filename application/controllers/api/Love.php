@@ -7,15 +7,14 @@ class Love extends CI_Controller {
 
   /* List loves */
   public function get($album_id = 0) {
+    // Load helpers
+    $this->load->helper(array('love_helper', 'output_helper'));
     if (is_numeric($album_id)) {
-      // Load helpers
-      $this->load->helper(array('love_helper', 'output_helper'));
-      
       $_REQUEST['album_id'] = $album_id;
       echo getLove($_REQUEST);
     }
     else {
-      header("HTTP/1.1 400 Bad Request");
+      echo getLoves($_REQUEST);
     }
   }
 
