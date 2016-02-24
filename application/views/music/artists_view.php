@@ -14,7 +14,6 @@
       <table id="topArtist" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
-
   <div id="rightCont">
     <div class="container">
       <h1>Yearly</h1>

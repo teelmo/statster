@@ -1,9 +1,9 @@
 <div id="mainCont">
   <div class="page_links">
-    <?=anchor(array('genre'), 'Genres')?>
-    <?=anchor(array('keyword'), 'Keywords')?>
-    <?=anchor(array('nationality'), 'Nationalities')?>
-    <?=anchor(array('year'), 'Years')?>
+    <?=anchor(array('album'), 'Albums')?>
+    <?=anchor(array('artist'), 'Artists')?>
+    <?=anchor(array('like'), 'Likes')?>
+    <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">
     <div class="container">

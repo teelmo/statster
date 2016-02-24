@@ -65,7 +65,6 @@
       <div class="embed-container"><iframe src="http://www.youtube.com/embed/f0pdwd0miqs" frameborder="0" allowfullscreen></iframe></div>
     </div>
   </div>
-
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>

@@ -25,7 +25,6 @@
       <table id="recentlyListened" class="chart_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
-
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>

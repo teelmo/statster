@@ -1,7 +1,9 @@
 <div id="mainCont">
   <div class="page_links">
-    <?=anchor(array('fan'), 'Fans')?>
-    <?=anchor(array('love'), 'Loves')?>
+    <?=anchor(array('album'), 'Albums')?>
+    <?=anchor(array('artist'), 'Artists')?>
+    <?=anchor(array('like'), 'Likes')?>
+    <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">
     <div class="container">
@@ -12,7 +14,6 @@
       <div id="topFaned" class="music_wall"><!-- Content is loaded with AJAX --></div>
     </div>
   </div>
-
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>

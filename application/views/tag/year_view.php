@@ -13,7 +13,6 @@
       <div class="bar_chart"></div>
     </div>
   </div>
-
   <div id="rightCont">
     <div class="container">
       <h1>Yearly</h1>

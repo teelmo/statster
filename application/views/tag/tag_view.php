@@ -62,7 +62,6 @@
       </div>
     </div>
   </div>
-
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>
