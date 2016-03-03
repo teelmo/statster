@@ -115,6 +115,14 @@ var app = {
         });
       } 
     });
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 5) {
+        $('#topCont').addClass('scrolled');
+      }
+      else {
+        $('#topCont').removeClass('scrolled');
+      }
+    });
   }
 }
 var view = {}

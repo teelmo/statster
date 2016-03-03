@@ -25,9 +25,16 @@ div.container {
   line-height: 40px;
   position: fixed;
   top: 0;
+  transition: background 0s;
   width: 100%;
   z-index: 1000;
+  &.scrolled {
+    background: rgba(17, 17, 17, 1);
+    transition: background 0.5s;
+  }
   .inner {
+    position: relative;
+    z-index: 1;
     color: #eee;
     font-size: 13px;
     height: 36px;
@@ -872,8 +879,8 @@ form#loginForm input[type="text"] {
     background-color: transparent;
     border: 0;
     color: rgba(255, 255, 255, 0.3);
-    font-size: 14px;
-    padding: 4px 0 4px 10px;
+    font-size: 16px;
+    padding: 4px 0 4px 14px;
     width: 250px;
     &:focus {
       background-color: #111;
