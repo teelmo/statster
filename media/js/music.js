@@ -121,10 +121,54 @@ $.extend(view, {
       url:'/api/album/get'
     });
   },
+  secondChance: function () {
+    $.ajax({
+      data:{
+        having:'`count` = 1 AND <?=TBL_listening?>.`date` BETWEEN \'<?=CUR_YEAR - 4?>-00-00\' AND \'<?=CUR_YEAR - 1?>-12-31\'',
+        limit:100,
+        lower_limit:'1970-00-00',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            complete: function () {
+              setTimeout(view.secondChance, 60 * 10 * 1000);
+            },
+            data:{
+              json_data:data,
+              hide:{
+                artist:true,
+                calendar:true,
+                count:true,
+                date:true,
+                rank:true,
+                spotify:true
+              },
+              limit:4
+            },
+            success: function (data) {
+              $('#secondChanceLoader').hide();
+              $('#secondChance').html(data);
+            },
+            type:'POST',
+            url:'/ajax/sideTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#secondChanceLoader').hide();
+          $('#secondChance').html('<?=ERR_NO_RESULTS?>');
+        }
+      },
+      type:'GET',
+      url:'/api/secondChance'
+    });
+  },
   recentlyFaned: function () {
     $.ajax({
       data:{
-        limit:15,
+        limit:10,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -152,7 +196,7 @@ $.extend(view, {
   recentlyLoved: function () {
     $.ajax({
       data:{
-        limit:15,
+        limit:10,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -183,6 +227,7 @@ $(document).ready(function () {
   view.getListeningHistory('%Y');
   view.popularGenre();
   view.topAlbum();
+  view.secondChance();
   view.recentlyFaned();
   view.recentlyLoved();
 

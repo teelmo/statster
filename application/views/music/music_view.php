@@ -88,6 +88,12 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
+      <h1>Second chance</h1>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="secondChanceLoader" />
+      <table class="side_table" id="secondChance"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h1>Likes</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>

@@ -128,7 +128,7 @@ $.extend(view, {
       data:{
         limit:15,
         lower_limit:'<?=date('Y-m-d', time() - (90 * 24 * 60 * 60))?>',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>' 
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{

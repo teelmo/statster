@@ -105,12 +105,14 @@ if (!function_exists('getArtists')) {
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
+  *          'having'          => Custom having argument
   *          'human_readable'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
   *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
+  *          'where'           => Custom where argument
   *
   * @return string JSON encoded data containing album information.
   */
@@ -122,11 +124,13 @@ if (!function_exists('getAlbums')) {
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_album . '.`id`';
+    $having = !empty($opts['having']) ? 'HAVING ' . $opts['having'] : '';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_artist . ".`id` as artist_id,
@@ -135,6 +139,7 @@ if (!function_exists('getAlbums')) {
                    " . TBL_album . ".`year`,
                    " . TBL_album . ".`spotify_uri`,
                    " . TBL_user . ". `username`,
+                   ".TBL_listening.".`date`,
                    " . TBL_user . ". `id` as user_id,
                   (SELECT count(" . TBL_love . ".`album_id`)
                     FROM " . TBL_love . "
@@ -153,7 +158,9 @@ if (!function_exists('getAlbums')) {
               AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?
+              " . $ci->db->escape_str($where) . "
             GROUP BY " . $ci->db->escape_str($group_by) . "
+            " . $ci->db->escape_str($having) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $artist_name, $album_name));
@@ -176,6 +183,7 @@ if (!function_exists('getAlbums')) {
   *          'order_by'        => Order by argument
   *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
+  *          'where'           => Custom where argument
   *
   * @return string JSON encoded data containing album information.
   */
