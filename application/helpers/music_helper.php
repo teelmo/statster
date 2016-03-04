@@ -72,11 +72,11 @@ if (!function_exists('getArtists')) {
                    " . TBL_artist . ".`spotify_uri`,
                    " . TBL_user . ". `username`, 
                    " . TBL_user . ". `id` as user_id, 
-              (SELECT count(" . TBL_fan . ".`artist_id`)
-                FROM " . TBL_fan . "
-                WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
-                  AND " . TBL_fan . ".`user_id` = " . TBL_user . ".`id`
-              ) AS `love`
+                  (SELECT count(" . TBL_fan . ".`artist_id`)
+                    FROM " . TBL_fan . "
+                    WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
+                      AND " . TBL_fan . ".`user_id` = " . TBL_user . ".`id`
+                  ) AS `love`
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
                  " . TBL_listening . ",
