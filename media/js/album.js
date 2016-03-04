@@ -96,6 +96,107 @@ $.extend(view, {
       url:'/api/tag/get/album'
     });
   },
+  getListeningHistory: function (type) {
+    view.initChart();
+    if (type == '%w') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+    }
+    else if (type == '%Y%m') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
+    }
+    else {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+    }
+    $.ajax({
+      type:'GET',
+      dataType:'json',
+      url:'/api/listener/get',
+      data:{
+        artist_name:'<?=$artist_name?>',
+        album_name:'<?=$album_name?>',
+        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
+        limit:200,
+        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
+        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        where:where
+      },
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              type:type
+            },
+            success: function (data) {
+              $('#historyLoader').hide();
+              $('#history').html(data).hide();
+              var categories = [];
+              var data = [];
+              $.each($('#history .time'), function (i, el) {
+                categories.push($(this).html());
+              });
+              $.each($('#history .count'), function (i, el) {
+                data.push(parseInt($(this).html()));
+              });
+              app.chart.xAxis[0].setCategories(categories, false);
+              app.chart.series[0].setData(data, true);
+            },
+            type:'POST',
+            url:'/ajax/musicBar'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListenerLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>');
+        }
+      }
+    });
+  },
+  getComments: function () {
+    $.ajax({
+      data:{
+        album_name:'<?=$album_name?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          if (data[0].count == 1) {
+            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shouts');
+          }
+          else {
+            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shouts');
+          }
+          $.ajax({
+            data:{
+              json_data:data,
+              type:'album'
+            },
+            success: function (data) {
+              $('#commentLoader').hide();
+              $('#comment').html(data);
+            },
+            type:'POST',
+            url:'/ajax/commentTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#commentLoader').hide();
+          $('#comment').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#commentLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/comment/get/album'
+    });
+  },
   // Get album listeners.
   getUsers: function () {
     $.ajax({
@@ -179,67 +280,6 @@ $.extend(view, {
       },
       type:'GET',
       url:'/api/listening/get'
-    });
-  },
-  getListeningHistory: function (type) {
-    view.initChart();
-    if (type == '%w') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
-    }
-    else if (type == '%Y%m') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
-    }
-    else {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
-    }
-    $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listener/get',
-      data:{
-        artist_name:'<?=$artist_name?>',
-        album_name:'<?=$album_name?>',
-        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
-        limit:200,
-        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
-        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:where
-      },
-      statusCode:{
-        200: function (data) { // 200 OK
-          $.ajax({
-            data:{
-              json_data:data,
-              type:type
-            },
-            success: function (data) {
-              $('#historyLoader').hide();
-              $('#history').html(data).hide();
-              var categories = [];
-              var data = [];
-              $.each($('#history .time'), function (i, el) {
-                categories.push($(this).html());
-              });
-              $.each($('#history .count'), function (i, el) {
-                data.push(parseInt($(this).html()));
-              });
-              app.chart.xAxis[0].setCategories(categories, false);
-              app.chart.series[0].setData(data, true);
-            },
-            type:'POST',
-            url:'/ajax/musicBar'
-          });
-        },
-        204: function () { // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html('<?=ERR_NO_RESULTS?>');
-        },
-        400: function () { // 400 Bad request
-          $('#topListenerLoader').hide();
-          alert('<?=ERR_BAD_REQUEST?>');
-        }
-      }
     });
   },
   initAlbumEvents: function () {
@@ -348,6 +388,7 @@ $(document).ready(function () {
   view.getLoves();
   view.getTags();
   view.getListeningHistory('%Y');
+  view.getComments();
   view.getUsers();
   view.getListenings();
   view.initAlbumEvents();

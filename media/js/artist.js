@@ -99,6 +99,98 @@ $.extend(view, {
       url:'/api/tag/get/artist'
     });
   },
+  getListeningHistory: function (type) {
+    view.initChart();
+    if (type == '%w') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+    }
+    else if (type == '%Y%m') {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
+    }
+    else {
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+    }
+    $.ajax({
+      data:{
+        artist_name:'<?=$artist_name?>',
+        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
+        limit:200,
+        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
+        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        where:where
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              type:type
+            },
+            success: function (data) {
+              $('#historyLoader').hide();
+              $('#history').html(data).hide();
+              app.chart.xAxis[0].setCategories(view.categories, false);
+              app.chart.series[0].setData(view.chart_data, true);
+            },
+            type:'POST',
+            url:'/ajax/musicBar'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListenerLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/listener/get'
+    });
+  },
+  getComments: function () {
+    $.ajax({
+      data:{
+        artist_name:'<?=$artist_name?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          if (data[0].count == 1) {
+            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shouts');
+          }
+          else {
+            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shouts');
+          }
+          $.ajax({
+            data:{
+              json_data:data,
+              type:'artist'
+            },
+            success: function (data) {
+              $('#commentLoader').hide();
+              $('#comment').html(data);
+            },
+            type:'POST',
+            url:'/ajax/commentTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#commentLoader').hide();
+          $('#comment').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#commentLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/comment/get/artist'
+    });
+  },
   // Get artist listeners.
   getUsers: function () {
     $.ajax({
@@ -182,58 +274,6 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  getListeningHistory: function (type) {
-    view.initChart();
-    if (type == '%w') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
-    }
-    else if (type == '%Y%m') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
-    }
-    else {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
-    }
-    $.ajax({
-      data:{
-        artist_name:'<?=$artist_name?>',
-        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
-        limit:200,
-        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
-        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:where
-      },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
-          $.ajax({
-            data:{
-              json_data:data,
-              type:type
-            },
-            success: function (data) {
-              $('#historyLoader').hide();
-              $('#history').html(data).hide();
-              app.chart.xAxis[0].setCategories(view.categories, false);
-              app.chart.series[0].setData(view.chart_data, true);
-            },
-            type:'POST',
-            url:'/ajax/musicBar'
-          });
-        },
-        204: function () { // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html('<?=ERR_NO_RESULTS?>');
-        },
-        400: function () { // 400 Bad request
-          $('#topListenerLoader').hide();
-          alert('<?=ERR_BAD_REQUEST?>');
-        }
-      },
-      type:'GET',
-      url:'/api/listener/get'
-    });
-  },
   initArtistEvents: function () {
     $('#moretags').click(function () {
       $('#tagAdd').toggle();
@@ -307,6 +347,7 @@ $(document).ready(function () {
   view.getFans();
   view.getTags();
   view.getListeningHistory('%Y');
+  view.getComments('%Y');
   view.getUsers();
   view.getListenings();
   view.initArtistEvents();

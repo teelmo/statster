@@ -883,7 +883,7 @@ form#loginForm input[type="text"] {
     padding: 4px 0 4px 14px;
     width: 250px;
     &:focus {
-      background-color: #111;
+      background-color: transparent;
       color: #fff;
       &::-webkit-input-placeholder {
         color: rgba(255, 255, 255, 1);
@@ -957,11 +957,47 @@ table.music_table {
           width: 100%;
         }
         &.title {
-          width: 100%;
           padding: 0 5px;
+          width: 100%;
+          .spotify_link {
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            width: 16px;
+            height: 0;
+            .spotify_container {
+              background-image: url('/media/img/icons/play.png');
+              background-position: 0% 0%;
+              background-repeat: no-repeat;
+              background-size: cover;
+              content: '';
+              display: inline-block;
+              height: 16px;
+              margin-top: -12px;
+              position: absolute;
+              width: 16px;
+              &:hover {
+                .opacity(1);
+                background-position: 100% 100%;
+              }
+            }
+          }
           .album_year {
             color: #999;
             font-size: 11px;
+          }
+          .confirmation,
+          .delete {
+            display: none;
+            .delete_icon {
+              height: 12px;
+              margin-left: 5px;
+              vertical-align: -10%;
+              width: 12px;
+              &:hover {
+                .opacity(1);
+              }
+            }
           }
           .confirmation {
             text-align: left;
@@ -973,37 +1009,11 @@ table.music_table {
             float: right;
           }
         }
-        .delete {
-          display: none;
-        }
         .now_playing {
           background-image: url('/media/img/icons/eq_icon.gif');
           background-position: left center;
           background-repeat: no-repeat;
           padding-left: 17px;
-        }
-        .spotify_link {
-          color: #fff;
-          position: relative;
-          display: inline-block;
-          width: 16px;
-          height: 0;
-          .spotify_container {
-            background-image: url('/media/img/icons/play.png');
-            background-position: 0% 0%;
-            background-repeat: no-repeat;
-            background-size: cover;
-            content: '';
-            display: inline-block;
-            height: 16px;
-            margin-top: -12px;
-            position: absolute;
-            width: 16px;
-            &:hover {
-              .opacity(1);
-              background-position: 100% 100%;
-            }
-          }
         }
         .love_icon {
           background-image: url('/media/img/icons/love.png');
@@ -1012,15 +1022,6 @@ table.music_table {
           margin: 3px 2px 0 0;
           padding: 0 20px 3px 0;
           vertical-align: 0;
-        }
-        .delete_icon {
-          height: 12px;
-          margin-left: 5px;
-          vertical-align: -10%;
-          width: 12px;
-          &:hover {
-            .opacity(1);
-          }
         }
       }
       &:nth-child(2n) {
@@ -1229,11 +1230,77 @@ table.column_table {
     }
   }
 }
+/** commentTable */
+#shoutTotal {
+  color: #999;
+  float: right;
+  font-size: 14px;
+}
+table.commentTable {
+  tr.comment {
+    td {
+      padding-bottom: 1em;
+      vertical-align: top;
+      &.img {
+        .user_img  {
+          .border-radius(32px);
+          &:after {
+            .border-radius(32px);
+          }
+        }
+      }
+      &.text {
+        padding: 0 20px 0 10px;
+        width: 100%;
+        div {
+          margin-bottom: 5px;
+          .username {f
+            font-weight: bold;
+          }
+        }
+        .confirmation,
+        .delete {
+          display: none;
+          .delete_icon {
+            height: 12px;
+            margin-left: 5px;
+            vertical-align: -10%;
+            width: 12px;
+            &:hover {
+              .opacity(1);
+            }
+          }
+        }
+      }
+      &.datetime {
+        padding: 0 5px;
+        text-align: right;
+        white-space: nowrap;
+        width: 100%;
+      }
+    }
+    &:hover {
+      span.delete {
+        display: inline;
+        position: absolute;
+        img {
+          .opacity(0.3);
+          height: 12px;
+          margin-left: 5px;
+          vertical-align: -10%;
+          width: 12px;
+          &:hover {
+            .opacity(1);
+          }
+        }
+      }
+    }
+  }
+}
 
 /**
   * Album wall
   */
-
 div.music_wall {
   .left_container {
     float: left;
@@ -1243,7 +1310,6 @@ div.music_wall {
       float: left;
     }
   }
-
   .cover {
     &.img150,
     &.img300 {
