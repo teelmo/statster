@@ -117,10 +117,14 @@ var app = {
     });
     $(window).scroll(function () {
       if ($(window).scrollTop() > 5) {
-        $('#topCont').addClass('scrolled');
+        if ($('#headingCont').length !== 0) {
+          $('#topCont').addClass('scrolled');
+        }
       }
       else {
-        $('#topCont').removeClass('scrolled');
+        if ($('#headingCont').length !== 0) {
+          $('#topCont').removeClass('scrolled');
+        }
       }
     });
   }
@@ -138,4 +142,7 @@ $(document).ready(function () {
   app.highlightPatch();
   app.initMouseTrap();
   app.initStatsterEvents();
+  if ($('#headingCont').length === 0) {
+    $('#topCont').addClass('scrolled');
+  }
 });
