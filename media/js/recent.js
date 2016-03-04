@@ -1,34 +1,31 @@
 $.extend(view, {
   getListenings: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listening/get',
       data:{
-        limit:<?=($artist_name) ? 1000 : 100?>,
-        artist_name:'<?=$artist_name?>',
         album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
+        limit:<?=($artist_name) ? 1000 : 100?>,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',
-            url:'/ajax/chartTable',
             data:{
-              json_data:data,
-              size:32,
               hide:{
                 artist:true,
                 count:true,
                 rank:true
-              }
+              },
+              json_data:data,
+              size:32
             },
             success: function (data) {
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
-              $('div.confirmation').hide();
-            }
+            },
+            type:'POST',
+            url:'/ajax/musicTable'
           });
         },
         204: function () { // 204 No Content
@@ -39,36 +36,36 @@ $.extend(view, {
           $('#recentlyListenedLoader').hide();
           $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/listening/get'
     });
   },
   getUsers: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/listener/get',
       data:{
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:14
       },
+      dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',
-            url:'/ajax/userTable',
             data:{
-              json_data:data,
-              size:32,
               hide:{
                 calendar:true,
                 date:true
-              }
+              },
+              json_data:data,
+              size:32
             },
             success: function (data) {
               $('#topListenerLoader').hide();
               $('#topListener').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/userTable'
           });
         },
         204: function () { // 204 No Content
@@ -79,7 +76,9 @@ $.extend(view, {
           $('#topListenerLoader').hide();
           $('#topListener').html('<?=ERR_BAD_REQUEST?>');
         }
-      }
+      },
+      type:'GET',
+      url:'/api/listener/get'
     });
   },
   initRecentEvents: function () {
@@ -93,12 +92,10 @@ $.extend(view, {
     });
     $('html body').on('click', 'a.confirm', function () {
       var row_id = $(this).attr('data-row-id');
-      if ($('#' + row_id).hasClass('justAdded')) {
-        $('tr').removeClass('justAddedRest');
+      if ($('#' + row_id).hasClass('just_added')) {
+        $('tr').removeClass('just_added_rest');
       }
       $.ajax({
-        type:'DELETE',
-        url:'/api/listening/delete/' + $(this).attr('data-listening-id'),
         statusCode:{
           200: function () { // 200 OK
             $('#' + row_id).fadeOut('slow');
@@ -107,13 +104,14 @@ $.extend(view, {
             alert('400 Bad Request');
           },
           401: function (data) { // 403 Forbidden
-            console.log(data)
             alert('401 Unauthorized');
           },
           404: function () { // 404 Not found
             alert('404 Not Found');
           }
-        }
+        },
+        type:'DELETE',
+        url:'/api/listening/delete/' + $(this).attr('data-listening-id')
       });
     });
   }

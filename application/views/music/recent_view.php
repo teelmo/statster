@@ -22,7 +22,7 @@
         ?>Recently listened
       </h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
-      <table id="recentlyListened" class="chart_table"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyListened" class="music_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div id="rightCont">
