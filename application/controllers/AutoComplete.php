@@ -23,13 +23,13 @@ class AutoComplete extends CI_Controller {
                        " . TBL_album . ".`id` as album_id,
                        " . TBL_album . ".`album_name`,
                        " . TBL_album . ".`year`,
-                       (CASE WHEN " . TBL_artist . ".`artist_name` LIKE " . $this->db->escape($search_str_db_artist) . " THEN 0 ELSE 1 END) AS `artist_relevance`,
-                       (CASE WHEN " . TBL_album . ".`album_name` LIKE " . $this->db->escape($search_str_db_album) . " THEN 0 ELSE 1 END) AS `album_relevance`
+                       (CASE WHEN " . TBL_artist . ".`artist_name` LIKE ? THEN 0 ELSE 1 END) AS `artist_relevance`,
+                       (CASE WHEN " . TBL_album . ".`album_name` LIKE ? THEN 0 ELSE 1 END) AS `album_relevance`
                 FROM " . TBL_artist . ",
                      " . TBL_album . "
                 WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
-                  AND (" . TBL_artist . ".`artist_name` LIKE " . $this->db->escape($search_str_db_artist_wc) . "
-                   AND " . TBL_album . ".`album_name` LIKE " . $this->db->escape($search_str_db_album_wc) . ")
+                  AND (" . TBL_artist . ".`artist_name` LIKE ?
+                   AND " . TBL_album . ".`album_name` LIKE ?)
                 ORDER BY `artist_relevance`,
                          " . TBL_album . ".`year` DESC,
                          `album_relevance`
@@ -57,6 +57,11 @@ class AutoComplete extends CI_Controller {
       }
       $query = $this->db->query($sql, array($search_str_db_artist, $search_str_db_album, $search_str_db_artist_wc, $search_str_db_album_wc));
       if ($query->num_rows() > 0) {
+        $results[] = array(
+          'value' => ${!${false}=$query->result()}[0]->artist_name . ' ' . DASH . ' ',
+          'img' => '',
+          'label' => ${!${false}=$query->result()}[0]->artist_name . ' ' . DASH . ' ',
+        );
         foreach ($query->result() as $row) {
           $results[] = array(
             'value' => $row->artist_name . ' ' . DASH . ' ' . $row->album_name,
@@ -230,6 +235,28 @@ class AutoComplete extends CI_Controller {
             'label' => $row->year,
             'url' => '/year/' . url_title($row->year),
             'value' => $row->year
+          );
+        }
+      }
+      // Users search.
+      $sql = "SELECT " . TBL_user . ".`username`,
+                     " . TBL_user . ".`id` as `user_id`
+              FROM " . TBL_user . "
+              WHERE " . TBL_user . ".`username` LIKE ?
+              ORDER BY " . TBL_user . ".`username`
+              LIMIT 0, 10";
+      $query = $this->db->query($sql, array($search_str_wc));
+      if ($query->num_rows() > 0) {
+        $results[] = array(
+          'label' => '<span class="title">Users</span>',
+          'value' => '',
+        );
+        foreach ($query->result() as $row) {
+          $results[] = array(
+            'img' => getUserImg(array('user_id' => $row->user_id, 'size' => 64)),
+            'label' => $row->username,
+            'url' => '/user/' . url_title($row->username),
+            'value' => $row->username
           );
         }
       }
