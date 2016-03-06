@@ -139,11 +139,11 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+          $('#historyLoader').hide();
+          $('#history').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
-          $('#topListenerLoader').hide();
+          $('#historyLoader').hide();
           alert('<?=ERR_BAD_REQUEST?>');
         }
       },
@@ -180,7 +180,6 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#commentLoader').hide();
-          $('#comment').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#commentLoader').hide();

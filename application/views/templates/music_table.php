@@ -26,7 +26,7 @@ if (!empty($json_data)) {
           $class = 'just_added_rest';
         }
         ?>
-        <tr id="chartTable<?=$idx?>" class="row <?=$class?>">
+        <tr id="musicTable<?=$idx?>" class="row <?=$class?>">
           <td class="img album_img">
             <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
           </td>
@@ -51,10 +51,8 @@ if (!empty($json_data)) {
             if (empty($hide['del'])) {
               if ($this->session->userdata('user_id') === $row['user_id']) {
                 ?>
-                <span class="delete deleteCont" id="delete_<?=$idx?>">
-                  <a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon delete_icon" /></a>
-                </span>
-                <div class="confirmation" for="delete_<?=$idx?>"><span class="small">Are you sure: <a href="javascript:;" class="confirm" for="delete_<?=$idx?>" data-listening-id="<?=$row['listening_id']?>" data-row-id="chartTable<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel" for="delete_<?=$idx?>">Cancel</a></span></div>
+                <span class="delete" data-confirmation-container=".confirmation_<?=$idx?>"><a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon delete_icon" /></a></span>
+                <div class="confirmation confirmation_<?=$idx?>">Are you sure: <a href="javascript:;" class="confirm" data-listening-id="<?=$row['listening_id']?>" data-row-id="musicTable<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
                 <?php
               }
             }

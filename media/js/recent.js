@@ -83,15 +83,13 @@ $.extend(view, {
   },
   initRecentEvents: function () {
     $('html body').on('click', 'span.delete', function () {
-      $(this).removeClass('delete');
-      $('div.confirmation[for="' + $(this).attr('id') + '"]').show();
+      $($(this).data('confirmation-container')).show();
     });
     $('html body').on('click', 'a.cancel', function () {
-      $('#' + $(this).attr('for')).addClass('delete');
       $(this).closest('div').hide();
     });
     $('html body').on('click', 'a.confirm', function () {
-      var row_id = $(this).attr('data-row-id');
+      var row_id = $(this).data('row-id');
       if ($('#' + row_id).hasClass('just_added')) {
         $('tr').removeClass('just_added_rest');
       }
@@ -111,7 +109,7 @@ $.extend(view, {
           }
         },
         type:'DELETE',
-        url:'/api/listening/delete/' + $(this).attr('data-listening-id')
+        url:'/api/listening/delete/' + $(this).data('listening-id')
       });
     });
   }

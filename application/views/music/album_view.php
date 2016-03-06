@@ -93,8 +93,25 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Shoutbox <span id="shoutTotal"></span></h2>
+      <table class="comment_table">
+        <?php
+        if ($logged_in === TRUE) {
+          ?>
+          <tr class="post_comment">
+            <td class="img user_img">
+              <?=anchor(array('user', url_title($this->session->userdata('username'))), '<div class="cover user_img img64" style="background-image:url(' . $this->session->userdata('user_image') . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+            </td>
+            <td class="textarea" colspan="2">
+              <div><textarea placeholder="Post a shout…"></textarea></div>
+              <div><button>post shout</button></div>
+            </td>
+          </tr>
+          <?php
+        }
+        ?>
+      </table>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="commentLoader"/>
-      <table id="comment" class="commentTable"><!-- Content is loaded with AJAX --></table>
+      <table id="comment" class="comment_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div id="rightCont">

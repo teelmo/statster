@@ -42,7 +42,10 @@ $.extend(view, {
           $('#historyLoader').hide();
           $('#history').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function (data) {alert('400 Bad Request')}
+        400: function () { // 400 Bad request
+          $('#historyLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>');
+        }
       },
       type:'GET',
       url:'/api/listener/get'
