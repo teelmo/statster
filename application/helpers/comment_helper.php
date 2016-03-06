@@ -147,7 +147,7 @@ if (!function_exists('addComment')) {
       header('HTTP/1.1 400 Bad Request');
       return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
     }
-    else if (strpos($opts['text'], DASH)) {
+    else {
       $ci=& get_instance();
       $ci->load->database();
 
@@ -158,21 +158,41 @@ if (!function_exists('addComment')) {
         header('HTTP/1.1 401 Unauthorized');
         return json_encode(array('error' => array('msg' => $data)));
       }
-
-      $data['date'] = trim($opts['date']);
-
-      // Add listening data to DB.
-      $sql = "INSERT
-                INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
-                VALUES (?, ?, ?)";
-      $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date']));
+      $data['text'] = str_replace('\n', '<br />', $opts['text']);
+      if (empty($data['text'])) {
+        header('HTTP/1.1 400 Bad Request');
+        return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+      }
+      // Add comment data to DB.
+      switch ($opts['type']) {
+        case 'album':
+          $data['album_id'] = $opts['content_id'];
+          $sql = "INSERT
+                    INTO " . TBL_album_comment . " (`album_id`, `user_id`, `text`, `created`, `ip_address`)
+                    VALUES (?, ?, ?, CURRENT_TIMESTAMP(), ?)";
+          $query = $ci->db->query($sql, array($data['album_id'], $data['user_id'], $data['text'], $_SERVER['REMOTE_ADDR']));
+          break;
+        case 'artist':
+          $data['artist_id'] = $opts['content_id'];
+          $sql = "INSERT
+                    INTO " . TBL_artist_comment . " (`artist_id`, `user_id`, `text`, `created`, `ip_address`)
+                    VALUES (?, ?, ?, CURRENT_TIMESTAMP(), ?)";
+          $query = $ci->db->query($sql, array($data['artist_id'], $data['user_id'], $data['text'], $_SERVER['REMOTE_ADDR']));
+          break;
+        case 'user':
+          $data['profile_id'] = $opts['content_id'];
+          $sql = "INSERT
+                    INTO " . TBL_user_comment . " (`user_id`, `adder_id`, `text`, `created`, `ip_address`)
+                    VALUES (?, ?, ?, CURRENT_TIMESTAMP(), ?)";
+          $query = $ci->db->query($sql, array($data['profile_id'], $data['user_id'], $data['text'], $_SERVER['REMOTE_ADDR']));
+          break;
+        default:
+          header('HTTP/1.1 400 Bad Request');
+          return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+          break;
+      }
       if ($ci->db->affected_rows() === 1) {
-        $data['listening_id'] = $ci->db->insert_id();
-        // Add listening format data to DB.
-        if (!empty($_POST['format'])) {
-          list($data['format'], $data['format_type']) = explode(':', $_POST['format']);
-          addListeningFormat($data);
-        }
+        $data['comment_id'] = $ci->db->insert_id();
         header('HTTP/1.1 201 Created');
         return json_encode(array('success' => array('msg' => $data)));
       }
@@ -180,10 +200,6 @@ if (!function_exists('addComment')) {
         header('HTTP/1.1 400 Bad Request');
         return json_encode(array('error' => array('msg' => ERR_GENERAL)));
       }
-    }
-    else {
-      header('HTTP/1.1 404 Not Found');
-      return json_encode(array('error' => array('msg' => 'Format error.')));
     }
   }
 }

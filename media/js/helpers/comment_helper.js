@@ -27,6 +27,42 @@ $.extend(view, {
         url:'/api/comment/delete/' + $(this).data('comment-type') + '/' + $(this).data('comment-id')
       });
     });
+    $('#commentSubmit').click(function () {
+      var text_value = $('#commentText').val();
+      if (text_value === '') {
+        return false;
+      }
+      $('#commentLoader2').show();
+      $('#commentText').val('');
+      $.ajax({
+        data:{
+          content_id:$('#contentID').val(),
+          text:text_value,
+          type:$('#contentType').val()
+        },
+        dataType:'json',
+        statusCode:{
+          201: function (data) { // 201 Created
+            $('#commentLoader2').hide();
+            view.getComments();
+          },
+          400: function () { // 400 Bad Request
+            alert('400 Bad Request');
+            $('#commentLoader2').hide();
+          },
+          401: function () { // 401 Unauthorized
+            alert('401 Unauthorized');
+            $('#commentLoader2').hide();
+          },
+          404: function () { // 404 Not found
+            alert('404 Not Found');
+            $('#commentLoader2').hide();
+          }
+        },
+        type:'POST',
+        url:'/api/comment/add'
+      });
+    });
   }
 });
 

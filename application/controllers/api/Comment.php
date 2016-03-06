@@ -29,23 +29,9 @@ class Comment extends CI_Controller {
   /* Add a comment */
   public function add() {
     // Load helpers
-    $this->load->helper(array('comment_helper', 'id_helper'));
+    $this->load->helper(array('comment_helper'));
 
-    switch ($type) {
-      case 'album':
-        echo addComment($_POST);
-        break;
-      case 'artist':
-        echo addComment($_POST);
-        break;
-      case 'user':
-        echo addComment($_POST);
-        break;
-      default:
-        header("HTTP/1.1 400 Bad Request");
-        break;
-    }
-    
+    echo addComment($_POST);
   }
 
   /* Update comment information */
@@ -61,7 +47,7 @@ class Comment extends CI_Controller {
 
     switch ($type) {
       case 'album':
-        echo deleleComment(array('comment_id' => $comment_id, 'type' => $type));
+        echo deleteComment(array('comment_id' => $comment_id, 'type' => $type));
         break;
       case 'artist':
         echo deleteComment(array('comment_id' => $comment_id, 'type' => $type));

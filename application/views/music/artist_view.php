@@ -90,7 +90,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shoutbox <span id="shoutTotal"></span></h2>
+      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /><span id="shoutTotal"></span></h2>
       <table class="comment_table">
         <?php
         if ($logged_in === TRUE) {
@@ -100,8 +100,10 @@
               <?=anchor(array('user', url_title($this->session->userdata('username'))), '<div class="cover user_img img64" style="background-image:url(' . $this->session->userdata('user_image') . ')"></div>', array('title' => 'Browse to user\'s page'))?>
             </td>
             <td class="textarea" colspan="2">
-              <div><textarea placeholder="Post a shout…"></textarea></div>
-              <div><button>post shout</button></div>
+              <input type="hidden" id="contentID" value="<?=$artist_id?>" />
+              <input type="hidden" id="contentType" value="artist" />
+              <div><textarea placeholder="Post a shout…" id="commentText"></textarea></div>
+              <div><button id="commentSubmit">post shout</button></div>
             </td>
           </tr>
           <?php
