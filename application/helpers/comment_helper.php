@@ -2,7 +2,7 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-  * Get album comment.
+  * Get album comments.
   *
   * @param array $opts.
   *          'album_name'  => Album name
@@ -28,7 +28,8 @@ if (!function_exists('getAlbumComment')) {
                    FROM " . TBL_album_comment . "
                    WHERE " . TBL_album_comment . ".`album_id` = " . TBL_album . ".`id`
                      AND " . TBL_album . ".`album_name` LIKE ?
-                   ) AS `count`
+                   ) AS `count`,
+                   'album' as `type`
             FROM " . TBL_album_comment . ",
                  " . TBL_album . ",
                  " . TBL_user . "
@@ -46,7 +47,7 @@ if (!function_exists('getAlbumComment')) {
 }
 
 /**
-  * Get artist comment.
+  * Get artist comments.
   *
   * @param array $opts.
   *          'artist_name'  => Artist name
@@ -72,7 +73,8 @@ if (!function_exists('getArtistComment')) {
                      FROM " . TBL_artist_comment . "
                      WHERE " . TBL_artist_comment . ".`artist_id` = " . TBL_artist . ".`id`
                        AND " . TBL_artist . ".`artist_name` LIKE ?
-                   ) AS `count`
+                   ) AS `count`,
+                   'artist' as `type`
             FROM " . TBL_artist_comment . ",
                  " . TBL_artist . ",
                  " . TBL_user . "
@@ -90,7 +92,7 @@ if (!function_exists('getArtistComment')) {
 }
 
 /**
-  * Get user comment.
+  * Get user comments.
   *
   * @param array $opts.
   *          'username'  => Username
@@ -113,7 +115,8 @@ if (!function_exists('getUserComment')) {
                      FROM " . TBL_album_comment . "
                      WHERE " . TBL_user_comment . ".`user_id = " . TBL_user . ".`id`
                        AND " . TBL_user . ".`username` LIKE ?
-                   ) AS `count`
+                   ) AS `count`,
+                   'user' as `type`
             FROM " . TBL_user_comment . ",
                  " . TBL_user . "
             WHERE " . TBL_user_comment . ".`album_id` = " . TBL_album . ".`id`
@@ -127,3 +130,65 @@ if (!function_exists('getUserComment')) {
     return _json_return_helper($query, $human_readable);
   }
 }
+
+/**
+  * Delete comment data.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('deleteComment')) {
+  function deleteComment($opts = array()) {
+    $data = array();
+    if (!$data['comment_id'] = $opts['comment_id']) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    // Delete comment data from DB.
+    switch ($opts['type']) {
+      case 'album':
+        $sql = "DELETE 
+                  FROM " . TBL_album_comment . "
+                  WHERE " . TBL_album_comment . ".`id` = ?
+                    AND " . TBL_album_comment . ".`user_id` = ?";
+        $query = $ci->db->query($sql, array($data['comment_id'], $data['user_id']));
+        break;
+      case 'artist':
+        $sql = "DELETE 
+                  FROM " . TBL_artist_comment . "
+                  WHERE " . TBL_artist_comment . ".`id` = ?
+                    AND " . TBL_artist_comment . ".`user_id` = ?";
+        $query = $ci->db->query($sql, array($data['comment_id'], $data['user_id']));
+        break;
+      case 'user':
+        $sql = "DELETE 
+                  FROM " . TBL_user_comment . "
+                  WHERE " . TBL_user_comment . ".`id` = ?
+                    AND " . TBL_user_comment . ".`user_id` = ?";
+        $query = $ci->db->query($sql, array($data['comment_id'], $data['user_id']));
+        break;
+      default:
+        header('HTTP/1.1 400 Bad Request');
+        return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+        break;
+    }
+    if ($ci->db->affected_rows() === 1) {
+      header('HTTP/1.1 200 OK');
+      return json_encode(array());
+    }
+    else {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
+    }
+  }
+}
+?>

@@ -38,9 +38,23 @@ class Comment extends CI_Controller {
   }
 
   /* Delete comment information */
-  public function delete() {
+  public function delete($type, $comment_id) {
     // Load helpers
-    
+    $this->load->helper(array('comment_helper'));
+    switch ($type) {
+      case 'album':
+        echo deleleComment(array('comment_id' => $comment_id, 'type' => $type));
+        break;
+      case 'artist':
+        echo deleteComment(array('comment_id' => $comment_id, 'type' => $type));
+        break;
+      case 'user':
+        echo deleteComment(array('comment_id' => $comment_id, 'type' => $type));
+        break;
+      default:
+        header("HTTP/1.1 400 Bad Request");
+        break;
+    }
   }
 }
 ?>

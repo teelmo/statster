@@ -771,8 +771,8 @@ input {
     &:focus,
     &:hover {
       background: #333;
-      color: #fff;
       border-color: #444;
+      color: #fff;
     }
   }
 }
@@ -1000,8 +1000,8 @@ table.music_table {
             }
           }
           .confirmation {
-            text-align: left;
             font-size: 10px;
+            text-align: left;
           }
         }
         &.user_img {
@@ -1236,10 +1236,10 @@ table.column_table {
   float: right;
   font-size: 14px;
 }
-table.commentTable {
-  tr.comment {
+table.comment_table {
+  tr {
     td {
-      padding-bottom: 1em;
+      padding-bottom: 1.5em;
       vertical-align: top;
       &.img {
         .user_img  {
@@ -1249,12 +1249,50 @@ table.commentTable {
           }
         }
       }
+      &.textarea {
+        padding-left: 10px;
+        width: 100%;
+        textarea {
+          border-radius: 5px;
+          border: 1px solid #ebebeb;
+          box-sizing: border-box;
+          font-size: 13px;
+          height: 64px;
+          outline: none;
+          padding: 8px 12px;
+          resize: vertical;
+          width: 100%;
+        }
+        button {
+          -moz-appearance: none;
+          -webkit-appearance: none;
+          appearance: none;
+          background: #333;
+          border: 1px solid #444;
+          color: #eee;
+          cursor: pointer;
+          float: right;
+          font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          letter-spacing: .1em;
+          margin: 10px 0 15px 0;
+          outline: none;
+          padding: 5px 13px;
+          text-align: center;
+          &:focus,
+          &:hover {
+            background: #333;
+            border-color: #444;
+            color: #fff;
+          }
+        }
+      }
       &.text {
-        padding: 0 20px 0 10px;
+        padding-left: 10px;
         width: 100%;
         div {
           margin-bottom: 5px;
-          .username {f
+          .username {
             font-weight: bold;
           }
         }
@@ -1270,6 +1308,10 @@ table.commentTable {
               .opacity(1);
             }
           }
+        }
+        .confirmation {
+          font-size: 10px;
+          text-align: left;
         }
       }
       &.datetime {
@@ -1448,6 +1490,9 @@ div.cover {
   }
   &.artist_img {
     background-position: 50% 0%;
+    background-size: cover;
+  }
+  &.album_img {
     background-size: cover;
   }
   &.user_img,

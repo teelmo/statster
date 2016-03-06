@@ -42,7 +42,7 @@ class Music extends CI_Controller {
       }
       $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper');
+      $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
       if (empty($data['spotify_uri'])) {
         $data['spotify_uri'] = getSpotifyResourceId($data);
       }
@@ -75,7 +75,7 @@ class Music extends CI_Controller {
       }
       $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper');
+      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
       if (empty($data['spotify_uri'])) {
         $data['spotify_uri'] = getSpotifyResourceId($data);
       }
