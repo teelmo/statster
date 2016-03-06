@@ -228,7 +228,7 @@ $(document).ready(function () {
 
   $(document).ajaxStop(function (event, request, settings ) {
     $('#recentlyLiked').append($('.recently_liked tr').detach().sort(function (a, b) {
-      return app.compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
+      return app.compareStrings($(a).data('created'), $(b).data('created'));
     }));
     $('#recentlyLikedLoader').hide();
   });

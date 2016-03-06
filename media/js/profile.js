@@ -160,6 +160,45 @@ $.extend(view, {
       }
     });
   },
+  getComments: function () {
+    $.ajax({
+      data:{
+        username:'<?=$username?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          if (data[0].count == 1) {
+            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shouts');
+          }
+          else {
+            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shouts');
+          }
+          $.ajax({
+            data:{
+              json_data:data,
+              type:'artist'
+            },
+            success: function (data) {
+              $('#commentLoader').hide();
+              $('#comment').html(data);
+            },
+            type:'POST',
+            url:'/ajax/commentTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#commentLoader').hide();
+        },
+        400: function () { // 400 Bad request
+          $('#commentLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/comment/get/user'
+    });
+  },
   recentlyFaned: function () {
     $.ajax({
       data:{
@@ -227,12 +266,13 @@ $(document).ready(function () {
   view.getRecentListenings();
   view.getTopAlbums();
   view.getTopArtists();
+  view.getComments();
   view.recentlyFaned();
   view.recentlyLoved();
 
   $(document).ajaxStop(function (event, request, settings ) {
     $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function (a, b) {
-      return app.compareStrings($(a).attr('data-created'), $(b).attr('data-created'));
+      return app.compareStrings($(a).data('created'), $(b).data('created'));
     }));
     $('#recentlyLikedLoader').hide();
   });

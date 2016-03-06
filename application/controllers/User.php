@@ -26,7 +26,8 @@ class User extends CI_Controller {
     $data['username'] = $username;
 
     if ($data = getUser($data)) {
-      $data['js_include'] = array('profile', 'helpers/chart_helper');
+      $data['js_include'] = array('profile', 'helpers/chart_helper', 'helpers/comment_helper');
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
       $opts = array(

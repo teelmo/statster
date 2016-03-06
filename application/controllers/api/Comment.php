@@ -9,6 +9,7 @@ class Comment extends CI_Controller {
   public function get($type) {
     // Load helpers
     $this->load->helper(array('comment_helper', 'output_helper'));
+
     switch ($type) {
       case 'album':
         echo getAlbumComment($_REQUEST);
@@ -28,6 +29,22 @@ class Comment extends CI_Controller {
   /* Add a comment */
   public function add() {
     // Load helpers
+    $this->load->helper(array('comment_helper', 'id_helper'));
+
+    switch ($type) {
+      case 'album':
+        echo addComment($_POST);
+        break;
+      case 'artist':
+        echo addComment($_POST);
+        break;
+      case 'user':
+        echo addComment($_POST);
+        break;
+      default:
+        header("HTTP/1.1 400 Bad Request");
+        break;
+    }
     
   }
 
@@ -41,6 +58,7 @@ class Comment extends CI_Controller {
   public function delete($type, $comment_id) {
     // Load helpers
     $this->load->helper(array('comment_helper'));
+
     switch ($type) {
       case 'album':
         echo deleleComment(array('comment_id' => $comment_id, 'type' => $type));
