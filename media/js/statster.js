@@ -70,8 +70,11 @@ var app = {
   },
   initStatsterEvents: function () {
     $('.search_text').autocomplete({
-      minLength:3,
       html:true,
+      minLength:3,
+      response: function () {
+        $(this).removeClass('working');
+      },
       source:'/autoComplete/search',
       select: function (event, ui) {
         if (ui.item.url !== undefined) {
@@ -80,9 +83,6 @@ var app = {
       },
       search: function () {
         $(this).addClass('working');
-      },
-      open: function () {
-        $(this).removeClass('working');
       }
     });
     $('.settings a').click(function () {
