@@ -65,7 +65,7 @@ var app = {
       window.location = '/';
     });
     Mousetrap.bind(['mod+shift+s'], function (e) {
-      $('#searchString').focus();
+      $('.search_text').focus();
     });
   },
   initStatsterEvents: function () {
