@@ -383,4 +383,9 @@ $(document).ready(function () {
   view.getUsers();
   view.getListenings();
   view.initAlbumEvents();
+
+  var update_bio = <?=($update_bio === true) ? 1 : 0?>;
+  if (update_bio === 1) {
+    view.updateArtistBio();
+  }
 });
