@@ -117,7 +117,7 @@ if (!function_exists('getAlbumBio')) {
             FROM " . TBL_album_biography . "
             WHERE " . TBL_album_biography . ".`album_id` = ?";
     $query = $ci->db->query($sql, array($artist_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array();
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
   }
 }
 

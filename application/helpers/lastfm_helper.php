@@ -57,9 +57,11 @@ if (!function_exists('fetchAlbumBio')) {
     if ($artist_name !== FALSE && $album_name !== FALSE) {
       $data = array();
       $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist=' . urlencode($artist_name) . '&album=' . urlencode($album_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
-      $data['bio_summary'] = $lastfm_data['album']['wiki']['summary']; 
-      $data['bio_content'] = $lastfm_data['album']['wiki']['content'];
-      return $data; 
+      if (!empty($lastfm_data['album']['wiki'])) {
+        $data['bio_summary'] = $lastfm_data['album']['wiki']['summary']; 
+        $data['bio_content'] = $lastfm_data['album']['wiki']['content'];
+        return $data;
+      }
     }
     return array();
   }
@@ -84,9 +86,11 @@ if (!function_exists('fetchArtistBio')) {
     if ($artist_name !== FALSE) {
       $data = array();
       $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
-      $data['bio_summary'] = $lastfm_data['artist']['bio']['summary']; 
-      $data['bio_content'] = $lastfm_data['artist']['bio']['content'];
-      return $data; 
+      if (!empty($lastfm_data['artist']['bio'])) {
+        $data['bio_summary'] = $lastfm_data['artist']['bio']['summary']; 
+        $data['bio_content'] = $lastfm_data['artist']['bio']['content'];
+        return $data;
+      }
     }
     return array();
   }

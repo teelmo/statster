@@ -79,7 +79,7 @@ if (!function_exists('getArtistBio')) {
             FROM " . TBL_artist_biography . "
             WHERE " . TBL_artist_biography . ".`artist_id` = ?";
     $query = $ci->db->query($sql, array($artist_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array();
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
   }
 }
 
