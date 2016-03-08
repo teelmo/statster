@@ -158,7 +158,7 @@ if (!function_exists('addComment')) {
         header('HTTP/1.1 401 Unauthorized');
         return json_encode(array('error' => array('msg' => $data)));
       }
-      $data['text'] = str_replace('\n', '<br />', $opts['text']);
+      $data['text'] = trim($opts['text']);
       if (empty($data['text'])) {
         header('HTTP/1.1 400 Bad Request');
         return json_encode(array('error' => array('msg' => ERR_GENERAL)));

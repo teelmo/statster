@@ -19,7 +19,7 @@ if (!empty($json_data)) {
             }
             ?>
           </div>
-          <?=$row['text']?>
+          <?=nl2br($row['text'])?>
         </td>
         <td class="datetime"><?=timeAgo($row['created'])?></td>
       </tr>
