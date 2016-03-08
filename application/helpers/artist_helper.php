@@ -47,13 +47,79 @@ if (!function_exists('getArtistInfo')) {
 
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
-                   " . TBL_artist . ".`artist_name`, 
-                   " . TBL_artist . ".`spotify_uri`, 
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`spotify_uri`,
                    YEAR(" . TBL_artist . ".`created`) as `created`
             FROM " . TBL_artist . "
             WHERE " . TBL_artist . ".`artist_name` LIKE ?";
     $query = $ci->db->query($sql, array($artist_name));
     return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : FALSE;
+  }
+}
+
+/**
+  * Gets artist's bio.
+  *
+  * @param array $opts.
+  *          'artist_id'  => Artist ID
+  *
+  * @return array Artist bio
+  */
+if (!function_exists('getArtistBio')) {
+  function getArtistBio($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
+    $sql = "SELECT " . TBL_artist_biography . ".`id` as `biography_id`,
+                   " . TBL_artist_biography . ".`summary` as `bio_summary`, 
+                   " . TBL_artist_biography . ".`text` as `bio_content`, 
+                   " . TBL_artist_biography . ".`updated` as `bio_updated`,
+                   'false' as `update_bio`
+            FROM " . TBL_artist_biography . "
+            WHERE " . TBL_artist_biography . ".`artist_id` = ?";
+    $query = $ci->db->query($sql, array($artist_id));
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array();
+  }
+}
+
+/**
+  * Add artist's bio.
+  *
+  * @param array $opts.
+  *          'artist_id'    => Artist ID
+  *          'bio_summary'  => Bio summary
+  *          'bio_content'  => Bio content
+  *
+  * @return retun boolean TRUE or FALSE
+  */
+if (!function_exists('addArtistBio')) {
+  function addArtistBio($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
+    $summary = !empty($opts['bio_summary']) ? $opts['bio_summary'] : '';
+    $text = !empty($opts['bio_content']) ? $opts['bio_content'] : '';
+
+    $sql = "SELECT  " . TBL_artist_biography . ".`id`
+            FROM " . TBL_artist_biography . "
+            WHERE " . TBL_artist_biography . ".`artist_id` = ?";
+    $query = $ci->db->query($sql, array($artist_id));
+    if ($query->num_rows() === 1) {
+      $sql = "UPDATE " . TBL_artist_biography . "
+                SET " . TBL_artist_biography . ".`summary` = ?,
+                    " . TBL_artist_biography . ".`text` = ?
+                WHERE " . TBL_artist_biography . ".`artist_id` = ?";
+      $query = $ci->db->query($sql, array($summary, $text, $artist_id));
+    }
+    else {
+      $sql = "INSERT
+                INTO " . TBL_artist_biography . " (`artist_id`, `summary`, `text`)
+                VALUES (?, ?, ?)";
+      $query = $ci->db->query($sql, array($artist_id, $summary, $text));
+    }
+    return ($ci->db->affected_rows() === 1);
   }
 }
 

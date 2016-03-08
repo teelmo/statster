@@ -5,14 +5,16 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * Gets artist's similar artists from Last.fm
   *
   * @param array $opts.
-  *          'artist'   => Artist name
+  *          'artist_name'      => Artist name
+  *          'format'           => Format
+  *          'limit'            => Limit
   *
   * @return array Artist's similar artists.
   *
+  * http://www.last.fm/api/show/artist.getSimilar
   */
-if (!function_exists('getSimilar')) {
-  function getSimilar($opts = array()) {
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+if (!function_exists('Similar')) {
+  function fetchSimilar($opts = array()) {
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $limit = !empty($opts['limit']) ? $opts['limit'] : 4;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
@@ -35,6 +37,89 @@ if (!function_exists('getSimilar')) {
 }
 
 /**
+  * Gets album's info from Last.fm
+  *
+  * @param array $opts.
+  *          'album_name'       => Album name
+  *          'artist_name'      => Artist name
+  *          'format'           => Format
+  *
+  * @return array Album's bio.
+  *
+  * http://www.last.fm/api/show/album.getInfo
+  *
+  */
+if (!function_exists('fetchAlbumBio')) {
+  function fetchAlbumBio($opts = array()) {
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : FALSE;
+    $format = !empty($opts['format']) ? $opts['format'] : 'json';
+    if ($artist_name !== FALSE && $album_name !== FALSE) {
+      $data = array();
+      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist=' . urlencode($artist_name) . '&album=' . urlencode($album_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
+      $data['bio_summary'] = $lastfm_data['album']['wiki']['summary']; 
+      $data['bio_content'] = $lastfm_data['album']['wiki']['content'];
+      return $data; 
+    }
+    return array();
+  }
+}
+
+/**
+  * Gets artist's biography from Last.fm
+  *
+  * @param array $opts.
+  *          'artist'           => Artist name
+  *          'format'           => Format
+  *
+  * @return array Artist's bio.
+  *
+  * http://www.last.fm/api/show/artist.getInfo
+  *
+  */
+if (!function_exists('fetchArtistBio')) {
+  function fetchArtistBio($opts = array()) {
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $format = !empty($opts['format']) ? $opts['format'] : 'json';
+    if ($artist_name !== FALSE) {
+      $data = array();
+      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
+      $data['bio_summary'] = $lastfm_data['artist']['bio']['summary']; 
+      $data['bio_content'] = $lastfm_data['artist']['bio']['content'];
+      return $data; 
+    }
+    return array();
+  }
+}
+
+/**
+  * Gets tag's info from Last.fm
+  *
+  * @param array $opts.
+  *          'tag_name'         => Artist name
+  *          'format'           => Format
+  *
+  * @return string Tag's bio.
+  *
+  * http://www.last.fm/api/show/tag.getInfo
+  *
+  */
+if (!function_exists('fetchTagBio')) {
+  function fetchTagBio($opts = array()) {
+    $tag_name = !empty($opts['tag_name']) ? $opts['tag_name'] : FALSE;
+    $format = !empty($opts['format']) ? $opts['format'] : 'json';
+    if ($tag_name !== FALSE) {
+      $data = array();
+      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=' . urlencode($tag_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
+      $data['bio_summary'] = $lastfm_data['artist']['bio']['summary']; 
+      $data['bio_content'] = $lastfm_data['artist']['bio']['content'];
+      return json_encode($data); 
+    }
+    return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
+  }
+}
+
+/**
   * Gets artist's events from Last.fm
   *
   * @param array $opts.
@@ -42,7 +127,7 @@ if (!function_exists('getSimilar')) {
   *
   * @return array Artist's events.
   *
-  */
+ 
 if (!function_exists('getEvents')) {
   function getEvents($opts = array()) {
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
@@ -76,29 +161,5 @@ if (!function_exists('getEvents')) {
     return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
   }
 }
-
-/**
-  * Gets artist's biography from Last.fm
-  *
-  * @param array $opts.
-  *          'artist'   => Artist name
-  *
-  * @return string Artist's bio.
-  *
-  */
-if (!function_exists('getBio')) {
-  function getBio($opts = array()) {
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
-    $format = !empty($opts['format']) ? $opts['format'] : 'json';
-    if ($artist_name !== FALSE) {
-      $data = array();
-      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
-      $data['bio_summary'] = $lastfm_data['artist']['bio']['summary']; 
-      $data['bio_content'] = $lastfm_data['artist']['bio']['content'];
-      return json_encode($data); 
-    }
-    return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
-  }
-}
+*/
 ?>

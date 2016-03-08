@@ -338,6 +338,17 @@ $.extend(view, {
         });
       }
     });
+  },
+  updateArtistBio: function () {
+    $.ajax({
+      data:{
+        artist_id:'<?php echo $artist_id?>',
+        artist_name:'<?php echo $artist_name?>'
+      },
+      dataType:'json',
+      type:'GET',
+      url:'/api/artist/update/biography'
+    });
   }
 });
 
@@ -350,4 +361,15 @@ $(document).ready(function () {
   view.getUsers();
   view.getListenings();
   view.initArtistEvents();
+
+  var update_bio = <?=($update_bio === true) ? 1 : 0?>;
+  console.log(update_bio)
+  if (update_bio === 1) {
+    console.log('bio_need_updating');
+    console.log('<?=$bio_updated?>');
+    view.updateArtistBio();
+  }
+  else {
+    console.log('<?=$bio_updated?>');
+  }
 });

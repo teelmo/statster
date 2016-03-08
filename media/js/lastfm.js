@@ -3,7 +3,7 @@ $.extend(view, {
     $.ajax({
       type:'GET',
       dataType:'json',
-      url:'/api/lastfm/getSimilar',
+      url:'/api/lastfm/fetchSimilar',
       data:{
         artist_name:'<?php echo $artist_name?>',
         limit:10
@@ -53,55 +53,11 @@ $.extend(view, {
         }
       }
     });
-  },
-  getBio: function () {
-    $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/lastfm/getBio',
-      data:{
-        artist_name:'<?php echo $artist_name?>',
-        limit:4
-      },
-      statusCode: {
-        200: function (data) {
-          $.ajax({
-            type:'POST',
-            url:'/ajax/artistBio',
-            data:{
-              json_data:data,
-              hide : {
-                count:true
-              }
-            },
-            success: function (data) {
-              $('#artistBioLoader').hide();
-              $('#artistBio').html(data);
-            },
-            complete: function () {
-              $('#biographyMore').click(function () {
-                $('#biographyMore').hide();
-                $('.summary').hide();
-                $('#biographyLess').show();
-                $('.content').show();
-              });
-              $('#biographyLess').click(function () {
-                $('#biographyLess').hide();
-                $('.content').hide();
-                $('#biographyMore').show();
-                $('.summary').show();
-              });
-            }
-          });
-        }
-      }
-    });
   }
 });
 
 $(document).ready(function () {
   view.getSimilar();
   // view.getEvents();
-  view.getBio();
 });
 

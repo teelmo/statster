@@ -65,9 +65,15 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <h2 id="biography">Biography</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistBioLoader"/>
-      <div id="artistBio"><!-- Content is loaded with AJAX --></div>
+      <h2>Biography</h2>
+      <p class="summary"><?=nl2br($bio_summary)?></p>
+      <div class="more moreDown">
+        <?=anchor('', 'See more', array('title' => 'See full biography', 'id' => 'biographyMore'))?>
+      </div>
+      <p class="content hidden"><?=nl2br($bio_content)?></p>
+      <div class="more moreUp ">
+        <?=anchor('', 'See less', array('title' => 'Suppress biograhpy', 'id' => 'biographyLess', 'class' => 'hidden'))?>
+      </div>
     </div>
     <div class="container">
       <h2>History</h2>

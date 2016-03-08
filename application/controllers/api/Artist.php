@@ -20,9 +20,17 @@ class Artist extends CI_Controller {
   }
 
   /* Update artist information */
-  public function update() {
+  public function update($type) {
     // Load helpers
-    
+    switch ($type) {
+      case 'biography':
+        $this->load->helper(array('artist_helper'));
+        
+        echo addArtistBio($_REQUEST);
+        break;
+      default:
+        break;
+    }
   }
 
   /* Delete artist information */

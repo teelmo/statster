@@ -19,10 +19,18 @@ class Album extends CI_Controller {
     
   }
 
-  /* Update album information */
-  public function update() {
+  /* Update artist information */
+  public function update($type) {
     // Load helpers
-    
+    switch ($type) {
+      case 'biography':
+        $this->load->helper(array('album_helper'));
+        
+        echo addAlbumBio($_REQUEST);
+        break;
+      default:
+        break;
+    }
   }
 
   /* Delete album information */

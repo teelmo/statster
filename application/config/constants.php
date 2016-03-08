@@ -65,6 +65,7 @@ define('AUTOCOMPLETE_MAX_HEIGHT', 312); #px
 define('AUTOCOMPLETE_MIN_CHARS', 3); #px
 
 // Time constants
+define('BIO_UPDATE_TIME', 31622399); #One year.
 define('MSG_FADEOUT', 3000);
 define('JUST_LISTENED_INTERVAL', 1800);
 define('CUR_DATE', date('Y-m-d')); #2009-12-15
@@ -74,6 +75,7 @@ define('SPOTIFY_TIMEOUT', 3); #seconds
 
 // Database variables
 define('TBL_album', 'album');
+define('TBL_album_biography', 'album_biography');
 define('TBL_album_comment', 'album_comment');
 define('TBL_album_equalize', 'album_equalize');
 define('TBL_artist', 'artist');

@@ -16,10 +16,9 @@ if (!function_exists('addAlbum')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    // Load helpers.
     $data['album_info'] = !empty($opts['album_name']) ? $opts['album_name'] : '';
-    $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
     $data['artist_id'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
+    $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
     if (empty($data['artist_id'])) {
       $data['artist_name'] = $opts['artist_name'];
       if (!$data['artist_id'] = addArtist($data)) {
@@ -37,13 +36,13 @@ if (!function_exists('addAlbum')) {
       $query = $ci->db->query($sql, array($data['artist_id'], $data['user_id'], $data['album_name'], $data['album_year']));
       if ($ci->db->affected_rows() === 1) {
         $data['album_id'] = $ci->db->insert_id();
+        // Load helpers.
+        $ci->load->helper(array('keyword_helper', 'artist_helper', 'nationality_helper'));
         // Add decade keyword.
         $data['tag_name'] = (floor((int)$data['album_year'] / 10) * 10) . '\'s';
-        $ci->load->helper(array('keyword_helper'));
         $data['tag_id'] = getKeywordID($data);
         addKeyword($data);
         // Add nationality information.
-        $ci->load->helper(array('artist_helper', 'nationality_helper'));
         $nationalities = getArtistNationalities(array('artist_id' => $data['artist_id']));
         if (!empty($nationalities)) {
           foreach ($nationalities as $key => $nationality) {
@@ -95,6 +94,73 @@ if (!function_exists('getAlbumInfo')) {
     return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : FALSE;
   }
 }
+
+/**
+  * Gets artist's bio.
+  *
+  * @param array $opts.
+  *          'album_id'  => Album ID
+  *
+  * @return array Album bio
+  */
+if (!function_exists('getAlbumBio')) {
+  function getAlbumBio($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
+    $sql = "SELECT " . TBL_album_biography . ".`id` as `biography_id`,
+                   " . TBL_album_biography . ".`summary` as `bio_summary`, 
+                   " . TBL_album_biography . ".`text` as `bio_content`, 
+                   " . TBL_album_biography . ".`updated` as `bio_updated`,
+                   'false' as `update_bio`
+            FROM " . TBL_album_biography . "
+            WHERE " . TBL_album_biography . ".`album_id` = ?";
+    $query = $ci->db->query($sql, array($artist_id));
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array();
+  }
+}
+
+/**
+  * Add artist's bio.
+  *
+  * @param array $opts.
+  *          'album_id'     => Album ID
+  *          'bio_summary'  => Bio summary
+  *          'bio_content'  => Bio content
+  *
+  * @return retun boolean TRUE or FALSE
+  */
+if (!function_exists('addAlbumBio')) {
+  function addAlbumBio($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
+    $summary = !empty($opts['bio_summary']) ? $opts['bio_summary'] : '';
+    $text = !empty($opts['bio_content']) ? $opts['bio_content'] : '';
+
+    $sql = "SELECT  " . TBL_album_biography . ".`id`
+            FROM " . TBL_album_biography . "
+            WHERE " . TBL_album_biography . ".`album_id` = ?";
+    $query = $ci->db->query($sql, array($album_id));
+    if ($query->num_rows() === 1) {
+      $sql = "UPDATE " . TBL_album_biography . "
+                SET " . TBL_album_biography . ".`summary` = ?,
+                    " . TBL_album_biography . ".`text` = ?
+                WHERE " . TBL_album_biography . ".`album_id` = ?";
+      $query = $ci->db->query($sql, array($summary, $text, $album_id));
+    }
+    else {
+      $sql = "INSERT
+                INTO " . TBL_album_biography . " (`album_id`, `summary`, `text`)
+                VALUES (?, ?, ?)";
+      $query = $ci->db->query($sql, array($album_id, $summary, $text));
+    }
+    return ($ci->db->affected_rows() === 1);
+  }
+}
+
 
 /**
    * Gets album's listenings.

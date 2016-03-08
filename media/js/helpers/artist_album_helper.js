@@ -1,18 +1,14 @@
 $.extend(view, {
   artistAlbum: function () {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/artistAlbum',
       data:{
         artist_name:'<?php echo $artist_name?>',
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
+      dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
-            type:'POST',
-            url:'/ajax/albumList',
             data:{
               json_data:data,
               rank:9,
@@ -21,14 +17,35 @@ $.extend(view, {
             success: function(data) {
               $('#artistAlbumLoader').hide();
               $('#artistAlbum').html(data);
-            }
+            },
+            type:'POST',
+            url:'/ajax/albumList'
           });
         }
-      }
+      },
+      type:'GET',
+      url:'/api/artistAlbum'
+    });
+  },
+  artistAlbumEvents: function () {
+    $('#biographyMore').click(function (event) {
+      $('#biographyMore').hide();
+      $('.summary').hide();
+      $('#biographyLess').show();
+      $('.content').show();
+      event.preventDefault();
+    });
+    $('#biographyLess').click(function (event) {
+      $('#biographyLess').hide();
+      $('.content').hide();
+      $('#biographyMore').show();
+      $('.summary').show();
+      event.preventDefault();
     });
   }
 });
 
 $(document).ready(function() {
   view.artistAlbum();
+  view.artistAlbumEvents();
 });

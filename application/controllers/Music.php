@@ -36,6 +36,18 @@ class Music extends CI_Controller {
     if ($data = getArtistInfo($data)) {
       // Get artist's total listening data
       $data += getArtistListenings($data);
+      // Get biographty.
+      $data += getArtistBio($data);
+      if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+        $this->load->helper(array('lastfm_helper'));
+        unset($data['bio_summary']);
+        unset($data['bio_content']);
+        $data += fetchArtistBio($data);
+        addArtistBio($data);
+      }
+      else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+        $data['update_bio'] = true;
+      }
       // Get logged in user's listening data
       if ($data['user_id'] = $this->session->userdata('user_id')) {
         $data += getArtistListenings($data);
@@ -69,6 +81,18 @@ class Music extends CI_Controller {
     if ($data = getAlbumInfo($data)) {
       // Get albums's total listening data
       $data += getAlbumListenings($data);
+      // Get biographty.
+      $data += getAlbumBio($data);
+      if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+        $this->load->helper(array('lastfm_helper'));
+        unset($data['bio_summary']);
+        unset($data['bio_content']);
+        $data += fetchAlbumBio($data);
+        addAlbumBio($data);
+      }
+      else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+        $data['update_bio'] = true;
+      }
       // Get logged in user's listening data
       if ($data['user_id'] = $this->session->userdata('user_id')) {
         $data += getAlbumListenings($data);

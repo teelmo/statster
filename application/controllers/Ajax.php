@@ -19,7 +19,6 @@ class Ajax extends CI_Controller {
         unset($_SESSION['get_username']);
         header('HTTP/1.1 200 OK');
         break;
-      
       default:
         header('HTTP/1.1 200 OK');
         break;
@@ -180,16 +179,6 @@ class Ajax extends CI_Controller {
       $this->load->helper(array('img_helper', 'output_helper'));
 
       $this->load->view('templates/like_table', $_POST);
-      header('HTTP/1.1 200 OK');
-    }
-    else {
-      exit (ERR_NO_RESULTS);
-    }
-  }
-
-  public function artistBio() {
-    if (!empty($_POST)) {
-      $this->load->view('templates/artist_bio', $_POST);
       header('HTTP/1.1 200 OK');
     }
     else {
