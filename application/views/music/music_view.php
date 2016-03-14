@@ -88,7 +88,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h1>Second chance</h1>
+      <h1>Second chance <span class="func_container"><i class="fa fa-refresh" id="refreshSecondChanceAlbums"></i></span></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="secondChanceLoader" />
       <table class="side_table" id="secondChance"><!-- Content is loaded with AJAX --></table>
     </div>

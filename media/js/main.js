@@ -330,6 +330,15 @@ $.extend(view, {
         view.getRecentListenings();
       }
     });
+    $('#refreshRecentAlbums').click(function () {
+      view.getRecentListenings();
+    });
+    $('#refreshPopularAlbums').click(function () {
+      view.getRecommentedTopAlbum();
+    });
+    $('#refreshNewAlbums').click(function () {
+      view.getRecommentedNewAlbum();
+    });
     // $('#addListeningShowmore').click(function () {
     //   $('.listeningFormat').removeClass('hidden');
     //   $(this).remove();

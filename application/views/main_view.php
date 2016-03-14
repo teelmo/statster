@@ -42,7 +42,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /></h2>
+      <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /> <span class="func_container"><i class="fa fa-refresh" id="refreshRecentAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -68,10 +68,10 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h1>What's hot</h1>
-      <h2>Popular albums</h2>
+      <h2>Popular albums <span class="func_container"><i class="fa fa-refresh" id="refreshPopularAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
       <table id="recommentedTopAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
-      <h2>New releases</h2>
+      <h2>New releases <span class="func_container"><i class="fa fa-refresh" id="refreshNewAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedNewAlbumLoader" />
       <table id="recommentedNewAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>

@@ -215,6 +215,17 @@ $.extend(view, {
       type:'GET',
       url:'/api/love/get'
     });
+  },
+  initMusicEvents: function () {
+    $(document).ajaxStop(function (event, request, settings ) {
+      $('#recentlyLiked').append($('.recently_liked tr').detach().sort(function (a, b) {
+        return app.compareStrings($(a).data('created'), $(b).data('created'));
+      }));
+      $('#recentlyLikedLoader').hide();
+    });
+    $('#refreshSecondChanceAlbums').click(function () {
+      view.secondChance();
+    });
   }
 });
 
@@ -225,11 +236,7 @@ $(document).ready(function () {
   view.secondChance();
   view.recentlyFaned();
   view.recentlyLoved();
+  view.initMusicEvents();
 
-  $(document).ajaxStop(function (event, request, settings ) {
-    $('#recentlyLiked').append($('.recently_liked tr').detach().sort(function (a, b) {
-      return app.compareStrings($(a).data('created'), $(b).data('created'));
-    }));
-    $('#recentlyLikedLoader').hide();
-  });
+
 });
