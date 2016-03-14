@@ -350,7 +350,7 @@ class CI_DB_mysqli_driver extends CI_DB {
    // $search = array('\\\'%Y%m\\\'', '\\\'%Y\\\'', '\\\'%m\\\'', '\\\'%d\\\'', '\\\'%w\\\'', '\\\'00\\\'');
    // $replace = array('\'%Y%m\'', '\'%Y\'', '\'%m\'', '\'%d\'', '\'%w\'', '00');
    // return str_replace($search, $replace, $this->conn_id->real_escape_string($str));
-	 $pattern = '/\\\\\'([0-9Ymd\-%]*)\\\\\'/';
+	 $pattern = '/\\\\\'([0-9Ymdw\-%]*)\\\\\'/';
 	 $replace = '\'${1}\'';
    return preg_replace($pattern, $replace, $this->conn_id->real_escape_string($str));
 	 // return $this->conn_id->real_escape_string($str);
