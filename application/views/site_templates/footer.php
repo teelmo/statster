@@ -6,9 +6,9 @@
           © <span class="statster_year number">2007–2016</span> Statster&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=anchor(array('about'), 'About', array('title' => 'About Statster'))?>&nbsp;&nbsp;<?=anchor(array('terms'), 'Terms', array('title' => 'Terms of service'))?>&nbsp;&nbsp;<?=anchor(array('privacy'), 'Privacy', array('title' => 'Privacy policy'))?>&nbsp;&nbsp;<?=anchor(array('career'), 'Career', array('title' => 'Career'))?>&nbsp;&nbsp;<?=anchor(array('developers'), 'Developers', array('title' => 'Developers'))?>
         </div>
         <div class="float_right social_media">
-          <?=anchor(array('https://www.facebook.com/statster'), '<img src="/media/img/icons/facebook.png" alt="" class="middle icon" />', array('title' => 'Statster @ Facebook'))?>
-          <?=anchor(array('/'), '<img src="/media/img/icons/twitter.png" alt="" class="middle icon" />', array('title' => 'Statster @ Twitter'))?>
-          <?=anchor(array('/'), '<img src="/media/img/icons/rss.png" alt="" class="middle icon" />', array('title' => 'RSS feed'))?>
+          <?=anchor(array('https://www.facebook.com/statster'), '<i class="fa fa-facebook"></i>', array('title' => 'Statster @ Facebook'))?>
+          <?=anchor(array('/'), '<i class="fa fa-twitter"></i>', array('title' => 'Statster @ Twitter'))?>
+          <?=anchor(array('/'), '<i class="fa fa-rss"></i>', array('title' => 'RSS feed'))?>
         </div>
       </div>
       <div class="clear"></div>

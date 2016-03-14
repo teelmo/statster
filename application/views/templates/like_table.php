@@ -6,7 +6,7 @@ if (!empty($json_data)) {
       ?>
       <tr data-created="<?=$row['created']?>">
         <td class="type">
-          <img src="<?=site_url()?>/media/img/icons/<?=$row['type']?>.png" alt="" />
+          <i class="fa fa-<?=$row['type']?>"></i>
         </td>
         <td class="img<?=$size?> albumImg">
           <?php

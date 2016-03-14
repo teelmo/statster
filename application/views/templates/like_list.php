@@ -4,7 +4,7 @@ if (!empty($json_data)) {
     foreach ($json_data as $idx => $row) {
       ?>
       <li data-created="<?=$row['created']?>">
-        <img src="<?=site_url()?>/media/img/icons/<?=$row['type']?>.png" alt="" />
+        <i class="fa fa-<?=$row['type']?>"></i>
       </li>
       <?php
     }

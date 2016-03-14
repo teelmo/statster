@@ -28,7 +28,7 @@ if (!function_exists('getLove')) {
                    " . TBL_album . ".`album_name`,
                    " . TBL_user . ".`username`,
                    " . TBL_love . ".`created`,
-                   'love' as `type`
+                   'heart' as `type`
             FROM " . TBL_love . ",
                  " . TBL_artist . ",
                  " . TBL_album . ",
@@ -68,7 +68,7 @@ if (!function_exists('getLoves')) {
                    " . TBL_album . ".`id` as `album_id`,
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_album . ".`album_name`,
-                   'love' as `type`
+                   'heart' as `type`
             FROM " . TBL_love . ",
                  " . TBL_artist . ",
                  " . TBL_album . "

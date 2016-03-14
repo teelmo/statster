@@ -26,7 +26,7 @@ if (!function_exists('getFan')) {
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_user . ".`username`,
                    " . TBL_fan . ".`created`,
-                   'fan' as `type`
+                   'star' as `type`
             FROM " . TBL_fan . ",
                  " . TBL_artist . ",
                  " . TBL_user . "
@@ -63,7 +63,7 @@ if (!function_exists('getLoves')) {
     $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`id` as `artist_id`,
                    " . TBL_artist . ".`artist_name`,
-                   'fan' as `type`
+                   'star' as `type`
             FROM " . TBL_fan . ",
                  " . TBL_artist . "
             WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
