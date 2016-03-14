@@ -26,8 +26,8 @@ if (!function_exists('addAlbum')) {
       }
     }
     preg_match('/(.*)\(([0-9]{4})\)/', $data['album_info'], $matches);
-    $data['album_name'] = ucwords(trim($matches[1]));
-    $data['album_year'] = trim($matches[2]);
+    $data['album_name'] = ucwords(trim(str_replace(' ', ' ', $matches[1])));
+    $data['album_year'] = trim(str_replace(' ', ' ', $matches[2]));
 
     if (!empty($data['album_name']) && (intval($data['album_year']) > 1900 && intval($data['album_year']) < (CUR_YEAR + 1))) {
       $sql = "INSERT
