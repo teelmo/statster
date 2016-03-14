@@ -258,6 +258,14 @@ $.extend(view, {
       type:'GET',
       url:'/api/love/get'
     });
+  },
+  initProfileEvents: function () {
+    $(document).ajaxStop(function (event, request, settings ) {
+      $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function (a, b) {
+        return app.compareStrings($(a).data('created'), $(b).data('created'));
+      }));
+      $('#recentlyLikedLoader').hide();
+    });
   }
 });
 
@@ -269,11 +277,5 @@ $(document).ready(function () {
   view.getComments();
   view.recentlyFaned();
   view.recentlyLoved();
-
-  $(document).ajaxStop(function (event, request, settings ) {
-    $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function (a, b) {
-      return app.compareStrings($(a).data('created'), $(b).data('created'));
-    }));
-    $('#recentlyLikedLoader').hide();
-  });
+  view.initProfileEvents();
 });
