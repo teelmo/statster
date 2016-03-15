@@ -1006,7 +1006,7 @@ table.music_table {
               font-size: 15px;
               margin-left: 5px;
               position: relative;
-              top: 1px;
+              top: 3px;
               &:hover {
                 .opacity(1);
                 color: #000;
@@ -1030,12 +1030,11 @@ table.music_table {
           padding-left: 17px;
         }
         .love_icon {
-          background-image: url('/media/img/icons/love.png');
-          background-position: center;
-          background-repeat: no-repeat;
-          margin: 3px 2px 0 0;
-          padding: 0 20px 3px 0;
-          vertical-align: 0;
+          font-family: 'FontAwesome';
+          font-size: 14px;
+          &:after {
+            content: '\f004';
+          }
         }
       }
       &:nth-child(2n) {
@@ -1316,7 +1315,7 @@ table.comment_table {
             font-size: 15px;
             margin-left: 5px;
             position: relative;
-            top: 1px;
+            top: 3px;
             &:hover {
               .opacity(1);
               color: #000;
