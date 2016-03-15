@@ -13,7 +13,7 @@ if (!empty($json_data)) {
             <?php
             if ($this->session->userdata('user_id') === $row['user_id']) {
               ?>
-              <span class="delete" data-confirmation-container=".confirmation_<?=$idx?>"><a href="javascript:;"><img src="/media/img/icons/delete.png" class="icon delete_icon" /></a></span>
+              <span class="delete" data-confirmation-container=".confirmation_<?=$idx?>"><a href="javascript:;"><i class="fa fa-times"></i></a></span>
               <div class="confirmation confirmation_<?=$idx?>">Are you sure: <a href="javascript:;" class="confirm" data-comment-id="<?=$row['comment_id']?>" data-comment-type="<?=$row['type']?>" data-row-id="commentTable<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
               <?php
             }
