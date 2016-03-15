@@ -37,6 +37,7 @@ if (!function_exists('getYears')) {
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
                    " . TBL_album . ".`year`,
+                   " . TBL_album . ".`year` as `name`,
                    'year' as `type`
                    " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ",

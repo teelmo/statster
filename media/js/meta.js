@@ -1,63 +1,9 @@
 $.extend(view, {
-  topGenre: function () {
-    $.ajax({
-      data:{
-        limit:7,
-        lower_limit:'<?=date('Y-m-d', time() - (30 * 24 * 60 * 60))?>',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
-      },
-      dataType:'json',
-      statusCode:{
-        200: function(data) {
-          $.ajax({
-            data:{
-              json_data:data
-            },
-            success: function(data) {
-              $('#topGenreLoader').hide();
-              $('#topGenre').html(data);
-            },
-            type:'POST',
-            url:'/ajax/popularTag'
-          });
-        }
-      },
-      type:'GET',
-      url:'/api/genre/get'
-    });
-  },
-  topKeyword: function () {
-    $.ajax({
-      data:{
-        limit:7,
-        lower_limit:'<?=date('Y-m-d', time() - (30 * 24 * 60 * 60))?>',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
-      },
-      dataType:'json',
-      statusCode:{
-        200: function(data) {
-          $.ajax({
-            data:{
-              json_data:data
-            },
-            success: function(data) {
-              $('#topKeywordLoader').hide();
-              $('#topKeyword').html(data);
-            },
-            type:'POST',
-            url:'/ajax/popularTag'
-          });
-        }
-      },
-      type:'GET',
-      url:'/api/keyword/get'
-    });
-  },
   popularGenre: function () {
     $.ajax({
       data:{
-        limit:15,
-        lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
+        limit:7,
+        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -72,7 +18,34 @@ $.extend(view, {
               $('#popularGenre').html(data);
             },
             type:'POST',
-            url:'/ajax/popularTag'
+            url:'/ajax/columnTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/genre/get'
+    });
+  },
+  popularKeyword: function () {
+    $.ajax({
+      data:{
+        limit:7,
+        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) {
+          $.ajax({
+            data:{
+              json_data:data
+            },
+            success: function(data) {
+              $('#popularKeywordLoader').hide();
+              $('#popularKeyword').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
           });  
         },
         204: function() { // 204 No Content
@@ -83,14 +56,81 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/genre/get'
+      url:'/api/keyword/get'
+    });
+  },
+  popularNationality: function () {
+    $.ajax({
+      data:{
+        limit:7,
+        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) {
+          $.ajax({
+            data:{
+              json_data:data
+            },
+            success: function(data) {
+              $('#popularNationalityLoader').hide();
+              $('#popularNationality').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });  
+        },
+        204: function() { // 204 No Content
+          alert('204 No Content');
+        },
+        404: function() { // 404 Not found
+          alert('404 Not Found');
+        }
+      },
+      type:'GET',
+      url:'/api/nationality/get'
+    });
+  },
+  popularYear: function () {
+    $.ajax({
+      data:{
+        limit:7,
+        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) {
+          $.ajax({
+            data:{
+              json_data:data
+            },
+            success: function(data) {
+              $('#popularYearLoader').hide();
+              $('#popularYear').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });  
+        },
+        204: function() { // 204 No Content
+          alert('204 No Content');
+        },
+        404: function() { // 404 Not found
+          alert('404 Not Found');
+        }
+      },
+      type:'GET',
+      url:'/api/year/get'
     });
   }
 });
 
 $(document).ready(function() {
   view.popularGenre();
-  view.topGenre();
-  view.topKeyword();
+  view.popularKeyword();
+  view.popularNationality();
+  view.popularYear();
 });
 
