@@ -277,27 +277,24 @@ div.container {
         }
       }
       .spotify_link {
-        color: #fff;
-        display: inline;
-        height: auto;
-        position: relative;
+        text-decoration: none;
         .spotify_container {
-          .opacity(0.3);
-          background-image: url('/media/img/icons/play.png');
-          background-position: 100% 0%;
-          background-repeat: no-repeat;
-          content: '';
-          height: 48px;
-          left: 4px;
-          position: absolute;
-          top: 4px;
-          width: 48px;
-          &:hover {
+          &:after {
+            .opacity(0.3);
+            color: #fff;
+            content: '\f144';
+            font-family: 'FontAwesome';
+            font-size: 40px;
+            left: 4px;
+            line-height: 40px;
+            margin-top: 1px;
+            position: relative;
+            top: 4px;
+          }
+          &:hover:after {
             .opacity(1);
+            color: #eee;
             transition-duration: 0.3s;
-            &:after {
-              background-position: 100% 100%;
-            }
           }
         }
       }
@@ -408,13 +405,17 @@ div.container {
             }
           }
           .chosen-choices {
+            .search-field {
+              padding: 5px 20px 6px 4px;
+              color: #222;
+            }
             .search-choice {
               background: #666;
-              border: 0;
               border-radius: 0;
+              border: 0;
               box-shadow: none;
-              padding: 4px 20px 5px 4px;
               color: #fff;
+              padding: 4px 20px 5px 4px;
               .search-choice-close {
                 top: 5px;
               }
@@ -422,21 +423,24 @@ div.container {
           }
         }
         .submit {
-          background-color: #fff;
-          background-image: url('/media/img/icons/add.png');
-          background-position: 100% 0;
-          background-repeat: no-repeat;
-          background-size: 20px 20px;
+          background-color: transparent;
           border: 0;
-          cursor: pointer;
-          display: inline;
-          height: 20px;
+          height: 18px;
+          left: -32px;
           outline: none;
-          padding: 0;
           position: relative;
-          right: 35px;
-          top: 7px;
           width: 20px;
+          &:before {
+            color: #000;
+            content: '\f055';
+            cursor: pointer;
+            font-family: 'FontAwesome';
+            font-size: 20px;
+            left: 3px;
+            line-height: 20px;
+            position: absolute;
+            top: 2px;
+          }
         }
       }
       .tag_meta,
@@ -759,7 +763,7 @@ input {
   box-sizing: border-box;
   &:focus,
   &:active {
-    background-color: #ffb;
+    background-color: #fff;
     outline-color: #fff;
     outline-width: 0;
   }
@@ -801,7 +805,7 @@ form#addListeningForm {
     width: 100%;
     &:active,
     &:focus {
-      background-color: #ff8;
+      background-color: #fff;
       color: #222;
     }
   }
@@ -820,7 +824,7 @@ form#addListeningForm {
 }
 form#addListeningForm {
   input[type="text"].working {
-    background: #ffb url('/media/img/ajax-loader-circle.gif') no-repeat 99% 50%;
+    background: #fff url('/media/img/ajax-loader-circle.gif') no-repeat 99% 50%;
   }
 }
 form#composeForm {
@@ -916,10 +920,10 @@ form#loginForm input[type="text"] {
     &:before {
       color: #ccc;
       content: '\f002';
-      cursor: pointer;
       font-family: 'FontAwesome';
       font-size: 16px;
       left: 3px;
+      outline: none;
       position: relative;
       top: 2px;
     }
@@ -970,25 +974,19 @@ table.music_table {
           padding: 0 5px;
           width: 100%;
           .spotify_link {
-            color: #fff;
-            position: relative;
-            display: inline-block;
-            width: 16px;
-            height: 0;
+            text-decoration: none;
             .spotify_container {
-              background-image: url('/media/img/icons/play.png');
-              background-position: 0% 0%;
-              background-repeat: no-repeat;
-              background-size: cover;
-              content: '';
-              display: inline-block;
-              height: 16px;
-              margin-top: -12px;
-              position: absolute;
-              width: 16px;
-              &:hover {
-                .opacity(1);
-                background-position: 100% 100%;
+              &:after {
+                color: #666;
+                content: '\f144';
+                font-family: 'FontAwesome';
+                font-size: 16px;
+                margin-top: 1px;
+                position: relative;
+                top: 1px;
+              }
+              &:hover:after {
+                color: #000;
               }
             }
           }
@@ -1129,25 +1127,19 @@ table.side_table {
       &.title {
         padding-left: 6px;
         .spotify_link {
-          color: #fff;
-          position: relative;
-          display: inline-block;
-          width: 20px;
-          height: 0;
+          text-decoration: none;
           .spotify_container {
-            background-image: url('/media/img/icons/play.png');
-            background-position: 0% 0%;
-            background-repeat: no-repeat;
-            background-size: cover;
-            content: '';
-            display: inline-block;
-            height: 20px;
-            margin-top: -14px;
-            position: absolute;
-            width: 20px;
-            &:hover {
-              .opacity(1);
-              background-position: 100% 100%;
+            &:after {
+              color: #666;
+              content: '\f144';
+              font-family: 'FontAwesome';
+              font-size: 16px;
+              margin-top: 1px;
+              position: relative;
+              top: 1px;
+            }
+            &:hover:after {
+              color: #000;
             }
           }
         }
@@ -1624,23 +1616,34 @@ div.cover_shadow {
   width: 300px;
 }
 
-.func_container {
-  color: #666;
-  cursor: pointer;
-  float: right;
-  font-size: 13px;
-  &:hover {
-    color: #000;
-  }
-}
+/* Fa styles */
 h1 {
   .func_container {
     margin-top: 8px;
+  }
 }
 h2 {
   .func_container {
     margin-top: 4px;
   }
+}
+h1,
+h2 { 
+  .func_container {
+    cursor: pointer;
+    float: right;
+    font-size: 13px;
+    .fa-refresh {
+      color: #666;
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}
+.fa-heart,
+.fa-star {
+  color: #666;
 }
 
 /** 

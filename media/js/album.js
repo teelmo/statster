@@ -273,17 +273,20 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  initAlbumEvents: function () {
-    $('html').on('click', '#moretags', function () {
-      $('#tagAdd').toggle();
-      if ($(this).text() == '+') {
-        $(this).html('<a href="javascript:;">-</a>');
-        $('.search-field input[type="text"]').focus();
-      }
-      else {
-        $(this).html('<a href="javascript:;">+</a>');
-      }
+  updateAlbumBio: function () {
+    $.ajax({
+      data:{
+        artist_id:'<?php echo $artist_id?>',
+        album_id:'<?php echo $album_id?>',
+        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?php echo $album_name?>'
+      },
+      dataType:'json',
+      type:'GET',
+      url:'/api/album/update/biography'
     });
+  },
+  initAlbumEvents: function () {
     $('html').on('click', '#love', function () {
       $('.loveMsg').remove();
       if ($(this).hasClass('love_add')) {
@@ -386,6 +389,6 @@ $(document).ready(function () {
 
   var update_bio = <?=($update_bio === true) ? 1 : 0?>;
   if (update_bio === 1) {
-    view.updateArtistBio();
+    view.updateAlbumBio();
   }
 });

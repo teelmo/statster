@@ -19,7 +19,7 @@ if (!empty($json_data)) {
     }
     if ($logged_in == '1' && empty($hide['add'])) {
       ?>
-      <li class="tag moretags" id="moretags"><a href="javascript:;">+</a></li>
+      <li class="tag moretags" id="moretags"><a href="javascript:;"><i class="fa fa-bars"></i></a></li>
       <?php
     }
   }

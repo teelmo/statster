@@ -273,18 +273,18 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  initArtistEvents: function () {
-    $('#moretags').click(function () {
-      $('#tagAdd').toggle();
-      if ($(this).text() == '+') {
-        $(this).html('<a href="javascript:;">-</a>');
-        $('.search-field input[type="text"]').focus();
-      }
-      else {
-        $(this).html('<a href="javascript:;">+</a>');
-      }
+  updateArtistBio: function () {
+    $.ajax({
+      data:{
+        artist_id:'<?php echo $artist_id?>',
+        artist_name:'<?php echo $artist_name?>'
+      },
+      dataType:'json',
+      type:'GET',
+      url:'/api/artist/update/biography'
     });
-
+  },
+  initArtistEvents: function () {
     $('html').on('click', '#fan', function () {
       $('.fanMsg').remove();
       if ($(this).hasClass('fan_add')) {
@@ -337,17 +337,6 @@ $.extend(view, {
           url:'/api/fan/delete/<?=$artist_id?>'
         });
       }
-    });
-  },
-  updateArtistBio: function () {
-    $.ajax({
-      data:{
-        artist_id:'<?php echo $artist_id?>',
-        artist_name:'<?php echo $artist_name?>'
-      },
-      dataType:'json',
-      type:'GET',
-      url:'/api/artist/update/biography'
     });
   }
 });
