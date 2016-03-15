@@ -9,10 +9,17 @@ if (!empty($json_data)) {
         </li>
         <?php
       }
-      else {
+      else if ($row['type'] === 'genre') {
         ?>
         <li class="tag <?=$row['type']?>">
-          <?=anchor(array($row['type'], url_title($row['name'])), $row['name'])?>
+          <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-music"></i> ' . $row['name'])?>
+        </li>
+        <?php
+      }
+      else if ($row['type'] === 'keyword') {
+        ?>
+        <li class="tag <?=$row['type']?>">
+          <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-tag"></i> ' . $row['name'])?>
         </li>
         <?php
       }
