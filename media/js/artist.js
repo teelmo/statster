@@ -50,6 +50,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#artistFanLoader').hide();
+          $('#artistFan').html('');
         },
         400: function () { // 400 Bad request
           $('#artistFanLoader').hide();
@@ -286,7 +287,7 @@ $.extend(view, {
   },
   initArtistEvents: function () {
     $('html').on('click', '#fan', function () {
-      $('.fanMsg').remove();
+      $('.like_msg').html('');
       if ($(this).hasClass('fan_add')) {
         $.ajax({
           data:{},
@@ -294,7 +295,7 @@ $.extend(view, {
             201: function (data) { // 201 Created
               $('#fan').removeClass('fan_add').addClass('fan_del').find('.like_msg').html('You\'re a fan!').show();
               setTimeout(function () {
-                $('.like_msg').fadeOut('slow');
+                $('.like_msg').fadeOut(1000);
               }, <?=MSG_FADEOUT?>);
               view.getFans();
             },
@@ -317,9 +318,9 @@ $.extend(view, {
           data:{},
           statusCode:{
             204: function () { // 204 No Content
-              $('#fan').removeClass('fan_del').addClass('fan_add').find('.like_msg').html('You\'re not a fan!').show();
+              $('#fan').removeClass('fan_del').addClass('fan_add').find('.like_msg').html('Unfaned.').show();
               setTimeout(function () {
-                $('.like_msg').fadeOut('slow');
+                $('.like_msg').fadeOut(1000);
               }, <?=MSG_FADEOUT?>);
               view.getFans();
             },

@@ -666,38 +666,41 @@ h3 {
 
 /** Artist album and user page infos */
 .like_toggle {
-  background-position: 100% 50%;
-  background-repeat: no-repeat;
-  cursor: pointer;
   float: right;
-  height: 16px;
-  line-height: 16px;
-  margin-top: 10px;
-  padding-right: 22px;
+  font-family: 'FontAwesome';
+  font-size: 16px;
+  left: 9px;
+  position: relative;
+  top: 9px;
   &.love_add {
-    background-image: url('/media/img/icons/love_add.png');
-  }
-  &.fan_add {
-    background-image: url('/media/img/icons/fan_add.png');
+    &:after {
+      content: '\f08a';
+    }
   }
   &.love_del {
-    background-image: url('/media/img/icons/love.png');
-    &:hover {
-      background-image: url('/media/img/icons/love_delete.png');
+    &:after {
+      content: '\f004';
+    }
+  }
+  &.fan_add {
+    &:after {
+      content: '\f006';
     }
   }
   &.fan_del {
-    background-image: url('/media/img/icons/fan.png');
-    &:hover {
-      background-image: url('/media/img/icons/fan_delete.png');
+    &:after {
+      content: '\f005';
     }
   }
   .like_msg {
     color: #222;
+    display: inline-block;
     font-size: 10px;
     opacity: 0.7;
-    padding-left: 28px;
+    padding-left: 26px;
     position: absolute;
+    top: 2px;
+    width: 130px;
   }
 }
 #artistBio p.content {
@@ -1409,7 +1412,7 @@ ul {
     }
   }
   &.like_list {
-    margin-top: 8px;
+    margin-top: 7px;
     li {
       display: inline-block;
       margin: 0;

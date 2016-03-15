@@ -50,6 +50,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#albumLoveLoader').hide();
+          $('#albumLove').html('');
         },
         400: function () { // 400 Bad request
           $('#albumLoveLoader').hide();
@@ -288,7 +289,7 @@ $.extend(view, {
   },
   initAlbumEvents: function () {
     $('html').on('click', '#love', function () {
-      $('.loveMsg').remove();
+      $('.like_msg').html('');
       if ($(this).hasClass('love_add')) {
         $.ajax({
           data:{},
@@ -296,7 +297,7 @@ $.extend(view, {
             201: function (data) { // 201 Created
               $('#love').removeClass('love_add').addClass('love_del').find('.like_msg').html('You\'re in love!').show();
               setTimeout(function() {
-                $('.like_msg').fadeOut('slow');
+                $('.like_msg').fadeOut(1000);
               }, <?=MSG_FADEOUT?>);
               view.getLoves();
             },
@@ -319,9 +320,9 @@ $.extend(view, {
           data:{},
           statusCode:{
             204: function () { // 204 No Content
-              $('#love').removeClass('love_del').addClass('love_add').find('.like_msg').html('You\'re not in love!').show();
+              $('#love').removeClass('love_del').addClass('love_add').find('.like_msg').html('Unloved.').show();
               setTimeout(function() {
-                $('.like_msg').fadeOut('slow');
+                $('.like_msg').fadeOut(1000);
               }, <?=MSG_FADEOUT?>);
               view.getLoves();
             },
