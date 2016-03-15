@@ -2,7 +2,7 @@ $.extend(view, {
   popularGenre: function () {
     $.ajax({
       data:{
-        limit:7,
+        limit:5,
         lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
@@ -29,7 +29,7 @@ $.extend(view, {
   popularKeyword: function () {
     $.ajax({
       data:{
-        limit:7,
+        limit:5,
         lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
@@ -62,7 +62,7 @@ $.extend(view, {
   popularNationality: function () {
     $.ajax({
       data:{
-        limit:7,
+        limit:5,
         lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
@@ -95,7 +95,7 @@ $.extend(view, {
   popularYear: function () {
     $.ajax({
       data:{
-        limit:7,
+        limit:5,
         lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
