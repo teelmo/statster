@@ -153,16 +153,6 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function nationalityList() {
-    if (!empty($_POST)) {
-      $this->load->view('templates/nationality_list', $_POST);
-      header('HTTP/1.1 200 OK');
-    }
-    else {
-      exit (ERR_NO_RESULTS);
-    }
-  }
-
   public function likeList() {
     if (!empty($_POST)) {
       $this->load->view('templates/like_list', $_POST);
