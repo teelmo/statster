@@ -8,6 +8,8 @@
   <div id="leftCont">
     <div class="container">
       <h1>Top years</h1>
+    </div>
+    <div class="container">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
