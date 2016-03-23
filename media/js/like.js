@@ -9,9 +9,6 @@ $.extend(view, {
         200: function (data) {
           $.ajax({
             data:{
-              hide:{
-                rank:true
-              },
               json_data:data,
               limit:9,
               type:'album'
@@ -39,9 +36,6 @@ $.extend(view, {
         200: function (data) {
           $.ajax({
             data:{
-              hide:{
-                rank:true
-              },
               json_data:data,
               limit:9,
               type:'artist'

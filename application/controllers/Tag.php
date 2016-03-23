@@ -2,10 +2,20 @@
 class Tag extends CI_Controller {
 
   public function index() {
+    // Load helpers
+    $this->load->helper(array('genre_helper', 'keyword_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+
+    $data['limit'] = 1;
+    $data['lower_limit'] = date('Y-m-d', time() - (180 * 24 * 60 * 60));
+    $data['username'] = $_GET['u'];
+    $data['genre'] = ${!${false}=json_decode(getGenres($data), true)}[0];
+    $data['keyword'] = ${!${false}=json_decode(getKeywords($data), true)}[0];
+    $data['nationality'] = ${!${false}=json_decode(getNationalities($data), true)}[0];
+    $data['year'] = ${!${false}=json_decode(getYears($data), true)}[0];
 
     $data['js_include'] = array('meta');
     $this->load->view('site_templates/header');
-    $this->load->view('tag/meta_view');
+    $this->load->view('tag/meta_view', $data);
     $this->load->view('site_templates/footer', $data);
   }
 
