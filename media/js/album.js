@@ -373,7 +373,6 @@ $.extend(view, {
         view.getTags();
       });
       $('#tagAdd').hide();
-      $('#moretags').html('<a href="javascript:;">+</a>');
     });
   }
 });
