@@ -31,8 +31,6 @@
       <h1><?=$year['name']?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearLoader" />
       <div id="topAlbumYear" class="music_wall"><!-- Content is loaded with AJAX --></div>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistYearLoader" />
-      <div id="topArtistYear" class="music_wall"><!-- Content is loaded with AJAX --></div>
     </div>
   </div>
   <div id="rightCont">

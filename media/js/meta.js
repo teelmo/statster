@@ -209,7 +209,6 @@ $(document).ready(function() {
   view.getTopAlbums('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
   view.getTopArtists('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
   view.getTopAlbums('<?=$year['year']?>', 'year', 'Year');
-  view.getTopArtists('<?=$year['year']?>', 'year', 'Year');
   view.popularGenre();
   view.popularKeyword();
   view.popularNationality();
