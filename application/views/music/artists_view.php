@@ -10,6 +10,8 @@
       <h1><?=$title?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist10Loader"/>
       <ul id="topArtist10" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+    </div>
+    <div class="container">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader"/>
       <table id="topArtist" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
