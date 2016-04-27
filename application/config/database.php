@@ -50,7 +50,7 @@ $query_builder = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'statster';
-$db['default']['password'] = 'nCnnvDv2AnGR5Tu2';
+$db['default']['password'] = $_SERVER['CI_PASSWD'];
 $db['default']['database'] = 'statster';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
