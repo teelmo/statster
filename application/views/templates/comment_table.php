@@ -3,7 +3,7 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     foreach ($json_data as $idx => $row) {
       ?>
-      <tr id="comment<?=ucfirst($row['type'])?>Table<?=$idx?>" class="comment">
+      <tr id="comment<?=ucfirst($row['type'])?>Table<?=$idx?>" data-created="<?=$row['created']?>" class="comment">
         <?php
         if (empty($hide['img'])) {
           ?>
