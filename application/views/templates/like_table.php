@@ -5,10 +5,7 @@ if (!empty($json_data)) {
     foreach ($json_data as $idx => $row) {
       ?>
       <tr data-created="<?=$row['created']?>">
-        <td class="type">
-          <i class="fa fa-<?=$row['type']?>"></i>
-        </td>
-        <td class="img<?=$size?> albumImg">
+        <td class="img<?=$size?>">
           <?php
           if (empty($row['album_name'])) {
             echo anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'));
@@ -46,6 +43,9 @@ if (!empty($json_data)) {
             <?php
           }
           ?>
+        </td>
+        <td class="type">
+          <i class="fa fa-<?=$row['type']?>"></i>
         </td>
       </tr>
       <?php

@@ -22,6 +22,8 @@ if (!function_exists('getAlbumComment')) {
                    " . TBL_album_comment . ".`album_id`,
                    " . TBL_album_comment . ".`created`,
                    " . TBL_album_comment . ".`text`,
+                   " . TBL_album . ".`album_name`,
+                   " . TBL_artist . ".`artist_name`,
                    " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
                   (SELECT count(" . TBL_album_comment . ".`album_id`)
@@ -32,9 +34,11 @@ if (!function_exists('getAlbumComment')) {
                    'album' as `type`
             FROM " . TBL_album_comment . ",
                  " . TBL_album . ",
+                 " . TBL_artist . ",
                  " . TBL_user . "
             WHERE " . TBL_album_comment . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_album_comment . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_album . ".`album_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
             ORDER BY " . TBL_album_comment . ".`created` DESC
@@ -67,6 +71,7 @@ if (!function_exists('getArtistComment')) {
                    " . TBL_artist_comment . ".`artist_id`,
                    " . TBL_artist_comment . ".`created`,
                    " . TBL_artist_comment . ".`text`,
+                   " . TBL_artist . ".`artist_name`,
                    " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
                    (SELECT count(" . TBL_artist_comment . ".`artist_id`)
@@ -111,6 +116,7 @@ if (!function_exists('getUserComment')) {
                    " . TBL_user_comment . ".`text`,
                    " . TBL_user_comment . ".`created`,
                    " . TBL_user_comment . ".`adder_id` as `user_id`,
+                   " . TBL_user . ".`username`,
                    (SELECT count(" . TBL_user_comment . ".`user_id`)
                      FROM " . TBL_user_comment . "
                      WHERE " . TBL_user_comment . ".`user_id` = " . TBL_user . ".`id`

@@ -10,7 +10,7 @@ if (!empty($json_data)) {
     $prev_count = FALSE;
     foreach ($json_data as $idx => $row) {
       ?>
-      <tr>
+      <tr data-created="<?=$row['created']?>">
         <?php
         if (empty($hide['rank'])) {
           ?>

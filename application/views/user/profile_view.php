@@ -114,8 +114,8 @@
         }
         ?>
       </table>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="commentLoader"/>
-      <table id="comment" class="comment_table"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="userCommentLoader"/>
+      <table id="userComment" class="comment_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div id="rightCont">
@@ -199,10 +199,21 @@
         }
         ?>
       </table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Shouts</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="musicCommentLoader" />
+      <table id="musicComment" class="comment_table"><!-- Content is loaded with AJAX --></table>
+      <table id="albumComment" class="recently_commented hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="artistComment" class="recently_commented hidden"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h2>Likes</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
-      <table id="recentlyFaned" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
-      <table id="recentlyLoved" class="recentlyLiked hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyFaned" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyLoved" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

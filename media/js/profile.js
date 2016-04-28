@@ -160,7 +160,7 @@ $.extend(view, {
       }
     });
   },
-  getComments: function () {
+  getProfileComments: function () {
     $.ajax({
       data:{
         username:'<?=$username?>'
@@ -180,8 +180,8 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#commentLoader').hide();
-              $('#comment').html(data);
+              $('#userCommentLoader').hide();
+              $('#userComment').html(data);
             },
             type:'POST',
             url:'/ajax/commentTable'
@@ -199,10 +199,68 @@ $.extend(view, {
       url:'/api/comment/get/user'
     });
   },
+  getAlbumComments: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        username:'<?=$username?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              hide:{
+                'img':true
+              },
+              type:'artist'
+            },
+            success: function (data) {
+              $('#albumComment').html(data);
+            },
+            type:'POST',
+            url:'/ajax/commentTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/comment/get/album'
+    });
+  },
+  getArtistComments: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        username:'<?=$username?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              hide:{
+                'img':true
+              },
+              type:'artist'
+            },
+            success: function (data) {
+              $('#artistComment').html(data);
+            },
+            type:'POST',
+            url:'/ajax/commentTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/comment/get/artist'
+    });
+  },
   recentlyFaned: function () {
     $.ajax({
       data:{
-        limit:20,
+        limit:5,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
@@ -217,7 +275,6 @@ $.extend(view, {
               json_data:data
             },
             success: function (data) {
-              $('#recentlyFanedLoader').hide();
               $('#recentlyFaned').html(data);
             },
             type:'POST',
@@ -232,7 +289,7 @@ $.extend(view, {
   recentlyLoved: function () {
     $.ajax({
       data:{
-        limit:20,
+        limit:5,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
@@ -247,7 +304,6 @@ $.extend(view, {
               json_data:data
             },
             success: function (data) {
-              $('#recentlyLovedLoader').hide();
               $('#recentlyLoved').html(data);
             },
             type:'POST',
@@ -261,7 +317,12 @@ $.extend(view, {
   },
   initProfileEvents: function () {
     $(document).ajaxStop(function (event, request, settings ) {
-      $('#recentlyLiked').append($('.recentlyLiked tr').detach().sort(function (a, b) {
+      $('#musicComment').append($('.recently_commented tr').detach().sort(function (a, b) {
+        return app.compareStrings($(a).data('created'), $(b).data('created'));
+      }));
+      $('#musicCommentLoader').hide();
+
+      $('#recentlyLiked').append($('.recently_liked tr').detach().sort(function (a, b) {
         return app.compareStrings($(a).data('created'), $(b).data('created'));
       }));
       $('#recentlyLikedLoader').hide();
@@ -274,7 +335,9 @@ $(document).ready(function () {
   view.getRecentListenings();
   view.getTopAlbums();
   view.getTopArtists();
-  view.getComments();
+  view.getProfileComments();
+  view.getArtistComments();
+  view.getAlbumComments();
   view.recentlyFaned();
   view.recentlyLoved();
   view.initProfileEvents();

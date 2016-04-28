@@ -1106,6 +1106,14 @@ table.side_table {
       vertical-align: middle;
       &.img32 {
         width: 32px;
+        .artist_img,
+        .album_img {
+          width: 32px;
+          .border-radius(16px);
+          &:after {
+            .border-radius(16px);
+          }
+        }
       }
       &.img64 {
         width: 64px;
@@ -1132,7 +1140,7 @@ table.side_table {
         font-size: 14px;
       }
       &.title {
-        padding-left: 6px;
+        padding-left: 10px;
         .spotify_link {
           text-decoration: none;
           .spotify_container {
@@ -1257,10 +1265,19 @@ table.comment_table {
       padding-bottom: 1.5em;
       vertical-align: top;
       &.img {
-        .user_img  {
+        .user_img {
+          width: 64px;
           .border-radius(32px);
           &:after {
             .border-radius(32px);
+          }
+        }
+        .artist_img,
+        .album_img {
+          width: 32px;
+          .border-radius(16px);
+          &:after {
+            .border-radius(16px);
           }
         }
       }
@@ -1307,7 +1324,7 @@ table.comment_table {
         width: 100%;
         div {
           margin-bottom: 5px;
-          .username {
+          .title {
             font-weight: bold;
           }
         }
