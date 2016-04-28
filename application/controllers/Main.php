@@ -7,7 +7,7 @@ class Main extends CI_Controller {
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
 
       $data = array();
-      $data['js_include'] = array('main');
+      $data['js_include'] = array('main', 'helpers/add_listening_helper');
       $data['interval'] = 14;
 
       $opts = array(

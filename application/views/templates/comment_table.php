@@ -52,10 +52,10 @@ if (!empty($json_data)) {
               <?php
             }
             ?>
+            <span class="datetime float_right"><?=timeAgo($row['created'])?></span>
           </div>
           <?=nl2br($row['text'])?>
         </td>
-        <td class="datetime"><?=timeAgo($row['created'])?></td>
       </tr>
       <?php
     }

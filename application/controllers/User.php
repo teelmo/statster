@@ -21,12 +21,12 @@ class User extends CI_Controller {
   }
 
   public function profile($username) {
-    $this->load->helper(array('user_helper', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+    $this->load->helper(array('form', 'user_helper', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
     $data['username'] = $username;
 
     if ($data = getUser($data)) {
-      $data['js_include'] = array('profile', 'helpers/chart_helper', 'helpers/comment_helper');
+      $data['js_include'] = array('profile', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/add_listening_helper');
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;

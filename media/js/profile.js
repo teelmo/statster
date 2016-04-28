@@ -160,7 +160,7 @@ $.extend(view, {
       }
     });
   },
-  getProfileComments: function () {
+  getComments: function () {
     $.ajax({
       data:{
         username:'<?=$username?>'
@@ -327,6 +327,12 @@ $.extend(view, {
       }));
       $('#recentlyLikedLoader').hide();
     });
+    $('#recentlyListened').hover(function () {
+      var currentTime = new Date();    
+      if ((currentTime.getTime() - $('#recentlyUpdated').attr('value') > (60 * 2 * 1000)) && $.active < 1) {
+        view.getRecentListenings();
+      }
+    });
   }
 });
 
@@ -335,7 +341,7 @@ $(document).ready(function () {
   view.getRecentListenings();
   view.getTopAlbums();
   view.getTopArtists();
-  view.getProfileComments();
+  view.getComments();
   view.getArtistComments();
   view.getAlbumComments();
   view.recentlyFaned();
