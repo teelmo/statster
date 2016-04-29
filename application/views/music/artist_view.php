@@ -102,7 +102,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shouttLoader2" /><span id="shoutTotal"></span></h2>
+      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shoutLoader2" /><span id="shoutTotal"></span></h2>
       <table class="shout_table">
         <?php
         if ($logged_in === TRUE) {
