@@ -184,8 +184,12 @@ $.extend(view, {
           }
           $.ajax({
             data:{
+              hide:{
+                user:true
+              },
               json_data:data,
-              type:'artist'
+              size:64,
+              type:'user'
             },
             success: function (data) {
               $('#userShoutLoader').hide();
@@ -218,11 +222,11 @@ $.extend(view, {
         200: function (data) { // 200 OK
           $.ajax({
             data:{
-              json_data:data,
               hide:{
-                'img':true
+                user:true
               },
-              type:'artist'
+              json_data:data,
+              size:32
             },
             success: function (data) {
               $('#albumShout').html(data);
@@ -247,11 +251,11 @@ $.extend(view, {
         200: function (data) { // 200 OK
           $.ajax({
             data:{
-              json_data:data,
               hide:{
-                'img':true
+                user:true
               },
-              type:'artist'
+              json_data:data,
+              size:32
             },
             success: function (data) {
               $('#artistShout').html(data);

@@ -240,8 +240,8 @@
       <h2>Likes</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
-      <table id="recentlyFaned" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
-      <table id="recentlyLoved" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyFaned" class="likes hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyLoved" class="likes hidden"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('like?u=' . $username, 'More', array('title' => 'Browse more likes'))?>
       </div>

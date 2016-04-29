@@ -639,6 +639,7 @@ h3 {
 .updated,
 .count,
 .location,
+.metainfo,
 .datetime {
   color: #999;
   font-size: 11px;
@@ -1272,23 +1273,32 @@ table.column_table {
   float: right;
   font-size: 14px;
 }
+#leftCont {
+  table.shout_table {
+    tr {
+      &:nth-child(2n) {
+        background-color: rgba(245, 245, 245, 0.5);
+      }
+      &:nth-child(2n+1) {
+        background-color: transparent;
+      }
+    }
+  }
+}
 table.shout_table {
   tr {
     td {
-      padding-bottom: 1.5em;
-      vertical-align: top;
+      padding: 10px 0;
+      vertical-align: middle;
       &.img {
-        padding-top: 2px;
-        .user_img {
-          width: 64px;
+        vertical-align: top;
+        .img64 {
           .border-radius(32px);
           &:after {
             .border-radius(32px);
           }
         }
-        .artist_img,
-        .album_img {
-          width: 32px;
+        .img32 {
           .border-radius(16px);
           &:after {
             .border-radius(16px);
@@ -1335,9 +1345,9 @@ table.shout_table {
       }
       &.text {
         padding-left: 10px;
+        vertical-align: top;
         width: 100%;
         div {
-          margin-bottom: 5px;
           .title {
             font-weight: bold;
           }
@@ -1362,12 +1372,12 @@ table.shout_table {
           font-size: 10px;
           text-align: left;
         }
-      }
-      &.datetime {
-        padding: 0 5px;
-        text-align: right;
-        white-space: nowrap;
-        width: 100%;
+        .metainfo {
+          float: right;
+          padding: 0 5px;
+          text-align: right;
+          white-space: nowrap;
+        }
       }
     }
     &:hover {

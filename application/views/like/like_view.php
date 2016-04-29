@@ -3,6 +3,7 @@
     <?=anchor(array('album'), 'Albums')?>
     <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('like'), 'Likes')?>
+    <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">

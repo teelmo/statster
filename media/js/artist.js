@@ -168,8 +168,12 @@ $.extend(view, {
           }
           $.ajax({
             data:{
+              hide:{
+                user:true
+              },
               json_data:data,
-              type:'artist'
+              size:64,
+              type:'user'
             },
             success: function (data) {
               $('#shoutLoader').hide();

@@ -115,8 +115,9 @@ if (!function_exists('getUserShout')) {
     $sql = "SELECT " . TBL_user_shout . ".`id` as `shout_id`,
                    " . TBL_user_shout . ".`text`,
                    " . TBL_user_shout . ".`created`,
+                   " . TBL_user_shout . ".`user_id` as `profile_id`,
                    " . TBL_user_shout . ".`adder_id` as `user_id`,
-                   " . TBL_user . ".`username`,
+                   " . TBL_user . ".`username` as `profile`,
                    (SELECT count(" . TBL_user_shout . ".`user_id`)
                      FROM " . TBL_user_shout . "
                      WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`

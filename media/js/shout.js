@@ -1,5 +1,5 @@
 $.extend(view, {
-  getAlbumShouts: function () {
+  getAlbumShouts: function (size) {
     $.ajax({
       data:{
         limit:20,
@@ -11,7 +11,7 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              type:'artist'
+              size:size
             },
             success: function (data) {
               $('#albumShout').html(data);
@@ -25,7 +25,7 @@ $.extend(view, {
       url:'/api/shout/get/album'
     });
   },
-  getArtistShouts: function () {
+  getArtistShouts: function (size) {
     $.ajax({
       data:{
         limit:20,
@@ -37,7 +37,7 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              type:'artist'
+              size:size
             },
             success: function (data) {
               $('#artistShout').html(data);
@@ -51,7 +51,7 @@ $.extend(view, {
       url:'/api/shout/get/artist'
     });
   },
-  getUserShouts: function () {
+  getUserShouts: function (size) {
     $.ajax({
       data:{
         limit:20,
@@ -63,7 +63,7 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              type:'user'
+              size:size
             },
             success: function (data) {
               $('#userShout').html(data);
@@ -88,8 +88,9 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getAlbumShouts();
-  view.getArtistShouts();
-  view.getUserShouts();
+  var size = 32;
+  view.getAlbumShouts(size);
+  view.getArtistShouts(size);
+  view.getUserShouts(size);
   view.initShoutEvents();
 });

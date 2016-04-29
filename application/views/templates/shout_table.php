@@ -1,28 +1,36 @@
 <?php
 if (!empty($json_data)) {
+  $size = isset($size) ? $size : 64;
   if (is_array($json_data)) {
     foreach ($json_data as $idx => $row) {
       ?>
       <tr id="shout<?=ucfirst($row['type'])?>Table<?=$idx?>" data-created="<?=$row['created']?>" class="shout">
         <?php
-        if (empty($hide['img'])) {
+        if (isset($type)) {
+          ?>
+          <td class="img <?=$type?>_img">
+            <?=anchor(array('user', url_title($row['username'])), '<div class="cover ' . $type . '_img img' . $size . '" style="background-image:url(' . call_user_func('get' . ucfirst($type) . 'Img', array($type . '_id' => $row[$type . '_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+          </td>
+          <?  
+        }
+        else if ($row['type'] === 'user') {
           ?>
           <td class="img user_img">
-            <?=anchor(array('user', url_title($row['username'])), '<div class="cover user_img img64" style="background-image:url(' . getUserImg(array('user_id' => $row['user_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+            <?=anchor(array('user', url_title($row['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $row['profile_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
           </td>
           <?php
         }
         else if ($row['type'] === 'artist') {
           ?>
           <td class="img artist_img">
-            <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img32" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 32)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
+            <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
           </td>
           <?php
         }
         else if ($row['type'] === 'album') {
           ?>
           <td class="img album_img">
-            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img32" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 32)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
+            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
           </td>
           <?php
         }
@@ -30,9 +38,14 @@ if (!empty($json_data)) {
         <td class="text">
           <div>
             <?php
-            if ($row['type'] === 'user') {
+            if (isset($type)) {
               ?>
               <span class="username title"><?=anchor(array('user', url_title($row['username'])), $row['username'])?></span>
+              <?php
+            }
+            else if ($row['type'] === 'user') {
+              ?>
+              <span class="username title"><?=anchor(array('user', url_title($row['profile'])), $row['profile'])?></span>
               <?php
             }
             else if ($row['type'] === 'artist') {
@@ -52,7 +65,16 @@ if (!empty($json_data)) {
               <?php
             }
             ?>
-            <span class="datetime float_right"><?=timeAgo($row['created'])?></span>
+            <div class="metainfo">
+              <div><?=timeAgo($row['created'])?></div>
+              <?php
+                if (empty($hide['user'])) {
+                  ?>
+                  <div>by <?=anchor(array('user', url_title($row['username'])), $row['username'], array('title' => 'Browse to user\'s page'))?></div>
+                <?php
+              }
+              ?>
+            </div>
           </div>
           <?=nl2br($row['text'])?>
         </td>
