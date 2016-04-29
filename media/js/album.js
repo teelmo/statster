@@ -159,10 +159,10 @@ $.extend(view, {
       statusCode:{
         200: function (data) { // 200 OK
           if (data[0].count == 1) {
-            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shout');
+            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shout').fadeIn(500);
           }
           else {
-            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shouts');
+            $('#shoutTotal').html('<span class="number">' + data[0].count + '</span> shouts').fadeIn(500);
           }
           $.ajax({
             data:{

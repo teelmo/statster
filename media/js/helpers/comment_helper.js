@@ -1,5 +1,5 @@
 $.extend(view, {
-  commentEvents: function () {
+  shoutEvents: function () {
     $('html body').on('click', 'span.delete', function () {
       $($(this).data('confirmation-container')).show();
     });
@@ -12,6 +12,14 @@ $.extend(view, {
         statusCode:{
           200: function () { // 200 OK
             $('#' + row_id).fadeOut('slow');
+            var shout_total = parseInt($('#shoutTotal .number').text());
+            shout_total--;
+            if (shout_total > 0) {
+              $('#shoutTotal .number').text(shout_total);
+            }
+            else {
+              $('#shoutTotal').fadeOut(500);
+            }
           },
           400: function () { // 400 Bad Request
             alert('400 Bad Request');
@@ -24,16 +32,16 @@ $.extend(view, {
           }
         },
         type:'DELETE',
-        url:'/api/comment/delete/' + $(this).data('comment-type') + '/' + $(this).data('comment-id')
+        url:'/api/shout/delete/' + $(this).data('shout-type') + '/' + $(this).data('shout-id')
       });
     });
-    $('#commentSubmit').click(function () {
-      var text_value = $('#commentText').val();
+    $('#shoutSubmit').click(function () {
+      var text_value = $('#shoutText').val().trim();
       if (text_value === '') {
         return false;
       }
-      $('#commentLoader2').show();
-      $('#commentText').val('');
+      $('#shoutLoader2').show();
+      $('#shoutText').val('');
       $.ajax({
         data:{
           content_id:$('#contentID').val(),
@@ -43,29 +51,29 @@ $.extend(view, {
         dataType:'json',
         statusCode:{
           201: function (data) { // 201 Created
-            $('#commentLoader2').hide();
-            view.getComments();
+            $('#shoutLoader2').hide();
+            view.getShouts();
           },
           400: function () { // 400 Bad Request
             alert('400 Bad Request');
-            $('#commentLoader2').hide();
+            $('#shoutLoader2').hide();
           },
           401: function () { // 401 Unauthorized
             alert('401 Unauthorized');
-            $('#commentLoader2').hide();
+            $('#shoutLoader2').hide();
           },
           404: function () { // 404 Not found
             alert('404 Not Found');
-            $('#commentLoader2').hide();
+            $('#shoutLoader2').hide();
           }
         },
         type:'POST',
-        url:'/api/comment/add'
+        url:'/api/shout/add'
       });
     });
   }
 });
 
 $(document).ready(function() {
-  view.commentEvents();
+  view.shoutEvents();
 });

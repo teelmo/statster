@@ -47,13 +47,13 @@ class Shout extends CI_Controller {
 
     switch ($type) {
       case 'album':
-        echo deleteComment(array('shout_id' => $shout_id, 'type' => $type));
+        echo deleteShout(array('shout_id' => $shout_id, 'type' => $type));
         break;
       case 'artist':
-        echo deleteComment(array('shout_id' => $shout_id, 'type' => $type));
+        echo deleteShout(array('shout_id' => $shout_id, 'type' => $type));
         break;
       case 'user':
-        echo deleteComment(array('shout_id' => $shout_id, 'type' => $type));
+        echo deleteShout(array('shout_id' => $shout_id, 'type' => $type));
         break;
       default:
         header("HTTP/1.1 400 Bad Request");
