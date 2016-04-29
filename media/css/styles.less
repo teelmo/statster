@@ -1106,6 +1106,7 @@ table.side_table {
       vertical-align: middle;
       &.img32 {
         width: 32px;
+        .user_img,
         .artist_img,
         .album_img {
           width: 32px;
@@ -1130,10 +1131,16 @@ table.side_table {
         width: 30px;
         .rank {
           background: #444;
+          border-radius: 10px;
           color: #fff;
+          display: inline-block;
           font-size: 12px;
-          padding: 3px 5px 3px 5px;
+          height: 20px;
+          line-height: 20px;
+          margin-top: 2px;
+          text-align: center;
           vertical-align: middle;
+          width: 20px;
         }
       }
       &.type {
@@ -1220,12 +1227,18 @@ table.column_table {
         padding-right: 4px;
         text-align: right;
         width: 2%;
-        span.rank {
+        .rank {
           background: #444;
+          border-radius: 10px;
           color: #fff;
+          display: inline-block;
           font-size: 12px;
-          padding: 3px 5px 3px 5px;
+          height: 20px;
+          line-height: 20px;
+          margin-top: 2px;
+          text-align: center;
           vertical-align: middle;
+          width: 20px;
         }
       }
       &.name {
