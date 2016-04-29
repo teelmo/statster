@@ -176,12 +176,12 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function commentTable() {
+  public function shoutTable() {
     if (!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('img_helper', 'output_helper'));
       
-      $this->load->view('templates/comment_table', $_POST);
+      $this->load->view('templates/shout_table', $_POST);
       header('HTTP/1.1 200 OK');
     }
     else {

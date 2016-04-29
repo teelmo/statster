@@ -152,7 +152,7 @@ $.extend(view, {
       url:'/api/listener/get'
     });
   },
-  getComments: function () {
+  getShouts: function () {
     $.ajax({
       data:{
         artist_name:'<?=$artist_name?>'
@@ -172,23 +172,23 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#commentLoader').hide();
-              $('#comment').html(data);
+              $('#shoutLoader').hide();
+              $('#shout').html(data);
             },
             type:'POST',
-            url:'/ajax/commentTable'
+            url:'/ajax/shoutTable'
           });
         },
         204: function () { // 204 No Content
-          $('#commentLoader').hide();
+          $('#shoutLoader').hide();
         },
         400: function () { // 400 Bad request
-          $('#commentLoader').hide();
+          $('#shoutLoader').hide();
           alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
-      url:'/api/comment/get/artist'
+      url:'/api/shout/get/artist'
     });
   },
   // Get artist listeners.
@@ -347,7 +347,7 @@ $(document).ready(function () {
   view.getFans();
   view.getTags();
   view.getListeningHistory('%Y');
-  view.getComments('%Y');
+  view.getShouts();
   view.getUsers();
   view.getListenings();
   view.initArtistEvents();

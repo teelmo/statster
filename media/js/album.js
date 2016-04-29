@@ -150,7 +150,7 @@ $.extend(view, {
       url:'/api/listener/get'
     });
   },
-  getComments: function () {
+  getShouts: function () {
     $.ajax({
       data:{
         album_name:'<?=$album_name?>'
@@ -170,23 +170,23 @@ $.extend(view, {
               type:'album'
             },
             success: function (data) {
-              $('#commentLoader').hide();
-              $('#comment').html(data);
+              $('#shoutLoader').hide();
+              $('#shout').html(data);
             },
             type:'POST',
-            url:'/ajax/commentTable'
+            url:'/ajax/shoutTable'
           });
         },
         204: function () { // 204 No Content
-          $('#commentLoader').hide();
+          $('#shoutLoader').hide();
         },
         400: function () { // 400 Bad request
-          $('#commentLoader').hide();
+          $('#shoutLoader').hide();
           alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
-      url:'/api/comment/get/album'
+      url:'/api/shout/get/album'
     });
   },
   // Get album listeners.
@@ -382,7 +382,7 @@ $(document).ready(function () {
   view.getLoves();
   view.getTags();
   view.getListeningHistory('%Y');
-  view.getComments();
+  view.getShouts();
   view.getUsers();
   view.getListenings();
   view.initAlbumEvents();

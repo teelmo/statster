@@ -75,6 +75,14 @@ $.extend(view, {
               $('#recentlyListenedLoader2').hide();
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
+              var currentTime = new Date();
+              var hours = currentTime.getHours();
+              var minutes = currentTime.getMinutes();
+              if (minutes < 10) {
+                minutes = '0' + minutes;
+              }
+              $('#recentlyUpdated').html('updated <span class="number">' + hours + '</span>:<span class="number">' + minutes + '</span>');
+              $('#recentlyUpdated').attr('value', currentTime.getTime());
             },
             type:'POST',
             url:'/ajax/musicTable'
@@ -160,7 +168,7 @@ $.extend(view, {
       }
     });
   },
-  getComments: function () {
+  getShouts: function () {
     $.ajax({
       data:{
         username:'<?=$username?>'
@@ -180,26 +188,26 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#userCommentLoader').hide();
-              $('#userComment').html(data);
+              $('#userShoutLoader').hide();
+              $('#userShout').html(data);
             },
             type:'POST',
-            url:'/ajax/commentTable'
+            url:'/ajax/shoutTable'
           });
         },
         204: function () { // 204 No Content
-          $('#commentLoader').hide();
+          $('#shoutLoader').hide();
         },
         400: function () { // 400 Bad request
-          $('#commentLoader').hide();
+          $('#shoutLoader').hide();
           alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
-      url:'/api/comment/get/user'
+      url:'/api/shout/get/user'
     });
   },
-  getAlbumComments: function () {
+  getAlbumShouts: function () {
     $.ajax({
       data:{
         limit:5,
@@ -217,18 +225,18 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#albumComment').html(data);
+              $('#albumShout').html(data);
             },
             type:'POST',
-            url:'/ajax/commentTable'
+            url:'/ajax/shoutTable'
           });
         }
       },
       type:'GET',
-      url:'/api/comment/get/album'
+      url:'/api/shout/get/album'
     });
   },
-  getArtistComments: function () {
+  getArtistShouts: function () {
     $.ajax({
       data:{
         limit:5,
@@ -246,15 +254,15 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#artistComment').html(data);
+              $('#artistShout').html(data);
             },
             type:'POST',
-            url:'/ajax/commentTable'
+            url:'/ajax/shoutTable'
           });
         }
       },
       type:'GET',
-      url:'/api/comment/get/artist'
+      url:'/api/shout/get/artist'
     });
   },
   recentlyFaned: function () {
@@ -316,13 +324,13 @@ $.extend(view, {
     });
   },
   initProfileEvents: function () {
-    $(document).ajaxStop(function (event, request, settings ) {
-      $('#musicComment').append($('.recently_commented tr').detach().sort(function (a, b) {
+    $(document).ajaxStop(function (event, request, settings) {
+      $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
         return app.compareStrings($(a).data('created'), $(b).data('created'));
       }));
-      $('#musicCommentLoader').hide();
+      $('#musicShoutLoader').hide();
 
-      $('#recentlyLiked').append($('.recently_liked tr').detach().sort(function (a, b) {
+      $('#recentlyLiked').append($('.likes tr').detach().sort(function (a, b) {
         return app.compareStrings($(a).data('created'), $(b).data('created'));
       }));
       $('#recentlyLikedLoader').hide();
@@ -341,9 +349,9 @@ $(document).ready(function () {
   view.getRecentListenings();
   view.getTopAlbums();
   view.getTopArtists();
-  view.getComments();
-  view.getArtistComments();
-  view.getAlbumComments();
+  view.getShouts();
+  view.getAlbumShouts();
+  view.getArtistShouts();
   view.recentlyFaned();
   view.recentlyLoved();
   view.initProfileEvents();

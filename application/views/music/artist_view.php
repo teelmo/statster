@@ -102,28 +102,28 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="commentLoader2" /><span id="shoutTotal"></span></h2>
-      <table class="comment_table">
+      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shouttLoader2" /><span id="shoutTotal"></span></h2>
+      <table class="shout_table">
         <?php
         if ($logged_in === TRUE) {
           ?>
-          <tr class="post_comment">
+          <tr class="post_shout">
             <td class="img user_img">
               <?=anchor(array('user', url_title($this->session->userdata('username'))), '<div class="cover user_img img64" style="background-image:url(' . $this->session->userdata('user_image') . ')"></div>', array('title' => 'Browse to user\'s page'))?>
             </td>
             <td class="textarea" colspan="2">
               <input type="hidden" id="contentID" value="<?=$artist_id?>" />
               <input type="hidden" id="contentType" value="artist" />
-              <div><textarea placeholder="Post a shout…" id="commentText"></textarea></div>
-              <div><button id="commentSubmit">post shout</button></div>
+              <div><textarea placeholder="Post a shout…" id="shoutText"></textarea></div>
+              <div><button id="shoutSubmit">post shout</button></div>
             </td>
           </tr>
           <?php
         }
         ?>
       </table>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="commentLoader"/>
-      <table id="comment" class="comment_table"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="shoutLoader"/>
+      <table id="shout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div id="rightCont">

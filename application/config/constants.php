@@ -76,15 +76,15 @@ define('SPOTIFY_TIMEOUT', 3); #seconds
 // Database variables
 define('TBL_album', 'album');
 define('TBL_album_biography', 'album_biography');
-define('TBL_album_comment', 'album_comment');
+define('TBL_album_shout', 'album_shout');
 define('TBL_album_equalize', 'album_equalize');
 define('TBL_artist', 'artist');
 define('TBL_artist_biography', 'artist_biography');
-define('TBL_artist_comment', 'artist_comment');
+define('TBL_artist_shout', 'artist_shout');
 define('TBL_artist_equalize', 'artist_equalize');
 define('TBL_associated_artist', 'assosiated_artist');
 define('TBL_blog', 'blog');
-define('TBL_blog_comment', 'blog_comment');
+define('TBL_blog_shout', 'blog_shout');
 define('TBL_bmi', 'bmi');
 define('TBL_bulletin', 'bulletin');
 define('TBL_bulletins', 'bulletins');
@@ -97,7 +97,7 @@ define('TBL_genre_equalize', 'genre_equalize');
 define('TBL_keyword', 'keyword');
 define('TBL_keywords', 'keywords');
 define('TBL_listening', 'listening');
-define('TBL_listening_comment', 'listening_comment');
+define('TBL_listening_shout', 'listening_shout');
 define('TBL_listening_format', 'listening_format');
 define('TBL_listening_format_type', 'listening_format_type');
 define('TBL_listening_format_types', 'listening_format_types');
@@ -111,7 +111,7 @@ define('TBL_similar_artists', 'similar_artists');
 define('TBL_store', 'store');
 define('TBL_user', 'user');
 define('TBL_user_album', 'user_album');
-define('TBL_user_comment', 'user_comment');
+define('TBL_user_shout', 'user_shout');
 define('TBL_user_info', 'user_info');
 
 /* API keys */

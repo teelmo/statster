@@ -38,9 +38,9 @@
     <?=anchor('recent?u=' . $username, 'Library')?>
     <?=anchor('album?u=' . $username, 'Albums')?>
     <?=anchor('artist?u=' . $username, 'Artists')?>
-    <?=anchor('tag?u=' . $username, 'Tags')?>
     <?=anchor('like?u=' . $username, 'Likes')?>
-    <!--<?=anchor('shout?u=' . $username, 'Shouts')?>-->
+    <?=anchor('shout?u=' . $username, 'Shouts')?>
+    <?=anchor('tag?u=' . $username, 'Tags')?>
   </div>
   <div id="leftCont">
     <div class="container">
@@ -119,34 +119,33 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="commentLoader2" /><span id="shoutTotal"></span></h2>
-      <table class="comment_table">
+      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shoutLoader2" /><span id="shoutTotal"></span></h2>
+      <table class="shout_table">
         <?php
         if ($logged_in === TRUE) {
           ?>
-          <tr class="post_comment">
+          <tr class="post_shout">
             <td class="img user_img">
               <?=anchor(array('user', url_title($this->session->userdata('username'))), '<div class="cover user_img img64" style="background-image:url(' . $this->session->userdata('user_image') . ')"></div>', array('title' => 'Browse to user\'s page'))?>
             </td>
             <td class="textarea" colspan="2">
               <input type="hidden" id="contentID" value="<?=$user_id?>" />
               <input type="hidden" id="contentType" value="user" />
-              <div><textarea placeholder="Post a shout…" id="commentText"></textarea></div>
-              <div><button id="commentSubmit">post shout</button></div>
+              <div><textarea placeholder="Post a shout…" id="shoutText"></textarea></div>
+              <div><button id="shoutSubmit">post shout</button></div>
             </td>
           </tr>
           <?php
         }
         ?>
       </table>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="userCommentLoader"/>
-      <table id="userComment" class="comment_table"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="userShoutLoader"/>
+      <table id="userShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div id="rightCont">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>
+      <h1>Top in <?=date('F', strtotime('first day of last month'))?></h1>
       <table class="side_table">
         <?php
         if ($top_album) {
@@ -228,10 +227,13 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Shouts</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="musicCommentLoader" />
-      <table id="musicComment" class="comment_table"><!-- Content is loaded with AJAX --></table>
-      <table id="albumComment" class="recently_commented hidden"><!-- Content is loaded with AJAX --></table>
-      <table id="artistComment" class="recently_commented hidden"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="musicShoutLoader" />
+      <table id="musicShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
+      <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="artistShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor('shout?u=' . $username, 'More', array('title' => 'Browse more shouts'))?>
+      </div>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
@@ -240,5 +242,8 @@
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyFaned" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyLoved" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor('like?u=' . $username, 'More', array('title' => 'Browse more likes'))?>
+      </div>
     </div>
   </div>

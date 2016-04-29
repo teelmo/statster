@@ -3,7 +3,7 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     foreach ($json_data as $idx => $row) {
       ?>
-      <tr id="comment<?=ucfirst($row['type'])?>Table<?=$idx?>" data-created="<?=$row['created']?>" class="comment">
+      <tr id="shout<?=ucfirst($row['type'])?>Table<?=$idx?>" data-created="<?=$row['created']?>" class="shout">
         <?php
         if (empty($hide['img'])) {
           ?>
@@ -48,7 +48,7 @@ if (!empty($json_data)) {
             if ($this->session->userdata('user_id') === $row['user_id']) {
               ?>
               <span class="delete" data-confirmation-container=".confirmation_<?=$row['type']?>_<?=$idx?>"><a href="javascript:;"><i class="fa fa-times"></i></a></span>
-              <div class="confirmation confirmation_<?=$row['type']?>_<?=$idx?>">Are you sure: <a href="javascript:;" class="confirm" data-comment-id="<?=$row['comment_id']?>" data-comment-type="<?=$row['type']?>" data-row-id="comment<?=ucfirst($row['type'])?>Table<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
+              <div class="confirmation confirmation_<?=$row['type']?>_<?=$idx?>">Are you sure: <a href="javascript:;" class="confirm" data-shout-id="<?=$row['shout_id']?>" data-shout-type="<?=$row['type']?>" data-row-id="shout<?=ucfirst($row['type'])?>Table<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
               <?php
             }
             ?>
