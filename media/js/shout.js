@@ -66,7 +66,7 @@ $.extend(view, {
               type:'user'
             },
             success: function (data) {
-              $('#artistShout').html(data);
+              $('#userShout').html(data);
             },
             type:'POST',
             url:'/ajax/shoutTable'
