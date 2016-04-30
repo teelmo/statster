@@ -278,6 +278,36 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
+  getAlbumShouts: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        artist_name:'<?=$artist_name?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:{
+                user:true
+              },
+              json_data:data,
+              size:32
+            },
+            success: function (data) {
+              $('#albumShoutLoader').hide();
+              $('#albumShout').html(data);
+            },
+            type:'POST',
+            url:'/ajax/shoutTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/shout/get/album'
+    });
+  },
   updateArtistBio: function () {
     $.ajax({
       data:{
@@ -354,6 +384,7 @@ $(document).ready(function () {
   view.getShouts();
   view.getUsers();
   view.getListenings();
+  view.getAlbumShouts();
   view.initArtistEvents();
 
   var update_bio = <?=($update_bio === true) ? 1 : 0?>;

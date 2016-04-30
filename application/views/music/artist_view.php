@@ -145,4 +145,13 @@
         <?=anchor(array('recent', url_title($artist_name)), 'More listenings', array('title' => 'Browse more listenings'))?>
       </div>
     </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Albums' comments</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="albumShoutLoader" />
+      <table id="albumShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor('shout', 'More', array('title' => 'Browse more shouts'))?>
+      </div>
+    </div>
   </div>
