@@ -302,6 +302,10 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/shoutTable'
           });
+        },
+        204: function () {
+          $('#artistShoutLoader').hide();
+          $('#artistShout').html('<?php echo ERR_NO_DATA?>');
         }
       },
       type:'GET',
