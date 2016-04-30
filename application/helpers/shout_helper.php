@@ -5,8 +5,9 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * Get album shouts.
   *
   * @param array $opts.
-  *          'album_name'  => Album name
-  *          'username'    => Username
+  *          'album_name'   => Album name
+  *          'artist_name'  => Artist name
+  *          'username'     => Username
   *
   * @return array Shout information.
   */
@@ -16,6 +17,7 @@ if (!function_exists('getAlbumShout')) {
     $ci->load->database();
 
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_album_shout . ".`id` as `shout_id`,
@@ -40,10 +42,11 @@ if (!function_exists('getAlbumShout')) {
               AND " . TBL_album_shout . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_album . ".`album_name` LIKE ?
+              AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
             ORDER BY " . TBL_album_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($album_name, $album_name, $username));
+    $query = $ci->db->query($sql, array($album_name, $album_name, $artist_name, $username));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
