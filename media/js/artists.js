@@ -21,6 +21,10 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/artistList/124'
           });
+        },
+        204: function (data) { // 204 No Content
+          $('#topArtist10Loader').hide();
+          $('#topArtist10').html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
