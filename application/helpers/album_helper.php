@@ -215,7 +215,9 @@ if (!function_exists('getAlbumTags')) {
           $data['tags'][] = $tag;
         }
       }
-      uasort($data, '_tagsSortByCount');
+      if (isset($opts['sort'])) {
+        uasort($data['tags'], '_tagsSortByCount');
+      }
       $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
       return json_encode($data['tags']);
     }
@@ -303,7 +305,7 @@ if (!function_exists('getAlbumNationalities')) {
 
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $sql = "SELECT count(" . TBL_nationality . ".`id`) as `count`,
-                   " . TBL_nationality . ".`country`,
+                   " . TBL_nationality . ".`country` as `name`,
                    " . TBL_nationality . ".`country_code`,
                    " . TBL_nationality . ".`id` as `tag_id`,
                    'nationality' as `type`

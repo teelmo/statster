@@ -177,6 +177,9 @@ if (!function_exists('getArtistTags')) {
           $data['tags'][] = $tag;
         }
       }
+      if (isset($opts['sort'])) {
+        uasort($data['tags'], '_tagsSortByCount');
+      }
       uasort($data, '_tagsSortByCount');
       $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
       return json_encode($data['tags']);
@@ -269,7 +272,7 @@ if (!function_exists('getArtistNationalities')) {
 
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
     $sql = "SELECT count(" . TBL_nationality . ".`id`) as `count`,
-                   " . TBL_nationality . ".`country`,
+                   " . TBL_nationality . ".`country` as `name`,
                    " . TBL_nationality . ".`country_code`,
                    " . TBL_nationality . ".`id` as `tag_id`,
                    'nationality' as `type`

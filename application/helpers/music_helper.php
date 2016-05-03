@@ -281,10 +281,10 @@ if (!function_exists('getArtistAlbums')) {
   */
 if (!function_exists('_tagsSortByCount')) {
   function _tagsSortByCount($a, $b) {
-    if ($a['count'] == $b['count']) {
+    if ($a->count == $b->count) {
       return 0;
     }
-    return ($a['count'] > $b['count']) ? -1 : 1;
+    return ($a->count > $b->count) ? -1 : 1;
   }
 }
 ?>

@@ -29,7 +29,6 @@ class Music extends CI_Controller {
     // Load helpers
     $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'output_helper'));
 
-    $data = array();
     // Decode artist information
     $data['artist_name'] = decode($artist_name);
     // Get artist information aka. artist's name and id
@@ -54,12 +53,12 @@ class Music extends CI_Controller {
       }
       $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
       if (empty($data['spotify_uri'])) {
         $data['spotify_uri'] = getSpotifyResourceId($data);
       }
       $data += $_REQUEST;
 
+      $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
       $this->load->view('site_templates/header', $data);
       $this->load->view('music/artist_view', $data);
       $this->load->view('site_templates/footer');
@@ -73,7 +72,6 @@ class Music extends CI_Controller {
     // Load helpers
     $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'nationality_helper', 'output_helper'));
 
-    $data = array();
     $data['artist_name'] = decode($artist_name);
     $data['album_name'] = decode($album_name);
 
@@ -99,12 +97,12 @@ class Music extends CI_Controller {
       }
       $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
-      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
       if (empty($data['spotify_uri'])) {
         $data['spotify_uri'] = getSpotifyResourceId($data);
       }
       $data += $_REQUEST;
 
+      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
       $this->load->view('site_templates/header', $data);
       $this->load->view('music/album_view', $data);
       $this->load->view('site_templates/footer');

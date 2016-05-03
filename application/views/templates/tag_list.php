@@ -5,7 +5,7 @@ if (!empty($json_data)) {
       if ($row['type'] === 'nationality') {
         ?>
         <li class="tag <?=$row['type']?>">
-          <?=anchor(array($row['type'], url_title($row['country'])), '<img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['country'] . '" />')?>
+          <?=anchor(array($row['type'], url_title($row['name'])), '<img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['name'] . '" />')?>
         </li>
         <?php
       }

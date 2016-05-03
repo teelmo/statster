@@ -1,25 +1,76 @@
 <?php
 class Tag extends CI_Controller {
 
-  public function index() {
-    // Load helpers
-    $this->load->helper(array('genre_helper', 'keyword_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+  public function index($artist_name = '', $album_name = '') {
+    if (!empty($album_name)) {
+      // Load helpers
+      $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'output_helper'));
 
-    $data['limit'] = 1;
-    $data['lower_limit'] = date('Y-m-d', time() - (180 * 24 * 60 * 60));
-    $data['username'] = $_GET['u'];
-    $data['genre'] = ${!${false}=json_decode(getGenres($data), true)}[0];
-    $data['keyword'] = ${!${false}=json_decode(getKeywords($data), true)}[0];
-    $data['nationality'] = ${!${false}=json_decode(getNationalities($data), true)}[0];
-    $data['year'] = ${!${false}=json_decode(getYears($data), true)}[0];
+      $data['artist_name'] = decode($artist_name);
+      $data['album_name'] = decode($album_name);
+      if ($data = getAlbumInfo($data)) {
+        // Get albums's total listening data
+        $data += getAlbumListenings($data);
+        // Get logged in user's listening data
+        if ($data['user_id'] = $this->session->userdata('user_id')) {
+          $data += getAlbumListenings($data);
+        }
+        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+        
+        $data['js_include'] = array('meta_album');
+        $this->load->view('site_templates/header');
+        $this->load->view('tag/meta_album', $data);
+        $this->load->view('site_templates/footer', $data);
+      }
+      else {
+        show_404();
+      }
+    }
+    else if (!empty($artist_name)) {
+      // Load helpers
+      $this->load->helper(array('img_helper', 'music_helper', 'artist_helper', 'output_helper'));
 
-    $data['js_include'] = array('meta');
-    $this->load->view('site_templates/header');
-    $this->load->view('tag/meta_view', $data);
-    $this->load->view('site_templates/footer', $data);
+      $data['artist_name'] = decode($artist_name);
+      if ($data = getArtistInfo($data)) {
+        // Get artist's total listening data
+        $data += getArtistListenings($data);
+        // Get logged in user's listening data
+        if ($data['user_id'] = $this->session->userdata('user_id')) {
+          $data += getArtistListenings($data);
+        }
+        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+
+        $data['js_include'] = array('meta_artist');
+        $this->load->view('site_templates/header');
+        $this->load->view('tag/meta_artist', $data);
+        $this->load->view('site_templates/footer', $data);
+      }
+      else {
+        show_404();
+      }
+    }
+    else {
+      // Load helpers
+      $this->load->helper(array('genre_helper', 'keyword_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+
+      $data['limit'] = 1;
+      $data['lower_limit'] = date('Y-m-d', time() - (180 * 24 * 60 * 60));
+      $data['username'] = $_GET['u'];
+      $data['genre'] = ${!${false}=json_decode(getGenres($data), true)}[0];
+      $data['keyword'] = ${!${false}=json_decode(getKeywords($data), true)}[0];
+      $data['nationality'] = ${!${false}=json_decode(getNationalities($data), true)}[0];
+      $data['year'] = ${!${false}=json_decode(getYears($data), true)}[0];
+
+      $data['js_include'] = array('meta');
+      $this->load->view('site_templates/header');
+      $this->load->view('tag/meta_view', $data);
+      $this->load->view('site_templates/footer', $data);
+    }
   }
 
-  public function genre($tag_name = '', $type = '') {
+  public function genre($tag_name = '') {
     // Load helpers
     $this->load->helper(array('genre_helper', 'id_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
