@@ -46,7 +46,7 @@
         <tr>
           <td class="value number"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), number_format($total_count))?></td>
           <td class="value number"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), number_format($listener_count))?></td>
-          <td class="value number"><?=anchor(array('tag', 'year', $created), $created)?></td>
+          <td class="value number"><?=anchor(array('year', $created), $created)?></td>
         </tr>
       </table>
     </div>
