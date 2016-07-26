@@ -10,6 +10,8 @@ class Artist extends CI_Controller {
     $data['lower_limit'] = '1970-01-01';
     $data['upper_limit'] = CUR_DATE;
     $data['title'] = 'Artists';
+    $data['year'] = '';
+    $data['side_title'] = 'Yearly';
 
     $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
@@ -26,6 +28,8 @@ class Artist extends CI_Controller {
       $data['lower_limit'] = $year . '-00-' . '00'; 
       $data['upper_limit'] = $year . '-12-' . '31';
       $data['title'] = 'Artists <span class="meta">' . $year . '</span>';
+      $data['year'] = $year;
+      $data['side_title'] = 'Monthly';
     }
 
     $data['js_include'] = array('artists');

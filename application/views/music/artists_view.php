@@ -19,7 +19,7 @@
   </div>
   <div id="rightCont">
     <div class="container">
-      <h1>Yearly</h1>
+      <h1><?=$side_title?></h1>
     </div>
-    <div id="years"><!-- Content is loaded with AJAX --></div>
+    <div id="sideTable"><!-- Content is loaded with AJAX --></div>
   </div>
