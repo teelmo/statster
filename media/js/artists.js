@@ -84,7 +84,7 @@ $.extend(view, {
   },
   topArtistMonthly: function (year) {
     for (var month = 1; month <= 12; month++) {
-      var month_str = new Array();
+      var month_str = new Array(12);
       month_str[1] = "January";
       month_str[2] = "February";
       month_str[3] = "March";
@@ -113,6 +113,74 @@ $.extend(view, {
       }
       view.topArtist(year + '-' + pad_month + '-00', year + '-' + pad_month + '-31', vars);
     }
+  },
+  getListenings: function (date, vars) {
+    $.ajax({
+      data:{
+        date:date,
+        limit:vars.limit,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:vars.hide,
+              json_data:data,
+              size:32
+            },
+            success: function (data) {
+              $(vars.container + 'Loader').hide();
+              $(vars.container).html(data);
+            },
+            type:'POST',
+            url:vars.template
+          });
+        },
+        204: function () { // 204 No Content
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/listening/get'
+    });
+  },
+  topArtistDaily: function (year, month) {
+    var str = '' + month;
+    var pad = '00';
+    var pad_month = pad.substring(0, pad.length - str.length) + str;
+    var weekday = new Array(7);
+    weekday[0]=  'Sunday';
+    weekday[1] = 'Monday';
+    weekday[2] = 'Tuesday';
+    weekday[3] = 'Wednesday';
+    weekday[4] = 'Thursday';
+    weekday[5] = 'Friday';
+    weekday[6] = 'Saturday';
+    for (var day = 1; day <= new Date(year, month, 0).getDate(); day++) {
+      var str = '' + day;
+      var pad_day = pad.substring(0, pad.length - str.length) + str;
+      $('<div class="container"><h2 class="number">' + weekday[new Date(year, month, day).getDay()] + ' – ' + app.getGetOrdinal(day) + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + day + 'Loader"/><table id="sideTopArtist' + day + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '/' + pad_day + '" title="Browse more">More <span class="number">' + day + '</span></a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      var vars = {
+        container:'#sideTopArtist' + day,
+        hide:{
+          calendar:true,
+          count:true,
+          date:true,
+          rank:true,
+          spotify:true
+        },
+        limit:3,
+        template:'/ajax/sideTable'
+      }
+      view.getListenings(year + '-' + pad_month + '-' + pad_day, vars);
+    }
   }
 });
 
@@ -124,7 +192,11 @@ $(document).ready(function () {
     template:'/ajax/columnTable'
   }
   view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
-  if ('<?=$side_title?>' === 'Monthly') {
+
+  if ('<?=$month?>' !== '') {
+    view.topArtistDaily('<?=$year?>', '<?=$month?>');
+  }
+  else if ('<?=$year?>' !== '') {
     view.topArtistMonthly('<?=$year?>');
   }
   else {

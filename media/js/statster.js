@@ -4,6 +4,11 @@ var app = {
     else if (a < b) return 1;
     return 0;
   },
+  getGetOrdinal: function (n) {
+    var s=['th','st','nd','rd'];
+    var v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  },
   formatNr: function (x) {
     x = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return (x == '') ? 0 : x;

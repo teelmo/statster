@@ -11,6 +11,7 @@ class Album extends CI_Controller {
     $data['upper_limit'] = CUR_DATE;
     $data['title'] = 'Albums';
     $data['year'] = '';
+    $data['month'] = '';
     $data['side_title'] = 'Yearly';
 
     $this->load->view('site_templates/header');
@@ -22,13 +23,17 @@ class Album extends CI_Controller {
     if ($month != FALSE) {
       $data['lower_limit'] = $year . '-' . $month . '-' . '00'; 
       $data['upper_limit'] = $year . '-' . $month . '-' . '31';
-      $data['title'] = 'Albums <span class="meta">' . $year . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year . '</span>';
+      $data['title'] = 'Albums <span class="meta">' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year . '</span>';
+      $data['year'] = $year;
+      $data['month'] = $month;
+      $data['side_title'] = 'Daily';
     }
     else {
       $data['lower_limit'] = $year . '-00-' . '00'; 
       $data['upper_limit'] = $year . '-12-' . '31';
       $data['title'] = 'Albums <span class="meta">' . $year . '</span>';
       $data['year'] = $year;
+      $data['month'] = '';
       $data['side_title'] = 'Monthly';
     }
 
