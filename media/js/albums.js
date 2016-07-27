@@ -187,21 +187,45 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.topAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
-  var vars = {
-    container:'#topAlbum',
-    limit:'10, 200',
-    template:'/ajax/columnTable'
-  }
-  view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
+  if ('<?=$day?>' === '') {
+    view.topAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
+    var vars = {
+      container:'#topAlbum',
+      limit:'10, 200',
+      template:'/ajax/columnTable'
+    }
+    view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
 
-  if ('<?=$month?>' !== '') {
-    view.topAlbumDaily('<?=$year?>', '<?=$month?>');
-  }
-  else if ('<?=$year?>' !== '') {
-    view.topAlbumMonthly('<?=$year?>');
+    if ('<?=$month?>' !== '') {
+      view.topAlbumDaily('<?=$year?>', '<?=$month?>');
+    }
+    else if ('<?=$year?>' !== '') {
+      view.topAlbumMonthly('<?=$year?>');
+    }
+    else {
+      view.topAlbumYearly();
+    }
   }
   else {
-    view.topAlbumYearly();
+    $('#topAlbum10, #topAlbum10Loader').hide();
+    $('#topAlbum').removeClass('column_table').addClass('music_table');
+    var vars = {
+      container:'#topAlbum',
+      hide:{
+        calendar:true,
+        count:true,
+        date:true,
+        rank:true,
+        spotify:true
+      },
+      template:'/ajax/musicTable'
+    }
+    var str = '<?=$month?>';
+    var pad = '00';
+    var pad_month = pad.substring(0, pad.length - str.length) + str;
+    var str = '<?=$day?>';
+    var pad_day = pad.substring(0, pad.length - str.length) + str;
+    view.getListenings('<?=$year?>' + '-' + pad_month + '-' + pad_day, vars);
+    view.topAlbumDaily('<?=$year?>', '<?=$month?>');
   }
 });
