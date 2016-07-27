@@ -35,6 +35,7 @@ class Artist extends CI_Controller {
       $data['title'] = 'Artists <span class="meta">' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year . '</span>';
       $data['year'] = $year;
       $data['month'] = $month;
+      $data['day'] = '';
       $data['side_title'] = 'Daily';
     }
     else {
@@ -43,6 +44,7 @@ class Artist extends CI_Controller {
       $data['title'] = 'Artists <span class="meta">' . $year . '</span>';
       $data['year'] = $year;
       $data['month'] = '';
+      $data['day'] = '';
       $data['side_title'] = 'Monthly';
     }
 

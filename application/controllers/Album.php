@@ -35,6 +35,7 @@ class Album extends CI_Controller {
       $data['title'] = 'Albums <span class="meta">' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year . '</span>';
       $data['year'] = $year;
       $data['month'] = $month;
+      $data['day'] = '';
       $data['side_title'] = 'Daily';
     }
     else {
@@ -43,6 +44,7 @@ class Album extends CI_Controller {
       $data['title'] = 'Albums <span class="meta">' . $year . '</span>';
       $data['year'] = $year;
       $data['month'] = '';
+      $data['day'] = '';
       $data['side_title'] = 'Monthly';
     }
 
