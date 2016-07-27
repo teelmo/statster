@@ -12,6 +12,7 @@ class Album extends CI_Controller {
     $data['title'] = 'Albums';
     $data['year'] = '';
     $data['month'] = '';
+    $data['day'] = '';
     $data['side_title'] = 'Yearly';
 
     $this->load->view('site_templates/header');
