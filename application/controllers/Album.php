@@ -20,7 +20,7 @@ class Album extends CI_Controller {
   }
 
   public function stats($year, $month = FALSE, $day = FALSE) {
-    if ($month !== FALSE) {
+    if ($day !== FALSE) {
       $data['lower_limit'] = $year . '-' . $month . '-' . '00';
       $data['upper_limit'] = $year . '-' . $month . '-' . '31';
       $data['title'] = 'Listened ' . intval($day) . date('S',mktime(1, 1, 1, 1, ((($day >= 10) + ($day >= 20) + ( $day == 0)) * 10 + $day % 10))) . ' of ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year;
