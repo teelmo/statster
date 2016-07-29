@@ -20,9 +20,18 @@ class Nationality extends CI_Controller {
   }
 
   /* Update nationality information */
-  public function update() {
-    // Load helpers
-    
+  public function update($type) {
+    switch ($type) {
+      case 'biography':
+        // Load helpers
+        $this->load->helper(array('nationality_helper', 'lastfm_helper'));
+
+        $_REQUEST += fetchTagBio($_REQUEST);
+        echo addNationalityBio($_REQUEST);
+        break;
+      default:
+        break;
+    }
   }
 
   /* Delete nationality information */

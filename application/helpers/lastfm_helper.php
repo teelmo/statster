@@ -115,11 +115,11 @@ if (!function_exists('fetchTagBio')) {
     if ($tag_name !== FALSE) {
       $data = array();
       $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=' . urlencode($tag_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
-      $data['bio_summary'] = $lastfm_data['artist']['bio']['summary']; 
-      $data['bio_content'] = $lastfm_data['artist']['bio']['content'];
-      return json_encode($data); 
+      $data['bio_summary'] = $lastfm_data['tag']['wiki']['summary']; 
+      $data['bio_content'] = $lastfm_data['tag']['wiki']['content'];
+      return $data; 
     }
-    return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
+    return json_encode(array('error' => array('msg' => ERR_NO_TAG)));
   }
 }
 

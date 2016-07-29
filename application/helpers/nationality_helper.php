@@ -70,6 +70,73 @@ if (!function_exists('getNationalities')) {
 }
 
 /**
+  * Gets nationality's bio.
+  *
+  * @param array $opts.
+  *          'tag_id'  => Keyword ID
+  *
+  * @return array Nationality bio
+  */
+if (!function_exists('getNationalityBio')) {
+  function getNationalityBio($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $nationality_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $sql = "SELECT " . TBL_nationality_biography . ".`id` as `biography_id`,
+                   " . TBL_nationality_biography . ".`summary` as `bio_summary`, 
+                   " . TBL_nationality_biography . ".`text` as `bio_content`, 
+                   " . TBL_nationality_biography . ".`updated` as `bio_updated`,
+                   'false' as `update_bio`
+            FROM " . TBL_nationality_biography . "
+            WHERE " . TBL_nationality_biography . ".`nationality_id` = ?";
+    $query = $ci->db->query($sql, array($nationality_id));
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
+  }
+}
+
+/**
+  * Add nationality's bio.
+  *
+  * @param array $opts.
+  *          'tag_id'       => Nationality ID
+  *          'bio_summary'  => Bio summary
+  *          'bio_content'  => Bio content
+  *
+  * @return retun boolean TRUE or FALSE
+  */
+if (!function_exists('addNationalityBio')) {
+  function addNationalityBio($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $nationality_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $summary = !empty($opts['bio_summary']) ? $opts['bio_summary'] : '';
+    $text = !empty($opts['bio_content']) ? $opts['bio_content'] : '';
+
+    $sql = "SELECT  " . TBL_nationality_biography . ".`id`
+            FROM " . TBL_nationality_biography . "
+            WHERE " . TBL_nationality_biography . ".`nationality_id` = ?";
+    $query = $ci->db->query($sql, array($nationality_id));
+    if ($query->num_rows() === 1) {
+      $sql = "UPDATE " . TBL_nationality_biography . "
+                SET " . TBL_nationality_biography . ".`summary` = ?,
+                    " . TBL_nationality_biography . ".`text` = ?,
+                    " . TBL_nationality_biography . ".`updated` = NOW()
+                WHERE " . TBL_nationality_biography . ".`nationality_id` = ?";
+      $query = $ci->db->query($sql, array($summary, $text, $nationality_id));
+    }
+    else {
+      $sql = "INSERT
+                INTO " . TBL_nationality_biography . " (`nationality_id`, `summary`, `text`)
+                VALUES (?, ?, ?)";
+      $query = $ci->db->query($sql, array($nationality_id, $summary, $text));
+    }
+    return ($ci->db->affected_rows() === 1);
+  }
+}
+
+/**
   * Add nationality data.
   *
   * @param array $opts.

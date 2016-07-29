@@ -34,6 +34,23 @@
     <?=anchor(array('year'), 'Years')?>
   </div>
   <div id="leftCont">
+    <?php
+    if (!empty($bio_summary)) {
+      ?>
+      <div class="container">
+        <h2>Info</h2>
+        <p class="summary"><?=nl2br($bio_summary)?></p>
+        <div class="more moreDown">
+          <?=anchor('', 'See more', array('title' => 'See full biography', 'id' => 'biographyMore'))?>
+        </div>
+        <p class="content hidden"><?=nl2br($bio_content)?></p>
+        <div class="more moreUp ">
+          <?=anchor('', 'See less', array('title' => 'Suppress biograhpy', 'id' => 'biographyLess', 'class' => 'hidden'))?>
+        </div>
+      </div>
+      <?php
+    }
+    ?>
     <div class="container">
       <h2>History</h2>
       <div class="float_right settings">

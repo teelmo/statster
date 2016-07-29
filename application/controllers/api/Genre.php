@@ -20,9 +20,18 @@ class Genre extends CI_Controller {
   }
 
   /* Update genre information */
-  public function update() {
-    // Load helpers
-    
+  public function update($type) {
+    switch ($type) {
+      case 'biography':
+        // Load helpers
+        $this->load->helper(array('genre_helper', 'lastfm_helper'));
+
+        $_REQUEST += fetchTagBio($_REQUEST);
+        echo addGenreBio($_REQUEST);
+        break;
+      default:
+        break;
+    }
   }
 
   /* Delete genre information */

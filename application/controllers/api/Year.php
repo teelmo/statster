@@ -19,9 +19,18 @@ class Year extends CI_Controller {
   }
 
   /* Update year information */
-  public function update() {
-    // Load helpers
-    
+  public function update($type) {
+    switch ($type) {
+      case 'biography':
+        // Load helpers
+        $this->load->helper(array('year_helper', 'lastfm_helper'));
+
+        $_REQUEST += fetchTagBio($_REQUEST);
+        echo addYearBio($_REQUEST);
+        break;
+      default:
+        break;
+    }
   }
 
   /* Delete year information */

@@ -211,8 +211,32 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
+  updateGenreBio: function () {
+    $.ajax({
+      data:{
+        tag_id:'<?php echo $tag_id?>',
+        tag_name:'<?php echo $tag_name?>'
+      },
+      dataType:'json',
+      type:'GET',
+      url:'/api/genre/update/biography'
+    });
+  },
   initTagEvents: function () {
-  
+    $('#biographyMore').click(function (event) {
+      $('#biographyMore').hide();
+      $('.summary').hide();
+      $('#biographyLess').show();
+      $('.content').show();
+      event.preventDefault();
+    });
+    $('#biographyLess').click(function (event) {
+      $('#biographyLess').hide();
+      $('.content').hide();
+      $('#biographyMore').show();
+      $('.summary').show();
+      event.preventDefault();
+    });
   }
 });
 
@@ -244,4 +268,10 @@ $(document).ready(function () {
   }
   view.getUsers(from, where);
   view.getListenings(from, where);
+  view.initTagEvents();
+
+  var update_bio = <?=($update_bio === true) ? 1 : 0?>;
+  if (update_bio === 1) {
+    view.updateGenreBio();
+  }
 });

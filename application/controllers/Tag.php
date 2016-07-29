@@ -57,7 +57,7 @@ class Tag extends CI_Controller {
 
       $data['limit'] = 1;
       $data['lower_limit'] = date('Y-m-d', time() - (180 * 24 * 60 * 60));
-      $data['username'] = $_GET['u'];
+      $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['genre'] = ${!${false}=json_decode(getGenres($data), true)}[0];
       $data['keyword'] = ${!${false}=json_decode(getKeywords($data), true)}[0];
       $data['nationality'] = ${!${false}=json_decode(getNationalities($data), true)}[0];
@@ -81,6 +81,18 @@ class Tag extends CI_Controller {
       if ($data['tag_id'] = getGenreID($data)) {
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getGenreListenings($data);
+        // Get biography
+        $data += getGenreBio($data);
+        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+          $this->load->helper(array('lastfm_helper'));
+          unset($data['bio_summary']);
+          unset($data['bio_content']);
+          $data += fetchTagBio($data);
+          addGenreBio($data);
+        }
+        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+          $data['update_bio'] = true;
+        }
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getGenreListenings($data);
         }
@@ -90,7 +102,7 @@ class Tag extends CI_Controller {
         $data['group_by'] = TBL_listening . '.`user_id`';
         $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
         $data['limit'] = 1;
-        $data['username'] = $_GET['u'];
+        $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = ${!${false}=json_decode(getMusicByGenre($data), true)}[0];
         if (!empty($type)) {
@@ -127,6 +139,18 @@ class Tag extends CI_Controller {
       if ($data['tag_id'] = getKeywordID($data)) {
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getKeywordListenings($data);
+        // Get biography
+        $data += getKeywordBio($data);
+        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+          $this->load->helper(array('lastfm_helper'));
+          unset($data['bio_summary']);
+          unset($data['bio_content']);
+          $data += fetchTagBio($data);
+          addKeywordBio($data);
+        }
+        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+          $data['update_bio'] = true;
+        }
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getKeywordListenings($data);
         }
@@ -136,7 +160,7 @@ class Tag extends CI_Controller {
         $data['group_by'] = TBL_listening . '.`user_id`';
         $data['listener_count'] = sizeof(json_decode(getMusicByKeyword($data), true));
         $data['limit'] = 1;
-        $data['username'] = $_GET['u'];
+        $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = ${!${false}=json_decode(getMusicByKeyword($data), true)}[0];
         if (!empty($type)) {
@@ -172,6 +196,18 @@ class Tag extends CI_Controller {
       if ($data['tag_id'] = getNationalityID($data)) {
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
         $data += getNationalityListenings($data);
+        // Get biography
+        $data += getNationalityBio($data);
+        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+          $this->load->helper(array('lastfm_helper'));
+          unset($data['bio_summary']);
+          unset($data['bio_content']);
+          $data += fetchTagBio($data);
+          addNationalityBio($data);
+        }
+        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+          $data['update_bio'] = true;
+        }
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getNationalityListenings($data);
         }
@@ -181,7 +217,7 @@ class Tag extends CI_Controller {
         $data['group_by'] = TBL_listening . '.`user_id`';
         $data['listener_count'] = sizeof(json_decode(getMusicByNationality($data), true));
         $data['limit'] = 1;
-        $data['username'] = $_GET['u'];
+        $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = ${!${false}=json_decode(getMusicByNationality($data), true)}[0];
         if (!empty($type)) {
@@ -218,6 +254,18 @@ class Tag extends CI_Controller {
       $data['js_include'] = array('tag', 'helpers/chart_helper');
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
       $data += getYearListenings($data);
+      // Get biography
+        $data += getYearBio($data);
+        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+          $this->load->helper(array('lastfm_helper'));
+          unset($data['bio_summary']);
+          unset($data['bio_content']);
+          $data += fetchTagBio($data);
+          addYearBio($data);
+        }
+        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+          $data['update_bio'] = true;
+        }
       if ($data['user_id'] = $this->session->userdata('user_id')) {
         $data += getYearListenings($data);
       }
@@ -227,7 +275,7 @@ class Tag extends CI_Controller {
       $data['group_by'] = TBL_listening . '.`user_id`';
       $data['listener_count'] = sizeof(json_decode(getMusicByYear($data), true));
       $data['limit'] = 1;
-      $data['username'] = $_GET['u'];
+      $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['group_by'] = TBL_artist . '.`id`';
       $data['artist'] = ${!${false}=json_decode(getMusicByYear($data), true)}[0];
       if (!empty($type)) {

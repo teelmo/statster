@@ -65,6 +65,73 @@ if (!function_exists('getYears')) {
 }
 
 /**
+  * Gets year's bio.
+  *
+  * @param array $opts.
+  *          'tag_id'  => Year
+  *
+  * @return array Year bio
+  */
+if (!function_exists('getYearBio')) {
+  function getYearBio($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $year = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $sql = "SELECT " . TBL_year_biography . ".`id` as `biography_id`,
+                   " . TBL_year_biography . ".`summary` as `bio_summary`, 
+                   " . TBL_year_biography . ".`text` as `bio_content`, 
+                   " . TBL_year_biography . ".`updated` as `bio_updated`,
+                   'false' as `update_bio`
+            FROM " . TBL_year_biography . "
+            WHERE " . TBL_year_biography . ".`year` = ?";
+    $query = $ci->db->query($sql, array($year));
+    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
+  }
+}
+
+/**
+  * Add nationality's bio.
+  *
+  * @param array $opts.
+  *          'tag_id'       => Year
+  *          'bio_summary'  => Bio summary
+  *          'bio_content'  => Bio content
+  *
+  * @return retun boolean TRUE or FALSE
+  */
+if (!function_exists('addYearBio')) {
+  function addYearBio($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $year = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $summary = !empty($opts['bio_summary']) ? $opts['bio_summary'] : '';
+    $text = !empty($opts['bio_content']) ? $opts['bio_content'] : '';
+
+    $sql = "SELECT  " . TBL_year_biography . ".`id`
+            FROM " . TBL_year_biography . "
+            WHERE " . TBL_year_biography . ".`year` = ?";
+    $query = $ci->db->query($sql, array($year));
+    if ($query->num_rows() === 1) {
+      $sql = "UPDATE " . TBL_year_biography . "
+                SET " . TBL_year_biography . ".`summary` = ?,
+                    " . TBL_year_biography . ".`text` = ?,
+                    " . TBL_year_biography . ".`updated` = NOW()
+                WHERE " . TBL_year_biography . ".`year` = ?";
+      $query = $ci->db->query($sql, array($summary, $text, $year));
+    }
+    else {
+      $sql = "INSERT
+                INTO " . TBL_year_biography . " (`year`, `summary`, `text`)
+                VALUES (?, ?, ?)";
+      $query = $ci->db->query($sql, array($year, $summary, $text));
+    }
+    return ($ci->db->affected_rows() === 1);
+  }
+}
+
+/**
   * Add year data.
   *
   * @param array $opts.
