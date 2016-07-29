@@ -69,11 +69,11 @@
       <div class="container">
         <h2>Biography</h2>
         <p class="summary"><?=nl2br($bio_summary)?></p>
-        <div class="more moreDown">
+        <div class="more">
           <?=anchor('', 'See more', array('title' => 'See full biography', 'id' => 'biographyMore'))?>
         </div>
         <p class="content hidden"><?=nl2br($bio_content)?></p>
-        <div class="more moreUp ">
+        <div class="more">
           <?=anchor('', 'See less', array('title' => 'Suppress biograhpy', 'id' => 'biographyLess', 'class' => 'hidden'))?>
         </div>
       </div>

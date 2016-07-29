@@ -21,11 +21,12 @@ class Artist extends CI_Controller {
 
   /* Update artist information */
   public function update($type) {
-    // Load helpers
     switch ($type) {
       case 'biography':
-        $this->load->helper(array('artist_helper'));
-        
+        // Load helpers
+        $this->load->helper(array('artist_helper', 'lastfm_helper'));
+
+        $_REQUEST += fetchArtistBio($_REQUEST);
         echo addArtistBio($_REQUEST);
         break;
       default:

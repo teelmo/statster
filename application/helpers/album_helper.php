@@ -148,6 +148,7 @@ if (!function_exists('addAlbumBio')) {
       $sql = "UPDATE " . TBL_album_biography . "
                 SET " . TBL_album_biography . ".`summary` = ?,
                     " . TBL_album_biography . ".`text` = ?
+                    " . TBL_album_biography . ".`updated` = NOW()
                 WHERE " . TBL_album_biography . ".`album_id` = ?";
       $query = $ci->db->query($sql, array($summary, $text, $album_id));
     }

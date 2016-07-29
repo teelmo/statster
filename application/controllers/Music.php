@@ -35,7 +35,7 @@ class Music extends CI_Controller {
     if ($data = getArtistInfo($data)) {
       // Get artist's total listening data
       $data += getArtistListenings($data);
-      // Get biographty.
+      // Get biography
       $data += getArtistBio($data);
       if (empty($data['bio_summary']) || empty($data['bio_content'])) {
         $this->load->helper(array('lastfm_helper'));
@@ -79,7 +79,7 @@ class Music extends CI_Controller {
     if ($data = getAlbumInfo($data)) {
       // Get albums's total listening data
       $data += getAlbumListenings($data);
-      // Get biographty.
+      // Get biography
       $data += getAlbumBio($data);
       if (empty($data['bio_summary']) || empty($data['bio_content'])) {
         $this->load->helper(array('lastfm_helper'));
