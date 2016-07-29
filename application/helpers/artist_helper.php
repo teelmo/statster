@@ -109,7 +109,7 @@ if (!function_exists('addArtistBio')) {
     if ($query->num_rows() === 1) {
       $sql = "UPDATE " . TBL_artist_biography . "
                 SET " . TBL_artist_biography . ".`summary` = ?,
-                    " . TBL_artist_biography . ".`text` = ?
+                    " . TBL_artist_biography . ".`text` = ?,
                     " . TBL_artist_biography . ".`updated` = NOW()
                 WHERE " . TBL_artist_biography . ".`artist_id` = ?";
       $query = $ci->db->query($sql, array($summary, $text, $artist_id));
