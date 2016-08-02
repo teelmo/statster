@@ -59,27 +59,38 @@ class Tag extends CI_Controller {
   /* Add a tag */
   public function add($tag_type = '') {
     // Load helpers
-
-    switch ($tag_type) {
-      case 'genre':
-        $this->load->helper(array('genre_helper'));
-        echo addGenre($_REQUEST);
-        break;
-      case 'keyword':
-        $this->load->helper(array('keyword_helper'));
-        echo addKeyword($_REQUEST);
-        break;
-      case 'nationality':
-        $this->load->helper(array('nationality_helper'));
-        echo addNationality($_REQUEST);
-        break;
-      case 'year':
-        $this->load->helper(array('year_helper'));
-        echo addYear($_REQUEST);
-        break;
-      default:
-        header("HTTP/1.1 400 Bad Request");
-        break;
+    if ($_REQUEST['type'] == 'artist') {
+      $this->load->helper(array('id_helper'));
+      $albums = getAlbumIDs($_REQUEST);
+    }
+    else if ($_REQUEST['type'] == 'album') {
+      $albums = array();
+      $albums[0] = new stdClass();
+      $albums[0]->album_id = $_REQUEST['album_id'];
+    }
+    foreach ($albums as $key => $album) {
+      $_REQUEST['album_id'] = $album->album_id;
+      switch ($tag_type) {
+        case 'genre':
+          $this->load->helper(array('genre_helper'));
+          echo addGenre($_REQUEST);
+          break;
+        case 'keyword':
+          $this->load->helper(array('keyword_helper'));
+          echo addKeyword($_REQUEST);
+          break;
+        case 'nationality':
+          $this->load->helper(array('nationality_helper'));
+          echo addNationality($_REQUEST);
+          break;
+        case 'year':
+          $this->load->helper(array('year_helper'));
+          echo addYear($_REQUEST);
+          break;
+        default:
+          header("HTTP/1.1 400 Bad Request");
+          break;
+      }
     }
   }
 

@@ -56,6 +56,28 @@ if (!function_exists('getAlbumID')) {
 }
 
 /**
+  * Get artist's album IDs.
+  *
+  * @param array $opts.
+  *          'artist_id'  => Artist ID
+  *
+  * @return array Album ID or boolean FALSE.
+  */
+if (!function_exists('getAlbumIDs')) {
+  function getAlbumIDs($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = isset($opts['artist_id']) ? $opts['artist_id'] : '';
+    $sql = "SELECT " . TBL_album . ".`id` as `album_id`
+            FROM " . TBL_album . " 
+            WHERE " . TBL_album . ".`artist_id` = ?";
+    $query = $ci->db->query($sql, array($artist_id));
+    return ($query->num_rows() > 0) ? $query->result() : FALSE;
+  }
+}
+
+/**
   * Get user's ID.
   *
   * @param array $opts.
