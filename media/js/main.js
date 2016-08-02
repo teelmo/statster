@@ -13,7 +13,7 @@ $.extend(view, {
       },
       data:{
         limit:12,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -44,7 +44,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?php echo ERR_NO_RESULTS?>');
+          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {alert('400 Bad Request')}
       },
@@ -57,8 +57,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:10,
-        lower_limit:'<?php echo date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -80,7 +80,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topAlbumLoader').hide();
-          $('#topAlbum').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -92,8 +92,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:10,
-        lower_limit:'<?php echo date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -115,7 +115,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topArtistLoader').hide();
-          $('#topArtist').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topArtist').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -127,8 +127,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:15,
-        lower_limit:'<?php echo date('Y-m-d', time() - (90 * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', time() - (90 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -158,7 +158,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#recommentedTopAlbumLoader').hide();
-          $('#recommentedTopAlbum').html('<?php echo ERR_NO_RESULTS?>');
+          $('#recommentedTopAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -171,8 +171,8 @@ $.extend(view, {
       data:{
         limit:15,
         order_by:'album.year DESC, album.created DESC',
-        lower_limit:'<?php echo date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -202,7 +202,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#recommentedNewAlbumLoader').hide();
-          $('#recommentedNewAlbum').html('<?php echo ERR_NO_RESULTS?>');
+          $('#recommentedNewAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

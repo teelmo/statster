@@ -2,23 +2,23 @@ $.extend(view, {
   getListeningHistory: function (type) {
     view.initChart();
     if (type == '%w') {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
     }
     else if (type == '%Y%m') {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'%m\') != \'00\'';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
     }
     else {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
     }
     $.ajax({
       data:{
-        group_by:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\')',
+        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
         limit:200,
         lower_limit:'1970-00-00',
-        order_by:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') ASC',
-        select:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
-        tag_id:'<?php echo $tag_id?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
+        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
+        tag_id:'<?=$tag_id?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
       dataType:'json',
@@ -49,12 +49,12 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {alert('400 Bad Request')}
       },
       type:'GET',
-      url:'/api/tag/get/<?php echo strtolower($tag_type)?>'
+      url:'/api/tag/get/<?=strtolower($tag_type)?>'
     });
   },
   // Get top albums.
@@ -63,9 +63,9 @@ $.extend(view, {
       data:{
         limit:10,
         lower_limit:'1970-00-00',
-        tag_id:'<?php echo $tag_id?>',
-        tag_type:'<?php echo $tag_type?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        tag_id:'<?=$tag_id?>',
+        tag_type:'<?=$tag_type?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -84,7 +84,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topAlbumLoader').hide();
-          $('#topAlbum').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -98,10 +98,10 @@ $.extend(view, {
         group_by:'`artist_id`',
         limit:10,
         lower_limit:'1970-00-00',
-        order_by:'`count` DESC, <?php echo TBL_artist?>.`artist_name` ASC',
-        tag_id:'<?php echo $tag_id?>',
-        tag_type:'<?php echo $tag_type?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC',
+        tag_id:'<?=$tag_id?>',
+        tag_type:'<?=$tag_type?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -120,7 +120,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topArtistLoader').hide();
-          $('#topArtist').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topArtist').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -157,11 +157,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -174,7 +174,7 @@ $.extend(view, {
       data:{
         from:from,
         limit:10,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
       dataType:'json',
@@ -201,7 +201,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?php echo ERR_NO_RESULTS?>');
+          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {
           alert('400 Bad Request')
@@ -214,8 +214,8 @@ $.extend(view, {
   updateGenreBio: function () {
     $.ajax({
       data:{
-        tag_id:'<?php echo $tag_id?>',
-        tag_name:'<?php echo $tag_name?>'
+        tag_id:'<?=$tag_id?>',
+        tag_name:'<?=$tag_name?>'
       },
       dataType:'json',
       type:'GET',
@@ -244,22 +244,22 @@ $(document).ready(function () {
   view.getListeningHistory('%Y');
   view.getTopAlbums();
   view.getTopArtists();
-  switch ('<?php echo $tag_type?>') {
+  switch ('<?=$tag_type?>') {
     case 'genre':
-      var from = '(SELECT <?php echo TBL_genres?>.`genre_id`, <?php echo TBL_genres?>.`album_id` FROM <?php echo TBL_genres?> GROUP BY <?php echo TBL_genres?>.`genre_id`, <?php echo TBL_genres?>.`album_id`) as <?php echo TBL_genres?>';
-      var where = '<?php echo TBL_genres?>.`album_id` = <?php echo TBL_album?>.`id` AND <?php echo TBL_genres?>.`genre_id` = <?php echo $tag_id?>';
+      var from = '(SELECT <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id` FROM <?=TBL_genres?> GROUP BY <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id`) as <?=TBL_genres?>';
+      var where = '<?=TBL_genres?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_genres?>.`genre_id` = <?=$tag_id?>';
       break;
     case 'keyword':
-      var from = '(SELECT <?php echo TBL_keywords?>.`keyword_id`, <?php echo TBL_keywords?>.`album_id` FROM <?php echo TBL_keywords?> GROUP BY <?php echo TBL_keywords?>.`keyword_id`, <?php echo TBL_keywords?>.`album_id`) as <?php echo TBL_keywords?>';
-      var where = '<?php echo TBL_keywords?>.`album_id` = <?php echo TBL_album?>.`id` AND <?php echo TBL_keywords?>.`keyword_id` = <?php echo $tag_id?>';
+      var from = '(SELECT <?=TBL_keywords?>.`keyword_id`, <?=TBL_keywords?>.`album_id` FROM <?=TBL_keywords?> GROUP BY <?=TBL_keywords?>.`keyword_id`, <?=TBL_keywords?>.`album_id`) as <?=TBL_keywords?>';
+      var where = '<?=TBL_keywords?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_keywords?>.`keyword_id` = <?=$tag_id?>';
       break;
     case 'nationality':
-      var from = '(SELECT <?php echo TBL_nationalities?>.`nationality_id`, <?php echo TBL_nationalities?>.`album_id` FROM <?php echo TBL_nationalities?> GROUP BY <?php echo TBL_nationalities?>.`nationality_id`, <?php echo TBL_nationalities?>.`album_id`) as <?php echo TBL_nationalities?>';
-      var where = '<?php echo TBL_nationalities?>.`album_id` = <?php echo TBL_album?>.`id` AND <?php echo TBL_nationalities?>.`nationality_id` = <?php echo $tag_id?>';
+      var from = '(SELECT <?=TBL_nationalities?>.`nationality_id`, <?=TBL_nationalities?>.`album_id` FROM <?=TBL_nationalities?> GROUP BY <?=TBL_nationalities?>.`nationality_id`, <?=TBL_nationalities?>.`album_id`) as <?=TBL_nationalities?>';
+      var where = '<?=TBL_nationalities?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_nationalities?>.`nationality_id` = <?=$tag_id?>';
       break;
     case 'year':
       var from = ''; 
-      var where = '<?php echo TBL_album?>.`year` = <?php echo $tag_id?>';
+      var where = '<?=TBL_album?>.`year` = <?=$tag_id?>';
       break;
     default:
       var from = '';
@@ -270,7 +270,7 @@ $(document).ready(function () {
   view.getListenings(from, where);
   view.initTagEvents();
 
-  var update_bio = <?php echo ($update_bio === true) ? 1 : 0?>;
+  var update_bio = <?=($update_bio === true) ? 1 : 0?>;
   if (update_bio === 1) {
     view.updateGenreBio();
   }

@@ -7,7 +7,7 @@ $.extend(view, {
         lower_limit:'1970-00-00',
         tag_id:tag_id,
         tag_type:tag_type,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -28,7 +28,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topAlbumLoader').hide();
-          $('#topAlbum').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -42,10 +42,10 @@ $.extend(view, {
         group_by:'`artist_id`',
         limit:9,
         lower_limit:'1970-00-00',
-        order_by:'`count` DESC, <?php echo TBL_artist?>.`artist_name` ASC',
+        order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC',
         tag_id:tag_id,
         tag_type:tag_type,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -66,7 +66,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topArtistLoader').hide();
-          $('#topArtist').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topArtist').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -77,8 +77,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        lower_limit:'<?php echo date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -104,8 +104,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        lower_limit:'<?php echo date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -137,8 +137,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        lower_limit:'<?php echo date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -170,8 +170,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        lower_limit:'<?php echo date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -202,13 +202,13 @@ $.extend(view, {
 });
 
 $(document).ready(function() {
-  view.getTopAlbums('<?php echo $genre['tag_id']?>', 'genre', 'Genre');
-  view.getTopArtists('<?php echo $genre['tag_id']?>', 'genre', 'Genre');
-  view.getTopAlbums('<?php echo $keyword['tag_id']?>', 'keyword', 'Keyword');
-  view.getTopArtists('<?php echo $keyword['tag_id']?>', 'keyword', 'Keyword');
-  view.getTopAlbums('<?php echo $nationality['tag_id']?>', 'nationality', 'Nationality');
-  view.getTopArtists('<?php echo $nationality['tag_id']?>', 'nationality', 'Nationality');
-  view.getTopAlbums('<?php echo $year['year']?>', 'year', 'Year');
+  view.getTopAlbums('<?=$genre['tag_id']?>', 'genre', 'Genre');
+  view.getTopArtists('<?=$genre['tag_id']?>', 'genre', 'Genre');
+  view.getTopAlbums('<?=$keyword['tag_id']?>', 'keyword', 'Keyword');
+  view.getTopArtists('<?=$keyword['tag_id']?>', 'keyword', 'Keyword');
+  view.getTopAlbums('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
+  view.getTopArtists('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
+  view.getTopAlbums('<?=$year['year']?>', 'year', 'Year');
   view.popularGenre();
   view.popularKeyword();
   view.popularNationality();

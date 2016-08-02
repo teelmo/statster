@@ -5,7 +5,7 @@ $.extend(view, {
         limit:vars.limit,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -26,7 +26,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?php echo ERR_NO_DATA?>');
+          $(vars.container).html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',

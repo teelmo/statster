@@ -5,7 +5,7 @@ $.extend(view, {
         limit:10,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -24,7 +24,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $('#topAlbum10Loader').hide();
-          $('#topAlbum10').html('<?php echo ERR_NO_DATA?>');
+          $('#topAlbum10').html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
@@ -37,7 +37,7 @@ $.extend(view, {
         limit:vars.limit,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -59,7 +59,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?php echo ERR_NO_DATA?>');
+          $(vars.container).html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
@@ -67,7 +67,7 @@ $.extend(view, {
     });
   },
   topAlbumYearly: function () {
-    for (var year = <?php echo CUR_YEAR?>; year >= 2003; year--) {
+    for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
       $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopAlbum' + year + 'Loader"/><table id="sideTopAlbum' + year + '" class="side_table"></table><div class="more"><a href="/album/' + year + '" title="Browse more">More <span class="number">' + year + '</span></</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopAlbum' + year,
@@ -121,7 +121,7 @@ $.extend(view, {
       data:{
         date:date,
         limit:vars.limit,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -142,11 +142,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?php echo ERR_NO_RESULTS?>');
+          $(vars.container).html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?php echo ERR_BAD_REQUEST?>');
+          $(vars.container).html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -187,20 +187,20 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  if ('<?php echo $day?>' === '') {
-    view.topAlbum10('<?php echo $lower_limit?>', '<?php echo $upper_limit?>');
+  if ('<?=$day?>' === '') {
+    view.topAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
     var vars = {
       container:'#topAlbum',
       limit:'10, 200',
       template:'/ajax/columnTable'
     }
-    view.topAlbum('<?php echo $lower_limit?>', '<?php echo $upper_limit?>', vars);
+    view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
 
-    if ('<?php echo $month?>' !== '') {
-      view.topAlbumDaily('<?php echo $year?>', '<?php echo $month?>');
+    if ('<?=$month?>' !== '') {
+      view.topAlbumDaily('<?=$year?>', '<?=$month?>');
     }
-    else if ('<?php echo $year?>' !== '') {
-      view.topAlbumMonthly('<?php echo $year?>');
+    else if ('<?=$year?>' !== '') {
+      view.topAlbumMonthly('<?=$year?>');
     }
     else {
       view.topAlbumYearly();
@@ -220,12 +220,12 @@ $(document).ready(function () {
       },
       template:'/ajax/musicTable'
     }
-    var str = '<?php echo $month?>';
+    var str = '<?=$month?>';
     var pad = '00';
     var pad_month = pad.substring(0, pad.length - str.length) + str;
-    var str = '<?php echo $day?>';
+    var str = '<?=$day?>';
     var pad_day = pad.substring(0, pad.length - str.length) + str;
-    view.getListenings('<?php echo $year?>' + '-' + pad_month + '-' + pad_day, vars);
-    view.topAlbumDaily('<?php echo $year?>', '<?php echo $month?>');
+    view.getListenings('<?=$year?>' + '-' + pad_month + '-' + pad_day, vars);
+    view.topAlbumDaily('<?=$year?>', '<?=$month?>');
   }
 });

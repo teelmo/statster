@@ -57,7 +57,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:10,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -86,7 +86,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:10,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{

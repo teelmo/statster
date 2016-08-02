@@ -21,11 +21,11 @@ $.extend(view, {
           $('#love').addClass('love_add');
         },
         400: function () {
-          alert('<?php echo ERR_BAD_REQUEST?>');
+          alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
-      url:'/api/love/get/<?php echo $album_id?>'
+      url:'/api/love/get/<?=$album_id?>'
     });
   },
   // Get album loves.
@@ -54,18 +54,18 @@ $.extend(view, {
         },
         400: function () { // 400 Bad request
           $('#albumLoveLoader').hide();
-          alert('<?php echo ERR_BAD_REQUEST?>')
+          alert('<?=ERR_BAD_REQUEST?>')
         }
       },
       type:'GET',
-      url:'/api/love/get/<?php echo $album_id?>'
+      url:'/api/love/get/<?=$album_id?>'
     });
   },
   // Get album tags.
   getTags: function () {
     $.ajax({
       data:{
-        album_id:'<?php echo $album_id?>',
+        album_id:'<?=$album_id?>',
         limit:9
       },
       dataType:'json',
@@ -74,7 +74,7 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              logged_in:'<?php echo $logged_in?>'
+              logged_in:'<?=$logged_in?>'
             },
             success: function (data) {
               $('#tagsLoader').hide();
@@ -86,11 +86,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#tagsLoader').hide();
-          $('#tags').html('<?php echo ERR_NO_RESULTS?>');
+          $('#tags').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#tagsLoader').hide();
-          $('#tags').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#tags').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -100,23 +100,23 @@ $.extend(view, {
   getListeningHistory: function (type) {
     view.initChart();
     if (type == '%w') {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
     }
     else if (type == '%Y%m') {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'%m\') != \'00\'';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
     }
     else {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
     }
     $.ajax({
       data:{
-        artist_name:'<?php echo $artist_name?>',
-        album_name:'<?php echo $album_name?>',
-        group_by:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\')',
+        artist_name:'<?=$artist_name?>',
+        album_name:'<?=$album_name?>',
+        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
         limit:200,
-        order_by:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') ASC',
-        select:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
+        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
       dataType:'json',
@@ -139,11 +139,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#historyLoader').hide();
-          $('#history').html('<?php echo ERR_NO_RESULTS?>');
+          $('#history').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#historyLoader').hide();
-          alert('<?php echo ERR_BAD_REQUEST?>');
+          alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -153,7 +153,7 @@ $.extend(view, {
   getShouts: function () {
     $.ajax({
       data:{
-        album_name:'<?php echo $album_name?>'
+        album_name:'<?=$album_name?>'
       },
       dataType:'json',
       statusCode:{
@@ -186,7 +186,7 @@ $.extend(view, {
         },
         400: function () { // 400 Bad request
           $('#shoutLoader').hide();
-          alert('<?php echo ERR_BAD_REQUEST?>');
+          alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -197,8 +197,8 @@ $.extend(view, {
   getUsers: function () {
     $.ajax({
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:6
       },
       dataType:'json',
@@ -223,11 +223,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -238,10 +238,10 @@ $.extend(view, {
   getListenings: function () {
     $.ajax({
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:6,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -267,11 +267,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?php echo ERR_NO_RESULTS?>');
+          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -282,7 +282,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:5,
-        artist_name:'<?php echo $artist_name?>'
+        artist_name:'<?=$artist_name?>'
       },
       dataType:'json',
       statusCode:{
@@ -305,7 +305,7 @@ $.extend(view, {
         },
         204: function () {
           $('#artistShoutLoader').hide();
-          $('#artistShout').html('<?php echo ERR_NO_DATA?>');
+          $('#artistShout').html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
@@ -315,10 +315,10 @@ $.extend(view, {
   updateAlbumBio: function () {
     $.ajax({
       data:{
-        artist_id:'<?php echo $artist_id?>',
-        album_id:'<?php echo $album_id?>',
-        artist_name:'<?php echo $artist_name?>',
-        album_name:'<?php echo $album_name?>'
+        artist_id:'<?=$artist_id?>',
+        album_id:'<?=$album_id?>',
+        artist_name:'<?=$artist_name?>',
+        album_name:'<?=$album_name?>'
       },
       dataType:'json',
       type:'GET',
@@ -336,11 +336,11 @@ $.extend(view, {
               $('#love').removeClass('love_add').addClass('love_del').find('.like_msg').html('You\'re in love!').show();
               setTimeout(function() {
                 $('.like_msg').fadeOut(1000);
-              }, <?php echo MSG_FADEOUT?>);
+              }, <?=MSG_FADEOUT?>);
               view.getLoves();
             },
             400: function () { // 400 Bad request
-              alert('<?php echo ERR_BAD_REQUEST?>');
+              alert('<?=ERR_BAD_REQUEST?>');
             },
             401: function () {
               alert('401 Unauthorized');
@@ -350,7 +350,7 @@ $.extend(view, {
             }
           },
           type:'POST',
-          url:'/api/love/add/<?php echo $album_id?>'
+          url:'/api/love/add/<?=$album_id?>'
         });
       }
       if ($(this).hasClass('love_del')) {
@@ -361,11 +361,11 @@ $.extend(view, {
               $('#love').removeClass('love_del').addClass('love_add').find('.like_msg').html('Unloved.').show();
               setTimeout(function() {
                 $('.like_msg').fadeOut(1000);
-              }, <?php echo MSG_FADEOUT?>);
+              }, <?=MSG_FADEOUT?>);
               view.getLoves();
             },
             400: function () { // 400 Bad request
-              alert('<?php echo ERR_BAD_REQUEST?>');
+              alert('<?=ERR_BAD_REQUEST?>');
             },
             401: function () {
               alert('401 Unauthorized');
@@ -375,7 +375,7 @@ $.extend(view, {
             }
           },
           type:'DELETE',
-          url:'/api/love/delete/<?php echo $album_id?>'
+          url:'/api/love/delete/<?=$album_id?>'
         });
       }
     });
@@ -385,14 +385,15 @@ $.extend(view, {
           var tag = el.split(':');
           $.ajax({
             data:{
-              album_id:'<?php echo $album_id?>',
-              tag_id:tag[1]
+              album_id:'<?=$album_id?>',
+              tag_id:tag[1],
+              type:'album'
             },
             statusCode:{
               201: function (data) { // 201 Created
               },
               400: function () { // 400 Bad request
-                alert('<?php echo ERR_BAD_REQUEST?>');
+                alert('<?=ERR_BAD_REQUEST?>');
               },
               401: function () {
                 alert('401 Unauthorized');
@@ -416,7 +417,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getLove(<?php echo $this->session->userdata('user_id')?>);
+  view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
   view.getTags();
   view.getListeningHistory('%Y');
@@ -426,7 +427,7 @@ $(document).ready(function () {
   view.getArtistShouts();
   view.initAlbumEvents();
 
-  var update_bio = <?php echo ($update_bio === true) ? 1 : 0?>;
+  var update_bio = <?=($update_bio === true) ? 1 : 0?>;
   if (update_bio === 1) {
     view.updateAlbumBio();
   }

@@ -5,7 +5,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/lastfm/fetchSimilar',
       data:{
-        artist_name:'<?php echo $artist_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:10
       },
       statusCode: {
@@ -34,7 +34,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/lastfm/getEvents',
       data:{
-        artist_name:'<?php echo $artist_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:15
       },
       statusCode: {

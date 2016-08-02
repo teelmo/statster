@@ -21,11 +21,11 @@ $.extend(view, {
           $('#love').addClass('love_add');
         },
         400: function () {
-          alert('<?php echo ERR_BAD_REQUEST?>');
+          alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
-      url:'/api/love/get/<?php echo $album_id?>'
+      url:'/api/love/get/<?=$album_id?>'
     });
   },
   // Get album loves.
@@ -54,17 +54,17 @@ $.extend(view, {
         },
         400: function () { // 400 Bad request
           $('#albumLoveLoader').hide();
-          alert('<?php echo ERR_BAD_REQUEST?>')
+          alert('<?=ERR_BAD_REQUEST?>')
         }
       },
       type:'GET',
-      url:'/api/love/get/<?php echo $album_id?>'
+      url:'/api/love/get/<?=$album_id?>'
     });
   },
   getTags: function () {
     $.ajax({
       data:{
-        album_id:'<?php echo $album_id?>',
+        album_id:'<?=$album_id?>',
         limit:100,
         sort:true
       },
@@ -85,11 +85,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#tagsLoader').hide();
-          $('#tags').html('<?php echo ERR_NO_RESULTS?>');
+          $('#tags').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#tagsLoader').hide();
-          $('#tags').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#tags').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -100,8 +100,8 @@ $.extend(view, {
   getUsers: function () {
     $.ajax({
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:6
       },
       dataType:'json',
@@ -126,11 +126,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -141,10 +141,10 @@ $.extend(view, {
   getListenings: function () {
     $.ajax({
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:6,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -170,11 +170,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?php echo ERR_NO_RESULTS?>');
+          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -184,7 +184,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getLove(<?php echo $this->session->userdata('user_id')?>);
+  view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
   view.getTags();
   view.getUsers();

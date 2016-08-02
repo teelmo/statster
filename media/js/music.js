@@ -2,21 +2,21 @@ $.extend(view, {
   getListeningHistory: function (type) {
     view.initChart();
     if (type == '%w') {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
     }
     else if (type == '%Y%m') {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'%m\') != \'00\'';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
     }
     else {
-      var where = 'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
     }
     $.ajax({
       data:{
-        group_by:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\')',
+        group_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')',
         limit:200,
-        order_by:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') ASC',
-        select:'DATE_FORMAT(<?php echo TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        order_by:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC',
+        select:'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
       dataType:'json',
@@ -39,11 +39,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#historyLoader').hide();
-          $('#history').html('<?php echo ERR_NO_RESULTS?>');
+          $('#history').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#historyLoader').hide();
-          alert('<?php echo ERR_BAD_REQUEST?>');
+          alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -54,8 +54,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:38,
-        lower_limit:'<?php echo date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -87,8 +87,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:15,
-        lower_limit:'<?php echo date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        lower_limit:'<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -119,10 +119,10 @@ $.extend(view, {
   secondChance: function () {
     $.ajax({
       data:{
-        having:'`count` = 1 AND <?php echo TBL_listening?>.`date` BETWEEN \'<?php echo CUR_YEAR - 4?>-00-00\' AND \'<?php echo CUR_YEAR - 1?>-12-31\'',
+        having:'`count` = 1 AND <?=TBL_listening?>.`date` BETWEEN \'<?=CUR_YEAR - 4?>-00-00\' AND \'<?=CUR_YEAR - 1?>-12-31\'',
         limit:100,
         lower_limit:'1970-00-00',
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -152,7 +152,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#secondChanceLoader').hide();
-          $('#secondChance').html('<?php echo ERR_NO_RESULTS?>');
+          $('#secondChance').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -163,7 +163,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:10,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -191,7 +191,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:10,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{

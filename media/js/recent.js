@@ -2,10 +2,10 @@ $.extend(view, {
   getListenings: function () {
     $.ajax({
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
-        limit:<?php echo ($artist_name) ? 1000 : 100?>,
-        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
+        limit:<?=($artist_name) ? 1000 : 100?>,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -30,11 +30,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?php echo ERR_NO_RESULTS?>');
+          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -44,8 +44,8 @@ $.extend(view, {
   getUsers: function () {
     $.ajax({
       data:{
-        album_name:'<?php echo $album_name?>',
-        artist_name:'<?php echo $artist_name?>',
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         limit:14
       },
       dataType:'json',
@@ -70,11 +70,11 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_NO_RESULTS?>');
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?php echo ERR_BAD_REQUEST?>');
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
