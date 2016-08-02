@@ -24,7 +24,7 @@ $.extend(view, {
     });
     $('#addListeningDate').change(function () {
       setTimeout(function () {
-        $('#addListeningDate').val('<?=CUR_DATE?>');
+        $('#addListeningDate').val('<?php echo CUR_DATE?>');
       }, 60 * 2 * 1000);
     });
   },

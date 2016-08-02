@@ -3,7 +3,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -29,7 +29,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -55,7 +55,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:20,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?php echo (!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{

@@ -5,9 +5,10 @@ $.extend(view, {
       dataType:'json',
       url:'/api/listener/get',
       data:{
-        album_name:'<?=$album_name?>',
-        artist_name:'<?=$artist_name?>',
-        limit:100      },
+        album_name:'<?php echo $album_name?>',
+        artist_name:'<?php echo $artist_name?>',
+        limit:100
+      },
       statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
@@ -36,15 +37,15 @@ $.extend(view, {
       dataType:'json',
       url:'/api/listening/get',
       data:{
-        album_name:'<?=$album_name?>',
-        artist_name:'<?=$artist_name?>',
+        album_name:'<?php echo $album_name?>',
+        artist_name:'<?php echo $artist_name?>',
         limit:14
       },
       statusCode:{
         200: function(data) { // 200 OK
           $.ajax({
             type:'POST',
-            url:'<?=(!empty($album_name)) ? '/ajax/userTable' : '/ajax/sideTable'?>',
+            url:'<?php echo (!empty($album_name)) ? '/ajax/userTable' : '/ajax/sideTable'?>',
             data:{
               json_data:data,
               size:32,
@@ -62,11 +63,11 @@ $.extend(view, {
         },
         204: function() { // 204 No Content
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
+          $('#recentlyListened').html('<?php echo ERR_NO_RESULTS?>');
         },
         400: function() { // 400 Bad request
           $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+          $('#recentlyListened').html('<?php echo ERR_BAD_REQUEST?>');
         }
       }
     });
