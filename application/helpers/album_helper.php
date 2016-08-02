@@ -5,7 +5,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * Add new album.
   *
   * @param array $opts.
-  *          'album_name'   => Album info containing year
+  *          'album_info'   => Album info containing year
   *          'artist_name'  => Artist name
   *          'user_id'      => User ID
   *
@@ -17,9 +17,9 @@ if (!function_exists('addAlbum')) {
     $ci->load->database();
 
     $data['album_info'] = !empty($opts['album_name']) ? $opts['album_name'] : '';
-    $data['artist_id'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
+    $data['artist_name'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
-    if (empty($data['artist_id'])) {
+    if (empty($data['artist_name'])) {
       $data['artist_name'] = $opts['artist_name'];
       if (!$data['artist_id'] = addArtist($data)) {
         return FALSE;
@@ -108,7 +108,7 @@ if (!function_exists('getAlbumBio')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
     $sql = "SELECT " . TBL_album_biography . ".`id` as `biography_id`,
                    " . TBL_album_biography . ".`summary` as `bio_summary`, 
                    " . TBL_album_biography . ".`text` as `bio_content`, 
@@ -116,7 +116,7 @@ if (!function_exists('getAlbumBio')) {
                    'false' as `update_bio`
             FROM " . TBL_album_biography . "
             WHERE " . TBL_album_biography . ".`album_id` = ?";
-    $query = $ci->db->query($sql, array($artist_id));
+    $query = $ci->db->query($sql, array($album_id));
     return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
   }
 }
