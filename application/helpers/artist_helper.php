@@ -156,7 +156,7 @@ if (!function_exists('getArtistListenings')) {
 }
 
 /**
-   * Gets artist's tags (genres and keywords).
+   * Gets artist's tags (genres, keywords and nationalities).
    *
    * @param array $opts.
    *          'artist_id'  => Artist ID
@@ -173,6 +173,7 @@ if (!function_exists('getArtistTags')) {
     $tags_array[] = getArtistKeywords($opts);
 
     if (is_array($tags_array)) {
+      $data = array();
       foreach ($tags_array as $idx => $tags) {
         foreach ($tags as $idx => $tag) {
           $data['tags'][] = $tag;
