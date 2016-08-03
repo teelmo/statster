@@ -1,7 +1,6 @@
 $.extend(view, {
-  initEvents: function () {
+  initLoginEvents: function () {
     $('#loginUsername').focus();
-
     $('#loginSubmit').click(function () {
       $.ajax({
         type:'POST',
@@ -12,8 +11,8 @@ $.extend(view, {
           username:$('#loginUsername').val()
         },
         success: function (data) {
-          if (data.trim() === '') {  
-            window.location.href = '/';
+          if (data.trim() === '') {
+            window.location.href = encodeURI('<?=addslashes($redirect)?>').replace(/%20/g,'+');
           }
           else {
             alert('Wrong username or password. Please try again.');
@@ -26,6 +25,6 @@ $.extend(view, {
 });
 
 $(document).ready(function() {
-  view.initEvents();
+  view.initLoginEvents();
 });
 
