@@ -53,7 +53,7 @@
           else {
             ?>
             <div class="user_container">
-              <?=($_SERVER['REQUEST_URI'] !== '/') ? anchor('login' . '?redirect=' . $_SERVER['REQUEST_URI'], 'Login', array('title' => 'Login', 'id' => 'loginLink')) : anchor('login', 'Login', array('title' => 'Login', 'id' => 'loginLink'))?>
+              <?=($_SERVER['REQUEST_URI'] !== '/') ? anchor(array('login' . '?redirect=' . $_SERVER['REQUEST_URI']), 'Login', array('title' => 'Login', 'id' => 'loginLink')) : anchor(array('login'), 'Login', array('title' => 'Login', 'id' => 'loginLink'))?>
             </div>
             <?php
           }
