@@ -108,17 +108,22 @@ if (!function_exists('getUsers')) {
     return _json_return_helper($query, $human_readable);
   }
 }
+
 /**
   * Returns user data for requested user.
   * @param array $opts.
   *          'username' => username
+  *
+  * @return array containing user information
+  *
   */
-if (!function_exists('getUserData')) {
+if (!function_exists('getUser')) {
   function getUser($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 
     $username = !empty($opts['username']) ? $opts['username'] : '';
+
     $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
                    " . TBL_user_info . ".`email`,
@@ -138,6 +143,47 @@ if (!function_exists('getUserData')) {
               AND " . TBL_user . ".`username` LIKE ?";
     $query = $ci->db->query($sql, array($username));
     return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : FALSE;
+  }
+}
+
+/**
+  * Returns user data for requested user.
+  * @param array $opts.
+  *             user_id       => User ID
+  *             real_name     => Real name
+  *             gender        => Gender
+  *             about         => About
+  *             email         => Email
+  *             homepage      => Homepage
+  *             lastfm_name   => Lastfm name
+  *
+  * @return boolean TRUE or FALSE.
+  *
+  */
+if (!function_exists('updateUser')) {
+  function updateUser($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '';
+    $real_name = !empty($opts['real_name']) ? $opts['real_name'] : '';
+    $gender = !empty($opts['gender']) ? $opts['gender'] : '';
+    $about = !empty($opts['about']) ? $opts['about'] : '';
+    $email = !empty($opts['email']) ? $opts['email'] : '';
+    $homepage = !empty($opts['homepage']) ? $opts['homepage'] : '';
+    $lastfm_name = !empty($opts['lastfm_name']) ? $opts['lastfm_name'] : '';
+
+    $sql = "UPDATE " . TBL_user_info . "
+              SET " . TBL_user_info . ".`real_name` = ?,
+                  " . TBL_user_info . ".`gender` = ?,
+                  " . TBL_user_info . ".`about` = ?,
+                  " . TBL_user_info . ".`email` = ?,
+                  " . TBL_user_info . ".`homepage` = ?,
+                  " . TBL_user_info . ".`lastfm_name` = ?,
+                  " . TBL_user_info . ".`updated` = NOW()
+              WHERE " . TBL_user_info . ".`user_id` = ?";
+    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $user_id));
+    return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
   }
 }
 

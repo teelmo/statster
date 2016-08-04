@@ -68,13 +68,29 @@ class User extends CI_Controller {
     if ($this->session->userdata('logged_in') !== TRUE) {
       redirect('/login?redirect=user/edit', 'refresh');
     }
+    else if (!empty($_POST)) {
+      // Load helpers
+      $this->load->helper(array('user_helper'));
 
-    // Load helpers
-    $this->load->helper(array('form'));
+      $data = $_POST;
+      $data['user_id'] = $this->session->userdata('user_id');
+      if (updateUser($data)) {
+        redirect('/user/' . $this->session->userdata('username'), 'refresh');
+      }
+      else {
+        show_403();
+      }
+    }
+    else {
+      // Load helpers
+      $this->load->helper(array('form', 'user_helper'));
       
-    $this->load->view('site_templates/header');
-    $this->load->view('user/edit_view');
-    $this->load->view('site_templates/footer');
+      $data = getUser(array('username' => $this->session->userdata('username')));
+        
+      $this->load->view('site_templates/header');
+      $this->load->view('user/edit_view', $data);
+      $this->load->view('site_templates/footer');
+    }
   }
 }
 ?>
