@@ -126,13 +126,19 @@ if (!function_exists('getUser')) {
 
     $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
-                   " . TBL_user_info . ".`email`,
-                   " . TBL_user_info . ".`homepage`,
                    " . TBL_user_info . ".`real_name`,
                    " . TBL_user_info . ".`lastfm_name`,
+                   " . TBL_user_info . ".`homepage`,
+                   " . TBL_user_info . ".`blog`,
+                   " . TBL_user_info . ".`email`,
                    " . TBL_user_info . ".`gender`,
+                   " . TBL_user_info . ".`height`,
                    " . TBL_user_info . ".`birthday`,
                    " . TBL_user_info . ".`about`,
+                   " . TBL_user_info . ".`email_annotations`,
+                   " . TBL_user_info . ".`bulletin_settings`,
+                   " . TBL_user_info . ".`privacy_settings`,
+                   " . TBL_user_info . ".`social_media_settings`,
                    YEAR(" . TBL_user . ".`created`) as `joined_year`,
                    " . TBL_user . ".`created`,
                    " . TBL_user . ".`last_login`,
@@ -172,6 +178,10 @@ if (!function_exists('updateUser')) {
     $email = !empty($opts['email']) ? $opts['email'] : '';
     $homepage = !empty($opts['homepage']) ? $opts['homepage'] : '';
     $lastfm_name = !empty($opts['lastfm_name']) ? $opts['lastfm_name'] : '';
+    $privacy_settings = !empty($opts['privacy_settings']) ? serialize($opts['privacy_settings']) : 'a:2:{s:6:"online";s:1:"0";s:5:"login";s:1:"0";}';
+    $social_media_settings = !empty($opts['social_media_settings']) ? serialize($opts['social_media_settings']) : 'a:2:{s:8:"facebook";s:1:"0";s:7:"twitter";s:1:"0";}';
+    $email_annotations = !empty($opts['email_annotations']) ? serialize($opts['email_annotations']) : 'a:4:{s:9:"bulletins";s:1:"0";s:6:"shares";s:1:"0";s:7:"notifys";s:1:"0";s:13:"notifications";s:1:"0";}';
+    $bulletin_settings = !empty($opts['bulletin_settings']) ? serialize($opts['bulletin_settings']) : 'a:1:{s:6:"shouts";s:1:"0";}';
 
     $sql = "UPDATE " . TBL_user_info . "
               SET " . TBL_user_info . ".`real_name` = ?,
@@ -180,9 +190,13 @@ if (!function_exists('updateUser')) {
                   " . TBL_user_info . ".`email` = ?,
                   " . TBL_user_info . ".`homepage` = ?,
                   " . TBL_user_info . ".`lastfm_name` = ?,
+                  " . TBL_user_info . ".`privacy_settings` = ?,
+                  " . TBL_user_info . ".`social_media_settings` = ?,
+                  " . TBL_user_info . ".`email_annotations` = ?,
+                  " . TBL_user_info . ".`bulletin_settings` = ?,
                   " . TBL_user_info . ".`updated` = NOW()
               WHERE " . TBL_user_info . ".`user_id` = ?";
-    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $user_id));
+    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $privacy_settings, $social_media_settings, $email_annotations, $bulletin_settings, $user_id));
     return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
   }
 }

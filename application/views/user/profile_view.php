@@ -48,11 +48,11 @@
         <?php
         if (!empty($homepage) && $homepage != 'http://') {
           ?>
-          <div><span class="value"><?=anchor($homepage, $homepage, array('title' => 'Homepage'))?></span></div>
+          <div><span class="label"></strong> <span class="value"><?=anchor($homepage, $homepage, array('title' => 'Homepage'))?></span></div>
           <?php
         }
         ?>
-        <div><?=$about?></div>
+        <div><?=nl2br($about)?></div>
       </div>
     </div>
     <div class="clear"></div>
