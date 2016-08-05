@@ -26,32 +26,32 @@ if (!function_exists('getListenings')) {
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT " . TBL_listening . ". `id` as `listening_id`,
-                   " . TBL_artist . ". `artist_name`,
-                   " . TBL_album . ". `album_name`,
-                   " . TBL_album . ". `year`, 
-                   " . TBL_album . ". `spotify_uri`, 
-                   " . TBL_user . ". `username`,
-                   " . TBL_listening . ". `date`, 
-                   " . TBL_listening . ". `created`,
-                   " . TBL_artist . ". `id` as `artist_id`,
-                   " . TBL_album . ". `id` as `album_id`,
-                   " . TBL_user . ". `id` as `user_id`
+    $sql = "SELECT " . TBL_listening . ".`id` as `listening_id`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_album . ".`album_name`,
+                   " . TBL_album . ".`year`, 
+                   " . TBL_album . ".`spotify_uri`, 
+                   " . TBL_user . ".`username`,
+                   " . TBL_listening . ".`date`, 
+                   " . TBL_listening . ".`created`,
+                   " . TBL_artist . ".`id` as `artist_id`,
+                   " . TBL_album . ".`id` as `album_id`,
+                   " . TBL_user . ".`id` as `user_id`
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
                  " . TBL_listening . ",
                  " . TBL_user . "
                  " . $ci->db->escape_str($from) . "
-            WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
-              AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
-              AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
-              AND " . TBL_user . ". `username` LIKE ?
-              AND " . TBL_artist . ". `artist_name` LIKE ?
-              AND " . TBL_album . ". `album_name` LIKE ?
-              AND " . TBL_listening . ". `date` LIKE ?
+            WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+              AND " . TBL_user . ".`id` = " . TBL_listening . ".`user_id`
+              AND " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
+              AND " . TBL_user . ".`username` LIKE ?
+              AND " . TBL_artist . ".`artist_name` LIKE ?
+              AND " . TBL_album . ".`album_name` LIKE ?
+              AND " . TBL_listening . ".`date` LIKE ?
               " . $ci->db->escape_str($where) . "
-            ORDER BY " . TBL_listening . ". `date` DESC, 
-                     " . TBL_listening . ". `id` DESC
+            ORDER BY " . TBL_listening . ".`date` DESC,
+                     " . TBL_listening . ".`id` DESC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($username, $artist_name, $album_name, $date));
 
@@ -168,6 +168,61 @@ if (!function_exists('deleteListening')) {
       header('HTTP/1.1 401 Unauthorized');
       return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
     }
+  }
+}
+
+/**
+  * Get listening formats.
+  *
+  * @param array $opts.
+  *          'human_readable'  => Output format
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getListeningFormats')) {
+  function getListeningFormats($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $sql = "SELECT " . TBL_listening_format . ".`id` as `format_id`,
+                   " . TBL_listening_format . ".`name` as `format_name`,
+                   " . TBL_listening_format . ".`img` as `format_img`
+            FROM " . TBL_listening_format . "
+            WHERE 1
+            ORDER BY " . TBL_listening_format . ".`id` ASC";
+    $query = $ci->db->query($sql, array());
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Get listening format types.
+  *
+  * @param array $opts.
+  *          'format_id'       => format ID
+  *          'human_readable'  => Output format
+  */
+if (!function_exists('getListeningFormatTypes')) {
+  function getListeningFormatTypes($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $format_id = !empty($opts['format_id']) ? $opts['format_id'] : '%';
+    $sql = "SELECT " . TBL_listening_format_type . ".`id` as `format_type_id`,
+                   " . TBL_listening_format . ".`name` as `format_name`,
+                   " . TBL_listening_format_type . ".`name` as `format_type_name`,
+                   " . TBL_listening_format_type . ".`img` as `format_type_img`
+            FROM " . TBL_listening_format . ",
+                 " . TBL_listening_format_type . "
+            WHERE " . TBL_listening_format . ".`id` = " . TBL_listening_format_type . ".`listening_format_id`
+              AND " . TBL_listening_format_type . ".`listening_format_id` = ?
+            ORDER BY " . TBL_listening_format_type . ".`name` ASC";
+    $query = $ci->db->query($sql, array($format_id));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
   }
 }
 

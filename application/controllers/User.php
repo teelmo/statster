@@ -83,10 +83,18 @@ class User extends CI_Controller {
     }
     else {
       // Load helpers
-      $this->load->helper(array('form', 'user_helper'));
-      
+      $this->load->helper(array('form', 'user_helper', 'listening_helper', 'output_helper'));
+
       $data = getUser(array('username' => $this->session->userdata('username')));
-        
+      $data['formats'] = array();
+      foreach (json_decode(getListeningFormats()) as $key => $format) {
+        $data['formats'][$format->format_name] = $format;
+        if ($format_types = json_decode(getListeningFormatTypes(array('format_id' => $format->format_id)))) {
+          foreach ($format_types as $key => $format_type) {
+            $data['formats'][$format->format_name]->format_types[] = $format_type;
+          }
+        }
+      }
       $this->load->view('site_templates/header');
       $this->load->view('user/edit_view', $data);
       $this->load->view('site_templates/footer');

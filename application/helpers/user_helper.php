@@ -57,12 +57,12 @@ if (!function_exists('loginUser')) {
 }
 
 /**
-   * Handles user logout.
-   *
-   * @param array $opts.
-   *
-   * @return boolean TRUE
-   */
+  * Handles user logout.
+  *
+  * @param array $opts.
+  *
+  * @return boolean TRUE
+  */
 if (!function_exists('logoutUser')) {
   function logoutUser($opts = array()) {
     $ci=& get_instance();
@@ -72,14 +72,14 @@ if (!function_exists('logoutUser')) {
   }
 }
 /**
-   * Returns all users in the system and their information.
-   *
-   * @param array $opts.
-   *          'excluded_username'  => array of usernames
-   *
-   * @return array containing user information
-   *
-   */
+  * Returns all users in the system and their information.
+  *
+  * @param array $opts.
+  *          'excluded_username'  => array of usernames
+  *
+  * @return array containing user information
+  *
+  */
 if (!function_exists('getUsers')) {
   function getUsers($opts = array()) {
     $ci=& get_instance();
@@ -139,6 +139,7 @@ if (!function_exists('getUser')) {
                    " . TBL_user_info . ".`bulletin_settings`,
                    " . TBL_user_info . ".`privacy_settings`,
                    " . TBL_user_info . ".`social_media_settings`,
+                   " . TBL_user_info . ".`listening_formats`,
                    YEAR(" . TBL_user . ".`created`) as `joined_year`,
                    " . TBL_user . ".`created`,
                    " . TBL_user . ".`last_login`,
@@ -182,6 +183,7 @@ if (!function_exists('updateUser')) {
     $social_media_settings = !empty($opts['social_media_settings']) ? serialize($opts['social_media_settings']) : 'a:2:{s:8:"facebook";s:1:"0";s:7:"twitter";s:1:"0";}';
     $email_annotations = !empty($opts['email_annotations']) ? serialize($opts['email_annotations']) : 'a:4:{s:9:"bulletins";s:1:"0";s:6:"shares";s:1:"0";s:7:"notifys";s:1:"0";s:13:"notifications";s:1:"0";}';
     $bulletin_settings = !empty($opts['bulletin_settings']) ? serialize($opts['bulletin_settings']) : 'a:1:{s:6:"shouts";s:1:"0";}';
+    $listening_formats = !empty($opts['listening_formats']) ? serialize($opts['listening_formats']) : '';
 
     $sql = "UPDATE " . TBL_user_info . "
               SET " . TBL_user_info . ".`real_name` = ?,
@@ -194,23 +196,24 @@ if (!function_exists('updateUser')) {
                   " . TBL_user_info . ".`social_media_settings` = ?,
                   " . TBL_user_info . ".`email_annotations` = ?,
                   " . TBL_user_info . ".`bulletin_settings` = ?,
+                  " . TBL_user_info . ".`listening_formats` = ?,
                   " . TBL_user_info . ".`updated` = NOW()
               WHERE " . TBL_user_info . ".`user_id` = ?";
-    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $privacy_settings, $social_media_settings, $email_annotations, $bulletin_settings, $user_id));
+    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $privacy_settings, $social_media_settings, $email_annotations, $bulletin_settings, $listening_formats, $user_id));
     return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
   }
 }
 
 /**
-   * Gets user's tags (genres and keywords).
-   *
-   * @param array $opts.
-   *          'album_id'  => Album ID
-   *          'user_id'  => User ID
-   *
-   * @return array User information.
-   *
-   */
+  * Gets user's tags (genres and keywords).
+  *
+  * @param array $opts.
+  *          'album_id'  => Album ID
+  *          'user_id'  => User ID
+  *
+  * @return array User information.
+  *
+  */
 if (!function_exists('getUserTags')) {
   function getUserTags($opts = array()) {
     $tags_array = array();
@@ -232,14 +235,14 @@ if (!function_exists('getUserTags')) {
 }
 
 /**
-   * Gets user's genres.
-   *
-   * @param array $opts.
-   *          'user_id'  => User ID
-   *
-   * @return array user's Keyword information.
-   *
-   */
+  * Gets user's genres.
+  *
+  * @param array $opts.
+  *          'user_id'  => User ID
+  *
+  * @return array user's Keyword information.
+  *
+  */
 if (!function_exists('getUserGenres')) {
   function getUserGenres($opts = array()) {
     $ci=& get_instance();
@@ -260,14 +263,14 @@ if (!function_exists('getUserGenres')) {
 }
 
 /**
-   * Gets user's keywords.
-   *
-   * @param array $opts.
-   *          'user_id'  => User ID
-   *
-   * @return array user's Keyword information.
-   *
-   */
+  * Gets user's keywords.
+  *
+  * @param array $opts.
+  *          'user_id'  => User ID
+  *
+  * @return array user's Keyword information.
+  *
+  */
 if (!function_exists('getUserKeywords')) {
   function getUserKeywords($opts = array()) {
     $ci=& get_instance();
