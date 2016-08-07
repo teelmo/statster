@@ -31,7 +31,7 @@
         </div>
         <div>
           <input type="radio" name="addListeningFormat" value="Stream:Spotify Unlimited" id="format_0" class="hidden" /><label for="format_0"><img src="/media/img/format_img/spotify_logo.png" tabindex="2" class="listening_format desktop_format" title="Spotify Unlimited" alt="" /></label>
-          <input type="radio" name="addListeningFormat" value="File:XBMC Media Center" id="format_1" class="hidden" /><label for="format_1"><img src="/media/img/format_img/xbmc_logo.png" tabindex="2" class="listening_format desktop_format" title="XBMC Media Center" alt="" /></label>
+          <input type="radio" name="addListeningFormat" value="File:Kodi" id="format_1" class="hidden" /><label for="format_1"><img src="/media/img/format_img/xbmc_logo.png" tabindex="2" class="listening_format desktop_format" title="Kodi" alt="" /></label>
           <input type="radio" name="addListeningFormat" value="File:Samsung Galaxy S II" id="format_2" class="hidden" /><label for="format_2"><img src="/media/img/format_img/smartphone_logo.png" tabindex="2" class="listening_format" title="Samsung Galaxy S II" alt="" /></label>
           <input type="radio" name="addListeningFormat" value="File:Portable Device" id="format_3" class="hidden" /><label for="format_3"><img src="/media/img/format_img/headphones_logo.png" tabindex="2" class="listening_format" title="Portable Device" alt="" /></label>
           <input type="radio" name="addListeningFormat" value="Compact Disc:Compact Disc" id="format_4" class="hidden" /><label for="format_4"><img src="/media/img/format_img/cdrom_logo.png" tabindex="2" class="listening_format desktop_format" title="Compact Disc" alt="" /></label>
