@@ -73,6 +73,12 @@ var app = {
       $('.search_text').focus();
     });
   },
+  initToolTipster: function () {
+    // http://iamceege.github.io/tooltipster/
+    $('.tooltip').tooltipster({
+      theme: 'tooltipster-shadow'
+    });
+  },
   initStatsterEvents: function () {
     $('.search_text').autocomplete({
       html:true,
@@ -147,6 +153,7 @@ $(document).ready(function () {
   app.highlightPatch();
   app.initMouseTrap();
   app.initStatsterEvents();
+  app.initToolTipster();
   if ($('#headingCont').length === 0) {
     $('#topCont').addClass('scrolled');
   }
