@@ -76,7 +76,7 @@ var app = {
   initToolTipster: function () {
     // http://iamceege.github.io/tooltipster/
     $('.tooltip').tooltipster({
-      theme: 'tooltipster-shadow'
+      theme:'tooltipster-shadow'
     });
   },
   initStatsterEvents: function () {
@@ -86,7 +86,6 @@ var app = {
       response: function () {
         $(this).removeClass('working');
       },
-      source:'/autoComplete/search',
       select: function (event, ui) {
         if (ui.item.url !== undefined) {
           window.location = ui.item.url;
@@ -94,7 +93,8 @@ var app = {
       },
       search: function () {
         $(this).addClass('working');
-      }
+      },
+      source:'/autoComplete/search'
     });
     $('.settings a').click(function () {
       $(this).parent('.settings').find('a').addClass('unactive');
@@ -103,26 +103,26 @@ var app = {
     $('.toggle_username').click(function () {
       if ($(this).hasClass('active')) {
         $.ajax({
-          type:'GET',
           dataType:'json',
-          url:'/Ajax/selectYourself/delete',
           statusCode:{
             200: function () { // 200 OK
               location.reload();
             }
-          }
+          },
+          type:'GET',
+          url:'/Ajax/selectYourself/delete'
         });
       }
       else {
         $.ajax({
-          type:'GET',
           dataType:'json',
-          url:'/Ajax/selectYourself/add',
           statusCode:{
             200: function () { // 200 OK
               location.reload();
             }
-          }
+          },
+          type:'GET',
+          url:'/Ajax/selectYourself/add'
         });
       } 
     });
@@ -144,9 +144,9 @@ var view = {}
 
 $(document).ready(function () {
   if (document.images) {
-    preLoadImg1 = new Image();
+    var preLoadImg1 = new Image();
     preLoadImg1.src = '/media/img/ajax-loader-bar.gif';
-    preLoadImg2 = new Image();
+    var preLoadImg2 = new Image();
     preLoadImg2.src = '/media/img/ajax-loader-circle.gif';
   }
 
