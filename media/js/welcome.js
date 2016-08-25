@@ -57,10 +57,16 @@ $.extend(view, {
       type:'GET',
       url:'/api/artist/get'
     });
+  },
+  initWelcomeEvents: function () {
+    $('#toggleRegisterForm').click(function () {
+      $('#registerForm').slideToggle();
+    });
   }
 });
 
 $(document).ready(function() {
   view.recentlyListened();
   view.topArtist();
+  view.initWelcomeEvents();
 });

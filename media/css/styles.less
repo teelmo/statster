@@ -775,6 +775,7 @@ textarea {
   box-sizing: border-box;
   outline: none;
   &.text,
+  &[type="password"],
   &[type="text"] {
     background-color: #eee;
     border-radius: 3px;
@@ -867,6 +868,12 @@ form#addListeningForm {
 
 /** Edit profile form */
 
+/** Register form */
+form#registerForm {
+  input {
+    margin: 5px 0;
+  }
+}
 /** Login form */
 form#loginForm input[type="password"],
 form#loginForm input[type="text"] {

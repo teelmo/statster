@@ -18,7 +18,7 @@
     <div class="container">
       <h1>Statster&nbsp; &middot; &middot; &middot; &nbsp;greetings!</h1>
       <p>
-        Want to be reconciled with the music. Do it Statster like!<!-- and <a href="javascript:" onclick="$('#registerForm').toggle(); return false;">register now!</a--> 
+        Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm"><strong>register now!</strong></a> 
       </p>
       <?=form_open('', array('class' => 'hidden', 'id' => 'registerForm'), array('addListeningType' => 'form'))?>
         <div>
