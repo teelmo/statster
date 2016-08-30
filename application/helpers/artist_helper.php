@@ -118,7 +118,7 @@ if (!function_exists('addArtistBio')) {
       $sql = "INSERT
                 INTO " . TBL_artist_biography . " (`artist_id`, `summary`, `text`)
                 VALUES (?, ?, ?)";
-      $query = $ci->db->query($sql, array($artist_id, $summary, $text));
+      $query = $ci->db->query($sql, array($artist_id, $summary, mysql_real_escape_string($text)));
     }
     return ($ci->db->affected_rows() === 1);
   }

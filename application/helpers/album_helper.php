@@ -96,7 +96,7 @@ if (!function_exists('getAlbumInfo')) {
 }
 
 /**
-  * Gets artist's bio.
+  * Gets album's bio.
   *
   * @param array $opts.
   *          'album_id'  => Album ID
