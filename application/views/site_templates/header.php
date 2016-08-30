@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/dropdown.js"></script>
-    <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min"></script>
+    <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min.js"></script>
     <script type="text/javascript" src="/media/js/statster.js"></script>
     <?php
     echo link_tag('media/css/styles.css');
