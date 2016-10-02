@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
@@ -18,7 +18,7 @@ if (!function_exists('getListenings')) {
   function getListenings($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
-    
+
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $date = !empty($opts['date']) ? $opts['date'] : '%';
@@ -29,10 +29,10 @@ if (!function_exists('getListenings')) {
     $sql = "SELECT " . TBL_listening . ".`id` as `listening_id`,
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`year`, 
-                   " . TBL_album . ".`spotify_uri`, 
+                   " . TBL_album . ".`year`,
+                   " . TBL_album . ".`spotify_uri`,
                    " . TBL_user . ".`username`,
-                   " . TBL_listening . ".`date`, 
+                   " . TBL_listening . ".`date`,
                    " . TBL_listening . ".`created`,
                    " . TBL_artist . ".`id` as `artist_id`,
                    " . TBL_album . ".`id` as `album_id`,
@@ -99,7 +99,7 @@ if (!function_exists('addListening')) {
         // Get Spotify information only if existing album.
         if (empty($data['spotify_uri'])) {
           $data['spotify_uri'] = getSpotifyResourceId($data);
-        } 
+        }
       }
 
       $data['date'] = trim($opts['date']);
@@ -268,9 +268,9 @@ if (!function_exists('addListeningFormats')) {
     $format_id = !empty($opts['format_id']) ? $opts['format_id'] : '';
     $listening_id = $opts['listening_id'];
     $user_id = $opts['user_id'];
-    
+
     $sql = "INSERT
-              INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`) 
+              INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`)
               VALUES (?, ?, ?)";
     $query = $ci->db->query($sql, array($listening_id, $format_id, $user_id));
     return ($ci->db->affected_rows() === 1) ? $ci->db->insert_id() : FALSE;

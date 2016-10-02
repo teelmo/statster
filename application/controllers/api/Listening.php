@@ -8,7 +8,7 @@ class Listening extends CI_Controller {
   public function get() {
     // Load helpers
     $this->load->helper(array('listening_helper', 'love_helper', 'output_helper'));
-    
+
     echo getListenings($_REQUEST);
   }
 
@@ -22,14 +22,14 @@ class Listening extends CI_Controller {
   /* Update listening information */
   public function update() {
     // Load helpers
-    
+
   }
 
   /* Delete listening information */
   public function delete($listening_id) {
     // Load helpers
     $this->load->helper(array('listening_helper'));
-    
+
     echo deleteListening(array('listening_id' => $listening_id));
   }
 }
