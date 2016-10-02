@@ -26,7 +26,7 @@ if (ENVIRONMENT === 'development') {
   $config['base_url'] = 'http://statster.dev';
 }
 else {
-  $config['base_url'] = 'http://beta.statster.info';
+  $config['base_url'] = 'http://statster.info';
 }
 
 /*

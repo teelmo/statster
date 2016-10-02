@@ -49,7 +49,7 @@
                 <li><?=anchor(array('logout'), 'Logout')?></li>
               </ul>
             </div>
-            <?
+            <?php
           }
           else {
             ?>
