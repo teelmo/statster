@@ -86,7 +86,7 @@ if (!function_exists('getYearBio')) {
             FROM " . TBL_year_biography . "
             WHERE " . TBL_year_biography . ".`year` = ?";
     $query = $ci->db->query($sql, array($year));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array('update_bio' => false);
   }
 }
 
@@ -186,7 +186,7 @@ if (!function_exists('getYearListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_album . ".`year` = ?";
     $query = $ci->db->query($sql, array($user_id, $tag_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array($count_type => 0);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array($count_type => 0);
   }
 }
 /**

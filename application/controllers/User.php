@@ -13,7 +13,7 @@ class User extends CI_Controller {
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
-    $data['top_artist'] = (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
+    $data['top_artist'] = (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
     
     $this->load->view('site_templates/header');
     $this->load->view('user/user_view', $data);
@@ -37,11 +37,11 @@ class User extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => $username
       );
-      $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? ${!${false}=json_decode(getAlbums($opts), true)}[0] : array();
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
-      $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? ${!${false}=json_decode(getGenres($opts), true)}[0] : array();
-      $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? ${!${false}=json_decode(getNationalities($opts), true)}[0] : array();
-      $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? ${!${false}=json_decode(getYears($opts), true)}[0] : array();
+      $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+      $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
+      $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
+      $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
       
       $opts = array(
         'human_readable' => false,
@@ -49,7 +49,7 @@ class User extends CI_Controller {
         'lower_limit' => '1970-00-00',
         'username' => $username
       );
-      $data += (${!${false}=json_decode(getArtists($opts), true)}[0] !== NULL) ? ${!${false}=json_decode(getArtists($opts), true)}[0] : array();
+      $data += (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data += getUserTags($data);
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);

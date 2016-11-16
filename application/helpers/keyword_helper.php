@@ -91,7 +91,7 @@ if (!function_exists('getKeywordBio')) {
             FROM " . TBL_keyword_biography . "
             WHERE " . TBL_keyword_biography . ".`keyword_id` = ?";
     $query = $ci->db->query($sql, array($keyword_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array('update_bio' => false);
   }
 }
 
@@ -208,7 +208,7 @@ if (!function_exists('getKeywordListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_keywords . ".`keyword_id` = ?";
     $query = $ci->db->query($sql, array($user_id, $tag_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array($count_type => 0);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array($count_type => 0);
   }
 }
 

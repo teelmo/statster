@@ -65,7 +65,7 @@ $.extend(view, {
   getTags: function () {
     $.ajax({
       data:{
-        album_id:'<?=$album_id?>',
+        album_id:<?=$album_id?>,
         limit:9
       },
       dataType:'json',
@@ -74,7 +74,7 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              logged_in:'<?=$logged_in?>'
+              logged_in:<?=$logged_in?>
             },
             success: function (data) {
               $('#tagsLoader').hide();
@@ -315,8 +315,8 @@ $.extend(view, {
   updateAlbumBio: function () {
     $.ajax({
       data:{
-        artist_id:'<?=$artist_id?>',
-        album_id:'<?=$album_id?>',
+        artist_id:<?=$artist_id?>,
+        album_id:<?=$album_id?>,
         artist_name:'<?=$artist_name?>',
         album_name:'<?=$album_name?>'
       },
@@ -385,7 +385,7 @@ $.extend(view, {
           var tag = el.split(':');
           $.ajax({
             data:{
-              album_id:'<?=$album_id?>',
+              album_id:<?=$album_id?>,
               tag_id:tag[1],
               type:'album'
             },

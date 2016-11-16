@@ -58,10 +58,10 @@ class Tag extends CI_Controller {
       $data['limit'] = 1;
       $data['lower_limit'] = date('Y-m-d', time() - (180 * 24 * 60 * 60));
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
-      $data['genre'] = ${!${false}=json_decode(getGenres($data), true)}[0];
-      $data['keyword'] = ${!${false}=json_decode(getKeywords($data), true)}[0];
-      $data['nationality'] = ${!${false}=json_decode(getNationalities($data), true)}[0];
-      $data['year'] = ${!${false}=json_decode(getYears($data), true)}[0];
+      $data['genre'] = json_decode(getGenres($data), true)[0];
+      $data['keyword'] = json_decode(getKeywords($data), true)[0];
+      $data['nationality'] = json_decode(getNationalitiesListenings($data), true)[0];
+      $data['year'] = json_decode(getYears($data), true)[0];
 
       $data['js_include'] = array('meta');
       $this->load->view('site_templates/header');
@@ -104,7 +104,7 @@ class Tag extends CI_Controller {
         $data['limit'] = 1;
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
-        $data['artist'] = ${!${false}=json_decode(getMusicByGenre($data), true)}[0];
+        $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
         if (!empty($type)) {
           $data['type'] = $type;
           $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
@@ -162,7 +162,7 @@ class Tag extends CI_Controller {
         $data['limit'] = 1;
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
-        $data['artist'] = ${!${false}=json_decode(getMusicByKeyword($data), true)}[0];
+        $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
         if (!empty($type)) {
           $data['type'] = $type;
           $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
@@ -219,7 +219,7 @@ class Tag extends CI_Controller {
         $data['limit'] = 1;
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
-        $data['artist'] = ${!${false}=json_decode(getMusicByNationality($data), true)}[0];
+        $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
         if (!empty($type)) {
           $data['type'] = $type;
           $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
@@ -277,7 +277,7 @@ class Tag extends CI_Controller {
       $data['limit'] = 1;
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['group_by'] = TBL_artist . '.`id`';
-      $data['artist'] = ${!${false}=json_decode(getMusicByYear($data), true)}[0];
+      $data['artist'] = json_decode(getMusicByYear($data), true)[0];
       if (!empty($type)) {
         $data['type'] = $type;
         $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';

@@ -57,11 +57,11 @@ class AutoComplete extends CI_Controller {
       }
       $query = $this->db->query($sql, array($search_str_db_artist, $search_str_db_album, $search_str_db_artist_wc, $search_str_db_album_wc));
       if ($query->num_rows() > 0) {
-        if (${!${false}=$query->result()}[0]->album_relevance > 0) {
+        if ($query->result()[0]->album_relevance > 0) {
           $results[] = array(
-            'value' => ${!${false}=$query->result()}[0]->artist_name . ' ' . DASH . ' ',
+            'value' => $query->result()[0]->artist_name . ' ' . DASH . ' ',
             'img' => '',
-            'label' => ${!${false}=$query->result()}[0]->artist_name . ' ' . DASH . ' ',
+            'label' => $query->result()[0]->artist_name . ' ' . DASH . ' ',
           );
         }
         foreach ($query->result() as $row) {

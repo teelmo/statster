@@ -92,7 +92,7 @@ if (!function_exists('getGenreBio')) {
             FROM " . TBL_genre_biography . "
             WHERE " . TBL_genre_biography . ".`genre_id` = ?";
     $query = $ci->db->query($sql, array($genre_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array('update_bio' => false);
   }
 }
 
@@ -209,7 +209,7 @@ if (!function_exists('getGenreListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_genres . ".`genre_id` = ?";
     $query = $ci->db->query($sql, array($user_id, $tag_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array($count_type => 0);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array($count_type => 0);
   }
 }
 

@@ -91,7 +91,7 @@ if (!function_exists('getAlbumInfo')) {
               AND " . TBL_artist . ".`artist_name` = ?
               AND " . TBL_album . ".`album_name` = ?";
     $query = $ci->db->query($sql, array($artist_name, $album_name));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : FALSE;
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
   }
 }
 
@@ -117,7 +117,7 @@ if (!function_exists('getAlbumBio')) {
             FROM " . TBL_album_biography . "
             WHERE " . TBL_album_biography . ".`album_id` = ?";
     $query = $ci->db->query($sql, array($album_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array('update_bio' => false);
   }
 }
 
@@ -188,7 +188,7 @@ if (!function_exists('getAlbumListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_album . ".`id` LIKE ?";
     $query = $ci->db->query($sql, array($user_id, $album_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array($count_type => 0);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array($count_type => 0);
   }
 }
 

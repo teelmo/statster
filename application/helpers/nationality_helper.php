@@ -2,6 +2,32 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
+  *
+  *
+  * @return string JSON encoded data containing nationalities.
+  */
+if (!function_exists('getNationalities')) {
+  function getNationalities($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`nationality` ASC';
+    $sql = "SELECT 'nationality' as `type`,
+                   " . TBL_nationality . ".`country` as `name`,
+                   " . TBL_nationality . ".`id` as `tag_id`
+            FROM " . TBL_nationality . "
+            WHERE 1
+            ORDER BY " . $ci->db->escape_str($order_by) . "
+            LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array());
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
   * Returns top nationalities for the given user.
   *
   * @param array $opts.
@@ -16,10 +42,10 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
   *
-  * @return string JSON encoded data containing album information.
+  * @return string JSON encoded data containing nationalities listening information.
   */
-if (!function_exists('getNationalities')) {
-  function getNationalities($opts = array()) {
+if (!function_exists('getNationalitiesListenings')) {
+  function getNationalitiesListenings($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
     
@@ -91,7 +117,7 @@ if (!function_exists('getNationalityBio')) {
             FROM " . TBL_nationality_biography . "
             WHERE " . TBL_nationality_biography . ".`nationality_id` = ?";
     $query = $ci->db->query($sql, array($nationality_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array('update_bio' => false);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array('update_bio' => false);
   }
 }
 
@@ -217,7 +243,7 @@ if (!function_exists('getNationalityListenings')) {
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_nationalities . ".`nationality_id` = ?";
     $query = $ci->db->query($sql, array($user_id, $tag_id));
-    return ($query->num_rows() > 0) ? ${!${false}=$query->result_array()}[0] : array($count_type => 0);
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : array($count_type => 0);
   }
 }
 

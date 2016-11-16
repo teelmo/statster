@@ -65,7 +65,7 @@ $.extend(view, {
   getTags: function () {
     $.ajax({
       data:{
-        artist_id:'<?=$artist_id?>',
+        artist_id:<?=$artist_id?>,
         limit:9
       },
       dataType:'json',
@@ -74,7 +74,7 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              logged_in:'<?=$logged_in?>'
+              logged_in:<?=$logged_in?>
             },
             success: function (data) {
               $('#tagsLoader').hide();
@@ -312,7 +312,7 @@ $.extend(view, {
   updateArtistBio: function () {
     $.ajax({
       data:{
-        artist_id:'<?php echo $artist_id?>',
+        artist_id:<?php echo $artist_id?>,
         artist_name:'<?php echo $artist_name?>'
       },
       dataType:'json',
@@ -380,7 +380,7 @@ $.extend(view, {
           var tag = el.split(':');
           $.ajax({
             data:{
-              artist_id:'<?=$artist_id?>',
+              artist_id:<?=$artist_id?>,
               tag_id:tag[1],
               type:'artist'
             },
