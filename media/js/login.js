@@ -3,8 +3,6 @@ $.extend(view, {
     $('#loginUsername').focus();
     $('#loginSubmit').click(function () {
       $.ajax({
-        type:'POST',
-        url:'/api/login',
         data:{
           password:$('#loginPassword').val(),
           submitType:$('input[name="submitType"]').val(),
@@ -17,7 +15,9 @@ $.extend(view, {
           else {
             alert('Wrong username or password. Please try again.');
           }
-        }
+        },
+        type:'POST',
+        url:'/api/login'
       });
       return false;
     });

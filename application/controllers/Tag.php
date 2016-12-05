@@ -16,7 +16,7 @@ class Tag extends CI_Controller {
           $data += getAlbumListenings($data);
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         
         $data['js_include'] = array('meta_album');
         $this->load->view('site_templates/header');
