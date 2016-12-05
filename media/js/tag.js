@@ -54,7 +54,7 @@ $.extend(view, {
         400: function (data) {alert('400 Bad Request')}
       },
       type:'GET',
-      url:'/api/tag/get/<?=strtolower($tag_type)?>'
+      url:'/api/tag/get/<?=strtolower($tag_type)?>/listenings'
     });
   },
   // Get top albums.

@@ -30,7 +30,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/nationality/get'
+      url:'/api/nationality/get/listenings'
     });
   },
   topNationalityYearly: function () {

@@ -21,7 +21,7 @@ class Tag extends CI_Controller {
         break;
       case 'nationality':
         $this->load->helper(array('nationality_helper'));
-        echo getNationalities($_REQUEST);
+        echo getNationalitiesListenings($_REQUEST);
         break;
       case 'year':
         $this->load->helper(array('year_helper'));
