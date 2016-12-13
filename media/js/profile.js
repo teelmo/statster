@@ -339,11 +339,8 @@ $.extend(view, {
       }));
       $('#recentlyLikedLoader').hide();
     });
-    $('#recentlyListened').hover(function () {
-      var currentTime = new Date();    
-      if ((currentTime.getTime() - $('#recentlyUpdated').attr('value') > (60 * 2 * 1000)) && $.active < 1) {
-        view.getRecentListenings();
-      }
+    $('#refreshRecentAlbums').click(function () {
+      view.getRecentListenings();
     });
   }
 });
