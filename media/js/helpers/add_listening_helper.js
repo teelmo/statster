@@ -89,8 +89,12 @@ $.extend(view, {
         statusCode:{
           201: function (data) { // 201 Created
             view.getRecentListenings();
-            view.getTopArtists();
-            view.getTopAlbums();
+            if (view.getTopArtists) {
+              view.getTopArtists();
+            }
+            if (view.getTopAlbums) {
+              view.getTopAlbums();
+            }
             $('#addListeningText').focus();
           },
           400: function () { // 400 Bad Request

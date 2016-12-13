@@ -1,5 +1,9 @@
 $.extend(view, {
-  getListenings: function () {
+  // Get recent listenings.
+  getRecentListenings: function (isFirst, callback) {
+    if (isFirst != true) {
+      $('#recentlyListenedLoader2').show();
+    }
     $.ajax({
       data:{
         album_name:'<?=$album_name?>',
@@ -13,29 +17,32 @@ $.extend(view, {
           $.ajax({
             data:{
               hide:{
-                artist:true,
-                count:true,
-                rank:true
+                del:true
               },
-              json_data:data,
-              size:32
+              json_data:data
             },
             success: function (data) {
+              $('#recentlyListenedLoader2').hide();
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
+              var currentTime = new Date();
+              var hours = currentTime.getHours();
+              var minutes = currentTime.getMinutes();
+              if (minutes < 10) {
+                minutes = '0' + minutes;
+              }
+              $('#recentlyUpdated').html('updated <span class="number">' + hours + '</span>:<span class="number">' + minutes + '</span>');
+              $('#recentlyUpdated').attr('value', currentTime.getTime());
             },
             type:'POST',
             url:'/ajax/musicTable'
-          });
+          })
         },
         204: function () { // 204 No Content
           $('#recentlyListenedLoader').hide();
           $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function () { // 400 Bad request
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
-        }
+        400: function (data) {alert('400 Bad Request')}
       },
       type:'GET',
       url:'/api/listening/get'
@@ -116,7 +123,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getListenings();
+  view.getRecentListenings();
   view.getUsers();
   view.initRecentEvents();
 });

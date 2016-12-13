@@ -113,10 +113,14 @@ class Music extends CI_Controller {
   }
 
   public function recent($artist_name = '', $album_name = FALSE) {
+    // Load helpers
+    $this->load->helper(array('form'));
+
     $data = array();
     $data['artist_name'] = decode($artist_name);
     $data['album_name'] = decode($album_name);
-    $data['js_include'] = array('recent');
+    $data['js_include'] = array('recent', 'helpers/add_listening_helper');
+    $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
     $data += $_REQUEST;
 
     $this->load->view('site_templates/header');

@@ -99,7 +99,7 @@
     <div class="container">
       <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /> <span class="func_container"><i class="fa fa-refresh" id="refreshRecentAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="recentlyListenedLoader"/>
-      <table id="recentlyListened" class="music_table"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('recent?u=' . $username, 'More listenings', array('title' => 'Browse more listenings'))?>
       </div>
