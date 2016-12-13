@@ -31,7 +31,7 @@
           <td class="label">Listeners</td>
           <td class="label">Added in</td>
           <?php
-          if ($logged_in === TRUE) {
+          if ($this->session->userdata('logged_in') === TRUE) {
             ?>
             <td class="label user_listening" rowspan="3">
               <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library</span>
@@ -106,7 +106,7 @@
       <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shoutLoader2" /><span id="shoutTotal"></span></h2>
       <table class="shout_table">
         <?php
-        if ($logged_in === TRUE) {
+        if ($logged_in === 'true') {
           ?>
           <tr class="post_shout">
             <td class="img user_img">

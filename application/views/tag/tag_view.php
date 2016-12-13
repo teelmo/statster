@@ -10,7 +10,7 @@
           <td class="label">Listenings</td>
           <td class="label">Listeners</td>
           <?php
-          if ($logged_in === TRUE) {
+          if ($logged_in === 'true') {
             ?>
             <td class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value"><?=number_format($user_count)?></span> in your library</span></td>
             <?php

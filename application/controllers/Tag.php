@@ -40,7 +40,7 @@ class Tag extends CI_Controller {
           $data += getArtistListenings($data);
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
 
         $data['js_include'] = array('meta_artist');
         $this->load->view('site_templates/header');
@@ -79,7 +79,7 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getGenreID($data)) {
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data += getGenreListenings($data);
         // Get biography
         $data += getGenreBio($data);
@@ -137,7 +137,7 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getKeywordID($data)) {
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data += getKeywordListenings($data);
         // Get biography
         $data += getKeywordBio($data);
@@ -194,7 +194,7 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getNationalityID($data)) {
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
         $data += getNationalityListenings($data);
         // Get biography
         $data += getNationalityBio($data);
@@ -252,7 +252,7 @@ class Tag extends CI_Controller {
       $data['tag_id'] = decode($tag_name);
       $data['tag_name'] = decode($tag_name);
       $data['js_include'] = array('tag', 'helpers/chart_helper');
-      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? TRUE : FALSE;
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data += getYearListenings($data);
       // Get biography
         $data += getYearBio($data);
