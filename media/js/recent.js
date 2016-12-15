@@ -16,9 +16,6 @@ $.extend(view, {
         200: function (data) { // 200 OK
           $.ajax({
             data:{
-              hide:{
-                del:true
-              },
               json_data:data
             },
             success: function (data) {
