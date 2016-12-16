@@ -302,7 +302,7 @@ $.extend(view, {
         },
         204: function () {
           $('#albumShoutLoader').hide();
-          $('#albumShout').html('<?php ERR_NO_DATA?>');
+          $('#albumShout').html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
@@ -312,8 +312,8 @@ $.extend(view, {
   updateArtistBio: function () {
     $.ajax({
       data:{
-        artist_id:<?php echo $artist_id?>,
-        artist_name:'<?php echo $artist_name?>'
+        artist_id:<?=$artist_id?>,
+        artist_name:'<?=$artist_name?>'
       },
       dataType:'json',
       type:'GET',
