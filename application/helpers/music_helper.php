@@ -66,6 +66,7 @@ if (!function_exists('getArtists')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+
     $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`artist_name`, 
                    " . TBL_artist . ".`id` as artist_id,
