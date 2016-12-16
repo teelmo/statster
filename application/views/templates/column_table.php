@@ -26,7 +26,10 @@ if (!empty($json_data)) {
         ?>
         <td class="name">
           <?php
-          if (!empty($row['type'])) {
+          if ($type === 'user') {
+            echo anchor(array('user', url_title($row['username'])), $row['username'], array('title' => 'Browse to user\'s page'));
+          }
+          else if (!empty($row['type'])) {
             echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
           }
           else {

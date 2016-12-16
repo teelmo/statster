@@ -17,12 +17,25 @@
   </div>
   <div id="rightCont">
     <div class="container">
-      <h2>Newest user</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="newestUserLoader"/>
+      <h1>Statistics</h1>
+      <h2>Top listeners</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader" />
+      <table id="topListener" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor(array('listener'), 'More', array('title' => 'Browse more'))?>
+      </div>
     </div>
+    <div class="container"><hr /></div>
     <div class="container">
-      <h2>Activity</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id=""/>
+      <h2>Latest shouts</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="musicShoutLoader" />
+      <table id="musicShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
+      <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="artistShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
+      <table id="userShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor(array('shout'), 'More', array('title' => 'Browse more'))?>
+      </div>
     </div>
     <br />
   </div>
