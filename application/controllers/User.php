@@ -21,7 +21,7 @@ class User extends CI_Controller {
   }
 
   public function profile($username) {
-    $this->load->helper(array('form', 'user_helper', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper', 'fan_helper', 'love_helper'));
+    $this->load->helper(array('form', 'user_helper', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper', 'fan_helper', 'love_helper', 'shout_helper'));
 
     $data['username'] = $username;
 
@@ -54,8 +54,10 @@ class User extends CI_Controller {
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
-      $data['fan_count'] = getFanCount(array('user_id' => $data['user_id']), 'user_id');
-      $data['love_count'] = getLoveCount(array('user_id' => $data['user_id']), 'user_id');
+      $data['fan_count'] = getFanCount(array('user_id' => $data['user_id']));
+      $data['love_count'] = getLoveCount(array('user_id' => $data['user_id']));
+      $data['shout_count'] = getShoutCount(array('user_id' => $data['user_id']));
+      pr($data['shout_count']);
       $this->load->view('site_templates/header');
       $this->load->view('user/profile_view', $data);
       $this->load->view('site_templates/footer');

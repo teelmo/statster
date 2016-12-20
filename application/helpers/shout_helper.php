@@ -2,6 +2,42 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
+  * Get shout count.
+  *
+  * @param array $opts.
+  *          'user_id'    => User ID
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getShoutCount')) {
+  function getShoutCount($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $sql = "SELECT " . TBL_artist_shout . ".`id`,
+                   " . TBL_artist_shout . ".`artist_id` as `target_id`,
+                   'artist' as `target_type`
+            FROM " . TBL_artist_shout . "
+            WHERE " . TBL_artist_shout . ".`user_id` LIKE ?
+              UNION
+            SELECT " . TBL_album_shout . ".`id`,
+                   " . TBL_album_shout . ".`album_id` as `target_id`,
+                   'album' as `target_type`
+            FROM " . TBL_album_shout . "
+            WHERE " . TBL_album_shout . ".`user_id` LIKE ?
+              UNION
+            SELECT " . TBL_user_shout . ".`id`,
+                   " . TBL_user_shout . ".`user_id` as `target_id`,
+                   'user' as `target_type`
+            FROM " . TBL_user_shout . "
+            WHERE " . TBL_user_shout . ".`adder_id` LIKE ?";
+    $query = $ci->db->query($sql, array($user_id, $user_id, $user_id));
+    return $query->num_rows();
+  }
+}
+
+/**
   * Get album shouts.
   *
   * @param array $opts.

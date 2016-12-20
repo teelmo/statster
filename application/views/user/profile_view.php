@@ -22,6 +22,7 @@
           <td class="label">Listenings</td>
           <td class="label">Albums</td>
           <td class="label">Artists</td>
+          <td class="label">Shouts</td>
           <td class="label">Loved</td>
           <td class="label">Faned</td>
         </tr>
@@ -29,6 +30,7 @@
           <td class="value"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></td>
           <td class="value"><?=anchor(array('album?u=' . $username), number_format($album_count))?></td>
           <td class="value"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></td>
+          <td class="value"><?=anchor(array('shout?u=' . $username), number_format($shout_count))?></td>
           <td class="value"><?=anchor(array('love?u=' . $username), number_format($love_count))?></td>
           <td class="value"><?=anchor(array('fan?u=' . $username), number_format($fan_count))?></td>
         </tr>
