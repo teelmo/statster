@@ -87,6 +87,32 @@ if (!function_exists('getLoves')) {
 }
 
 /**
+  * Get love count.
+  *
+  * @param array $opts.
+  *          'artist_id'  => Artist ID
+  *          'user_id'    => User ID
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getLoveCount')) {
+  function getLoveCount($opts = array(), $type) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $sql = "SELECT " . TBL_love . ".`album_id`
+            FROM " . TBL_love . "
+            WHERE " . TBL_love . ".`album_id` LIKE ?
+              AND " . TBL_love . ".`user_id` LIKE ?";
+              
+    $query = $ci->db->query($sql, array($artist_id, $user_id));
+    return $query->num_rows();
+  }
+}
+
+/**
   * Add love information
   *
   * @param array $opts.
