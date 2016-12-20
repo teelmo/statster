@@ -57,7 +57,7 @@ class User extends CI_Controller {
       $data['fan_count'] = getFanCount(array('user_id' => $data['user_id']));
       $data['love_count'] = getLoveCount(array('user_id' => $data['user_id']));
       $data['shout_count'] = getShoutCount(array('user_id' => $data['user_id']));
-      pr($data['shout_count']);
+      
       $this->load->view('site_templates/header');
       $this->load->view('user/profile_view', $data);
       $this->load->view('site_templates/footer');
