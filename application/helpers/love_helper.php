@@ -96,7 +96,7 @@ if (!function_exists('getLoves')) {
   * @return string JSON.
   */
 if (!function_exists('getLoveCount')) {
-  function getLoveCount($opts = array(), $type) {
+  function getLoveCount($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 

@@ -85,23 +85,21 @@ if (!function_exists('getFans')) {
   * @param array $opts.
   *          'artist_id'  => Artist ID
   *          'user_id'    => User ID
-  *          'group_by'   => Group By
   *
   * @return string JSON.
   */
 if (!function_exists('getFanCount')) {
-  function getFanCount($opts = array(), $type) {
+  function getFanCount($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_fan . '.`' . $type . '`';    
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT " . TBL_fan . ".`artist_id`
             FROM " . TBL_fan . "
             WHERE " . TBL_fan . ".`artist_id` LIKE ?
               AND " . TBL_fan . ".`user_id` LIKE ?";
-              
+
     $query = $ci->db->query($sql, array($artist_id, $user_id));
     return $query->num_rows();
   }
