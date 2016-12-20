@@ -17,7 +17,7 @@ if (!function_exists('getListeningCount')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  $type . '.`id`';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : $type . '.`id`';
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
