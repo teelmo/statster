@@ -12,7 +12,7 @@ class Music extends CI_Controller {
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'limit' => '1',
-      'human_readable' => true
+      'human_readable' => false
     );
     $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
@@ -25,46 +25,65 @@ class Music extends CI_Controller {
     $this->load->view('site_templates/footer');
   }
 
-  public function artist($artist_name) {
-    // Load helpers
-    $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'output_helper'));
+  public function artist_or_year($value) {
+    if ((int) $value > 1900 && (int) $value <= CUR_YEAR) {
+      // Load helpers
+      $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
+      $data['year'] = $value;
+      $data += array(
+        'lower_limit' => $data['year'] . '-00-00',
+        'upper_limit' => $data['year'] . '-12-31',
+        'limit' => '1',
+        'human_readable' => false
+      );
+      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
 
-    // Decode artist information
-    $data['artist_name'] = decode($artist_name);
-    // Get artist information aka. artist's name and id
-    if ($data = getArtistInfo($data)) {
-      // Get artist's total listening data
-      $data += getArtistListenings($data);
-      // Get biography
-      $data += getArtistBio($data);
-      if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-        $this->load->helper(array('lastfm_helper'));
-        unset($data['bio_summary']);
-        unset($data['bio_content']);
-        $data += fetchArtistBio($data);
-        addArtistBio($data);
-      }
-      else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
-        $data['update_bio'] = true;
-      }
-      // Get logged in user's listening data
-      if ($data['user_id'] = $this->session->userdata('user_id')) {
-        $data += getArtistListenings($data);
-      }
-      $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
-      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      if (empty($data['spotify_uri'])) {
-        $data['spotify_uri'] = getSpotifyResourceId($data);
-      }
-      $data += $_REQUEST;
-
-      $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
-      $this->load->view('site_templates/header', $data);
-      $this->load->view('music/artist_view', $data);
+      $data['js_include'] = array('year');
+      $this->load->view('site_templates/header');
+      $this->load->view('music/year_view', $data);
       $this->load->view('site_templates/footer');
     }
     else {
-      show_404();
+      // Load helpers
+      $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'output_helper'));
+
+      // Decode artist information
+      $data['artist_name'] = decode($value);
+      // Get artist information aka. artist's name and id
+      if ($data = getArtistInfo($data)) {
+        // Get artist's total listening data
+        $data += getArtistListenings($data);
+        // Get biography
+        $data += getArtistBio($data);
+        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+          $this->load->helper(array('lastfm_helper'));
+          unset($data['bio_summary']);
+          unset($data['bio_content']);
+          $data += fetchArtistBio($data);
+          addArtistBio($data);
+        }
+        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+          $data['update_bio'] = true;
+        }
+        // Get logged in user's listening data
+        if ($data['user_id'] = $this->session->userdata('user_id')) {
+          $data += getArtistListenings($data);
+        }
+        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
+        if (empty($data['spotify_uri'])) {
+          $data['spotify_uri'] = getSpotifyResourceId($data);
+        }
+        $data += $_REQUEST;
+
+        $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
+        $this->load->view('site_templates/header', $data);
+        $this->load->view('music/artist_view', $data);
+        $this->load->view('site_templates/footer');
+      }
+      else {
+        show_404();
+      }
     }
   }
 
