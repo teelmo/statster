@@ -20,7 +20,7 @@
     <div class="container">
       <h2>History</h2>
       <div class="float_right settings">
-        <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w', '<?=$lower_limit?>', '<?=$upper_limit?>')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d', '<?=$lower_limit?>', '<?=$upper_limit?>')">Day</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%m', '<?=$lower_limit?>', '<?=$upper_limit?>')">Month</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%Y%m', '<?=$lower_limit?>', '<?=$upper_limit?>')">Montly</a>
+        <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w', '<?=$lower_limit?>', '<?=$upper_limit?>')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d', '<?=$lower_limit?>', '<?=$upper_limit?>')">Day</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%m', '<?=$lower_limit?>', '<?=$upper_limit?>')">Month</a>
       </div>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
