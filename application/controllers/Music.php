@@ -38,7 +38,7 @@ class Music extends CI_Controller {
       );
       $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
 
-      $data['js_include'] = array('year');
+      $data['js_include'] = array('year', 'helpers/chart_helper');
       $this->load->view('site_templates/header');
       $this->load->view('music/year_view', $data);
       $this->load->view('site_templates/footer');

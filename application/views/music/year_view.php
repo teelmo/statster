@@ -18,9 +18,13 @@
   <div id="leftCont">
     <h1><?=$year?> in music</h1>
     <div class="container">
-      <h2>Listening week / month / weekday</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <h2>History</h2>
+      <div class="float_right settings">
+        <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w', '<?=$lower_limit?>', '<?=$upper_limit?>')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d', '<?=$lower_limit?>', '<?=$upper_limit?>')">Day</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%m', '<?=$lower_limit?>', '<?=$upper_limit?>')">Month</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%Y%m', '<?=$lower_limit?>', '<?=$upper_limit?>')">Montly</a>
+      </div>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
+      <table id="history"><!-- Content is loaded with AJAX --></table>
+      <div class="music_bar"></div>
     </div>
     <div class="container">
       <h2>Top albums</h2>
@@ -36,9 +40,40 @@
   </div>
   <div id="rightCont">
     <div class="container">
+      <h1>Statistics</h1>
+      <h2>Top listeners</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
+      <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container">
       <h2>Top releases</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topReleasesLoader" />
-      <table id="topReleases" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <table id="topReleases" class="side_table"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h1>Top tags</h1>
+      <h2>Genres</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
+      <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Keywords</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
+      <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Nationalities</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
+      <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Years</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
+      <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container">
       <h2>Top day</h2>
@@ -61,46 +96,13 @@
       <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container">
-      <h2>New artist count</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container">
       <h2>New album count</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
       <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container">
-      <h2>Releases</h2>
+      <h2>New artist count</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
       <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container">
-      <h2>Top listeners</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container">
-      <h2>Top genres</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
-      <ul id="topGenre" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container"><hr /></div>
-    <div class="container">
-      <h2>Top nationalities</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
-      <ul id="topNationality" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container"><hr /></div>
-    <div class="container">
-      <h2>Top keywords</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
-      <ul id="topKeyword" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container"><hr /></div>
-    <div class="container">
-      <h2>Top years</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
-      <ul id="topYear" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

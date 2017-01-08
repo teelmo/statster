@@ -110,6 +110,7 @@ if (!empty($json_data)) {
           $prev_bar_date++;
         }
       }
+
       if ($type == '%m') {
         $limit = 12;
       }
@@ -122,13 +123,16 @@ if (!empty($json_data)) {
       else if ($type == '%Y') {
         $limit = CUR_YEAR;
       }
+      else if ($upper_limit) {
+        $limit = $upper_limit;
+      }
       else {
         $limit = CUR_YEAR . CUR_MONTH;
       }
       if ($type == '%Y%m') {
         $cur_bar_year = substr($prev_bar_date, 0, 4);
         $cur_bar_month = substr($prev_bar_date, 4, 2);
-        while (($cur_bar_year . $cur_bar_month) <= $limit) {
+        while (($cur_bar_year . $cur_bar_month) <= $§) {
           $time = DateTime::createFromFormat('!m', intval($cur_bar_month))->format('M') . ' ’' . substr($cur_bar_year, 2, 2);
           $script .= 'view.categories.push(\'' . $time . '\');view.chart_data.push(0);';
           ?>
