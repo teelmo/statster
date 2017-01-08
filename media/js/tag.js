@@ -1,6 +1,5 @@
 $.extend(view, {
   getListeningHistory: function (type) {
-    view.initChart();
     if (type == '%w') {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
     }
@@ -241,6 +240,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
+  view.initChart();
   view.getListeningHistory('%Y');
   view.getTopAlbums();
   view.getTopArtists();

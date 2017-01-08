@@ -98,7 +98,6 @@ $.extend(view, {
     });
   },
   getListeningHistory: function (type) {
-    view.initChart();
     if (type == '%w') {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
     }
@@ -420,6 +419,7 @@ $(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
   view.getTags();
+  view.initChart();
   view.getListeningHistory('%Y');
   view.getShouts();
   view.getUsers();
