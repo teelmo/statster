@@ -73,7 +73,7 @@ $.extend(view, {
       url:'/api/tag/get'
     });
   },
-  popularGenre: function () {
+  topGenre: function () {
     $.ajax({
       data:{
         limit:20,
@@ -88,8 +88,8 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#popularGenreLoader').hide();
-              $('#popularGenre').html(data);
+              $('#topGenreLoader').hide();
+              $('#topGenre').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
@@ -100,7 +100,7 @@ $.extend(view, {
       url:'/api/genre/get'
     });
   },
-  popularKeyword: function () {
+  topKeyword: function () {
     $.ajax({
       data:{
         limit:20,
@@ -115,8 +115,8 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#popularKeywordLoader').hide();
-              $('#popularKeyword').html(data);
+              $('#topKeywordLoader').hide();
+              $('#topKeyword').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
@@ -133,7 +133,7 @@ $.extend(view, {
       url:'/api/keyword/get'
     });
   },
-  popularNationality: function () {
+  topNationality: function () {
     $.ajax({
       data:{
         limit:20,
@@ -148,8 +148,8 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#popularNationalityLoader').hide();
-              $('#popularNationality').html(data);
+              $('#topNationalityLoader').hide();
+              $('#topNationality').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
@@ -166,7 +166,7 @@ $.extend(view, {
       url:'/api/nationality/get/listenings'
     });
   },
-  popularYear: function () {
+  topYear: function () {
     $.ajax({
       data:{
         limit:20,
@@ -181,8 +181,8 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#popularYearLoader').hide();
-              $('#popularYear').html(data);
+              $('#topYearLoader').hide();
+              $('#topYear').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
@@ -209,9 +209,9 @@ $(document).ready(function() {
   view.getTopAlbums('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
   view.getTopArtists('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
   view.getTopAlbums('<?=$year['year']?>', 'year', 'Year');
-  view.popularGenre();
-  view.popularKeyword();
-  view.popularNationality();
-  view.popularYear();
+  view.topGenre();
+  view.topKeyword();
+  view.topNationality();
+  view.topYear();
 });
 
