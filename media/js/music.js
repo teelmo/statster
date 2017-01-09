@@ -52,7 +52,7 @@ $.extend(view, {
   popularGenre: function () {
     $.ajax({
       data:{
-        limit:38,
+        limit:20,
         lower_limit:'<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },

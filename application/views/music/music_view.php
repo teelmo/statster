@@ -29,6 +29,18 @@
     <div class="container"><hr /></div>
     <div id="leftContInner">
       <div class="container">
+        <h2>Overview</h2>
+        <table class="year_table">
+          <?php
+          for ($year = CUR_YEAR; $year >= 2004; $year--) {
+            ?>
+            <tr><td><span class="r"><?=anchor(array('music', url_title($year)), $year, array('title' => $year + ' overview'))?></span></td></tr>
+            <?php
+          }
+          ?>
+        </table>
+      </div>
+      <div class="container">
         <h2>Browse</h2>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularGenreLoader" />
         <table id="popularGenre" class="genre_table"><!-- Content is loaded with AJAX --></table>
