@@ -99,9 +99,4 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
-    <div class="container">
-      <h2>Top day</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
   </div>
