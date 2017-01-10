@@ -60,8 +60,8 @@ if (!function_exists('getAlbumShout')) {
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_album_shout . ".`id` as `shout_id`,
                    " . TBL_album_shout . ".`album_id`,
@@ -113,8 +113,8 @@ if (!function_exists('getArtistShout')) {
 
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_artist_shout . ".`id` as `shout_id`,
                    " . TBL_artist_shout . ".`artist_id`,
@@ -160,8 +160,8 @@ if (!function_exists('getUserShout')) {
     $ci->load->database();
 
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_user_shout . ".`id` as `shout_id`,
                    " . TBL_user_shout . ".`text`,

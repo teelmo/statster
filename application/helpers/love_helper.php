@@ -19,8 +19,8 @@ if (!function_exists('getLove')) {
     
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00';
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d');
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $select = !empty($opts['select']) ? $opts['select'] : '%';
@@ -103,8 +103,8 @@ if (!function_exists('getLoveCount')) {
     $ci->load->database();
 
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00';
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d');
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT " . TBL_love . ".`album_id`
             FROM " . TBL_love . "
