@@ -36,7 +36,7 @@
   </div>
   <div id="rightCont">
     <div class="container">
-      <h1>Top</h1>
+      <h1>Hot</h1>
       <h2>Genres</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>

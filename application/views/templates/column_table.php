@@ -51,7 +51,7 @@ if (!empty($json_data)) {
           }
           ?>
           <div style="width: <?=$width?>%; <?=$min_width?>;">
-            <div class="number"><?=$row['count']?></div>
+            <div class="number"><?=number_format($row['count'])?></div>
           </div>
         </td>
       </tr>
