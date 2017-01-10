@@ -9,8 +9,8 @@
   <div id="leftCont">
     <div class="container">
       <h1>Shouts</h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="musicShoutLoader" />
-      <table id="musicShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="shoutLoader" />
+      <table id="shout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
       <table id="artistShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
       <table id="userShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>

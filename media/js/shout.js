@@ -79,10 +79,10 @@ $.extend(view, {
   },
   initShoutEvents: function () {
     $(document).ajaxStop(function (event, request, settings) {
-      $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
+      $('#shout').append($('.shouts tr').detach().sort(function (a, b) {
         return app.compareStrings($(a).data('created'), $(b).data('created'));
       }));
-      $('#musicShoutLoader').hide();
+      $('#shoutLoader').hide();
     });
   }
 });
