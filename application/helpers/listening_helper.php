@@ -50,8 +50,7 @@ if (!function_exists('getListenings')) {
               AND " . TBL_album . ".`album_name` LIKE ?
               AND " . TBL_listening . ".`date` LIKE ?
               " . $ci->db->escape_str($where) . "
-            ORDER BY " . TBL_listening . ".`date` DESC,
-                     " . TBL_listening . ".`id` DESC
+            ORDER BY " . TBL_listening . ".`date` DESC, " . TBL_listening . ".`id` DESC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($username, $artist_name, $album_name, $date));
 
