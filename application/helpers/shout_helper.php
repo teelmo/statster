@@ -87,10 +87,10 @@ if (!function_exists('getAlbumShout')) {
               AND " . TBL_album . ".`album_name` LIKE ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+              AND " . TBL_album_shout . ".`created` BETWEEN ? AND ?
             ORDER BY " . TBL_album_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($album_name, $album_name, $artist_name, $username));
+    $query = $ci->db->query($sql, array($album_name, $album_name, $artist_name, $username, $lower_limit, $upper_limit));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
@@ -136,10 +136,10 @@ if (!function_exists('getArtistShout')) {
               AND " . TBL_artist_shout . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+              AND " . TBL_artist_shout . ".`created` BETWEEN ? AND ?
             ORDER BY " . TBL_artist_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($artist_name, $artist_name, $username));
+    $query = $ci->db->query($sql, array($artist_name, $artist_name, $username, $lower_limit, $upper_limit));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
@@ -183,10 +183,10 @@ if (!function_exists('getUserShout')) {
                  " . TBL_user . "
             WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+              AND " . TBL_user_shout . ".`created` BETWEEN ? AND ?
             ORDER BY " . TBL_user_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($username, $username));
+    $query = $ci->db->query($sql, array($username, $username, $lower_limit, $upper_limit));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
