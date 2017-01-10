@@ -152,6 +152,7 @@ $.extend(view, {
   getShouts: function () {
     $.ajax({
       data:{
+        artist_name:'<?=$artist_name?>',
         album_name:'<?=$album_name?>'
       },
       dataType:'json',
