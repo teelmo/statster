@@ -64,7 +64,7 @@ if (!empty($json_data)) {
           if (empty($hide['count'])) {
             ?>
             <div class="count">
-              <?=$row['count']?> listenings
+              <?=number_format($row['count'])?> listenings
             </div>
             <?php
           }
