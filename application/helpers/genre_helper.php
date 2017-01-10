@@ -47,8 +47,7 @@ if (!function_exists('getGenres')) {
                  (SELECT " . TBL_genres . ".`genre_id`,
                          " . TBL_genres . ".`album_id`
                   FROM " . TBL_genres . "
-                  GROUP BY " . TBL_genres . ".`genre_id`, 
-                           " . TBL_genres . ".`album_id`) as " . TBL_genres . "
+                  GROUP BY " . TBL_genres . ".`genre_id`, " . TBL_genres . ".`album_id`) as " . TBL_genres . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`

@@ -26,9 +26,8 @@ if (!function_exists('indentJSON')) {
       // Are we inside a quoted string?
       if ($char == '"' && $prevChar != '\\') {
         $outOfQuotes = !$outOfQuotes;
-      
-      // If this character is the end of an element, 
-      // output a new line and indent the next line.
+        // If this character is the end of an element, 
+        // output a new line and indent the next line.
       } 
       elseif (($char == '}' || $char == ']') && $outOfQuotes) {
         $result .= $newLine;
