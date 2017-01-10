@@ -36,8 +36,6 @@ div.container {
     transition: background 0.5s;
   }
   .inner {
-    position: relative;
-    z-index: 1;
     color: #eee;
     font-size: 13px;
     height: 36px;
@@ -45,6 +43,7 @@ div.container {
     margin: auto auto;
     max-width: 1000px;
     padding: 0 2px;
+    position: relative;
     vertical-align: middle;
     z-index: 2;
     a {
@@ -449,10 +448,11 @@ div.container {
           }
         }
       }
+      .album_meta,
+      .artist_meta,
       .tag_meta,
       .user_meta,
-      .artist_meta,
-      .album_meta {
+      .year_meta {
         width: auto;
         a {
           &:hover {

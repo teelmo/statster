@@ -28,7 +28,7 @@ class Music extends CI_Controller {
   public function artist_or_year($value) {
     if ((int) $value > 1900 && (int) $value <= CUR_YEAR) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper', 'spotify_helper', 'output_helper'));
       $data['year'] = $value;
       $data += array(
         'lower_limit' => $data['year'] . '-00-00',
@@ -36,8 +36,19 @@ class Music extends CI_Controller {
         'limit' => '1',
         'human_readable' => false
       );
+      $data['username'] = $this->session->userdata('username');
+      $data['artist_count'] = getListeningCount($data, TBL_artist);
+      $data['album_count'] = getListeningCount($data, TBL_album);
+      $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '%\''; 
+      $data['new_artist_count'] = getListeningCount($data, TBL_artist);
+      $data['new_album_count'] = getListeningCount($data, TBL_album);
+      $data['listening_count'] = getListeningCount($data, TBL_listening);
+      $data['fan_count'] = getFanCount($data);
+      $data['love_count'] = getLoveCount($data);
+      $data['shout_count'] = getShoutCount($data);
       $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
-
+      $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
+        
       $data['js_include'] = array('year', 'helpers/chart_helper');
       $this->load->view('site_templates/header');
       $this->load->view('music/year_view', $data);

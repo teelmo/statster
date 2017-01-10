@@ -1,13 +1,34 @@
-<div id="headingCont" class="artist_heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');">
-  <h1>
-    <div><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span></div>
-    <div class="top_music">
-      <div><?=anchor(array('music', url_title($top_artist['artist_name'])), $top_artist['artist_name'], array('title' => $top_artist['count'] . ' listenings'))?></div>
+<div id="headingCont" class="artist_heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')">
+  <div class="inner">
+    <div class="info">
+      <div class="top_info album_info">
+        <h2>Year overview</h2>
+        <h1><?=$year?></h1>
+      </div>
+      <table class="year_meta">
+        <tr>
+          <td class="label">Listenings</td>
+          <td class="label">Albums (new)</td>
+          <td class="label">Artists (new)</td>
+          <td class="label">Shouts</td>
+          <td class="label">Loved</td>
+          <td class="label">Faned</td>
+        </tr>
+        <tr>
+          <td class="value number"><?=anchor(array('recent'), number_format($listening_count))?></td>
+          <td class="value number"><?=anchor(array('album'), number_format($album_count))?> (<?=$new_artist_count?>)</td>
+          <td class="value number"><?=anchor(array('artist'), number_format($artist_count))?> (<?=$new_album_count?>)</td>
+          <td class="value number"><?=anchor(array('shout'), number_format($shout_count))?></td>
+          <td class="value number"><?=anchor(array('love'), number_format($love_count))?></td>
+          <td class="value number"><?=anchor(array('fan'), number_format($fan_count))?></td>
+        </tr>
+      </table>
     </div>
-  </h1>
+  </div>
 </div>
 <div class="clear"></div>
-<div id="mainCont" class="heading_container">
+<div class="clear"></div>
+<div id="mainCont">
   <div class="page_links">
     <?=anchor(array('album'), 'Albums')?>
     <?=anchor(array('artist'), 'Artists')?>
@@ -16,7 +37,6 @@
     <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">
-    <h1><?=$year?> in music</h1>
     <div class="container">
       <h2>History</h2>
       <div class="float_right settings">
@@ -29,22 +49,26 @@
     <div class="container">
       <h2>Top albums</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
-      <ul id="topAlbum" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <div id="topAlbum" class="music_wall"><!-- Content is loaded with AJAX --></div>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Top artists</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
-      <ul id="topArtist" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <div id="topArtist" class="music_wall"><!-- Content is loaded with AJAX --></div>
     </div>
   </div>
   <div id="rightCont">
     <div class="container">
       <h1>Statistics</h1>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h2>Top listeners</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
+    <div class="container"><hr /></div>
     <div class="container">
       <h2>Top releases</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topReleasesLoader" />
@@ -77,31 +101,6 @@
     </div>
     <div class="container">
       <h2>Top day</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container">
-      <h2>Loved</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container">
-      <h2>Faned</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container">
-      <h2>Comments</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container">
-      <h2>New album count</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
-      <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
-    </div>
-    <div class="container">
-      <h2>New artist count</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="" />
       <ul id="" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>

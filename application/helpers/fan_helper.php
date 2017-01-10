@@ -94,13 +94,17 @@ if (!function_exists('getFanCount')) {
     $ci->load->database();
 
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d');
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT " . TBL_fan . ".`artist_id`
             FROM " . TBL_fan . "
             WHERE " . TBL_fan . ".`artist_id` LIKE ?
-              AND " . TBL_fan . ".`user_id` LIKE ?";
+              AND " . TBL_fan . ".`user_id` LIKE ?
+              AND " . TBL_fan . ".`created` BETWEEN ?
+                                             AND ?";
 
-    $query = $ci->db->query($sql, array($artist_id, $user_id));
+    $query = $ci->db->query($sql, array($artist_id, $user_id, $lower_limit, $upper_limit));
     return $query->num_rows();
   }
 }

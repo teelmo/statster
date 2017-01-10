@@ -19,6 +19,8 @@ if (!function_exists('getLove')) {
     
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d');
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $select = !empty($opts['select']) ? $opts['select'] : '%';
@@ -39,9 +41,10 @@ if (!function_exists('getLove')) {
               AND " . TBL_love . ".`album_id` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_love . ".`user_id` LIKE ?
+              AND " . TBL_love . ".`created` BETWEEN ? AND ?
             ORDER BY " . TBL_love . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($album_id, $username, $user_id));
+    $query = $ci->db->query($sql, array($album_id, $username, $user_id, $lower_limit, $upper_limit));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
@@ -76,8 +79,7 @@ if (!function_exists('getLoves')) {
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_love . ".`album_id` LIKE ?
             GROUP BY " . TBL_love . ".`album_id`
-            ORDER BY `count` DESC, 
-                     " . TBL_album . ".`album_name` ASC
+            ORDER BY `count` DESC, " . TBL_album . ".`album_name` ASC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($album_id));
 
@@ -90,7 +92,7 @@ if (!function_exists('getLoves')) {
   * Get love count.
   *
   * @param array $opts.
-  *          'artist_id'  => Artist ID
+  *          'album_id'   => Album ID
   *          'user_id'    => User ID
   *
   * @return string JSON.
@@ -100,14 +102,18 @@ if (!function_exists('getLoveCount')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d');
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT " . TBL_love . ".`album_id`
             FROM " . TBL_love . "
             WHERE " . TBL_love . ".`album_id` LIKE ?
-              AND " . TBL_love . ".`user_id` LIKE ?";
+              AND " . TBL_love . ".`user_id` LIKE ?
+              AND " . TBL_love . ".`created` BETWEEN ?
+                                             AND ?";
               
-    $query = $ci->db->query($sql, array($artist_id, $user_id));
+    $query = $ci->db->query($sql, array($album_id, $user_id, $lower_limit, $upper_limit));
     return $query->num_rows();
   }
 }

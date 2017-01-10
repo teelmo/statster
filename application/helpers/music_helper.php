@@ -21,6 +21,7 @@ if (!function_exists('getListeningCount')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
@@ -29,9 +30,9 @@ if (!function_exists('getListeningCount')) {
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_listening . ".`date` BETWEEN ?
-                                                   AND ?
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_user . ".`username` LIKE ?
+              " . $ci->db->escape_str($where) . "
             GROUP BY " . $ci->db->escape_str($group_by);
 
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
@@ -66,7 +67,6 @@ if (!function_exists('getArtists')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-
     $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`artist_name`, 
                    " . TBL_artist . ".`id` as artist_id,
@@ -85,8 +85,7 @@ if (!function_exists('getArtists')) {
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_listening . ".`date` BETWEEN ?
-                                                   AND ?
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
             GROUP BY " . $ci->db->escape_str($group_by) . "
@@ -154,8 +153,7 @@ if (!function_exists('getAlbums')) {
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_listening . ".`date` BETWEEN ?
-                                                   AND ?
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?
@@ -221,8 +219,7 @@ if (!function_exists('getListeners')) {
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_listening . ".`date` BETWEEN ? 
-                                                   AND ?
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_user . ". `username` LIKE ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?

@@ -55,7 +55,7 @@ $.extend(view, {
   topAlbum: function (lower_limit, upper_limit) {
     $.ajax({
       data:{
-        limit:10,
+        limit:13,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -66,14 +66,15 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              size:32
+              limit:13,
+              type:'album'
             },
             success: function (data) {
               $('#topAlbumLoader').hide();
               $('#topAlbum').html(data);
             },
             type:'POST',
-            url:'/ajax/albumList/124'
+            url:'/ajax/musicWall'
           });
         },
         204: function (data) { // 204 No Content
@@ -88,7 +89,7 @@ $.extend(view, {
   topArtist: function (lower_limit, upper_limit) {
     $.ajax({
       data:{
-        limit:10,
+        limit:13,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -99,14 +100,15 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              size:32
+              limit:13,
+              type:'artist'
             },
             success: function (data) {
               $('#topArtistLoader').hide();
               $('#topArtist').html(data);
             },
             type:'POST',
-            url:'/ajax/artistList/124'
+            url:'/ajax/musicWall'
           });
         },
         204: function (data) { // 204 No Content

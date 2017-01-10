@@ -14,25 +14,30 @@ if (!function_exists('getShoutCount')) {
     $ci=& get_instance();
     $ci->load->database();
 
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d');
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT " . TBL_artist_shout . ".`id`,
                    " . TBL_artist_shout . ".`artist_id` as `target_id`,
                    'artist' as `target_type`
             FROM " . TBL_artist_shout . "
             WHERE " . TBL_artist_shout . ".`user_id` LIKE ?
-              UNION
+              AND " . TBL_artist_shout . ".`created` BETWEEN ? AND ?
+            UNION
             SELECT " . TBL_album_shout . ".`id`,
                    " . TBL_album_shout . ".`album_id` as `target_id`,
                    'album' as `target_type`
             FROM " . TBL_album_shout . "
             WHERE " . TBL_album_shout . ".`user_id` LIKE ?
-              UNION
+              AND " . TBL_album_shout . ".`created` BETWEEN ? AND ?
+            UNION
             SELECT " . TBL_user_shout . ".`id`,
                    " . TBL_user_shout . ".`user_id` as `target_id`,
                    'user' as `target_type`
             FROM " . TBL_user_shout . "
-            WHERE " . TBL_user_shout . ".`adder_id` LIKE ?";
-    $query = $ci->db->query($sql, array($user_id, $user_id, $user_id));
+            WHERE " . TBL_user_shout . ".`adder_id` LIKE ?
+              AND " . TBL_user_shout . ".`created` BETWEEN ? AND ?";
+    $query = $ci->db->query($sql, array($user_id, $lower_limit, $upper_limit, $user_id, $lower_limit, $upper_limit, $user_id, $lower_limit, $upper_limit));
     return $query->num_rows();
   }
 }
@@ -55,6 +60,8 @@ if (!function_exists('getAlbumShout')) {
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_album_shout . ".`id` as `shout_id`,
                    " . TBL_album_shout . ".`album_id`,
@@ -80,6 +87,7 @@ if (!function_exists('getAlbumShout')) {
               AND " . TBL_album . ".`album_name` LIKE ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
             ORDER BY " . TBL_album_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($album_name, $album_name, $artist_name, $username));
@@ -105,6 +113,8 @@ if (!function_exists('getArtistShout')) {
 
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_artist_shout . ".`id` as `shout_id`,
                    " . TBL_artist_shout . ".`artist_id`,
@@ -126,6 +136,7 @@ if (!function_exists('getArtistShout')) {
               AND " . TBL_artist_shout . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
             ORDER BY " . TBL_artist_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($artist_name, $artist_name, $username));
@@ -148,8 +159,9 @@ if (!function_exists('getUserShout')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_user_shout . ".`id` as `shout_id`,
                    " . TBL_user_shout . ".`text`,
@@ -171,6 +183,7 @@ if (!function_exists('getUserShout')) {
                  " . TBL_user . "
             WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_user . ".`username` LIKE ?
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
             ORDER BY " . TBL_user_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($username, $username));
