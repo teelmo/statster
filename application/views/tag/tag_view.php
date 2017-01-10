@@ -18,8 +18,8 @@
           ?>
         </tr>
         <tr>
-          <td class="value"><?=number_format($total_count)?></td>
-          <td class="value"><?=number_format($listener_count)?></td>
+          <td class="value number"><?=number_format($total_count)?></td>
+          <td class="value number"><?=number_format($listener_count)?></td>
         </tr>
       </table>
     </div>

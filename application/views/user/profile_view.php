@@ -27,12 +27,12 @@
           <td class="label">Faned</td>
         </tr>
         <tr>
-          <td class="value"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></td>
-          <td class="value"><?=anchor(array('album?u=' . $username), number_format($album_count))?></td>
-          <td class="value"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></td>
-          <td class="value"><?=anchor(array('shout?u=' . $username), number_format($shout_count))?></td>
-          <td class="value"><?=anchor(array('love?u=' . $username), number_format($love_count))?></td>
-          <td class="value"><?=anchor(array('fan?u=' . $username), number_format($fan_count))?></td>
+          <td class="value number"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></td>
+          <td class="value number"><?=anchor(array('album?u=' . $username), number_format($album_count))?></td>
+          <td class="value number"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></td>
+          <td class="value number"><?=anchor(array('shout?u=' . $username), number_format($shout_count))?></td>
+          <td class="value number"><?=anchor(array('love?u=' . $username), number_format($love_count))?></td>
+          <td class="value number"><?=anchor(array('fan?u=' . $username), number_format($fan_count))?></td>
         </tr>
       </table>
     </div>
