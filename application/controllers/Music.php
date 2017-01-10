@@ -39,10 +39,10 @@ class Music extends CI_Controller {
       $data['username'] = $this->session->userdata('username');
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
+      $data['listening_count'] = getListeningCount($data, TBL_listening);
       $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '%\''; 
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
       $data['new_album_count'] = getListeningCount($data, TBL_album);
-      $data['listening_count'] = getListeningCount($data, TBL_listening);
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
