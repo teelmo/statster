@@ -16,8 +16,8 @@
         </tr>
         <tr>
           <td class="value number"><?=anchor(array('recent'), number_format($listening_count))?></td>
-          <td class="value number"><?=anchor(array('album'), number_format($album_count))?> (<?=$new_artist_count?>)</td>
-          <td class="value number"><?=anchor(array('artist'), number_format($artist_count))?> (<?=$new_album_count?>)</td>
+          <td class="value number"><?=anchor(array('album'), number_format($album_count))?> (<?=$new_album_count?>)</td>
+          <td class="value number"><?=anchor(array('artist'), number_format($artist_count))?> (<?=$new_artist_count?>)</td>
           <td class="value number"><?=anchor(array('shout'), number_format($shout_count))?></td>
           <td class="value number"><?=anchor(array('love'), number_format($love_count))?></td>
           <td class="value number"><?=anchor(array('fan'), number_format($fan_count))?></td>
