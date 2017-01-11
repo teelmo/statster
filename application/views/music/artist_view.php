@@ -29,7 +29,7 @@
         <tr>
           <td class="label">Listenings</td>
           <td class="label">Listeners</td>
-          <td class="label">Added in</td>
+          <td class="label">Added</td>
           <?php
           if ($this->session->userdata('logged_in') === TRUE) {
             ?>
