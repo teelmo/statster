@@ -6,7 +6,7 @@ class Nationality extends CI_Controller {
   }
 
   /* List nationalities */
-  public function get($type) {
+  public function get($type = false) {
     // Load helpers
     $this->load->helper(array('nationality_helper', 'output_helper'));
     
