@@ -29,14 +29,16 @@ if (!empty($json_data)) {
           if (isset($type) && $type === 'user') {
             echo anchor(array('user', url_title($row['username'])), $row['username'], array('title' => 'Browse to user\'s page'));
           }
-          else if ($row['type'] === 'star') {
-            echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
-          }
-          else if ($row['type'] === 'heart') {
-            echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
-          }
           else if (!empty($row['type'])) {
-            echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
+            if ($row['type'] === 'star') {
+              echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
+            }
+            else if ($row['type'] === 'heart') {
+              echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
+            }
+            else {
+              echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
+            }
           }
           else {
             if (!empty($row['album_name']) && empty($hide['album'])) {
