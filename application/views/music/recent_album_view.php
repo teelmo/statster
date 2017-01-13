@@ -31,7 +31,7 @@
         <tr>
           <td class="label">Listenings</td>
           <td class="label">Listeners</td>
-          <td class="label">Added in</td>
+          <td class="label">Added</td>
           <?php
           if ($logged_in === 'true') {
             ?>
@@ -58,6 +58,7 @@
     <?=anchor(array('like', url_title($artist_name), url_title($album_name)), 'Likes')?>
     <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'Listeners')?>
     <?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'Listenings')?>
+    <?=anchor(array('shout', url_title($artist_name), url_title($album_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name), url_title($album_name)), 'Tags')?>
     <div class="float_right">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
