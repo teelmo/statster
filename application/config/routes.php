@@ -80,6 +80,10 @@ $route['recent'] = 'music/recent';
 $route['recent/(:any)/(:any)'] = 'music/recent/$1/$2';
 $route['recent/(:any)'] = 'music/recent/$1';
 
+/* Like page's routes */
+$route['fan'] = 'like/fan';
+$route['love'] = 'like/love';
+
 /* Listener page's routes */
 $route['listener'] = 'music/listener';
 $route['listener/(:any)/(:any)'] = 'music/listener/$1/$2';

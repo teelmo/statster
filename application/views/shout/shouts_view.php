@@ -19,6 +19,6 @@
   <div id="rightCont">
     <div class="container">
       <h1>Shouters</h1>
+      <div id="shouters"><!-- Content is loaded with AJAX --></div>
     </div>
-    <div id="years"><!-- Content is loaded with AJAX --></div>
   </div>
