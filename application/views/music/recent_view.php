@@ -9,7 +9,7 @@
   <div id="leftCont">
     <div class="container">
       <?php
-      if ($logged_in === 'true' && empty($artist_name) && empty($album_name)) {
+      if ($logged_in === 'true') {
         ?>
         <div class="container">
           <br />
@@ -35,7 +35,7 @@
             </div>
           </form>
         </div>
-      <?php
+        <?php
       }
       ?>
       <h1>

@@ -20,7 +20,7 @@ class Tag extends CI_Controller {
         
         $data['js_include'] = array('meta_album');
         $this->load->view('site_templates/header');
-        $this->load->view('tag/meta_album', $data);
+        $this->load->view('tag/meta_album_view', $data);
         $this->load->view('site_templates/footer', $data);
       }
       else {
@@ -44,7 +44,7 @@ class Tag extends CI_Controller {
 
         $data['js_include'] = array('meta_artist');
         $this->load->view('site_templates/header');
-        $this->load->view('tag/meta_artist', $data);
+        $this->load->view('tag/meta_artist_view', $data);
         $this->load->view('site_templates/footer', $data);
       }
       else {
