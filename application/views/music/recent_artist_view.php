@@ -14,6 +14,16 @@
     <div class="info">
       <div class="top_info artist_info">
         <h1><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h1>
+        <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="tagsLoader"/>
+        <ul id="tags"><!-- Content is loaded with AJAX --></ul>
+        <div id="tagAdd" class="hidden">
+          <select data-placeholder="Add metadata" class="chosen-select" multiple>
+            <optgroup label="Genres" id="genre"></optgroup>
+            <optgroup label="Keywords" id="keyword"></optgroup>
+            <optgroup label="Nationality" id="nationality"></optgroup>
+          </select>
+          <button type="submit" id="submitTags" class="submit" title="Add"></button>
+        </div>
       </div>
       <table class="artist_meta">
         <tr>
@@ -54,22 +64,9 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1>
-        <?php
-        if (!empty($album_name)) {
-          ?>
-          <div class="desc"><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $artist_name . ' ' . DASH . ' ' . $album_name, array('title' => 'Browse to album\'s page'))?></div>
-          <?php
-        }
-        elseif (!empty($artist_name)) {
-          ?>
-          <div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div>
-          <?php
-        }
-        ?>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /> <span class="func_container"><i class="fa fa-refresh" id="refreshRecentAlbums"></i></span>
-      </h1>
+      <h1><div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div> Recently listened</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
-      <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
+      <table id="recentlyListened" class="music_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div id="rightCont">

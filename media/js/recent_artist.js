@@ -1,4 +1,40 @@
 $.extend(view, {
+  // Get album tags.
+  getTags: function () {
+    $.ajax({
+      data:{
+        artist_id:<?=$artist_id?>,
+        limit:9
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              logged_in:<?=$logged_in?>
+            },
+            success: function (data) {
+              $('#tagsLoader').hide();
+              $('#tags').html(data);
+            },
+            type:'POST',
+            url:'/ajax/tagList'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/tag/get/artist'
+    });
+  },
   // Get artist fan.
   getFan: function (user_id) {
     if (user_id === undefined) {
@@ -63,9 +99,6 @@ $.extend(view, {
   },
   // Get recent listenings.
   getRecentListenings: function (isFirst, callback) {
-    if (isFirst != true) {
-      $('#recentlyListenedLoader2').show();
-    }
     $.ajax({
       data:{
         album_name:'<?=$album_name?>',
@@ -81,17 +114,8 @@ $.extend(view, {
               json_data:data
             },
             success: function (data) {
-              $('#recentlyListenedLoader2').hide();
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
-              var currentTime = new Date();
-              var hours = currentTime.getHours();
-              var minutes = currentTime.getMinutes();
-              if (minutes < 10) {
-                minutes = '0' + minutes;
-              }
-              $('#recentlyUpdated').html('updated <span class="number">' + hours + '</span>:<span class="number">' + minutes + '</span>');
-              $('#recentlyUpdated').attr('value', currentTime.getTime());
             },
             type:'POST',
             url:'/ajax/musicTable'
@@ -147,11 +171,102 @@ $.extend(view, {
       url:'/api/listener/get'
     });
   },
+  initRecentArtistEvents: function () {
+    $('html').on('click', '#fan', function () {
+      $('.like_msg').html('');
+      if ($(this).hasClass('fan_add')) {
+        $.ajax({
+          data:{},
+          statusCode:{
+            201: function (data) { // 201 Created
+              $('#fan').removeClass('fan_add').addClass('fan_del').find('.like_msg').html('You\'re a fan!').show();
+              setTimeout(function () {
+                $('.like_msg').fadeOut(1000);
+              }, <?=MSG_FADEOUT?>);
+              view.getFans();
+            },
+            400: function () { // 400 Bad request
+              alert('<?=ERR_BAD_REQUEST?>');
+            },
+            401: function () {
+              alert('401 Unauthorized');
+            },
+            404: function () {
+              alert('404 Not Found');
+            }
+          },
+          type:'POST',
+          url:'/api/fan/add/<?=$artist_id?>'
+        });
+      }
+      if ($(this).hasClass('fan_del')) {
+        $.ajax({
+          data:{},
+          statusCode:{
+            204: function () { // 204 No Content
+              $('#fan').removeClass('fan_del').addClass('fan_add').find('.like_msg').html('Unfaned.').show();
+              setTimeout(function () {
+                $('.like_msg').fadeOut(1000);
+              }, <?=MSG_FADEOUT?>);
+              view.getFans();
+            },
+            400: function () { // 400 Bad request
+              alert('<?=ERR_BAD_REQUEST?>');
+            },
+            401: function () {
+              alert('401 Unauthorized');
+            },
+            404: function () {
+              alert('404 Not Found');
+            }
+          },
+          type:'DELETE',
+          url:'/api/fan/delete/<?=$artist_id?>'
+        });
+      }
+    });
+    $('html').on('click', '#submitTags', function () {
+      $.when(
+        $.each($('.chosen-select').val(), function (i, el) {
+          var tag = el.split(':');
+          $.ajax({
+            data:{
+              artist_id:<?=$artist_id?>,
+              tag_id:tag[1],
+              type:'artist'
+            },
+            statusCode:{
+              201: function (data) { // 201 Created
+              },
+              400: function () { // 400 Bad request
+                alert('<?=ERR_BAD_REQUEST?>');
+              },
+              401: function () {
+                alert('401 Unauthorized');
+              },
+              404: function () {
+                alert('404 Not Found');
+              }
+            },
+            type:'POST',
+            url:'/api/tag/add/' + tag[0]
+          });
+        })
+      ).done(function () {
+        $('.chosen-select option').removeAttr('selected');
+        $('#tagAdd select').trigger('chosen:updated');
+        view.getTags();
+      });
+      $('#tagAdd').hide();
+    });
+  }
 });
 
 $(document).ready(function () {
+  view.getTags();
   view.getFan(<?=$this->session->userdata('user_id')?>);
   view.getFans();
   view.getRecentListenings();
   view.getUsers();
+  view.initRecentArtistEvents();
 });

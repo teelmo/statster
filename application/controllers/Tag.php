@@ -18,7 +18,7 @@ class Tag extends CI_Controller {
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         
-        $data['js_include'] = array('meta_album');
+        $data['js_include'] = array('meta_album', 'helpers/tag_helper');
         $this->load->view('site_templates/header');
         $this->load->view('tag/meta_album_view', $data);
         $this->load->view('site_templates/footer', $data);
@@ -42,7 +42,7 @@ class Tag extends CI_Controller {
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
 
-        $data['js_include'] = array('meta_artist');
+        $data['js_include'] = array('meta_artist', 'helpers/tag_helper');
         $this->load->view('site_templates/header');
         $this->load->view('tag/meta_artist_view', $data);
         $this->load->view('site_templates/footer', $data);

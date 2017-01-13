@@ -61,7 +61,7 @@ $.extend(view, {
       url:'/api/fan/get/<?=$artist_id?>'
     });
   },
-  // Get album tags.
+  // Get artist tags.
   getTags: function () {
     $.ajax({
       data:{

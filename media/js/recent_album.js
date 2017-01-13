@@ -61,11 +61,44 @@ $.extend(view, {
       url:'/api/love/get/<?=$album_id?>'
     });
   },
+  // Get album tags.
+  getTags: function () {
+    $.ajax({
+      data:{
+        album_id:<?=$album_id?>,
+        limit:9
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              logged_in:<?=$logged_in?>
+            },
+            success: function (data) {
+              $('#tagsLoader').hide();
+              $('#tags').html(data);
+            },
+            type:'POST',
+            url:'/ajax/tagList'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/tag/get/album'
+    });
+  },
   // Get recent listenings.
   getRecentListenings: function (isFirst, callback) {
-    if (isFirst != true) {
-      $('#recentlyListenedLoader2').show();
-    }
     $.ajax({
       data:{
         album_name:'<?=$album_name?>',
@@ -81,17 +114,8 @@ $.extend(view, {
               json_data:data
             },
             success: function (data) {
-              $('#recentlyListenedLoader2').hide();
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
-              var currentTime = new Date();
-              var hours = currentTime.getHours();
-              var minutes = currentTime.getMinutes();
-              if (minutes < 10) {
-                minutes = '0' + minutes;
-              }
-              $('#recentlyUpdated').html('updated <span class="number">' + hours + '</span>:<span class="number">' + minutes + '</span>');
-              $('#recentlyUpdated').attr('value', currentTime.getTime());
             },
             type:'POST',
             url:'/ajax/musicTable'
@@ -147,11 +171,102 @@ $.extend(view, {
       url:'/api/listener/get'
     });
   },
+  initRecentAlbumEvents: function () {
+    $('html').on('click', '#love', function () {
+      $('.like_msg').html('');
+      if ($(this).hasClass('love_add')) {
+        $.ajax({
+          data:{},
+          statusCode:{
+            201: function (data) { // 201 Created
+              $('#love').removeClass('love_add').addClass('love_del').find('.like_msg').html('You\'re in love!').show();
+              setTimeout(function() {
+                $('.like_msg').fadeOut(1000);
+              }, <?=MSG_FADEOUT?>);
+              view.getLoves();
+            },
+            400: function () { // 400 Bad request
+              alert('<?=ERR_BAD_REQUEST?>');
+            },
+            401: function () {
+              alert('401 Unauthorized');
+            },
+            404: function () {
+              alert('404 Not Found');
+            }
+          },
+          type:'POST',
+          url:'/api/love/add/<?=$album_id?>'
+        });
+      }
+      if ($(this).hasClass('love_del')) {
+        $.ajax({
+          data:{},
+          statusCode:{
+            204: function () { // 204 No Content
+              $('#love').removeClass('love_del').addClass('love_add').find('.like_msg').html('Unloved.').show();
+              setTimeout(function() {
+                $('.like_msg').fadeOut(1000);
+              }, <?=MSG_FADEOUT?>);
+              view.getLoves();
+            },
+            400: function () { // 400 Bad request
+              alert('<?=ERR_BAD_REQUEST?>');
+            },
+            401: function () {
+              alert('401 Unauthorized');
+            },
+            404: function () {
+              alert('404 Not Found');
+            }
+          },
+          type:'DELETE',
+          url:'/api/love/delete/<?=$album_id?>'
+        });
+      }
+    });
+    $('html').on('click', '#submitTags', function () {
+      $.when(
+        $.each($('.chosen-select').val(), function (i, el) {
+          var tag = el.split(':');
+          $.ajax({
+            data:{
+              album_id:<?=$album_id?>,
+              tag_id:tag[1],
+              type:'album'
+            },
+            statusCode:{
+              201: function (data) { // 201 Created
+              },
+              400: function () { // 400 Bad request
+                alert('<?=ERR_BAD_REQUEST?>');
+              },
+              401: function () {
+                alert('401 Unauthorized');
+              },
+              404: function () {
+                alert('404 Not Found');
+              }
+            },
+            type:'POST',
+            url:'/api/tag/add/' + tag[0]
+          });
+        })
+      ).done(function () {
+        $('.chosen-select option').removeAttr('selected');
+        $('#tagAdd select').trigger('chosen:updated');
+        view.getTags();
+      });
+      $('#tagAdd').hide();
+    });
+  }
 });
 
 $(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
+  view.getTags();
   view.getRecentListenings();
   view.getUsers();
+  view.initRecentAlbumEvents();
 });
