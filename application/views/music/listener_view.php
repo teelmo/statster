@@ -1,27 +1,15 @@
 <div id="mainCont">
   <div class="page_links">
-    <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('album'), 'Albums')?>
+    <?=anchor(array('artist'), 'Artists')?>
+    <?=anchor(array('listener'), 'Listeners')?>
     <?=anchor(array('like'), 'Likes')?>
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1>
-        <?php
-        if (!empty($album_name)) {
-          ?>
-          <div class="desc"><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $artist_name . ' ' . DASH . ' ' . $album_name, array('title' => 'Browse to album\'s page'))?></div>
-          <?php
-        }
-        elseif (!empty($artist_name)) {
-          ?>
-          <div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div>
-          <?php
-        }
-        ?>Top listerners
-      </h1>
+      <h1>Top listerners</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
       <table id="topListener" class="side_table full"><!-- Content is loaded with AJAX --></table>
     </div>

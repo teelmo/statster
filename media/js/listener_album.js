@@ -1,40 +1,4 @@
 $.extend(view, {
-  // Get album tags.
-  getTags: function () {
-    $.ajax({
-      data:{
-        album_id:<?=$album_id?>,
-        limit:9
-      },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
-          $.ajax({
-            data:{
-              json_data:data,
-              logged_in:<?=$logged_in?>
-            },
-            success: function (data) {
-              $('#tagsLoader').hide();
-              $('#tags').html(data);
-            },
-            type:'POST',
-            url:'/ajax/tagList'
-          });
-        },
-        204: function () { // 204 No Content
-          $('#tagsLoader').hide();
-          $('#tags').html('<?=ERR_NO_RESULTS?>');
-        },
-        400: function () { // 400 Bad request
-          $('#tagsLoader').hide();
-          $('#tags').html('<?=ERR_BAD_REQUEST?>');
-        }
-      },
-      type:'GET',
-      url:'/api/tag/get/album'
-    });
-  },
   // Get album love.
   getLove: function (user_id) { 
     if (user_id === undefined) {
@@ -97,50 +61,52 @@ $.extend(view, {
       url:'/api/love/get/<?=$album_id?>'
     });
   },
-  // Get recent listenings.
-  getRecentListenings: function (isFirst, callback) {
+  // Get album tags.
+  getTags: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
-        artist_name:'<?=$artist_name?>',
-        limit:<?=($artist_name) ? 1000 : 100?>,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        album_id:<?=$album_id?>,
+        limit:9
       },
       dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
             data:{
-              json_data:data
+              json_data:data,
+              logged_in:<?=$logged_in?>
             },
             success: function (data) {
-              $('#recentlyListenedLoader').hide();
-              $('#recentlyListened').html(data);
+              $('#tagsLoader').hide();
+              $('#tags').html(data);
             },
             type:'POST',
-            url:'/ajax/musicTable'
-          })
+            url:'/ajax/tagList'
+          });
         },
         204: function () { // 204 No Content
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function (data) {alert('400 Bad Request')}
+        400: function () { // 400 Bad request
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_BAD_REQUEST?>');
+        }
       },
       type:'GET',
-      url:'/api/listening/get'
+      url:'/api/tag/get/album'
     });
   },
-  getUsers: function () {
+  topListeners: function () {
     $.ajax({
       data:{
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
-        limit:14
+        limit:100
       },
       dataType:'json',
       statusCode:{
-        200: function (data) { // 200 OK
+        200: function(data) { // 200 OK
           $.ajax({
             data:{
               hide:{
@@ -150,28 +116,61 @@ $.extend(view, {
               json_data:data,
               size:32
             },
-            success: function (data) {
+            success: function(data) {
               $('#topListenerLoader').hide();
               $('#topListener').html(data);
             },
             type:'POST',
             url:'/ajax/userTable'
           });
-        },
-        204: function () { // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html('<?=ERR_NO_RESULTS?>');
-        },
-        400: function () { // 400 Bad request
-          $('#topListenerLoader').hide();
-          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
       url:'/api/listener/get'
     });
   },
-  initRecentAlbumEvents: function () {
+  getListenings: function () {
+    $.ajax({
+      data:{
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
+        limit:14
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:{
+                artist:true,
+                count:true,
+                rank:true
+              },
+              json_data:data,
+              size:32
+            },
+            success: function(data) {
+              $('#recentlyListenedLoader').hide();
+              $('#recentlyListened').html(data);
+            },
+            type:'POST',
+            url:'<?=(!empty($album_name)) ? '/ajax/userTable' : '/ajax/sideTable'?>'
+          });
+        },
+        204: function() { // 204 No Content
+          $('#recentlyListenedLoader').hide();
+          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function() { // 400 Bad request
+          $('#recentlyListenedLoader').hide();
+          $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/listening/get'
+    });
+  },
+  initListenerEvents: function () {
     $('html').on('click', '#love', function () {
       $('.like_msg').html('');
       if ($(this).hasClass('love_add')) {
@@ -262,11 +261,11 @@ $.extend(view, {
   }
 });
 
-$(document).ready(function () {
+$(document).ready(function() {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
   view.getTags();
-  view.getRecentListenings();
-  view.getUsers();
-  view.initRecentAlbumEvents();
+  view.topListeners();
+  view.getListenings();
+  view.initListenerEvents();
 });

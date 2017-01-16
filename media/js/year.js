@@ -120,53 +120,12 @@ $.extend(view, {
       url:'/api/artist/get'
     });
   },
-  topReleases: function () {
-    $.ajax({
-      data:{
-        limit:5,
-        lower_limit:'1970-00-00',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'<?=TBL_album?>.`year` = <?=$year?>'
-      },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
-          $.ajax({
-            data:{
-              json_data:data,
-              hide:{
-                artist:true,
-                calendar:true,
-                date:true,
-                spotify:true
-              },
-              size:32
-            },
-            success: function (data) {
-              $('#topReleasesLoader').hide();
-              $('#topReleases').html(data);
-            },
-            type:'POST',
-            url:'/ajax/sideTable'
-          });
-        },
-        204: function (data) { // 204 No Content
-          $('#topReleasesLoader').hide();
-          $('#topReleases').html('<?=ERR_NO_DATA?>');
-        }
-      },
-      type:'GET',
-      url:'/api/album/get'
-    });
-  },
-  // Get artist listeners.
   topListeners: function (lower_limit, upper_limit) {
     $.ajax({
       data:{
+        limit:5,
         lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        limit:5
+        upper_limit:upper_limit
       },
       dataType:'json',
       statusCode:{
@@ -175,10 +134,11 @@ $.extend(view, {
             data:{
               hide:{
                 calendar:true,
-                date:true
+                date:true,
+                rank:true
               },
               json_data:data,
-              size:32
+              size:64
             },
             success: function (data) {
               $('#topListenerLoader').hide();
@@ -199,6 +159,46 @@ $.extend(view, {
       },
       type:'GET',
       url:'/api/listener/get'
+    });
+  },
+  topReleases: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        lower_limit:'1970-00-00',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        where:'<?=TBL_album?>.`year` = <?=$year?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              hide:{
+                artist:true,
+                calendar:true,
+                date:true,
+                rank:true,
+                spotify:true
+              },
+              size:64
+            },
+            success: function (data) {
+              $('#topReleasesLoader').hide();
+              $('#topReleases').html(data);
+            },
+            type:'POST',
+            url:'/ajax/sideTable'
+          });
+        },
+        204: function (data) { // 204 No Content
+          $('#topReleasesLoader').hide();
+          $('#topReleases').html('<?=ERR_NO_DATA?>');
+        }
+      },
+      type:'GET',
+      url:'/api/album/get'
     });
   },
   topGenre: function (lower_limit, upper_limit) {
