@@ -97,39 +97,33 @@ $.extend(view, {
       url:'/api/tag/get/album'
     });
   },
-  getTopTags: function () {
+  recentlyLoved: function () {
     $.ajax({
       data:{
-        album_id:'<?=$album_id?>',
-        limit:100,
-        sort:true
+        limit:10,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
-        200: function (data) { // 200 OK
+        200: function (data) {
           $.ajax({
             data:{
+              hide:{
+                rank:true
+              },
               json_data:data
             },
             success: function (data) {
-              $('#topTagsLoader').hide();
-              $('#topTags').html(data);
+              $('#recentlyLovedLoader').hide();
+              $('#recentlyLoved').html(data);
             },
             type:'POST',
-            url:'/ajax/columnTable'
+            url:'/ajax/likeTable'
           });
-        },
-        204: function () { // 204 No Content
-          $('#topTagsLoader').hide();
-          $('#topTags').html('<?=ERR_NO_RESULTS?>');
-        },
-        400: function () { // 400 Bad request
-          $('#topTagsLoader').hide();
-          $('#topTags').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
-      url:'/api/tag/get/album'
+      url:'/api/love/get/<?=$album_id?>'
     });
   },
   // Get album listeners.
@@ -217,7 +211,7 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  initMetaAlbumEvents: function () {
+  initLikeAlbumEvents: function () {
     $('html').on('click', '#love', function () {
       $('.like_msg').html('');
       if ($(this).hasClass('love_add')) {
@@ -304,7 +298,7 @@ $.extend(view, {
         view.getTags();
       });
       $('#tagAdd').hide();
-    });
+    })
   }
 });
 
@@ -312,8 +306,8 @@ $(document).ready(function () {
   view.getLove(<?=$this->session->userdata('user_id')?>);
   view.getLoves();
   view.getTags();
-  view.getTopTags();
+  view.recentlyLoved();
   view.getUsers();
   view.getListenings();
-  view.initMetaAlbumEvents();
+  view.initLikeAlbumEvents();
 });

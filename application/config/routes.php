@@ -93,6 +93,10 @@ $route['listener/(:any)'] = 'music/listener/$1';
 $route['tag/(:any)/(:any)'] = 'tag/index/$1/$2';
 $route['tag/(:any)'] = 'tag/index/$1';
 
+/* Tag page's routes */
+$route['like/(:any)/(:any)'] = 'like/index/$1/$2';
+$route['like/(:any)'] = 'like/index/$1';
+
 /* User page's routes */
 $route['user/profile/(:any)'] = 'user/profile/$1';
 $route['user/profile'] = 'user';

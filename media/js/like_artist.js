@@ -1,71 +1,9 @@
 $.extend(view, {
-  // Get album love.
-  getLove: function (user_id) { 
-    if (user_id === undefined) {
-      $('#loveLoader').hide();
-      return;
-    }
-    $.ajax({
-      complete: function () {
-        $('#loveLoader').hide();
-      },
-      data:{
-        user_id:user_id
-      },
-      dataType:'json',
-      statusCode:{
-        200: function () { // 200 OK
-          $('#love').addClass('love_del');
-        },
-        204: function () { // 204 No Content
-          $('#love').addClass('love_add');
-        },
-        400: function () {
-          alert('<?=ERR_BAD_REQUEST?>');
-        }
-      },
-      type:'GET',
-      url:'/api/love/get/<?=$album_id?>'
-    });
-  },
-  // Get album loves.
-  getLoves: function () {
-    $.ajax({
-      data:{},
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
-          $.ajax({
-            data:{
-              hide:{},
-              json_data:data
-            },
-            success: function (data) {
-              $('#albumLoveLoader').hide();
-              $('#albumLove').html(data);
-            },
-            type:'POST',
-            url:'/ajax/likeList'
-          });
-        },
-        204: function () { // 204 No Content
-          $('#albumLoveLoader').hide();
-          $('#albumLove').html('');
-        },
-        400: function () { // 400 Bad request
-          $('#albumLoveLoader').hide();
-          alert('<?=ERR_BAD_REQUEST?>')
-        }
-      },
-      type:'GET',
-      url:'/api/love/get/<?=$album_id?>'
-    });
-  },
   // Get album tags.
   getTags: function () {
     $.ajax({
       data:{
-        album_id:<?=$album_id?>,
+        artist_id:<?=$artist_id?>,
         limit:9
       },
       dataType:'json',
@@ -94,49 +32,104 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/tag/get/album'
+      url:'/api/tag/get/artist'
     });
   },
-  getTopTags: function () {
+  // Get artist fan.
+  getFan: function (user_id) {
+    if (user_id === undefined) {
+      $('#fanLoader').hide();
+      return;
+    }
     $.ajax({
-      data:{
-        album_id:'<?=$album_id?>',
-        limit:100,
-        sort:true
+      complete: function () {
+        $('#fanLoader').hide(); 
       },
+      data:{
+        user_id:user_id
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $('#fan').addClass('fan_del');
+        },
+        204: function () { // 204 No Content
+          $('#fan').addClass('fan_add');
+        },
+        400: function () { // 400 Bad request
+          alert('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/fan/get/<?=$artist_id?>'
+    });
+  },
+  // Get artist fans.
+  getFans: function () {
+    $.ajax({
+      data:{},
       dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
           $.ajax({
             data:{
+              hide:{},
               json_data:data
             },
             success: function (data) {
-              $('#topTagsLoader').hide();
-              $('#topTags').html(data);
+              $('#artistFanLoader').hide();
+              $('#artistFan').html(data);
             },
             type:'POST',
-            url:'/ajax/columnTable'
+            url:'/ajax/likeList'
           });
         },
         204: function () { // 204 No Content
-          $('#topTagsLoader').hide();
-          $('#topTags').html('<?=ERR_NO_RESULTS?>');
+          $('#artistFanLoader').hide();
+          $('#artistFan').html('');
         },
         400: function () { // 400 Bad request
-          $('#topTagsLoader').hide();
-          $('#topTags').html('<?=ERR_BAD_REQUEST?>');
+          $('#artistFanLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>')
         }
       },
       type:'GET',
-      url:'/api/tag/get/album'
+      url:'/api/fan/get/<?=$artist_id?>'
     });
   },
-  // Get album listeners.
+  recentlyFaned: function () {
+    $.ajax({
+      data:{
+        limit:10,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            data:{
+              hide:{
+                rank:true
+              },
+              json_data:data
+            },
+            success: function (data) {
+              $('#recentlyFanedLoader').hide();
+              $('#recentlyFaned').html(data);
+            },
+            type:'POST',
+            url:'/ajax/likeTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/fan/get/<?=$artist_id?>'
+    });
+  },
+  // Get artist listeners.
   getUsers: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:6
       },
@@ -173,11 +166,10 @@ $.extend(view, {
       url:'/api/listener/get'
     });
   },
-  // Get album listenings.
+  // Get artist listenings.
   getListenings: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:6,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -201,7 +193,7 @@ $.extend(view, {
               $('#recentlyListened').html(data);
             },
             type:'POST',
-            url:'/ajax/userTable'
+            url:'/ajax/sideTable'
           });
         },
         204: function () { // 204 No Content
@@ -217,19 +209,19 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  initMetaAlbumEvents: function () {
-    $('html').on('click', '#love', function () {
+  initLikeArtistEvents: function () {
+    $('html').on('click', '#fan', function () {
       $('.like_msg').html('');
-      if ($(this).hasClass('love_add')) {
+      if ($(this).hasClass('fan_add')) {
         $.ajax({
           data:{},
           statusCode:{
             201: function (data) { // 201 Created
-              $('#love').removeClass('love_add').addClass('love_del').find('.like_msg').html('You\'re in love!').show();
-              setTimeout(function() {
+              $('#fan').removeClass('fan_add').addClass('fan_del').find('.like_msg').html('You\'re a fan!').show();
+              setTimeout(function () {
                 $('.like_msg').fadeOut(1000);
               }, <?=MSG_FADEOUT?>);
-              view.getLoves();
+              view.getFans();
             },
             400: function () { // 400 Bad request
               alert('<?=ERR_BAD_REQUEST?>');
@@ -242,19 +234,19 @@ $.extend(view, {
             }
           },
           type:'POST',
-          url:'/api/love/add/<?=$album_id?>'
+          url:'/api/fan/add/<?=$artist_id?>'
         });
       }
-      if ($(this).hasClass('love_del')) {
+      if ($(this).hasClass('fan_del')) {
         $.ajax({
           data:{},
           statusCode:{
             204: function () { // 204 No Content
-              $('#love').removeClass('love_del').addClass('love_add').find('.like_msg').html('Unloved.').show();
-              setTimeout(function() {
+              $('#fan').removeClass('fan_del').addClass('fan_add').find('.like_msg').html('Unfaned.').show();
+              setTimeout(function () {
                 $('.like_msg').fadeOut(1000);
               }, <?=MSG_FADEOUT?>);
-              view.getLoves();
+              view.getFans();
             },
             400: function () { // 400 Bad request
               alert('<?=ERR_BAD_REQUEST?>');
@@ -267,7 +259,7 @@ $.extend(view, {
             }
           },
           type:'DELETE',
-          url:'/api/love/delete/<?=$album_id?>'
+          url:'/api/fan/delete/<?=$artist_id?>'
         });
       }
     });
@@ -277,9 +269,9 @@ $.extend(view, {
           var tag = el.split(':');
           $.ajax({
             data:{
-              album_id:<?=$album_id?>,
+              artist_id:<?=$artist_id?>,
               tag_id:tag[1],
-              type:'album'
+              type:'artist'
             },
             statusCode:{
               201: function (data) { // 201 Created
@@ -309,11 +301,11 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getLove(<?=$this->session->userdata('user_id')?>);
-  view.getLoves();
+  view.getFan(<?=$this->session->userdata('user_id')?>);
+  view.getFans();
   view.getTags();
-  view.getTopTags();
+  view.recentlyFaned();
   view.getUsers();
   view.getListenings();
-  view.initMetaAlbumEvents();
+  view.initLikeArtistEvents();
 });

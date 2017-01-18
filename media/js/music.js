@@ -236,6 +236,4 @@ $(document).ready(function () {
   view.recentlyFaned();
   view.recentlyLoved();
   view.initMusicEvents();
-
-
 });

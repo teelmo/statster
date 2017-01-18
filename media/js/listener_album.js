@@ -170,7 +170,7 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  initListenerEvents: function () {
+  initListenerAlbumEvents: function () {
     $('html').on('click', '#love', function () {
       $('.like_msg').html('');
       if ($(this).hasClass('love_add')) {
@@ -267,5 +267,5 @@ $(document).ready(function() {
   view.getTags();
   view.topListeners();
   view.getListenings();
-  view.initListenerEvents();
+  view.initListenerAlbumEvents();
 });
