@@ -120,6 +120,14 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/likeTable'
           });
+        },
+        204: function () { // 204 No Content
+          $('#recentlyFanedLoader').hide();
+          $('#recentlyFaned').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#recentlyFanedLoader').hide();
+          $('#recentlyFaned').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
