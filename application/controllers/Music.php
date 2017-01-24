@@ -201,7 +201,7 @@ class Music extends CI_Controller {
       $data['album_name'] = decode($album_name);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
 
-      $data['js_include'] = array('recent');
+      $data['js_include'] = array('recent', 'helpers/add_listening_helper');
       $this->load->view('site_templates/header');
       $this->load->view('music/recent_view', $data);
       $this->load->view('site_templates/footer', $data);
