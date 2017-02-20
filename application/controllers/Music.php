@@ -87,7 +87,7 @@ class Music extends CI_Controller {
         }
         $data += $_REQUEST;
 
-        $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
+        $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/shout_helper');
         $this->load->view('site_templates/header', $data);
         $this->load->view('music/artist_view', $data);
         $this->load->view('site_templates/footer');
@@ -132,7 +132,7 @@ class Music extends CI_Controller {
       }
       $data += $_REQUEST;
 
-      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/comment_helper');
+      $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/shout_helper');
       $this->load->view('site_templates/header', $data);
       $this->load->view('music/album_view', $data);
       $this->load->view('site_templates/footer');

@@ -2,7 +2,7 @@
 class Shout extends CI_Controller {
 
   public function index() {
-    $data['js_include'] = array('shout');
+    $data['js_include'] = array('shout', 'helpers/shout_helper');
 
     $this->load->view('site_templates/header');
     $this->load->view('shout/shouts_view', $data);
