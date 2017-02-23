@@ -34,7 +34,6 @@ if (!function_exists('getListeningCount')) {
               AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
             GROUP BY " . $ci->db->escape_str($group_by);
-
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
     return $query->num_rows();
   }
@@ -62,11 +61,13 @@ if (!function_exists('getArtists')) {
 
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
+    $having = !empty($opts['having']) ? 'HAVING ' . $opts['having'] : '';
     $limit = !empty($opts['limit']) ? $opts['limit'] : '10';
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`artist_name`, 
                    " . TBL_artist . ".`id` as artist_id,
@@ -88,11 +89,12 @@ if (!function_exists('getArtists')) {
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
+              " . $ci->db->escape_str($where) . "
             GROUP BY " . $ci->db->escape_str($group_by) . "
+            " . $ci->db->escape_str($having) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $username));
-
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
   }
