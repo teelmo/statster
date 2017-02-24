@@ -97,6 +97,10 @@ $route['tag/(:any)'] = 'tag/index/$1';
 $route['like/(:any)/(:any)'] = 'like/index/$1/$2';
 $route['like/(:any)'] = 'like/index/$1';
 
+/* Shout page's routes */
+$route['shout/(:any)/(:any)'] = 'shout/index/$1/$2';
+$route['shout/(:any)'] = 'shout/index/$1';
+
 /* User page's routes */
 $route['user/profile/(:any)'] = 'user/profile/$1';
 $route['user/profile'] = 'user';
