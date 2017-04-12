@@ -2,7 +2,7 @@
   <div class="inner">
     <div class="info">
       <div class="top_info album_info">
-        <h2>Month overview</h2>
+        <h2><?=anchor(array('music', url_title($year)), 'Month overview')?></h2>
         <h1><?=$year?> <?=DateTime::createFromFormat('!m', $month)->format('F')?></h1>
       </div>
       <table class="year_meta">
