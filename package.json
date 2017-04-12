@@ -1,0 +1,17 @@
+{
+  "name": "statster",
+  "version": "1.0.0",
+  "description": "What is CodeIgniter ###################",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync-prod":"ssh teelmo@saksa git -C /home/statster.info pull"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/teelmo/statster.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/teelmo/statster#readme"
+}
