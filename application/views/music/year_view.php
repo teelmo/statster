@@ -83,7 +83,7 @@
           ;
           if ($year != CUR_YEAR || $month <= (int) CUR_MONTH) {
             ?>
-            <tr><td><span class="r"><?=anchor(array('music', url_title($year), url_title(str_pad($month, 2, '0', STR_PAD_LEFT))), DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F'), array('title' => $month + ' overview'))?></span></td></tr>
+            <tr><td><span class="r"><?=anchor(array('music', url_title($year), url_title(str_pad($month, 2, '0', STR_PAD_LEFT))), DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F'), array('title' => DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F') . ' ' . $year . ' overview'))?></span></td></tr>
             <?php
           }
         }

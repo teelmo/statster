@@ -3,7 +3,7 @@
     <div class="info">
       <div class="top_info album_info">
         <h2><?=anchor(array('music', url_title($year)), 'Month overview')?></h2>
-        <h1><?=$year?> <?=DateTime::createFromFormat('!m', $month)->format('F')?></h1>
+        <h1><?=DateTime::createFromFormat('!m', $month)->format('F')?> <?=$year?></h1>
       </div>
       <table class="year_meta">
         <tr>
@@ -73,6 +73,22 @@
       <h2>Top releases</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topReleasesLoader" />
       <table id="topReleases" class="side_table"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Monthly</h2>
+      <table class="month_table">
+        <?php
+        for ($month = 1; $month <= 12; $month++) {
+          ;
+          if ($year != CUR_YEAR || $month <= (int) CUR_MONTH) {
+            ?>
+            <tr><td><span class="r"><?=anchor(array('music', url_title($year), url_title(str_pad($month, 2, '0', STR_PAD_LEFT))), DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F'), array('title' => DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F') . ' ' . $year . ' overview'))?></span></td></tr>
+            <?php
+          }
+        }
+        ?>
+      </table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
