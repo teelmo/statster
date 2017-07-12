@@ -120,8 +120,9 @@ define('TBL_user_info', 'user_info');
 define('TBL_year_biography', 'year_biography');
 
 /* API keys */
-define('LASTFM_API_KEY', 'b43a6b2eed67fe3672dbe43c102be8e6');
-define('SPOTIFY_ACCESS_TOKEN', 'BQAuF88YjgA9Sp-TU39AtdSVCkfuQtZIe9rzN9kIPmYetGbS3zM17KnygG0ZqVR7sbRXhJBGqqqdHF7sbcnxXY21OKvGDXomgQbSMPw2-5h7f07VEOe6V1b5thKes4F5QjViy6dtVw');
+define('LASTFM_API_KEY', $_SERVER['CI_LASTFM_API_KEY']);
+define('SPOTIFY_CLIENT_ID', $_SERVER['CI_SPOTIFY_CLIENT_ID']);
+define('SPOTIFY_CLIENT_SECRET', $_SERVER['CI_SPOTIFY_CLIENT_SECRET']);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

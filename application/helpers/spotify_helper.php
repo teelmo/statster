@@ -3,7 +3,6 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 if (!function_exists('getSpotifyResourceId')) {
   function getSpotifyResourceId($data) {
-    $curl = curl_init();
     if (!empty($data['album_name'])) {
       $q = str_replace('%2F', '+', urlencode($data['artist_name'] . ' '  . $data['album_name']));
       $type = urlencode('album,track');
@@ -12,10 +11,24 @@ if (!function_exists('getSpotifyResourceId')) {
       $q = str_replace('%2F', '+', urlencode($data['artist_name']));
       $type = urlencode('artist');
     }
-    curl_setopt($curl, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=' . $type . '&limit=1&access_token=' . SPOTIFY_ACCESS_TOKEN);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $result = curl_exec($curl);
-    curl_close($curl);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://accounts.spotify.com/api/token');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials' ); 
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(SPOTIFY_CLIENT_ID . ':' . SPOTIFY_CLIENT_SECRET)));
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=' . $type . '&limit=1');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . json_decode($result)->access_token)); 
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    // pr($result);
     if (!empty($data['album_name'])) {
       $spotify_uri = (json_decode($result)->albums->total !== 0) ? json_decode($result)->albums->items[0]->uri : FALSE; 
     }
