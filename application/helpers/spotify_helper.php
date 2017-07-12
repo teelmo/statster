@@ -12,7 +12,7 @@ if (!function_exists('getSpotifyResourceId')) {
       $q = str_replace('%2F', '+', urlencode($data['artist_name']));
       $type = urlencode('artist');
     }
-    curl_setopt($curl, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=' . $type . '&limit=1&access_token=BQAuF88YjgA9Sp-TU39AtdSVCkfuQtZIe9rzN9kIPmYetGbS3zM17KnygG0ZqVR7sbRXhJBGqqqdHF7sbcnxXY21OKvGDXomgQbSMPw2-5h7f07VEOe6V1b5thKes4F5QjViy6dtVw');
+    curl_setopt($curl, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=' . $type . '&limit=1&access_token=' . SPOTIFY_ACCESS_TOKEN);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $result = curl_exec($curl);
     curl_close($curl);
