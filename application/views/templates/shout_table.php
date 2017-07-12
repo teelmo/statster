@@ -23,7 +23,7 @@ if (!empty($json_data)) {
         else if ($row['type'] === 'artist') {
           ?>
           <td class="img artist_img">
-            <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
+            <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
           </td>
           <?php
         }
