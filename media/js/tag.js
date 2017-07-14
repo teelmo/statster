@@ -1,7 +1,7 @@
 $.extend(view, {
   getListeningHistory: function (type) {
     if (type == '%w') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
     }
     else if (type == '%Y%m') {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
@@ -31,26 +31,23 @@ $.extend(view, {
             success: function (data) {
               $('#historyLoader').hide();
               $('#history').html(data).hide();
-              var categories = [];
-              var data = [];
-              $.each($('#history .time'), function (i, el) {
-                categories.push($(this).html());
-              });
-              $.each($('#history .count'), function (i, el) {
-                data.push(parseInt($(this).html()));
-              });
-              app.chart.xAxis[0].setCategories(categories, false);
-              app.chart.series[0].setData(data, true);
+              app.chart.xAxis[0].setCategories(view.categories, false);
+              app.chart.series[0].setData(view.chart_data, true);
             },
             type:'POST',
             url:'/ajax/musicBar'
           });
         },
         204: function () { // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+          $('#historyLoader').hide();
+          $('#history').html('<?=ERR_NO_RESULTS?>');
+          $('.music_bar').hide();
         },
-        400: function (data) {alert('400 Bad Request')}
+        400: function () { // 400 Bad request
+          $('#historyLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>');
+          $('.music_bar').hide();
+        }
       },
       type:'GET',
       url:'/api/tag/get/<?=strtolower($tag_type)?>/listenings'

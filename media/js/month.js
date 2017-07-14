@@ -1,7 +1,7 @@
 $.extend(view, {
   getListeningHistory: function (type, lower_limit, upper_limit) {
     if (type == '%w') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
     }
     else if (type == '%Y%m') {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
@@ -42,10 +42,12 @@ $.extend(view, {
         204: function () { // 204 No Content
           $('#historyLoader').hide();
           $('#history').html('<?=ERR_NO_RESULTS?>');
+          $('.music_bar').hide();
         },
         400: function () { // 400 Bad request
           $('#historyLoader').hide();
           alert('<?=ERR_BAD_REQUEST?>');
+          $('.music_bar').hide();
         }
       },
       type:'GET',
