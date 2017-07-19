@@ -98,6 +98,7 @@ $.extend(view, {
               term:'shouts'
             },
             success: function (data) {
+              $('#shoutersLoader').hide();
               $('#shouters').html(data);
             },
             type:'POST',

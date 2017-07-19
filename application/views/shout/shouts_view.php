@@ -20,6 +20,7 @@
   <div id="rightCont">
     <div class="container">
       <h1>Shouters</h1>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="shoutersLoader" />
       <table id="shouters" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
