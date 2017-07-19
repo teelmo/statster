@@ -100,7 +100,7 @@ if (!empty($json_data)) {
           }
           if (empty($hide['count'])) {
             ?>
-            <div class="count"><span class="number"><?=number_format($row['count'])?></span> <?=isset($term) ? $term : 'listenings'?>;</div>
+            <div class="count"><span class="number"><?=number_format($row['count'])?></span> <?=isset($term) ? $term : 'listenings'?></div>
             <?php
           }
           ?>
@@ -121,8 +121,6 @@ if (!empty($json_data)) {
   }
 }
 else {
-  ?>
-  No results
-  <?php
+  echo ERR_NO_RESULTS;
 }
 ?>

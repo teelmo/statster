@@ -28,8 +28,6 @@ if (!empty($json_data)) {
   }
 }
 else {
-  ?>
-  No results
-  <?php
+  echo ERR_NO_RESULTS;
 }
 ?>
