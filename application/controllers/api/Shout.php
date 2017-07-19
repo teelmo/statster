@@ -20,6 +20,9 @@ class Shout extends CI_Controller {
       case 'user':
         echo getUserShout($_REQUEST);
         break;
+      case 'users':
+        echo getShoutCountUser($_REQUEST);
+        break;
       default:
         echo getShouts($_REQUEST);
         break;

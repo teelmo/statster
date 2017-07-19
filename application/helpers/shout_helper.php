@@ -43,6 +43,49 @@ if (!function_exists('getShoutCount')) {
 }
 
 /**
+  * Get shout counts per user.
+  *
+  * @param array $opts.
+  *          'human_readable'  => Output format
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getShoutCountUser')) {
+  function getShoutCountUser($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    $sql = "SELECT SUM(count) as `count`, `user_id`, `username`
+            FROM (SELECT count(" . TBL_artist_shout . ".`id`) as `count`,
+                         " . TBL_artist_shout . ".`user_id` as `user_id`,
+                         " . TBL_user . ".`username` as `username`
+                  FROM " . TBL_artist_shout . ", " . TBL_user . "
+                  WHERE " . TBL_artist_shout . ".`user_id` = " . TBL_user . ".`id`
+                  GROUP BY `user_id`
+                  UNION
+                  SELECT count(" . TBL_album_shout . ".id) as `count`,
+                        " . TBL_album_shout . ".`user_id` as `user_id`,
+                        " . TBL_user . ".`username` as `username`
+                  FROM " . TBL_album_shout . ", " . TBL_user . "
+                  WHERE " . TBL_album_shout . ".`user_id` = " . TBL_user . ".`id`
+                  GROUP BY `user_id`
+                  UNION
+                  SELECT count(" . TBL_user_shout . ".id) as `count`,
+                        " . TBL_user_shout . ".`adder_id` as `user_id`,
+                        " . TBL_user . ".`username` as `username`
+                  FROM " . TBL_user_shout . ", " . TBL_user . "
+                  WHERE " . TBL_user_shout . ".`adder_id` = " . TBL_user . ".`id`
+                  GROUP BY `user_id`) t
+            WHERE 1
+            GROUP BY `user_id`
+            ORDER BY `count` DESC";
+    $query = $ci->db->query($sql);
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
   * Get album shouts.
   *
   * @param array $opts.

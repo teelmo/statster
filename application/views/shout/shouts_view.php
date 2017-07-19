@@ -20,6 +20,6 @@
   <div id="rightCont">
     <div class="container">
       <h1>Shouters</h1>
-      <div id="shouters"><!-- Content is loaded with AJAX --></div>
+      <table id="shouters" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

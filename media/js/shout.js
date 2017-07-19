@@ -77,6 +77,38 @@ $.extend(view, {
       url:'/api/shout/get/user'
     });
   },
+  getShoutUsers: function () {
+    $.ajax({
+      data:{
+        limit:20,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          console.log(data)
+          $.ajax({
+            data:{
+              hide:{
+                calendar:true,
+                date:true
+              },
+              json_data:data,
+              size:32,
+              term:'shouts'
+            },
+            success: function (data) {
+              $('#shouters').html(data);
+            },
+            type:'POST',
+            url:'/ajax/userTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/shout/get/users'
+    });
+  },
   initShoutEvents: function () {
     $(document).ajaxStop(function (event, request, settings) {
       $('#shout').append($('.shouts tr').detach().sort(function (a, b) {
@@ -92,5 +124,6 @@ $(document).ready(function () {
   view.getAlbumShouts(size);
   view.getArtistShouts(size);
   view.getUserShouts(size);
+  view.getShoutUsers(size);
   view.initShoutEvents();
 });
