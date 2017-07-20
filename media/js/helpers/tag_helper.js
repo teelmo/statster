@@ -5,7 +5,7 @@ $.extend(view, {
         limit:1000,
         lower_limit:'1970-01-01',
         order_by:order_by,
-        username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
+        username:'<?=!empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
@@ -20,7 +20,7 @@ $.extend(view, {
     });
   },
   initTagHelperEvents: function () {
-    $('html').on('click', '#moretags', function () {
+    $('html').on('click', '#addtags', function () {
       $('#tagAdd').toggle();
       $('.search-field input[type="text"]').focus();
     });
