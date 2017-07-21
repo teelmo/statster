@@ -6,7 +6,7 @@ if (!empty($json_data)) {
         ?>
         <li class="tag <?=$row['type']?>">
           <?=anchor(array($row['type'], url_title($row['name'])), '<img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['name'] . '" />')?>
-          <i class="hide fa fa-times"></i>
+          <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
         </li>
         <?php
       }
@@ -14,7 +14,7 @@ if (!empty($json_data)) {
         ?>
         <li class="tag <?=$row['type']?>">
           <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-music"></i> ' . $row['name'])?>
-          <i class="hide fa fa-times"></i>
+          <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
         </li>
         <?php
       }
@@ -22,7 +22,7 @@ if (!empty($json_data)) {
         ?>
         <li class="tag <?=$row['type']?>">
           <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-tag"></i> ' . $row['name'])?>
-          <i class="hide fa fa-times"></i>
+          <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
         </li>
         <?php
       }
