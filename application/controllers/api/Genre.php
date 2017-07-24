@@ -35,9 +35,11 @@ class Genre extends CI_Controller {
   }
 
   /* Delete genre information */
-  public function delete($data) {
+  public function delete() {
     // Load helpers
-    pr($data);
+    $this->load->helper(array('genre_helper'));
+
+    echo deleteGenre($_REQUEST);
   }
 }
 ?>

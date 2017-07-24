@@ -34,12 +34,12 @@ $.extend(view, {
       var type = $(this).data('tag-type');
       $.ajax({
         data:{
-          id:$(this).data('tag-id'),
-          type:type
+          album_id:<?=$album_id?>,
+          tag_id: parseInt($(this).data('tag-id'))
         },
         statusCode:{
           200: function (data) {
-            // Remove from sight.
+            view.getTags();
           }
         },
         url:'/api/' + type + '/delete',

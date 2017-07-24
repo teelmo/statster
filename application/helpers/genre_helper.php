@@ -270,3 +270,44 @@ if (!function_exists('getMusicByGenre')) {
     return _json_return_helper($query, $human_readable);
   }
 }
+
+/**
+  * Delete genre data.
+  *
+  * @param array $opts.
+  *          'album_id'   => Album ID
+  *          'tag_id'     => Genre ID
+  *
+  * @return string JSON.
+  *
+  **/
+if (!function_exists('deleteGenre')) {
+  function deleteGenre($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    if (!$user_id = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $ops)));
+    }
+
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
+
+    $sql = "DELETE 
+              FROM " . TBL_genres . "
+              WHERE " . TBL_genres . ".`album_id` = ?
+                AND " . TBL_genres . ".`genre_id` = ?
+                AND " . TBL_genres . ".`user_id` = ?";
+    $query = $ci->db->query($sql, array($album_id, $tag_id, $user_id));
+
+    if ($ci->db->affected_rows() === 1) {
+      header('HTTP/1.1 200 OK');
+      return json_encode(array());
+    }
+    else {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $opts, 'affected' => $ci->db->affected_rows())));
+    }
+  }
+}

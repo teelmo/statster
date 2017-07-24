@@ -99,7 +99,7 @@ if (!function_exists('getNationalitiesListenings')) {
   * Gets nationality's bio.
   *
   * @param array $opts.
-  *          'tag_id'  => Keyword ID
+  *          'tag_id'  => Nationality ID
   *
   * @return array Nationality bio
   */
@@ -301,6 +301,47 @@ if (!function_exists('getMusicByNationality')) {
   }
 }
 
+/**
+  * Delete nationality data.
+  *
+  * @param array $opts.
+  *          'album_id'   => Album ID
+  *          'tag_id'     => Genre ID
+  *
+  * @return string JSON.
+  *
+  **/
+if (!function_exists('deleteNationality')) {
+  function deleteNationality($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    if (!$user_id = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $ops)));
+    }
+
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
+
+    $sql = "DELETE 
+              FROM " . TBL_nationalities . "
+              WHERE " . TBL_nationalities . ".`album_id` = ?
+                AND " . TBL_nationalities . ".`nationality_id` = ?
+                AND " . TBL_nationalities . ".`user_id` = ?";
+    $query = $ci->db->query($sql, array($album_id, $tag_id, $user_id));
+
+    if ($ci->db->affected_rows() === 1) {
+      header('HTTP/1.1 200 OK');
+      return json_encode(array());
+    }
+    else {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $opts, 'affected' => $ci->db->affected_rows())));
+    }
+  }
+}
+
 /*
  Get albums with out nationality
 select nationalities.nationality_id, nationalities.album_id, album_name
@@ -309,3 +350,4 @@ from nationalities right join album
 
 on nationalities.album_id = album.id  
 */
+

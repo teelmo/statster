@@ -44,6 +44,9 @@ class Nationality extends CI_Controller {
   /* Delete nationality information */
   public function delete() {
     // Load helpers
+    $this->load->helper(array('nationality_helper'));
+
+    echo deleteNationality($_REQUEST);
     
   }
 }

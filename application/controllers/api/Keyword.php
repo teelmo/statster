@@ -37,6 +37,9 @@ class Keyword extends CI_Controller {
   /* Delete keyword information */
   public function delete() {
     // Load helpers
+    $this->load->helper(array('keyword_helper'));
+
+    echo deleteKeyword($_REQUEST);
     
   }
 }
