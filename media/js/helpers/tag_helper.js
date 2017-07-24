@@ -34,8 +34,8 @@ $.extend(view, {
       var type = $(this).data('tag-type');
       $.ajax({
         data:{
-          album_id:<?=$album_id?>,
-          tag_id: parseInt($(this).data('tag-id'))
+          album_id:parseInt(<?=$album_id?>),
+          tag_id:parseInt($(this).data('tag-id'))
         },
         statusCode:{
           200: function (data) {
