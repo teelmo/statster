@@ -93,7 +93,11 @@ $route['listener/(:any)'] = 'music/listener/$1';
 $route['tag/(:any)/(:any)'] = 'tag/index/$1/$2';
 $route['tag/(:any)'] = 'tag/index/$1';
 
-/* Tag page's routes */
+/* Listening format page's routes */
+$route['format/(:any)/(:any)'] = 'format/index/$1/$2';
+$route['format/(:any)'] = 'format/index/$1';
+
+/* Like page's routes */
 $route['like/(:any)/(:any)'] = 'like/index/$1/$2';
 $route['like/(:any)'] = 'like/index/$1';
 
