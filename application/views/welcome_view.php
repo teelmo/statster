@@ -20,27 +20,13 @@
   <div id="leftCont">
     <div class="container">
       <h1>Statster&nbsp; &middot; &middot; &middot; &nbsp;greetings!</h1>
-      <p>
-        Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm"><strong>register now!</strong></a> 
-      </p>
+      <p>Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm"><strong>register now!</strong></a></p>
       <?=form_open('', array('class' => 'hidden', 'id' => 'registerForm'), array('addListeningType' => 'form'))?>
-        <div>
-          <input type="text" autocomplete="off" tabindex="1" id="registerUsername" placeholder="Desired username" name="registerUsername" />
-        </div>
-        <div>
-          <input type="text" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Enter your email" name="registerEmail" />
-        </div>
-        <div>
-          <input type="password" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Enter a password" name="registerEmail" />
-        </div>
-        <div>
-          <input type="password" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Re-enter your password" name="registerEmail" />
-        </div>
-        <div>
-          <p>
-            <input type="submit" name="registerSubmit" tabindex="2" id="registerSubmit" value="Register!" />
-          </p>
-        </div>
+        <div><input type="text" autocomplete="off" tabindex="1" id="registerUsername" placeholder="Desired username" name="registerUsername" /></div>
+        <div><input type="text" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Enter your email" name="registerEmail" /></div>
+        <div><input type="password" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Enter a password" name="registerEmail" /></div>
+        <div><input type="password" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Re-enter your password" name="registerEmail" /></div>
+        <p><input type="submit" name="registerSubmit" tabindex="2" id="registerSubmit" value="Register!" /></p>
       </form>
     </div>
     <style>
