@@ -5,8 +5,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * Returns top keywords for the given user.
   *
   * @param array $opts.
-  *          'album'           => Album name
-  *          'artist'          => Artist name
+  *          'album_name'      => Album name
+  *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
   *          'human_readable'  => Output format
   *          'limit'           => Limit
