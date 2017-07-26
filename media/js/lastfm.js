@@ -6,13 +6,13 @@ $.extend(view, {
       url:'/api/lastfm/fetchSimilar',
       data:{
         artist_name:'<?=$artist_name?>',
-        limit:10
+        limit:8
       },
       statusCode: {
         200: function (data) {
           $.ajax({
             type:'POST',
-            url:'/ajax/artistList/124',
+            url:'/ajax/artistList',
             data:{
               json_data:data,
               hide:{

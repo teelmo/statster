@@ -19,7 +19,7 @@ $.extend(view, {
               $('#topArtist10').html(data);
             },
             type:'POST',
-            url:'/ajax/artistList/124'
+            url:'/ajax/artistList'
           });
         },
         204: function (data) { // 204 No Content

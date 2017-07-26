@@ -19,7 +19,7 @@ $.extend(view, {
               $('#topAlbum10').html(data);
             },
             type:'POST',
-            url:'/ajax/albumList/124'
+            url:'/ajax/albumList'
           });
         },
         204: function (data) { // 204 No Content

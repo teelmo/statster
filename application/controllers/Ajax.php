@@ -61,7 +61,7 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function albumList($size = 124) {
+  public function albumList() {
     if (!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('img_helper'));
@@ -74,7 +74,7 @@ class Ajax extends CI_Controller {
     }
   }
 
-  public function artistList($size = 124) {
+  public function artistList() {
     if (!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('img_helper'));
