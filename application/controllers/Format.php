@@ -9,8 +9,10 @@ class Format extends CI_Controller {
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
       if ($data = getAlbumInfo($data)) {
-        $data['js_include'] = array('');
+        $data['js_include'] = array('format_album');
+
         $this->load->view('site_templates/header');
+        $this->load->view('format/format_album_view', $data);
         $this->load->view('site_templates/footer', $data);
 
       }
@@ -24,8 +26,10 @@ class Format extends CI_Controller {
 
       $data['artist_name'] = decode($artist_name);
       if ($data = getArtistInfo($data)) {
-        $data['js_include'] = array('');
+        $data['js_include'] = array('format_artist');
+
         $this->load->view('site_templates/header');
+        $this->load->view('format/format_artist_view', $data);
         $this->load->view('site_templates/footer', $data);
       }
       else {
@@ -35,8 +39,10 @@ class Format extends CI_Controller {
     else {
       // Load helpers
       $this->load->helper(array('output_helper'));
-      $data['js_include'] = array('');
+      $data['js_include'] = array('format');
+
       $this->load->view('site_templates/header');
+      $this->load->view('format/format_view', $data);
       $this->load->view('site_templates/footer', $data);
 
     }
