@@ -25,7 +25,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/love/get/<?=$album_id?>'
+      url:'/api/love/get/' + parseInt(<?=$album_id?>)
     });
   },
   // Get album loves.
@@ -58,14 +58,14 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/love/get/<?=$album_id?>'
+      url:'/api/love/get/' + parseInt(<?=$album_id?>)
     });
   },
   // Get album tags.
   getTags: function () {
     $.ajax({
       data:{
-        album_id:<?=$album_id?>,
+        album_id:parseInt(<?=$album_id?>),
         limit:9
       },
       dataType:'json',
@@ -278,11 +278,47 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
+  getFormats: function () {
+    $.ajax({
+      data:{
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
+        limit:5,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+            },
+            success: function (data) {
+              $('#topListeningFormatTypesLoader').hide();
+              $('#topListeningFormatTypes').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListeningFormatTypesLoader').hide();
+          $('#topListeningFormatTypes').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListeningFormatTypesLoader').hide();
+          $('#topListeningFormatTypes').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/format/get'
+    });
+  },
   getArtistShouts: function () {
     $.ajax({
       data:{
-        limit:5,
-        artist_name:'<?=$artist_name?>'
+        artist_name:'<?=$artist_name?>',
+        limit:5
       },
       dataType:'json',
       statusCode:{
@@ -315,8 +351,8 @@ $.extend(view, {
   updateAlbumBio: function () {
     $.ajax({
       data:{
-        artist_id:<?=$artist_id?>,
-        album_id:<?=$album_id?>,
+        artist_id:parseInt(<?=$artist_id?>),
+        album_id:parseInt(<?=$album_id?>),
         artist_name:'<?=$artist_name?>',
         album_name:'<?=$album_name?>'
       },
@@ -350,7 +386,7 @@ $.extend(view, {
             }
           },
           type:'POST',
-          url:'/api/love/add/<?=$album_id?>'
+          url:'/api/love/add/' + parseInt(<?=$album_id?>)
         });
       }
       if ($(this).hasClass('love_del')) {
@@ -375,7 +411,7 @@ $.extend(view, {
             }
           },
           type:'DELETE',
-          url:'/api/love/delete/<?=$album_id?>'
+          url:'/api/love/delete/' + parseInt(<?=$album_id?>)
         });
       }
     });
@@ -385,7 +421,7 @@ $.extend(view, {
           var tag = el.split(':');
           $.ajax({
             data:{
-              album_id:<?=$album_id?>,
+              album_id:parseInt(<?=$album_id?>),
               tag_id:tag[1],
               type:'album'
             },
@@ -413,11 +449,33 @@ $.extend(view, {
       });
       $('#tagAdd').hide();
     });
+    $('html').on('mouseover', '.tag', function () {
+      $(this).find('.remove').show();
+    });
+    $('html').on('mouseout', '.tag', function () {
+      $(this).find('.remove').hide();
+    });
+    $('html').on('click', '.remove', function () {
+      var type = $(this).data('tag-type');
+      $.ajax({
+        data:{
+          album_id:parseInt(<?=$album_id?>),
+          tag_id:parseInt($(this).data('tag-id'))
+        },
+        statusCode:{
+          200: function (data) {
+            view.getTags();
+          }
+        },
+        url:'/api/' + type + '/delete',
+        type:'POST'
+      });
+    });
   }
 });
 
 $(document).ready(function () {
-  view.getLove(<?=$this->session->userdata('user_id')?>);
+  view.getLove(parseInt(<?=$this->session->userdata('user_id')?>));
   view.getLoves();
   view.getTags();
   view.initChart();
@@ -425,6 +483,7 @@ $(document).ready(function () {
   view.getShouts();
   view.getUsers();
   view.getListenings();
+  view.getFormats();
   view.getArtistShouts();
   view.initAlbumEvents();
 

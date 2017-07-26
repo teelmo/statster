@@ -329,6 +329,40 @@ $.extend(view, {
       url:'/api/love/get'
     });
   },
+  getFormats: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        username:'<?=(!empty($username)) ? $username: ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+            },
+            success: function (data) {
+              $('#topListeningFormatTypesLoader').hide();
+              $('#topListeningFormatTypes').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListeningFormatTypesLoader').hide();
+          $('#topListeningFormatTypes').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListeningFormatTypesLoader').hide();
+          $('#topListeningFormatTypes').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/format/get'
+    });
+  },
   initProfileEvents: function () {
     $(document).ajaxStop(function (event, request, settings) {
       $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
@@ -357,5 +391,6 @@ $(document).ready(function () {
   view.getArtistShouts();
   view.recentlyFaned();
   view.recentlyLoved();
+  view.getFormats();
   view.initProfileEvents();
 });

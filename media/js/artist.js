@@ -25,7 +25,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/fan/get/<?=$artist_id?>'
+      url:'/api/fan/get/' + parseInt(<?=$artist_id?>)
     });
   },
   // Get artist fans.
@@ -58,14 +58,14 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/fan/get/<?=$artist_id?>'
+      url:'/api/fan/get/' + parseInt(<?=$artist_id?>)
     });
   },
   // Get artist tags.
   getTags: function () {
     $.ajax({
       data:{
-        artist_id:<?=$artist_id?>,
+        artist_id:parseInt(<?=$artist_id?>),
         limit:9
       },
       dataType:'json',
@@ -274,11 +274,46 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
+  getFormats: function () {
+    $.ajax({
+      data:{
+        artist_name:'<?=$artist_name?>',
+        limit:5,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+            },
+            success: function (data) {
+              $('#topListeningFormatTypesLoader').hide();
+              $('#topListeningFormatTypes').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListeningFormatTypesLoader').hide();
+          $('#topListeningFormatTypes').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListeningFormatTypesLoader').hide();
+          $('#topListeningFormatTypes').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/format/get'
+    });
+  },
   getAlbumShouts: function () {
     $.ajax({
       data:{
-        limit:5,
-        artist_name:'<?=$artist_name?>'
+        artist_name:'<?=$artist_name?>',
+        limit:5
       },
       dataType:'json',
       statusCode:{
@@ -311,7 +346,7 @@ $.extend(view, {
   updateArtistBio: function () {
     $.ajax({
       data:{
-        artist_id:<?=$artist_id?>,
+        artist_id:parseInt(<?=$artist_id?>),
         artist_name:'<?=$artist_name?>'
       },
       dataType:'json',
@@ -344,7 +379,7 @@ $.extend(view, {
             }
           },
           type:'POST',
-          url:'/api/fan/add/<?=$artist_id?>'
+          url:'/api/fan/add/' + parseInt(<?=$artist_id?>)
         });
       }
       if ($(this).hasClass('fan_del')) {
@@ -369,7 +404,7 @@ $.extend(view, {
             }
           },
           type:'DELETE',
-          url:'/api/fan/delete/<?=$artist_id?>'
+          url:'/api/fan/delete/' + parseInt(<?=$artist_id?>)
         });
       }
     });
@@ -379,7 +414,7 @@ $.extend(view, {
           var tag = el.split(':');
           $.ajax({
             data:{
-              artist_id:<?=$artist_id?>,
+              artist_id:parseInt(<?=$artist_id?>),
               tag_id:tag[1],
               type:'artist'
             },
@@ -419,6 +454,7 @@ $(document).ready(function () {
   view.getShouts();
   view.getUsers();
   view.getListenings();
+  view.getFormats();
   view.getAlbumShouts();
   view.initArtistEvents();
 

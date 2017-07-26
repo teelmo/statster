@@ -24,28 +24,6 @@ $.extend(view, {
       $('#tagAdd').toggle();
       $('.search-field input[type="text"]').focus();
     });
-    $('html').on('mouseover', '.tag', function () {
-      $(this).find('.remove').show();
-    });
-    $('html').on('mouseout', '.tag', function () {
-      $(this).find('.remove').hide();
-    });
-    $('html').on('click', '.remove', function () {
-      var type = $(this).data('tag-type');
-      $.ajax({
-        data:{
-          album_id:parseInt(<?=$album_id?>),
-          tag_id:parseInt($(this).data('tag-id'))
-        },
-        statusCode:{
-          200: function (data) {
-            view.getTags();
-          }
-        },
-        url:'/api/' + type + '/delete',
-        type:'POST'
-      });
-    });
   }
 });
 

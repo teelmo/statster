@@ -257,4 +257,13 @@
         <?=anchor('like?u=' . $username, 'More', array('title' => 'Browse more likes'))?>
       </div>
     </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Listening formats</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
+      <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor('format?u=' . $username, 'More', array('title' => 'Browse more formats'))?>
+      </div>
+    </div>
   </div>

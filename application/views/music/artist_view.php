@@ -136,7 +136,7 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('listener', url_title($artist_name)), 'More listeners', array('title' => 'Browse more listenings'))?>
+        <?=anchor(array('listener', url_title($artist_name)), 'More listeners', array('title' => 'Browse more listeners'))?>
       </div>
     </div>
     <div class="container"><hr /></div>
@@ -150,11 +150,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
+      <h2>Listening formats</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
+      <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor(array('format', url_title($artist_name)), 'More formats', array('title' => 'Browse more formats'))?>
+      </div>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h2>Albums' comments</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="albumShoutLoader" />
       <table id="albumShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor('shout', 'More', array('title' => 'Browse more shouts'))?>
+        <?=anchor(array('format', url_title($artist_name)), 'More shouts', array('title' => 'Browse more shouts'))?>
       </div>
     </div>
   </div>
