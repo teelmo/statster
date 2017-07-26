@@ -2,7 +2,7 @@ $.extend(view, {
   topArtist10: function (lower_limit, upper_limit) {
     $.ajax({
       data:{
-        limit:10,
+        limit:8,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -46,7 +46,7 @@ $.extend(view, {
             data:{
               hide:vars.hide,
               json_data:data,
-              rank:11,
+              rank:9,
               size:32
             },
             success: function (data) {
