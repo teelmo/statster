@@ -12,9 +12,9 @@
     <div class="container">
       <h1>Most liked</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topLovedLoader" />
-      <div id="topLoved" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topLoved" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topFanedLoader" />
-      <div id="topFaned" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topFaned" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div id="rightCont">

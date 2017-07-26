@@ -41,7 +41,7 @@ div.container {
     height: 36px;
     line-height: 36px;
     margin: auto auto;
-    max-width: 1000px;
+    max-width: 950px;
     padding: 0 2px;
     position: relative;
     vertical-align: middle;
@@ -203,7 +203,7 @@ div.container {
         letter-spacing: 0.05em;
         line-height: 45px;
         margin: auto auto;
-        max-width: 1000px;
+        max-width: 950px;
         padding: 23px 0 0 2px;
         position: relative;
         z-index: 3;
@@ -260,7 +260,7 @@ div.container {
   }
   .inner {
     margin: auto auto;
-    max-width: 1000px;
+    max-width: 950px;
     padding: 20px 2px;
     position: relative;
     z-index: 3;
@@ -497,7 +497,7 @@ div.container {
 #mainCont {
   background-color: #f9f9f9;
   margin: 70px auto auto auto;
-  max-width: 1000px;
+  max-width: 950px;
   position: relative;
   &.heading_container {
     margin-top: 30px;
@@ -524,15 +524,15 @@ div.container {
     border-top: 1px solid #ccc;
     float: left;
     padding-bottom: 30px;
-    width: 684px;
+    width: 640px;
     .container {
       margin: 15px 15px 15px 0;
       padding: 0 2px;
     }
     #leftContInner {
       float: left;
-      width: 150px;
       margin-top: -15px;
+      width: 150px;
     }
     #leftContOuter {
       color: #222;
@@ -545,7 +545,7 @@ div.container {
   }
   #rightCont {
     border-top: 1px solid #ccc;
-    margin-left: 684px;
+    margin-left: 640px;
     .container {
       margin: 7px 15px 15px 15px;
     }
@@ -560,7 +560,7 @@ div.container {
   .inner {
     color: #fff;
     margin: auto auto;
-    max-width: 1000px;
+    max-width: 950px;
     div {
       padding: 0 10px 0 10px;
       &.social_media {
@@ -1418,6 +1418,12 @@ ul.music_wall {
       &:after {
         border: 0;
       }
+      &.img300 {
+        height: 300px;
+      }
+      &.img150 {
+        height: 150px;
+      }
     }
     .meta {
       bottom: 15px;
@@ -1456,6 +1462,14 @@ ul {
     display: block;
     overflow: hidden;
     width: 100%;
+    &.music_list_150 li {
+      display: inline-block;
+      margin: 0 0 20px 0;
+      overflow: visible;
+      box-sizing:border-box; 
+      vertical-align: top;
+      width: 152px;
+    }
     &.music_list_124 li {
       display: inline-block;
       margin: 0 0 20px 0;
@@ -1549,7 +1563,7 @@ div.cover {
     }
   }
   &.img150 {
-    height: 150px;
+    height: 110px;
     width: 150px;
   }
   &.img174 {

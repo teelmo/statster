@@ -16,7 +16,7 @@ if (!empty($json_data)) {
         ?>
         <li>
           <?=anchor(array('music', url_title($json_data[0]['artist_name'])), '
-            <div class="cover album_img img300" style="background-image:url(' . getAlbumImg(array('album_id' => $json_data[0]['album_id'], 'size' => 174)) . ')"></div><div class="meta"><div class="title main">' . anchor(array('music', url_title($json_data[0]['artist_name'])), $json_data[0]['artist_name'], array('title' => 'Browse to artist\'s page')) . '</div><div class="title">' . $json_data[0]['count'] . ' listenings</div></div>
+            <div class="cover artist_img img300" style="background-image:url(' . getArtistImg(array('artist_id' => $json_data[0]['artist_id'], 'size' => 174)) . ')"></div><div class="meta"><div class="title main">' . anchor(array('music', url_title($json_data[0]['artist_name'])), $json_data[0]['artist_name'], array('title' => 'Browse to artist\'s page')) . '</div><div class="title">' . $json_data[0]['count'] . ' listenings</div></div>
           ', array('title' => 'Browse to artist\'s page'));
           ?>
         </li>
@@ -39,7 +39,7 @@ if (!empty($json_data)) {
           ?>
           <li>
             <?=anchor(array('music', url_title($json_data[$i]['artist_name'])), '
-              <div class="cover album_img img150" style="background-image:url(' . getAlbumImg(array('album_id' => $json_data[$i]['album_id'], 'size' => 174)) . ')"></div><div class="meta"><div class="title main">' . anchor(array('music', url_title($json_data[$i]['artist_name'])), $json_data[$i]['artist_name'], array('title' => 'Browse to artist\'s page')) . '</div><div class="title">' . $json_data[$i]['count'] . ' listenings</div></div>
+              <div class="cover artist_img img150" style="background-image:url(' . getArtistImg(array('artist_id' => $json_data[$i]['artist_id'], 'size' => 174)) . ')"></div><div class="meta"><div class="title main">' . anchor(array('music', url_title($json_data[$i]['artist_name'])), $json_data[$i]['artist_name'], array('title' => 'Browse to artist\'s page')) . '</div><div class="title">' . $json_data[$i]['count'] . ' listenings</div></div>
             ', array('title' => 'Browse to artis\'s page'));
             ?>
           </li>

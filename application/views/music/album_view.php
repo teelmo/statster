@@ -97,13 +97,13 @@
     <div class="container">
       <h2>Artist's albums</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
-      <ul id="artistAlbum" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <ul id="artistAlbum" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Similar</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="similarArtistLoader"/>
-      <ul id="similarArtist" class="music_list music_list_124 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <ul id="similarArtist" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
