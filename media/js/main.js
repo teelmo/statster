@@ -68,14 +68,16 @@ $.extend(view, {
               // setTimeout(view.getTopAlbums, 60 * 10 * 1000);
             },
             data:{
-              json_data:data
+              json_data:data,
+              limit:9,
+              type:'album'
             },
             success: function (data) {
               $('#topAlbumLoader').hide();
               $('#topAlbum').html(data);
             },
             type:'POST',
-            url:'/ajax/albumList/124'
+            url:'/ajax/musicWall'
           });
         },
         204: function () { // 204 No Content

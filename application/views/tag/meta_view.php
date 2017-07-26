@@ -12,28 +12,28 @@
     <div class="container clearfix">
       <h1><?=$genre['name']?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumGenreLoader" />
-      <div id="topAlbumGenre" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topAlbumGenre" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistGenreLoader" />
-      <div id="topArtistGenre" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topArtistGenre" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
       <h1><?=$keyword['name']?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumKeywordLoader" />
-      <div id="topAlbumKeyword" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topAlbumKeyword" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistKeywordLoader" />
-      <div id="topArtistKeyword" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topArtistKeyword" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
       <h1><?=$nationality['name']?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumNationalityLoader" />
-      <div id="topAlbumNationality" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topAlbumNationality" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistNationalityLoader" />
-      <div id="topArtistNationality" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topArtistNationality" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
       <h1><?=$year['name']?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearLoader" />
-      <div id="topAlbumYear" class="music_wall"><!-- Content is loaded with AJAX --></div>
+      <ul id="topAlbumYear" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div id="rightCont">

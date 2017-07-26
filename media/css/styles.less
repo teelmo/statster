@@ -1401,34 +1401,48 @@ table.shout_table {
 }
 
 /**
-  * Album wall
+  * Music wall
   */
-div.music_wall {
-  .left_container {
+ul.music_wall {
+  li {
     float: left;
-  }
-  .right_container {
-    div {
-      float: left;
+    height: 150px;
+    position: relative;
+    width: 150px;
+    &:first-child {
+      height: 300px;
+      width: 300px;
     }
-  }
-  .cover {
-    &.img150,
-    &.img300 {
-      &:hover {
-        &:after {
-          opacity: 0.8;
-        }
+    .cover {
+      border: 0;
+      &:after {
+        border: 0;
       }
     }
-    &.img300 {
-      border: 2px solid #000;
-      &.artist_img {
-        height: 300px;
+    .meta {
+      bottom: 15px;
+      color: #fff;
+      font-size: 12px;
+      left: 15px;
+      line-height: 18px;
+      margin: 0;
+      position: absolute;
+      right: 15px;
+      text-shadow: 0 0 10px rgba(0,0,0,.7);
+      .title {
+        font-size: 12px;
+        &.main {
+          font-size: 14px;
+          font-weight: bold;
+        }
+        a {
+          color: #fff;
+        }
       }
     }
   }
 }
+
 /**
   * List styles
   */
@@ -1663,9 +1677,9 @@ span.divider {
   padding-top: 2px;
 }
 div.cover_shadow {
-  position: absolute;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
   height: 300px;
+  position: absolute;
   width: 300px;
 }
 
