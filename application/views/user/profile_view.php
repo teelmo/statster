@@ -44,6 +44,7 @@
     <?=anchor('recent?u=' . $username, 'Library')?>
     <?=anchor('album?u=' . $username, 'Albums')?>
     <?=anchor('artist?u=' . $username, 'Artists')?>
+    <?=anchor('format?u=' . $username, 'Formats')?>
     <?=anchor('like?u=' . $username, 'Likes')?>
     <?=anchor('shout?u=' . $username, 'Shouts')?>
     <?=anchor('tag?u=' . $username, 'Tags')?>
