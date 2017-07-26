@@ -3,8 +3,11 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
   *
-  *
   * @return string JSON encoded data containing nationalities.
+  * @param array $opts.
+  *          'human_readable'   => Output format
+  *          'limit'            => Limit
+  *          'order_by'         => Order by argument
   */
 if (!function_exists('getNationalities')) {
   function getNationalities($opts = array()) {
