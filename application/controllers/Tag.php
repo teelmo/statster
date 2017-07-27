@@ -18,9 +18,9 @@ class Tag extends CI_Controller {
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         
-        $data['js_include'] = array('meta_album', 'helpers/tag_helper');
+        $data['js_include'] = array('tags_album', 'helpers/tag_helper');
         $this->load->view('site_templates/header');
-        $this->load->view('tag/meta_album_view', $data);
+        $this->load->view('tag/tags_album_view', $data);
         $this->load->view('site_templates/footer', $data);
       }
       else {
@@ -42,9 +42,9 @@ class Tag extends CI_Controller {
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
 
-        $data['js_include'] = array('meta_artist', 'helpers/tag_helper');
+        $data['js_include'] = array('tags_artist', 'helpers/tag_helper');
         $this->load->view('site_templates/header');
-        $this->load->view('tag/meta_artist_view', $data);
+        $this->load->view('tag/tags_artist_view', $data);
         $this->load->view('site_templates/footer', $data);
       }
       else {
@@ -63,9 +63,9 @@ class Tag extends CI_Controller {
       $data['nationality'] = json_decode(getNationalitiesListenings($data), true)[0];
       $data['year'] = json_decode(getYears($data), true)[0];
 
-      $data['js_include'] = array('meta');
+      $data['js_include'] = array('tags');
       $this->load->view('site_templates/header');
-      $this->load->view('tag/meta_view', $data);
+      $this->load->view('tag/tags_view', $data);
       $this->load->view('site_templates/footer', $data);
     }
   }
@@ -105,17 +105,8 @@ class Tag extends CI_Controller {
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
-        if (!empty($type)) {
-          $data['type'] = $type;
-          $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
-          $data['js_include'] = array('tags');
-          $data['title'] = ucfirst($type) . 's';
-          $this->load->view('tag/tags_view', $data);
-        }
-        else {
-          $data['js_include'] = array('tag', 'helpers/chart_helper');
-          $this->load->view('tag/tag_view', $data);
-        }
+        $data['js_include'] = array('tag', 'helpers/chart_helper');
+        $this->load->view('tag/tag_view', $data);
       }
       else {
         show_404();
@@ -163,17 +154,8 @@ class Tag extends CI_Controller {
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
-        if (!empty($type)) {
-          $data['type'] = $type;
-          $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
-          $data['js_include'] = array('tags');
-          $data['title'] = ucfirst($type) . 's';
-          $this->load->view('tag/tags_view', $data);
-        }
-        else {
-          $data['js_include'] = array('tag', 'helpers/chart_helper');
-          $this->load->view('tag/tag_view', $data);
-        }
+        $data['js_include'] = array('tag', 'helpers/chart_helper');
+        $this->load->view('tag/tag_view', $data);
       }
       else {
         show_404();
@@ -220,17 +202,8 @@ class Tag extends CI_Controller {
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
-        if (!empty($type)) {
-          $data['type'] = $type;
-          $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
-          $data['js_include'] = array('tags');
-          $data['title'] = ucfirst($type) . 's';
-          $this->load->view('tag/tags_view', $data);
-        }
-        else {
-          $data['js_include'] = array('tag', 'helpers/chart_helper');
-          $this->load->view('tag/tag_view', $data);
-        }
+        $data['js_include'] = array('tag', 'helpers/chart_helper');
+        $this->load->view('tag/tag_view', $data);
       }
       else {
         show_404();
@@ -278,17 +251,8 @@ class Tag extends CI_Controller {
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['group_by'] = TBL_artist . '.`id`';
       $data['artist'] = json_decode(getMusicByYear($data), true)[0];
-      if (!empty($type)) {
-        $data['type'] = $type;
-        $data['hide'] = ($type == 'artist') ? 'album:true' : 'artist:true';
-        $data['js_include'] = array('tags');
-        $data['title'] = ucfirst($type) . 's';
-        $this->load->view('tag/tags_view', $data);
-      }
-      else {
-        $data['js_include'] = array('tag', 'helpers/chart_helper');
-        $this->load->view('tag/tag_view', $data);
-      }
+      $data['js_include'] = array('tag', 'helpers/chart_helper');
+      $this->load->view('tag/tag_view', $data);
     }
     else {
       $data['js_include'] = array('years', 'helpers/chart_helper');
