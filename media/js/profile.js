@@ -332,7 +332,7 @@ $.extend(view, {
   getFormats: function () {
     $.ajax({
       data:{
-        limit:5,
+        limit:10,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
