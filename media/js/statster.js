@@ -138,6 +138,22 @@ var app = {
         }
       }
     });
+    $('html').on('mouseover', '.music_wall li', function (event) {
+      $(this).addClass('hover');
+      event.stopPropagation();
+    });
+    $('html').on('mouseout', '.music_wall li', function (event) {
+      $(this).removeClass('hover');
+      event.stopPropagation();
+    });
+    $('html').on('mouseover', '.music_wall li .meta', function (event) {
+      $(this).parent('li').find('.cover').addClass('hover');
+      event.stopPropagation();
+    });
+    $('html').on('mouseout', '.music_wall li .meta', function (event) {
+      $(this).parent('li').find('.cover').removeClass('hover');
+      event.stopPropagation();
+    });
   }
 }
 var view = {}

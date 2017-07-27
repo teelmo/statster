@@ -228,22 +228,6 @@ $.extend(view, {
     $('#refreshNewAlbums').click(function () {
       view.getRecommentedNewAlbum();
     });
-    $('html').on('mouseover', '.music_wall li', function (event) {
-      $(this).addClass('hover');
-      event.stopPropagation();
-    });
-    $('html').on('mouseout', '.music_wall li', function (event) {
-      $(this).removeClass('hover');
-      event.stopPropagation();
-    });
-    $('html').on('mouseover', '.music_wall li .meta', function (event) {
-      $(this).parent('li').find('.cover').addClass('hover');
-      event.stopPropagation();
-    });
-    $('html').on('mouseout', '.music_wall li .meta', function (event) {
-      $(this).parent('li').find('.cover').removeClass('hover');
-      event.stopPropagation();
-    });
     // $('#addListeningShowmore').click(function () {
     //   $('.listeningFormat').removeClass('hidden');
     //   $(this).remove();
