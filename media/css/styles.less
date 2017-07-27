@@ -1413,6 +1413,11 @@ ul.music_wall {
       height: 300px;
       width: 300px;
     }
+    &.hover {
+      .main {
+        text-decoration: underline;
+      }
+    }
     .cover {
       border: 0;
       &:after {
@@ -1485,6 +1490,10 @@ ul {
       overflow: visible;
       vertical-align: top;
       width: 70px;
+    }
+    .play_count {
+      display: inline-block;
+      margin-top: 3px;
     }
   }
   &.like_list {
@@ -1640,6 +1649,7 @@ div.cover {
       border: 1px solid #232323;
       transition: all 1s;
     }
+    &.hover,
     &:hover {
       &:after {
         opacity: 0;
