@@ -53,8 +53,8 @@
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
   <div class="page_links">
-    <?=anchor(array('like', url_title($artist_name)), 'Likes')?>
     <?=anchor(array('format', url_title($artist_name)), 'Formats')?>
+    <?=anchor(array('like', url_title($artist_name)), 'Likes')?>
     <?=anchor(array('listener', url_title($artist_name)), 'Listeners')?>
     <?=anchor(array('recent', url_title($artist_name)), 'Listenings')?>
     <?=anchor(array('shout', url_title($artist_name)), 'Shouts')?>
@@ -66,8 +66,7 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1><div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div>Top listerners
-      </h1>
+      <h1><div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div>Top listerners</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
       <table id="topListener" class="side_table full"><!-- Content is loaded with AJAX --></table>
     </div>

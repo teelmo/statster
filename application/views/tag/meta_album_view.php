@@ -55,6 +55,7 @@
 <div class="clear"></div>
 <div id="mainCont" class="heading_container">
   <div class="page_links">
+    <?=anchor(array('format', url_title($artist_name), url_title($album_name)), 'Formats')?>
     <?=anchor(array('like', url_title($artist_name), url_title($album_name)), 'Likes')?>
     <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'Listeners')?>
     <?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'Listenings')?>
