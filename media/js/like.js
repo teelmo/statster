@@ -37,7 +37,6 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              limit:9,
               type:'artist'
             },
             success: function (data) {

@@ -68,7 +68,6 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              limit:13,
               type:'album'
             },
             success: function (data) {
@@ -102,7 +101,6 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              limit:13,
               type:'artist'
             },
             success: function (data) {
