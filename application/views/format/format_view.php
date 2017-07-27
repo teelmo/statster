@@ -14,7 +14,6 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
       <table id="topListeningFormatTypes" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
-    </div>
   </div>
   <div id="rightCont">
    
