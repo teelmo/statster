@@ -1,14 +1,28 @@
 <?=doctype('html5')?>
 <html>
+  <?php
+  if (!empty($album_id)) {
+    $og_image = getAlbumImg(array('album_id' => $album_id, 'size' => 300));
+    $og_title = 'Statster: ' . $artist_name . ' – ' . $album_name;
+  }
+  else if ($artist_id) {
+    $og_image = getAlbumImg(array('artist_id' => $artist_id, 'size' => 300));
+    $og_title = 'Statster: ' . $artist_name;
+  }
+  else {
+    $og_image = 'http://statster.info/media/img/og_image.jpg';
+    $og_title = 'Statster';
+  }
+  ?>
   <head>
     <title><?=TITLE?></title>
     <meta charset="utf-8">
     <meta name="description" content="Reconcile with the music." />
     <meta property="og:description" content="Reconcile with the music." >
     <meta property="og:url" content="http://statster.info" />
-    <meta property="og:image" content="http://statster.info/media/img/og_image.jpg" />
+    <meta property="og:image" content="<?=$og_image?>" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Statster" />
+    <meta property="og:title" content="<?=$og_title?>" />
     <meta property="og:site_name" content="Statster" />
     <meta property="fb:app_id" content="144593758916156" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -39,7 +53,7 @@
       <div class="inner">
         <div class="float_left">
           <div class="search_container">
-            <form action="http://beta.statster.info/" method="post" accept-charset="utf-8" class="search_form">
+            <form action="http://statster.info/" method="post" accept-charset="utf-8" class="search_form">
               <button disabled="disabled" type="submit" class="submit" title="Search!"></button>
               <input type="text" class="middle search_text" autocomplete="off" tabindex="10" placeholder="Search music…" name="searchStr" />
             </form>
