@@ -17,9 +17,9 @@
   <head>
     <title><?=TITLE?></title>
     <meta charset="utf-8">
-    <meta name="description" content="Reconcile with the music." />
-    <meta property="og:description" content="Reconcile with the music." >
-    <meta property="og:url" content="http://statster.info" />
+    <meta name="description" content="Reconcile with music" />
+    <meta property="og:description" content="Reconcile with music" />
+    <meta property="og:url" content="http://statster.info<?=$_SERVER['REQUEST_URI']?>" />
     <meta property="og:image" content="<?=$og_image?>" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="<?=$og_title?>" />
