@@ -10,7 +10,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Statster" />
     <meta property="og:site_name" content="Statster" />
-    <meta property="fb:app_id" content="" />
+    <meta property="fb:app_id" content="1460824744216797" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@statster" />
     <meta name="apple-mobile-web-app-title" content="Yle Uutiset" />
