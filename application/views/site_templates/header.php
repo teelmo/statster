@@ -6,7 +6,7 @@
     <meta name="description" content="Reconcile with the music." />
     <meta property="og:description" content="Reconcile with the music." >
     <meta property="og:url" content="http://statster.info" />
-    <meta property="og:image" content="http://statster.info/img/og_image.jpg" />
+    <meta property="og:image" content="http://statster.info/media/img/og_image.jpg" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Statster" />
     <meta property="og:site_name" content="Statster" />
