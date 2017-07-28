@@ -154,6 +154,10 @@ var app = {
       $(this).parent('li').find('.cover').removeClass('hover');
       event.stopPropagation();
     });
+    $('html').on('click', '.some_link', function () {
+      var specs = 'top=' + ((screen.height / 2) - (420 / 2)) + ',left=' + ((screen.width / 2) - (550 / 2)) + ',toolbar=0,status=0,width=550,height=420';
+      window.open($(this).data('url') + window.location.href, 'Share', specs);
+    });
   }
 }
 var view = {}

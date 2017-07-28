@@ -2,8 +2,24 @@
 <html>
   <head>
     <title><?=TITLE?></title>
+    <meta charset="utf-8">
+    <meta name="description" content="Reconcile with the music." />
+    <meta property="og:description" content="Reconcile with the music." >
+    <meta property="og:url" content="http://statster.info" />
+    <meta property="og:image" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Statster" />
+    <meta property="og:site_name" content="Statster" />
+    <meta property="fb:app_id" content="" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@statster" />
+    <meta name="apple-mobile-web-app-title" content="Yle Uutiset" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="msapplication-navbutton-color" content="#000" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="text/javascript" src="/media/js/libs/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/highcharts.js"></script>
