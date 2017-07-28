@@ -13,6 +13,7 @@
     $og_image = 'http://statster.info/media/img/og_image.jpg';
     $og_title = 'Statster';
   }
+  $og_image = 'http://statster.info/media/img/og_image.jpg';
   ?>
   <head>
     <title><?=TITLE?></title>
