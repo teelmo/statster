@@ -2,11 +2,11 @@
 <html>
   <?php
   if (!empty($album_id)) {
-    $og_image = getAlbumImg(array('album_id' => $album_id, 'size' => 300));
+    $og_image = getAlbumImg(array('album_id' => $album_id, 'size' => 174));
     $og_title = 'Statster: ' . $artist_name . ' – ' . $album_name;
   }
-  else if ($artist_id) {
-    $og_image = getAlbumImg(array('artist_id' => $artist_id, 'size' => 300));
+  else if (!empty($artist_id)) {
+    $og_image = getArtistImg(array('artist_id' => $artist_id, 'size' => 174));
     $og_title = 'Statster: ' . $artist_name;
   }
   else {
