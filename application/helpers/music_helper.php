@@ -78,7 +78,7 @@ if (!function_exists('getArtists')) {
                     FROM " . TBL_fan . "
                     WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
                       AND " . TBL_fan . ".`user_id` = " . TBL_user . ".`id`
-                  ) AS `love`
+                  ) AS `fan`
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
                  " . TBL_listening . ",
@@ -95,6 +95,7 @@ if (!function_exists('getArtists')) {
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $username));
+
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
   }

@@ -114,7 +114,7 @@ class Music extends CI_Controller {
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
-      $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '-' . $data['month'] . '%\'';
+      $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '%\'';
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
       $data['new_album_count'] = getListeningCount($data, TBL_album);
       $data['fan_count'] = getFanCount($data);
