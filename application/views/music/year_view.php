@@ -64,19 +64,21 @@
     <div class="container">
       <h1>Statistics</h1>
     </div>
-    <div class="container"><hr /></div>
     <div class="container">
       <h2>Top listeners</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
-    <div class="container"><hr /></div>
     <div class="container">
       <h2>Top releases</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topReleasesLoader" />
       <table id="topReleases" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
-    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Top formats</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
+      <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
+    </div>
     <div class="container">
       <h2>Monthly</h2>
       <table class="month_table">
@@ -99,19 +101,16 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
-    <div class="container"><hr /></div>
     <div class="container">
       <h2>Keywords</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
-    <div class="container"><hr /></div>
     <div class="container">
       <h2>Nationalities</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
-    <div class="container"><hr /></div>
     <div class="container">
       <h2>Years</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />

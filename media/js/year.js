@@ -57,7 +57,7 @@ $.extend(view, {
   topAlbum: function (lower_limit, upper_limit) {
     $.ajax({
       data:{
-        limit:13,
+        limit:17,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -90,7 +90,7 @@ $.extend(view, {
   topArtist: function (lower_limit, upper_limit) {
     $.ajax({
       data:{
-        limit:13,
+        limit:17,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -199,6 +199,42 @@ $.extend(view, {
       },
       type:'GET',
       url:'/api/album/get'
+    });
+  },
+  topFormats: function (lower_limit, upper_limit) {
+    $.ajax({
+      data:{
+        limit:10,
+        lower_limit:lower_limit,
+        upper_limit:upper_limit,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+            },
+            success: function (data) {
+              $('#topListeningFormatTypesLoader').hide();
+              $('#topListeningFormatTypes').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListeningFormatTypesLoader').hide();
+          $('#topListeningFormatTypes').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListeningFormatTypesLoader').hide();
+          $('#topListeningFormatTypes').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/format/get'
     });
   },
   topGenre: function (lower_limit, upper_limit) {
@@ -340,6 +376,7 @@ $(document).ready(function () {
   view.topReleases();
   view.getListeningHistory('%m', '<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topListeners('<?=$lower_limit?>', '<?=$upper_limit?>');
+  view.topFormats('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topGenre('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topKeyword('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topNationality('<?=$lower_limit?>', '<?=$upper_limit?>');
