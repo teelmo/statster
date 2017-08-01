@@ -122,7 +122,7 @@ if (!function_exists('_json_return_helper')) {
       return json_encode(array('error' => array('msg' => ERR_GENERAL)));
     }
     else {
-      return header('HTTP/1.1 200 No Content');
+      return header('HTTP/1.1 204 No Content');
     }
   }
 }
