@@ -66,7 +66,7 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1><div class="desc"><?=anchor(array('music', url_title($artist_name)), $artist_name, array('title' => 'Browse to artist\'s page'))?></div>Shouts</h1>
+      <h1>Shouts</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistShoutLoader" />
       <table id="artistShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>

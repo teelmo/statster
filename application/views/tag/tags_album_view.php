@@ -68,7 +68,7 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1><div class="desc"><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $artist_name . ' ' . DASH . ' ' . $album_name, array('title' => 'Browse to album\'s page'))?></div> Tags</h1>
+      <h1>Tags</h1>
     </div>
     <div class="container">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topTagsLoader" />

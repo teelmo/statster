@@ -68,7 +68,7 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1><div class="desc"><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $artist_name . ' ' . DASH . ' ' . $album_name, array('title' => 'Browse to album\'s page'))?></div>Listening formats</h1>
+      <h1>Listening formats</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
       <table id="topListeningFormatTypes" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
