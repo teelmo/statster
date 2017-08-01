@@ -100,8 +100,7 @@ $.extend(view, {
   recentlyFaned: function () {
     $.ajax({
       data:{
-        limit:10,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        limit:100
       },
       dataType:'json',
       statusCode:{
