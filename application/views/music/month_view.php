@@ -53,6 +53,7 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
       <ul id="topAlbum" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
+    <div class="container"><hr /></div>
     <div class="container">
       <h2>Top artists</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
