@@ -6,7 +6,7 @@
     <div class="info">
       <div class="top_info user_info">
         <h1><?=$username?></h1>
-        <h4><span class="username"><?=($real_name) ? $real_name : $username ?></span><span class="meta"> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></span></h4>
+        <h4><span class="username"><?=($real_name) ? htmlentities($real_name) : htmlentities($username) ?></span><span class="meta"> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></span></h4>
         <div class="tags">
           <?php
           foreach ($tags as $tag) {
@@ -55,11 +55,11 @@
         <?php
         if (!empty($homepage) && $homepage != 'http://') {
           ?>
-          <div><span class="label"></strong> <span class="value"><?=anchor($homepage, $homepage, array('title' => 'Homepage'))?></span></div>
+          <div><span class="label"></strong> <span class="value"><?=anchor(htmlentities($homepage), htmlentities($homepage), array('title' => 'Homepage'))?></span></div>
           <?php
         }
         ?>
-        <div><?=nl2br($about)?></div>
+        <div><?=nl2br(htmlentities($about))?></div>
       </div>
     </div>
     <div class="clear"></div>

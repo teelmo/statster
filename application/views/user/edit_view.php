@@ -8,19 +8,19 @@
           <div class="input_container">
             <label>
               <div class="label">Username</div>
-              <div><input type="text" value="<?=$username?>" disabled="disabled" name="username" autocomplete="off" /></div>
+              <div><input type="text" value="<?=htmlentities($username)?>" disabled="disabled" name="username" autocomplete="off" /></div>
             </label>
           </div>
           <div class="input_container">
             <label>
               <div class="label">Real name</div>
-              <div><input type="text" value="<?=$real_name?>" name="real_name" autocomplete="off" /></div>
+              <div><input type="text" value="<?=htmlentities($real_name)?>" name="real_name" autocomplete="off" /></div>
             </label>
           </div>
           <div class="input_container">
             <div class="label">Gender</div>
             <label><div><input type="radio" name="gender" value="M" <?php if ($gender === 'M') { echo 'checked="checked"'; }?> /> Male</div></label>
-            <label><div><input type="radio" name="gender" value="F" <?php if ($gender === 'N') { echo 'checked="checked"'; }?> /> Female</div></label>
+            <label><div><input type="radio" name="gender" value="F" <?php if ($gender === 'F') { echo 'checked="checked"'; }?> /> Female</div></label>
           </div>
           <div class="input_container">
             <label>
@@ -34,13 +34,13 @@
           <div class="input_container">
             <label>
               <div class="label">Email</div>
-              <div><input type="text" value="<?=$email?>" name="email" autocomplete="off" /></div>
+              <div><input type="text" value="<?=htmlentities($email)?>" name="email" autocomplete="off" /></div>
             </label>
           </div>
           <div class="input_container">
             <label>
               <div class="label">Homepage</div>
-              <div><input type="text" value="<?=$homepage?>" name="homepage" autocomplete="off" /></div>
+              <div><input type="text" value="<?=htmlentities($homepage)?>" name="homepage" autocomplete="off" /></div>
             </label>
           </div>
           <div class="input_container">
@@ -54,20 +54,21 @@
           <legend>Listening settings</legend>
           <div class="input_container">
             <?php
+            $listening_formats = unserialize($listening_formats);
             foreach ($formats as $format_key => $format) {
               if (isset($format->format_types)) {
                 ?>
-                <label><div class="middle checkbox_container"><input type="checkbox" name="listening_formats[]" value="<?=$format->format_id?>" <?php if (in_array($format->format_id, $formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format->format_img?>" alt="" class="middle"/> <?=ucfirst($format->format_name)?></div></label>
+                <label><div class="middle checkbox_container"><input type="checkbox" name="listening_formats[]" value="<?=$format->format_id?>" <?php if (in_array($format->format_id, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format->format_img?>" alt="" class="middle"/> <?=ucfirst($format->format_name)?></div></label>
                 <?php
                 foreach ($format->format_types as $format_type_key => $format_type) {
                   ?>
-                  <label><div class="middle checkbox_container">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="listening_formats[]" value="<?=$format->format_id?>:<?=$format_type->format_type_id?>" <?php if (in_array($format->format_id . ':'. $format_type->format_type_id, $formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format_type->format_type_img?>" alt="" class="middle"/> <?=ucfirst($format_type->format_type_name)?></div></label>
+                  <label><div class="middle checkbox_container">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="listening_formats[]" value="<?=$format->format_id?>:<?=$format_type->format_type_id?>" <?php if (in_array($format->format_id . ':'. $format_type->format_type_id, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format_type->format_type_img?>" alt="" class="middle"/> <?=ucfirst($format_type->format_type_name)?></div></label>
                   <?php
                 }
               }
               else {
                 ?>
-                <label><div class="middle checkbox_container"><input type="checkbox" name="listening_formats[]" value="<?=$format->format_id?>" <?php if (in_array($format->format_id, $formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format->format_img?>" alt="" class="middle"/> <?=ucfirst($format->format_name)?></div></label>
+                <label><div class="middle checkbox_container"><input type="checkbox" name="listening_formats[]" value="<?=$format->format_id?>" <?php if (in_array($format->format_id, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format->format_img?>" alt="" class="middle"/> <?=ucfirst($format->format_name)?></div></label>
                 <?php
               }
             }
