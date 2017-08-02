@@ -20,7 +20,7 @@
   <div id="leftCont">
     <div class="container welcome_container">
       <h1>Statster&nbsp; &middot; &middot; &middot; &nbsp;greetings!</h1>
-      <p>Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm_"><strong>register!</strong></a></p>
+      <p>Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm"><strong>register!</strong></a></p>
       <?=form_open('', array('class' => 'hidden', 'id' => 'registerForm'), array('addListeningType' => 'form'))?>
         <div><input type="text" autocomplete="off" tabindex="1" id="registerUsername" placeholder="Desired username" name="registerUsername" /></div>
         <div><input type="text" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Enter your email" name="registerEmail" /></div>
@@ -29,33 +29,14 @@
         <p><input type="submit" name="registerSubmit" tabindex="2" id="registerSubmit" value="Register!" /></p>
       </form>
     </div>
-    <h3>What is Statster?</h3>
-    <p>Bacon ipsum dolor amet hamburger drumstick shankle, ball tip kevin tail pastrami doner swine frankfurter bresaola landjaeger. Capicola tenderloin beef ribs picanha pork loin corned beef. Pastrami beef ribs sirloin jerky landjaeger kielbasa. Meatball cow bresaola corned beef turkey, ribeye alcatra venison tail tongue andouille. Beef ribs pancetta meatball biltong hamburger. T-bone porchetta landjaeger ground round chuck meatball pork belly swine cow short ribs chicken jerky beef.</p>
-    <p>T-bone frankfurter shoulder meatball. Beef meatloaf brisket short loin kielbasa bacon tail. Turducken beef ribs rump chicken, meatloaf picanha corned beef. Ham meatloaf cow tenderloin shoulder. Strip steak hamburger burgdoggen ham hock spare ribs venison rump. Pork loin corned beef leberkas, turducken meatloaf flank shoulder t-bone tenderloin.</p>
-    <p>Pastrami bresaola turkey leberkas landjaeger pig salami. Kielbasa turkey jowl chicken jerky kevin. Cow short ribs ham frankfurter. Drumstick beef ribs meatball, biltong tri-tip brisket ham hock cupim corned beef. Ball tip turkey burgdoggen ribeye doner kevin. Prosciutto turkey biltong tenderloin. Leberkas frankfurter kielbasa, flank salami shank kevin shankle.</p>
-    <p>Turducken kevin chicken fatback, brisket ribeye pork loin filet mignon. Ball tip spare ribs ham, leberkas tri-tip ham hock rump kevin strip steak chicken meatloaf bresaola turkey landjaeger venison. Meatloaf cow strip steak biltong rump bacon cupim jerky corned beef beef ribs ribeye alcatra. Ham pork belly rump jerky. Pork chop corned beef flank, hamburger shankle prosciutto turkey fatback sausage ribeye ball tip turducken burgdoggen tenderloin.</p>
-   <p>Landjaeger pancetta drumstick pork chop beef ribs turducken cow beef flank jowl spare ribs pork. Tenderloin jowl flank kevin boudin, rump kielbasa pork pancetta spare ribs meatball filet mignon tri-tip bacon. Venison cupim brisket, hamburger sausage t-bone shoulder filet mignon strip steak beef. Landjaeger tail hamburger ham bresaola pancetta.</p>
-   <!--  <style>
-      .embed-container { 
-        height: 0;
-        max-width: 100%;
-        overflow: hidden;
-        padding-bottom: 56.25%;
-        position: relative;
-      }
-      .embed-container iframe, 
-      .embed-container object, 
-      .embed-container embed { 
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-      }
-    </style> -->
     <div class="container">
-      <div class="container"><hr /></div>
-    </div>
+      <h3>What is Statster?</h3>
+      <p>Bacon ipsum dolor amet hamburger drumstick shankle, ball tip kevin tail pastrami doner swine frankfurter bresaola landjaeger. Capicola tenderloin beef ribs picanha pork loin corned beef. Pastrami beef ribs sirloin jerky landjaeger kielbasa. Meatball cow bresaola corned beef turkey, ribeye alcatra venison tail tongue andouille. Beef ribs pancetta meatball biltong hamburger. T-bone porchetta landjaeger ground round chuck meatball pork belly swine cow short ribs chicken jerky beef.</p>
+      <p>T-bone frankfurter shoulder meatball. Beef meatloaf brisket short loin kielbasa bacon tail. Turducken beef ribs rump chicken, meatloaf picanha corned beef. Ham meatloaf cow tenderloin shoulder. Strip steak hamburger burgdoggen ham hock spare ribs venison rump. Pork loin corned beef leberkas, turducken meatloaf flank shoulder t-bone tenderloin.</p>
+      <p>Pastrami bresaola turkey leberkas landjaeger pig salami. Kielbasa turkey jowl chicken jerky kevin. Cow short ribs ham frankfurter. Drumstick beef ribs meatball, biltong tri-tip brisket ham hock cupim corned beef. Ball tip turkey burgdoggen ribeye doner kevin. Prosciutto turkey biltong tenderloin. Leberkas frankfurter kielbasa, flank salami shank kevin shankle.</p>
+      <p>Turducken kevin chicken fatback, brisket ribeye pork loin filet mignon. Ball tip spare ribs ham, leberkas tri-tip ham hock rump kevin strip steak chicken meatloaf bresaola turkey landjaeger venison. Meatloaf cow strip steak biltong rump bacon cupim jerky corned beef beef ribs ribeye alcatra. Ham pork belly rump jerky. Pork chop corned beef flank, hamburger shankle prosciutto turkey fatback sausage ribeye ball tip turducken burgdoggen tenderloin.</p>
+     <p>Landjaeger pancetta drumstick pork chop beef ribs turducken cow beef flank jowl spare ribs pork. Tenderloin jowl flank kevin boudin, rump kielbasa pork pancetta spare ribs meatball filet mignon tri-tip bacon. Venison cupim brisket, hamburger sausage t-bone shoulder filet mignon strip steak beef. Landjaeger tail hamburger ham bresaola pancetta.</p>
+   </div>
   </div>
   <div id="rightCont">
     <div class="container">
