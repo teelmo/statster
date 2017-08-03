@@ -92,7 +92,7 @@ $.extend(view, {
   getTopArtists: function () {
     $.ajax({
       data:{
-        limit:10,
+        limit:9,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },

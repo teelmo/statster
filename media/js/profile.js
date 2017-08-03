@@ -104,7 +104,7 @@ $.extend(view, {
   getTopAlbums: function () {
     $.ajax({
       data:{
-        limit:10,
+        limit:9,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
@@ -114,16 +114,14 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-            },
-            complete: function () {
-              setTimeout(view.getTopAlbums, 60 * 10 * 1000);
+              type:'album'
             },
             success: function (data) {
               $('#topAlbumLoader').hide();
               $('#topAlbum').html(data);
             },
             type:'POST',
-            url:'/ajax/albumList/124',
+            url:'/ajax/musicWall'
           });
         },
         204: function () { // 204 No Content
@@ -142,25 +140,23 @@ $.extend(view, {
       dataType:'json',
       url:'/api/artist/get',
       data:{
-        limit:10,
+        limit:9,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       statusCode:{
         200: function (data) {
           $.ajax({
-            type:'POST',
-            url:'/ajax/artistList/124',
             data:{
               json_data:data,
+              type:'artist'
             },
             success: function (data) {
               $('#topArtistLoader').hide();
               $('#topArtist').html(data);
             },
-            complete: function () {
-              setTimeout(view.getTopArtists, 60 * 10 * 1000);
-            }
+            type:'POST',
+            url:'/ajax/musicWall'
           });
         },
         204: function () { // 204 No Content
