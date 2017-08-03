@@ -19,13 +19,14 @@ if (!function_exists('loginUser')) {
 
     $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
+                   " . TBL_user . ".`created`,
+                   " . TBL_user . ".`last_login`,
+                   " . TBL_user . ".`last_access`,
                    " . TBL_user_info . ".`email`,
                    " . TBL_user_info . ".`real_name`,
                    " . TBL_user_info . ".`lastfm_name`,
                    " . TBL_user_info . ".`gender`,
-                   " . TBL_user . ".`created`,
-                   " . TBL_user . ".`last_login`,
-                   " . TBL_user . ".`last_access`
+                   " . TBL_user_info . ".`listening_formats`
             FROM " . TBL_user . ",
                  " . TBL_user_info . "
             WHERE " . TBL_user . ".`id` = " . TBL_user_info . ".`user_id`
@@ -34,21 +35,21 @@ if (!function_exists('loginUser')) {
     $query = $ci->db->query($sql, array($username, $password));
     if ($query->num_rows() === 1) {
       $result = $query->result()[0];
-      // http://codeigniter.com/user_guide/libraries/sessions.html
-      $userdata = array(
-                   'user_id'      => $result->user_id,
-                   'username'     => $result->username,
-                   'email'        => $result->email,
-                   'real_name'    => $result->real_name,
-                   'lastfm_name'  => $result->lastfm_name,
-                   'gender'       => $result->gender,
-                   'created'      => $result->created,
-                   'last_login'   => $result->last_login,
-                   'last_access'  => $result->last_access,
-                   'user_image'   => getUserImg(array('user_id' => $result->user_id, 'size' => 64)),
-                   'logged_in'    => TRUE
-               );
-      $ci->session->set_userdata($userdata);
+      // https://codeigniter.com/userguide3/libraries/sessions.html
+      $ci->session->set_userdata(array(
+        'user_id'      => $result->user_id,
+        'username'     => $result->username,
+        'email'        => $result->email,
+        'real_name'    => $result->real_name,
+        'lastfm_name'  => $result->lastfm_name,
+        'gender'       => $result->gender,
+        'created'      => $result->created,
+        'last_login'   => $result->last_login,
+        'last_access'  => $result->last_access,
+        'formats'      => $result->listening_formats,
+        'user_image'   => getUserImg(array('user_id' => $result->user_id, 'size' => 64)),
+        'logged_in'    => TRUE
+      ));
     }
     else {
       return json_encode(array('error' => array('msg' => ERR_INCORRECT_CREDENTIALS)));
@@ -199,6 +200,16 @@ if (!function_exists('updateUser')) {
                   " . TBL_user_info . ".`listening_formats` = ?,
                   " . TBL_user_info . ".`updated` = NOW()
               WHERE " . TBL_user_info . ".`user_id` = ?";
+
+    $ci->session->set_userdata(array(
+      'user_id'      => $user_id,
+      'email'        => $email,
+      'real_name'    => $real_name,
+      'lastfm_name'  => $lastfm_name,
+      'gender'       => $gender,
+      'formats'      => $listening_formats
+    ));
+
     $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $privacy_settings, $social_media_settings, $email_annotations, $bulletin_settings, $listening_formats, $user_id));
     return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
   }

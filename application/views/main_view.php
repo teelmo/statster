@@ -19,7 +19,6 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <!--<h1></h1>-->
       <br />
       <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
         <div id="addListeningDateContainer" class="listening_date">
