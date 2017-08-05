@@ -80,7 +80,7 @@
         <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
           <div id="addListeningDateContainer" class="listening_date">Listening date: <input name="date" title="Change date" id="addListeningDate" class="number" value="<?=CUR_DATE?>" /></div>
           <div><input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="♪ ♪ ♪" name="addListeningText" /></div>
-          <div><input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="statster" /></div>
+          <div><input type="submit" name="addListeningSubmit" tabindex="10" id="addListeningSubmit" value="statster" /></div>
           <div>
             <?php
             foreach(unserialize($this->session->formats) as $key => $format) {

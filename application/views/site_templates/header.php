@@ -56,7 +56,7 @@
           <div class="search_container">
             <form action="http://statster.info/" method="post" accept-charset="utf-8" class="search_form">
               <button disabled="disabled" type="submit" class="submit" title="Search!"></button>
-              <input type="text" class="middle search_text" autocomplete="off" tabindex="10" placeholder="Search music…" name="searchStr" />
+              <input type="text" class="middle search_text" autocomplete="off" tabindex="20" placeholder="Search music…" name="searchStr" />
             </form>
           </div>
         </div>
