@@ -73,7 +73,7 @@ if (!empty($json_data)) {
           </td>
           <td class="format icon">
             <?php
-            $listeningsFormatImg = getListeningsFormatImg(array('listening_id' => $row['listening_id']));
+            $listeningsFormatImg = getListeningImg(array('listening_id' => $row['listening_id']));
             ?>
             <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon listeningFormatType"/>
           </td>

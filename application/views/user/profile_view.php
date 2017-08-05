@@ -77,37 +77,23 @@
     if ($logged_in === 'true') {
       ?>
       <div class="container">
-        <br />
         <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
-          <div id="addListeningDateContainer" class="listening_date">
-            Listening date: <input name="date" title="Change date" id="addListeningDate" class="number" value="<?=CUR_DATE?>" />
-          </div>
-          <div>
-            <input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="♪ ♪ ♪" name="addListeningText" />
-          </div>
-          <div>
-            <input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="statster" />
-          </div>
+          <div id="addListeningDateContainer" class="listening_date">Listening date: <input name="date" title="Change date" id="addListeningDate" class="number" value="<?=CUR_DATE?>" /></div>
+          <div><input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="♪ ♪ ♪" name="addListeningText" /></div>
+          <div><input type="submit" name="addListeningSubmit" tabindex="4" id="addListeningSubmit" value="statster" /></div>
           <div>
             <?php
             foreach(unserialize($this->session->formats) as $key => $format) {
               list($format, $format_type) = array_pad(explode(':', $format), 2, false);
-              if (empty($format_type)) {
-                ?>
-                <input type="radio" name="addListeningFormat" value="<?=$format?>" id="format_<?=$key?>" class="hidden" /><label for="format_<?=$key?>"><img src="/media/img/format_img/cdrom_logo.png" tabindex="<?=($key + 2)?>" class="listening_format desktop_format" title="<?=$format?>" alt="" /></label>
-                <?php
-              }
-              else {
-                ?>
-                <input type="radio" name="addListeningFormat" value="<?=$format?>:<?=$format_type?>" id="format_<?=$key?>" class="hidden" /><label for="format_<?=$key?>"><img src="/media/img/format_img/spotify_logo.png" tabindex="<?=($key + 2)?>" class="listening_format desktop_format" title="<?=$format_type?>" alt="" /></label>
-                <?php
-              }
+              ?>
+              <input type="radio" name="addListeningFormat" value="<?=(empty($format_type) ? $format : $format . ':' . $format_type)?>" id="format_<?=$key?>" class="hidden" /><label for="format_<?=$key?>"><img src="/media/img/format_img/<?=(empty($format_type) ? getFormatImg(array('format' => $format)) : getFormatTypeImg(array('format_type' => $format_type)))?>_logo.png" tabindex="<?=($key + 2)?>" class="listening_format desktop_format tooltip tooltipstered" title="<?=(empty($format_type) ? $format : $format_type)?>" alt="" /></label>
+              <?php
             }
             ?>
           </div>
         </form>
       </div>
-    <?php
+      <?php
     }
     ?>
     <div class="container">
@@ -185,9 +171,7 @@
           $data_found = true;
           ?>
           <tr>
-            <td class="img64 artist_img">
-              <?=anchor(array('music', url_title($top_artist['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
-            </td>
+            <td class="img64 artist_img"><?=anchor(array('music', url_title($top_artist['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?></td>
             <td class="title">
               <?=anchor(array('music', url_title($top_artist['artist_name'])), $top_artist['artist_name'], array('title' => $top_artist['count'] . ' listenings'))?>
               <div class="count"><span class="number"><?=$top_artist['count']?></span> listenings</div>
@@ -199,9 +183,7 @@
           $data_found = true;
           ?>
           <tr>
-            <td class="img64 tag_img">
-              Genre
-            </td>
+            <td class="img64 tag_img">Genre</td>
             <td class="title">
               <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'])?>
               <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
@@ -213,9 +195,7 @@
           $data_found = true;
           ?>
           <tr>
-            <td class="img64 tag_img">
-              Nationality
-            </td>
+            <td class="img64 tag_img">Nationality</td>
             <td class="title">
               <?=anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name'])?>
               <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
@@ -227,9 +207,7 @@
           $data_found = true;
           ?>
           <tr>
-            <td class="img64 tag_img">
-              Year
-            </td>
+            <td class="img64 tag_img">Year</td>
             <td class="title">
               <?=anchor(array('year', url_title($top_year['year'])), $top_year['year'])?>
               <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>

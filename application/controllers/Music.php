@@ -228,8 +228,9 @@ class Music extends CI_Controller {
       }
     }
     else {
-      $data['artist_name'] = decode($artist_name);
-      $data['album_name'] = decode($album_name);
+      // Load helpers
+      $this->load->helper(array('img_helper'));
+
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
 
       $data['js_include'] = array('recent', 'helpers/add_listening_helper');
@@ -294,8 +295,6 @@ class Music extends CI_Controller {
       }
     }
     else {
-      $data['artist_name'] = decode($artist_name);
-      $data['album_name'] = decode($album_name);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
 
       $data['js_include'] = array('listener');

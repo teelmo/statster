@@ -6,9 +6,7 @@ $.extend(view, {
     }
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
-        artist_name:'<?=$artist_name?>',
-        limit:<?=($artist_name) ? 1000 : 100?>,
+        limit:100,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -48,8 +46,6 @@ $.extend(view, {
   getUsers: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
-        artist_name:'<?=$artist_name?>',
         limit:14
       },
       dataType:'json',
