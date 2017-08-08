@@ -64,7 +64,7 @@
     <div class="container">
       <h2>Top albums</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
-      <ul id="topAlbum" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <ul id="topAlbum" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
         <?=anchor(array(url_title($this->uri->segment(1)), url_title($tag_name), 'album'), 'More', array('title' => 'Browse more albums'))?>
       </div>
@@ -73,7 +73,7 @@
     <div class="container">
       <h2>Top artists</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
-      <ul id="topArtist" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <ul id="topArtist" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
         <?=anchor(array(url_title($this->uri->segment(1)), url_title($tag_name), 'artist'), 'More', array('title' => 'Browse more artists'))?>
       </div>
