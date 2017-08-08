@@ -1530,28 +1530,41 @@ ul {
 /** 
   * Icons / images
   */
-#mainCont #leftCont .welcome_container {
+#mainCont #leftCont .container.welcome_container {
   background-image: url(../img/og_image.jpg);
   background-repeat: no-repeat;
   background-size: 100%;
   color: #fff;
-  margin: 0;
-  padding: 10px 20px 47% 20px;
   position: relative;
-  h1,
-  a,
-  p {
-    color: #fff;
-    text-shadow: 0 0 10px #000;
+  &:before {
+    display: block;
+    content: '';
+    width: 100%;
+    padding-top: 66.67%;
   }
-  h1 {
-    font-size: 30px;
-    letter-spacing: 0.02em;
-  }
-  a,
-  p {
-    font-size: 17px;
-    letter-spacing: 0.02em;
+  .content {
+    bottom: 0;
+    left: 0;
+    padding: 20px 20px 10px 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    h1,
+    a,
+    p {
+      color: #fff;
+      text-shadow: 2px 0px 10px #000;
+    }
+    h1 {
+      font-size: 30px;
+      letter-spacing: 0.02em;
+      margin: 0 0 20px 0;
+    }
+    a,
+    p {
+      font-size: 17px;
+      letter-spacing: 0.02em;
+    }
   }
 }
 img {
