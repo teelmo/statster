@@ -183,6 +183,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#shoutLoader').hide();
+          $('#shout').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
           $('#shoutLoader').hide();
