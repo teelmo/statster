@@ -1,10 +1,19 @@
 /* Portrait Tablet */
 @media all and (max-width: 900px) {
+  #headingCont .inner,
+  #mainCont .page_links{
+    box-sizing: border-box;
+    margin: auto auto;
+    max-width: 640px;
+  }
   #mainCont {
     #leftCont {
       width: 100%;
       .container {
-        margin: 7px 0 15px 0;
+        box-sizing: border-box;
+        margin: 7px auto 15px auto;
+        max-width: 640px;
+        padding: 0 5px;
       }
     }
     #rightCont {
@@ -16,7 +25,7 @@
   }
 }
 
-@media all and (max-width: 700px) {
+@media all and (max-width: 600px) {
   div#topCont .inner .search_container {
     display: none;
   }
@@ -27,7 +36,9 @@
   div#leftCont {
     width: 100%;
     .container {
+      box-sizing: border-box;
       margin: 7px 0 15px 0;
+      padding: 0 5px;
     }
   }
   div#footer {
