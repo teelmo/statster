@@ -8,7 +8,7 @@ class Main extends CI_Controller {
 
       $data = array();
       $data['js_include'] = array('main', 'helpers/add_listening_helper');
-      $data['interval'] = 14;
+      $data['interval'] = 21;
 
       $opts = array(
         'human_readable' => false,
