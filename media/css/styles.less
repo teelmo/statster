@@ -36,13 +36,13 @@ div.container {
     transition: background 0.5s;
   }
   .inner {
+    box-sizing: border-box;
     color: #eee;
     font-size: 13px;
     height: 36px;
     line-height: 36px;
     margin: auto auto;
     max-width: 950px;
-    padding: 0 2px;
     position: relative;
     vertical-align: middle;
     z-index: 2;
@@ -203,7 +203,7 @@ div.container {
         line-height: 45px;
         margin: auto auto;
         max-width: 950px;
-        padding: 23px 0 0 2px;
+        padding: 23px 0 0 5px;
         position: relative;
         z-index: 3;
         .stats {
@@ -522,8 +522,9 @@ div.container {
     padding-bottom: 30px;
     width: 640px;
     .container {
-      margin: 15px 15px 15px 0;
-      padding: 0 2px;
+      box-sizing: border-box;
+      margin: 15px 10px 15px 0;
+      padding-left: 2px;
     }
     #leftContInner {
       float: left;
@@ -543,7 +544,7 @@ div.container {
     border-top: 1px solid #ccc;
     margin-left: 640px;
     .container {
-      margin: 7px 15px 15px 15px;
+      margin: 7px 8px 15px 15px;
     }
   }
 }
@@ -941,7 +942,7 @@ form#loginForm input[type="text"] {
       content: '\f002';
       font-family: 'FontAwesome';
       font-size: 16px;
-      left: 3px;
+      left: 0;
       position: relative;
       top: 2px;
     }
