@@ -56,7 +56,7 @@ $.extend(view, {
   getTopAlbums: function () {
     $.ajax({
       data:{
-        limit:9,
+        limit:13,
         lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
