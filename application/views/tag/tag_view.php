@@ -5,23 +5,25 @@
         <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
         <h1><?=$tag_name?></h1>
       </div>
-      <table class="tag_meta">
-        <tr>
-          <td class="label">Listenings</td>
-          <td class="label">Listeners</td>
-          <?php
-          if ($logged_in === 'true') {
-            ?>
-            <td class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=number_format($user_count)?></span> in your library</span></td>
-            <?php
-          }
+      <div class="tag_meta">
+        <div class="meta">
+          <div class="label">Listenings</div>
+          <div class="value number"><?=number_format($total_count)?></div>
+        </div>
+        <div class="meta">
+          <div class="label">Listeners</div>
+          <div class="value number"><?=number_format($listener_count)?></div>
+        </div>
+        <?php
+        if ($logged_in === 'true') {
           ?>
-        </tr>
-        <tr>
-          <td class="value number"><?=number_format($total_count)?></td>
-          <td class="value number"><?=number_format($listener_count)?></td>
-        </tr>
-      </table>
+          <div class="meta">
+            <div class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=number_format($user_count)?></span> in your library</span></div>
+          </div>
+          <?php
+        }
+        ?>
+      </div>
     </div>
   </div>
 </div>

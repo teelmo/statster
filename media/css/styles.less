@@ -255,12 +255,14 @@ div.container {
     }
   }
   .inner {
+    box-sizing: border-box;
     margin: auto auto;
     max-width: 950px;
-    padding: 20px 2px;
+    padding: 20px 5px;
     position: relative;
     z-index: 3;
     .img174 {
+      margin-right: 20px;
       background-color: transparent;
       box-shadow: none;
       &.user_img,
@@ -302,7 +304,6 @@ div.container {
       }
     }
     .info {
-      margin-left: 200px;
       .top_info {
         height: 125px;
         margin: 5px 0 10px 0;
@@ -437,6 +438,7 @@ div.container {
       .tag_meta,
       .user_meta,
       .year_meta {
+        display: inline-block;
         width: auto;
         a {
           &:hover {
@@ -444,13 +446,13 @@ div.container {
             text-decoration: none;
           }
         }
-        td {
+        .meta {
+          float: left;
           padding-right: 30px;
-          &.value {
+          .value {
             color: #222;
             font-size: 20px;
             font-weight: bold;
-            vertical-align: top;
             a {
               &:hover {
                 color: #666;
@@ -458,12 +460,11 @@ div.container {
               }
             }
           }
-          &.label {
+          .label {
             color: #222;
             font-size: 12px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            vertical-align: top;
             &.user_listening {
               border-left: 1px solid #eee;
               padding-left: 30px;
@@ -504,7 +505,7 @@ div.container {
   .page_links {
     background-color: #fff;
     font-size: 16px;
-    padding: 0 2px;
+    padding: 0 5px;
     a {
       display: inline-block;
       margin: 5px 15px 2px 0;
@@ -669,6 +670,7 @@ p {
 
 /** Artist album and user page infos */
 .like_toggle {
+  cursor: pointer;
   float: right;
   font-family: 'FontAwesome';
   font-size: 16px;

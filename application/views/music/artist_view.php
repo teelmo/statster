@@ -25,28 +25,32 @@
           <button type="submit" id="submitTags" class="submit" title="Add"></button>
         </div>
       </div>
-      <table class="artist_meta">
-        <tr>
-          <td class="label">Listenings</td>
-          <td class="label">Listeners</td>
-          <td class="label">Added</td>
-          <?php
-          if ($this->session->userdata('logged_in') === TRUE) {
-            ?>
-            <td class="label user_listening" rowspan="3">
+      <div class="artist_meta">
+        <div class="meta">
+          <div class="label">Listenings</div>
+          <div class="value number"><?=anchor(array('recent', url_title($artist_name)), number_format($total_count))?></div>
+        </div>
+        <div class="meta">
+          <div class="label">Listeners</div>
+          <div class="value number"><?=anchor(array('listener', url_title($artist_name)), number_format($listener_count))?></div>
+        </div>
+        <div class="meta">
+          <div class="label">Added</div>
+          <div class="value number"><?=anchor(array('year', $created), $created)?></div>
+        </div>
+        <?php
+        if ($this->session->userdata('logged_in') === TRUE) {
+          ?>
+          <div class="meta">
+            <div class="label user_listening" rowspan="2">
               <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library</span>
               <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/><span class="like_msg"></span></span>
-            </td>
-            <?php
-          }
-          ?>
-        </tr>
-        <tr>
-          <td class="value number"><?=anchor(array('recent', url_title($artist_name)), number_format($total_count))?></td>
-          <td class="value number"><?=anchor(array('listener', url_title($artist_name)), number_format($listener_count))?></td>
-          <td class="value number"><?=anchor(array('year', $created), $created)?></td>
-        </tr>
-      </table>
+            </div>
+          </div>
+          <?php
+        }
+        ?>
+      </div>
     </div>
   </div>
 </div>
