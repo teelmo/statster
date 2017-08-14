@@ -1,7 +1,7 @@
-<div id="headingCont" class="artist_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
-  <div class="inner">
-    <div class="float_left">
-      <div class="cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')">
+<div id="headingCont"> 
+  <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
+    <div class="info">
+      <div class="float_left cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')">
         <?php
         if ($spotify_uri !== FALSE) {
           ?>
@@ -11,8 +11,6 @@
         ?>
         <span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span>
       </div>
-    </div>
-    <div class="info">
       <div class="top_info album_info">
         <h2><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h2>
         <h1><?=$album_name?></h1>
@@ -27,37 +25,36 @@
           <button type="submit" id="submitTags" class="submit" title="Add"></button>
         </div>
       </div>
-      <div class="album_meta">
-        <div class="meta">
-          <div class="label">Listenings</div>
-          <div class="value number"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), number_format($total_count))?></div>
-        </div>
-        <div class="meta">
-          <div class="label">Listeners</div>
-          <div class="value number"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), number_format($listener_count))?></div>
-        </div>
-        <div class="meta">
-          <div class="label">Added</div>
-          <div class="value number"><?=anchor(array('year', $created), $created)?></div>
-        </div>
-        <?php
-        if ($logged_in === 'true') {
-          ?>
-          <div class="meta">
-            <div class="label user_listening">
-              <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library</span>
-              <span id="love" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/><span class="like_msg"></span></span>
-            </div>
-          </div>
-          <?php
-        }
-        ?>
-      </div>
     </div>
   </div>
+  <div class="album_meta">
+    <div class="meta">
+      <div class="label">Listenings</div>
+      <div class="value number"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), number_format($total_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Listeners</div>
+      <div class="value number"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), number_format($listener_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Added</div>
+      <div class="value number"><?=anchor(array('year', $created), $created)?></div>
+    </div>
+    <?php
+    if ($logged_in === 'true') {
+      ?>
+      <div class="meta">
+        <div class="label user_listening">
+          <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library</span>
+          <span id="love" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/><span class="like_msg"></span></span>
+        </div>
+      </div>
+      <?php
+    }
+    ?>
+  </div>
 </div>
-<div class="clear"></div>
-<div id="mainCont" class="heading_container">
+<div id="mainCont">
   <div class="page_links">
     <?=anchor(array('format', url_title($artist_name), url_title($album_name)), 'Formats')?>
     <?=anchor(array('like', url_title($artist_name), url_title($album_name)), 'Likes')?>

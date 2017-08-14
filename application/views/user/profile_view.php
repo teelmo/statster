@@ -1,9 +1,7 @@
-<div id="headingCont" class="artist_heading_cont profile_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')" title="#1 artist: <?=$artist_name?>">
-  <div class="inner">
-    <div class="float_left">
-      <div class="cover user_img img174" style="background-image:url('<?=getUserImg(array('user_id' => $user_id, 'size' => 174))?>')"></div>
-    </div>
+<div id="headingCont">
+  <div class="heading_cont profile_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')" title="#1 artist: <?=$artist_name?>">
     <div class="info">
+      <div class="float_left cover user_img img174" style="background-image:url('<?=getUserImg(array('user_id' => $user_id, 'size' => 174))?>')"></div>
       <div class="top_info user_info">
         <h1><?=$username?></h1>
         <h4><span class="username"><?=($real_name) ? htmlentities($real_name) : htmlentities($username) ?></span><span class="meta"> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></span></h4>
@@ -17,29 +15,36 @@
           ?>
         </div>
       </div>
-      <table class="user_meta">
-        <tr>
-          <td class="label">Listenings</td>
-          <td class="label">Albums</td>
-          <td class="label">Artists</td>
-          <td class="label">Shouts</td>
-          <td class="label">Loved</td>
-          <td class="label">Faned</td>
-        </tr>
-        <tr>
-          <td class="value number"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></td>
-          <td class="value number"><?=anchor(array('album?u=' . $username), number_format($album_count))?></td>
-          <td class="value number"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></td>
-          <td class="value number"><?=anchor(array('shout?u=' . $username), number_format($shout_count))?></td>
-          <td class="value number"><?=anchor(array('love?u=' . $username), number_format($love_count))?></td>
-          <td class="value number"><?=anchor(array('fan?u=' . $username), number_format($fan_count))?></td>
-        </tr>
-      </table>
+    </div>
+  </div>
+  <div class="user_meta">
+    <div class="meta">
+      <div class="label">Listenings</div>
+      <div class="value number"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Albums</div>
+      <div class="value number"><?=anchor(array('album?u=' . $username), number_format($album_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Artists</div>
+      <div class="value number"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Shouts</div>
+      <div class="value number"><?=anchor(array('shout?u=' . $username), number_format($shout_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Loved</div>
+      <div class="value number"><?=anchor(array('love?u=' . $username), number_format($love_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Faned</div>
+      <div class="value number"><?=anchor(array('fan?u=' . $username), number_format($fan_count))?></div>
     </div>
   </div>
 </div>
-<div class="clear"></div>
-<div id="mainCont" class="heading_container">
+<div id="mainCont">
   <div class="page_links">
     <?=anchor('recent?u=' . $username, 'Library')?>
     <?=anchor('album?u=' . $username, 'Albums')?>

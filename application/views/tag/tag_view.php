@@ -1,30 +1,28 @@
-<div id="headingCont" class="artist_heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
-  <div class="inner">
-    <div class="info">
-      <div class="top_info tag_info">
-        <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
-        <h1><?=$tag_name?></h1>
-      </div>
-      <div class="tag_meta">
-        <div class="meta">
-          <div class="label">Listenings</div>
-          <div class="value number"><?=number_format($total_count)?></div>
-        </div>
-        <div class="meta">
-          <div class="label">Listeners</div>
-          <div class="value number"><?=number_format($listener_count)?></div>
-        </div>
-        <?php
-        if ($logged_in === 'true') {
-          ?>
-          <div class="meta">
-            <div class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=number_format($user_count)?></span> in your library</span></div>
-          </div>
-          <?php
-        }
-        ?>
-      </div>
+<div id="headingCont">
+  <div class="heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
+    <div class="info tag_info top_info">
+      <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
+      <h1><?=$tag_name?></h1>
     </div>
+  </div>
+  <div class="tag_meta">
+    <div class="meta">
+      <div class="label">Listenings</div>
+      <div class="value number"><?=number_format($total_count)?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Listeners</div>
+      <div class="value number"><?=number_format($listener_count)?></div>
+    </div>
+    <?php
+    if ($logged_in === 'true') {
+      ?>
+      <div class="meta">
+        <div class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=number_format($user_count)?></span> in your library</span></div>
+      </div>
+      <?php
+    }
+    ?>
   </div>
 </div>
 <div class="clear"></div>
