@@ -1,40 +1,45 @@
-<div id="headingCont" class="artist_heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')">
-  <div class="inner">
+<div id="headingCont">
+  <div class="heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')">
     <div class="info">
-      <div class="top_info album_info">
-        <h2>Year overview</h2>
+      <div class="top_info year_info">
         <h1><?=$year?></h1>
       </div>
-      <table class="year_meta">
-        <tr>
-          <td class="label">Listenings</td>
-          <td class="label">Albums (new)</td>
-          <td class="label">Artists (new)</td>
-          <td class="label">Shouts</td>
-          <td class="label">Loved</td>
-          <td class="label">Faned</td>
-        </tr>
-        <tr>
-          <td class="value number"><?=anchor(array('recent'), number_format($listening_count))?></td>
-          <td class="value number"><?=anchor(array('album'), number_format($album_count))?> (<?=$new_album_count?>)</td>
-          <td class="value number"><?=anchor(array('artist'), number_format($artist_count))?> (<?=$new_artist_count?>)</td>
-          <td class="value number"><?=anchor(array('shout'), number_format($shout_count))?></td>
-          <td class="value number"><?=anchor(array('love'), number_format($love_count))?></td>
-          <td class="value number"><?=anchor(array('fan'), number_format($fan_count))?></td>
-        </tr>
-      </table>
+    </div>
+  </div>
+  <div class="year_meta">
+    <div class="meta">
+      <div class="label">Listenings</div>
+      <div class="value number"><?=anchor(array('recent'), number_format($listening_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Albums (new)</div>
+      <div class="value number"><?=anchor(array('album'), number_format($album_count))?> (<?=$new_album_count?>)</div>
+    </div>
+    <div class="meta">
+      <div class="label">Artists (new)</div>
+      <div class="value number"><?=anchor(array('artist'), number_format($artist_count))?> (<?=$new_artist_count?>)</div>
+    </div>
+    <div class="meta">
+      <div class="label">Shouts</div>
+      <div class="value number"><?=anchor(array('shout'), number_format($shout_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Loved</div>
+      <div class="value number"><?=anchor(array('love'), number_format($love_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Faned</div>
+      <div class="value number"><?=anchor(array('fan'), number_format($fan_count))?></div>
     </div>
   </div>
 </div>
-<div class="clear"></div>
-<div class="clear"></div>
 <div id="mainCont">
   <div class="page_links">
     <?=anchor(array('album'), 'Albums')?>
     <?=anchor(array('artist'), 'Artists')?>
     <?=anchor(array('format'), 'Formats')?>
-    <?=anchor(array('listener'), 'Listeners')?>
     <?=anchor(array('like'), 'Likes')?>
+    <?=anchor(array('listener'), 'Listeners')?>
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>

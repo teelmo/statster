@@ -40,14 +40,14 @@ class Music extends CI_Controller {
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
+      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
+      $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
       $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '%\'';
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
       $data['new_album_count'] = getListeningCount($data, TBL_album);
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
-      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
-      $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
         
       $data['js_include'] = array('year', 'helpers/chart_helper');
       $this->load->view('site_templates/header');
@@ -114,14 +114,14 @@ class Music extends CI_Controller {
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
+      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
+      $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
       $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '%\'';
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
       $data['new_album_count'] = getListeningCount($data, TBL_album);
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
-      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
-      $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
         
       $data['js_include'] = array('month', 'helpers/chart_helper');
       $this->load->view('site_templates/header');
