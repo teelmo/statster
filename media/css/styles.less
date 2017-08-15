@@ -165,7 +165,6 @@ div.container {
   }
 }
 #headingCont {
-  margin-bottom: -50px;
   .heading_cont {
     background-position: 50% 30%;
     background-repeat: repeat;
@@ -406,6 +405,7 @@ div.container {
   .tag_meta,
   .user_meta,
   .year_meta {
+    .clearfix;
     box-sizing: border-box;
     margin: 10px auto 0 auto;
     max-width: 950px;
@@ -460,8 +460,9 @@ div.container {
   }
 }
 #mainCont {
+  .clearfix;
   background-color: #f9f9f9;
-  margin: 70px auto auto auto;
+  margin: 20px auto auto auto;
   max-width: 950px;
   .page_links {
     background-color: #fff;
@@ -1820,12 +1821,11 @@ hr {
 }
 .clearfix {
   zoom: 1;
-  &:before {
+  &:after {
     clear: both;
     content: ' ';
     display: block;
     height: 0;
-    margin-bottom: 20px;
     visibility: hidden;
   }
 }

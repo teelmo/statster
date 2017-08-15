@@ -6,6 +6,7 @@
     max-width: 640px;
   }
   #mainCont {
+    background-color: #fff;
     #leftCont {
       width: 100%;
       .container {
@@ -24,7 +25,7 @@
 }
 
 @media all and (max-width: 750px) {
-  #headingCont .float_left .img174 {
+  #headingCont .float_left.img174 {
     display: none;
   }
   #mainCont.heading_container {
@@ -43,6 +44,12 @@
 @media all and (max-width: 630px) {
   div#topCont .inner .search_container {
     display: none;
+  }
+}
+@media all and (max-width: 600px) {
+  #headingCont .artist_meta .meta:nth-child(4),
+  #headingCont .album_meta .meta:nth-child(4) {
+     display: none;
   }
 }
 
