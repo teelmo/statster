@@ -8,11 +8,12 @@
   #mainCont {
     background-color: #fff;
     #leftCont {
+      border-right: 0;
       width: 100%;
       .container {
         margin: 7px auto 15px auto;
         max-width: 640px;
-        padding: 0 5px;
+        padding: 0 0px;
       }
     }
     #rightCont {
@@ -55,6 +56,42 @@
 
 /* Smart phone */
 @media all and (max-width: 480px) {
+  ul.music_wall {
+    li {
+      float: left;
+      height: auto;
+      max-height: 50%;
+      max-width: 50%;
+      position: relative;
+      width: 100%;
+      &:first-child {
+        height: auto;
+        max-height: 100%;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+  ul.music_list.music_list_150 {
+    li {
+      width: 100%;
+      .cover {
+        padding-bottom: 100%;
+        width: 100%;
+      }
+    }
+
+  }
+  #headingCont .heading_cont.main_heading_cont .info h1 .top_music,
+  #headingCont .heading_cont.main_heading_cont .info h1 .meta {
+    display: none;
+  }
+  #topCont .inner .top_links {
+    display: none;
+  }
+  #topCont .inner .user_container ul.subnav li.mobile {
+    display: block;
+  }
   div#leftCont {
     width: 100%;
     .container {

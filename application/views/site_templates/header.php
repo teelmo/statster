@@ -73,6 +73,9 @@
               <div class="profile_text"><?=$this->session->userdata('username')?></div>
               <div class="profile_img" style="background-image: url('<?=$this->session->userdata('user_image')?>');"><img src="<?=$this->session->userdata('user_image')?>" alt="" /></div>
               <ul class="subnav" style="display: none;">
+                <li class="mobile"><?=anchor(array(''), 'Overview')?></li>
+                <li class="mobile"><?=anchor(array('music'), 'Music')?></li>
+                <li class="mobile"><?=anchor(array('users'), 'Users')?></li>
                 <li><a href="javascript:;" class="toggle_username <?=(!empty($this->session->userdata('get_username'))) ? 'active' : ''; ?>"><?=(!empty($this->session->userdata('get_username'))) ? 'Show all' : 'Your stats only'; ?></a></li>
                 <li><?=anchor(array('user', $this->session->userdata('username')), 'Profile')?></li>
                 <li><?=anchor(array('user', 'edit'), 'Edit')?></li>

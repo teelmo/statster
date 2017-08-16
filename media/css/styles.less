@@ -149,6 +149,9 @@ div.container {
           line-height: 24px;
           margin: 0;
           padding: 0;
+          &.mobile {
+            display: none;
+          }
           a {
             float: left;
             font-size: 12px;
@@ -166,7 +169,7 @@ div.container {
 }
 #headingCont {
   .heading_cont {
-    background-position: 50% 30%;
+    background-position: 50% 50%;
     background-repeat: repeat;
     background-size: cover;
     height: 150px;
@@ -280,11 +283,13 @@ div.container {
         margin: 0 0 -5px 0;
       }
       h4 {
-        color: #fff;
         font-size: 16px;
         margin-bottom: 10px;
         .username {
           color: #fff;
+        }
+        .meta {
+          color: #ccc;
         }
       }
       /** Chosen styles */
@@ -418,7 +423,7 @@ div.container {
     }
     .meta {
       float: left;
-      padding-right: 30px;
+      padding: 0 30px 10px 0;
       .value {
         color: #222;
         font-size: 20px;
@@ -1384,12 +1389,16 @@ table.shout_table {
 ul.music_wall {
   li {
     float: left;
-    height: 157px;
+    height: auto;
+    max-height: 157px;
+    max-width: 157px;
     position: relative;
-    width: 157px;
+    width: 100%;
     &:first-child {
-      height: 314px;
-      width: 314px;
+      height: auto;
+      max-height: 314px;
+      max-width: 314px;
+      width: 100%;
     }
     &.hover {
       .main {
@@ -1401,11 +1410,9 @@ ul.music_wall {
       &:after {
         border: 0;
       }
+      &.img150,
       &.img300 {
-        height: 100%;
-        width: 100%;
-      }
-      &.img150 {
+        padding-bottom: 100%;
         height: 100%;
         width: 100%;
       }
@@ -1573,6 +1580,7 @@ div.cover {
   &.img300 {
     .box-shadow(3px 3px 4px #ddd);
     border: 1px solid #232323;
+    box-sizing: border-box;
   }
   &.img32 {
     height: 32px;
@@ -1674,7 +1682,6 @@ div.cover {
   &.img174,
   &.img300 {
     &:after {
-      border: 1px solid #232323;
       transition: all 1s;
     }
     &.hover,
