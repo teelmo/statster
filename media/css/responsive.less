@@ -13,7 +13,7 @@
       .container {
         margin: 7px auto 15px auto;
         max-width: 640px;
-        padding: 0 0px;
+        padding: 0 2px;
       }
     }
     #rightCont {
@@ -72,15 +72,13 @@
       }
     }
   }
-  ul.music_list.music_list_150 {
-    li {
+  ul.user_list.user_list_150 li,
+  ul.music_list.music_list_150 li {
+    width: 100%;
+    .cover {
+      padding-bottom: 100%;
       width: 100%;
-      .cover {
-        padding-bottom: 100%;
-        width: 100%;
-      }
     }
-
   }
   #headingCont .heading_cont.main_heading_cont .info h1 .top_music,
   #headingCont .heading_cont.main_heading_cont .info h1 .meta {
@@ -89,7 +87,7 @@
   #topCont .inner .top_links {
     display: none;
   }
-  #topCont .inner .user_container ul.subnav li.mobile {
+  #topCont .inner .mobile {
     display: block;
   }
   div#leftCont {

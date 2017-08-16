@@ -6,7 +6,7 @@
 @import 'libs/tooltipster.bundle.min.css';
 @import 'libs/tooltipster-sideTip-shadow.min.css';
 @import 'jquery.autocomplete.css';
-@import 'http://fonts.googleapis.com/css?family=Open+Sans:400,700';
+@import 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,700';
 @import 'http://fonts.googleapis.com/css?family=Poiret+One:400';
 @import 'http://fonts.googleapis.com/css?family=Raleway:400';
 
@@ -51,6 +51,17 @@ div.container {
       &:hover {
         text-decoration: none;
       }
+    }
+    .mobile {
+      display: none;
+    }
+    .float_left >.meta {
+      color: #999;
+      font-family: 'Poiret One', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      font-weight: normal;
+      letter-spacing: 0.05em;
+      padding-left: 2px;
     }
     form, 
     div {
@@ -149,9 +160,6 @@ div.container {
           line-height: 24px;
           margin: 0;
           padding: 0;
-          &.mobile {
-            display: none;
-          }
           a {
             float: left;
             font-size: 12px;
@@ -263,7 +271,7 @@ div.container {
       h1 {
         color: #fff;
         font-size: 36px;
-        font-weight: bold;
+        font-weight: 400;
         letter-spacing: normal;
         margin: 0;
         ul {
@@ -419,7 +427,7 @@ div.container {
       .value {
         color: #222;
         font-size: 20px;
-        font-weight: bold;
+        font-weight: 400;
         a {
           &:hover {
             color: #666;
@@ -430,6 +438,7 @@ div.container {
       .label {
         color: #222;
         font-size: 12px;
+        font-weight: 300;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         &.user_listening {
@@ -448,7 +457,7 @@ div.container {
             vertical-align: 32%;
             .value {
               font-size: 16px;
-              font-weight: bold;
+              font-weight: 400;
             }
           }
         }
@@ -497,7 +506,6 @@ div.container {
       font-weight: normal;
       letter-spacing: 0.01em;
       margin-left: 150px;
-      width: 534px;
     }
   }
   #rightCont {
@@ -588,6 +596,7 @@ h3 {
 .datetime {
   color: #999;
   font-size: 11px;
+  font-weight: 300;
   letter-spacing: 0.02em;
 }
 .listening_date {
@@ -595,12 +604,12 @@ h3 {
 }
 .number {
   font-family: 'Raleway', georgia;
+  font-weight: 300;
   letter-spacing: 0.05em;
 }
 .settings,
 .more {
   font-size: 10px;
-  font-weight: bold;
   letter-spacing: 0.05em;
   line-height: 16px;
   margin: 10px 5px;
@@ -616,15 +625,20 @@ h3 {
       color: #666;
     }
     &.unactive {
-      font-weight: normal;
+      font-weight: 300;
     }
   }
+}
+.settings {
+  font-weight: 700;
 }
 h3 {
   font-size: 20px;
 }
 p {
   font-size: 14px;
+  font-weight: 300;
+  line-height: 20px;
   margin-bottom: 20px;
 }
 
@@ -845,46 +859,36 @@ form#loginForm input[type="text"] {
 }
 .search_container {
   vertical-align: top;
-  &:hover {
-    ::-webkit-input-placeholder {
-      color: rgba(255, 255, 255, 1);
-      transition-duration: 0.3s;
-    }
-    ::-moz-placeholder {
-      color: rgba(255, 255, 255, 1);
-      transition-duration: 0.3s;
-    }
-    ::-ms-input-placeholder {  
-      color: rgba(255, 255, 255, 1);
-      transition-duration: 0.3s;
-    }
-  }
-  ::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.3);
-  }
-  ::-moz-placeholder {
-    color: rgba(255, 255, 255, 0.3);
-  }
+  ::-webkit-input-placeholder,
+  ::-moz-placeholder,
   ::-ms-input-placeholder {  
     color: rgba(255, 255, 255, 0.3);
+    font-weight: 300;
+  }
+  &:hover {
+    ::-webkit-input-placeholder,
+    ::-moz-placeholder,
+    ::-ms-input-placeholder {
+      color: rgba(255, 255, 255, 1);
+      transition-duration: 0.3s;
+    }
   }
   .search_form input {
     background-color: transparent;
     border: 0;
     color: rgba(255, 255, 255, 0.3);
     font-size: 16px;
+    font-weight: 300;
     padding: 2px 0 4px 14px;
     width: 250px;
     &:focus {
       background-color: transparent;
       color: #fff;
-      &::-webkit-input-placeholder {
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder,
+      &::-ms-input-placeholder {
         color: rgba(255, 255, 255, 1);
-      }
-      &::-moz-placeholder {
-        color: rgba(255, 255, 255, 1);
-      }
-      &::-ms-input-placeholder {  
+        font-weight: 300;
         color: rgba(255, 255, 255, 1);
       }
       &.working {
@@ -1325,7 +1329,7 @@ table.shout_table {
         width: 100%;
         div {
           .title {
-            font-weight: bold;
+            font-weight: 400;
           }
         }
         .confirmation,
@@ -1418,13 +1422,16 @@ ul.music_wall {
       margin: 0;
       position: absolute;
       right: 15px;
-      text-shadow: 0 0 10px rgba(0,0,0,.7);
+      text-shadow: 0 0 10px rgba(0, 0, 0, .7);
       .title {
         font-size: 11px;
         line-height: 12px;
+        &.count {
+          color: #ddd;
+        }
         &.main {
           font-size: 14px;
-          font-weight: bold;
+          font-weight: 400;
           line-height: 16px;
         }
         a {
@@ -1449,10 +1456,10 @@ ul {
     overflow: hidden;
     width: 100%;
     &.music_list_150 li {
+      box-sizing: border-box;
       display: inline-block;
       margin: 0 0 20px 0;
       overflow: visible;
-      box-sizing:border-box; 
       vertical-align: top;
       width: 152px;
     }
@@ -1477,10 +1484,10 @@ ul {
   }
   &.user_list {
     &.user_list_150 li {
+      box-sizing: border-box;
       display: inline-block;
       margin: 0 0 3px 0;
       overflow: visible;
-      box-sizing:border-box; 
       vertical-align: top;
       width: 152px;
     }
@@ -1701,7 +1708,7 @@ div.cover {
       bottom: 0;
       color: #fff;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 400;
       height: auto;
       letter-spacing: 0.2em;
       padding: 4px 6px;
@@ -1718,7 +1725,7 @@ div.cover {
     bottom: 5px;
     color: #fff;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
     left: 7px;
     padding-right: 5px;
     position: absolute;

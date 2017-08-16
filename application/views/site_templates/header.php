@@ -53,6 +53,7 @@
     <div id="topCont">
       <div class="inner">
         <div class="float_left">
+          <div class="mobile meta">Reconcile with music</div>
           <div class="search_container">
             <form action="http://statster.info/" method="post" accept-charset="utf-8" class="search_form">
               <button disabled="disabled" type="submit" class="submit" title="Search!"></button>
