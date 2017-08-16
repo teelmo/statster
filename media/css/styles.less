@@ -180,7 +180,7 @@ div.container {
     background-position: 50% 30%;
     background-repeat: repeat;
     background-size: cover;
-    height: 150px;
+    min-height: 150px;
     padding-top: 37px;
     position: relative;
     width: 100%;
@@ -197,7 +197,7 @@ div.container {
       z-index: 2;
     }
     &.main_heading_cont {
-      height: 100px;
+      min-height: 100px;
       &:after {
         background-color: rgba(0, 0, 0, 0.5);
       }
@@ -254,114 +254,10 @@ div.container {
       height: 100%;
       margin: auto auto;
       max-width: 950px;
-      padding: 25px 0 0 2px;
+      padding: 25px 0 0 0;
       position: relative;
       z-index: 3;
-      h1,
-      h2,
-      h3 {
-        a {
-          color: #fff;
-          &:hover {
-            color: #ccc;
-            text-decoration: none;
-          }
-        }
-      }
-      h1 {
-        color: #fff;
-        font-size: 36px;
-        font-weight: 400;
-        letter-spacing: normal;
-        margin: 0;
-        ul {
-          display: inline;
-        }
-      }
-      h2 {
-        font-size: 20px;
-        margin: 0 0 -5px 0;
-      }
-      h4 {
-        font-size: 16px;
-        margin-bottom: 10px;
-        .username {
-          color: #fff;
-        }
-        .meta {
-          color: #ccc;
-        }
-      }
-      /** Chosen styles */
-      .chosen-container {
-        color: #000;
-        outline: none;
-        text-transform: none;
-        width: 450px !important;
-        .chosen-results {
-          li {
-            &.second {
-              padding-left: 12px;
-            }
-            &.group-option {
-              padding-left: 15px;
-            }
-            &.highlighted {
-              background: #f1f1f1;
-              border-left: 5px solid #444;
-              color: #000;
-              font-size: 13px;
-              padding-left: 7px;
-              &.group-option {
-                padding-left: 10px;
-              }
-            }
-          }
-        }
-        &.chosen-container-active {
-          .chosen-choices {
-            border: 1px solid #aaa;
-          }
-        }
-        .chosen-choices {
-          .search-field {
-            padding: 5px 20px 6px 4px;
-            color: #222;
-          }
-          .search-choice {
-            background: #666;
-            border-radius: 0;
-            border: 0;
-            box-shadow: none;
-            color: #fff;
-            padding: 4px 20px 5px 4px;
-            .search-choice-close {
-              top: 5px;
-            }
-          }
-        }
-      }
-      .submit {
-        background-color: transparent;
-        border: 0;
-        height: 18px;
-        left: -32px;
-        position: relative;
-        width: 20px;
-        &:before {
-          color: #000;
-          content: '\f055';
-          cursor: pointer;
-          font-family: 'FontAwesome';
-          font-size: 20px;
-          left: 3px;
-          line-height: 20px;
-          position: absolute;
-          top: 2px;
-        }
-      }
       .img174 {
-        margin-right: 20px;
         background-color: transparent;
         box-shadow: none;
         &.user_img,
@@ -402,6 +298,114 @@ div.container {
           }
         }
       }
+      .top_info {
+        margin-left: 192px;
+        h1,
+        h2,
+        h3 {
+          a {
+            color: #fff;
+            &:hover {
+              color: #ccc;
+              text-decoration: none;
+            }
+          }
+        }
+        h1 {
+          color: #fff;
+          font-size: 36px;
+          font-weight: 400;
+          letter-spacing: normal;
+          line-height: 34px;
+          margin: 0;
+          padding-bottom: 15px;
+          ul {
+            display: inline;
+          }
+        }
+        h2 {
+          font-size: 20px;
+          margin: 0 0 0 0;
+        }
+        h4 {
+          font-size: 16px;
+          margin-bottom: 10px;
+          .username {
+            color: #fff;
+          }
+          .meta {
+            color: #ccc;
+          }
+        }
+        /** Chosen styles */
+        .chosen-container {
+          color: #000;
+          outline: none;
+          text-transform: none;
+          width: 450px !important;
+          .chosen-results {
+            li {
+              &.second {
+                padding-left: 12px;
+              }
+              &.group-option {
+                padding-left: 15px;
+              }
+              &.highlighted {
+                background: #f1f1f1;
+                border-left: 5px solid #444;
+                color: #000;
+                font-size: 13px;
+                padding-left: 7px;
+                &.group-option {
+                  padding-left: 10px;
+                }
+              }
+            }
+          }
+          &.chosen-container-active {
+            .chosen-choices {
+              border: 1px solid #aaa;
+            }
+          }
+          .chosen-choices {
+            .search-field {
+              padding: 5px 20px 6px 4px;
+              color: #222;
+            }
+            .search-choice {
+              background: #666;
+              border-radius: 0;
+              border: 0;
+              box-shadow: none;
+              color: #fff;
+              padding: 4px 20px 5px 4px;
+              .search-choice-close {
+                top: 5px;
+              }
+            }
+          }
+        }
+        .submit {
+          background-color: transparent;
+          border: 0;
+          height: 18px;
+          left: -32px;
+          position: relative;
+          width: 20px;
+          &:before {
+            color: #000;
+            content: '\f055';
+            cursor: pointer;
+            font-family: 'FontAwesome';
+            font-size: 20px;
+            left: 3px;
+            line-height: 20px;
+            position: absolute;
+            top: 2px;
+          }
+        }
+      }
     }
   }
   .album_meta,
@@ -414,7 +418,7 @@ div.container {
     box-sizing: border-box;
     margin: 10px auto 0 auto;
     max-width: 950px;
-    padding: 0 0 0 2px;
+    padding-left: 192px;
     a {
       &:hover {
         color: #666;
@@ -558,7 +562,7 @@ h1 {
   font-size: 22px;
   font-style: normal;
   font-variant: normal;
-  font-weight: normal;
+  font-weight: 400;
   letter-spacing: 0.1em;
   margin: 20px 0 20px 0;
   div.desc {
@@ -569,13 +573,13 @@ h2 {
   font-size: 18px;
   font-style: normal;
   font-variant: normal;
-  font-weight: normal;
+  font-weight: 300;
   margin: 15px 0 15px 0;
 }
 h3 {
   color: #222;
   font-size: 14px;
-  font-weight: normal;
+  font-weight: 300;
   margin: 10px 0 10px 0;
   &.album_love,
   &.artist_fan {
@@ -687,32 +691,35 @@ p {
 }
 
 /** Tag styles */
-.tag {
-  display: inline-block;
-  font-size: 10px;
-  letter-spacing: 0.01em;
-  margin-bottom: 3px;
-  text-transform: uppercase;
-  &.addtags,
-  &.genre,
-  &.keyword {
-    background-color: #333;
-    padding: 4px;
-  }
-  &.nationality {
-    position: relative;
-    top: 2px;
-  }
-  a, 
-  a:visited { 
-    color: #fff;
-    &:hover {
-      color: #eee;
-      text-decoration: none;
+#tags {
+  padding-bottom: 10px;
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.01em;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    &.addtags,
+    &.genre,
+    &.keyword {
+      background-color: #333;
+      padding: 4px;
     }
-  }
-  &:hover {
-    background-color: #555;
+    &.nationality {
+      position: relative;
+      top: 2px;
+    }
+    a, 
+    a:visited { 
+      color: #fff;
+      &:hover {
+        color: #eee;
+        text-decoration: none;
+      }
+    }
+    &:hover {
+      background-color: #555;
+    }
   }
 }
 
@@ -1069,6 +1076,7 @@ table.music_table {
       td {
         color: #999;
         font-size: 11px;
+        font-weight: 300;
         text-align: right;
       }
     }

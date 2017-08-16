@@ -5,8 +5,7 @@
     </div>
   </div>
 </div>
-<div class="clear"></div>
-<div id="mainCont" class="heading_container">
+<div id="mainCont">
   <div class="page_links">
     <?=anchor(array('album'), 'Albums')?>
     <?=anchor(array('artist'), 'Artists')?>

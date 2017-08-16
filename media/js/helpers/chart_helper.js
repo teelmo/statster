@@ -19,10 +19,10 @@ $.extend(view, {
         labels:{
           y:17,
           style:{
-            color:'#444',
+            color:'#999',
             fontFamily:'Raleway',
-            fontSize:14,
-            fontWeight:'normal'
+            fontSize:'14px',
+            fontWeight:'300'
           },
         },
         title:{
@@ -36,10 +36,10 @@ $.extend(view, {
             return app.formatNr(this.value);
           },
           style:{
-            color:'#444',
+            color:'#999',
             fontFamily:'Raleway',
-            fontSize:14,
-            fontWeight:'normal'
+            fontSize:'14px',
+            fontWeight:'300'
           }
         },
         title:{
@@ -56,10 +56,10 @@ $.extend(view, {
         },
         shadow:false,
         style:{
-          color:'#444',
+          color:'#999',
           fontFamily:'Raleway',
-          fontSize:14,
-          fontWeight:'normal'
+          fontSize:'14px',
+          fontWeight:'300'
         }
       },
       plotOptions:{
