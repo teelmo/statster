@@ -9,7 +9,18 @@ class Login extends CI_Controller {
     }
 
     // Load helpers
-    $this->load->helper(array('form'));
+    $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
+
+    $data = array();
+    $data['js_include'] = array('search');
+
+    $opts = array(
+      'human_readable' => false,
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
 
     $data = array();
     $data['redirect'] = empty($_GET['redirect']) ? '/' : $_GET['redirect'];

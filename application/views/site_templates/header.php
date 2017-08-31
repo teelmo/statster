@@ -55,8 +55,8 @@
         <div class="float_left">
           <div class="mobile meta">Reconcile with music</div>
           <div class="search_container">
-            <form action="http://statster.info/" method="post" accept-charset="utf-8" class="search_form">
-              <button disabled="disabled" type="submit" class="submit" title="Search!"></button>
+            <form action="/search" method="post" accept-charset="utf-8" class="search_form">
+              <button disabled="disabled" type="submit" class="search_submit" title="Search!"></button>
               <input type="text" class="middle search_text" autocomplete="off" tabindex="20" placeholder="Search music…" name="searchStr" />
             </form>
           </div>
@@ -77,6 +77,7 @@
                 <li class="mobile"><?=anchor(array(''), 'Overview')?></li>
                 <li class="mobile"><?=anchor(array('music'), 'Music')?></li>
                 <li class="mobile"><?=anchor(array('users'), 'Users')?></li>
+                <li class="mobile"><?=anchor(array('search'), 'Search')?></li>
                 <li><a href="javascript:;" class="toggle_username <?=(!empty($this->session->userdata('get_username'))) ? 'active' : ''; ?>"><?=(!empty($this->session->userdata('get_username'))) ? 'Show all' : 'Your stats only'; ?></a></li>
                 <li><?=anchor(array('user', $this->session->userdata('username')), 'Profile')?></li>
                 <li><?=anchor(array('user', 'edit'), 'Edit')?></li>
@@ -94,7 +95,6 @@
             <?php
           }
           ?>
-          <div>&nbsp;</div>
         </div>
       </div>
     </div>

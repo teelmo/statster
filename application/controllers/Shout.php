@@ -2,6 +2,7 @@
 class Shout extends CI_Controller {
 
   public function index($artist_name = '', $album_name = '') {
+    $data = array();
     if (!empty($album_name)) {
       // Load helpers
       $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'output_helper'));
@@ -52,8 +53,17 @@ class Shout extends CI_Controller {
       }
     }
     else {
-     // Load helpers
-      $this->load->helper(array());
+      // Load helpers
+      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+
+      $opts = array(
+        'human_readable' => false,
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+
       $data['js_include'] = array('shout', 'helpers/shout_helper');
 
       $this->load->view('site_templates/header');

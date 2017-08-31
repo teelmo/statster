@@ -1,8 +1,10 @@
 <div id="headingCont">
-  <div class="heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
-    <div class="info tag_info top_info">
-      <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
-      <h1><?=$tag_name?></h1>
+  <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
+    <div class="info">
+      <div class="top_info tag_info">
+        <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
+        <h1><?=$tag_name?></h1>
+      </div>
     </div>
   </div>
   <div class="tag_meta">

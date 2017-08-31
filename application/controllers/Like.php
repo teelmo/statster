@@ -53,9 +53,17 @@ class Like extends CI_Controller {
     }
     else {
       // Load helpers
-      $this->load->helper(array());
+      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
 
       $data = array();
+      $opts = array(
+        'human_readable' => false,
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+    
       $data['js_include'] = array('like');
 
       $this->load->view('site_templates/header');
@@ -66,9 +74,17 @@ class Like extends CI_Controller {
 
   public function love() {
     // Load helpers
-    $this->load->helper(array());
+    $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
 
     $data = array();
+    $opts = array(
+      'human_readable' => false,
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+    
     $data['js_include'] = array('love');
 
     $this->load->view('site_templates/header');
@@ -78,9 +94,17 @@ class Like extends CI_Controller {
 
   public function fan() {
     // Load helpers
-    $this->load->helper(array());
+    $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
 
     $data = array();
+    $opts = array(
+      'human_readable' => false,
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+
     $data['js_include'] = array('fan');
 
     $this->load->view('site_templates/header');

@@ -2,6 +2,8 @@
 class Tag extends CI_Controller {
 
   public function index($artist_name = '', $album_name = '') {
+    $data = array();
+
     if (!empty($album_name)) {
       // Load helpers
       $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'output_helper'));
@@ -53,7 +55,15 @@ class Tag extends CI_Controller {
     }
     else {
       // Load helpers
-      $this->load->helper(array('genre_helper', 'keyword_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('genre_helper', 'keyword_helper', 'nationality_helper', 'music_helper', 'img_helper', 'year_helper', 'output_helper'));
+
+      $opts = array(
+        'human_readable' => false,
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
 
       $data['limit'] = 1;
       $data['lower_limit'] = date('Y-m-d', time() - (180 * 24 * 60 * 60));
@@ -74,6 +84,7 @@ class Tag extends CI_Controller {
     // Load helpers
     $this->load->helper(array('genre_helper', 'id_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
+    $data = array();
 
     $data['tag_type'] = 'genre';
     if (!empty($tag_name)) {
@@ -105,7 +116,9 @@ class Tag extends CI_Controller {
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
+
         $data['js_include'] = array('tag', 'helpers/chart_helper');
+
         $this->load->view('tag/tag_view', $data);
       }
       else {
@@ -113,7 +126,19 @@ class Tag extends CI_Controller {
       }
     }
     else {
+      // Load helpers
+      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+      
+      $opts = array(
+        'human_readable' => false,
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+
       $data['js_include'] = array('genres');
+
       $this->load->view('tag/genre_view', $data);
     }
     $this->load->view('site_templates/footer');
@@ -123,6 +148,7 @@ class Tag extends CI_Controller {
     // Load helpers
     $this->load->helper(array('keyword_helper', 'id_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
+    $data = array();
 
     $data['tag_type'] = 'keyword';
     if (!empty($tag_name)) {
@@ -154,7 +180,9 @@ class Tag extends CI_Controller {
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
+
         $data['js_include'] = array('tag', 'helpers/chart_helper');
+
         $this->load->view('tag/tag_view', $data);
       }
       else {
@@ -162,7 +190,19 @@ class Tag extends CI_Controller {
       }
     }
     else {
+      // Load helpers
+      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+      
+      $opts = array(
+        'human_readable' => false,
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+
       $data['js_include'] = array('keywords');
+
       $this->load->view('tag/keyword_view', $data);
     }
     $this->load->view('site_templates/footer');
@@ -171,7 +211,8 @@ class Tag extends CI_Controller {
   public function nationality($tag_name = '') {
     $this->load->helper(array('nationality_helper', 'id_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
-    
+    $data = array();
+
     $data['tag_type'] = 'nationality';
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
@@ -202,7 +243,9 @@ class Tag extends CI_Controller {
         $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
         $data['group_by'] = TBL_artist . '.`id`';
         $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
+
         $data['js_include'] = array('tag', 'helpers/chart_helper');
+
         $this->load->view('tag/tag_view', $data);
       }
       else {
@@ -210,7 +253,19 @@ class Tag extends CI_Controller {
       }
     }
     else {
+      // Load helpers
+      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+      
+      $opts = array(
+        'human_readable' => false,
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+
       $data['js_include'] = array('nationalities');
+      
       $this->load->view('tag/nationality_view', $data);
     }
     $this->load->view('site_templates/footer');
@@ -219,7 +274,8 @@ class Tag extends CI_Controller {
   public function year($tag_name = '') {
     $this->load->helper(array('year_helper', 'img_helper', 'output_helper'));
     $this->load->view('site_templates/header');
-    
+    $data = array();
+
     $data['tag_type'] = 'year';
     if (!empty($tag_name)) {
       $data['tag_id'] = decode($tag_name);
@@ -228,17 +284,17 @@ class Tag extends CI_Controller {
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data += getYearListenings($data);
       // Get biography
-        $data += getYearBio($data);
-        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-          $this->load->helper(array('lastfm_helper'));
-          unset($data['bio_summary']);
-          unset($data['bio_content']);
-          $data += fetchTagBio($data);
-          addYearBio($data);
-        }
-        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
-          $data['update_bio'] = true;
-        }
+      $data += getYearBio($data);
+      if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+        $this->load->helper(array('lastfm_helper'));
+        unset($data['bio_summary']);
+        unset($data['bio_content']);
+        $data += fetchTagBio($data);
+        addYearBio($data);
+      }
+      else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+        $data['update_bio'] = true;
+      }
       if ($data['user_id'] = $this->session->userdata('user_id')) {
         $data += getYearListenings($data);
       }
@@ -251,11 +307,25 @@ class Tag extends CI_Controller {
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['group_by'] = TBL_artist . '.`id`';
       $data['artist'] = json_decode(getMusicByYear($data), true)[0];
+
       $data['js_include'] = array('tag', 'helpers/chart_helper');
+
       $this->load->view('tag/tag_view', $data);
     }
     else {
+      // Load helpers
+      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+
+      $opts = array(
+        'human_readable' => false,
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+
       $data['js_include'] = array('years', 'helpers/chart_helper');
+
       $this->load->view('tag/year_view', $data);
     }
     $this->load->view('site_templates/footer');

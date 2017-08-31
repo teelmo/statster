@@ -6,7 +6,9 @@
 class Artist extends CI_Controller {
 
   public function index() {
-    $data['js_include'] = array('artists');
+    // Load helpers.
+    $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+
     $data['lower_limit'] = '1970-01-01';
     $data['upper_limit'] = CUR_DATE;
     $data['title'] = 'Artists';
@@ -15,42 +17,16 @@ class Artist extends CI_Controller {
     $data['day'] = '';
     $data['side_title'] = 'Yearly';
 
-    $this->load->view('site_templates/header');
-    $this->load->view('music/artists_view', $data);
-    $this->load->view('site_templates/footer', $data);
-  }
-
-  public function stats($year, $month = FALSE, $day = FALSE) {
-    if ($day !== FALSE) {
-      $data['lower_limit'] = $year . '-' . $month . '-' . '00';
-      $data['upper_limit'] = $year . '-' . $month . '-' . '31';
-      $data['title'] = 'Listened ' . intval($day) . date('S',mktime(1, 1, 1, 1, ((($day >= 10) + ($day >= 20) + ( $day == 0)) * 10 + $day % 10))) . ' of ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year; 
-      $data['year'] = $year;
-      $data['month'] = $month;
-      $data['day'] = $day;
-      $data['side_title'] = 'Daily';
-    }
-    else if ($month !== FALSE) {
-      $data['lower_limit'] = $year . '-' . $month . '-' . '00';
-      $data['upper_limit'] = $year . '-' . $month . '-' . '31';
-      $data['title'] = 'Artists <span class="meta">' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year . '</span>';
-      $data['year'] = $year;
-      $data['month'] = $month;
-      $data['day'] = '';
-      $data['side_title'] = 'Daily';
-    }
-    else {
-      $data['lower_limit'] = $year . '-00-' . '00';
-      $data['upper_limit'] = $year . '-12-' . '31';
-      $data['title'] = 'Artists <span class="meta">' . $year . '</span>';
-      $data['year'] = $year;
-      $data['month'] = '';
-      $data['day'] = '';
-      $data['side_title'] = 'Monthly';
-    }
-
+    $opts = array(
+      'human_readable' => false,
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+      
     $data['js_include'] = array('artists');
-
+    
     $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
     $this->load->view('site_templates/footer', $data);
