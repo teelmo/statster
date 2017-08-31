@@ -125,7 +125,7 @@ div.container {
         height: 64px;
         margin-top: -8px;
         position: absolute;
-        right: -4px;
+        right: 0;
         width: 64px;
         z-index: 3;
         &:after {
@@ -260,6 +260,7 @@ div.container {
       .img174 {
         background-color: transparent;
         box-shadow: none;
+        margin-right: 18px;
         &.user_img,
         &.artist_img {
           background-position: 50% 50%;
@@ -299,7 +300,6 @@ div.container {
         }
       }
       .top_info {
-        margin-left: 192px;
         h1,
         h2,
         h3 {
@@ -418,7 +418,6 @@ div.container {
     box-sizing: border-box;
     margin: 10px auto 0 auto;
     max-width: 950px;
-    padding-left: 192px;
     a {
       &:hover {
         color: #666;
@@ -905,9 +904,10 @@ form#loginForm input[type="text"] {
       }
     }
   }
-  .submit {
+  .search_submit {
     background-color: transparent;
     border: 0;
+    cursor: pointer;
     height: 16px;
     width: 16px;
     &:before {
@@ -918,6 +918,9 @@ form#loginForm input[type="text"] {
       left: 0;
       position: relative;
       top: 2px;
+    }
+    &:disabled {
+      cursor: default;
     }
   }
 }
