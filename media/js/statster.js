@@ -96,6 +96,9 @@ var app = {
       },
       source:'/autoComplete/search'
     });
+    $('.search_text').keyup(function () {
+      ($(this).val() !== '') ? $('.search_submit').prop('disabled', false) : $('.search_submit').prop('disabled', true);
+    });
     $('.settings a').click(function () {
       $(this).parent('.settings').find('a').addClass('unactive');
       $(this).removeClass('unactive');
