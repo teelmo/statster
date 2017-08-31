@@ -2,12 +2,11 @@
 class Main extends CI_Controller {
 
   public function index() {
+    $data = array();
     if ($this->session->userdata('logged_in') === TRUE) {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
 
-      $data = array();
-      $data['js_include'] = array('main', 'helpers/add_listening_helper');
       $data['interval'] = 21;
 
       $opts = array(
@@ -17,17 +16,16 @@ class Main extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+      $data['js_include'] = array('main', 'helpers/add_listening_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('main_view', $data);
-      $this->load->view('site_templates/footer', $data);
+      $this->load->view('site_templates/footer');
     }
     else {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
-      $data = array();
-      $data['js_include'] = array('welcome');
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
@@ -39,10 +37,11 @@ class Main extends CI_Controller {
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
       $data['top_nationality'] = (json_decode(getNationalitiesListenings($opts), true) !== NULL) ? json_decode(getNationalitiesListenings($opts), true)[0] : array();
       $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
+      $data['js_include'] = array('welcome');
 
       $this->load->view('site_templates/header');
       $this->load->view('welcome_view', $data);
-      $this->load->view('site_templates/footer', $data);
+      $this->load->view('site_templates/footer');
     }
   }
 

@@ -2,12 +2,10 @@
 class Music extends CI_Controller {
 
   public function index() {
-    // Load helpers
+    // Load helpers.
     $this->load->helper(array('img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
     $data = array();
-    $data['js_include'] = array('music', 'helpers/chart_helper');
-    
     $opts = array(
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
@@ -19,8 +17,9 @@ class Music extends CI_Controller {
     $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
     $data['top_nationality'] = (json_decode(getNationalitiesListenings($opts), true) !== NULL) ? json_decode(getNationalitiesListenings($opts), true)[0] : array();
     $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
+    $data['js_include'] = array('music', 'helpers/chart_helper');
 
-    $this->load->view('site_templates/header', $data);
+    $this->load->view('site_templates/header');
     $this->load->view('music/music_view', $data);
     $this->load->view('site_templates/footer');
   }
@@ -28,7 +27,7 @@ class Music extends CI_Controller {
   public function artist_or_year($value) {
     $data = array();
     if ((int) $value > 1900 && (int) $value <= CUR_YEAR) {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper', 'spotify_helper', 'output_helper'));
       $data['year'] = $value;
       $data += array(
@@ -49,23 +48,23 @@ class Music extends CI_Controller {
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
-      
       $data['js_include'] = array('year', 'helpers/chart_helper');
+
       $this->load->view('site_templates/header');
       $this->load->view('music/year_view', $data);
       $this->load->view('site_templates/footer');
     }
     else {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'output_helper'));
 
-      // Decode artist information
+      // Decode artist information.
       $data['artist_name'] = decode($value);
-      // Get artist information aka. artist's name and id
+      // Get artist information aka. artist's name and id.
       if ($data = getArtistInfo($data)) {
-        // Get artist's total listening data
+        // Get artist's total listening data.
         $data += getArtistListenings($data);
-        // Get biography
+        // Get biography.
         $data += getArtistBio($data);
         if (empty($data['bio_summary']) || empty($data['bio_content'])) {
           $this->load->helper(array('lastfm_helper'));
@@ -77,21 +76,20 @@ class Music extends CI_Controller {
         else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
           $data['update_bio'] = true;
         }
-        // Get logged in user's listening data
+        // Get logged in user's listening data.
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getArtistListenings($data);
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
 
         if (empty($data['spotify_uri'])) {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
-
         $data += $_REQUEST;
-
+        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('artist', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/shout_helper');
-        $this->load->view('site_templates/header', $data);
+        
+        $this->load->view('site_templates/header');
         $this->load->view('music/artist_view', $data);
         $this->load->view('site_templates/footer');
       }
@@ -104,7 +102,7 @@ class Music extends CI_Controller {
   public function album_or_month($value1, $value2) {
     $data = array();
     if ((int) $value1 > 1900 && (int) $value1 <= CUR_YEAR && (int) $value2 > 0 && (int) $value2 <= 12) {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper', 'spotify_helper', 'output_helper'));
       $data['year'] = $value1;
       $data['month'] = $value2;
@@ -126,24 +124,23 @@ class Music extends CI_Controller {
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
-      
       $data['js_include'] = array('month', 'helpers/chart_helper');
+
       $this->load->view('site_templates/header');
       $this->load->view('music/month_view', $data);
       $this->load->view('site_templates/footer');
     }
     else {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'nationality_helper', 'output_helper'));
 
       $data['artist_name'] = decode($value1);
       $data['album_name'] = decode($value2);
-
-      // Get artist information aka. artist's name and id
+      // Get artist information aka. artist's name and id.
       if ($data = getAlbumInfo($data)) {
-        // Get albums's total listening data
+        // Get albums's total listening data.
         $data += getAlbumListenings($data);
-        // Get biography
+        // Get biography.
         $data += getAlbumBio($data);
         if (empty($data['bio_summary']) || empty($data['bio_content'])) {
           $this->load->helper(array('lastfm_helper'));
@@ -155,7 +152,7 @@ class Music extends CI_Controller {
         else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
           $data['update_bio'] = true;
         }
-        // Get logged in user's listening data
+        // Get logged in user's listening data.
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getAlbumListenings($data);
         }
@@ -165,9 +162,9 @@ class Music extends CI_Controller {
         }
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data += $_REQUEST;
-
         $data['js_include'] = array('album', 'lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'helpers/chart_helper', 'helpers/shout_helper');
-        $this->load->view('site_templates/header', $data);
+
+        $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);
         $this->load->view('site_templates/footer');      
       }
@@ -178,62 +175,62 @@ class Music extends CI_Controller {
   }
 
   public function recent($artist_name = '', $album_name = FALSE) {
-    // Load helpers
+    // Load helpers.
     $this->load->helper(array('form'));
-    $data = array();
 
+    $data = array();
     if (!empty($album_name)) {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'output_helper'));
 
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
       if ($data = getAlbumInfo($data)) {
-        // Get albums's total listening data
+        // Get albums's total listening data.
         $data += getAlbumListenings($data);
-        // Get logged in user's listening data
+        // Get logged in user's listening data.
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getAlbumListenings($data);
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        
         $data['js_include'] = array('recent_album', 'helpers/tag_helper');
+
         $this->load->view('site_templates/header');
         $this->load->view('music/recent_album_view', $data);
-        $this->load->view('site_templates/footer', $data);
+        $this->load->view('site_templates/footer');
       }
       else {
         show_404();
       }
     }
     else if (!empty($artist_name)) {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'artist_helper', 'output_helper'));
 
       $data['artist_name'] = decode($artist_name);
       if ($data = getArtistInfo($data)) {
         $data['album_name'] = decode($album_name);
-        // Get artist's total listening data
+        // Get artist's total listening data.
         $data += getArtistListenings($data);
-        // Get logged in user's listening data
+        // Get logged in user's listening data.
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getArtistListenings($data);
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-
         $data['js_include'] = array('recent_artist', 'helpers/tag_helper');
+
         $this->load->view('site_templates/header');
         $this->load->view('music/recent_artist_view', $data);
-        $this->load->view('site_templates/footer', $data);
+        $this->load->view('site_templates/footer');
       }
       else {
         show_404();
       }
     }
     else {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
 
       $opts = array(
@@ -243,73 +240,71 @@ class Music extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-
       $data['js_include'] = array('recent', 'helpers/add_listening_helper');
+
       $this->load->view('site_templates/header');
       $this->load->view('music/recent_view', $data);
-      $this->load->view('site_templates/footer', $data);
+      $this->load->view('site_templates/footer');
     }
   }
 
   public function listener($artist_name = '', $album_name = FALSE) {
-    // Load helpers
+    // Load helpers.
     $this->load->helper(array('form'));
-    $data = array();
 
+    $data = array();
     if (!empty($album_name)) {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'output_helper'));
 
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
       if ($data = getAlbumInfo($data)) {
-        // Get albums's total listening data
+        // Get albums's total listening data.
         $data += getAlbumListenings($data);
-        // Get logged in user's listening data
+        // Get logged in user's listening data.
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getAlbumListenings($data);
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        
         $data['js_include'] = array('listener_album', 'helpers/tag_helper');
+
         $this->load->view('site_templates/header');
         $this->load->view('music/listener_album_view', $data);
-        $this->load->view('site_templates/footer', $data);
+        $this->load->view('site_templates/footer');
       }
       else {
         show_404();
       }
     }
     else if (!empty($artist_name)) {
-      // Load helpers
+      // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'artist_helper', 'output_helper'));
 
       $data['artist_name'] = decode($artist_name);
       if ($data = getArtistInfo($data)) {
         $data['album_name'] = decode($album_name);
-        // Get artist's total listening data
+        // Get artist's total listening data.
         $data += getArtistListenings($data);
-        // Get logged in user's listening data
+        // Get logged in user's listening data.
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getArtistListenings($data);
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-
         $data['js_include'] = array('listener_artist', 'helpers/tag_helper');
+
         $this->load->view('site_templates/header');
         $this->load->view('music/listener_artist_view', $data);
-        $this->load->view('site_templates/footer', $data);
+        $this->load->view('site_templates/footer');
       }
       else {
         show_404();
       }
     }
     else {
-      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       // Load helpers
       $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
       
@@ -320,11 +315,12 @@ class Music extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['js_include'] = array('listener');
+      
       $this->load->view('site_templates/header');
       $this->load->view('music/listener_view', $data);
-      $this->load->view('site_templates/footer', $data);
+      $this->load->view('site_templates/footer');
     }
   }
 }

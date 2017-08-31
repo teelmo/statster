@@ -5,8 +5,6 @@ class User extends CI_Controller {
     // Load helpers
     $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
     
-    $data['js_include'] = array('user');
-
     $opts = array(
       'human_readable' => false,
       'limit' => '1',
@@ -14,6 +12,7 @@ class User extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
+    $data['js_include'] = array('user');
     
     $this->load->view('site_templates/header');
     $this->load->view('user/user_view', $data);
@@ -24,10 +23,7 @@ class User extends CI_Controller {
     $this->load->helper(array('form', 'user_helper', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper', 'fan_helper', 'love_helper', 'shout_helper'));
 
     $data['username'] = $username;
-
     if ($data = getUser($data)) {
-      $data['js_include'] = array('profile', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/add_listening_helper');
-      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['username'] = $this->uri->segment(2);
       $data['interval'] = 0;
       $opts = array(
@@ -42,7 +38,6 @@ class User extends CI_Controller {
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
       $data['top_nationality'] = (json_decode(getNationalitiesListenings($opts), true) !== NULL) ? json_decode(getNationalitiesListenings($opts), true)[0] : array();
       $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
-      
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
@@ -57,6 +52,8 @@ class User extends CI_Controller {
       $data['fan_count'] = getFanCount(array('user_id' => $data['user_id']));
       $data['love_count'] = getLoveCount(array('user_id' => $data['user_id']));
       $data['shout_count'] = getShoutCount(array('user_id' => $data['user_id']));
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
+      $data['js_include'] = array('profile', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/add_listening_helper');
       
       $this->load->view('site_templates/header');
       $this->load->view('user/profile_view', $data);
@@ -68,6 +65,7 @@ class User extends CI_Controller {
   }
 
   public function edit() {
+    $data = array();
     if ($this->session->userdata('logged_in') !== TRUE) {
       redirect('/login?redirect=user/edit', 'refresh');
     }

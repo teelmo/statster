@@ -7,13 +7,10 @@ class Login extends CI_Controller {
       $redirect = empty($_GET['redirect']) ? '/' : $_GET['redirect'];
       redirect($redirect, 'refresh');
     }
-
-    // Load helpers
+    // Load helpers.
     $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
 
     $data = array();
-    $data['js_include'] = array('search');
-
     $opts = array(
       'human_readable' => false,
       'limit' => '1',
@@ -21,14 +18,12 @@ class Login extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-
-    $data = array();
     $data['redirect'] = empty($_GET['redirect']) ? '/' : $_GET['redirect'];
     $data['js_include'] = array('login');
 
     $this->load->view('site_templates/header');
     $this->load->view('login_view', $data);
-    $this->load->view('site_templates/footer', $data);  
+    $this->load->view('site_templates/footer');  
   }
 }
 ?>

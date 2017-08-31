@@ -8,7 +8,8 @@ class Artist extends CI_Controller {
   public function index() {
     // Load helpers.
     $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
-
+    
+    $data = array();
     $data['lower_limit'] = '1970-01-01';
     $data['upper_limit'] = CUR_DATE;
     $data['title'] = 'Artists';
@@ -24,12 +25,11 @@ class Artist extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      
     $data['js_include'] = array('artists');
     
     $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
-    $this->load->view('site_templates/footer', $data);
+    $this->load->view('site_templates/footer');
   }
 }
 ?>

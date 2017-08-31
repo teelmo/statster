@@ -2,7 +2,7 @@
 class Logout extends CI_Controller {
 
   public function index() {
-    // Load helpers
+    // Load helpers.
     $this->load->helper(array('user_helper'));
 
     // Redirect user to the first page if logout successful.

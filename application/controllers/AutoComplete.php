@@ -6,7 +6,7 @@ class AutoComplete extends CI_Controller {
   }
 
   public function addListening() {
-    // Load helpers
+    // Load helpers.
     $this->load->helper(array('img_helper'));
     
     $results = array();
@@ -95,7 +95,7 @@ class AutoComplete extends CI_Controller {
     }
   }
   public function search() {
-    // Load helpers
+    // Load helpers.
     $this->load->helper(array('img_helper'));
     
     $results = array();
@@ -275,10 +275,10 @@ class AutoComplete extends CI_Controller {
     }
     else {
       $results[] = array(
-          'img' => '',
-          'label' => 'No results',
-          'value' => $search_str
-        );
+        'img' => '',
+        'label' => 'No results',
+        'value' => $search_str
+      );
       echo json_encode($results);
       return;
     }

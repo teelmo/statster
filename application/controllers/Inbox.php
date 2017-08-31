@@ -5,7 +5,7 @@ class Inbox extends CI_Controller {
     if ($this->session->userdata('logged_in') !== TRUE) {
       redirect('/login?redirect=inbox', 'refresh');
     }
-    // Load helpers
+    // Load helpers.
     $this->load->helper(array('form'));
 
     $this->load->view('site_templates/header');
