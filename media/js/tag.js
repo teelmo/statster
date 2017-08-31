@@ -209,7 +209,7 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  updateGenreBio: function () {
+  updateBio: function () {
     $.ajax({
       data:{
         tag_id:'<?=$tag_id?>',
@@ -217,7 +217,7 @@ $.extend(view, {
       },
       dataType:'json',
       type:'GET',
-      url:'/api/genre/update/biography'
+      url:'/api/<?=strtolower($tag_type)?>/update/biography'
     });
   },
   initTagEvents: function () {
@@ -271,6 +271,6 @@ $(document).ready(function () {
 
   var update_bio = <?=($update_bio === true) ? 1 : 0?>;
   if (update_bio === 1) {
-    view.updateGenreBio();
+    view.updateBio();
   }
 });
