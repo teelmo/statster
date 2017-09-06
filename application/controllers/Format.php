@@ -23,7 +23,6 @@ class Format extends CI_Controller {
         $this->load->view('site_templates/header');
         $this->load->view('format/format_album_view', $data);
         $this->load->view('site_templates/footer');
-
       }
       else {
         show_404();
@@ -70,7 +69,6 @@ class Format extends CI_Controller {
       $this->load->view('site_templates/header');
       $this->load->view('format/format_view', $data);
       $this->load->view('site_templates/footer');
-
     }
   }
 

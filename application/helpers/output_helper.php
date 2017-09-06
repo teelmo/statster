@@ -127,6 +127,40 @@ if (!function_exists('_json_return_helper')) {
   }
 }
 
+/**
+  * A helper function for cutting long strings.
+  *
+  * @param string $text.
+  *
+  * @param int $maxchar.
+  *
+  * @param string $end.
+  *
+  * @return string.
+  */
+function substrwords($text, $maxchar = 35, $end = '…') {
+  if (strlen($text) > $maxchar || $text == '') {
+    $words = preg_split('/\s/', $text);      
+    $output = '';
+    $i = 0;
+    while (1) {
+      $length = strlen($output) + strlen($words[$i]);
+      if ($length > $maxchar) {
+        break;
+      } 
+      else {
+        $output .= ' ' . $words[$i];
+        ++$i;
+      }
+    }
+    $output .= $end;
+  } 
+  else {
+    $output = $text;
+  }
+  return $output;
+}
+
 if (!function_exists('cal_days_in_month')) { 
   function cal_days_in_month($calendar, $month, $year) { 
     return date('t', mktime(0, 0, 0, $month, 1, $year)); 
