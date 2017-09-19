@@ -56,24 +56,26 @@ if (!function_exists('fetchAlbumInfo')) {
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE && $album_name !== FALSE) {
       $data = array();
-      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist=' . urlencode($artist_name) . '&album=' . urlencode($album_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)['album'];
-
-      // Get biography.
-      if (!empty($lastfm_data['wiki'])) {
-        $data['bio_summary'] = $lastfm_data['wiki']['summary']; 
-        $data['bio_content'] = $lastfm_data['wiki']['content'];
-      } 
-      // Get image.
-      if (!empty(end($lastfm_data['image'])['#text'])) {
-        $ci=& get_instance();
-        $ci->load->helper(array('img_helper'));
-        $url = explode('/', end($lastfm_data['image'])['#text']);
-        $url = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-        foreach (IMAGE_SIZES as $key => $imagesize) {
-          imageResize($url, getcwd() . '/media/img/album_img/' . $imagesize . '/' . $opts['album_id'] . '.jpg', $imagesize);
+      if ($lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist=' . urlencode($artist_name) . '&album=' . urlencode($album_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)) {
+        if (empty($lastfm_data['error'])) {
+          $lastfm_data = $lastfm_data['album'];
+          // Get biography.
+          if (!empty($lastfm_data['wiki'])) {
+            $data['bio_summary'] = $lastfm_data['wiki']['summary']; 
+            $data['bio_content'] = $lastfm_data['wiki']['content'];
+          } 
+          // Get image.
+          if (!empty(end($lastfm_data['image'])['#text'])) {
+            $ci=& get_instance();
+            $ci->load->helper(array('img_helper'));
+            $url = explode('/', end($lastfm_data['image'])['#text']);
+            $url = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
+            foreach (IMAGE_SIZES as $key => $imagesize) {
+              imageResize($url, getcwd() . '/media/img/album_img/' . $imagesize . '/' . $opts['album_id'] . '.jpg', $imagesize);
+            }
+          }
         }
       }
-      
       return $data;
     }
     return array();
@@ -98,20 +100,24 @@ if (!function_exists('fetchArtistInfo')) {
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {
       $data = array();
-      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)['artist'];
-      // Get biography.
-      if (!empty($lastfm_data['bio'])) {
-        $data['bio_summary'] = $lastfm_data['bio']['summary']; 
-        $data['bio_content'] = $lastfm_data['bio']['content'];
-      }
-      // Get image.
-      if (!empty(end($lastfm_data['image'])['#text'])) {
-        $ci=& get_instance();
-        $ci->load->helper(array('img_helper'));
-        $url = explode('/', end($lastfm_data['image'])['#text']);
-        $url = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-        foreach (IMAGE_SIZES as $key => $imagesize) {
-          imageResize($url, getcwd() . '/media/img/artist_img/' . $imagesize . '/' . $opts['artist_id'] . '.jpg', $imagesize);
+      if ($lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)) {
+        if (empty($lastfm_data['error'])) {
+          $lastfm_data = $lastfm_data['artist'];
+          // Get biography.
+          if (!empty($lastfm_data['bio'])) {
+            $data['bio_summary'] = $lastfm_data['bio']['summary']; 
+            $data['bio_content'] = $lastfm_data['bio']['content'];
+          }
+          // Get image.
+          if (!empty(end($lastfm_data['image'])['#text'])) {
+            $ci=& get_instance();
+            $ci->load->helper(array('img_helper'));
+            $url = explode('/', end($lastfm_data['image'])['#text']);
+            $url = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
+            foreach (IMAGE_SIZES as $key => $imagesize) {
+              imageResize($url, getcwd() . '/media/img/artist_img/' . $imagesize . '/' . $opts['artist_id'] . '.jpg', $imagesize);
+            }
+          }
         }
       }
       return $data;
