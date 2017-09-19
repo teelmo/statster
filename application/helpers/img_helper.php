@@ -72,7 +72,19 @@ if (!function_exists('getAlbumImg')) {
       return site_url() . $empty_filename;
     }
     $filename = 'media/img/album_img/' . $opts['size'] . '/' . $opts['album_id'] . '.jpg';
-    return (read_file('./' . $filename)) ? site_url() . $filename : site_url() . $empty_filename;
+    if (read_file('./' . $filename)) {
+      return site_url() . $filename;
+    }
+    else {
+      $ci->load->helper('lastfm_helper');
+      fetchAlbumInfo($opts);
+      if (read_file('./' . $filename)) {
+        return site_url() . $filename;
+      }
+      else {
+        return site_url() . $empty_filename;
+      }
+    }
   }   
 }
 
@@ -125,7 +137,6 @@ if (!function_exists('getListeningFormatImg')) {
       $result = $query->result();
       $filename = 'media/img/format_img/format_icons/' . $result[0]->img . '.png';
       return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
-                                            
     }
     else {
       return FALSE;
@@ -208,5 +219,27 @@ if (!function_exists('getFormatTypeImg')) {
     $query = $ci->db->query($sql, array($format_type));
     return ($query->num_rows() > 0) ? $query->result()[0]->img : FALSE;
   }   
+}
+
+if (!function_exists('imageResize')) {
+  function imageResize($src, $dst, $dst_width) {
+    if (!list($src_width, $src_height) = getimagesize($src)) return 'Unsupported picture type!';
+
+    $type = strtolower(substr(strrchr($src, '.'), 1));
+    if ($type == 'jpeg') $type = 'jpg';
+    switch ($type) {
+      case 'bmp': $img = imagecreatefromwbmp($src); break;
+      case 'gif': $img = imagecreatefromgif($src); break;
+      case 'jpg': $img = imagecreatefromjpeg($src); break;
+      case 'png': $img = imagecreatefrompng($src); break;
+      default : return 'Unsupported picture type!';
+    }
+    $dst_height = ($src_height * $dst_width) / $src_width;
+
+    $new = imagecreatetruecolor($dst_width, $dst_height);
+    imagecopyresampled($new, $img, 0, 0, 0, 0, $dst_width, $dst_height, $src_width, $src_height);
+    imagejpeg($new, $dst);
+    return true;
+  }
 }
 ?>

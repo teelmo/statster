@@ -119,6 +119,9 @@ define('TBL_user_shout', 'user_shout');
 define('TBL_user_info', 'user_info');
 define('TBL_year_biography', 'year_biography');
 
+define('IMAGE_SIZES', [32, 64, 124, 174, 300]);
+
+
 /* API keys */
 define('LASTFM_API_KEY', $_SERVER['CI_LASTFM_API_KEY']);
 define('SPOTIFY_CLIENT_ID', $_SERVER['CI_SPOTIFY_CLIENT_ID']);

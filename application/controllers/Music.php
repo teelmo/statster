@@ -70,7 +70,7 @@ class Music extends CI_Controller {
           $this->load->helper(array('lastfm_helper'));
           unset($data['bio_summary']);
           unset($data['bio_content']);
-          $data += fetchArtistBio($data);
+          $data += fetchArtistInfo($data);
           addArtistBio($data);
         }
         else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
@@ -146,7 +146,7 @@ class Music extends CI_Controller {
           $this->load->helper(array('lastfm_helper'));
           unset($data['bio_summary']);
           unset($data['bio_content']);
-          $data += fetchAlbumBio($data);
+          $data += fetchAlbumInfo($data);
           addAlbumBio($data);
         }
         else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {

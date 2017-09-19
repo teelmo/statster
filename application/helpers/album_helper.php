@@ -19,8 +19,8 @@ if (!function_exists('addAlbum')) {
     $data['album_info'] = !empty($opts['album_name']) ? $opts['album_name'] : '';
     $data['artist_id'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
+    $data['artist_name'] = $opts['artist_name'];
     if (empty($data['artist_id'])) {
-      $data['artist_name'] = $opts['artist_name'];
       if (!$data['artist_id'] = addArtist($data)) {
         return FALSE;
       }
@@ -37,7 +37,7 @@ if (!function_exists('addAlbum')) {
       if ($ci->db->affected_rows() === 1) {
         $data['album_id'] = $ci->db->insert_id();
         // Load helpers.
-        $ci->load->helper(array('keyword_helper', 'artist_helper', 'nationality_helper'));
+        $ci->load->helper(array('keyword_helper', 'artist_helper', 'nationality_helper', 'lastfm_helper'));
         // Add decade keyword.
         $data['tag_name'] = (floor((int)$data['album_year'] / 10) * 10) . 's';
         $data['tag_id'] = getKeywordID($data);
@@ -54,6 +54,8 @@ if (!function_exists('addAlbum')) {
         }
         // Add Spotify resource.
         getSpotifyResourceId($data);
+        // Get album img.
+        fetchAlbumInfo($data);
         // Return album ID.
         return $data['album_id'];
       }

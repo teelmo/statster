@@ -26,7 +26,7 @@ class Artist extends CI_Controller {
         // Load helpers
         $this->load->helper(array('artist_helper', 'lastfm_helper'));
 
-        $_REQUEST += fetchArtistBio($_REQUEST);
+        $_REQUEST += fetchArtistInfo($_REQUEST);
         echo addArtistBio($_REQUEST);
         break;
       default:

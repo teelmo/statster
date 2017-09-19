@@ -26,7 +26,7 @@ class Album extends CI_Controller {
       case 'biography':
         $this->load->helper(array('album_helper', 'lastfm_helper'));
         
-        $_REQUEST += fetchAlbumBio($_REQUEST);
+        $_REQUEST += fetchAlbumInfo($_REQUEST);
         echo addAlbumBio($_REQUEST);
         break;
       default:
