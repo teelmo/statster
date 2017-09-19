@@ -47,7 +47,19 @@ if (!function_exists('getArtistImg')) {
       return site_url() . $empty_filename;
     }
     $filename = 'media/img/artist_img/' . $opts['size'] . '/' . $opts['artist_id'] . '.jpg';
-    return (read_file('./' . $filename)) ? site_url() . $filename : site_url() . $empty_filename;
+    if (read_file('./' . $filename)) {
+      return site_url() . $filename;
+    }
+    else {
+      $ci->load->helper('lastfm_helper');
+      fetchArtistInfo($opts);
+      if (read_file('./' . $filename)) {
+        return site_url() . $filename;
+      }
+      else {
+        return site_url() . $empty_filename;
+      }
+    }
   }   
 }
 
