@@ -5,15 +5,15 @@
       <div class="top_info user_info">
         <h1><?=$username?></h1>
         <h4><span class="username"><?=($real_name) ? htmlentities($real_name) : htmlentities($username) ?></span><span class="meta"> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></span></h4>
-        <div class="tags">
+        <ul id="tags">
           <?php
           foreach ($tags as $tag) {
             ?>
-            <span class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name']) . '?u=teelmo'), $tag['name'])?></span>
+            <li class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name']) . '?u=teelmo'), $tag['name'])?></li>
             <?php
           }
           ?>
-        </div>
+        </ul>
       </div>
     </div>
   </div>
