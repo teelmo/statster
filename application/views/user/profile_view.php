@@ -64,7 +64,7 @@
           <?php
         }
         ?>
-        <div><?=nl2br(htmlentities($about))?></div>
+        <p><?=nl2br(htmlentities($about))?></p>
       </div>
     </div>
     <div class="clear"></div>
