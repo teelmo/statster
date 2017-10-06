@@ -76,7 +76,9 @@ if (!empty($json_data)) {
               ?>
             </div>
           </div>
-          <?=nl2br($row['text'])?>
+          <div class="shout_text">
+            <?=nl2br($row['text'])?>
+          </div>
         </td>
       </tr>
       <?php
