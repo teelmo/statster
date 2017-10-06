@@ -32,7 +32,7 @@ $.extend(view, {
       $('#biographyMore').hide();
       $('.summary').hide();
       $('#biographyLess').show();
-      $('.content').show();
+      $('.content').fadeIn();
       event.preventDefault();
     });
     $('#biographyLess').click(function (event) {
