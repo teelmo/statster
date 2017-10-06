@@ -153,6 +153,7 @@ function substrwords($text, $maxchar = 35, $end = '…') {
         ++$i;
       }
     }
+    $output = substr($output, 1);
     $output .= $end;
   } 
   else {
