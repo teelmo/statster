@@ -702,8 +702,13 @@ p {
     &.addtags,
     &.genre,
     &.keyword {
-      background-color: #333;
-      padding: 4px;
+      a {
+        background-color: #333;
+        padding: 4px;
+        &:hover {
+          background-color: #555;
+        }
+      }
     }
     &.nationality {
       position: relative;
@@ -716,9 +721,6 @@ p {
         color: #eee;
         text-decoration: none;
       }
-    }
-    &:hover {
-      background-color: #555;
     }
   }
 }
@@ -1138,6 +1140,7 @@ table.side_table {
       &.title {
         padding-left: 5px;
         .spotify_link {
+          margin-right: 3px;
           text-decoration: none;
           .spotify_container {
             &:after {
@@ -1157,6 +1160,10 @@ table.side_table {
         .album_year {
           color: #999;
           font-size: 11px;
+        }
+        .artist_name {
+          font-size: 11px;
+          line-height: 12px;
         }
       }
       &.calendar {
@@ -1339,10 +1346,8 @@ table.shout_table {
         padding-left: 10px;
         vertical-align: top;
         width: 100%;
-        div {
-          .title {
-            font-weight: 400;
-          }
+        .shout_text {
+          font-weight: 300;
         }
         .confirmation,
         .delete {
