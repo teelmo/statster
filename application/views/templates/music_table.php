@@ -1,4 +1,5 @@
 <?php
+$strlenght = isset($strlenght) ? $strlenght : 80;
 if (!empty($json_data)) {
   if (is_array($json_data)) {
     ?>
@@ -39,10 +40,10 @@ if (!empty($json_data)) {
             }
             ?>
             <span class="title">
-              <span class="artist"><?=anchor(array('music', url_title($row['artist_name'])), substrwords($row['artist_name'], 60), array('title' => 'Browse to artist\'s page'))?>
+              <span class="artist"><?=anchor(array('music', url_title($row['artist_name'])), substrwords($row['artist_name'], $strlenght), array('title' => 'Browse to artist\'s page'))?>
                 <?=DASH?>
               </span>
-              <span class="album"><?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], 60), array('title' => 'Browse to album\'s page'))?></span>
+              <span class="album"><?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], $strlenght), array('title' => 'Browse to album\'s page'))?></span>
               <span class="year">
                 <?=anchor(array('year', url_title($row['year'])), '<span class="album_year number">' . $row['year'] . '</span>', array('title' => 'Browse albums'))?>
               </span>

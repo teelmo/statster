@@ -252,6 +252,7 @@ $.extend(view, {
                 spotify:true
               },
               json_data:data,
+              strlenght:30,
               size:32
             },
             success: function (data) {

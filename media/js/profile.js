@@ -71,7 +71,8 @@ $.extend(view, {
               hide:{
                 del:true
               },
-              json_data:data
+              json_data:data,
+              strlenght:50
             },
             success: function (data) {
               $('#recentlyListenedLoader2').hide();

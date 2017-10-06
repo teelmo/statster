@@ -1,6 +1,7 @@
 <?php
 if (!empty($json_data)) {
   $size = isset($size) ? $size : 64;
+  $strlenght = isset($strlenght) ? $strlenght : 80;
   if (is_array($json_data)) {
     if (!empty($limit)) {
       shuffle($json_data);
@@ -65,27 +66,20 @@ if (!empty($json_data)) {
         <td class="title">
           <div class="title">
             <?php
-            if (empty($hide['spotify']) && $row['spotify_uri']) {
-              ?>
-              <a href="<?=$row['spotify_uri']?>" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>
-              <?php
-            }
-            ?>
-            <?php
             if (!empty($row['type'])) {
               echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
             }
             else {
-              if (empty($hide['artist'])) {
-                echo anchor(array('music', url_title($row['artist_name'])), substrwords($row['artist_name'], 80), array('title' => 'Browse to artist\'s page'));
-                if (!empty($row['album_name']) && empty($hide['album'])) {
-                echo ' ' . DASH . ' ';
-                }
-              }
               if (!empty($row['album_name']) && empty($hide['album'])) {
-                echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], 80), array('title' => 'Browse to album\'s page'));
+                if (empty($hide['spotify']) && $row['spotify_uri']) {
+                  echo anchor($row['spotify_uri'], '<span class="spotify_container album_spotify_container"></span>', array('class' => 'spotify_link'));
+                }
+                echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], $strlenght), array('title' => 'Browse to album\'s page'));
                 echo ' ';
                 echo anchor(array('year', url_title($row['year'])), '<span class="album_year number">' . $row['year'] . '</span>', array('title' => 'Browse release year'));
+              }
+              if (empty($hide['artist'])) {
+                echo '<div class="metainfo">' . anchor(array('music', url_title($row['artist_name'])), substrwords($row['artist_name'], $strlenght), array('title' => 'Browse to artist\'s page')) . '</div>';
               }
             }
             ?>
