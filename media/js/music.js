@@ -135,7 +135,6 @@ $.extend(view, {
             data:{
               json_data:data,
               hide:{
-                artist:true,
                 calendar:true,
                 count:true,
                 date:true,
