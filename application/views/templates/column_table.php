@@ -14,7 +14,7 @@ if (!empty($json_data)) {
           ?>
           <td class="rank">
             <?php
-            if ($row['count'] != $prev_count) {
+            if ($row['count'] !== $prev_count) {
               ?>
               <span class="rank number"><?=$rank?></span>
               <?php
