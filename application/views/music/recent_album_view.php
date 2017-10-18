@@ -83,10 +83,10 @@
       <div class="more">
         <?php
         if (!empty($album_name)) {
-          echo anchor(array('listener', url_title($artist_name), url_title($album_name)), 'See more', array('title' => 'Browse more listenings'));
+          echo anchor(array('listener', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more listenings'));
         }
         elseif (!empty($artist_name)) {
-          echo anchor(array('listener', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'));
+          echo anchor(array('listener', url_title($artist_name)), 'More', array('title' => 'Browse more listenings'));
         }
         ?>
       </div>
