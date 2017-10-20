@@ -2,6 +2,7 @@
   <div class="heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')">
     <div class="info">
       <div class="top_info year_info">
+        <h2><?=anchor(array('music'), 'Music')?></h2>
         <h1><?=$year?></h1>
       </div>
     </div>
@@ -95,21 +96,27 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
       <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
-    <div class="container">
-      <h2>Monthly</h2>
-      <table class="month_table">
-        <?php
-        for ($month = 1; $month <= 12; $month++) {
-          ;
-          if ($year != CUR_YEAR || $month <= (int) CUR_MONTH) {
-            ?>
-            <tr><td><span class="r"><?=anchor(array('music', url_title($year), url_title(str_pad($month, 2, '0', STR_PAD_LEFT))), DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F'), array('title' => DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F') . ' ' . $year . ' overview'))?></span></td></tr>
-            <?php
+    <?php
+    if ($year > 2007) {
+      ?>
+      <div class="container">
+        <h2>Monthly</h2>
+        <table class="month_table">
+          <?php
+          for ($month = 1; $month <= 12; $month++) {
+            ;
+            if ($year != CUR_YEAR || $month <= (int) CUR_MONTH) {
+              ?>
+              <tr><td><span class="r"><?=anchor(array('music', url_title($year), url_title(str_pad($month, 2, '0', STR_PAD_LEFT))), DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F'), array('title' => DateTime::createFromFormat('!m', str_pad($month, 2, '0', STR_PAD_LEFT))->format('F') . ' ' . $year . ' overview'))?></span></td></tr>
+              <?php
+            }
           }
-        }
-        ?>
-      </table>
-    </div>
+          ?>
+        </table>
+      </div>
+      <?php
+    }
+    ?>
     <div class="container"><hr /></div>
     <div class="container">
       <h1>Top tags</h1>
