@@ -1034,7 +1034,7 @@ table.music_table {
         }
       }
       &:nth-child(2n) {
-        background-color: #f9f9f9;
+        background-color: rgba(245, 245, 245, 0.8);
       }
       &:nth-child(2n+1) {
         background-color: #fff;
@@ -1224,6 +1224,11 @@ table.genre_table tr td {
 /** barTable */
 table.column_table {
   tr {
+    &:nth-child(2n) {
+      td.name {
+        background-color: rgba(245, 245, 245, 0.8);
+      }
+    }
     td {
       padding: 1px 0 1px 0;
       &.rank {
@@ -1265,7 +1270,7 @@ table.column_table {
   &.full {
     margin-top: 20px;
     tr:nth-child(2n) td.columnChartName {
-      background-color: #f9f9f9;
+      background-color: rgba(245, 245, 245, 0.8);
     }
   }
 }
@@ -1279,7 +1284,7 @@ table.column_table {
   table.shout_table {
     tr {
       &:nth-child(2n) {
-        background-color: rgba(245, 245, 245, 0.5);
+        background-color: rgba(245, 245, 245, 0.8);
       }
       &:nth-child(2n+1) {
         background-color: transparent;
@@ -1500,6 +1505,11 @@ ul {
       display: inline-block;
       margin-top: 3px;
     }
+    li.hover {
+      .main {
+        text-decoration: underline;
+      }
+    }
   }
   &.user_list {
     &.user_list_150 li {
@@ -1716,7 +1726,8 @@ div.cover {
       background-image: none !important;
     }
   }
-  a {
+  .album_year a,
+  >a {
     display: block;
     height: 100%;
     position: absolute;
@@ -1740,22 +1751,27 @@ div.cover {
       }
     }
   }
-  .title {
+  .meta {
     bottom: 5px;
     color: #fff;
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 400;
     left: 7px;
     letter-spacing: 0.01em;
     padding-right: 5px;
     position: absolute;
     z-index: 4;
-  }
-  &:hover a {
-    .title {
-      text-decoration: underline;
-      text-shadow: 0 0 10px rgba(0,0,0,.7);
+    a {
+      color: #fff;
     }
+    .main {
+      font-size: 14px;
+    }
+    // &.hover {
+    //   .main a {
+    //     text-decoration: underline;
+    //   }
+    // }
   }
 }
 
