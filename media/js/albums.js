@@ -198,6 +198,47 @@ $.extend(view, {
       type:'GET',
       url:'/api/listening/get'
     });
+  },
+  getUsers: function (date, vars) {
+    $('<div class="container"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/><table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table></div>').appendTo('#sideTable');
+    $.ajax({
+      data:{
+        limit:14,
+        lower_limit:date,
+        upper_limit:date
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:{
+                calendar:true,
+                date:true
+              },
+              json_data:data,
+              size:32
+            },
+            success: function (data) {
+              $('#topListenerLoader').hide();
+              $('#topListener').html(data);
+            },
+            type:'POST',
+            url:'/ajax/userTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/listener/get'
+    });
   }
 });
 
@@ -241,6 +282,6 @@ $(document).ready(function () {
     var str = '' + '<?=$day?>';
     var pad_day = pad.substring(0, pad.length - str.length) + str;
     view.getListenings('<?=$year?>' + '-' + pad_month + '-' + pad_day, vars);
-    view.topAlbumDaily('<?=$year?>', '<?=$month?>');
+    view.getUsers('<?=$year?>' + '-' + pad_month + '-' + pad_day, vars);
   }
 });

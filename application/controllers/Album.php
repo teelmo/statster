@@ -31,16 +31,24 @@ class Album extends CI_Controller {
     $this->load->view('music/albums_view', $data);
     $this->load->view('site_templates/footer');
   }
-  public function stats($year, $month = FALSE) {
+  public function stats($year, $month = FALSE, $day = FALSE) {
     // Load helpers.
     $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
     
     $data = array();
     $data['lower_limit'] = $year . '-' . (($month === FALSE) ? '00' : $month) . '-00';
     $data['upper_limit'] = $year . '-' . (($month === FALSE) ? '12' : $month) . '-31';
-    $data['title'] = (($month === FALSE) ? 'Albums '. $year : 'Albums '. $year . ' ' . DateTime::createFromFormat('!m', $month)->format('F'));
-    $data['side_title'] = ($month === FALSE) ? 'Monthly': 'Daily';
-    $data['day'] = '';
+    if ($day !== FALSE) {
+      $data['title'] = DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day)->format('l') . ' '. DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day)->format('jS') . ' of ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year;
+    }
+    else if ($month !== FALSE) {
+      $data['title'] = 'Artists in ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year;
+    }
+    else {
+      $data['title'] = 'Artists '. $year;
+    }
+    $data['side_title'] = ($month === FALSE) ? 'Monthly': 'Listeners';
+    $data['day'] = $day;
     $data['month'] = $month;
     $data['year'] = $year;
 
