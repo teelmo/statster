@@ -1201,7 +1201,7 @@ table.side_table {
       background-color: #fff;
     }
     &:nth-child(2n) {
-      background-color: rgba(245, 245, 245, 0.5);
+      background-color: rgba(245, 245, 245, 0.8);
     }
     &:nth-child(2n+1) {
       background-color: transparent;
@@ -1224,11 +1224,6 @@ table.genre_table tr td {
 /** barTable */
 table.column_table {
   tr {
-    &:nth-child(2n) {
-      td.name {
-        background-color: rgba(245, 245, 245, 0.8);
-      }
-    }
     td {
       padding: 1px 0 1px 0;
       &.rank {
@@ -1269,11 +1264,14 @@ table.column_table {
   }
   &.full {
     margin-top: 20px;
-    tr:nth-child(2n) td.columnChartName {
-      background-color: rgba(245, 245, 245, 0.8);
+    tr:nth-child(2n) {
+      td.name {
+        background-color: rgba(245, 245, 245, 0.8);
+      }
     }
   }
 }
+
 /** shoutTable */
 #shoutTotal {
   color: #999;
