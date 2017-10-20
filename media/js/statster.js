@@ -141,20 +141,18 @@ var app = {
         }
       }
     });
-    $('html').on('mouseover', '.music_wall li', function (event) {
+    $('html').on('mouseover', '.music_wall li, .music_list li', function (event) {
       $(this).addClass('hover');
       event.stopPropagation();
     });
-    $('html').on('mouseout', '.music_wall li', function (event) {
+    $('html').on('mouseout', '.music_wall li, .music_list li', function (event) {
       $(this).removeClass('hover');
       event.stopPropagation();
     });
-    $('html').on('mouseover', '.music_wall li .meta', function (event) {
-      $(this).parent('li').find('.cover').addClass('hover');
+    $('html').on('mouseover', '.music_wall li .meta, .music_list li .meta', function (event) {
       event.stopPropagation();
     });
-    $('html').on('mouseout', '.music_wall li .meta', function (event) {
-      $(this).parent('li').find('.cover').removeClass('hover');
+    $('html').on('mouseout', '.music_wall li .meta, .music_list li .meta', function (event) {
       event.stopPropagation();
     });
     $('html').on('click', '.some_link', function () {
