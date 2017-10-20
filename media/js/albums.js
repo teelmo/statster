@@ -66,6 +66,29 @@ $.extend(view, {
       url:'/api/album/get'
     });
   },
+  dailyAlbumCount: function (limit, vars) {
+    $.ajax({
+      data:{
+        limit:vars.limit,
+        lower_limit:limit,
+        upper_limit:limit,
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html(data);
+        },
+        204: function (data) { // 204 No Content
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html('<?=ERR_NO_RESULTS?>');
+        }
+      },
+      type:'GET',
+      url:'/api/album/get/count'
+    });
+  },
   topAlbumYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
       $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopAlbum' + year + 'Loader"/><table id="sideTopAlbum' + year + '" class="side_table"></table><div class="more"><a href="/album/' + year + '" title="Browse more">More <span class="number">' + year + '</span></</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
@@ -101,7 +124,7 @@ $.extend(view, {
       var str = '' + month;
       var pad = '00';
       var pad_month = pad.substring(0, pad.length - str.length) + str;
-      $('<div class="container"><h2 class="number">' + month_str[month] + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopAlbum' + month + 'Loader"/><table id="sideTopAlbum' + month + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '" title="Browse more">More <span class="number">' + month_str[month] + '</span></a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><h2 class="number">' + month_str[month] + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopAlbum' + month + 'Loader"/><table id="sideTopAlbum' + month + '" class="side_table"></table><div class="more"><a href="/album/' + year + '/' + pad_month + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopAlbum' + month,
         hide:{
@@ -131,20 +154,12 @@ $.extend(view, {
     for (var day = 1; day <= new Date(year, month, 0).getDate(); day++) {
       var str = '' + day;
       var pad_day = pad.substring(0, pad.length - str.length) + str;
-      $('<div class="container"><h2 class="number">' + weekday[new Date(year, month, day).getDay()] + ' – ' + app.getGetOrdinal(day) + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + day + 'Loader"/><table id="sideTopArtist' + day + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '/' + pad_day + '" title="Browse more">More <span class="number">' + day + '</span></a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><div><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopAlbum' + day + 'Loader"/><span id="sideTopAlbum' + day + '" class="number"></span> listenings <div class="metainfo">' + weekday[new Date(year, month, day).getDay()] + ' – <span class="number">' + app.getGetOrdinal(day) + '</span></div></div><div class="more"><a href="/album/' + year + '/' + pad_month + '/' + pad_day + '" title="Browse more">More</a></div></div>').appendTo($('#sideTable'));
       var vars = {
-        container:'#sideTopArtist' + day,
-        hide:{
-          calendar:true,
-          count:true,
-          date:true,
-          rank:true,
-          spotify:true
-        },
-        limit:3,
-        template:'/ajax/sideTable'
+        container:'#sideTopAlbum' + day,
+        limit:100,
       }
-      view.getListenings(year + '-' + pad_month + '-' + pad_day, vars);
+      view.dailyAlbumCount(year + '-' + pad_month + '-' + pad_day, vars);
     }
   },
   getListenings: function (date, vars) {

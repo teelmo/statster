@@ -6,11 +6,18 @@ class Album extends CI_Controller {
   }
 
   /* List albums */
-  public function get() {
+  public function get($type = FALSE) {
     // Load helpers
     $this->load->helper(array('music_helper', 'output_helper'));
     
-    echo getAlbums($_REQUEST);
+    switch ($type) {
+      case 'count':
+        echo getListeningCount($_REQUEST, 'album');
+        break;
+      default:
+        echo getAlbums($_REQUEST);
+        break;
+    }
   }
 
   /* Add a album */

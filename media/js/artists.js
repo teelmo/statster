@@ -66,7 +66,7 @@ $.extend(view, {
       url:'/api/artist/get'
     });
   },
-  topArtistCount: function (limit, vars) {
+  dailyArtistCount: function (limit, vars) {
     $.ajax({
       data:{
         limit:vars.limit,
@@ -77,22 +77,12 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
-          $.ajax({
-            data:{
-              hide:vars.hide,
-              json_data:data
-            },
-            success: function (data) {
-              $(vars.container + 'Loader').hide();
-              $(vars.container).html(data);
-            },
-            type:'POST',
-            url:vars.template
-          });
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html(data);
         },
         204: function (data) { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?=ERR_NO_DATA?>');
+          $(vars.container).html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -101,7 +91,7 @@ $.extend(view, {
   },
   topArtistYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-      $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + year + 'Loader"/><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More <span class="number">' + year + '</span></a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + year + 'Loader"/><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopArtist' + year,
         hide:{
@@ -133,7 +123,7 @@ $.extend(view, {
       var str = '' + month;
       var pad = '00';
       var pad_month = pad.substring(0, pad.length - str.length) + str;
-      $('<div class="container"><h2 class="number">' + month_str[month] + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + month + 'Loader"/><table id="sideTopArtist' + month + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '" title="Browse more">More <span class="number">' + month_str[month] + '</span></a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><h2 class="number">' + month_str[month] + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + month + 'Loader"/><table id="sideTopArtist' + month + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopArtist' + month,
         hide:{
@@ -168,11 +158,9 @@ $.extend(view, {
         hide:{
           album:true,
         },
-        empty:'0',
-        limit:100,
-        template:'/ajax/columnTable'
+        limit:100
       }
-      view.topArtistCount(year + '-' + pad_month + '-' + pad_day, vars);
+      view.dailyArtistCount(year + '-' + pad_month + '-' + pad_day, vars);
     }
   },
   getListenings: function (date, vars) {
@@ -221,6 +209,7 @@ $(document).ready(function () {
       template:'/ajax/columnTable'
     }
     view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
+
     if ('<?=$month?>' !== '') {
       view.topArtistDaily('<?=$year?>', '<?=$month?>');
     }
@@ -245,10 +234,10 @@ $(document).ready(function () {
       },
       template:'/ajax/musicTable'
     }
-    var str = '<?=$month?>';
+    var str = '' + '<?=$month?>';
     var pad = '00';
     var pad_month = pad.substring(0, pad.length - str.length) + str;
-    var str = '<?=$day?>';
+    var str = '' + '<?=$day?>';
     var pad_day = pad.substring(0, pad.length - str.length) + str;
     view.getListenings('<?=$year?>' + '-' + pad_month + '-' + pad_day, vars);
     view.topArtistDaily('<?=$year?>', '<?=$month?>');

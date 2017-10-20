@@ -6,11 +6,18 @@ class Artist extends CI_Controller {
   }
 
   /* List artists */
-  public function get() {
+  public function get($type = FALSE) {
     // Load helpers
     $this->load->helper(array('music_helper', 'output_helper'));
 
-    echo getArtists($_REQUEST);
+    switch ($type) {
+      case 'count':
+        echo getListeningCount($_REQUEST, 'artist');
+        break;
+      default:
+        echo getArtists($_REQUEST);
+        break;
+    }
   }
 
   /* Add a artist */

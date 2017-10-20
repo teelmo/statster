@@ -39,7 +39,7 @@ class Album extends CI_Controller {
     $data['lower_limit'] = $year . '-' . (($month === FALSE) ? '00' : $month) . '-00';
     $data['upper_limit'] = $year . '-' . (($month === FALSE) ? '12' : $month) . '-31';
     $data['title'] = (($month === FALSE) ? 'Albums '. $year : 'Albums '. $year . ' ' . DateTime::createFromFormat('!m', $month)->format('F'));
-    $data['side_title'] = 'Yearly';
+    $data['side_title'] = ($month === FALSE) ? 'Monthly': 'Daily';
     $data['day'] = '';
     $data['month'] = $month;
     $data['year'] = $year;
