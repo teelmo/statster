@@ -72,8 +72,9 @@ if (!empty($json_data)) {
             else {
               if (!empty($row['album_name']) && empty($hide['album'])) {
                 if (empty($hide['spotify']) && $row['spotify_uri']) {
-                  echo anchor($row['spotify_uri'], '<span class="spotify_container album_spotify_container"></span>', array('class' => 'spotify_link'));
+                  echo '<a href="' . $row['spotify_uri'] . '" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>';
                 }
+                echo ' ';
                 echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], $strlenght), array('title' => 'Browse to album\'s page'));
                 echo ' ';
                 echo anchor(array('year', url_title($row['year'])), '<span class="album_year number">' . $row['year'] . '</span>', array('title' => 'Browse release year'));
