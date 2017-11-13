@@ -1,7 +1,7 @@
 <?php
 $script = 'view.categories=[];view.chart_data=[];';
 if (!empty($json_data)) {
-  if (is_array($json_data)) {    
+  if (is_array($json_data)) {
     $weekdays = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
     ?>
     <thead>
@@ -89,7 +89,7 @@ if (!empty($json_data)) {
           <th class="time"><?=$time?></th>
           <td class="count"><?=$row['count']?></td>
         </tr>
-        <?
+        <?php
         if ($type == '%Y%m') {
           $prev_bar_year = substr($row['bar_date'], 0, 4);
           $prev_bar_month = substr($row['bar_date'], 4, 2);
@@ -110,7 +110,6 @@ if (!empty($json_data)) {
           $prev_bar_date++;
         }
       }
-
       if ($type == '%m') {
         $limit = 12;
       }
@@ -177,8 +176,8 @@ if (!empty($json_data)) {
       }
       ?>
     </tbody>
+    <script type="text/javascript" style="display:none;"><?=$script?></script>
     <?php
-    echo '<script type="text/javascript" style="display:none;"> ' . $script . '</script>';
   }
   elseif (is_object($json_data)) {
     echo $json_data->error->msg;
