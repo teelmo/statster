@@ -451,10 +451,10 @@ $.extend(view, {
       $('#tagAdd').hide();
     });
     $('html').on('mouseover', '.tag', function () {
-      $(this).find('.remove').show();
+      $(this).find('.remove').removeClass('hidden');
     });
     $('html').on('mouseout', '.tag', function () {
-      $(this).find('.remove').hide();
+      $(this).find('.remove').addClass('hidden');
     });
     $('html').on('click', '.remove', function () {
       var type = $(this).data('tag-type');
