@@ -259,10 +259,14 @@ div.container {
       position: relative;
       z-index: 3;
       .img174 {
+        .clearfix;
         background-color: transparent;
         box-shadow: none;
         margin-right: 18px;
-        .clearfix;
+        &:after {
+          height: 100%;
+          visibility: visible;
+        }
         &.user_img,
         &.artist_img {
           background-position: 50% 50%;

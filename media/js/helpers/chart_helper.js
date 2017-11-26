@@ -66,10 +66,12 @@ $.extend(view, {
         column:{
           color:'rgba(182, 192, 191, 0.5)',
           groupPadding:0.01,
-          pointPadding:0.06
+          pointPadding:0.06,
+          pointWidth:100
         }
       },
       series: [{
+
         data:[],
         type:'column'
       }]
