@@ -42,10 +42,10 @@ class Album extends CI_Controller {
       $data['title'] = DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day)->format('l') . ' '. DateTime::createFromFormat('!Y-m-d', $year . '-' . $month . '-' . $day)->format('jS') . ' of ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year;
     }
     else if ($month !== FALSE) {
-      $data['title'] = 'Artists in ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year;
+      $data['title'] = 'Albums in ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . $year;
     }
     else {
-      $data['title'] = 'Artists '. $year;
+      $data['title'] = 'Albums '. $year;
     }
     $data['side_title'] = ($month === FALSE) ? 'Monthly': 'Listeners';
     $data['day'] = $day;
