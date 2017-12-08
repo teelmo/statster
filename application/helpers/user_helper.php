@@ -238,7 +238,7 @@ if (!function_exists('getUserTags')) {
         }
       }
       uasort($data, '_tagsSortByCount');
-      $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
+      $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 6 : $opts['limit']);
       return $data;
     }
     return array();
@@ -261,7 +261,13 @@ if (!function_exists('getUserGenres')) {
 
     $user_id = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $sql = "SELECT " . TBL_genre . ".`name`, count(" . TBL_genre . ".`id`) as `count`, 'genre' as `type`
-            FROM " . TBL_genre . ", " . TBL_genres . ", " . TBL_album . ", " . TBL_listening . "
+            FROM " . TBL_genre . ",
+                 " . TBL_album . ",
+                 " . TBL_listening . ",
+                 (SELECT " . TBL_genres . ".`genre_id`,
+                         " . TBL_genres . ".`album_id`
+                  FROM " . TBL_genres . "
+                  GROUP BY " . TBL_genres . ".`genre_id`, " . TBL_genres . ".`album_id`) as " . TBL_genres . "
             WHERE " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
               AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
               AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
@@ -289,7 +295,13 @@ if (!function_exists('getUserKeywords')) {
 
     $opts['user_id'] = empty($opts['user_id']) ? '%' : $opts['user_id'];
     $sql = "SELECT " . TBL_keyword . ".`name`, count(" . TBL_keyword . ".`id`) as `count`, 'keyword' as `type`
-            FROM " . TBL_keyword . ", " . TBL_keywords . ", " . TBL_album . ", " . TBL_listening . "
+            FROM " . TBL_keyword . ",
+                 " . TBL_album . ",
+                 " . TBL_listening . ",
+                 (SELECT " . TBL_keywords . ".`keyword_id`,
+                         " . TBL_keywords . ".`album_id`
+                  FROM " . TBL_keywords . "
+                  GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) as " . TBL_keywords . "
             WHERE " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
               AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
               AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`

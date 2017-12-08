@@ -9,7 +9,7 @@
           <?php
           foreach ($tags as $tag) {
             ?>
-            <li class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name']) . '?u=teelmo'), $tag['name'])?></li>
+            <li class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name']) . '?u=teelmo'), '<i class="fa fa-music"></i> ' . $tag['name'] . '</i>')?></li>
             <?php
           }
           ?>
