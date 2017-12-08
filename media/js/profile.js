@@ -361,6 +361,132 @@ $.extend(view, {
       url:'/api/format/get'
     });
   },
+  topGenre: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        lower_limit:'1970-00-00',
+        username:'<?=(!empty($username)) ? $username: ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) {
+          $.ajax({
+            data:{
+              json_data:data
+            },
+            success: function(data) {
+              $('#topGenreLoader').hide();
+              $('#topGenre').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });
+        }
+      },
+      type:'GET',
+      url:'/api/genre/get'
+    });
+  },
+  topKeyword: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        lower_limit:'1970-00-00',
+        username:'<?=(!empty($username)) ? $username: ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) {
+          $.ajax({
+            data:{
+              json_data:data
+            },
+            success: function(data) {
+              $('#topKeywordLoader').hide();
+              $('#topKeyword').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });  
+        },
+        204: function() { // 204 No Content
+          alert('204 No Content');
+        },
+        404: function() { // 404 Not found
+          alert('404 Not Found');
+        }
+      },
+      type:'GET',
+      url:'/api/keyword/get'
+    });
+  },
+  topNationality: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        lower_limit:'1970-00-00',
+        username:'<?=(!empty($username)) ? $username: ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) {
+          $.ajax({
+            data:{
+              json_data:data
+            },
+            success: function(data) {
+              $('#topNationalityLoader').hide();
+              $('#topNationality').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });  
+        },
+        204: function() { // 204 No Content
+          alert('204 No Content');
+        },
+        404: function() { // 404 Not found
+          alert('404 Not Found');
+        }
+      },
+      type:'GET',
+      url:'/api/nationality/get/listenings'
+    });
+  },
+  topYear: function () {
+    $.ajax({
+      data:{
+        limit:5,
+        lower_limit:'1970-00-00',
+        username:'<?=(!empty($username)) ? $username: ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) {
+          $.ajax({
+            data:{
+              json_data:data
+            },
+            success: function(data) {
+              $('#topYearLoader').hide();
+              $('#topYear').html(data);
+            },
+            type:'POST',
+            url:'/ajax/columnTable'
+          });  
+        },
+        204: function() { // 204 No Content
+          alert('204 No Content');
+        },
+        404: function() { // 404 Not found
+          alert('404 Not Found');
+        }
+      },
+      type:'GET',
+      url:'/api/year/get'
+    });
+  },
   initProfileEvents: function () {
     $(document).ajaxStop(function (event, request, settings) {
       $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
@@ -391,4 +517,8 @@ $(document).ready(function () {
   view.recentlyLoved();
   view.getFormats();
   view.initProfileEvents();
+  view.topGenre();
+  view.topKeyword();
+  view.topNationality();
+  view.topYear();
 });

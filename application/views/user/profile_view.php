@@ -257,4 +257,39 @@
         <?=anchor('format?u=' . $username, 'More', array('title' => 'Browse more formats'))?>
       </div>
     </div>
+    <div class="container">
+      <h2>Genres</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
+      <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor('genre?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
+      </div>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Keywords</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
+      <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor('keyword?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
+      </div>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Nationalities</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
+      <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor('nationality?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
+      </div>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Years</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
+      <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor('year?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
+      </div>
+    </div>
   </div>
