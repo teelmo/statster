@@ -112,7 +112,7 @@ if (!function_exists('getLoveCount')) {
               AND " . TBL_love . ".`user_id` LIKE ?
               AND " . TBL_love . ".`created` BETWEEN ?
                                              AND ?";
-              
+        
     $query = $ci->db->query($sql, array($album_id, $user_id, $lower_limit, $upper_limit));
     return $query->num_rows();
   }

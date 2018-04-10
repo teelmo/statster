@@ -23,8 +23,8 @@
         <?=form_open('', array('class' => 'hidden', 'id' => 'registerForm'), array('addListeningType' => 'form'))?>
           <div><input type="text" autocomplete="off" tabindex="1" id="registerUsername" placeholder="Desired username" name="registerUsername" /></div>
           <div><input type="text" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Enter your email" name="registerEmail" /></div>
-          <div><input type="password" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Enter a password" name="registerEmail" /></div>
-          <div><input type="password" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Re-enter your password" name="registerEmail" /></div>
+          <div><input type="password" autocomplete="off" tabindex="1" id="registerPass1" placeholder="Enter a password" name="registerPass1" /></div>
+          <div><input type="password" autocomplete="off" tabindex="1" id="registerPass2" placeholder="Re-enter your password" name="registerPass2" /></div>
           <p><input type="submit" name="registerSubmit" tabindex="2" id="registerSubmit" value="Register!" /></p>
         </form>
       </div>

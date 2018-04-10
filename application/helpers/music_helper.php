@@ -262,7 +262,10 @@ if (!function_exists('getArtistAlbums')) {
                    " . TBL_album . ". `spotify_uri`, 
                    " . TBL_artist . ". `id` as `artist_id`,
                    " . TBL_album . ". `id` as `album_id`
-            FROM " . TBL_listening . ", " . TBL_artist . ", " . TBL_album . ", " . TBL_user . " 
+            FROM " . TBL_listening . ",
+                 " . TBL_artist . ",
+                 " . TBL_album . ",
+                 " . TBL_user . " 
             WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
               AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
               AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
