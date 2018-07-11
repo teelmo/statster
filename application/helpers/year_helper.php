@@ -208,9 +208,12 @@ if (!function_exists('getMusicByYear')) {
 
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  '`album_id`';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_album . '.`album_name` ASC';
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+
     $sql = "SELECT count(*) as 'count',
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_artist . ".`id` as `artist_id`,
@@ -224,12 +227,13 @@ if (!function_exists('getMusicByYear')) {
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_album . ".`year` LIKE ?
             GROUP BY " . $ci->db->escape_str($group_by) . "
             ORDER BY " . $ci->db->escape_str($order_by) . " 
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($username, $tag_id));
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

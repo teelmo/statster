@@ -79,7 +79,7 @@ class Tag extends CI_Controller {
     }
   }
 
-  public function genre($tag_name = '') {
+  public function genre($tag_name = '', $type = '') {
     // Load helpers.
     $this->load->helper(array('genre_helper', 'id_helper', 'img_helper', 'output_helper'));
     
@@ -89,35 +89,67 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getGenreID($data)) {
-        $data += getGenreListenings($data);
-        // Get biography.
-        $data += getGenreBio($data);
-        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-          $this->load->helper(array('lastfm_helper'));
-          unset($data['bio_summary']);
-          unset($data['bio_content']);
-          $data += fetchTagBio($data);
-          addGenreBio($data);
-        }
-        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
-          $data['update_bio'] = true;
-        }
-        if ($data['user_id'] = $this->session->userdata('user_id')) {
+        if (!empty($type)) {
+          $data['title'] = ucfirst($type) . 's';
+          $data['side_title'] = 'Yearly';
+          $data['type'] = $type;
           $data += getGenreListenings($data);
+          if ($data['user_id'] = $this->session->userdata('user_id')) {
+            $data += getGenreListenings($data);
+          }
+          $data['lower_limit'] = '1970-01-01';
+          $data['upper_limit'] = CUR_DATE;
+          $data['limit'] = 100;
+          $data['group_by'] = TBL_listening . '.`user_id`';
+          $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
+          $data['limit'] = 1;
+          $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
+          $data['group_by'] = TBL_artist . '.`id`';
+          $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
+          $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
+          if ($type === 'album') {
+            $data['js_include'] = array('tag_album');
+            $this->load->view('tag/tag_album_view', $data);
+          }
+          else if ($type === 'artist') {
+            $data['js_include'] = array('tag_artist');
+            $this->load->view('tag/tag_artist_view', $data);
+          }
+          else {
+            show_404();
+          }
         }
-        $data['lower_limit'] = '1970-01-01';
-        $data['upper_limit'] = CUR_DATE;
-        $data['limit'] = 100;
-        $data['group_by'] = TBL_listening . '.`user_id`';
-        $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
-        $data['limit'] = 1;
-        $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
-        $data['group_by'] = TBL_artist . '.`id`';
-        $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('tag', 'helpers/chart_helper');
+        else {
+          $data += getGenreListenings($data);
+          // Get biography.
+          $data += getGenreBio($data);
+          if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+            $this->load->helper(array('lastfm_helper'));
+            unset($data['bio_summary']);
+            unset($data['bio_content']);
+            $data += fetchTagBio($data);
+            addGenreBio($data);
+          }
+          else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+            $data['update_bio'] = true;
+          }
+          if ($data['user_id'] = $this->session->userdata('user_id')) {
+            $data += getGenreListenings($data);
+          }
+          $data['lower_limit'] = '1970-01-01';
+          $data['upper_limit'] = CUR_DATE;
+          $data['limit'] = 100;
+          $data['group_by'] = TBL_listening . '.`user_id`';
+          $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
+          $data['limit'] = 1;
+          $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
+          $data['group_by'] = TBL_artist . '.`id`';
+          $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
+          $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
+          $data['js_include'] = array('tag', 'helpers/chart_helper');
 
-        $this->load->view('tag/tag_view', $data);
+          $this->load->view('tag/tag_view', $data);
+        }
       }
       else {
         show_404();
@@ -141,7 +173,7 @@ class Tag extends CI_Controller {
     $this->load->view('site_templates/footer');
   }
 
-  public function keyword($tag_name = '') {
+  public function keyword($tag_name = '', $type = '') {
     // Load helpers.
     $this->load->helper(array('keyword_helper', 'id_helper', 'img_helper', 'output_helper'));
 
@@ -151,35 +183,67 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getKeywordID($data)) {
-        $data += getKeywordListenings($data);
-        // Get biography.
-        $data += getKeywordBio($data);
-        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-          $this->load->helper(array('lastfm_helper'));
-          unset($data['bio_summary']);
-          unset($data['bio_content']);
-          $data += fetchTagBio($data);
-          addKeywordBio($data);
-        }
-        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
-          $data['update_bio'] = true;
-        }
-        if ($data['user_id'] = $this->session->userdata('user_id')) {
+        if (!empty($type)) {
+          $data['title'] = ucfirst($type) . 's';
+          $data['side_title'] = 'Yearly';
+          $data['type'] = $type;
           $data += getKeywordListenings($data);
+          if ($data['user_id'] = $this->session->userdata('user_id')) {
+            $data += getKeywordListenings($data);
+          }
+          $data['lower_limit'] = '1970-01-01';
+          $data['upper_limit'] = CUR_DATE;
+          $data['limit'] = 100;
+          $data['group_by'] = TBL_listening . '.`user_id`';
+          $data['listener_count'] = sizeof(json_decode(getMusicByKeyword($data), true));
+          $data['limit'] = 1;
+          $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
+          $data['group_by'] = TBL_artist . '.`id`';
+          $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
+          $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
+          if ($type === 'album') {
+            $data['js_include'] = array('tag_album');
+            $this->load->view('tag/tag_album_view', $data);
+          }
+          else if ($type === 'artist') {
+            $data['js_include'] = array('tag_artist');
+            $this->load->view('tag/tag_artist_view', $data);
+          }
+          else {
+            show_404();
+          }
         }
-        $data['lower_limit'] = '1970-01-01';
-        $data['upper_limit'] = CUR_DATE;
-        $data['limit'] = 100;
-        $data['group_by'] = TBL_listening . '.`user_id`';
-        $data['listener_count'] = sizeof(json_decode(getMusicByKeyword($data), true));
-        $data['limit'] = 1;
-        $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
-        $data['group_by'] = TBL_artist . '.`id`';
-        $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('tag', 'helpers/chart_helper');
+        else {
+          $data += getKeywordListenings($data);
+          // Get biography.
+          $data += getKeywordBio($data);
+          if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+            $this->load->helper(array('lastfm_helper'));
+            unset($data['bio_summary']);
+            unset($data['bio_content']);
+            $data += fetchTagBio($data);
+            addKeywordBio($data);
+          }
+          else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+            $data['update_bio'] = true;
+          }
+          if ($data['user_id'] = $this->session->userdata('user_id')) {
+            $data += getKeywordListenings($data);
+          }
+          $data['lower_limit'] = '1970-01-01';
+          $data['upper_limit'] = CUR_DATE;
+          $data['limit'] = 100;
+          $data['group_by'] = TBL_listening . '.`user_id`';
+          $data['listener_count'] = sizeof(json_decode(getMusicByKeyword($data), true));
+          $data['limit'] = 1;
+          $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
+          $data['group_by'] = TBL_artist . '.`id`';
+          $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
+          $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
+          $data['js_include'] = array('tag', 'helpers/chart_helper');
 
-        $this->load->view('tag/tag_view', $data);
+          $this->load->view('tag/tag_view', $data);
+        }
       }
       else {
         show_404();
@@ -203,7 +267,7 @@ class Tag extends CI_Controller {
     $this->load->view('site_templates/footer');
   }
 
-  public function nationality($tag_name = '') {
+  public function nationality($tag_name = '', $type = '') {
     $this->load->helper(array('nationality_helper', 'id_helper', 'img_helper', 'output_helper'));
 
     $this->load->view('site_templates/header');
@@ -212,35 +276,67 @@ class Tag extends CI_Controller {
     if (!empty($tag_name)) {
       $data['tag_name'] = decode($tag_name);
       if ($data['tag_id'] = getNationalityID($data)) {
-        $data += getNationalityListenings($data);
-        // Get biography.
-        $data += getNationalityBio($data);
-        if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-          $this->load->helper(array('lastfm_helper'));
-          unset($data['bio_summary']);
-          unset($data['bio_content']);
-          $data += fetchTagBio($data);
-          addNationalityBio($data);
-        }
-        else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
-          $data['update_bio'] = true;
-        }
-        if ($data['user_id'] = $this->session->userdata('user_id')) {
+        if (!empty($type)) {
+          $data['title'] = ucfirst($type) . 's';
+          $data['side_title'] = 'Yearly';
+          $data['type'] = $type;
           $data += getNationalityListenings($data);
+          if ($data['user_id'] = $this->session->userdata('user_id')) {
+            $data += getNationalityListenings($data);
+          }
+          $data['lower_limit'] = '1970-01-01';
+          $data['upper_limit'] = CUR_DATE;
+          $data['limit'] = 100;
+          $data['group_by'] = TBL_listening . '.`user_id`';
+          $data['listener_count'] = sizeof(json_decode(getMusicByNationality($data), true));
+          $data['limit'] = 1;
+          $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
+          $data['group_by'] = TBL_artist . '.`id`';
+          $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
+          $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
+          if ($type === 'album') {
+            $data['js_include'] = array('tag_album');
+            $this->load->view('tag/tag_album_view', $data);
+          }
+          else if ($type === 'artist') {
+            $data['js_include'] = array('tag_artist');
+            $this->load->view('tag/tag_artist_view', $data);
+          }
+          else {
+            show_404();
+          }
         }
-        $data['lower_limit'] = '1970-01-01';
-        $data['upper_limit'] = CUR_DATE;
-        $data['limit'] = 100;
-        $data['group_by'] = TBL_listening . '.`user_id`';
-        $data['listener_count'] = sizeof(json_decode(getMusicByNationality($data), true));
-        $data['limit'] = 1;
-        $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
-        $data['group_by'] = TBL_artist . '.`id`';
-        $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
-        $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
-        $data['js_include'] = array('tag', 'helpers/chart_helper');
+        else {
+          $data += getNationalityListenings($data);
+          // Get biography.
+          $data += getNationalityBio($data);
+          if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+            $this->load->helper(array('lastfm_helper'));
+            unset($data['bio_summary']);
+            unset($data['bio_content']);
+            $data += fetchTagBio($data);
+            addNationalityBio($data);
+          }
+          else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+            $data['update_bio'] = true;
+          }
+          if ($data['user_id'] = $this->session->userdata('user_id')) {
+            $data += getNationalityListenings($data);
+          }
+          $data['lower_limit'] = '1970-01-01';
+          $data['upper_limit'] = CUR_DATE;
+          $data['limit'] = 100;
+          $data['group_by'] = TBL_listening . '.`user_id`';
+          $data['listener_count'] = sizeof(json_decode(getMusicByNationality($data), true));
+          $data['limit'] = 1;
+          $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
+          $data['group_by'] = TBL_artist . '.`id`';
+          $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
+          $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
+          $data['js_include'] = array('tag', 'helpers/chart_helper');
 
-        $this->load->view('tag/tag_view', $data);
+          $this->load->view('tag/tag_view', $data);
+        }
       }
       else {
         show_404();
@@ -264,44 +360,81 @@ class Tag extends CI_Controller {
     $this->load->view('site_templates/footer');
   }
 
-  public function year($tag_name = '') {
+  public function year($tag_name = '', $type = '') {
     $this->load->helper(array('year_helper', 'img_helper', 'output_helper'));
 
     $this->load->view('site_templates/header');
     $data = array();
     $data['tag_type'] = 'year';
     if (!empty($tag_name)) {
-      $data['tag_id'] = decode($tag_name);
-      $data['tag_name'] = decode($tag_name);
-      $data += getYearListenings($data);
-      // Get biography.
-      $data += getYearBio($data);
-      if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-        $this->load->helper(array('lastfm_helper'));
-        unset($data['bio_summary']);
-        unset($data['bio_content']);
-        $data += fetchTagBio($data);
-        addYearBio($data);
-      }
-      else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
-        $data['update_bio'] = true;
-      }
-      if ($data['user_id'] = $this->session->userdata('user_id')) {
-        $data += getYearListenings($data);
-      }
-      $data['lower_limit'] = '1970-01-01';
-      $data['upper_limit'] = CUR_DATE;
-      $data['limit'] = 100;
-      $data['group_by'] = TBL_listening . '.`user_id`';
-      $data['listener_count'] = sizeof(json_decode(getMusicByYear($data), true));
-      $data['limit'] = 1;
-      $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
-      $data['group_by'] = TBL_artist . '.`id`';
-      $data['artist'] = json_decode(getMusicByYear($data), true)[0];
-      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('tag', 'helpers/chart_helper');
+      if (strlen($tag_name) === 4) {
+        $data['tag_id'] = decode($tag_name);
+        $data['tag_name'] = decode($tag_name);
+        if (!empty($type)) {
+          $data['title'] = ucfirst($type) . 's';
+          $data['side_title'] = 'Yearly';
+          $data['type'] = $type;
+          $data += getYearListenings($data);
+          if ($data['user_id'] = $this->session->userdata('user_id')) {
+            $data += getYearListenings($data);
+          }
+          $data['lower_limit'] = '1970-01-01';
+          $data['upper_limit'] = CUR_DATE;
+          $data['limit'] = 100;
+          $data['group_by'] = TBL_listening . '.`user_id`';
+          $data['listener_count'] = sizeof(json_decode(getMusicByYear($data), true));
+          $data['limit'] = 1;
+          $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
+          $data['group_by'] = TBL_artist . '.`id`';
+          $data['artist'] = json_decode(getMusicByYear($data), true)[0];
+          $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
+          if ($type === 'album') {
+            $data['js_include'] = array('tag_album');
+            $this->load->view('tag/tag_album_view', $data);
+          }
+          else if ($type === 'artist') {
+            $data['js_include'] = array('tag_artist');
+            $this->load->view('tag/tag_artist_view', $data);
+          }
+          else {
+            show_404();
+          }
+        }
+        else {
+          $data += getYearListenings($data);
+          // Get biography.
+          $data += getYearBio($data);
+          if (empty($data['bio_summary']) || empty($data['bio_content'])) {
+            $this->load->helper(array('lastfm_helper'));
+            unset($data['bio_summary']);
+            unset($data['bio_content']);
+            $data += fetchTagBio($data);
+            addYearBio($data);
+          }
+          else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
+            $data['update_bio'] = true;
+          }
+          if ($data['user_id'] = $this->session->userdata('user_id')) {
+            $data += getYearListenings($data);
+          }
+          $data['lower_limit'] = '1970-01-01';
+          $data['upper_limit'] = CUR_DATE;
+          $data['limit'] = 100;
+          $data['group_by'] = TBL_listening . '.`user_id`';
+          $data['listener_count'] = sizeof(json_decode(getMusicByYear($data), true));
+          $data['limit'] = 1;
+          $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
+          $data['group_by'] = TBL_artist . '.`id`';
+          $data['artist'] = json_decode(getMusicByYear($data), true)[0];
+          $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
+          $data['js_include'] = array('tag', 'helpers/chart_helper');
 
-      $this->load->view('tag/tag_view', $data);
+          $this->load->view('tag/tag_view', $data);
+        }
+      }
+      else {
+        show_404();
+      }
     }
     else {
       // Load helpers.

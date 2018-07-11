@@ -68,12 +68,20 @@ $route['music/(:any)'] = 'music/artist_or_year/$1';
 /* Genres, tags and release years page's routes */
 $route['genre'] = 'tag/genre';
 $route['genre/(:any)'] = 'tag/genre/$1';
+$route['genre/(:any)/album'] = 'tag/genre/$1/album';
+$route['genre/(:any)/artist'] = 'tag/genre/$1/artist';
 $route['keyword'] = 'tag/keyword';
 $route['keyword/(:any)'] = 'tag/keyword/$1';
+$route['keyword/(:any)/album'] = 'tag/keyword/$1/album';
+$route['keyword/(:any)/artist'] = 'tag/keyword/$1/artist';
 $route['nationality'] = 'tag/nationality';
 $route['nationality/(:any)'] = 'tag/nationality/$1';
+$route['nationality/(:any)/album'] = 'tag/nationality/$1/album';
+$route['nationality/(:any)/artist'] = 'tag/nationality/$1/artist';
 $route['year'] = 'tag/year';
 $route['year/(:any)'] = 'tag/year/$1';
+$route['year/(:any)/album'] = 'tag/year/$1/album';
+$route['year/(:any)/artist'] = 'tag/year/$1/artist';
 
 /* Recent page's routes */
 $route['recent'] = 'music/recent';

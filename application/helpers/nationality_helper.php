@@ -51,7 +51,6 @@ if (!function_exists('getNationalitiesListenings')) {
   function getNationalitiesListenings($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
-    
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_nationality . '.`id`';
@@ -270,8 +269,10 @@ if (!function_exists('getMusicByNationality')) {
 
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : '`album_id`';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_album . '.`album_name` ASC';
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
 
     $sql = "SELECT count(*) as 'count',
@@ -289,6 +290,7 @@ if (!function_exists('getMusicByNationality')) {
                   FROM " . TBL_nationalities . "
                   GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) as " . TBL_nationalities . "
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_nationalities . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
@@ -297,7 +299,7 @@ if (!function_exists('getMusicByNationality')) {
             GROUP BY " . $ci->db->escape_str($group_by) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($username, $tag_id));
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
             
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
