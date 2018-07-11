@@ -246,7 +246,7 @@ $(document).ready(function () {
     view.topArtist10('<?=$lower_limit?>', '<?=$upper_limit?>');
     var vars = {
       container:'#topArtist',
-      limit:'10, 200',
+      limit:'8, 200',
       template:'/ajax/columnTable'
     }
     view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>', vars);

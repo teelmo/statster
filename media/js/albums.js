@@ -247,7 +247,7 @@ $(document).ready(function () {
     view.topAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
     var vars = {
       container:'#topAlbum',
-      limit:'10, 200',
+      limit:'8, 200',
       template:'/ajax/columnTable'
     }
     view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
