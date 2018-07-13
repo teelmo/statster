@@ -78,21 +78,38 @@ if (!function_exists('getAlbumInfo')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
-    $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
-                   " . TBL_album . ".`id` as `album_id`,
-                   " . TBL_artist . ".`artist_name`,
-                   " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`year`,
-                   " . TBL_album . ".`spotify_uri`,
-                   YEAR(" . TBL_album . ".`created`) as `created`
-            FROM " . TBL_artist . ",
-                 " . TBL_album . "
-            WHERE ".TBL_album.".`artist_id` = " . TBL_artist . ".`id` 
-              AND " . TBL_artist . ".`artist_name` = ?
-              AND " . TBL_album . ".`album_name` = ?";
-    $query = $ci->db->query($sql, array($artist_name, $album_name));
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : FALSE;
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    if ($artist_name !== FALSE && $album_name !== FALSE) {
+      $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
+                     " . TBL_album . ".`id` as `album_id`,
+                     " . TBL_artist . ".`artist_name`,
+                     " . TBL_album . ".`album_name`,
+                     " . TBL_album . ".`year`,
+                     " . TBL_album . ".`spotify_uri`,
+                     YEAR(" . TBL_album . ".`created`) as `created`
+              FROM " . TBL_artist . ",
+                   " . TBL_album . "
+              WHERE ".TBL_album.".`artist_id` = " . TBL_artist . ".`id` 
+                AND " . TBL_artist . ".`artist_name` = ?
+                AND " . TBL_album . ".`album_name` = ?";
+      $query = $ci->db->query($sql, array($artist_name, $album_name));
+    }
+    else {
+      $album_id = !empty($opts['album_id']) ? $opts['album_id'] : FALSE;
+      $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
+                     " . TBL_album . ".`id` as `album_id`,
+                     " . TBL_artist . ".`artist_name`,
+                     " . TBL_album . ".`album_name`,
+                     " . TBL_album . ".`year`,
+                     " . TBL_album . ".`spotify_uri`,
+                     YEAR(" . TBL_album . ".`created`) as `created`
+              FROM " . TBL_artist . ",
+                   " . TBL_album . "
+              WHERE ".TBL_album.".`artist_id` = " . TBL_artist . ".`id` 
+                AND " . TBL_album . ".`id` = ?";
+      $query = $ci->db->query($sql, array($album_id));
+    }
     return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
   }
 }
@@ -322,6 +339,43 @@ if (!function_exists('getAlbumNationalities')) {
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($album_id));
     return ($query->num_rows() > 0) ? $query->result() : array();
+  }
+}
+
+/**
+   * Edit album info.
+   *
+   * @param array $opts.
+   *          'album_id'  => Artist ID
+   *          'artist_id'  => Artist ID
+   *          'album_name'  => Artist Name
+   *          'year'  => Release year
+   *          'spotify_uri'  => Spotify URI
+   *
+   * @return boolean TRUE or FALSE.
+   *
+   */
+if (!function_exists('updateAlbum')) {
+  function updateArtist($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '';
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
+    $spotify_uri = !empty($opts['spotify_uri']) ? $opts['spotify_uri'] : '';
+    $year = !empty($opts['year']) ? $opts['year'] : '';
+
+    $sql = "UPDATE " . TBL_album . "
+              SET " . TBL_album . ".`album_name` = ?,
+                  " . TBL_album . ".`artist_id` = ?,
+                  " . TBL_album . ".`year` = ?,
+                  " . TBL_album . ".`spotify_uri` = ?
+              WHERE " . TBL_album . ".`id` = ?";
+
+    $query = $ci->db->query($sql, array($album_name, $artist_id, $year, $spotify_uri, $album_id));
+    return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
   }
 }
 ?>

@@ -55,7 +55,6 @@ if (!function_exists('getArtistInfo')) {
               FROM " . TBL_artist . "
               WHERE " . TBL_artist . ".`id` = ?";
       $query = $ci->db->query($sql, array($artist_id));
-      return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
     }
     else {
       $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
@@ -65,8 +64,8 @@ if (!function_exists('getArtistInfo')) {
               FROM " . TBL_artist . "
               WHERE " . TBL_artist . ".`artist_name` LIKE ?";
       $query = $ci->db->query($sql, array($artist_name));
-      return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
     }
+    return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
   }
 }
 
@@ -312,7 +311,6 @@ if (!function_exists('getArtistNationalities')) {
    * @param array $opts.
    *          'artist_id'  => Artist ID
    *          'artist_name'  => Artist Name
-   *          'created'  => Created
    *          'spotify_uri'  => Spotify URI
    *
    * @return boolean TRUE or FALSE.
