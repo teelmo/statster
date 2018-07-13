@@ -1,4 +1,4 @@
-<div id="mainCont">
+<div id="mainCont" class="no_heading">
   <div id="leftCont">
     <div class="container">
       <h1>Developers</h1>

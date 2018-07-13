@@ -1,16 +1,14 @@
-<div id="mainCont">
+<div id="mainCont" class="no_heading">
   <div id="leftCont">
     <div class="container">
-      <h1>Privacy</h1>
+      <h1>Privacy policy</h1>
     </div>
     <div class="container">
-      <p>
-        Privacy policy.
-      </p>
+      <p>Statster collects information from the users. This data can be requested to be removed at any time.</p>
     </div>
     <div class="container">
       <p class="updated">
-        Updated: 2. of July 2012
+        Updated: 12. of July 2018
       </p>
     </div>
   </div>

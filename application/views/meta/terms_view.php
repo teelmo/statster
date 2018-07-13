@@ -1,16 +1,14 @@
-<div id="mainCont">
+<div id="mainCont" class="no_heading">
   <div id="leftCont">
     <div class="container">
-      <h1>Terms</h1>
+      <h1>Terms of use</h1>
     </div>
     <div class="container">
-      <p>
-        Terms of use.
-      </p>
+      <p>Dont't violate any rules or laws.</p>
     </div>
     <div class="container">
       <p class="updated">
-        Updated: 2. of July 2012
+        Updated: 12. of July 2018
       </p>
     </div>
   </div>
