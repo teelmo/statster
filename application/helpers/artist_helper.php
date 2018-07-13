@@ -45,15 +45,28 @@ if (!function_exists('getArtistInfo')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
-    $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
-                   " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`spotify_uri`,
-                   YEAR(" . TBL_artist . ".`created`) as `created`
-            FROM " . TBL_artist . "
-            WHERE " . TBL_artist . ".`artist_name` LIKE ?";
-    $query = $ci->db->query($sql, array($artist_name));
-    return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    if ($artist_name === FALSE) {
+      $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : FALSE;
+      $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
+                     " . TBL_artist . ".`artist_name`,
+                     " . TBL_artist . ".`spotify_uri`,
+                     YEAR(" . TBL_artist . ".`created`) as `created`
+              FROM " . TBL_artist . "
+              WHERE " . TBL_artist . ".`id` = ?";
+      $query = $ci->db->query($sql, array($artist_id));
+      return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
+    }
+    else {
+      $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
+                     " . TBL_artist . ".`artist_name`,
+                     " . TBL_artist . ".`spotify_uri`,
+                     YEAR(" . TBL_artist . ".`created`) as `created`
+              FROM " . TBL_artist . "
+              WHERE " . TBL_artist . ".`artist_name` LIKE ?";
+      $query = $ci->db->query($sql, array($artist_name));
+      return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
+    }
   }
 }
 
@@ -290,6 +303,37 @@ if (!function_exists('getArtistNationalities')) {
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($artist_id));
     return ($query->num_rows() > 0) ? $query->result() : array();
+  }
+}
+
+/**
+   * Edit artist info.
+   *
+   * @param array $opts.
+   *          'artist_id'  => Artist ID
+   *          'artist_name'  => Artist Name
+   *          'created'  => Created
+   *          'spotify_uri'  => Spotify URI
+   *
+   * @return boolean TRUE or FALSE.
+   *
+   */
+if (!function_exists('updateArtist')) {
+  function updateArtist($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
+    $spotify_uri = !empty($opts['spotify_uri']) ? $opts['spotify_uri'] : '';
+
+    $sql = "UPDATE " . TBL_artist . "
+              SET " . TBL_artist . ".`artist_name` = ?,
+                  " . TBL_artist . ".`spotify_uri` = ?
+              WHERE " . TBL_artist . ".`id` = ?";
+
+    $query = $ci->db->query($sql, array($artist_name, $spotify_uri, $artist_id));
+    return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
   }
 }
 ?>

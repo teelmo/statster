@@ -60,6 +60,7 @@
     <?=anchor(array('recent', url_title($artist_name)), 'Listenings')?>
     <?=anchor(array('shout', url_title($artist_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name)), 'Tags')?>
+    <?=anchor(array('admin', 'artist', $artist_id), '<span class="fa fa-edit"></span>')?>
     <div class="float_right">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/>
       <ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>

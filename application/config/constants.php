@@ -45,6 +45,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 date_default_timezone_set('Europe/Helsinki');
 
+define('ADMIN_USERS', [1,14]);
+
 define('TITLE', 'Statster');
 //define('DASH', '–');
 define('DASH', '–');

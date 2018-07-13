@@ -250,7 +250,7 @@ if (!function_exists('imageResize')) {
 
     $new = imagecreatetruecolor($dst_width, $dst_height);
     imagecopyresampled($new, $img, 0, 0, 0, 0, $dst_width, $dst_height, $src_width, $src_height);
-    imagejpeg($new, $dst);
+    @imagejpeg($new, $dst);
     return true;
   }
 }

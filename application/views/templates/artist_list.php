@@ -1,6 +1,6 @@
 <?php
 if (!empty($json_data)) {
-  if (is_array($json_data)) {
+  if (empty($json_data['error'])) {
     foreach ($json_data as $idx => $row) {
       ?>
       <li>
@@ -16,8 +16,8 @@ if (!empty($json_data)) {
       <?php
     }
   }
-  elseif (is_object($json_data)) {
-    echo $json_data->error->msg;
+  elseif (is_array($json_data)) {
+    echo $json_data['error']['msg'];
   }
   else {
     echo $json_data;

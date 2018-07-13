@@ -21,14 +21,19 @@ if (!function_exists('fetchSimilar')) {
     if ($artist_name !== FALSE) {
       $data = array();
       $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
-      $similar_artists = $lastfm_data['similarartists']['artist'];
-      foreach ($similar_artists as $idx => $similar_artist) {
-        if ($artist_info = getArtistInfo(array('artist_name' => $similar_artist['name']))) {
-          $data[] = $artist_info;
+      if (!empty($lastfm_data['similarartists'])) {
+        $similar_artists = $lastfm_data['similarartists']['artist'];
+        foreach ($similar_artists as $idx => $similar_artist) {
+          if ($artist_info = getArtistInfo(array('artist_name' => $similar_artist['name']))) {
+            $data[] = $artist_info;
+          }
+          else {
+            $data[] = array('artist_id' => 0, 'artist_name' => $similar_artist['name']);
+          }
         }
-        else {
-          $data[] = array('artist_id' => 0, 'artist_name' => $similar_artist['name']);
-        }
+      }
+      else {
+        return json_encode(array('error' => array('msg' => ERR_NO_DATA)));
       }
       return json_encode($data);  
     }
