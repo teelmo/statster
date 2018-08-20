@@ -346,7 +346,7 @@ if (!function_exists('getAlbumNationalities')) {
    * Edit album info.
    *
    * @param array $opts.
-   *          'album_id'  => Artist ID
+   *          'album_id'  => Album ID
    *          'artist_id'  => Artist ID
    *          'album_name'  => Artist Name
    *          'year'  => Release year
@@ -356,7 +356,7 @@ if (!function_exists('getAlbumNationalities')) {
    *
    */
 if (!function_exists('updateAlbum')) {
-  function updateArtist($opts = array()) {
+  function updateAlbum($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 

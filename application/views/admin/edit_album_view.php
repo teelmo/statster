@@ -8,7 +8,7 @@
         <fieldset>
           <div class="input_container">
             <div class="label">Artist</div>
-            <div><input type="text" name="artist_name" value="<?=$artist_name?>" /></div>
+            <div><input type="text" name="artist_name" disabled="disabled" value="<?=$artist_name?>" /></div>
           </div>
           <div class="input_container">
             <div class="label">Album name</div>
@@ -24,7 +24,7 @@
           </div>
         </fieldset>
         <div class="submit_container">
-          <input type="submit" name="submit" value="Save artist" />
+          <input type="submit" name="submit" value="Save album" />
         </div>
       </form>
     </div>
