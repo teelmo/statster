@@ -64,6 +64,7 @@ class Admin extends CI_Controller {
 
         $data += getAlbumInfo(array('album_id' => $album_id));
 
+        $data['js_include'] = array('admin/edit_album');
         $this->load->view('site_templates/header');
         $this->load->view('admin/edit_album_view', $data);
         $this->load->view('site_templates/footer');

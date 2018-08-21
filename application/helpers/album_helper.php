@@ -360,10 +360,12 @@ if (!function_exists('updateAlbum')) {
     $ci=& get_instance();
     $ci->load->database();
 
+    // Load helpers.
+    $ci->load->helper(array('id_helper'));
+
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '';
-    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
+    $artist_id = !empty($opts['artist_name']) ? getArtistID($opts) : '';
     $spotify_uri = !empty($opts['spotify_uri']) ? $opts['spotify_uri'] : '';
     $year = !empty($opts['year']) ? $opts['year'] : '';
 

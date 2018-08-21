@@ -94,6 +94,53 @@ class AutoComplete extends CI_Controller {
       return;
     }
   }
+
+
+  public function artist() {
+    // Load helpers.
+    $this->load->helper(array('img_helper'));
+    
+    $results = array();
+    $search_str = trim($_GET['term']) . '%';
+    if (!empty($search_str)) {
+      $sql = "SELECT " . TBL_artist . ".`id`,
+                     " . TBL_artist . ".`artist_name`
+              FROM " . TBL_artist . "
+              WHERE " . TBL_artist . ".`artist_name` LIKE ?
+              ORDER BY " . TBL_artist . ".`artist_name`
+              LIMIT 0, 20";
+      $query = $this->db->query($sql, array($search_str));
+      if ($query->num_rows() > 0) {
+        foreach ($query->result() as $row) {
+          $results[] = array(
+            'id' => $row->id,
+            'img' => getArtistImg(array('artist_id' => $row->id, 'size' => 32)),
+            'label' => $row->artist_name,
+            'value' => $row->artist_name
+          );
+        }
+      }
+      else {
+        $results[] = array(
+          'img' => '',
+          'label' => 'No results',
+          'value' => $search_str
+        );
+      }
+      echo json_encode($results);
+      return;
+    }
+    else {
+      $results[] = array(
+        'img' => '',
+        'label' => 'No results',
+        'value' => $search_str
+      );
+      echo json_encode($results);
+      return;
+    }
+  }
+
   public function search() {
     // Load helpers.
     $this->load->helper(array('img_helper'));

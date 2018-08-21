@@ -7,7 +7,7 @@
         <fieldset>
           <div class="input_container">
             <div class="label">Artist name</div>
-            <div><input type="text" name="artist_name" value="<?=$artist_name?>" /></div>
+            <div><input type="text" name="artist_name" value="<?=htmlentities($artist_name)?>" /></div>
           </div>
           <div class="input_container">
             <div class="label">Spotify uri</div>

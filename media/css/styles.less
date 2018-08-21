@@ -807,6 +807,12 @@ textarea {
       color: #fff;
     }
   }
+  &.working {
+    background-color: #fff;
+    background-image: url('/media/img/ajax-loader-circle.gif');
+    background-position: 85% 50%;
+    background-repeat: no-repeat;
+  }
 }
 button {
   outline: none;
@@ -838,9 +844,6 @@ form#addListeningForm {
   input {
     &[type="text"] {
       font-size: 20px;
-      &.working {
-        background: #fff url('/media/img/ajax-loader-circle.gif') no-repeat 99% 50%;
-      }
     }
     &[type="submit"] {
       float: right;
@@ -915,11 +918,7 @@ form#loginForm input[type="text"] {
         font-weight: 300;
         color: rgba(255, 255, 255, 1);
       }
-      &.working {
-        background-image: url('/media/img/ajax-loader-circle.gif');
-        background-position: 85% 50%;
-        background-repeat: no-repeat;
-      }
+
     }
   }
   .search_submit {
