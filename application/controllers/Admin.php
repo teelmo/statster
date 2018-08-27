@@ -33,7 +33,6 @@ class Admin extends CI_Controller {
           redirect('/music/' . url_title($data['artist_name'], 'refresh');
         }
         else {
-          alert('Error');
           redirect('/music/' . url_title($data['artist_name'], 'refresh');
         }
       }
@@ -63,7 +62,6 @@ class Admin extends CI_Controller {
           redirect('/music/' . url_title($data['artist_name']) . '/' . url_title($data['album_name']), 'refresh');
         }
         else {
-          alert('Error');
           redirect('/music/' . url_title($data['artist_name'], 'refresh');
         }
       }
