@@ -13,7 +13,7 @@ if (!function_exists('url_title')) {
   function url_title($url) {
     $search = array('#','?','+','/',' ','&','"','<','>');
     $replace = array('%2523','%253F','%252B',urlencode('%252F'),'+','%2526','%2522', '%253C', '%253E');
-    return str_replace($search, $replace, utf8_decode($url));
+    return str_replace($search, $replace, $url);
   }
 }
 

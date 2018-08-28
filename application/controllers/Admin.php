@@ -30,10 +30,10 @@ class Admin extends CI_Controller {
       if (!empty($_POST)) {
         $data = $_POST;
         if (updateArtist($data)) {
-          redirect('/music/' . url_title($data['artist_name']), 'refresh');
+          redirect('/music/' . url_title(utf8_decode($data['artist_name'])), 'refresh');
         }
         else {
-          redirect('/music/' . url_title($data['artist_name']), 'refresh');
+          redirect('/music/' . url_title(utf8_decode($data['artist_name'])), 'refresh');
         }
       }
       else {
@@ -59,10 +59,10 @@ class Admin extends CI_Controller {
       if (!empty($_POST)) {
         $data = $_POST;
         if (updateAlbum($data)) {
-          redirect('/music/' . url_title($data['artist_name']) . '/' . url_title($data['album_name']), 'refresh');
+          redirect('/music/' . url_title(utf8_decode($data['artist_name'])) . '/' . url_title(utf8_decode($data['album_name'])), 'refresh');
         }
         else {
-          redirect('/music/' . url_title($data['artist_name']) . '/' . url_title($data['album_name']), 'refresh');
+          redirect('/music/' . url_title(utf8_decode($data['artist_name'])) . '/' . url_title(utf8_decode($data['album_name'])), 'refresh');
         }
       }
       else {
