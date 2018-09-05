@@ -63,7 +63,7 @@
     <?=anchor(array('shout', url_title($artist_name), url_title($album_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name), url_title($album_name)), 'Tags')?>
     <?php
-    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       echo anchor(array('admin', 'album', $album_id), '<span class="fa fa-edit"></span>');
     }
     ?>
