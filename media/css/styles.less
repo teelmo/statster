@@ -1081,13 +1081,19 @@ table.music_table {
           width: 32px;
         }
         td.title {
-          left: -32px;
+            position: relative;
+          span.title,
+          a.spotify_link {
+            left: -32px;
+            position: relative;
+          }
           line-height: 14px;
-          position: relative;
         }
         td.datetime {
-          position: relative;
-          right: -32px;
+          > span {
+            position: relative;
+            right: -32px;
+          }
         }
       }
     }
