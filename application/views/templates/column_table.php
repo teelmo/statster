@@ -58,7 +58,7 @@ if (!empty($json_data)) {
           $width = ceil(($row['count'] / $highest_count) * 100);
           $min_width = ($row['count'] < 10) ? 'min-width: 22px' : 'min-width: 30px';
           if ($row['count'] > 100) {
-            $min_width = 'min-width: 38px;';
+            $min_width = 'min-width: 38px';
           }
           ?>
           <div style="width: <?=$width?>%; <?=$min_width?>;">
