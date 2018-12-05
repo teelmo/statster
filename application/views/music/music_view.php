@@ -79,21 +79,21 @@
           </td>
         </tr>
         <tr>
-          <td class="img64 tag_img">Genre</td>
+          <td class="img64 tag_img"><i class="fa fa-music"></i></td>
           <td class="title">
             <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'])?>
             <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
           </td>
         </tr>
         <tr>
-          <td class="img64 tag_img">Nationality</td>
+          <td class="img64 tag_img"><i class="fa fa-flag"></i></td>
           <td class="title">
             <?=anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name'])?>
             <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
           </td>
         </tr>
         <tr>
-          <td class="img64 tag_img">Year</td>
+          <td class="img64 tag_img"><i class="fa fa-hashtag"></i></td>
           <td class="title">
             <?=anchor(array('year', url_title($top_year['year'])), $top_year['year'])?>
             <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>
