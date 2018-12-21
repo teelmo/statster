@@ -165,7 +165,8 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:5,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
+        upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:'<?=TBL_album?>.`year` = <?=$year?>'
       },
