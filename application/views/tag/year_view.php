@@ -20,6 +20,8 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="top<?=ucfirst($tag_type)?>Loader"/>
+      <table id="top<?=ucfirst($tag_type)?>" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div id="rightCont">

@@ -1,4 +1,38 @@
 $.extend(view, {
+  topYears: function (lower_limit, upper_limit, vars) {
+    $.ajax({
+      data:{
+        limit:vars.limit,
+        lower_limit:lower_limit,
+        upper_limit:upper_limit,
+        username:'<?=!(empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:vars.hide,
+              json_data:data,
+              rank:1
+            },
+            success: function (data) {
+              $(vars.container + 'Loader').hide();
+              $(vars.container + '').html(data);
+            },
+            type:'POST',
+            url:vars.template
+          });
+        },
+        204: function (data) { // 204 No Content
+          $(vars.container + 'Loader').hide();
+          $(vars.container).html('<?=ERR_NO_DATA?>');
+        }
+      },
+      type:'GET',
+      url:'/api/year/get'
+    });
+  },
   getYearsHistory: function (type) {
     view.initChart();
     $.ajax({
@@ -85,7 +119,6 @@ $.extend(view, {
         template:'/ajax/sideTable',
         hide:{
           calendar:true,
-          calendar:true,
           date:true,
           size:32,
           spotify:true
@@ -102,4 +135,10 @@ $.extend(view, {
 $(document).ready(function () {
   view.getYearsHistory('%Y');
   view.topYearYearly();
+  var vars = {
+    container:'#topYear',
+    limit:'0, 200',
+    template:'/ajax/columnTable'
+  }
+  view.topYears('1970-00-00', '<?=CUR_DATE?>', vars);
 });
