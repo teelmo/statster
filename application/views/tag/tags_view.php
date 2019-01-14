@@ -17,28 +17,28 @@
   </div>
   <div id="leftCont">
     <div class="container clearfix">
-      <h1><?=$genre['name']?></h1>
+      <h1><?=anchor(array('genre', url_title($genre['name'])), $genre['name'])?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumGenreLoader" />
       <ul id="topAlbumGenre" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistGenreLoader" />
       <ul id="topArtistGenre" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1><?=$keyword['name']?></h1>
+      <h1><?=anchor(array('keyword', url_title($genre['name'])), $keyword['name'])?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumKeywordLoader" />
       <ul id="topAlbumKeyword" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistKeywordLoader" />
       <ul id="topArtistKeyword" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1><?=$nationality['name']?></h1>
+      <h1><?=anchor(array('nationality', url_title($genre['name'])), $nationality['name'])?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumNationalityLoader" />
       <ul id="topAlbumNationality" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistNationalityLoader" />
       <ul id="topArtistNationality" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1><?=$year['name']?></h1>
+      <h1><?=anchor(array('year', url_title($genre['name'])), $year['name'])?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearLoader" />
       <ul id="topAlbumYear" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
