@@ -10,7 +10,7 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              size:64,
+              size:32,
               hide:{
                 artist:true,
                 calendar:true,
