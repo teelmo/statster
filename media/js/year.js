@@ -161,11 +161,12 @@ $.extend(view, {
       url:'/api/listener/get'
     });
   },
-  topReleases: function () {
+  topReleases: function (lower_limit, upper_limit) {
     $.ajax({
       data:{
         limit:5,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
+        upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:'<?=TBL_album?>.`year` = <?=$year?>'
       },
@@ -373,7 +374,7 @@ $(document).ready(function () {
   view.initChart();
   view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topReleases();
+  view.topReleases('<?=$lower_limit?>', '<?=$upper_limit?>');;
   view.getListeningHistory('%m', '<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topListeners('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topFormats('<?=$lower_limit?>', '<?=$upper_limit?>');

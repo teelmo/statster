@@ -161,7 +161,7 @@ $.extend(view, {
       url:'/api/listener/get'
     });
   },
-  topReleases: function () {
+  topReleases: function (lower_limit, upper_limit) {
     $.ajax({
       data:{
         limit:5,
@@ -374,7 +374,7 @@ $(document).ready(function () {
   view.initChart();
   view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topReleases();
+  view.topReleases('<?=$lower_limit?>', '<?=$upper_limit?>');;
   view.getListeningHistory('%d', '<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topListeners('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topFormats('<?=$lower_limit?>', '<?=$upper_limit?>');
