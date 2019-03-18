@@ -696,21 +696,41 @@ p {
   position: relative;
   top: 9px;
   &.love_add {
+    &:hover {
+      &:after {
+        content: '\f004';
+      }
+    }
     &:after {
       content: '\f08a';
     }
   }
   &.love_del {
+    &:hover {
+      &:after {
+        content: '\f08a';
+      }
+    }
     &:after {
       content: '\f004';
     }
   }
-  &.fan_add {
+  &.fan_add 
+    &:hover {
+      &:after {
+        content: '\f005';
+      }
+    }
     &:after {
       content: '\f006';
     }
   }
   &.fan_del {
+    &:hover {
+      &:after {
+        content: '\f006';
+      }
+    }
     &:after {
       content: '\f005';
     }
