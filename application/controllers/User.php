@@ -52,6 +52,9 @@ class User extends CI_Controller {
       $data['fan_count'] = getFanCount(array('user_id' => $data['user_id']));
       $data['love_count'] = getLoveCount(array('user_id' => $data['user_id']));
       $data['shout_count'] = getShoutCount(array('user_id' => $data['user_id']));
+      if ($data['username'] !==  $this->session->userdata('username')) {
+        $data['similarity'] = getUserSimilarity($data);
+      }
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['js_include'] = array('profile', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/add_listening_helper');
       

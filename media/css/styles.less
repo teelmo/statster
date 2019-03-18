@@ -704,6 +704,57 @@ p {
   display: none;
 }
 
+/**
+  * User profile similarity
+  */
+.similarity_info {
+  background-color: #fff;
+  padding-bottom: 30px;
+  .simililarity_image {
+    position: relative;
+    svg {
+      height: 54px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 54px;
+      .similarity_path {
+        animation: progress 3s ease-out forwards;
+      }
+      @keyframes progress {
+        0% {
+          stroke-dasharray: 0 100;
+        }
+      }
+    }
+    .user_similarity_img {
+      .border-radius(20px);
+      background-color: #fff;
+      border: 2px solid #fff;
+      display: inline-block;
+      float: left;
+      left: 5px;
+      position: relative;
+      top: 5px;
+      &:after {
+        .border-radius(20px);
+      }
+    }
+  }
+  .similarity_text {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    margin-left: 70px;
+    padding-top: 4px;
+    a,
+    .text {
+      font-weight: 400;
+    }
+  }
+}
+
+
 /** Tag styles */
 #tags {
   padding-bottom: 10px;
@@ -930,9 +981,7 @@ form#loginForm input[type="text"] {
       &::-ms-input-placeholder {
         color: rgba(255, 255, 255, 1);
         font-weight: 300;
-        color: rgba(255, 255, 255, 1);
       }
-
     }
   }
   .search_submit {

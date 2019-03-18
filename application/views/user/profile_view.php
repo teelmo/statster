@@ -45,6 +45,32 @@
   </div>
 </div>
 <div id="mainCont">
+  <?php
+  if ($logged_in === 'true' && $username !== $this->session->userdata('username')) {
+    ?>
+    <div class="similarity_info">
+      <div class="simililarity_image" title="<?=$similarity['value']?>%">
+        <svg viewBox="0 0 36 36">
+          <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(182, 192, 191, 0.5)"; stroke-width="4"; stroke-dasharray="100, 100" />
+          <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#666"; stroke-width="4"; stroke-dasharray="<?=$similarity['value']?>, 100" class="similarity_path" />
+        </svg>
+        <div class="user_similarity_img cover img40" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 64))?>');"></div>
+      </div>
+      <div class="similarity_text">
+        Your compatibility with <?=$username?> is <span class="text"><?=$similarity['text']?></span>.<br />
+        <?php
+        if ($similarity['artists']) {
+          echo 'You both listen to ' . join(' and ', array_filter(array_merge(array(join(', ', array_slice($similarity['artists'], 0, -1))), array_slice($similarity['artists'], -1)), 'strlen')) . '.';
+        }
+        else {
+          echo 'You have no common popular artists.';
+        }
+        ?>
+      </div>
+    </div>
+    <?php
+  }
+  ?>
   <div class="page_links">
     <?=anchor('recent?u=' . $username, 'Library')?>
     <?=anchor('album?u=' . $username, 'Albums')?>
@@ -79,7 +105,7 @@
     </div>
     <div class="container"><hr /></div>
     <?php
-    if ($logged_in === 'true') {
+    if ($logged_in === 'true' && $username === $this->session->userdata('username')) {
       ?>
       <div class="container">
         <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
