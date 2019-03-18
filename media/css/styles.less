@@ -458,21 +458,47 @@ div.container {
         &.user_listening {
           border-left: 1px solid #eee;
           padding-left: 30px;
-          .user_listenings_img {
-            .border-radius(16px);
-            display: inline-block;
-            &:after {
+          height: 46px;
+          .user_listening_image {
+            float: left;
+            position: relative;
+            svg {
+              height: 46px;
+              left: 0;
+              position: absolute;
+              top: 0;
+              width: 46px;
+              .similarity_path {
+                animation: progress 3s ease-out forwards;
+              }
+              @keyframes progress {
+                0% {
+                  stroke-dasharray: 0 100;
+                }
+              }
+            }
+            .user_listenings_img {
               .border-radius(16px);
+              background-color: #fff;
+              border: 2px solid #fff;
+              display: inline-block;
+              float: left;
+              left: 5px;
+              position: relative;
+              top: 5px;
+              &:after {
+                .border-radius(16px);
+              }
             }
           }
-          .user_value {
-            line-height: 31px;
-            padding-left: 10px;
-            vertical-align: 32%;
-            .value {
-              font-size: 16px;
-              font-weight: 400;
-            }
+        }
+        .user_value {
+          line-height: 35px;
+          margin-left: 20px;
+          white-space: nowrap;
+          .value {
+            font-size: 16px;
+            font-weight: 400;
           }
         }
       }
