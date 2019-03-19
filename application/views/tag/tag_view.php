@@ -20,7 +20,16 @@
     if ($logged_in === 'true') {
       ?>
       <div class="meta">
-        <div class="label user_listening" rowspan="3"><div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div><span class="user_value"><span class="value number"><?=number_format($user_count)?></span> in your library</span></div>
+        <div class="label user_listening">
+          <div class="user_listening_image" title="<?=intval(($user_count / $total_count) * 100)?>%">
+            <svg viewBox="0 0 36 36">
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(182, 192, 191, 0.5)"; stroke-width="4"; stroke-dasharray="100, 100" />
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#666"; stroke-width="4"; stroke-dasharray="<?=(($user_count / $total_count) * 100)?>, 100" class="similarity_path" />
+            </svg>
+            <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
+          </div>
+          <span class="user_value"><span class="value number"><?=number_format($user_count)?></span> in your library</span>
+        </div>
       </div>
       <?php
     }
