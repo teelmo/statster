@@ -10,8 +10,8 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              limit:9,
-              type:'album'
+              type:'album',
+              word:'loves'
             },
             success: function (data) {
               $('#topLovedLoader').hide();
@@ -37,7 +37,8 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              type:'artist'
+              type:'artist',
+              word:'fans'
             },
             success: function (data) {
               $('#topFanedLoader').hide();

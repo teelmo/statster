@@ -223,6 +223,7 @@ $.extend(view, {
           $.ajax({
             data:{
               hide:{
+                delete:true,
                 user:true
               },
               json_data:data,
@@ -252,6 +253,7 @@ $.extend(view, {
           $.ajax({
             data:{
               hide:{
+                delete:true,
                 user:true
               },
               json_data:data,

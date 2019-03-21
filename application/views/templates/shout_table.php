@@ -58,7 +58,7 @@ if (!empty($json_data)) {
               <span class="album_name title"><?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'])?></span>
               <?php
             }
-            if ($this->session->userdata('user_id') === $row['user_id']) {
+            if ($this->session->userdata('user_id') === $row['user_id'] && empty($hide['delete'])) {
               ?>
               <span class="delete" data-confirmation-container=".confirmation_<?=$row['type']?>_<?=$idx?>"><a href="javascript:;"><i class="fa fa-times"></i></a></span>
               <div class="confirmation confirmation_<?=$row['type']?>_<?=$idx?>">Are you sure: <a href="javascript:;" class="confirm" data-shout-id="<?=$row['shout_id']?>" data-shout-type="<?=$row['type']?>" data-row-id="shout<?=ucfirst($row['type'])?>Table<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
