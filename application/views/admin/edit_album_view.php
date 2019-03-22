@@ -21,6 +21,10 @@
             <div class="label">Spotify uri</div>
             <div><input type="text" name="spotify_uri" value="<?=$spotify_uri?>" /></div>
           </div>
+          <div class="input_container">
+            <div class="label">Cover art uri</div>
+            <div><input type="text" name="image_uri" value="<?=$image_uri?>" /></div>
+          </div>
         </fieldset>
         <div class="submit_container">
           <input type="submit" name="submit" value="Save album" />

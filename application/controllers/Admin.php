@@ -24,11 +24,18 @@ class Admin extends CI_Controller {
   public function artist($artist_id) {
     if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
-      $this->load->helper(array('artist_helper'));
+      $this->load->helper(array('artist_helper', 'img_helper'));
 
       $data = array();
       if (!empty($_POST)) {
         $data = $_POST;
+        if ($data['image_uri'] === '') {
+          $this->load->helper(array('lastfm_helper'));
+          fetchArtistInfo($data);
+        }
+        else if (strpos($data['image_uri'], 'statster.') === false) {
+          fetchImages($data, 'artist_img');
+        }
         if (updateArtist($data)) {
           redirect('/music/' . url_title(utf8_decode($data['artist_name'])), 'refresh');
         }
@@ -53,11 +60,18 @@ class Admin extends CI_Controller {
   public function album($album_id) {
     if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
-      $this->load->helper(array('album_helper'));
+      $this->load->helper(array('album_helper', 'img_helper'));
 
       $data = array();
       if (!empty($_POST)) {
         $data = $_POST;
+        if ($data['image_uri'] === '') {
+          $this->load->helper(array('lastfm_helper'));
+          fetchAlbumInfo($data);
+        }
+        else if (strpos($data['image_uri'], 'statster.') === false) {
+          fetchImages($data, 'album_img');
+        }
         if (updateAlbum($data)) {
           redirect('/music/' . url_title(utf8_decode($data['artist_name'])) . '/' . url_title(utf8_decode($data['album_name'])), 'refresh');
         }
@@ -69,6 +83,8 @@ class Admin extends CI_Controller {
         $this->load->helper(array('form'));
 
         $data += getAlbumInfo(array('album_id' => $album_id));
+
+        $data['image_uri'] = getAlbumImg(array('album_id' => $album_id, 'size' => 32));
 
         $data['js_include'] = array('admin/edit_album');
         $this->load->view('site_templates/header');

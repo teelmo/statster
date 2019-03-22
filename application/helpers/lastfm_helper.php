@@ -74,10 +74,8 @@ if (!function_exists('fetchAlbumInfo')) {
             $ci=& get_instance();
             $ci->load->helper(array('img_helper'));
             $url = explode('/', end($lastfm_data['image'])['#text']);
-            $url = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-            foreach (IMAGE_SIZES as $key => $imagesize) {
-              imageResize($url, getcwd() . '/media/img/album_img/' . $imagesize . '/' . $opts['album_id'] . '.jpg', $imagesize);
-            }
+            $opts['image_uri'] = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
+            fetchImages($opts, 'album_img');
           }
         }
       }
@@ -118,10 +116,8 @@ if (!function_exists('fetchArtistInfo')) {
             $ci=& get_instance();
             $ci->load->helper(array('img_helper'));
             $url = explode('/', end($lastfm_data['image'])['#text']);
-            $url = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-            foreach (IMAGE_SIZES as $key => $imagesize) {
-              imageResize($url, getcwd() . '/media/img/artist_img/' . $imagesize . '/' . $opts['artist_id'] . '.jpg', $imagesize);
-            }
+            $opts['image_uri'] = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
+            fetchImages($opts, 'artist_img');
           }
         }
       }
