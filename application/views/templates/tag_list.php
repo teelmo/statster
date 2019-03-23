@@ -19,7 +19,7 @@ if (!empty($json_data)) {
       }
       else if ($row['type'] === 'genre') {
         ?>
-        <li class="tag <?=$row['type']?>">
+        <li class="tag <?=$row['type']?> <?=(in_array($this->session->userdata('user_id'), $row['user_ids'])) ? 'active' : ''?>">
           <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-music"></i> ' . $row['name'])?>
           <?php
           if ($this->session->userdata('logged_in') === TRUE && in_array($this->session->userdata('user_id'), $row['user_ids'])) {
