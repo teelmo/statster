@@ -220,7 +220,8 @@ if (!function_exists('getArtistGenres')) {
     $sql = "SELECT count(" . TBL_genre . ".`id`) as `count`,
                    " . TBL_genre . ".`name`,
                    " . TBL_genre . ".`id` as `tag_id`,
-                   'genre' as `type`
+                   'genre' as `type`,
+                   GROUP_CONCAT(DISTINCT(" . TBL_genres . ".`user_id`)) `user_ids`
             FROM " . TBL_genre . ",
                  " . TBL_genres . ",
                  " . TBL_artist . ",
@@ -254,7 +255,8 @@ if (!function_exists('getArtistKeywords')) {
     $sql = "SELECT count(" . TBL_keyword . ".`id`) as `count`,
                    " . TBL_keyword . ".`name`,
                    " . TBL_keyword . ".`id` as `tag_id`,
-                   'keyword' as `type`
+                   'keyword' as `type`,
+                   GROUP_CONCAT(DISTINCT(" . TBL_keywords . ".`user_id`)) `user_ids`
             FROM " . TBL_keyword . ",
                  " . TBL_keywords . ",
                  " . TBL_artist . ",
@@ -289,7 +291,8 @@ if (!function_exists('getArtistNationalities')) {
                    " . TBL_nationality . ".`country` as `name`,
                    " . TBL_nationality . ".`country_code`,
                    " . TBL_nationality . ".`id` as `tag_id`,
-                   'nationality' as `type`
+                   'nationality' as `type`,
+                   GROUP_CONCAT(DISTINCT(" . TBL_nationalities . ".`user_id`)) `user_ids`
             FROM " . TBL_nationality . ",
                  " . TBL_nationalities . ",
                  " . TBL_artist . ",
