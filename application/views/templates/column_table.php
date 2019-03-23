@@ -37,7 +37,7 @@ if (!empty($json_data)) {
               echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
             }
             else if ($row['type'] === 'format') {
-              echo (empty($row['format_type_name'])) ? $row['format_name'] : $row['format_type_name'];
+              echo (empty($row['format_type_name'])) ? $row['format_name'] : str_replace(['Spotify Premium', 'Spotify Unlimited'], 'Spotify', $row['format_type_name']);        ;
             }
             else {
               echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
