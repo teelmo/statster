@@ -105,7 +105,7 @@ div.container {
         margin-top: 1px;
         vertical-align: top;
         &:before {
-          content:"\f107";
+          content: '\f107';
           display: inline-block;
           font-family: 'FontAwesome';
           font-size: 20px;
@@ -115,6 +115,13 @@ div.container {
           position: relative;
           top: 1px;
           vertical-align: top;
+        }
+      }
+      &.active {
+        .profile_text {
+          &:before {
+            content: '\f106';
+          }
         }
       }
       .profile_img {
@@ -161,11 +168,12 @@ div.container {
           margin: 0;
           padding: 0;
           a {
+            box-sizing: border-box;
             float: left;
             font-size: 12px;
             padding: 3px 0 3px 10px;
             text-decoration: none;
-            width: 130px;
+            width: 100%;
             &:hover {
               background-color: #222;
             }
@@ -1932,6 +1940,7 @@ h2 {
     cursor: pointer;
     float: right;
     font-size: 13px;
+    position: relative;
     .fa-refresh {
       &:hover {
         color: #000;
@@ -1943,7 +1952,7 @@ h2 {
         color: #000;
       }
       &:after {
-        content:"\f107";
+        content: '\f107';
         display: inline-block;
         font-family: 'FontAwesome';
         font-size: 20px;
@@ -1953,35 +1962,57 @@ h2 {
         top: -1px;
         vertical-align: middle;
       }
+      &.active:after {
+        content: '\f106';
+      }
     }
     ul.subnav {
-      background-color: #111;
-      border: 1px solid #111;
+      background-color: #fff;
+      border: 1px solid #999;
+      border-radius: 5px;
       display: none;
       float: left;
       list-style: none;
       margin: 0; 
+      z-index: 3;
       padding: 0;
       position: absolute;
       right: -7px;
       top: 38px;
-      width: 140px;
+      width: auto;
+      &:before {
+        background-image: url(/media/img/dropdown_arrow.png);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: 36px 18px;
+        content: '';
+        height: 18px;
+        left: 41px;
+        position: absolute;
+        right: auto;
+        top: -18px;
+        width: 36px;
+      }
       li {
-        border-bottom: 1px solid #191919; 
-        border-top: 1px solid #252525;
+        box-sizing: border-box;
         clear: both;
+        float: left;
+        font-size: 12px;
         line-height: 24px;
         margin: 0;
-        padding: 0;
-        a {
-          float: left;
-          font-size: 12px;
-          padding: 3px 0 3px 10px;
-          text-decoration: none;
-          width: 130px;
-          &:hover {
-            background-color: #222;
-          }
+        padding: 3px 10px 3px 10px;
+        text-decoration: none;
+        white-space: nowrap;
+        width: 100%;
+        &:first-child {
+          margin-top: 4px;
+        }
+        &:last-child {
+          margin-bottom: 4px;
+        }
+        &:hover {
+          background-color: #ebebeb;
+          color: #000;
         }
       }
     }

@@ -47,7 +47,7 @@
     <div class="container">
       <h2>Popular albums
         <div class="func_container">
-          <div class="value">All time</div>
+          <div class="value">Last 30 days</div>
           <ul class="subnav">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
@@ -70,7 +70,7 @@
     <div class="container">
       <h2>Popular artists
        <div class="func_container">
-          <div class="value">All time</div>
+          <div class="value">Last 30 days</div>
           <ul class="subnav">
             <li>Last 7 days</li>
             <li>Last 30 days</li>

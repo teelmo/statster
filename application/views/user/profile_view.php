@@ -326,7 +326,7 @@
       <h2>
         Genres
         <div class="func_container">
-          <div class="value">Last 30 days</div>
+          <div class="value">All time</div>
           <ul class="subnav">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
@@ -348,7 +348,7 @@
       <h2>
         Keywords
         <div class="func_container">
-          <div class="value">Last 30 days</div>
+          <div class="value">All time</div>
           <ul class="subnav">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
