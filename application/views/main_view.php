@@ -45,7 +45,19 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Hot albums</h2>
+      <h2>Popular albums
+        <div class="func_container">
+          <div class="value">All time</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
       <ul id="topAlbum" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
@@ -56,7 +68,19 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Hot artists</h2>
+      <h2>Popular artists
+       <div class="func_container">
+          <div class="value">All time</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
       <table id="topArtist" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
@@ -105,7 +129,7 @@
           </td>
         </tr>
       </table>
-      <h2>Popular albums <span class="func_container"><i class="fa fa-refresh" id="refreshPopularAlbums"></i></span></h2>
+      <h2>Hot albums <span class="func_container"><i class="fa fa-refresh" id="refreshHotAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
       <table id="recommentedTopAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
       <h2>New releases <span class="func_container"><i class="fa fa-refresh" id="refreshNewAlbums"></i></span></h2>

@@ -49,7 +49,20 @@
       </div>
       <div id="leftContOuter">
         <div class="container">
-          <h2>Popular albums</h2>
+          <h2>
+            Popular albums
+            <div class="func_container">
+              <div class="value">Last 90 days</div>
+              <ul class="subnav">
+                <li>Last 7 days</li>
+                <li>Last 30 days</li>
+                <li>Last 90 days</li>
+                <li>Last 180 days</li>
+                <li>Last 365 days</li>
+                <li>All time</li>
+              </ul>
+            </div>
+          </h2>
           <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularAlbumLoader" />
           <table id="popularAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
         </div>

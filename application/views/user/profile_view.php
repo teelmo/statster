@@ -137,7 +137,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Favorite albums</h2>
+      <h2>
+        Favorite albums
+        <div class="func_container">
+          <div class="value">All time</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="topAlbumLoader"/>
       <ul id="topAlbum" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
@@ -146,7 +159,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Favorite artist</h2>
+      <h2>
+        Favorite artist
+        <div class="func_container">
+          <div class="value">All time</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="topArtistLoader"/>
       <ul id="topArtist" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
@@ -276,7 +302,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Listening formats</h2>
+      <h2>
+        Listening formats
+        <div class="func_container">
+          <div class="value">All time</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
       <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -284,7 +323,20 @@
       </div>
     </div>
     <div class="container">
-      <h2>Genres</h2>
+      <h2>
+        Genres
+        <div class="func_container">
+          <div class="value">Last 30 days</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -293,7 +345,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Keywords</h2>
+      <h2>
+        Keywords
+        <div class="func_container">
+          <div class="value">Last 30 days</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -302,7 +367,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Nationalities</h2>
+      <h2>
+        Nationalities
+        <div class="func_container">
+          <div class="value">All time</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -311,7 +389,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Years</h2>
+      <h2>
+        Years
+        <div class="func_container">
+          <div class="value">All time</div>
+          <ul class="subnav">
+            <li>Last 7 days</li>
+            <li>Last 30 days</li>
+            <li>Last 90 days</li>
+            <li>Last 180 days</li>
+            <li>Last 365 days</li>
+            <li>All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">

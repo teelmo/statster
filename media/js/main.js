@@ -6,7 +6,6 @@ $.extend(view, {
     }
     $.ajax({
       complete: function () {
-        // setTimeout(view.getRecentListenings, 60 * 10 * 1000);
         if (callback != undefined) {
           callback();
         }
@@ -58,16 +57,13 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:13,
-        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 30 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
-            complete: function () {
-              // setTimeout(view.getTopAlbums, 60 * 10 * 1000);
-            },
             data:{
               json_data:data,
               type:'album'
@@ -94,16 +90,13 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:9,
-        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 30 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
-            complete: function () {
-              // setTimeout(view.getTopArtists, 60 * 10 * 1000);
-            },
             data:{
               json_data:data
             },
@@ -137,7 +130,7 @@ $.extend(view, {
         200: function (data) {
           $.ajax({
             complete: function () {
-              setTimeout(view.recommentedTopAlbum, 60 * 10 * 1000);
+              // setInterval(view.recommentedTopAlbum, 60 * 10 * 1000);
             },
             data:{
               json_data:data,
@@ -180,7 +173,7 @@ $.extend(view, {
         200: function (data) {
           $.ajax({
             complete: function () {
-              setTimeout(view.recommentedNewAlbum, 60 * 10 * 1000);
+              // setInterval(view.recommentedNewAlbum, 60 * 10 * 1000);
             },
             data:{
               json_data:data,
@@ -220,24 +213,12 @@ $.extend(view, {
     $('#refreshRecentAlbums').click(function () {
       view.getRecentListenings();
     });
-    $('#refreshPopularAlbums').click(function () {
+    $('#refreshHotAlbums').click(function () {
       view.getRecommentedTopAlbum();
     });
     $('#refreshNewAlbums').click(function () {
       view.getRecommentedNewAlbum();
     });
-    // $('#addListeningShowmore').click(function () {
-    //   $('.listeningFormat').removeClass('hidden');
-    //   $(this).remove();
-    // });
-
-    // $('#addListeningShowmore').keypress(function (e) {
-    //   var code = (e.keyCode ? e.keyCode : e.which);
-    //   if (code === 13) {
-    //     $('.listeningFormat').removeClass('hidden');
-    //     $(this).remove();
-    //   }
-    // });
   }
 });
 

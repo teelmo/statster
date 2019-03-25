@@ -614,6 +614,7 @@ h2 {
   font-style: normal;
   font-variant: normal;
   font-weight: 300;
+  line-height: 24px;
   margin: 15px 0 15px 0;
 }
 h3 {
@@ -1923,26 +1924,65 @@ div.cover_shadow {
 }
 
 /* Fa styles */
-h1 {
-  .func_container {
-    margin-top: 8px;
-  }
-}
-h2 {
-  .func_container {
-    margin-top: 4px;
-  }
-}
 h1,
 h2 { 
   .func_container {
+    .user-select(none);
+    color: #666;
     cursor: pointer;
     float: right;
     font-size: 13px;
     .fa-refresh {
-      color: #666;
       &:hover {
         color: #000;
+      }
+    }
+    .value {
+      line-height: inherit;
+      &:hover {
+        color: #000;
+      }
+      &:after {
+        content:"\f107";
+        display: inline-block;
+        font-family: 'FontAwesome';
+        font-size: 20px;
+        line-height: inherit;
+        padding-left: 5px;
+        position: relative;
+        top: -1px;
+        vertical-align: middle;
+      }
+    }
+    ul.subnav {
+      background-color: #111;
+      border: 1px solid #111;
+      display: none;
+      float: left;
+      list-style: none;
+      margin: 0; 
+      padding: 0;
+      position: absolute;
+      right: -7px;
+      top: 38px;
+      width: 140px;
+      li {
+        border-bottom: 1px solid #191919; 
+        border-top: 1px solid #252525;
+        clear: both;
+        line-height: 24px;
+        margin: 0;
+        padding: 0;
+        a {
+          float: left;
+          font-size: 12px;
+          padding: 3px 0 3px 10px;
+          text-decoration: none;
+          width: 130px;
+          &:hover {
+            background-color: #222;
+          }
+        }
       }
     }
   }
