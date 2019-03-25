@@ -411,37 +411,34 @@ $.extend(view, {
       }
     });
     $('html').on('click', '#submitTags', function () {
-      $.when(
-        $.each($('.chosen-select').val(), function (i, el) {
-          var tag = el.split(':');
-          $.ajax({
-            data:{
-              artist_id:parseInt(<?=$artist_id?>),
-              tag_id:tag[1],
-              type:'artist'
+      $.each($('.chosen-select').val(), function (i, el) {
+        var tag = el.split(':');
+        $.ajax({
+          data:{
+            artist_id:parseInt(<?=$artist_id?>),
+            tag_id:tag[1],
+            type:'artist'
+          },
+          statusCode:{
+            201: function (data) { // 201 Created
             },
-            statusCode:{
-              201: function (data) { // 201 Created
-              },
-              400: function () { // 400 Bad request
-                alert('<?=ERR_BAD_REQUEST?>');
-              },
-              401: function () {
-                alert('401 Unauthorized');
-              },
-              404: function () {
-                alert('404 Not Found');
-              }
+            400: function () { // 400 Bad request
+              alert('<?=ERR_BAD_REQUEST?>');
             },
-            type:'POST',
-            url:'/api/tag/add/' + tag[0]
-          });
-        })
-      ).done(function () {
-        $('.chosen-select option').removeAttr('selected');
-        $('#tagAdd select').trigger('chosen:updated');
-        view.getTags();
+            401: function () {
+              alert('401 Unauthorized');
+            },
+            404: function () {
+              alert('404 Not Found');
+            }
+          },
+          type:'POST',
+          url:'/api/tag/add/' + tag[0]
+        });
       });
+      $('.chosen-select option').removeAttr('selected');
+      $('#tagAdd select').trigger('chosen:updated');
+      view.getTags();
       $('#tagAdd').hide();
     });
   }
