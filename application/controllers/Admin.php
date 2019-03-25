@@ -36,17 +36,15 @@ class Admin extends CI_Controller {
         else if (strpos($data['image_uri'], 'statster.') === false) {
           fetchImages($data, 'artist_img');
         }
-        if (updateArtist($data)) {
-          redirect('/music/' . url_title(utf8_decode($data['artist_name'])), 'refresh');
-        }
-        else {
-          redirect('/music/' . url_title(utf8_decode($data['artist_name'])), 'refresh');
-        }
+        updateArtist($data);
+        redirect('/music/' . url_title(utf8_decode($data['artist_name'])), 'refresh');
       }
       else {
         $this->load->helper(array('form'));
 
         $data += getArtistInfo(array('artist_id' => $artist_id));
+
+        $data['image_uri'] = getArtistImg(array('artist_id' => $artist_id, 'size' => 32));
 
         $this->load->view('site_templates/header');
         $this->load->view('admin/edit_artist_view', $data);
@@ -72,12 +70,8 @@ class Admin extends CI_Controller {
         else if (strpos($data['image_uri'], 'statster.') === false) {
           fetchImages($data, 'album_img');
         }
-        if (updateAlbum($data)) {
-          redirect('/music/' . url_title(utf8_decode($data['artist_name'])) . '/' . url_title(utf8_decode($data['album_name'])), 'refresh');
-        }
-        else {
-          redirect('/music/' . url_title(utf8_decode($data['artist_name'])) . '/' . url_title(utf8_decode($data['album_name'])), 'refresh');
-        }
+        updateAlbum($data);
+        redirect('/music/' . url_title(utf8_decode($data['artist_name'])) . '/' . url_title(utf8_decode($data['album_name'])), 'refresh');
       }
       else {
         $this->load->helper(array('form'));

@@ -236,7 +236,12 @@ if (!function_exists('getFormatTypeImg')) {
 if (!function_exists('fetchImages')) {
   function fetchImages($opts, $target_folder) {
     foreach (IMAGE_SIZES as $key => $imagesize) {
-      imageResize($opts['image_uri'], getcwd() . '/media/img/' . $target_folder . '/' . $imagesize . '/' . $opts['album_id'] . '.jpg', $imagesize);
+      if ($target_folder === 'album_img') {
+        imageResize($opts['image_uri'], getcwd() . '/media/img/' . $target_folder . '/' . $imagesize . '/' . $opts['album_id'] . '.jpg', $imagesize);
+      }
+      else if ($target_folder === 'artist_img') {
+        imageResize($opts['image_uri'], getcwd() . '/media/img/' . $target_folder . '/' . $imagesize . '/' . $opts['artist_id'] . '.jpg', $imagesize);
+      }
     }
   }
 }
