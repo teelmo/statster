@@ -23,7 +23,7 @@ class Artist extends CI_Controller {
   /* Add a artist */
   public function add() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 
   /* Update artist information */
