@@ -22,13 +22,7 @@ class User extends CI_Controller {
     // Load helpers
     $this->load->helper(array('user_helper'));
 
-    if ($_REQUEST['user_id'] = $this->session->userdata('user_id')) {
-      echo updateIntervals($_REQUEST);
-    }
-    else {
-      header('HTTP/1.1 403 Forbidden');
-    }
-
+    echo updateIntervals($_REQUEST);
   }
 
   /* Delete user information */

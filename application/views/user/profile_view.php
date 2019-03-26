@@ -137,17 +137,17 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
-        Favorite albums
+      <h2>Favorite albums
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topAlbumLoader2" />
         <div class="func_container">
-          <div class="value">All time</div>
-          <ul class="subnav top_album_profile">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <div class="value"><?=INTERVAL_TEXTS[$top_album_profile]?></div>
+          <ul class="subnav" data-name="top_album_profile" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>
@@ -159,17 +159,17 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
-        Favorite artist
+      <h2>Favorite artist
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topArtistLoader2" />
         <div class="func_container">
-          <div class="value">All time</div>
-          <ul class="subnav top_artist_profile">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <div class="value"><?=INTERVAL_TEXTS[$top_artist_profile]?></div>
+          <ul class="subnav" data-name="top_artist_profile" data-callback="getTopArtists" data-loader="topArtistLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>
@@ -302,38 +302,38 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
-        Listening formats
+      <h2>Listening formats
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topFormatLoader2" />
         <div class="func_container">
-          <div class="value">All time</div>
-          <ul class="subnav top_listening_format_profile">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <div class="value"><?=INTERVAL_TEXTS[$top_listening_format_profile]?></div>
+          <ul class="subnav" data-name="top_listening_format_profile" data-callback="getTopFormats" data-loader="topFormatLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
-      <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topFormatLoader"/>
+      <table id="topFormat" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('format?u=' . $username, 'More', array('title' => 'Browse more formats'))?>
       </div>
     </div>
     <div class="container">
-      <h2>
-        Genres
+      <h2>Genres
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topGenreLoader2" />
         <div class="func_container">
-          <div class="value">All time</div>
-          <ul class="subnav top_genre_profile">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <div class="value"><?=INTERVAL_TEXTS[$top_genre_profile]?></div>
+          <ul class="subnav" data-name="top_genre_profile" data-callback="getTopGenres" data-loader="topGenreLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>
@@ -345,17 +345,17 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
-        Keywords
+      <h2>Keywords
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topKeywordLoader2" />
         <div class="func_container">
-          <div class="value">All time</div>
-          <ul class="subnav top_keyword_profile">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <div class="value"><?=INTERVAL_TEXTS[$top_keyword_profile]?></div>
+          <ul class="subnav" data-name="top_keyword_profile" data-callback="getTopKeywords" data-loader="topKeywordLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>
@@ -367,17 +367,17 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
-        Nationalities
+      <h2>Nationalities
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topNationalityLoader2" />
         <div class="func_container">
-          <div class="value">All time</div>
-          <ul class="subnav top_nationality_profile">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <div class="value"><?=INTERVAL_TEXTS[$top_nationality_profile]?></div>
+          <ul class="subnav" data-name="top_nationality_profile" data-callback="getTopNationalities" data-loader="topNationalityLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>
@@ -389,17 +389,17 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
-        Years
+      <h2>Years
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader2" />
         <div class="func_container">
-          <div class="value">All time</div>
-          <ul class="subnav top_year_profile">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <div class="value"><?=INTERVAL_TEXTS[$top_year_profile]?></div>
+          <ul class="subnav" data-name="top_year_profile" data-callback="getTopYears" data-loader="topYearLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>

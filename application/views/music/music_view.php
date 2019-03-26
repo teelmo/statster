@@ -49,17 +49,17 @@
       </div>
       <div id="leftContOuter">
         <div class="container">
-          <h2>
-            Popular albums
+          <h2>Popular albums
+            <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="popularAlbumLoader2" />
             <div class="func_container">
-              <div class="value">Last 90 days</div>
-              <ul class="subnav popular_album_music">
-                <li>Last 7 days</li>
-                <li>Last 30 days</li>
-                <li>Last 90 days</li>
-                <li>Last 180 days</li>
-                <li>Last 365 days</li>
-                <li>All time</li>
+              <div class="value"><?=INTERVAL_TEXTS[$popular_album_music]?></div>
+              <ul class="subnav" data-name="popular_album_music" data-callback="getPopularAlbums" data-loader="popularAlbumLoader2">
+                <li data-value="7">Last 7 days</li>
+                <li data-value="30">Last 30 days</li>
+                <li data-value="90">Last 90 days</li>
+                <li data-value="180">Last 180 days</li>
+                <li data-value="365">Last 365 days</li>
+                <li data-value="overall">All time</li>
               </ul>
             </div>
           </h2>

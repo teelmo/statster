@@ -53,12 +53,19 @@ $.extend(view, {
     });
   },
   // Get top albums.
-  getTopAlbums: function () {
-    console.log('<?=$intervals?>')
+  getTopAlbums: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:13,
-        lower_limit:'<?=date('Y-m-d', ($default_interval == 'overall') ? 0 : time() - ($default_interval * 30 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -70,7 +77,7 @@ $.extend(view, {
               type:'album'
             },
             success: function (data) {
-              $('#topAlbumLoader').hide();
+              $('#topAlbumLoader, #topAlbumLoader2').hide();
               $('#topAlbum').html(data);
             },
             type:'POST',
@@ -78,7 +85,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topAlbumLoader').hide();
+          $('#topAlbumLoader, #topAlbumLoader2').hide();
           $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -87,11 +94,19 @@ $.extend(view, {
     });
   },
   // Get top artists.
-  getTopArtists: function () {
+  getTopArtists: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:9,
-        lower_limit:'<?=date('Y-m-d', ($default_interval == 'overall') ? 0 : time() - ($default_interval * 30 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -102,7 +117,7 @@ $.extend(view, {
               json_data:data
             },
             success: function (data) {
-              $('#topArtistLoader').hide();
+              $('#topArtistLoader, #topArtistLoader2').hide();
               $('#topArtist').html(data);
             },
             type:'POST',
@@ -110,7 +125,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topArtistLoader').hide();
+          $('#topArtistLoader, #topArtistLoader2').hide();
           $('#topArtist').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -224,8 +239,10 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getRecentListenings(true, view.getTopAlbums);
-  view.getTopArtists();
+  view.getRecentListenings(true, function() {
+    view.getTopAlbums('<?=$top_album_main?>');
+  });
+  view.getTopArtists('<?=$top_artist_main?>');
   view.getRecommentedTopAlbum();
   view.getRecommentedNewAlbum();
   view.initMainEvents();

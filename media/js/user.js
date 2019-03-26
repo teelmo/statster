@@ -29,10 +29,19 @@ $.extend(view, {
       url:'/api/user/get'
     });
   },
-  topListeners: function () {
+  getTopListeners: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
-        limit:10
+        limit:10,
+        lower_limit:lower_limit,
       },
       dataType:'json',
       statusCode:{
@@ -48,7 +57,7 @@ $.extend(view, {
               type:'user'
             },
             success: function(data) {
-              $('#topListenerLoader').hide();
+              $('#topListenerLoader, #topListenerLoader2').hide();
               $('#topListener').html(data);
             },
             type:'POST',
@@ -154,6 +163,6 @@ $(document).ready(function () {
   view.getAlbumShouts(size);
   view.getArtistShouts(size);
   view.getUserShouts(size);
-  view.topListeners();
+  view.getTopListeners('<?=$top_listener_user?>');
   view.initUserEvents();
 });

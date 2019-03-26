@@ -5,6 +5,10 @@ class User extends CI_Controller {
     // Load helpers
     $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
     
+    $data = array();
+    $intervals = unserialize($this->session->userdata('intervals'));
+    $data['top_listener_user'] = isset($intervals['top_listener_user']) ? $intervals['top_listener_user'] : 'overall';
+
     $opts = array(
       'human_readable' => false,
       'limit' => '1',
@@ -12,7 +16,7 @@ class User extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-    $data['js_include'] = array('user');
+    $data['js_include'] = array('user', 'helpers/time_interval_helper');
     
     $this->load->view('site_templates/header');
     $this->load->view('user/user_view', $data);
@@ -25,7 +29,15 @@ class User extends CI_Controller {
     $data['username'] = $username;
     if ($data = getUser($data)) {
       $data['username'] = $this->uri->segment(2);
-      $data['interval'] = 0;
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_album_profile'] = isset($intervals['top_album_profile']) ? $intervals['top_album_profile'] : 'overall';
+      $data['top_artist_profile'] = isset($intervals['top_artist_profile']) ? $intervals['top_artist_profile'] : 'overall';
+      $data['top_listening_format_profile'] = isset($intervals['top_listening_format_profile']) ? $intervals['top_listening_format_profile'] : 'overall';
+      $data['top_genre_profile'] = isset($intervals['top_genre_profile']) ? $intervals['top_genre_profile'] : 'overall';
+      $data['top_keyword_profile'] = isset($intervals['top_keyword_profile']) ? $intervals['top_keyword_profile'] : 'overall';
+      $data['top_nationality_profile'] = isset($intervals['top_nationality_profile']) ? $intervals['top_nationality_profile'] : 'overall';
+      $data['top_year_profile'] = isset($intervals['top_year_profile']) ? $intervals['top_year_profile'] : 'overall';
+
       $opts = array(
         'human_readable' => false,
         'limit' => '1',

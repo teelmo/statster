@@ -7,8 +7,9 @@ class Main extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
-      $data['default_interval'] = 30;
-      $data['intervals'] = unserialize($this->session->userdata('intervals'));
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_album_main'] = isset($intervals['top_album_main']) ? $intervals['top_album_main'] : 30;
+      $data['top_artist_main'] = isset($intervals['top_artist_main']) ? $intervals['top_artist_main'] : 30;
       
       $opts = array(
         'human_readable' => false,

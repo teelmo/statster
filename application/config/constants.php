@@ -123,6 +123,14 @@ define('TBL_year_biography', 'year_biography');
 
 define('IMAGE_SIZES', [32, 64, 124, 174, 300]);
 
+define('INTERVAL_TEXTS', array(
+  7 => 'Last 7 days',
+  30 => 'Last 30 days',
+  90 => 'Last 90 days',
+  180 => 'Last 180 days',
+  365 => 'Last 365 days',
+  'overall' => 'All time'
+));
 
 /* API keys */
 define('LASTFM_API_KEY', $_SERVER['CI_LASTFM_API_KEY']);

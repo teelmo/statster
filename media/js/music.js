@@ -51,7 +51,7 @@ $.extend(view, {
       url:'/api/listener/get'
     });
   },
-  popularGenre: function () {
+  getPopularGenres: function () {
     $.ajax({
       data:{
         limit:20,
@@ -84,11 +84,19 @@ $.extend(view, {
       url:'/api/genre/get'
     });
   },
-  topAlbum: function () {
+  getPopularAlbums: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:15,
-        lower_limit:'<?=date("Y-m-d", time() - (183 * 24 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -105,7 +113,7 @@ $.extend(view, {
               }
             },
             success: function (data) {
-              $('#popularAlbumLoader').hide();
+              $('#popularAlbumLoader, #popularAlbumLoader2').hide();
               $('#popularAlbum').html(data);
             },
             type:'POST',
@@ -117,7 +125,7 @@ $.extend(view, {
       url:'/api/album/get'
     });
   },
-  secondChance: function () {
+  getSecondChance: function () {
     $.ajax({
       data:{
         having:'`count` = 1 AND <?=TBL_listening?>.`date` BETWEEN \'<?=CUR_YEAR - 4?>-00-00\' AND \'<?=CUR_YEAR - 1?>-12-31\'',
@@ -159,7 +167,7 @@ $.extend(view, {
       url:'/api/secondChance'
     });
   },
-  recentlyFaned: function () {
+  getRecentlyFaned: function () {
     $.ajax({
       data:{
         limit:10,
@@ -187,7 +195,7 @@ $.extend(view, {
       url:'/api/fan/get'
     });
   },
-  recentlyLoved: function () {
+  getRecentlyLoved: function () {
     $.ajax({
       data:{
         limit:10,
@@ -231,10 +239,10 @@ $.extend(view, {
 $(document).ready(function () {
   view.initChart();
   view.getListeningHistory('%Y');
-  view.popularGenre();
-  view.topAlbum();
-  view.secondChance();
-  view.recentlyFaned();
-  view.recentlyLoved();
+  view.getPopularGenres();
+  view.getPopularAlbums('<?=$popular_album_music?>');
+  view.getSecondChance();
+  view.getRecentlyFaned();
+  view.getRecentlyLoved();
   view.initMusicEvents();
 });

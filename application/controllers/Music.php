@@ -6,6 +6,8 @@ class Music extends CI_Controller {
     $this->load->helper(array('img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
     $data = array();
+    $intervals = unserialize($this->session->userdata('intervals'));
+    $data['popular_album_music'] = isset($intervals['popular_album_music']) ? $intervals['popular_album_music'] : 90;
     $opts = array(
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',

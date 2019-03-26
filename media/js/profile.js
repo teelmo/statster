@@ -102,11 +102,19 @@ $.extend(view, {
     });
   },
   // Get top albums.
-  getTopAlbums: function () {
+  getTopAlbums: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:9,
-        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
@@ -118,7 +126,7 @@ $.extend(view, {
               type:'album'
             },
             success: function (data) {
-              $('#topAlbumLoader').hide();
+              $('#topAlbumLoader, #topAlbumLoader2').hide();
               $('#topAlbum').html(data);
             },
             type:'POST',
@@ -126,7 +134,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topAlbumLoader').hide();
+          $('#topAlbumLoader, #topAlbumLoader2').hide();
           $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -135,14 +143,22 @@ $.extend(view, {
     });
   },
   // Get top artists.
-  getTopArtists: function () {
+  getTopArtists: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       type:'GET',
       dataType:'json',
       url:'/api/artist/get',
       data:{
         limit:9,
-        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 24 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       statusCode:{
@@ -153,7 +169,7 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#topArtistLoader').hide();
+              $('#topArtistLoader, #topArtistLoader2').hide();
               $('#topArtist').html(data);
             },
             type:'POST',
@@ -161,7 +177,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topArtistLoader').hide();
+          $('#topArtistLoader, #topArtistLoader2').hide();
           $('#topArtist').html('<?=ERR_NO_RESULTS?>');
         }
       }
@@ -201,10 +217,6 @@ $.extend(view, {
         204: function () { // 204 No Content
           $('#shoutLoader').hide();
           $('#shout').html('<?=ERR_NO_RESULTS?>');
-        },
-        400: function () { // 400 Bad request
-          $('#shoutLoader').hide();
-          alert('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
@@ -329,10 +341,19 @@ $.extend(view, {
       url:'/api/love/get'
     });
   },
-  getFormats: function () {
+  getTopFormats: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
-        limit:10,
+        limit:5,
+        lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
@@ -343,31 +364,35 @@ $.extend(view, {
               json_data:data,
             },
             success: function (data) {
-              $('#topListeningFormatTypesLoader').hide();
-              $('#topListeningFormatTypes').html(data);
+              $('#topFormatLoader, #topFormatLoader2').hide();
+              $('#topFormat').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });
         },
         204: function () { // 204 No Content
-          $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html('<?=ERR_NO_RESULTS?>');
-        },
-        400: function () { // 400 Bad request
-          $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html('<?=ERR_BAD_REQUEST?>');
+          $('#topFormatLoader, #topFormatLoader2').hide();
+          $('#topFormat').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/format/get'
     });
   },
-  topGenre: function () {
+  getTopGenres: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:5,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
@@ -378,23 +403,35 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topGenreLoader').hide();
+              $('#topGenreLoader, #topGenreLoader2').hide();
               $('#topGenre').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });
+        },
+        204: function () { // 204 No Content
+          $('#topGenreLoader, #topGenreLoader2').hide();
+          $('#topGenre').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/genre/get'
     });
   },
-  topKeyword: function () {
+  getTopKeywords: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:5,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
@@ -405,29 +442,35 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topKeywordLoader').hide();
+              $('#topKeywordLoader, #topKeywordLoader2').hide();
               $('#topKeyword').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });  
         },
-        204: function() { // 204 No Content
-          alert('204 No Content');
-        },
-        404: function() { // 404 Not found
-          alert('404 Not Found');
+        204: function () { // 204 No Content
+          $('#topKeywordLoader, #topKeywordLoader2').hide();
+          $('#topKeyword').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/keyword/get'
     });
   },
-  topNationality: function () {
+  getTopNationalities: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:5,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
@@ -438,29 +481,35 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topNationalityLoader').hide();
+              $('#topNationalityLoader, #topNationalityLoader2').hide();
               $('#topNationality').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });  
         },
-        204: function() { // 204 No Content
-          alert('204 No Content');
-        },
-        404: function() { // 404 Not found
-          alert('404 Not Found');
+        204: function () { // 204 No Content
+          $('#topNationalityLoader, #topNationalityLoader2').hide();
+          $('#topNationality').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/nationality/get/listenings'
     });
   },
-  topYear: function () {
+  getTopYears: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:5,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
       dataType:'json',
@@ -471,18 +520,16 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topYearLoader').hide();
+              $('#topYearLoader, #topYearLoader2').hide();
               $('#topYear').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });  
         },
-        204: function() { // 204 No Content
-          alert('204 No Content');
-        },
-        404: function() { // 404 Not found
-          alert('404 Not Found');
+        204: function () { // 204 No Content
+          $('#topYearLoader, #topYearLoader2').hide();
+          $('#topYear').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -510,17 +557,17 @@ $.extend(view, {
 $(document).ready(function () {
   view.getListeningHistory('%Y');
   view.getRecentListenings();
-  view.getTopAlbums();
-  view.getTopArtists();
+  view.getTopAlbums('<?=$top_album_profile?>');
+  view.getTopArtists('<?=$top_artist_profile?>');
   view.getShouts();
   view.getAlbumShouts();
   view.getArtistShouts();
   view.recentlyFaned();
   view.recentlyLoved();
-  view.getFormats();
+  view.getTopFormats('<?=$top_listening_format_profile?>');
+  view.getTopGenres('<?=$top_genre_profile?>');
+  view.getTopKeywords('<?=$top_keyword_profile?>');
+  view.getTopNationalities('<?=$top_nationality_profile?>');
+  view.getTopYears('<?=$top_year_profile?>');
   view.initProfileEvents();
-  view.topGenre();
-  view.topKeyword();
-  view.topNationality();
-  view.topYear();
 });
