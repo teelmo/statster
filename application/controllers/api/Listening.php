@@ -5,6 +5,7 @@ class Listening extends CI_Controller {
     exit ('No direct script access allowed');
   }
 
+  /* Get listenings */
   public function get() {
     // Load helpers
     $this->load->helper(array('listening_helper', 'love_helper', 'output_helper'));
@@ -22,7 +23,7 @@ class Listening extends CI_Controller {
   /* Update listening information */
   public function update() {
     // Load helpers
-
+    header('HTTP/1.1 501 Not Implemented');
   }
 
   /* Delete listening information */

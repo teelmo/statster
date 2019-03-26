@@ -27,16 +27,14 @@ class Love extends CI_Controller {
       echo addLove($album_id);
     }
     else {
-      header("HTTP/1.1 400 Bad Request");
+      header('HTTP/1.1 400 Bad Request');
     }
   }
 
   /* Update love information */
   public function update($album_id = FALSE) {
-    header("HTTP/1.1 501 Not Implemented");
-    if (is_numeric($album_id)) {
-      // Load helpers
-    }
+    // Load helpers
+    header('HTTP/1.1 501 Not Implemented');
   }
 
   /* Delete love information */
@@ -48,7 +46,7 @@ class Love extends CI_Controller {
       deleteLove($album_id);
     }
     else {
-      header("HTTP/1.1 400 Bad Request");
+      header('HTTP/1.1 400 Bad Request');
     }
   }
 }

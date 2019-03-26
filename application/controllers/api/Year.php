@@ -15,7 +15,7 @@ class Year extends CI_Controller {
   /* Add a year */
   public function add() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 
   /* Update year information */
@@ -36,7 +36,7 @@ class Year extends CI_Controller {
   /* Delete year information */
   public function delete() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 }
 ?>

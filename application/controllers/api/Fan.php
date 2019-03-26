@@ -27,13 +27,13 @@ class Fan extends CI_Controller {
       echo addFan($artist_id);
     }
     else {
-      header("HTTP/1.1 400 Bad Request");
+      header('HTTP/1.1 400 Bad Request');
     }
   }
 
   /* Update fan information */
   public function update($artist_id = FALSE) {
-    header("HTTP/1.1 501 Not Implemented");
+    header('HTTP/1.1 501 Not Implemented');
     if (is_numeric($artist_id)) {
       // Load helpers
 
@@ -50,7 +50,7 @@ class Fan extends CI_Controller {
       deleteFan($artist_id);      
     }
     else {
-      header("HTTP/1.1 400 Bad Request");
+      header('HTTP/1.1 400 Bad Request');
     }
   }
 }

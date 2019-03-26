@@ -12,23 +12,5 @@ class Listener extends CI_Controller {
     
     echo getListeners($_REQUEST);
   }
-
-  /* Add a user */
-  public function add() {
-    // Load helpers
-    
-  }
-
-  /* Update user information */
-  public function update() {
-    // Load helpers
-    
-  }
-
-  /* Delete user information */
-  public function delete() {
-    // Load helpers
-    
-  }
 }
 ?>

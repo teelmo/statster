@@ -97,13 +97,13 @@ class Tag extends CI_Controller {
   /* Update tag information */
   public function update() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 
   /* Delete tag information */
   public function delete() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 }
 ?>

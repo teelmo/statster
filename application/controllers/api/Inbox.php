@@ -16,19 +16,19 @@ class Inbox extends CI_Controller {
   /* Add a bulletin */
   public function add() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 
   /* Update bulletin information */
   public function update() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 
   /* Delete bulletin information */
   public function delete() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 }
 ?>

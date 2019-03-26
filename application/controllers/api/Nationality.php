@@ -23,7 +23,7 @@ class Nationality extends CI_Controller {
   /* Add a nationality */
   public function add() {
     // Load helpers
-    
+    header('HTTP/1.1 501 Not Implemented');
   }
 
   /* Update nationality information */

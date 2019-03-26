@@ -59,7 +59,7 @@ class Shout extends CI_Controller {
         echo deleteShout(array('shout_id' => $shout_id, 'type' => $type));
         break;
       default:
-        header("HTTP/1.1 400 Bad Request");
+        header('HTTP/1.1 400 Bad Request');
         break;
     }
   }
