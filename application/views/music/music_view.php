@@ -53,7 +53,7 @@
             Popular albums
             <div class="func_container">
               <div class="value">Last 90 days</div>
-              <ul class="subnav">
+              <ul class="subnav popular_album_music">
                 <li>Last 7 days</li>
                 <li>Last 30 days</li>
                 <li>Last 90 days</li>

@@ -48,13 +48,13 @@
       <h2>Popular albums
         <div class="func_container">
           <div class="value">Last 30 days</div>
-          <ul class="subnav">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <ul class="subnav" data-name="top_album_main">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>
@@ -71,13 +71,13 @@
       <h2>Popular artists
        <div class="func_container">
           <div class="value">Last 30 days</div>
-          <ul class="subnav">
-            <li>Last 7 days</li>
-            <li>Last 30 days</li>
-            <li>Last 90 days</li>
-            <li>Last 180 days</li>
-            <li>Last 365 days</li>
-            <li>All time</li>
+          <ul class="subnav" data-name="top_artist_main">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
           </ul>
         </div>
       </h2>

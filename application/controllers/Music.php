@@ -17,7 +17,7 @@ class Music extends CI_Controller {
     $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
     $data['top_nationality'] = (json_decode(getNationalitiesListenings($opts), true) !== NULL) ? json_decode(getNationalitiesListenings($opts), true)[0] : array();
     $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
-    $data['js_include'] = array('music', 'helpers/chart_helper');
+    $data['js_include'] = array('music', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
     $this->load->view('site_templates/header');
     $this->load->view('music/music_view', $data);

@@ -122,27 +122,6 @@ var app = {
     }, function() {
       $(this).removeClass('subhover');
     });
-    $('.func_container .value').click(function() {
-      var sub_nav = $(this).parent().find('ul.subnav');
-      if (sub_nav.is(':visible')) {
-        $(this).removeClass('active');
-        sub_nav.hide();        
-      }
-      else {
-        $('.func_container .subnav').hide();
-        $('.func_container .value').removeClass('active');
-        $(this).addClass('active');
-        sub_nav.show();
-        $(this).parent().hover(function() {
-        }, function() {
-          // sub_nav.slideUp('slow');
-        });
-      }
-    }).hover(function() {
-      $(this).addClass('subhover');
-    }, function() {
-      $(this).removeClass('subhover');
-    });
     $('.toggle_username').click(function () {
       if ($(this).hasClass('active')) {
         $.ajax({

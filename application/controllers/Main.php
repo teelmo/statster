@@ -7,8 +7,9 @@ class Main extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
-      $data['interval'] = 21;
-
+      $data['default_interval'] = 30;
+      $data['intervals'] = unserialize($this->session->userdata('intervals'));
+      
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
@@ -20,9 +21,10 @@ class Main extends CI_Controller {
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
       $data['top_nationality'] = (json_decode(getNationalitiesListenings($opts), true) !== NULL) ? json_decode(getNationalitiesListenings($opts), true)[0] : array();
       $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
-      $data['js_include'] = array('main', 'helpers/add_listening_helper');
+      $data['js_include'] = array('main', 'helpers/add_listening_helper', 'helpers/time_interval_helper');
 
       $this->load->view('site_templates/header');
+        
       $this->load->view('main_view', $data);
       $this->load->view('site_templates/footer');
     }

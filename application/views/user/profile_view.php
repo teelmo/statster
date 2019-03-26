@@ -141,7 +141,7 @@
         Favorite albums
         <div class="func_container">
           <div class="value">All time</div>
-          <ul class="subnav">
+          <ul class="subnav top_album_profile">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
             <li>Last 90 days</li>
@@ -163,7 +163,7 @@
         Favorite artist
         <div class="func_container">
           <div class="value">All time</div>
-          <ul class="subnav">
+          <ul class="subnav top_artist_profile">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
             <li>Last 90 days</li>
@@ -306,7 +306,7 @@
         Listening formats
         <div class="func_container">
           <div class="value">All time</div>
-          <ul class="subnav">
+          <ul class="subnav top_listening_format_profile">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
             <li>Last 90 days</li>
@@ -327,7 +327,7 @@
         Genres
         <div class="func_container">
           <div class="value">All time</div>
-          <ul class="subnav">
+          <ul class="subnav top_genre_profile">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
             <li>Last 90 days</li>
@@ -349,7 +349,7 @@
         Keywords
         <div class="func_container">
           <div class="value">All time</div>
-          <ul class="subnav">
+          <ul class="subnav top_keyword_profile">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
             <li>Last 90 days</li>
@@ -371,7 +371,7 @@
         Nationalities
         <div class="func_container">
           <div class="value">All time</div>
-          <ul class="subnav">
+          <ul class="subnav top_nationality_profile">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
             <li>Last 90 days</li>
@@ -393,7 +393,7 @@
         Years
         <div class="func_container">
           <div class="value">All time</div>
-          <ul class="subnav">
+          <ul class="subnav top_year_profile">
             <li>Last 7 days</li>
             <li>Last 30 days</li>
             <li>Last 90 days</li>

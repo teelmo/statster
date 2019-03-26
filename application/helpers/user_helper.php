@@ -26,7 +26,8 @@ if (!function_exists('loginUser')) {
                    " . TBL_user_info . ".`real_name`,
                    " . TBL_user_info . ".`lastfm_name`,
                    " . TBL_user_info . ".`gender`,
-                   " . TBL_user_info . ".`listening_formats`
+                   " . TBL_user_info . ".`listening_formats`,
+                   " . TBL_user_info . ".`time_interval_settings`
             FROM " . TBL_user . ",
                  " . TBL_user_info . "
             WHERE " . TBL_user . ".`id` = " . TBL_user_info . ".`user_id`
@@ -47,6 +48,7 @@ if (!function_exists('loginUser')) {
         'last_login'   => $result->last_login,
         'last_access'  => $result->last_access,
         'formats'      => $result->listening_formats,
+        'intervals'    => $result->time_interval_settings,
         'user_image'   => getUserImg(array('user_id' => $result->user_id, 'size' => 64)),
         'logged_in'    => TRUE
       ));
@@ -141,6 +143,7 @@ if (!function_exists('getUser')) {
                    " . TBL_user_info . ".`privacy_settings`,
                    " . TBL_user_info . ".`social_media_settings`,
                    " . TBL_user_info . ".`listening_formats`,
+                   " . TBL_user_info . ".`time_interval_settings`,
                    YEAR(" . TBL_user . ".`created`) as `joined_year`,
                    " . TBL_user . ".`created`,
                    " . TBL_user . ".`last_login`,
@@ -184,7 +187,7 @@ if (!function_exists('updateUser')) {
     $social_media_settings = !empty($opts['social_media_settings']) ? serialize($opts['social_media_settings']) : 'a:2:{s:8:"facebook";s:1:"0";s:7:"twitter";s:1:"0";}';
     $email_annotations = !empty($opts['email_annotations']) ? serialize($opts['email_annotations']) : 'a:4:{s:9:"bulletins";s:1:"0";s:6:"shares";s:1:"0";s:7:"notifys";s:1:"0";s:13:"notifications";s:1:"0";}';
     $bulletin_settings = !empty($opts['bulletin_settings']) ? serialize($opts['bulletin_settings']) : 'a:1:{s:6:"shouts";s:1:"0";}';
-    $listening_formats = !empty($opts['listening_formats']) ? serialize($opts['listening_formats']) : '';
+    $listening_formats = !empty($opts['listening_formats']) ? serialize($opts['listening_formats']) : 'a:4:{i:0;s:1:"3";i:1;s:4:"6:17";i:2;s:4:"6:26";i:3;s:4:"7:31";}';
 
     $sql = "UPDATE " . TBL_user_info . "
               SET " . TBL_user_info . ".`real_name` = ?,
@@ -215,6 +218,39 @@ if (!function_exists('updateUser')) {
   }
 }
 
+/**
+  * Returns user data for requested user.
+  * @param array $opts.
+  *             user_id       => User ID
+  *             name          => Interval namel
+  *             value         => Interval value
+  *
+  * @return boolean TRUE or FALSE.
+  *
+  */
+if (!function_exists('updateIntervals')) {
+  function updateUser($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $name = !empty($opts['name']) ? serialize($opts['name']) : '';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '';
+    $value = !empty($opts['value']) ? serialize($opts['value']) : '';
+
+    $sql = "UPDATE " . TBL_user_info . "
+              SET " . TBL_user_info . ".`real_name` = ?,
+                  " . TBL_user_info . ".`time_intarval_settings` = ?,
+                  " . TBL_user_info . ".`updated` = NOW()
+              WHERE " . TBL_user_info . ".`user_id` = ?";
+
+
+    $ci->session->set_userdata(array(
+      'intervals'      => $time_intarval_settings
+    ));
+    $query = $ci->db->query($sql, array($time_intarval_settings, $user_id));
+    return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
+  }
+}
 /**
   * Gets user's tags (genres and keywords).
   *

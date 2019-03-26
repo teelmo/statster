@@ -54,10 +54,11 @@ $.extend(view, {
   },
   // Get top albums.
   getTopAlbums: function () {
+    console.log('<?=$intervals?>')
     $.ajax({
       data:{
         limit:13,
-        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 30 * 60 * 60))?>',
+        lower_limit:'<?=date('Y-m-d', ($default_interval == 'overall') ? 0 : time() - ($default_interval * 30 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -90,7 +91,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:9,
-        lower_limit:'<?=date('Y-m-d', ($interval == 'overall') ? 0 : time() - ($interval * 30 * 60 * 60))?>',
+        lower_limit:'<?=date('Y-m-d', ($default_interval == 'overall') ? 0 : time() - ($default_interval * 30 * 60 * 60))?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -130,7 +131,7 @@ $.extend(view, {
         200: function (data) {
           $.ajax({
             complete: function () {
-              // setInterval(view.recommentedTopAlbum, 60 * 10 * 1000);
+              // setdefault_interval(view.recommentedTopAlbum, 60 * 10 * 1000);
             },
             data:{
               json_data:data,
@@ -173,7 +174,7 @@ $.extend(view, {
         200: function (data) {
           $.ajax({
             complete: function () {
-              // setInterval(view.recommentedNewAlbum, 60 * 10 * 1000);
+              // setdefault_interval(view.recommentedNewAlbum, 60 * 10 * 1000);
             },
             data:{
               json_data:data,
