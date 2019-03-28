@@ -10,14 +10,7 @@ class Nationality extends CI_Controller {
     // Load helpers
     $this->load->helper(array('nationality_helper', 'output_helper'));
     
-    switch ($type) {
-      case 'listenings':
-        echo getNationalitiesListenings($_REQUEST);
-        break;
-      default:
-        echo getNationalities($_REQUEST);
-        break;
-    }
+    echo getNationalities($_REQUEST);
   }
 
   /* Add a nationality */

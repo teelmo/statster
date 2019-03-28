@@ -207,11 +207,11 @@ if (!function_exists('getListeners')) {
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
                    " . TBL_user . ". `username`,
-                   " . TBL_user . ". `id` as user_id,
+                   " . TBL_user . ". `id` as `user_id`,
                    " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`id` as artist_id,
+                   " . TBL_artist . ".`id` as `artist_id`,
                    " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`id` as album_id,
+                   " . TBL_album . ".`id` as `album_id`,
                    " . TBL_album . ".`year`
                   " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ", 
@@ -219,7 +219,7 @@ if (!function_exists('getListeners')) {
                  " . TBL_listening . ", 
                  " . TBL_user . "
                  " . $ci->db->escape_str($from) . "
-            WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+            WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
@@ -231,6 +231,48 @@ if (!function_exists('getListeners')) {
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $artist_name, $album_name));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Returns cumulative listeners for given artist or album.
+  *
+  * @param array $opts.
+  *          'album_name'      => Album name
+  *          'artist_name'     => Artist name
+  *          'username'        => Username
+  *
+  * @return string JSON encoded data containing album information.
+  */
+if (!function_exists('getListenersCumulative')) {
+  function getListenersCumulative($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
+    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') as `line_date`,
+                   (SELECT COUNT(*) 
+                    FROM " . TBL_listening . ",
+                         " . TBL_user . ",
+                         " . TBL_album . ", 
+                         " . TBL_artist . "
+                    WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                      AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                      AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+                      AND " . TBL_user . ".username LIKE ?
+                      AND " . TBL_artist . ".`artist_name` LIKE ?
+                      AND " . TBL_album . ".`album_name` LIKE ?
+                      AND `date` <= MAX(a.`date`)) as `cumulative_count`
+            FROM " . TBL_listening . " as a
+            WHERE MONTH(a.`date`) <> 0
+            GROUP BY `line_date`
+            ORDER BY `line_date` ASC";
+    $query = $ci->db->query($sql, array($username, $artist_name, $album_name));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

@@ -97,7 +97,31 @@ $.extend(view, {
       url:'/api/tag/get/album'
     });
   },
+  getListeningCumulation: function () {
+    $.ajax({
+      data:{
+        artist_name:'<?=$artist_name?>',
+        album_name:'<?=$album_name?>',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          view.initGraph(data); 
+        },
+        204: function () { // 204 No Content
+          $('.line').hide();
+        },
+        400: function () { // 400 Bad request
+          $('.line').hide();
+        }
+      },
+      type:'GET',
+      url:'/api/listener/get/cumulative'
+    });
+  },
   getListeningHistory: function (type) {
+    view.initChart();
     if (type == '%w') {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
     }
@@ -477,8 +501,8 @@ $(document).ready(function () {
   view.getLove(parseInt(<?=$this->session->userdata('user_id')?>));
   view.getLoves();
   view.getTags();
-  view.initChart();
   view.getListeningHistory('%Y');
+  view.getListeningCumulation();
   view.getShouts();
   view.getUsers();
   view.getListenings();

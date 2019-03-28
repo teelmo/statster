@@ -6,11 +6,18 @@ class Listener extends CI_Controller {
   }
 
   /* List users */
-  public function get() {
+  public function get($type = '') {
     // Load helpers
     $this->load->helper(array('music_helper', 'output_helper'));
-    
-    echo getListeners($_REQUEST);
+
+    switch ($type) {
+      case 'cumulative':
+        echo getListenersCumulative($_REQUEST);
+        break;
+      default:
+        echo getListeners($_REQUEST);
+        break;
+    }
   }
 }
 ?>

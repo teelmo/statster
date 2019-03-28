@@ -1,34 +1,19 @@
 <?=doctype('html5')?>
 <html>
-  <?php
-  if (!empty($album_id)) {
-    $og_image = getAlbumImg(array('album_id' => $album_id, 'size' => 174));
-    $og_title = 'Statster: ' . $artist_name . ' – ' . $album_name;
-  }
-  else if (!empty($artist_id)) {
-    $og_image = getArtistImg(array('artist_id' => $artist_id, 'size' => 174));
-    $og_title = 'Statster: ' . $artist_name;
-  }
-  else {
-    $og_image = 'http://statster.info/media/img/og_image.jpg';
-    $og_title = 'Statster';
-  }
-  $og_image = 'http://statster.info/media/img/og_image.jpg';
-  ?>
   <head>
     <title><?=TITLE?></title>
     <meta charset="utf-8">
     <meta name="description" content="Reconcile with music" />
     <meta property="og:description" content="Reconcile with music" />
     <meta property="og:url" content="http://statster.info<?=$_SERVER['REQUEST_URI']?>" />
-    <meta property="og:image" content="<?=$og_image?>" />
+    <meta property="og:image" content="http://statster.info/media/img/og_image.jpg>" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="<?=$og_title?>" />
+    <meta property="og:title" content="Statster" />
     <meta property="og:site_name" content="Statster" />
     <meta property="fb:app_id" content="144593758916156" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@statster" />
-    <meta name="apple-mobile-web-app-title" content="Yle Uutiset" />
+    <meta name="apple-mobile-web-app-title" content="Statster" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="msapplication-navbutton-color" content="#000" />
     <meta name="apple-mobile-web-app-status-bar-style" content="#000" />
@@ -37,7 +22,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="text/javascript" src="/media/js/libs/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="/media/js/libs/highcharts.js"></script>
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min.js"></script>

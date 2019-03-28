@@ -1,5 +1,29 @@
 $.extend(view, {
+  getListeningCumulation: function () {
+    $.ajax({
+      data:{
+        tag_id:'<?=$tag_id?>',
+        username:'<?=(!empty($username)) ? $username: ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          console.log(data)
+          view.initGraph(data);
+        },
+        204: function () { // 204 No Content
+          $('.line').hide();
+        },
+        400: function () { // 400 Bad request
+          $('.line').hide();
+        }
+      },
+      type:'GET',
+      url:'/api/tag/get/<?=strtolower($tag_type)?>/cumulative'
+    });
+  },
   getListeningHistory: function (type) {
+    view.initChart();
     if (type == '%w') {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
     }
@@ -50,7 +74,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/tag/get/<?=strtolower($tag_type)?>/listenings'
+      url:'/api/tag/get/<?=strtolower($tag_type)?>'
     });
   },
   // Get top albums.
@@ -239,7 +263,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.initChart();
+  view.getListeningCumulation();
   view.getListeningHistory('%Y');
   view.getTopAlbums();
   view.getTopArtists();

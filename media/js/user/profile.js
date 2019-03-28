@@ -1,4 +1,25 @@
 $.extend(view, {
+  getListeningCumulation: function (type) {
+    $.ajax({
+      data:{
+        username:'<?=(!empty($username)) ? $username: ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          view.initGraph(data);
+        },
+        204: function () { // 204 No Content
+          $('.line').hide();
+        },
+        400: function () { // 400 Bad request
+          $('.line').hide();
+        }
+      },
+      type:'GET',
+      url:'/api/listener/get/cumulative'
+    });
+  },
   // Get listening by year.
   getListeningHistory: function (type) {
     view.initChart();
@@ -556,6 +577,7 @@ $.extend(view, {
 
 $(document).ready(function () {
   view.getListeningHistory('%Y');
+  view.getListeningCumulation();
   view.getRecentListenings();
   view.getTopAlbums('<?=$top_album_profile?>');
   view.getTopArtists('<?=$top_artist_profile?>');

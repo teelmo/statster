@@ -70,6 +70,51 @@ if (!function_exists('getKeywords')) {
 }
 
 /**
+  * Returns cumulative listeners for given genre.
+  *
+  * @param array $opts.
+  *          'tag id'          => Tag ID
+  *          'username'        => Username
+  *
+  * @return string JSON encoded data containing album information.
+  */
+if (!function_exists('getKeywordsCumulative')) {
+  function getKeywordsCumulative($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') as `line_date`,
+                   (SELECT COUNT(*) 
+                    FROM " . TBL_listening . ",
+                         " . TBL_user . ",
+                         " . TBL_album . ",
+                         " . TBL_keyword . ",
+                         (SELECT " . TBL_keywords . ".`keyword_id`,
+                                 " . TBL_keywords . ".`album_id`
+                          FROM " . TBL_keywords . "
+                          GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) as " . TBL_keywords . "
+                   WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+                      AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                      AND " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
+                      AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
+                      AND " . TBL_keywords . ".`keyword_id` LIKE ?
+                      AND " . TBL_user . ".`username` LIKE ?
+                      AND `date` <= MAX(a.`date`)) as `cumulative_count`
+            FROM " . TBL_listening . " as a
+            WHERE MONTH(a.`date`) <> 0
+            GROUP BY `line_date`
+            ORDER BY `line_date` ASC";
+    $query = $ci->db->query($sql, array($tag_id, $username));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+
+/**
   * Gets keyword's bio.
   *
   * @param array $opts.

@@ -17,7 +17,7 @@ class Like extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('like_album', 'helpers/tag_helper');
+        $data['js_include'] = array('like/like_album', 'helpers/tag_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('like/like_album_view', $data);
@@ -41,7 +41,7 @@ class Like extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('like_artist', 'helpers/tag_helper');
+        $data['js_include'] = array('like/like_artist', 'helpers/tag_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('like/like_artist_view', $data);
@@ -63,7 +63,7 @@ class Like extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('like');
+      $data['js_include'] = array('like/like');
 
       $this->load->view('site_templates/header');
       $this->load->view('like/like_view', $data);
@@ -83,7 +83,7 @@ class Like extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-    $data['js_include'] = array('love');
+    $data['js_include'] = array('like/love');
 
     $this->load->view('site_templates/header');
     $this->load->view('like/love_view', $data);
@@ -102,7 +102,7 @@ class Like extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-    $data['js_include'] = array('fan');
+    $data['js_include'] = array('like/fan');
 
     $this->load->view('site_templates/header');
     $this->load->view('like/fan_view', $data);

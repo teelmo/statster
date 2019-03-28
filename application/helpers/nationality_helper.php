@@ -3,34 +3,6 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
   *
-  * @return string JSON encoded data containing nationalities.
-  * @param array $opts.
-  *          'human_readable'   => Output format
-  *          'limit'            => Limit
-  *          'order_by'         => Order by argument
-  */
-if (!function_exists('getNationalities')) {
-  function getNationalities($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`nationality` ASC';
-    $sql = "SELECT 'nationality' as `type`,
-                   " . TBL_nationality . ".`country` as `name`,
-                   " . TBL_nationality . ".`id` as `tag_id`
-            FROM " . TBL_nationality . "
-            WHERE 1
-            ORDER BY " . $ci->db->escape_str($order_by) . "
-            LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array());
-
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
-  }
-}
-
-/**
   * Returns top nationalities for the given user.
   *
   * @param array $opts.
@@ -44,13 +16,12 @@ if (!function_exists('getNationalities')) {
   *          'tag_id'          => Tag id
   *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
-  *
-  * @return string JSON encoded data containing nationalities listening information.
   */
-if (!function_exists('getNationalitiesListenings')) {
-  function getNationalitiesListenings($opts = array()) {
+if (!function_exists('getNationalities')) {
+  function getNationalities($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_nationality . '.`id`';
@@ -91,6 +62,50 @@ if (!function_exists('getNationalitiesListenings')) {
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $album_name, $tag_id, $username));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Returns cumulative listeners for given nationality.
+  *
+  * @param array $opts.
+  *          'tag id'          => Tag ID
+  *          'username'        => Username
+  *
+  * @return string JSON encoded data containing album information.
+  */
+if (!function_exists('getNationalitiesCumulative')) {
+  function getNationalitiesCumulative($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') as `line_date`,
+                   (SELECT COUNT(*) 
+                    FROM " . TBL_listening . ",
+                         " . TBL_user . ",
+                         " . TBL_album . ",
+                         " . TBL_nationality . ",
+                         (SELECT " . TBL_nationalities . ".`nationality_id`,
+                                 " . TBL_nationalities . ".`album_id`
+                          FROM " . TBL_nationalities . "
+                          GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) as " . TBL_nationalities . "
+                   WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+                      AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                      AND " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
+                      AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
+                      AND " . TBL_nationalities . ".`nationality_id` LIKE ?
+                      AND " . TBL_user . ".`username` LIKE ?
+                      AND `date` <= MAX(a.`date`)) as `cumulative_count`
+            FROM " . TBL_listening . " as a
+            WHERE MONTH(a.`date`) <> 0
+            GROUP BY `line_date`
+            ORDER BY `line_date` ASC";
+    $query = $ci->db->query($sql, array($tag_id, $username));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

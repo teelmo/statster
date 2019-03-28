@@ -6,26 +6,46 @@ class Tag extends CI_Controller {
   }
 
   /* List tags */
-  public function get($tag_type = '') {
+  public function get($tag_type = '', $type = '') {
     // Load helpers
     $this->load->helper(array('output_helper'));
 
     switch ($tag_type) {
       case 'genre':
         $this->load->helper(array('genre_helper'));
-        echo getGenres($_REQUEST);
+        if ($type === 'cumulative') {
+          echo getGenresCumulative($_REQUEST);
+        }
+        else {
+          echo getGenres($_REQUEST);
+        }
         break;
       case 'keyword':
         $this->load->helper(array('keyword_helper'));
-        echo getKeywords($_REQUEST);
+        if ($type === 'cumulative') {
+          echo getKeywordsCumulative($_REQUEST);
+        }
+        else {
+          echo getKeywords($_REQUEST);
+        }
         break;
       case 'nationality':
         $this->load->helper(array('nationality_helper'));
-        echo getNationalitiesListenings($_REQUEST);
+        if ($type === 'cumulative') {
+          echo getNationalitiesCumulative($_REQUEST);
+        }
+        else {
+          echo getNationalities($_REQUEST);
+        }
         break;
       case 'year':
         $this->load->helper(array('year_helper'));
-        echo getYears($_REQUEST);
+        if ($type === 'cumulative') {
+          echo getYearsCumulative($_REQUEST);
+        }
+        else {
+          echo getYears($_REQUEST);
+        }
         break;
       case 'album':
         $this->load->helper(array('music_helper', 'album_helper'));
@@ -56,7 +76,7 @@ class Tag extends CI_Controller {
     }
   }
 
-  /* Add a tag */
+  /* Add a tag to album */
   public function add($tag_type = '') {
     // Load helpers
     if ($_REQUEST['type'] == 'artist') {

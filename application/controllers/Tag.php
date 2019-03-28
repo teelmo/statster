@@ -19,7 +19,7 @@ class Tag extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('tags_album', 'helpers/tag_helper');
+        $data['js_include'] = array('tag/tags_album', 'helpers/tag_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('tag/tags_album_view', $data);
@@ -43,7 +43,7 @@ class Tag extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('tags_artist', 'helpers/tag_helper');
+        $data['js_include'] = array('tag/tags_artist', 'helpers/tag_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('tag/tags_artist_view', $data);
@@ -69,9 +69,9 @@ class Tag extends CI_Controller {
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['genre'] = json_decode(getGenres($data), true)[0];
       $data['keyword'] = json_decode(getKeywords($data), true)[0];
-      $data['nationality'] = json_decode(getNationalitiesListenings($data), true)[0];
+      $data['nationality'] = json_decode(getNationalities($data), true)[0];
       $data['year'] = json_decode(getYears($data), true)[0];
-      $data['js_include'] = array('tags');
+      $data['js_include'] = array('tag/tags');
 
       $this->load->view('site_templates/header');
       $this->load->view('tag/tags_view', $data);
@@ -108,11 +108,11 @@ class Tag extends CI_Controller {
           $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
-            $data['js_include'] = array('tag_album');
+            $data['js_include'] = array('tag/tag_album');
             $this->load->view('tag/tag_album_view', $data);
           }
           else if ($type === 'artist') {
-            $data['js_include'] = array('tag_artist');
+            $data['js_include'] = array('tag/tag_artist');
             $this->load->view('tag/tag_artist_view', $data);
           }
           else {
@@ -146,7 +146,7 @@ class Tag extends CI_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag', 'helpers/chart_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -166,7 +166,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('genres');
+      $data['js_include'] = array('tag/genres');
 
       $this->load->view('tag/genre_view', $data);
     }
@@ -202,11 +202,11 @@ class Tag extends CI_Controller {
           $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
-            $data['js_include'] = array('tag_album');
+            $data['js_include'] = array('tag/tag_album');
             $this->load->view('tag/tag_album_view', $data);
           }
           else if ($type === 'artist') {
-            $data['js_include'] = array('tag_artist');
+            $data['js_include'] = array('tag/tag_artist');
             $this->load->view('tag/tag_artist_view', $data);
           }
           else {
@@ -240,7 +240,7 @@ class Tag extends CI_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag', 'helpers/chart_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -260,7 +260,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('keywords');
+      $data['js_include'] = array('tag/keywords');
 
       $this->load->view('tag/keyword_view', $data);
     }
@@ -295,11 +295,11 @@ class Tag extends CI_Controller {
           $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
-            $data['js_include'] = array('tag_album');
+            $data['js_include'] = array('tag/tag_album');
             $this->load->view('tag/tag_album_view', $data);
           }
           else if ($type === 'artist') {
-            $data['js_include'] = array('tag_artist');
+            $data['js_include'] = array('tag/tag_artist');
             $this->load->view('tag/tag_artist_view', $data);
           }
           else {
@@ -333,7 +333,7 @@ class Tag extends CI_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
-          $data['js_include'] = array('tag', 'helpers/chart_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -353,7 +353,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('nationalities');
+      $data['js_include'] = array('tag/nationalities');
       
       $this->load->view('tag/nationality_view', $data);
     }
@@ -389,11 +389,11 @@ class Tag extends CI_Controller {
           $data['artist'] = json_decode(getMusicByYear($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
-            $data['js_include'] = array('tag_album');
+            $data['js_include'] = array('tag/tag_album');
             $this->load->view('tag/tag_album_view', $data);
           }
           else if ($type === 'artist') {
-            $data['js_include'] = array('tag_artist');
+            $data['js_include'] = array('tag/tag_artist');
             $this->load->view('tag/tag_artist_view', $data);
           }
           else {
@@ -427,7 +427,7 @@ class Tag extends CI_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByYear($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag', 'helpers/chart_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -447,7 +447,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('years', 'helpers/chart_helper');
+      $data['js_include'] = array('tag/years', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
 
       $this->load->view('tag/year_view', $data);
     }

@@ -1,5 +1,27 @@
 $.extend(view, {
+  getListeningCumulation: function (type) {
+    $.ajax({
+      data:{
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          view.initGraph(data);
+        },
+        204: function () { // 204 No Content
+          $('.line').hide();
+        },
+        400: function () { // 400 Bad request
+          $('.line').hide();
+        }
+      },
+      type:'GET',
+      url:'/api/listener/get/cumulative'
+    });
+  },
   getListeningHistory: function (type) {
+    view.initChart();
     if (type == '%w') {
       var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
     }
@@ -237,8 +259,8 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.initChart();
   view.getListeningHistory('%Y');
+  view.getListeningCumulation();
   view.getPopularGenres();
   view.getPopularAlbums('<?=$popular_album_music?>');
   view.getSecondChance();

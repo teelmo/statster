@@ -96,9 +96,14 @@
       </div>
       <?php
     }
+    else {
+      ?>
+      <br />
+      <?php
+    }
     ?>
     <div class="container">
-      <h2>History</h2>
+      <h2>History <span class="line"></span></h2>
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
