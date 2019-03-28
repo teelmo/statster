@@ -8,7 +8,6 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
-          console.log(data)
           view.initGraph(data);
         },
         204: function () { // 204 No Content
