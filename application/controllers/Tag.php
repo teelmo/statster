@@ -108,11 +108,17 @@ class Tag extends CI_Controller {
           $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
-            $data['js_include'] = array('tag/tag_album');
+            $intervals = unserialize($this->session->userdata('intervals'));
+            $data['top_album_' . $type . '_album'] = isset($intervals['top_album_' . $type . '_album']) ? $intervals['top_album_' . $type . '_album'] : 'overall';
+            $data['top_album_tag_album'] = $data['top_album_' . $type . '_album'];
+            $data['js_include'] = array('tag/tag_album', 'helpers/time_interval_helper');
             $this->load->view('tag/tag_album_view', $data);
           }
           else if ($type === 'artist') {
-            $data['js_include'] = array('tag/tag_artist');
+            $intervals = unserialize($this->session->userdata('intervals'));
+            $data['top_artist_' . $type . '_artist'] = isset($intervals['top_artist_' . $type . '_artist']) ? $intervals['top_artist_' . $type . '_artist'] : 'overall';
+            $data['top_artist_tag_artist'] = $data['top_artist_' . $type . '_artist'];
+            $data['js_include'] = array('tag/tag_artist', 'helpers/time_interval_helper');
             $this->load->view('tag/tag_artist_view', $data);
           }
           else {
@@ -159,6 +165,8 @@ class Tag extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
       
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_genre_genre'] = isset($intervals['top_genre_genre']) ? $intervals['top_genre_genre'] : 'overall';
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
@@ -166,7 +174,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('tag/genres');
+      $data['js_include'] = array('tag/genres', 'helpers/time_interval_helper');
 
       $this->load->view('tag/genre_view', $data);
     }
@@ -202,11 +210,17 @@ class Tag extends CI_Controller {
           $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
-            $data['js_include'] = array('tag/tag_album');
+            $intervals = unserialize($this->session->userdata('intervals'));
+            $data['top_album_' . $type . '_album'] = isset($intervals['top_album_' . $type . '_album']) ? $intervals['top_album_' . $type . '_album'] : 'overall';
+            $data['top_album_tag_album'] = $data['top_album_' . $type . '_album'];
+            $data['js_include'] = array('tag/tag_album', 'helpers/time_interval_helper');
             $this->load->view('tag/tag_album_view', $data);
           }
           else if ($type === 'artist') {
-            $data['js_include'] = array('tag/tag_artist');
+            $intervals = unserialize($this->session->userdata('intervals'));
+            $data['top_artist_' . $type . '_artist'] = isset($intervals['top_artist_' . $type . '_artist']) ? $intervals['top_artist_' . $type . '_artist'] : 'overall';
+            $data['top_artist_tag_artist'] = $data['top_artist_' . $type . '_artist'];
+            $data['js_include'] = array('tag/tag_artist', 'helpers/time_interval_helper');
             $this->load->view('tag/tag_artist_view', $data);
           }
           else {
@@ -253,6 +267,8 @@ class Tag extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
       
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_keyword_keyword'] = isset($intervals['top_keyword_keyword']) ? $intervals['top_keyword_keyword'] : 'overall';
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
@@ -260,7 +276,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('tag/keywords');
+      $data['js_include'] = array('tag/keywords', 'helpers/time_interval_helper');
 
       $this->load->view('tag/keyword_view', $data);
     }
@@ -295,11 +311,17 @@ class Tag extends CI_Controller {
           $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
-            $data['js_include'] = array('tag/tag_album');
+            $intervals = unserialize($this->session->userdata('intervals'));
+            $data['top_album_' . $type . '_album'] = isset($intervals['top_album_' . $type . '_album']) ? $intervals['top_album_' . $type . '_album'] : 'overall';
+            $data['top_album_tag_album'] = $data['top_album_' . $type . '_album'];
+            $data['js_include'] = array('tag/tag_album', 'helpers/time_interval_helper');
             $this->load->view('tag/tag_album_view', $data);
           }
           else if ($type === 'artist') {
-            $data['js_include'] = array('tag/tag_artist');
+            $intervals = unserialize($this->session->userdata('intervals'));
+            $data['top_artist_' . $type . '_artist'] = isset($intervals['top_artist_' . $type . '_artist']) ? $intervals['top_artist_' . $type . '_artist'] : 'overall';
+            $data['top_artist_tag_artist'] = $data['top_artist_' . $type . '_artist'];
+            $data['js_include'] = array('tag/tag_artist', 'helpers/time_interval_helper');
             $this->load->view('tag/tag_artist_view', $data);
           }
           else {
@@ -346,6 +368,8 @@ class Tag extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
       
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_nationality_nationality'] = isset($intervals['top_nationality_nationality']) ? $intervals['top_nationality_nationality'] : 'overall';
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
@@ -353,7 +377,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('tag/nationalities');
+      $data['js_include'] = array('tag/nationalities', 'helpers/time_interval_helper');
       
       $this->load->view('tag/nationality_view', $data);
     }
@@ -389,11 +413,17 @@ class Tag extends CI_Controller {
           $data['artist'] = json_decode(getMusicByYear($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
-            $data['js_include'] = array('tag/tag_album');
+            $intervals = unserialize($this->session->userdata('intervals'));
+            $data['top_album_' . $type . '_album'] = isset($intervals['top_album_' . $type . '_album']) ? $intervals['top_album_' . $type . '_album'] : 'overall';
+            $data['top_album_tag_album'] = $data['top_album_' . $type . '_album'];
+            $data['js_include'] = array('tag/tag_album', 'helpers/time_interval_helper');
             $this->load->view('tag/tag_album_view', $data);
           }
           else if ($type === 'artist') {
-            $data['js_include'] = array('tag/tag_artist');
+            $intervals = unserialize($this->session->userdata('intervals'));
+            $data['top_artist_' . $type . '_artist'] = isset($intervals['top_artist_' . $type . '_artist']) ? $intervals['top_artist_' . $type . '_artist'] : 'overall';
+            $data['top_artist_tag_artist'] = $data['top_artist_' . $type . '_artist'];
+            $data['js_include'] = array('tag/tag_artist', 'helpers/time_interval_helper');
             $this->load->view('tag/tag_artist_view', $data);
           }
           else {
@@ -440,6 +470,8 @@ class Tag extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
 
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_year_year'] = isset($intervals['top_year_year']) ? $intervals['top_year_year'] : 'overall';
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
@@ -447,7 +479,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('tag/years', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
+      $data['js_include'] = array('tag/years', 'libs/highcharts', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
       $this->load->view('tag/year_view', $data);
     }

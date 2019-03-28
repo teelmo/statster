@@ -1,9 +1,17 @@
 $.extend(view, {
-  topAlbum10: function () {
+  topAlbum10: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:8,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         tag_id:'<?=$tag_id?>',
         tag_type:'<?=$tag_type?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -17,7 +25,7 @@ $.extend(view, {
               type:'album'
             },
             success: function (data) {
-              $('#topAlbum10Loader').hide();
+              $('#topAlbum10Loader, #topAlbum10Loader2').hide();
               $('#topAlbum10').html(data);
             },
             type:'POST',
@@ -25,15 +33,28 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topAlbum10Loader').hide();
+          $('#topAlbum10Loader, #topAlbum10Loader2').hide();
           $('#topAlbum10').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/tag/get'
     });
+    view.topAlbum(lower_limit);
   },
-  topAlbum: function (lower_limit, upper_limit, vars) {
+  topAlbum: function (lower_limit, upper_limit = false, vars = false) {
+    if (!upper_limit) {
+      vars = {
+        container:'#topAlbum',
+        limit:'8, 200',
+        rank:9,
+        template:'/ajax/columnTable'
+      }
+      if (lower_limit === 'overall') {
+        lower_limit = '1970-00-00';
+      }
+      upper_limit = '<?=CUR_DATE?>';
+    }
     $.ajax({
       data:{
         limit:vars.limit,
@@ -63,7 +84,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?=ERR_NO_RESULTS?>');
+          $(vars.container).html('');
         }
       },
       type:'GET',
@@ -87,20 +108,10 @@ $.extend(view, {
       }
       view.topAlbum(year + '-00-00', year + '-12-31', vars);
     }
-  },
-  initTagAlbumEvents: function () {
-    
   }
 });
 
 $(document).ready(function () {
-  view.topAlbum10();
-  var vars = {
-    container:'#topAlbum',
-    limit:'8, 200',
-    rank:9,
-    template:'/ajax/columnTable'
-  }
-  view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
+  view.topAlbum10('<?=$top_album_tag_album?>');
   view.topAlbumYearly();
 });

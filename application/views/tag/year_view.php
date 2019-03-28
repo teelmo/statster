@@ -14,14 +14,27 @@
   </div>
   <div id="leftCont">
     <div class="container">
-      <h1>Top years</h1>
+      <h1>Top years
+      <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader2" />
+        <div class="func_container">
+          <div class="value"><?=INTERVAL_TEXTS[$top_year_year]?></div>
+          <ul class="subnav" data-name="top_year_year" data-callback="getTopYears" data-loader="topYearLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
+          </ul>
+        </div>
+      </h1>
     </div>
     <div class="container">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="top<?=ucfirst($tag_type)?>Loader"/>
-      <table id="top<?=ucfirst($tag_type)?>" class="column_table full"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader"/>
+      <table id="topYear" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div id="rightCont">

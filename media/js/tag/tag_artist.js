@@ -1,10 +1,18 @@
 $.extend(view, {
-  topArtist10: function () {
+  topArtist10: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         group_by:'`artist_id`',
         limit:8,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         tag_id:'<?=$tag_id?>',
         tag_type:'<?=$tag_type?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -18,7 +26,7 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#topArtist10Loader').hide();
+              $('#topArtist10Loader, #topArtist10Loader2').hide();
               $('#topArtist10').html(data);
             },
             type:'POST',
@@ -26,15 +34,31 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topArtist10Loader').hide();
+          $('#topArtist10Loader, #topArtist10Loader2').hide();
           $('#topArtist10').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/tag/get'
     });
+    view.topArtist(lower_limit);
   },
-  topArtist: function (lower_limit, upper_limit, vars) {
+  topArtist: function (lower_limit, upper_limit = false, vars = false) {
+    if (!upper_limit) {
+      vars = {
+        container:'#topArtist',
+        hide:{
+          album:true,
+        },
+        limit:'8, 200',
+        rank:9,
+        template:'/ajax/columnTable'
+      }
+      if (lower_limit === 'overall') {
+        lower_limit = '1970-00-00';
+      }
+      upper_limit = '<?=CUR_DATE?>';
+    }
     $.ajax({
       data:{
         group_by:'`artist_id`',
@@ -65,7 +89,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?=ERR_NO_RESULTS?>');
+          $(vars.container).html('');
         }
       },
       type:'GET',
@@ -89,23 +113,10 @@ $.extend(view, {
       }
       view.topArtist(year + '-00-00', year + '-12-31', vars);
     }
-  },
-  initTagArtistEvents: function () {
-    
   }
 });
 
 $(document).ready(function () {
-  view.topArtist10();
-  var vars = {
-    container:'#topArtist',
-    hide:{
-      album:true,
-    },
-    limit:'8, 200',
-    rank:9,
-    template:'/ajax/columnTable'
-  }
-  view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
+  view.topArtist10('<?=$top_artist_tag_artist?>');
   view.topArtistYearly();
 });
