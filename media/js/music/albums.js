@@ -1,5 +1,16 @@
 $.extend(view, {
-  topAlbum10: function (lower_limit, upper_limit) {  
+  getTopAlbum10: function (lower_limit, upper_limit = false) {
+    if (!upper_limit) {
+      if (lower_limit === 'overall') {
+        lower_limit = '1970-00-00';
+      }
+      else {
+        var date = new Date();
+        date.setDate(date.getDate() - parseInt(lower_limit));
+        lower_limit = date.toISOString().split('T')[0];
+      }
+      upper_limit = '<?=CUR_DATE?>'
+    }
     $.ajax({
       data:{
         limit:8,
@@ -15,7 +26,7 @@ $.extend(view, {
               json_data:data
             },
             success: function (data) {
-              $('#topAlbum10Loader').hide();
+              $('#topAlbum10Loader, #topAlbum10Loader2').hide();
               $('#topAlbum10').html(data);
             },
             type:'POST',
@@ -23,15 +34,21 @@ $.extend(view, {
           });
         },
         204: function (data) { // 204 No Content
-          $('#topAlbum10Loader').hide();
+          $('#topAlbum10Loader, #topAlbum10Loader2').hide();
           $('#topAlbum10').html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
       url:'/api/album/get'
     });
+    var vars = {
+      container:'#topAlbum',
+      limit:'8, 200',
+      template:'/ajax/columnTable'
+    }
+    view.getTopAlbum(lower_limit, upper_limit, vars);
   },
-  topAlbum: function (lower_limit, upper_limit, vars) {
+  getTopAlbum: function (lower_limit, upper_limit, vars) {
     $.ajax({
       data:{
         limit:vars.limit,
@@ -59,7 +76,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?=ERR_NO_DATA?>');
+          $(vars.container).html('');
         }
       },
       type:'GET',
@@ -89,7 +106,7 @@ $.extend(view, {
       url:'/api/album/get/count'
     });
   },
-  topAlbumYearly: function () {
+  getTopAlbumYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
       $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopAlbum' + year + 'Loader"/><table id="sideTopAlbum' + year + '" class="side_table"></table><div class="more"><a href="/album/' + year + '" title="Browse more">More <span class="number">' + year + '</span></</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
@@ -103,10 +120,10 @@ $.extend(view, {
         limit:5,
         template:'/ajax/sideTable'
       }
-      view.topAlbum(year + '-00-00', year + '-12-31', vars);
+      view.getTopAlbum(year + '-00-00', year + '-12-31', vars);
     }
   },
-  topAlbumMonthly: function (year) {
+  getTopAlbumMonthly: function (year) {
     for (var month = 1; month <= 12; month++) {
       var month_str = new Array();
       month_str[1] = 'January';
@@ -136,10 +153,10 @@ $.extend(view, {
         limit:5,
         template:'/ajax/sideTable'
       }
-      view.topAlbum(year + '-' + pad_month + '-00', year + '-' + pad_month + '-31', vars);
+      view.getTopAlbum(year + '-' + pad_month + '-00', year + '-' + pad_month + '-31', vars);
     }
   },
-  topAlbumDaily: function (year, month) {
+  getTopAlbumDaily: function (year, month) {
     var str = '' + month;
     var pad = '00';
     var pad_month = pad.substring(0, pad.length - str.length) + str;
@@ -244,22 +261,17 @@ $.extend(view, {
 
 $(document).ready(function () {
   if ('<?=$day?>' === '') {
-    view.topAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
-    var vars = {
-      container:'#topAlbum',
-      limit:'8, 200',
-      template:'/ajax/columnTable'
-    }
-    view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
-
     if ('<?=$month?>' !== '') {
-      view.topAlbumDaily('<?=$year?>', '<?=$month?>');
+      view.getTopAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
+      view.getTopAlbumDaily('<?=$year?>', '<?=$month?>');
     }
     else if ('<?=$year?>' !== '') {
-      view.topAlbumMonthly('<?=$year?>');
+      view.getTopAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
+      view.getTopAlbumMonthly('<?=$year?>');
     }
     else {
-      view.topAlbumYearly();
+      view.getTopAlbum10('<?=$lower_limit?>');
+      view.getTopAlbumYearly();
     }
   }
   else {

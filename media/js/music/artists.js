@@ -1,5 +1,16 @@
 $.extend(view, {
-  topArtist10: function (lower_limit, upper_limit) {
+  getTopArtist10: function (lower_limit, upper_limit = false) {
+    if (!upper_limit) {
+      if (lower_limit === 'overall') {
+        lower_limit = '1970-00-00';
+      }
+      else {
+        var date = new Date();
+        date.setDate(date.getDate() - parseInt(lower_limit));
+        lower_limit = date.toISOString().split('T')[0];
+      }
+      upper_limit = '<?=CUR_DATE?>'
+    }
     $.ajax({
       data:{
         limit:8,
@@ -15,7 +26,7 @@ $.extend(view, {
               json_data:data
             },
             success: function (data) {
-              $('#topArtist10Loader').hide();
+              $('#topArtist10Loader, #topArtist10Loader2').hide();
               $('#topArtist10').html(data);
             },
             type:'POST',
@@ -23,15 +34,21 @@ $.extend(view, {
           });
         },
         204: function (data) { // 204 No Content
-          $('#topArtist10Loader').hide();
+          $('#topArtist10Loader, #topArtist10Loader2').hide();
           $('#topArtist10').html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
       url:'/api/artist/get'
     });
+    var vars = {
+      container:'#topArtist',
+      limit:'8, 200',
+      template:'/ajax/columnTable'
+    }
+    view.getTopArtist(lower_limit, upper_limit, vars);
   },
-  topArtist: function (lower_limit, upper_limit, vars) {
+  getTopArtist: function (lower_limit, upper_limit, vars) {
     $.ajax({
       data:{
         limit:vars.limit,
@@ -59,7 +76,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?=ERR_NO_DATA?>');
+          $(vars.container).html('');
         }
       },
       type:'GET',
@@ -89,7 +106,7 @@ $.extend(view, {
       url:'/api/artist/get/count'
     });
   },
-  topArtistYearly: function () {
+  getTopArtistYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
       $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + year + 'Loader"/><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
@@ -102,10 +119,10 @@ $.extend(view, {
         limit:5,
         template:'/ajax/sideTable'
       }
-      view.topArtist(year + '-00-00', year + '-12-31', vars);
+      view.getTopArtist(year + '-00-00', year + '-12-31', vars);
     }
   },
-  topArtistMonthly: function (year) {
+  getTopArtistMonthly: function (year) {
     for (var month = 1; month <= 12; month++) {
       var month_str = new Array(12);
       month_str[1] = 'January';
@@ -134,10 +151,10 @@ $.extend(view, {
         limit:5,
         template:'/ajax/sideTable'
       }
-      view.topArtist(year + '-' + pad_month + '-00', year + '-' + pad_month + '-31', vars);
+      view.getTopArtist(year + '-' + pad_month + '-00', year + '-' + pad_month + '-31', vars);
     }
   },
-  topArtistDaily: function (year, month) {
+  getTopArtistDaily: function (year, month) {
     var str = '' + month;
     var pad = '00';
     var pad_month = pad.substring(0, pad.length - str.length) + str;
@@ -243,22 +260,17 @@ $.extend(view, {
 
 $(document).ready(function () {
   if ('<?=$day?>' === '') {
-    view.topArtist10('<?=$lower_limit?>', '<?=$upper_limit?>');
-    var vars = {
-      container:'#topArtist',
-      limit:'8, 200',
-      template:'/ajax/columnTable'
-    }
-    view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>', vars);
-
     if ('<?=$month?>' !== '') {
-      view.topArtistDaily('<?=$year?>', '<?=$month?>');
+      view.getTopArtist10('<?=$lower_limit?>', '<?=$upper_limit?>');
+      view.getTopArtistDaily('<?=$year?>', '<?=$month?>');
     }
     else if ('<?=$year?>' !== '') {
-      view.topArtistMonthly('<?=$year?>');
+      view.getTopArtist10('<?=$lower_limit?>', '<?=$upper_limit?>');
+      view.getTopArtistMonthly('<?=$year?>');
     }
     else {
-      view.topArtistYearly();
+      view.getTopArtist10('<?=$lower_limit?>');
+      view.getTopArtistYearly();
     }
   }
   else {

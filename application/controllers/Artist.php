@@ -10,7 +10,9 @@ class Artist extends CI_Controller {
     $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
     
     $data = array();
-    $data['lower_limit'] = '1970-00-00';
+    $intervals = unserialize($this->session->userdata('intervals'));
+    $data['top_artist_artist'] = isset($intervals['top_artist_artist']) ? $intervals['top_artist_artist'] : 'overall';
+    $data['lower_limit'] = $data['top_artist_artist'];
     $data['upper_limit'] = CUR_DATE;
     $data['title'] = 'Artists';
     $data['side_title'] = 'Yearly';
@@ -25,7 +27,7 @@ class Artist extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-    $data['js_include'] = array('music/artists');
+    $data['js_include'] = array('music/artists', 'helpers/time_interval_helper');
     
     $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
@@ -59,7 +61,7 @@ class Artist extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-    $data['js_include'] = array('artists');
+    $data['js_include'] = array('music/artists');
     
     $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
