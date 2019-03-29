@@ -1,4 +1,4 @@
-<div id="headingCont">
+  <div id="headingCont">
   <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
     <div class="info">
       <div class="top_info tag_info">
@@ -73,7 +73,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Top albums</h2>
+      <h2>Top albums
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topAlbumLoader2" />
+        <div class="func_container">
+          <div class="value"><?=INTERVAL_TEXTS[$top_album_tag]?></div>
+          <ul class="subnav" data-name="top_album_tag_<?=$tag_type?>" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
       <ul id="topAlbum" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
@@ -82,7 +95,20 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Top artists</h2>
+      <h2>Top artists
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topArtistLoader2" />
+        <div class="func_container">
+          <div class="value"><?=INTERVAL_TEXTS[$top_artist_tag]?></div>
+          <ul class="subnav" data-name="top_artist_tag_<?=$tag_type?>" data-callback="getTopArtists" data-loader="topArtistLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
       <ul id="topArtist" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">

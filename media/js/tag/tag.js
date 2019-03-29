@@ -77,11 +77,19 @@ $.extend(view, {
     });
   },
   // Get top albums.
-  getTopAlbums: function () {
+  getTopAlbums: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:13,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         tag_id:'<?=$tag_id?>',
         tag_type:'<?=$tag_type?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -95,7 +103,7 @@ $.extend(view, {
               type:'album'
             },
             success: function (data) {
-              $('#topAlbumLoader').hide();
+              $('#topAlbumLoader, #topAlbumLoader2').hide();
               $('#topAlbum').html(data);
             },
             type:'POST',
@@ -103,7 +111,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topAlbumLoader').hide();
+          $('#topAlbumLoader, #topAlbumLoader2').hide();
           $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -112,12 +120,20 @@ $.extend(view, {
     });
   },
   // Get top artists.
-  getTopArtists: function () {
+  getTopArtists: function (interval) {
+    if (interval === 'overall') {
+      var lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(interval));
+      var lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         group_by:'`artist_id`',
         limit:13,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC',
         tag_id:'<?=$tag_id?>',
         tag_type:'<?=$tag_type?>',
@@ -132,7 +148,7 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#topArtistLoader').hide();
+              $('#topArtistLoader, #topArtistLoader2').hide();
               $('#topArtist').html(data);
             },
             type:'POST',
@@ -140,7 +156,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topArtistLoader').hide();
+          $('#topArtistLoader, #topArtistLoader2').hide();
           $('#topArtist').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -264,8 +280,8 @@ $.extend(view, {
 $(document).ready(function () {
   view.getListeningCumulation();
   view.getListeningHistory('%Y');
-  view.getTopAlbums();
-  view.getTopArtists();
+  view.getTopAlbums('<?=$top_album_tag?>');
+  view.getTopArtists('<?=$top_artist_tag?>');
   switch ('<?=$tag_type?>') {
     case 'genre':
       var from = '(SELECT <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id` FROM <?=TBL_genres?> GROUP BY <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id`) as <?=TBL_genres?>';

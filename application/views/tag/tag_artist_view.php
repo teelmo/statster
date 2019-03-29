@@ -2,6 +2,7 @@
   <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
     <div class="info">
       <div class="top_info tag_info">
+        <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
         <h1><?=anchor(array(url_title($this->uri->segment(1)), url_title($tag_name)), ucfirst($tag_name), array('title' => $tag_name))?></h1>
       </div>
     </div>

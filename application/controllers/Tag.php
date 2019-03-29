@@ -126,6 +126,11 @@ class Tag extends CI_Controller {
           }
         }
         else {
+          $intervals = unserialize($this->session->userdata('intervals'));
+          $data['top_album_tag_genre'] = isset($intervals['top_album_tag_genre']) ? $intervals['top_album_tag_genre'] : 'overall';
+          $data['top_artist_tag_genre'] = isset($intervals['top_artist_tag_genre']) ? $intervals['top_artist_tag_genre'] : 'overall';
+          $data['top_album_tag'] = $data['top_album_tag_genre'];
+          $data['top_artist_tag'] = $data['top_artist_tag_genre'];
           $data += getGenreListenings($data);
           // Get biography.
           $data += getGenreBio($data);
@@ -152,7 +157,7 @@ class Tag extends CI_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -228,6 +233,11 @@ class Tag extends CI_Controller {
           }
         }
         else {
+          $intervals = unserialize($this->session->userdata('intervals'));
+          $data['top_album_tag_keyword'] = isset($intervals['top_album_tag_keyword']) ? $intervals['top_album_tag_keyword'] : 'overall';
+          $data['top_artist_tag_keyword'] = isset($intervals['top_artist_tag_keyword']) ? $intervals['top_artist_tag_keyword'] : 'overall';
+          $data['top_album_tag'] = $data['top_album_tag_keyword'];
+          $data['top_artist_tag'] = $data['top_artist_tag_keyword'];
           $data += getKeywordListenings($data);
           // Get biography.
           $data += getKeywordBio($data);
@@ -254,7 +264,7 @@ class Tag extends CI_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -329,6 +339,11 @@ class Tag extends CI_Controller {
           }
         }
         else {
+          $intervals = unserialize($this->session->userdata('intervals'));
+          $data['top_album_tag_nationality'] = isset($intervals['top_album_tag_nationality']) ? $intervals['top_album_tag_nationality'] : 'overall';
+          $data['top_artist_tag_nationality'] = isset($intervals['top_artist_tag_nationality']) ? $intervals['top_artist_tag_nationality'] : 'overall';
+          $data['top_album_tag'] = $data['top_album_tag_nationality'];
+          $data['top_artist_tag'] = $data['top_artist_tag_nationality'];
           $data += getNationalityListenings($data);
           // Get biography.
           $data += getNationalityBio($data);
@@ -355,7 +370,7 @@ class Tag extends CI_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
-          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -431,6 +446,11 @@ class Tag extends CI_Controller {
           }
         }
         else {
+          $intervals = unserialize($this->session->userdata('intervals'));
+          $data['top_album_tag_year'] = isset($intervals['top_album_tag_year']) ? $intervals['top_album_tag_year'] : 'overall';
+          $data['top_artist_tag_year'] = isset($intervals['top_artist_tag_year']) ? $intervals['top_artist_tag_year'] : 'overall';
+          $data['top_album_tag'] = $data['top_album_tag_year'];
+          $data['top_artist_tag'] = $data['top_artist_tag_year'];
           $data += getYearListenings($data);
           // Get biography.
           $data += getYearBio($data);
@@ -457,7 +477,7 @@ class Tag extends CI_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByYear($data), true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
