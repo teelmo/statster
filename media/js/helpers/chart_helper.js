@@ -93,7 +93,7 @@ $.extend(view, {
         stroke: '#333',
         strokeWidth: 2,
         width: 100
-      });
+      }).next('svg').hide().fadeIn(1000);
     }
   }
 });
