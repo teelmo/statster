@@ -25,7 +25,7 @@ class Artist extends CI_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-    $data['js_include'] = array('artists');
+    $data['js_include'] = array('music/artists');
     
     $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
