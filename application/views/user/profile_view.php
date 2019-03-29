@@ -140,7 +140,7 @@
       <h2>Favorite albums
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topAlbumLoader2" />
         <div class="func_container">
-          <div class="value"><?=INTERVAL_TEXTS[$top_album_profile]?></div>
+          <div class="value top_album_value" data-value="<?=$top_album_profile?>"><?=INTERVAL_TEXTS[$top_album_profile]?></div>
           <ul class="subnav" data-name="top_album_profile" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
@@ -162,7 +162,7 @@
       <h2>Favorite artist
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topArtistLoader2" />
         <div class="func_container">
-          <div class="value"><?=INTERVAL_TEXTS[$top_artist_profile]?></div>
+          <div class="value top_artist_value" data-value="<?=$top_artist_profile?>"><?=INTERVAL_TEXTS[$top_artist_profile]?></div>
           <ul class="subnav" data-name="top_artist_profile" data-callback="getTopArtists" data-loader="topArtistLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>

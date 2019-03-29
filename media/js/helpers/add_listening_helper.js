@@ -90,10 +90,10 @@ $.extend(view, {
           201: function (data) { // 201 Created
             view.getRecentListenings();
             if (view.getTopArtists) {
-              view.getTopArtists();
+              view.getTopArtists($('.top_artist_value').data('value'));
             }
             if (view.getTopAlbums) {
-              view.getTopAlbums();
+              view.getTopAlbums($('.top_album_value').data('value'));
             }
             $('#addListeningText').focus();
           },

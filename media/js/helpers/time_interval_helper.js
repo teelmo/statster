@@ -19,11 +19,11 @@ $(document).ready(function () {
   $('.func_container .subnav li').click(function() {
     $('.func_container .subnav').hide();
     $('.func_container .value').removeClass('active');
-    $(this).parent('ul').parent('.func_container').find('.value').text($(this).text());
     $('#' + $(this).parent('ul').data('loader')).show();
     var name = $(this).parent('ul').data('name');
     var callback = $(this).parent('ul').data('callback');
     var value = $(this).data('value');
+    $(this).parent('ul').parent('.func_container').find('.value').text($(this).text());
     $.ajax({
       data:{
         name:name,

@@ -48,7 +48,7 @@
       <h2>Popular albums
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topAlbumLoader2" />
         <div class="func_container">
-          <div class="value"><?=INTERVAL_TEXTS[$top_album_main]?></div>
+          <div class="value top_album_value" data-value="<?=$top_album_main?>"><?=INTERVAL_TEXTS[$top_album_main]?></div>
           <ul class="subnav" data-name="top_album_main" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
@@ -72,7 +72,7 @@
       <h2>Popular artists
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topArtistLoader2" />
         <div class="func_container">
-          <div class="value"><?=INTERVAL_TEXTS[$top_artist_main]?></div>
+          <div class="value top_artist_value" data-value="<?=$top_artist_main?>"><?=INTERVAL_TEXTS[$top_artist_main]?></div>
           <ul class="subnav" data-name="top_artist_main" data-callback="getTopArtists" data-loader="topArtistLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
