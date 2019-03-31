@@ -18,7 +18,7 @@ class Shout extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('shout_album', 'helpers/tag_helper');
+        $data['js_include'] = array('shout/shout_album', 'helpers/tag_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('shout/shout_album_view', $data);
@@ -42,7 +42,7 @@ class Shout extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('shout_artist', 'helpers/tag_helper');
+        $data['js_include'] = array('shout/shout_artist', 'helpers/tag_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('shout/shout_artist_view', $data);
@@ -63,7 +63,7 @@ class Shout extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('shout', 'helpers/shout_helper');
+      $data['js_include'] = array('shout/shout', 'helpers/shout_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('shout/shout_view', $data);

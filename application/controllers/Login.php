@@ -19,7 +19,7 @@ class Login extends CI_Controller {
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
     $data['redirect'] = empty($_GET['redirect']) ? '/' : $_GET['redirect'];
-    $data['js_include'] = array('login');
+    $data['js_include'] = array('login/login');
 
     $this->load->view('site_templates/header');
     $this->load->view('login_view', $data);

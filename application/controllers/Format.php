@@ -18,7 +18,7 @@ class Format extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('format_album');
+        $data['js_include'] = array('format/format_album');
 
         $this->load->view('site_templates/header');
         $this->load->view('format/format_album_view', $data);
@@ -43,7 +43,7 @@ class Format extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('format_artist');
+        $data['js_include'] = array('format/format_artist');
 
         $this->load->view('site_templates/header');
         $this->load->view('format/format_artist_view', $data);
@@ -64,13 +64,12 @@ class Format extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['js_include'] = array('format');
+      $data['js_include'] = array('format/format');
 
       $this->load->view('site_templates/header');
       $this->load->view('format/format_view', $data);
       $this->load->view('site_templates/footer');
     }
   }
-
 }
 ?>
