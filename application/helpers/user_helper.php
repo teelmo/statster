@@ -272,7 +272,7 @@ if (!function_exists('getUserTags')) {
     $tags_array = array();
     $tags_array[] = getUserGenres($opts);
     $tags_array[] = getUserKeywords($opts);
-    if (is_array($tags_array)) {
+    if (!empty($tags_array[0]) || !empty($tags_array[1])) {
       $data = array();
       foreach ($tags_array as $idx => $tags) {
         foreach ($tags as $idx => $tag) {
@@ -283,7 +283,7 @@ if (!function_exists('getUserTags')) {
       $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 6 : $opts['limit']);
       return $data;
     }
-    return array();
+    return array('tags' => array());
   }
 }
 

@@ -338,51 +338,63 @@ if (!function_exists('getUserSimilarity')) {
     $ci->load->database();
 
     function _filter_artist_name($data) {
-      return ($data->artist_name);
+      return $data->artist_name;
     }
 
-    $profile_top = array_map('_filter_artist_name', json_decode(getArtists(array(
+    $profile_artists = json_decode(getArtists(array(
       'lower_limit' => '1970-00-00',
       'limit' => 200,
       'username' => $opts['username']
-    ))));
+    )));
 
-    $user_top = array_map('_filter_artist_name', json_decode(getArtists(array(
+    $user_artists = json_decode(getArtists(array(
       'lower_limit' => '1970-00-00',
       'limit' => 200,
       'username' => $ci->session->userdata('username')
-    ))));
+    )));
 
-    $similar_artists = array_intersect($profile_top, $user_top);
-    $similarity_value = 4 * count($similar_artists) / (count($profile_top) + count($user_top));
-    if ($similarity_value > 0.75) { // Super.
-      $similarity_text = 'Super';
+
+    if ($profile_artists && $user_artists) {
+      $profile_top = array_map('_filter_artist_name', $profile_artists);
+      $user_top = array_map('_filter_artist_name', $user_artists);
+      $similar_artists = array_intersect($profile_top, $user_top);
+      $similarity_value = 4 * count($similar_artists) / (count($profile_top) + count($user_top));
+      if ($similarity_value > 0.75) { // Super.
+        $similarity_text = 'Super';
+      }
+      else if ($similarity_value > 0.6) { // High.
+        $similarity_text = 'High';
+      }
+      else if ($similarity_value > 0.4) { // Moderate.
+        $similarity_text = 'Moderate';
+      }
+      else if ($similarity_value > 0.25) { // Low.
+        $similarity_text = 'Low';
+      }
+      else if ($similarity_value > 0.15) { // Very low
+        $similarity_text = 'Very low';
+      }
+      else { // Not existing.
+        $similarity_text = 'Marginal';
+      }
+      function _artist_anchors($artist_name) {
+        return anchor(array('artist', url_title($artist_name)), $artist_name);
+      }
+
+      return array(
+        'artists' => array_map('_artist_anchors', array_slice($similar_artists, 0, 3)),
+        'text' => $similarity_text,
+        'value' => $similarity_value * 100
+      );
     }
-    else if ($similarity_value > 0.6) { // High.
-      $similarity_text = 'High';
-    }
-    else if ($similarity_value > 0.4) { // Moderate.
-      $similarity_text = 'Moderate';
-    }
-    else if ($similarity_value > 0.25) { // Low.
-      $similarity_text = 'Low';
-    }
-    else if ($similarity_value > 0.15) { // Very low
-      $similarity_text = 'Very low';
-    }
-    else { // Not existing.
-      $similarity_text = 'Marginal';
+    else {
+      return array(
+        'artists' => [],
+        'text' => 'Zero',
+        'value' => 0
+      );
     }
 
-    function _artist_anchors($artist_name) {
-      return anchor(array('artist', url_title($artist_name)), $artist_name);
-    }
-
-    return array(
-      'artists' => array_map('_artist_anchors', array_slice($similar_artists, 0, 3)),
-      'text' => $similarity_text,
-      'value' => $similarity_value * 100
-    );
   }
 }
 

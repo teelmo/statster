@@ -1,22 +1,28 @@
 <div class="heading_container">
-  <div class="heading_cont profile_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')" title="#1 artist: <?=$artist_name?>">
-    <div class="info">
-      <div class="float_left cover user_img img174" style="background-image:url('<?=getUserImg(array('user_id' => $user_id, 'size' => 174))?>')"></div>
-      <div class="top_info user_info">
-        <h1><?=$username?></h1>
-        <h4><span class="username"><?=($real_name) ? htmlentities($real_name) : htmlentities($username) ?></span><span class="meta"> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></span></h4>
-        <ul id="tags">
-          <?php
-          foreach ($tags as $tag) {
-            ?>
-            <li class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name']) . '?u=teelmo'), '<i class="fa fa-music"></i> ' . $tag['name'] . '</i>')?></li>
+  <?php
+  if (isset($artist_id)) {
+    ?>
+    <div class="heading_cont profile_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')" title="#1 artist: <?=$artist_name?>">
+      <div class="info">
+        <div class="float_left cover user_img img174" style="background-image:url('<?=getUserImg(array('user_id' => $user_id, 'size' => 174))?>')"></div>
+        <div class="top_info user_info">
+          <h1><?=$username?></h1>
+          <h4><span class="username"><?=($real_name) ? htmlentities($real_name) : htmlentities($username) ?></span><span class="meta"> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></span></h4>
+          <ul id="tags">
             <?php
-          }
-          ?>
-        </ul>
+            foreach ($tags as $tag) {
+              ?>
+              <li class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name']) . '?u=teelmo'), '<i class="fa fa-music"></i> ' . $tag['name'] . '</i>')?></li>
+              <?php
+            }
+            ?>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
+    <?php
+  }
+  ?>
   <div class="user_meta">
     <div class="meta">
       <div class="label">Listenings</div>

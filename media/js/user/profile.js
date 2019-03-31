@@ -96,8 +96,7 @@ $.extend(view, {
               strlenght:50
             },
             success: function (data) {
-              $('#recentlyListenedLoader2').hide();
-              $('#recentlyListenedLoader').hide();
+              $('#recentlyListenedLoader, #recentlyListenedLoader2').hide();
               $('#recentlyListened').html(data);
               var currentTime = new Date();
               var hours = currentTime.getHours();
@@ -113,7 +112,7 @@ $.extend(view, {
           })
         },
         204: function () { // 204 No Content
-          $('#recentlyListenedLoader').hide();
+          $('#recentlyListenedLoader, #recentlyListenedLoader2').hide();
           $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
         400: function (data) {alert('400 Bad Request')}
@@ -236,7 +235,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#shoutLoader').hide();
+          $('#userShoutLoader').hide();
           $('#shout').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -559,14 +558,24 @@ $.extend(view, {
   },
   initProfileEvents: function () {
     $(document).ajaxStop(function (event, request, settings) {
-      $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
-        return app.compareStrings($(a).data('created'), $(b).data('created'));
-      }));
+      if ($('.shouts tr').length === 0) {
+        $('#musicShout').html('<?=ERR_NO_RESULTS?>');
+      }
+      else {
+        $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
+          return app.compareStrings($(a).data('created'), $(b).data('created'));
+        }));
+      }
       $('#musicShoutLoader').hide();
 
-      $('#recentlyLiked').append($('.likes tr').detach().sort(function (a, b) {
-        return app.compareStrings($(a).data('created'), $(b).data('created'));
-      }));
+      if ($('.likes tr').length === 0) {
+        $('#recentlyLiked').html('<?=ERR_NO_RESULTS?>');
+      }
+      else {
+        $('#recentlyLiked').append($('.likes tr').detach().sort(function (a, b) {
+          return app.compareStrings($(a).data('created'), $(b).data('created'));
+        }));
+      }
       $('#recentlyLikedLoader').hide();
     });
     $('#refreshRecentAlbums').click(function () {
