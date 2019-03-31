@@ -6,7 +6,7 @@ class Search extends CI_Controller {
     $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
 
     $data = array();
-    $data['search'] = (isset($_REQUEST['searchStr'])) ? $_REQUEST['searchStr'] : '';
+    $data['q'] = (isset($_REQUEST['q'])) ? $_REQUEST['q'] : '';
     $opts = array(
       'human_readable' => false,
       'limit' => '1',

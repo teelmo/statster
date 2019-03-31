@@ -5,7 +5,7 @@
 @import 'libs/font-awesome.min.css';
 @import 'libs/tooltipster.bundle.min.css';
 @import 'libs/tooltipster-sideTip-shadow.min.css';
-@import 'libs/jquery.autocomplete.css';
+@import 'libs/jquery.autocomplete.less';
 @import 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600';
 @import 'http://fonts.googleapis.com/css?family=Poiret+One:400';
 @import 'http://fonts.googleapis.com/css?family=Raleway:400';
@@ -1094,6 +1094,34 @@ ul {
       margin: 0;
     }
   }
+  &.search_list {
+    li {
+      &.title {
+        margin-top: 30px;
+      }
+      &.even {
+        background-color: transparent;
+      }
+      &.odd {
+        background-color: rgba(245, 245, 245, 0.8);
+      }
+      &.no_img {
+        line-height: 35px;
+        height: 35px;
+      }
+      a:visited,
+      a:hover {
+        text-decoration: underline;
+      }
+      div {
+        vertical-align: middle;
+        display: inline-block;
+        &.cover {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
 }
 
 /** 
@@ -1106,10 +1134,10 @@ ul {
   color: #fff;
   position: relative;
   &:before {
-    display: block;
     content: '';
-    width: 100%;
+    display: block;
     padding-top: 66.67%;
+    width: 100%;
   }
   .content {
     bottom: 0;

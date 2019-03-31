@@ -15,8 +15,11 @@ var app = {
   },
   highlightPatch: function () {
     $.ui.autocomplete.prototype._renderItem = function (ul, item) {
-      if (item.value == '') {
+      if (item.value === '') {
         return $('<li></li>').addClass('header').data('item.autocomplete', item).append(item.label).appendTo(ul);
+      }
+      else if (item.value === 'search') {
+        return $('<li></li>').addClass('header').data('item.autocomplete', item).append('<a>' + item.label + '</a>').appendTo(ul);
       }
       else {
         if (this.term.indexOf('–') !== -1) {
@@ -94,7 +97,7 @@ var app = {
       search: function () {
         $(this).addClass('working');
       },
-      source:'/autoComplete/search'
+      source:'/api/search/get'
     });
     $('.search_text').keyup(function () {
       ($(this).val() !== '') ? $('.search_submit').prop('disabled', false) : $('.search_submit').prop('disabled', true);

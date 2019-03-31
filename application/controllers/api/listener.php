@@ -5,7 +5,7 @@ class Listener extends CI_Controller {
     exit ('No direct script access allowed');
   }
 
-  /* List users */
+  /* List listeners */
   public function get($type = '') {
     // Load helpers
     $this->load->helper(array('music_helper', 'output_helper'));

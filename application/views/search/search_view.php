@@ -17,7 +17,11 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Search: <?=$search?></h1>
+      <h1>Search: <?=$q?></h1>
+    </div>
+    <div class="container">
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="searchResultLoader"/>
+      <ul id="searchResult" class="search_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div class="right_container">
