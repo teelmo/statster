@@ -1,4 +1,4 @@
-<div id="headingCont">
+<div class="heading_container">
   <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
     <div class="info">
       <div class="top_info tag_info">
@@ -37,14 +37,14 @@
   </div>
 </div>
 <div class="clear"></div>
-<div id="mainCont">
+<div class="main_container">
   <div class="page_links">
     <?=anchor(array('genre'), 'Genres')?>
     <?=anchor(array('keyword'), 'Keywords')?>
     <?=anchor(array('nationality'), 'Nationalities')?>
     <?=anchor(array('year'), 'Years')?>
   </div>
-  <div id="leftCont">
+  <div class="left_container">
     <div class="container">
       <h1><?=$title?>
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topArtist10Loader2" />
@@ -68,7 +68,7 @@
       <table id="topArtist" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
-  <div id="rightCont">
+  <div class="right_container">
     <div class="container">
       <h1><?=$side_title?></h1>
     </div>

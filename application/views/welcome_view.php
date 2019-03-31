@@ -1,11 +1,11 @@
-<div id="headingCont">
+<div class="heading_container">
   <div class="heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');">
     <div class="info">
       <h1><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span><div class="top_music"><?=anchor(array('music', date('Y', strtotime('last month')), date('m', strtotime('last month'))), 'Top in ' . date('F', strtotime('last month')))?></div></h1>
     </div>
   </div>
 </div>
-<div id="mainCont">
+<div class="main_container">
   <div class="page_links">
     <?=anchor(array('album'), 'Albums')?>
     <?=anchor(array('artist'), 'Artists')?>
@@ -15,7 +15,7 @@
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
-  <div id="leftCont">
+  <div class="left_container">
     <div class="container welcome_container">
       <div class="content">
         <h1>Statster&nbsp; &middot; &middot; &middot; &nbsp;greetings!</h1>
@@ -39,7 +39,7 @@
      <p>Landjaeger pancetta drumstick pork chop beef ribs turducken cow beef flank jowl spare ribs pork. Tenderloin jowl flank kevin boudin, rump kielbasa pork pancetta spare ribs meatball filet mignon tri-tip bacon. Venison cupim brisket, hamburger sausage t-bone shoulder filet mignon strip steak beef. Landjaeger tail hamburger ham bresaola pancetta.</p>
    </div>
   </div>
-  <div id="rightCont">
+  <div class="right_container">
     <div class="container">
       <h1>Statistics</h1>
       <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>

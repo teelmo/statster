@@ -1,4 +1,4 @@
-<div id="headingCont">
+<div class="heading_container">
   <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
     <div class="info">
       <div class="float_left cover artist_img img174" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 174))?>')">
@@ -52,7 +52,7 @@
     ?>
   </div>
 </div>
-<div id="mainCont">
+<div class="main_container">
   <div class="page_links">
     <?=anchor(array('format', url_title($artist_name)), 'Formats')?>
     <?=anchor(array('like', url_title($artist_name)), 'Likes')?>
@@ -65,14 +65,14 @@
       <ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
-  <div id="leftCont">
+  <div class="left_container">
     <div class="container">
       <h1>Shouts</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistShoutLoader" />
       <table id="artistShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
-  <div id="rightCont">
+  <div class="right_container">
     <div class="container">
       <h1>Statistics</h1>
       <h2>Top listeners</h2>

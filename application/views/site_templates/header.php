@@ -33,7 +33,7 @@
     ?>
   </head>
   <body>
-    <div id="topCont">
+    <div class="top_container">
       <div class="inner">
         <div class="float_left">
           <div class="mobile meta">Reconcile with music</div>

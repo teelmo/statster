@@ -1,5 +1,5 @@
 <div id="mainCont" class="no_heading">
-  <div id="leftCont">
+  <div class="left_container">
     <div class="container">
       <h1>Developers</h1>
     </div>
@@ -72,7 +72,7 @@
       </p>
     </div>
   </div>
-  <div id="rightCont">
+  <div class="right_container">
     <div class="container">
       
     </div>

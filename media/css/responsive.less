@@ -1,13 +1,13 @@
 /* Portrait Tablet */
 @media all and (max-width: 900px) {
-  #mainCont .page_links {
+  .main_container .page_links {
     box-sizing: border-box;
     margin: auto auto;
     max-width: 640px;
   }
-  #mainCont {
+  .main_container {
     background-color: #fff;
-    #leftCont {
+   .left_container {
       border-right: 0;
       width: 100%;
       .container {
@@ -16,23 +16,17 @@
         padding: 0 2px;
       }
     }
-    #rightCont {
+    .right_container {
       display: none;
     }
   }
-  div#footer {
+  div.footer {
     margin-top: 20px;
   }
 }
 
 @media all and (max-width: 750px) {
-  #headingCont .float_left.img174 {
-    display: none;
-  }
-  #headingCont .heading_cont .info .top_info {
-    margin-left: 2px;
-  }
-  #headingCont {
+  .heading_container {
     .album_meta,
     .artist_meta,
     .month_meta,
@@ -41,25 +35,31 @@
     .year_meta {
       padding-left: 2px;
     }
+    .float_left.img174 {
+      display: none;
+    }
+    .heading_cont .info .top_info {
+      margin-left: 2px;
+    }
   }
 }
 
 @media all and (max-width: 700px) {
-  div#topCont .inner .user_container .profile_img {
+  div.top_container .inner .user_container .profile_img {
     display: none;
   }
-  div#topCont .inner .user_container .profile_text {
+  div.top_container .inner .user_container .profile_text {
     margin-right: 0;
   }
 }
 @media all and (max-width: 630px) {
-  div#topCont .inner .search_container {
+  div.top_container .inner .search_container {
     display: none;
   }
 }
 @media all and (max-width: 600px) {
-  #headingCont .artist_meta .meta:nth-child(4),
-  #headingCont .album_meta .meta:nth-child(4) {
+  .heading_container .artist_meta .meta:nth-child(4),
+  .heading_container .album_meta .meta:nth-child(4) {
      display: none;
   }
 }
@@ -90,17 +90,17 @@
       width: 100%;
     }
   }
-  #headingCont .heading_cont.main_heading_cont .info h1 .top_music,
-  #headingCont .heading_cont.main_heading_cont .info h1 .meta {
+  .heading_container .heading_cont.main_heading_cont .info h1 .top_music,
+  .heading_container .heading_cont.main_heading_cont .info h1 .meta {
     display: none;
   }
-  #topCont .inner .top_links {
+  .top_container .inner .top_links {
     display: none;
   }
-  #topCont .inner .mobile {
+  .top_container .inner .mobile {
     display: block;
   }
-  div#leftCont {
+  div.left_container {
     width: 100%;
     .container {
       box-sizing: border-box;
@@ -108,7 +108,7 @@
       padding: 0 5px;
     }
   }
-  div#footer {
+  div.footer {
     font-size: 10px
   }
   .profile_img,
@@ -124,10 +124,10 @@
   .profile_text  {
     margin-right: 5px !important;
   }
-  div#leftCont div#leftContInner {
+  div.left_container div.left_containerInner {
     display: none;
   }
-  div#leftCont div#leftContOuter {
+  div.left_container div.left_containerOuter {
     margin-left: 0 !important;
   }
   div.container {

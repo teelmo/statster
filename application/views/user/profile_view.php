@@ -1,4 +1,4 @@
-<div id="headingCont">
+<div class="heading_container">
   <div class="heading_cont profile_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')" title="#1 artist: <?=$artist_name?>">
     <div class="info">
       <div class="float_left cover user_img img174" style="background-image:url('<?=getUserImg(array('user_id' => $user_id, 'size' => 174))?>')"></div>
@@ -44,7 +44,7 @@
     </div>
   </div>
 </div>
-<div id="mainCont">
+<div class="main_container">
   <?php
   if ($logged_in === 'true' && $username !== $this->session->userdata('username')) {
     ?>
@@ -80,7 +80,7 @@
     <?=anchor('shout?u=' . $username, 'Shouts')?>
     <?=anchor('tag?u=' . $username, 'Tags')?>
   </div>
-  <div id="leftCont">
+  <div class="left_container">
     <div class="container">
       <div class="user_info">
         <?php
@@ -205,7 +205,7 @@
       <table id="userShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
-  <div id="rightCont">
+  <div class="right_container">
     <div class="container">
       <h1>Top in <?=date('F', strtotime('first day of last month'))?></h1>
       <table class="side_table">

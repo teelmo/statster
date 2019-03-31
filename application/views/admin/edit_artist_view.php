@@ -1,5 +1,5 @@
 <div id="mainCont" class="no_heading">
-  <div id="leftCont">
+  <div class="left_container">
     <div class="container">
       <h1>Edit artist</h1>
       <?=form_open('', array('class' => '', 'id' => 'editArtistForm'), array('editArtist' => 'form'))?>

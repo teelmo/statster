@@ -1,4 +1,4 @@
-<div id="headingCont">
+<div class="heading_container">
   <div class="heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')">
     <div class="info">
       <div class="top_info month_info">
@@ -34,7 +34,7 @@
     </div>
   </div>
 </div>
-<div id="mainCont">
+<div class="main_container">
   <div class="page_links">
     <?=anchor(array('album'), 'Albums')?>
     <?=anchor(array('artist'), 'Artists')?>
@@ -44,7 +44,7 @@
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
-  <div id="leftCont">
+  <div class="left_container">
     <div class="container">
       <h2>History</h2>
       <div class="float_right settings">
@@ -77,7 +77,7 @@
       </div>
     </div>
   </div>
-  <div id="rightCont">
+  <div class="right_container">
     <div class="container">
       <h1>Statistics</h1>
     </div>

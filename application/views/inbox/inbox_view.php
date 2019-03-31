@@ -1,5 +1,5 @@
-<div id="mainCont">
-  <div id="leftCont">
+<div class="main_container">
+  <div class="left_container">
     <div class="container">
       <h1>Compose</h1>
       <?=form_open('', array('class' => '', 'id' => 'composeForm'), array('composeType' => 'form'))?>
@@ -18,7 +18,7 @@
     </div>
     <div class="container"><hr /></div>
   </div>
-  <div id="rightCont">
+  <div class="right_container">
     <div class="container">
       <h1></h1>
     </div>

@@ -1,5 +1,5 @@
-<div id="mainCont">
-  <div id="leftCont">
+<div class="main_container">
+  <div class="left_container">
     <div class="container">
       <h1>Edit profile</h1>
       <?=form_open('', array('class' => '', 'id' => 'editProfileForm'), array('editProfile' => 'form'))?>
@@ -133,7 +133,7 @@
       </form>
     </div>
   </div>
-  <div id="rightCont">
+  <div class="right_container">
     <div class="container">
       <h1></h1>
     </div>
