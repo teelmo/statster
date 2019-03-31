@@ -38,9 +38,9 @@
         <div class="float_left">
           <div class="mobile meta">Reconcile with music</div>
           <div class="search_container">
-            <form action="/search" method="post" accept-charset="utf-8" class="search_form">
+            <form action="/search" method="get" accept-charset="utf-8" class="search_form">
               <button disabled="disabled" type="submit" class="search_submit" title="Search!"></button>
-              <input type="text" class="middle search_text" autocomplete="off" tabindex="20" placeholder="Search music…" name="searchStr" />
+              <input type="text" class="middle search_text" autocomplete="off" tabindex="20" placeholder="Search music…" name="q" />
             </form>
           </div>
         </div>
