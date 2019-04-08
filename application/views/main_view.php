@@ -131,6 +131,9 @@
           </td>
         </tr>
       </table>
+      <div class="more">
+        <?=anchor(array('music', date('Y', strtotime('first day of last month')), date('m', strtotime('first day of last month'))), 'More', array('title' => 'Browse more listenings'))?>
+      </div>
       <h2>Hot albums <span class="func_container"><i class="fa fa-refresh" id="refreshHotAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
       <table id="recommentedTopAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>

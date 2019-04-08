@@ -376,10 +376,10 @@ $.extend(view, {
   updateAlbumBio: function () {
     $.ajax({
       data:{
-        artist_id:parseInt(<?=$artist_id?>),
         album_id:parseInt(<?=$album_id?>),
-        artist_name:'<?=$artist_name?>',
-        album_name:'<?=$album_name?>'
+        album_name:'<?=$album_name?>',
+        artist_id:parseInt(<?=$artist_id?>),
+        artist_name:'<?=$artist_name?>'
       },
       dataType:'json',
       type:'GET',

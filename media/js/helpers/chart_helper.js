@@ -77,7 +77,7 @@ $.extend(view, {
     }).highcharts();
   },
   initGraph: function (data) {
-    if (data[data.length - 1].cumulative_count !== '1') {
+    if (data[data.length - 1].cumulative_count !== '1' && data.length > 1) {
       var chart_data = [];
       $.each(data, function (i, value) {
         if (value.cumulative_count !== '0' && (value.cumulative_count - data[0].cumulative_count > 0)) {
