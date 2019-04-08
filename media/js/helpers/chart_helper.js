@@ -77,23 +77,25 @@ $.extend(view, {
     }).highcharts();
   },
   initGraph: function (data) {
-    if (data[data.length - 1].cumulative_count !== '1' && data.length > 1) {
+    if (data[data.length - 1].cumulative_count !== '1') {
       var chart_data = [];
       $.each(data, function (i, value) {
-        if (value.cumulative_count !== '0' && (value.cumulative_count - data[0].cumulative_count > 0)) {
+        if (value.cumulative_count !== 0 && (value.cumulative_count - data[0].cumulative_count > 0)) {
           chart_data.push(value.cumulative_count - data[0].cumulative_count);
         }
       });
-      $('.line').text(chart_data.slice(',')).peity('line', {
-        delimiter: ',',
-        fill: '',
-        height: 18,
-        max: null,
-        min: 0,
-        stroke: '#333',
-        strokeWidth: 2,
-        width: 100
-      }).next('svg').hide().fadeIn(1000);
+      if (chart_data.length > 1) {
+        $('.line').text(chart_data.slice(',')).peity('line', {
+          delimiter: ',',
+          fill: '',
+          height: 18,
+          max: null,
+          min: 0,
+          stroke: '#333',
+          strokeWidth: 2,
+          width: 100
+        }).next('svg').hide().fadeIn(1000);
+      }
     }
   }
 });
