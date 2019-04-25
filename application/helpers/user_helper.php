@@ -253,7 +253,7 @@ if (!function_exists('updateIntervals')) {
       return ($ci->db->affected_rows() === 1) ? header('HTTP/1.1 204 No Content') : header('HTTP/1.1 400 Bad Request');
     }
     else {
-      show_403();
+      return header('HTTP/1.1 204 No Content');
     }
   }
 }
