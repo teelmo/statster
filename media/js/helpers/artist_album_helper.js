@@ -21,6 +21,10 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/albumList'
           });
+        },
+        204: function () {
+          $('#artistAlbumLoader').hide();
+          $('#artistAlbum').html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',
