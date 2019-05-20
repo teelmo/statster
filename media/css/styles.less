@@ -2,7 +2,6 @@
 @import 'libs/prefixer.less';
 @import 'libs/jquery-ui-1.10.3.custom.min.css';
 @import 'libs/chosen.css';
-@import 'libs/font-awesome.min.css';
 @import 'libs/tooltipster.bundle.min.css';
 @import 'libs/tooltipster-sideTip-shadow.min.css';
 @import 'libs/jquery.autocomplete.less';
@@ -124,7 +123,7 @@ p {
 .like_toggle {
   cursor: pointer;
   float: right;
-  font-family: 'FontAwesome';
+  font-family: 'Font Awesome 5 Free';
   font-size: 16px;
   left: 9px;
   position: relative;
@@ -133,40 +132,46 @@ p {
     &:hover {
       &:after {
         content: '\f004';
-      }
-    }
-    &:after {
-      content: '\f08a';
-    }
-  }
-  &.love_del {
-    &:hover {
-      &:after {
-        content: '\f08a';
+        font-weight: 900;
       }
     }
     &:after {
       content: '\f004';
     }
   }
+  &.love_del {
+    &:hover {
+      &:after {
+        content: '\f004';
+        font-weight: 500;
+      }
+    }
+    &:after {
+      content: '\f004';
+      font-weight: 900;
+    }
+  }
   &.fan_add {
     &:hover {
       &:after {
         content: '\f005';
+        font-weight: 900;
       }
     }
     &:after {
-      content: '\f006';
+      content: '\f005';
     }
   }
   &.fan_del {
     &:hover {
       &:after {
-        content: '\f006';
+        font-weight: 500;
+        content: '\f005';
       }
     }
     &:after {
       content: '\f005';
+      font-weight: 900;
     }
   }
   .like_msg {
@@ -472,8 +477,9 @@ form#loginForm input[type="text"] {
     &:before {
       color: #ccc;
       content: '\f002';
-      font-family: 'FontAwesome';
+      font-family: 'Font Awesome 5 Free';
       font-size: 16px;
+      font-weight: 900;
       left: 0;
       position: relative;
       top: 2px;
@@ -533,8 +539,9 @@ table.music_table {
               &:after {
                 color: #666;
                 content: '\f144';
-                font-family: 'FontAwesome';
+                font-family: 'Font Awesome 5 Free';
                 font-size: 16px;
+                font-weight: 900;
                 margin-top: 1px;
                 position: relative;
                 top: 1px;
@@ -581,7 +588,7 @@ table.music_table {
           padding-left: 17px;
         }
         .love_icon {
-          font-family: 'FontAwesome';
+          font-family: 'Font Awesome 5 Free';
           font-size: 14px;
           &:after {
             content: '\f004';
@@ -715,8 +722,9 @@ table.side_table {
             &:after {
               color: #666;
               content: '\f144';
-              font-family: 'FontAwesome';
+              font-family: 'Font Awesome 5 Free';
               font-size: 16px;
+              font-weight: 900;
               margin-top: 1px;
               position: relative;
               top: 1px;
@@ -1088,6 +1096,7 @@ ul {
     }
   }
   &.like_list {
+    display: inline-block;
     margin-top: 7px;
     li {
       display: inline-block;
@@ -1408,10 +1417,11 @@ h2 {
         color: #000;
       }
       &:after {
-        content: '\f107';
+        content: '\f0d7';
         display: inline-block;
-        font-family: 'FontAwesome';
+        font-family: 'Font Awesome 5 Free';
         font-size: 20px;
+        font-weight: 900;
         line-height: inherit;
         padding-left: 5px;
         position: relative;
@@ -1419,7 +1429,7 @@ h2 {
         vertical-align: middle;
       }
       &.active:after {
-        content: '\f106';
+        content: '\f0d8';
       }
     }
     ul.subnav {
