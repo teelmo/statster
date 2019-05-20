@@ -11,7 +11,14 @@
         ?>
       </div>
       <div class="top_info artist_info">
-        <h1><?=$artist_name?></h1>
+        <h1>
+          <?php
+          echo $artist_name;
+          if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+            echo anchor(array('admin', 'artist', $artist_id), '<span class="fa fa-pen-square"></span>');
+          }
+          ?>
+        </h1>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="tagsLoader"/>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
@@ -67,11 +74,6 @@
     <?=anchor(array('recent', url_title($artist_name)), 'Listenings')?>
     <?=anchor(array('shout', url_title($artist_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name)), 'Tags')?>
-    <?php
-    if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
-      echo anchor(array('admin', 'artist', $artist_id), '<span class="fa fa-edit"></span>');
-    }
-    ?>
     <div class="float_right">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistFanLoader"/>
       <ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
