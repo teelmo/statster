@@ -54,9 +54,9 @@ $.extend(view, {
       }
     });
     // Listening format keypress.
-    $('.listening_format').keypress(function (e) {
-      var code = (e.keyCode ? e.keyCode : e.which);
-      if (code == 13) {
+    $('.listening_format').keypress(function (event) {
+      var code = (event.keyCode ? event.keyCode : event.which);
+      if (code === 13) {
         if ($(this).hasClass('selected')) {
           $(this).removeClass('selected');
           $('#' + $(this).parent().attr('for')).prop('checked', false);
@@ -67,6 +67,9 @@ $.extend(view, {
           $('#' + $(this).parent().attr('for')).prop('checked', true);
         }
       }
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
     });
     $('#addListeningSubmit').click(function () {
       var text_value = $('#addListeningText').val();
