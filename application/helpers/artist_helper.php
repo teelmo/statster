@@ -62,7 +62,8 @@ if (!function_exists('getArtistInfo')) {
                      " . TBL_artist . ".`spotify_uri`,
                      YEAR(" . TBL_artist . ".`created`) as `created`
               FROM " . TBL_artist . "
-              WHERE " . TBL_artist . ".`artist_name` LIKE ?";
+              WHERE " . TBL_artist . ".`artist_name` LIKE ?
+              COLLATE utf8_swedish_ci";
       $query = $ci->db->query($sql, array($artist_name));
     }
     return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
