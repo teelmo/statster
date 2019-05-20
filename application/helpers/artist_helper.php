@@ -64,10 +64,7 @@ if (!function_exists('getArtistInfo')) {
               FROM " . TBL_artist . "
               WHERE " . TBL_artist . ".`artist_name` LIKE ?";
       $query = $ci->db->query($sql, array($artist_name));
-      if ($query->num_rows() > 0) {
-        return $query->result_array()[0]
-      }
-      else {
+      if ($query->num_rows() === 0) {
         $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                        " . TBL_artist . ".`artist_name`,
                        " . TBL_artist . ".`spotify_uri`,
