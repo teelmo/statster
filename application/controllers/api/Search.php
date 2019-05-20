@@ -5,7 +5,7 @@ class Search extends CI_Controller {
     exit ('No direct script access allowed');
   }
 
-  public function get() {
+  public function get($limit) {
     // Load helpers.
     $this->load->helper(array('img_helper'));
     
@@ -27,7 +27,7 @@ class Search extends CI_Controller {
               WHERE " . TBL_artist . ".`artist_name` LIKE ?
               COLLATE utf8_swedish_ci
               ORDER BY `artist_relevance`
-              LIMIT 0, 10";
+              LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
@@ -56,7 +56,7 @@ class Search extends CI_Controller {
               WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
                 AND " . TBL_album . ".`album_name` LIKE ?
               ORDER BY `album_relevance`
-              LIMIT 0, 10";
+              LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
@@ -81,7 +81,7 @@ class Search extends CI_Controller {
               FROM " . TBL_genre . "
               WHERE " . TBL_genre . ".`name` LIKE ?
               ORDER BY " . TBL_genre . ".`name`
-              LIMIT 0, 10";
+              LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
@@ -104,7 +104,7 @@ class Search extends CI_Controller {
               FROM " . TBL_keyword . "
               WHERE " . TBL_keyword . ".`name` LIKE ?
               ORDER BY " . TBL_keyword . ".`name`
-              LIMIT 0, 10";
+              LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
@@ -127,7 +127,7 @@ class Search extends CI_Controller {
               FROM " . TBL_nationality . "
               WHERE " . TBL_nationality . ".`country` LIKE ?
               ORDER BY " . TBL_nationality . ".`country`
-              LIMIT 0, 10";
+              LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
@@ -149,7 +149,7 @@ class Search extends CI_Controller {
               FROM " . TBL_album . "
               WHERE " . TBL_album . ".`year` LIKE ?
               ORDER BY " . TBL_album . ".`year`
-              LIMIT 0, 10";
+              LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
@@ -172,7 +172,7 @@ class Search extends CI_Controller {
               FROM " . TBL_user . "
               WHERE " . TBL_user . ".`username` LIKE ?
               ORDER BY " . TBL_user . ".`username`
-              LIMIT 0, 10";
+              LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(

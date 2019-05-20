@@ -97,7 +97,7 @@ var app = {
       search: function () {
         $(this).addClass('working');
       },
-      source:'/api/search/get'
+      source:'/api/search/get/10/'
     });
     $('.search_text').keyup(function () {
       ($(this).val() !== '') ? $('.search_submit').prop('disabled', false) : $('.search_submit').prop('disabled', true);
