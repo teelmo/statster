@@ -24,8 +24,7 @@ class Search extends CI_Controller {
                      " . TBL_artist . ".`artist_name`,
                      (CASE WHEN " . TBL_artist . ".`artist_name` LIKE ? THEN 0 ELSE 1 END) AS `artist_relevance`
               FROM " . TBL_artist . "
-              WHERE " . TBL_artist . ".`artist_name` LIKE ?
-              COLLATE utf8_swedish_ci
+              WHERE " . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
               ORDER BY `artist_relevance`
               LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str, $search_str_wc));

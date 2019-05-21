@@ -48,7 +48,7 @@ class AutoComplete extends CI_Controller {
                 FROM " . TBL_artist . ",
                      " . TBL_album . "
                 WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
-                  AND (" . TBL_artist . ".`artist_name` LIKE ?
+                  AND (" . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
                    OR " . TBL_album . ".`album_name` LIKE ?)
                 ORDER BY `artist_relevance`,
                          " . TBL_album . ".`year` DESC,
@@ -106,7 +106,7 @@ class AutoComplete extends CI_Controller {
       $sql = "SELECT " . TBL_artist . ".`id`,
                      " . TBL_artist . ".`artist_name`
               FROM " . TBL_artist . "
-              WHERE " . TBL_artist . ".`artist_name` LIKE ?
+              WHERE " . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
               ORDER BY " . TBL_artist . ".`artist_name`
               LIMIT 0, 20";
       $query = $this->db->query($sql, array($search_str));
