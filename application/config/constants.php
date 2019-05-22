@@ -121,7 +121,7 @@ define('TBL_user_shout', 'user_shout');
 define('TBL_user_info', 'user_info');
 define('TBL_year_biography', 'year_biography');
 
-define('IMAGE_SIZES', [32, 64, 124, 174, 300]);
+define('IMAGE_SIZES', [32, 64, 174, 300]);
 
 define('INTERVAL_TEXTS', array(
   7 => 'Last 7 days',
