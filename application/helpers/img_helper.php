@@ -249,7 +249,6 @@ if (!function_exists('fetchImages')) {
 if (!function_exists('imageResize')) {
   function imageResize($src, $dst, $dst_width) {
     if (!list($src_width, $src_height) = getimagesize($src)) return 'Unsupported picture type!';
-
     $type = strtolower(substr(strrchr($src, '.'), 1));
     if ($type == 'jpeg') $type = 'jpg';
     switch ($type) {
@@ -260,10 +259,11 @@ if (!function_exists('imageResize')) {
       default : return 'Unsupported picture type!';
     }
     $dst_height = ($src_height * $dst_width) / $src_width;
-
     $new = imagecreatetruecolor($dst_width, $dst_height);
     imagecopyresampled($new, $img, 0, 0, 0, 0, $dst_width, $dst_height, $src_width, $src_height);
-    @imagejpeg($new, $dst);
+    imagejpeg($new, $dst);
+    // Free up memory
+    imagedestroy($new);
     return true;
   }
 }

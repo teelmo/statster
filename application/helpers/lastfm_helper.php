@@ -117,7 +117,8 @@ if (!function_exists('fetchArtistInfo')) {
             $ci->load->helper(array('img_helper'));
             $url = explode('/', end($lastfm_data['image'])['#text']);
             $opts['image_uri'] = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-            fetchImages($opts, 'artist_img');
+            // Removed due: https://getsatisfaction.com/lastfm/topics/api-announcement-dac8oefw5vrxq
+            // fetchImages($opts, 'artist_img');
           }
         }
       }
