@@ -70,6 +70,30 @@ if (!function_exists('getGenres')) {
 }
 
 /**
+  * Returns all genres.
+  * @param array $opts.
+  *          'human_readable'  => Output format
+  *
+  * @return string JSON encoded the data
+  */
+if (!function_exists('getAllGenres')) {
+  function getAllGenres($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    $sql = "SELECT 'genre' as `type`,
+                   " . TBL_genre . ".`name`,
+                   " . TBL_genre . ".`id` as `tag_id`
+            FROM " . TBL_genre . "
+            WHERE 1
+            ORDER BY " . TBL_genre . ".`name`";
+    $query = $ci->db->query($sql, array());
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
   * Returns cumulative listeners for given genre.
   *
   * @param array $opts.

@@ -70,7 +70,31 @@ if (!function_exists('getKeywords')) {
 }
 
 /**
-  * Returns cumulative listeners for given genre.
+  * Returns all keywords.
+  * @param array $opts.
+  *          'human_readable'  => Output format
+  *
+  * @return string JSON encoded the data
+  */
+if (!function_exists('getAllKeywords')) {
+  function getAllKeywords($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    $sql = "SELECT 'keyword' as `type`,
+                   " . TBL_keyword . ".`name`,
+                   " . TBL_keyword . ".`id` as `tag_id`
+            FROM " . TBL_keyword . "
+            WHERE 1
+            ORDER BY " . TBL_keyword . ".`name`";
+    $query = $ci->db->query($sql, array());
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Returns cumulative listeners for given keywrod.
   *
   * @param array $opts.
   *          'tag id'          => Tag ID
@@ -319,7 +343,7 @@ if (!function_exists('getMusicByKeyword')) {
   *
   * @param array $opts.
   *          'album_id'   => Album ID
-  *          'tag_id'     => Genre ID
+  *          'tag_id'     => Keyword ID
   *
   * @return string JSON.
   *

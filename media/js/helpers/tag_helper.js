@@ -15,7 +15,7 @@ $.extend(view, {
           });
         }
       },
-      url:'/api/' + type + '/get',
+      url:'/api/' + type + '/get/all',
       type:'GET'
     });
   },

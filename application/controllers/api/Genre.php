@@ -6,11 +6,16 @@ class Genre extends CI_Controller {
   }
 
   /* List genres */
-  public function get() {
+  public function get($type = '') {
     // Load helpers
     $this->load->helper(array('genre_helper', 'output_helper'));
     
-    echo getGenres($_REQUEST);
+    if ($type === 'all') {
+      echo getAllGenres($_REQUEST);
+    }
+    else {
+      echo getGenres($_REQUEST);
+    }
   }
 
   /* Add a genre */

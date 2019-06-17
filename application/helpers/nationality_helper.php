@@ -69,6 +69,30 @@ if (!function_exists('getNationalities')) {
 }
 
 /**
+  * Returns all nationalities.
+  * @param array $opts.
+  *          'human_readable'  => Output format
+  *
+  * @return string JSON encoded the data
+  */
+if (!function_exists('getAllNationalities')) {
+  function getAllNationalities($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    $sql = "SELECT 'nationality' as `type`,
+                   " . TBL_nationality . ".`country` as `name`,
+                   " . TBL_nationality . ".`id` as `tag_id`
+            FROM " . TBL_nationality . "
+            WHERE 1
+            ORDER BY " . TBL_nationality . ".`country`";
+    $query = $ci->db->query($sql, array());
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
   * Returns cumulative listeners for given nationality.
   *
   * @param array $opts.
@@ -326,7 +350,7 @@ if (!function_exists('getMusicByNationality')) {
   *
   * @param array $opts.
   *          'album_id'   => Album ID
-  *          'tag_id'     => Genre ID
+  *          'tag_id'     => Nationality ID
   *
   * @return string JSON.
   *
