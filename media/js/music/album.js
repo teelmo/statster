@@ -74,6 +74,7 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
+              delete:true,
               logged_in:<?=$logged_in?>
             },
             success: function (data) {
