@@ -1,4 +1,41 @@
 $.extend(view, {
+  // Get album tags.
+  getTags: function () {
+    $.ajax({
+      data:{
+        album_id:<?=$album_id?>,
+        limit:9
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              delete:true,
+              json_data:data,
+              logged_in:<?=$logged_in?>
+            },
+            success: function (data) {
+              $('#tagsLoader').hide();
+              $('#tags').html(data);
+            },
+            type:'POST',
+            url:'/ajax/tagList'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#tagsLoader').hide();
+          $('#tags').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/tag/get/album'
+    });
+  },
   // Get album love.
   getLove: function (user_id) { 
     if (user_id === undefined) {
@@ -59,42 +96,6 @@ $.extend(view, {
       },
       type:'GET',
       url:'/api/love/get/<?=$album_id?>'
-    });
-  },
-  // Get album tags.
-  getTags: function () {
-    $.ajax({
-      data:{
-        album_id:<?=$album_id?>,
-        limit:9
-      },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
-          $.ajax({
-            data:{
-              json_data:data,
-              logged_in:<?=$logged_in?>
-            },
-            success: function (data) {
-              $('#tagsLoader').hide();
-              $('#tags').html(data);
-            },
-            type:'POST',
-            url:'/ajax/tagList'
-          });
-        },
-        204: function () { // 204 No Content
-          $('#tagsLoader').hide();
-          $('#tags').html('<?=ERR_NO_RESULTS?>');
-        },
-        400: function () { // 400 Bad request
-          $('#tagsLoader').hide();
-          $('#tags').html('<?=ERR_BAD_REQUEST?>');
-        }
-      },
-      type:'GET',
-      url:'/api/tag/get/album'
     });
   },
   topListeners: function () {

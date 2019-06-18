@@ -1,5 +1,5 @@
 $.extend(view, {
-  // Get album tags.
+  // Get artist tags.
   getTags: function () {
     $.ajax({
       data:{
@@ -11,6 +11,7 @@ $.extend(view, {
         200: function (data) { // 200 OK
           $.ajax({
             data:{
+              delete:false,
               json_data:data,
               logged_in:<?=$logged_in?>
             },
