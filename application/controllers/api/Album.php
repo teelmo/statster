@@ -26,14 +26,14 @@ class Album extends CI_Controller {
     header('HTTP/1.1 501 Not Implemented');
   }
 
-  /* Update artist information */
+  /* Update album information */
   public function update($type) {
     // Load helpers
     switch ($type) {
       case 'biography':
         $this->load->helper(array('album_helper', 'lastfm_helper'));
         
-        $_REQUEST += fetchAlbumInfo($_REQUEST);
+        $_REQUEST += fetchAlbumInfo($_REQUEST, array('bio'));
         echo addAlbumBio($_REQUEST);
         break;
       default:

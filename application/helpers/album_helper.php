@@ -54,8 +54,8 @@ if (!function_exists('addAlbum')) {
         }
         // Add Spotify resource.
         getSpotifyResourceId($data);
-        // Get album img.
-        fetchAlbumInfo($data);
+        // Get album img and bio.
+        fetchAlbumInfo($data, array('bio', 'image'));
         // Return album ID.
         return $data['album_id'];
       }

@@ -55,7 +55,7 @@ if (!function_exists('fetchSimilar')) {
   *
   */
 if (!function_exists('fetchAlbumInfo')) {
-  function fetchAlbumInfo($opts = array()) {
+  function fetchAlbumInfo($opts = array(), $get = array()) {
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : FALSE;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
@@ -65,12 +65,12 @@ if (!function_exists('fetchAlbumInfo')) {
         if (empty($lastfm_data['error'])) {
           $lastfm_data = $lastfm_data['album'];
           // Get biography.
-          if (!empty($lastfm_data['wiki'])) {
+          if (!empty($lastfm_data['wiki']) && in_array('bio', $get)) {
             $data['bio_summary'] = $lastfm_data['wiki']['summary']; 
             $data['bio_content'] = $lastfm_data['wiki']['content'];
           } 
           // Get image.
-          if (!empty(end($lastfm_data['image'])['#text'])) {
+          if (!empty(end($lastfm_data['image'])['#text']) && in_array('image', $get)) {
             $ci=& get_instance();
             $ci->load->helper(array('img_helper'));
             $url = explode('/', end($lastfm_data['image'])['#text']);
@@ -98,7 +98,7 @@ if (!function_exists('fetchAlbumInfo')) {
   *
   */
 if (!function_exists('fetchArtistInfo')) {
-  function fetchArtistInfo($opts = array()) {
+  function fetchArtistInfo($opts = array(), $get = array()) {
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {
@@ -107,12 +107,12 @@ if (!function_exists('fetchArtistInfo')) {
         if (empty($lastfm_data['error'])) {
           $lastfm_data = $lastfm_data['artist'];
           // Get biography.
-          if (!empty($lastfm_data['bio'])) {
+          if (!empty($lastfm_data['bio']) && in_array('bio', $get)) {
             $data['bio_summary'] = $lastfm_data['bio']['summary']; 
             $data['bio_content'] = $lastfm_data['bio']['content'];
           }
           // Get image.
-          if (!empty(end($lastfm_data['image'])['#text'])) {
+          if (!empty(end($lastfm_data['image'])['#text']) && in_array('image', $get)) {
             $ci=& get_instance();
             $ci->load->helper(array('img_helper'));
             $url = explode('/', end($lastfm_data['image'])['#text']);

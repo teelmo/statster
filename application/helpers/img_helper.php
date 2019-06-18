@@ -52,7 +52,7 @@ if (!function_exists('getArtistImg')) {
     }
     else {
       $ci->load->helper('lastfm_helper');
-      fetchArtistInfo($opts);
+      fetchArtistInfo($opts, array('image'));
       if (read_file('./' . $filename)) {
         return site_url() . $filename;
       }
@@ -89,7 +89,7 @@ if (!function_exists('getAlbumImg')) {
     }
     else {
       $ci->load->helper('lastfm_helper');
-      fetchAlbumInfo($opts);
+      fetchAlbumInfo($opts, array('image'));
       if (read_file('./' . $filename)) {
         return site_url() . $filename;
       }
@@ -260,7 +260,7 @@ if (!function_exists('imageResize')) {
     $new = imagecreatetruecolor($dst_width, $dst_height);
     imagecopyresampled($new, $img, 0, 0, 0, 0, $dst_width, $dst_height, $src_width, $src_height);
     imagejpeg($new, $dst);
-    // Free up memory
+    // Free up memory.
     imagedestroy($new);
     return true;
   }

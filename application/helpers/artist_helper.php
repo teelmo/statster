@@ -25,7 +25,14 @@ if (!function_exists('addArtist')) {
                 VALUES (?, ?, CURRENT_TIMESTAMP())";
       $query = $ci->db->query($sql, array($data['user_id'], $data['artist_name']));
       if ($ci->db->affected_rows() === 1) {
-        return $ci->db->insert_id();
+        $data['artist_id'] = $ci->db->insert_id();
+        $ci->load->helper('artist_helper', 'lastfm_helper'));
+        // Add Spotify resource.
+        getSpotifyResourceId($data);
+        // Get album img and bio.
+        fetchArtistInfo($data, array('bio', 'image'));
+        // Return album ID.
+        return $data['artist_id'];
       }
     }
     return FALSE;
