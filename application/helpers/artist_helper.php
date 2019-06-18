@@ -26,7 +26,7 @@ if (!function_exists('addArtist')) {
       $query = $ci->db->query($sql, array($data['user_id'], $data['artist_name']));
       if ($ci->db->affected_rows() === 1) {
         $data['artist_id'] = $ci->db->insert_id();
-        $ci->load->helper('artist_helper', 'lastfm_helper'));
+        $ci->load->helper(array('artist_helper', 'lastfm_helper'));
         // Add Spotify resource.
         getSpotifyResourceId($data);
         // Get album img and bio.
