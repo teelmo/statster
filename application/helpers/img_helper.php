@@ -248,14 +248,12 @@ if (!function_exists('fetchImages')) {
 
 if (!function_exists('imageResize')) {
   function imageResize($src, $dst, $dst_width) {
-    if (!list($src_width, $src_height) = getimagesize($src)) return 'Unsupported picture type!';
-    $type = strtolower(substr(strrchr($src, '.'), 1));
-    if ($type == 'jpeg') $type = 'jpg';
+    if (!list($src_width, $src_height, $type, $attr) = getimagesize($src)) return 'Unsupported picture type!';
     switch ($type) {
-      case 'bmp': $img = imagecreatefromwbmp($src); break;
-      case 'gif': $img = imagecreatefromgif($src); break;
-      case 'jpg': $img = imagecreatefromjpeg($src); break;
-      case 'png': $img = imagecreatefrompng($src); break;
+      case 6: $img = imagecreatefromwbmp($src); break;
+      case 1: $img = imagecreatefromgif($src); break;
+      case 2: $img = imagecreatefromjpeg($src); break;
+      case 3: $img = imagecreatefrompng($src); break;
       default : return 'Unsupported picture type!';
     }
     $dst_height = ($src_height * $dst_width) / $src_width;
