@@ -16,7 +16,7 @@ if (!empty($json_data)) {
         $size = 32;
         $datetime = '';
         if ($idx == 0) {
-          if ((time() - strtotime($row['created'])) < JUST_LISTENED_INTERVAL && $row['date'] == CUR_DATE) {
+          if (($time - strtotime($row['created'] . ' UTC')) < JUST_LISTENED_INTERVAL && $row['date'] == CUR_DATE) {
             $class = 'just_added';
             $size = 64;
             $datetime = '<span class="now_playing"></span> <span>now playing</span>';

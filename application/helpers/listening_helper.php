@@ -102,12 +102,13 @@ if (!function_exists('addListening')) {
       }
 
       $data['date'] = trim($opts['date']);
+      $data['created'] = trim($opts['created']);
 
       // Add listening data to DB.
       $sql = "INSERT
-                INTO " . TBL_listening . " (`user_id`, `album_id`, `date`)
-                VALUES (?, ?, ?)";
-      $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date']));
+                INTO " . TBL_listening . " (`user_id`, `album_id`, `date`, `created`)
+                VALUES (?, ?, ?, ?)";
+      $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date'], $data['created']));
       if ($ci->db->affected_rows() === 1) {
         $data['listening_id'] = $ci->db->insert_id();
         // Add listening format data to DB.

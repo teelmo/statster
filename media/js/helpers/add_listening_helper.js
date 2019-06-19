@@ -23,9 +23,19 @@ $.extend(view, {
       showOtherMonths:true
     });
     $('#addListeningDate').change(function () {
+      var curday = function (sp) {
+        today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        return (mm + sp + dd + sp + yyyy);
+      };
       setTimeout(function () {
-        $('#addListeningDate').val('<?php echo CUR_DATE?>');
-      }, 60 * 2 * 1000);
+        $('#addListeningDate').val(curday('-'));
+      }, 60 * 2 * 1000); // 
     });
   },
   initKeystop: function () {
@@ -83,6 +93,7 @@ $.extend(view, {
       $('.listening_format').removeClass('selected');
       $.ajax({
         data:{
+          created:new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace('T', ' '),
           date:$('#addListeningDate').val(),
           format:format_value,
           submitType:$('input[name="submitType"]').val(),
