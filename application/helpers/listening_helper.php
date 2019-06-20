@@ -83,7 +83,7 @@ if (!function_exists('addListening')) {
         header('HTTP/1.1 401 Unauthorized');
         return json_encode(array('error' => array('msg' => $data)));
       }
-      list($data['artist_name'], $data['album_name']) = explode(DASH, $opts['text']);
+      list($data['artist_name'], $data['album_name']) = explode(DASH, $opts['text'], 2);
       $data['artist_name'] = trim($data['artist_name']);
       $data['album_name'] = trim($data['album_name']);
       // Check that album exists.
