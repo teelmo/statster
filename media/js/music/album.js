@@ -101,8 +101,8 @@ $.extend(view, {
   getListeningCumulation: function () {
     $.ajax({
       data:{
-        artist_name:'<?=$artist_name?>',
         album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',

@@ -20,7 +20,7 @@
             echo anchor(array('admin', 'album', $album_id), '<span class="fa fa-pen-square"></span>');
           }
           if (!empty($this->session->userdata['user_id'])) {
-            echo '<a href="javascript:;"><span class="fa fa-plus-square"></span></a>';
+            echo '<a href="javascript:;" class="hidden"><span class="fa fa-plus-square"></span></a>';
           }
           ?>
         </h1>

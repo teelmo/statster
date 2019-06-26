@@ -94,13 +94,15 @@ $.extend(view, {
     });
     $('html body').on('click', 'a.confirm', function () {
       var row_id = $(this).data('row-id');
-      if ($('#' + row_id).hasClass('just_added')) {
-        $('tr').removeClass('just_added_rest');
-      }
       $.ajax({
         statusCode:{
           200: function () { // 200 OK
-            $('#' + row_id).fadeOut('slow');
+            $('#' + row_id).fadeOut('slow', function () {
+              if ($('#' + row_id).hasClass('just_added')) {
+                $('tr').removeClass('just_added_rest');
+              }
+              $('#' + row_id).remove();
+            });
           },
           400: function () { // 400 Bad Request
             alert('400 Bad Request');
