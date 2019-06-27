@@ -15,7 +15,8 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              strlenght:50
+              strlenght:50,
+              time:Math.floor((new Date().getTime() - new Date().getTimezoneOffset() * 60000) / 1000)
             },
             success: function (data) {
               $('#recentlyListenedLoader2').hide();
