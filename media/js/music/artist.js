@@ -438,6 +438,7 @@ $.extend(view, {
       $.each($('.chosen-select').val(), function (i, el) {
         var tag = el.split(':');
         $.ajax({
+          async:false,
           data:{
             artist_id:parseInt(<?=$artist_id?>),
             tag_id:tag[1],
