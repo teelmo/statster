@@ -37,7 +37,7 @@ class Admin extends CI_Controller {
           fetchImages($data, 'artist_img');
         }
         updateArtist($data);
-        redirect('/music/' . url_title($data['artist_name']), 'refresh');
+        redirect('/music/' . url_title($data['artist_name']));
       }
       else {
         $this->load->helper(array('form'));
