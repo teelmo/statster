@@ -61,11 +61,18 @@
                 <li class="mobile"><?=anchor(array(''), 'Overview')?></li>
                 <li class="mobile"><?=anchor(array('music'), 'Music')?></li>
                 <li class="mobile"><?=anchor(array('users'), 'Users')?></li>
-                <li class="mobile"><?=anchor(array('search'), 'Search')?></li>
                 <li><a href="javascript:;" class="toggle_username <?=(!empty($this->session->userdata('get_username'))) ? 'active' : ''; ?>"><?=(!empty($this->session->userdata('get_username'))) ? 'Show all' : 'Your stats only'; ?></a></li>
                 <li><?=anchor(array('user', $this->session->userdata('username')), 'Profile')?></li>
                 <li><?=anchor(array('user', 'edit'), 'Edit')?></li>
                 <li><?=anchor(array('inbox'), 'Inbox')?></li>
+                <li><?=anchor(array('search'), 'Search')?></li>
+                <?php
+                if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+                  ?>
+                  <li><?=anchor(array('admin'), 'Admin')?></li>
+                  <?php
+                }
+                ?>
                 <li><?=anchor(array('logout'), 'Logout')?></li>
               </ul>
             </div>
