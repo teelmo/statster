@@ -21,6 +21,7 @@ class Admin extends CI_Controller {
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
       
+      $data['js_include'] = array('admin/admin');
       $this->load->view('site_templates/header');
       $this->load->view('admin/admin_view', $data);
       $this->load->view('site_templates/footer');

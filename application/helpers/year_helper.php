@@ -175,7 +175,7 @@ if (!function_exists('addYearBio')) {
   * @return string JSON.
   */
 if (!function_exists('addYear')) {
-  function addYear($opts = array()) {
+  function addAlbumYear($opts = array()) {
     if (empty($opts)) {
       header('HTTP/1.1 400 Bad Request');
       return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));

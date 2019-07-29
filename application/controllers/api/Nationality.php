@@ -44,7 +44,7 @@ class Nationality extends CI_Controller {
     // Load helpers
     $this->load->helper(array('nationality_helper'));
 
-    echo deleteNationality($_REQUEST);
+    echo deleteAlbumNationality($_REQUEST);
     
   }
 }

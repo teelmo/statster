@@ -204,14 +204,14 @@ if (!function_exists('addNationalityBio')) {
 }
 
 /**
-  * Add nationality data.
+  * Add album nationality data.
   *
   * @param array $opts.
   *
   * @return string JSON.
   */
-if (!function_exists('addNationality')) {
-  function addNationality($opts = array()) {
+if (!function_exists('addAlbumNationality')) {
+  function addAlbumNationality($opts = array()) {
     if (empty($opts)) {
       header('HTTP/1.1 400 Bad Request');
       return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
@@ -346,7 +346,7 @@ if (!function_exists('getMusicByNationality')) {
 }
 
 /**
-  * Delete nationality data.
+  * Delete album nationality data.
   *
   * @param array $opts.
   *          'album_id'   => Album ID
@@ -355,8 +355,8 @@ if (!function_exists('getMusicByNationality')) {
   * @return string JSON.
   *
   **/
-if (!function_exists('deleteNationality')) {
-  function deleteNationality($opts = array()) {
+if (!function_exists('deleteAlbumNationality')) {
+  function deleteAlbumNationality($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 

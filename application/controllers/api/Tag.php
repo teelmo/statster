@@ -93,19 +93,19 @@ class Tag extends CI_Controller {
       switch ($tag_type) {
         case 'genre':
           $this->load->helper(array('genre_helper'));
-          echo addGenre($_REQUEST);
+          echo addAlbumGenre($_REQUEST);
           break;
         case 'keyword':
           $this->load->helper(array('keyword_helper'));
-          echo addKeyword($_REQUEST);
+          echo addAlbumKeyword($_REQUEST);
           break;
         case 'nationality':
           $this->load->helper(array('nationality_helper'));
-          echo addNationality($_REQUEST);
+          echo addAlbumNationality($_REQUEST);
           break;
         case 'year':
           $this->load->helper(array('year_helper'));
-          echo addYear($_REQUEST);
+          echo addAlbumYear($_REQUEST);
           break;
         default:
           header("HTTP/1.1 400 Bad Request");

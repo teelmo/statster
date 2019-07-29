@@ -16,14 +16,14 @@ class Keyword extends CI_Controller {
     else {
       echo getKeywords($_REQUEST);
     }
-
-    
   }
 
   /* Add a keyword */
   public function add() {
     // Load helpers
-    header('HTTP/1.1 501 Not Implemented');
+    $this->load->helper(array('keyword_helper', 'output_helper'));
+    
+    echo addKeyword($_REQUEST);
   }
 
   /* Update keyword information */
@@ -46,7 +46,7 @@ class Keyword extends CI_Controller {
     // Load helpers
     $this->load->helper(array('keyword_helper'));
 
-    echo deleteKeyword($_REQUEST);
+    echo deleteAlbumKeyword($_REQUEST);
     
   }
 }

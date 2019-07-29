@@ -21,7 +21,9 @@ class Genre extends CI_Controller {
   /* Add a genre */
   public function add() {
     // Load helpers
-    header('HTTP/1.1 501 Not Implemented');
+    $this->load->helper(array('genre_helper', 'output_helper'));
+
+    echo addGenre($_REQUEST);
   }
 
   /* Update genre information */
@@ -44,7 +46,7 @@ class Genre extends CI_Controller {
     // Load helpers
     $this->load->helper(array('genre_helper'));
 
-    echo deleteGenre($_REQUEST);
+    echo deleteAlbumGenre($_REQUEST);
   }
 }
 ?>

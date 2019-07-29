@@ -36,14 +36,4 @@
         <div><input type="submit" name="addKeywordSubmit" tabindex="10" id="addKeywordSubmit" value="Add" /></div>
       </form>
     </div>
-    <div class="container"><hr /></div>
-    <div class="container">
-      <h2>Edit albums</h2>
-      <p>Albums are being edited from the album page</p>
-    </div>
-    <div class="container"><hr /></div>
-    <div class="container">
-      <h2>Edit artists</h2>
-      <p>Artists are being edited from the album page</p>
-    </div>
   </div>

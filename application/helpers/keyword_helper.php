@@ -137,7 +137,6 @@ if (!function_exists('getKeywordsCumulative')) {
   }
 }
 
-
 /**
   * Gets keyword's bio.
   *
@@ -206,7 +205,7 @@ if (!function_exists('addKeywordBio')) {
 }
 
 /**
-  * Add keyword data.
+  * Add keyword.
   *
   * @param array $opts.
   *
@@ -214,6 +213,48 @@ if (!function_exists('addKeywordBio')) {
   */
 if (!function_exists('addKeyword')) {
   function addKeyword($opts = array()) {
+    if (empty($opts)) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    $data = array();
+    
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id') && in_array($ci->session->userdata['user_id'], ADMIN_USERS)) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    $data += $opts;
+  
+    // Add keyword data to DB.
+    $sql = "INSERT
+              INTO " . TBL_keyword . " (`name`, `user_id`)
+              VALUES (?, ?)";
+    $query = $ci->db->query($sql, array($data['name'], $data['user_id']));
+    if ($ci->db->affected_rows() === 1) {
+      header('HTTP/1.1 201 Created');
+      return json_encode(array('success' => array('msg' => $data)));
+    }
+    else {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+    }
+  }
+}
+
+/**
+  * Add album keyword data.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('addAlbumKeyword')) {
+  function addAlbumKeyword($opts = array()) {
     if (empty($opts)) {
       header('HTTP/1.1 400 Bad Request');
       return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
@@ -339,7 +380,7 @@ if (!function_exists('getMusicByKeyword')) {
 }
 
 /**
-  * Delete keyword data.
+  * Delete album keyword data.
   *
   * @param array $opts.
   *          'album_id'   => Album ID
@@ -348,8 +389,8 @@ if (!function_exists('getMusicByKeyword')) {
   * @return string JSON.
   *
   **/
-if (!function_exists('deleteKeyword')) {
-  function deleteKeyword($opts = array()) {
+if (!function_exists('deleteAlbumKeyword')) {
+  function deleteAlbumKeyword($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 

@@ -205,7 +205,7 @@ if (!function_exists('addGenreBio')) {
 }
 
 /**
-  * Add genre data.
+  * Add genre.
   *
   * @param array $opts.
   *
@@ -224,12 +224,52 @@ if (!function_exists('addGenre')) {
     $data = array();
     
     // Get user id from session.
-    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+    if (!$data['user_id'] = $ci->session->userdata('user_id') && in_array($ci->session->userdata['user_id'], ADMIN_USERS)) {
       header('HTTP/1.1 401 Unauthorized');
       return json_encode(array('error' => array('msg' => $data)));
     }
     $data += $opts;
   
+    // Add genre data to DB.
+    $sql = "INSERT
+              INTO " . TBL_genre . " (`name`, `user_id`)
+              VALUES (?, ?)";
+    $query = $ci->db->query($sql, array($data['name'], $data['user_id']));
+    if ($ci->db->affected_rows() === 1) {
+      header('HTTP/1.1 201 Created');
+      return json_encode(array('success' => array('msg' => $data)));
+    }
+    else {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+    }
+  }
+}
+
+/**
+  * Add album genre data.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('addAlbumGenre')) {
+  function addAlbumGenre($opts = array()) {
+    if (empty($opts)) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    $data = array();
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    $data += $opts;
+
     // Add genre data to DB.
     $sql = "INSERT
               INTO " . TBL_genres . " (`album_id`, `genre_id`, `user_id`)
@@ -349,8 +389,8 @@ if (!function_exists('getMusicByGenre')) {
   * @return string JSON.
   *
   **/
-if (!function_exists('deleteGenre')) {
-  function deleteGenre($opts = array()) {
+if (!function_exists('deleteAlbumGenre')) {
+  function deleteAlbumGenre($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 

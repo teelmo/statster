@@ -41,16 +41,16 @@ if (!function_exists('addAlbum')) {
         // Add decade keyword.
         $data['tag_name'] = (floor((int)$data['album_year'] / 10) * 10) . 's';
         $data['tag_id'] = getKeywordID($data);
-        addKeyword($data);
+        addAlbumKeyword($data);
         // Add nationality information.
         $nationalities = getArtistNationalities(array('artist_id' => $data['artist_id']));
         if (!empty($nationalities)) {
           foreach ($nationalities as $key => $nationality) {
-            addNationality(array('album_id' => $data['album_id'], 'tag_id' => $nationality->tag_id));
+            addAlbumNationality(array('album_id' => $data['album_id'], 'tag_id' => $nationality->tag_id));
           }
         }
         else {
-          addNationality(array('album_id' => $data['album_id'], 'tag_id' => '242'));
+          addAlbumNationality(array('album_id' => $data['album_id'], 'tag_id' => '242'));
         }
         // Add Spotify resource.
         getSpotifyResourceId($data);
