@@ -18,14 +18,11 @@ $.extend(view, {
           },
           400: function () { // 400 Bad Request
             alert('400 Bad Request');
-            $('#recentlyListenedLoader2').hide();
+            $('#addGenreText').val('');
           },
           401: function () { // 401 Unauthorized
             alert('401 Unauthorized');
-            $('#recentlyListenedLoader2').hide();
-          },
-          404: function () { // 404 Not found
-            $('#recentlyListenedLoader2').hide();
+            $('#addGenreText').val('');
           }
         },
         type:'POST',
@@ -50,14 +47,11 @@ $.extend(view, {
           },
           400: function () { // 400 Bad Request
             alert('400 Bad Request');
-            $('#recentlyListenedLoader2').hide();
+            $('#addGenreText').val('');
           },
           401: function () { // 401 Unauthorized
             alert('401 Unauthorized');
-            $('#recentlyListenedLoader2').hide();
-          },
-          404: function () { // 404 Not found
-            $('#recentlyListenedLoader2').hide();
+            $('#addGenreText').val('');
           }
         },
         type:'POST',
