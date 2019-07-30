@@ -33,8 +33,7 @@ $.extend(view, {
       });
       return false;
     });
-  }
-  $('#addKeywordSubmit').click(function () {
+    $('#addKeywordSubmit').click(function () {
       var name = $('#addKeywordText').val();
       if (name === '') {
         return false;
