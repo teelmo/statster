@@ -24,21 +24,21 @@
       <ul id="topArtistGenre" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1><?=anchor(array('keyword', url_title($genre['name'])), $keyword['name'])?></h1>
+      <h1><?=anchor(array('keyword', url_title($keyword['name'])), $keyword['name'])?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumKeywordLoader" />
       <ul id="topAlbumKeyword" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistKeywordLoader" />
       <ul id="topArtistKeyword" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1><?=anchor(array('nationality', url_title($genre['name'])), $nationality['name'])?></h1>
+      <h1><?=anchor(array('nationality', url_title($nationality['name'])), $nationality['name'])?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumNationalityLoader" />
       <ul id="topAlbumNationality" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistNationalityLoader" />
       <ul id="topArtistNationality" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1><?=anchor(array('year', url_title($genre['name'])), $year['name'])?></h1>
+      <h1><?=anchor(array('year', url_title($year['name'])), $year['name'])?></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearLoader" />
       <ul id="topAlbumYear" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
