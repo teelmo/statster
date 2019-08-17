@@ -68,9 +68,10 @@ if (!function_exists('timeAgo')) {
   *
   * @return string Time ago style formatted version of the given datetime.
   */
-  function timeAgo($ptime) {
+  function timeAgo($ptime, $etime) {
     $ptime = substr($ptime, 0, 10);
-    $etime = time() - strtotime($ptime);
+    $time = empty($etime) ? time() : $etime;
+    $etime = $time - strtotime($ptime);
 
     $a = array(
       12 * 30 * 24 * 60 * 60 => 'year',

@@ -78,7 +78,7 @@ if (!empty($json_data)) {
             ?>
             <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon listeningFormatType"/>
           </td>
-          <td class="datetime"><?php echo !empty($datetime) ? $datetime : timeAgo($row['date'])?></td>
+          <td class="datetime"><?php echo !empty($datetime) ? $datetime : timeAgo($row['date'], $time)?></td>
           <?php
           if (empty($hide['user'])) {
             ?>
