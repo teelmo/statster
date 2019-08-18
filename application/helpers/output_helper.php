@@ -68,27 +68,26 @@ if (!function_exists('timeAgo')) {
   *
   * @return string Time ago style formatted version of the given datetime.
   */
-  function timeAgo($ptime, $time) {
-    $time = empty($time) ? time() : $time;
-    $etime = $time - strtotime($ptime);
+  function timeAgo($ptime) {
+    $etime = (new DateTime(date('Y-m-d') . ' 12:00:00 GMT'))->format('U') - (new DateTime($ptime . ' 12:00:00 GMT'))->format('U');
 
     $a = array(
-      12 * 30 * 24 * 60 * 60 => 'year',
-      30 * 24 * 60 * 60 => 'month',
-      48 * 60 * 60 => 'day',
-      24 * 60 * 60 => 'yesterday',
+      12 * 30.5 * 24 * 60 * 60 => 'year',
+      30.5 * 24 * 60 * 60 => 'month',
+      24 * 60 * 60 => 'day',
       60 * 60 => 'today',
     );
 
     foreach ($a as $secs => $str) {
       $d = $etime / $secs;
-
       if ($d >= 1) {
-        $r = ($str == 'day') ? round($d) + 1: round($d);
-        if ($secs < (48 * 60 * 60)) {
-          return '<span title="' . $ptime . '">' . $str . '</span>';
+        $r = round($d);
+        if ($etime < (48 * 60 * 60)) {
+          return '<span title="' . $ptime . '">yesterday</span>';
         }
-        return '<span title="' . $ptime . '"><span class="number">' . $r . '</span> ' . $str . ($r > 1 ? 's' : '') . ' ago</span>';
+        else {
+          return '<span title="' . $ptime . '"><span class="number">' . $r . '</span> ' . $str . ($r > 1 ? 's' : '') . ' ago</span>';
+        }
       }
     }
   }
