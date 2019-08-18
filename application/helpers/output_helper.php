@@ -69,7 +69,7 @@ if (!function_exists('timeAgo')) {
   * @return string Time ago style formatted version of the given datetime.
   */
   function timeAgo($ptime) {
-    $etime = (new DateTime(date('Y-m-d') . ' 12:00:00 GMT'))->format('U') - (new DateTime($ptime . ' 12:00:00 GMT'))->format('U');
+    $etime = (new DateTime(date('Y-m-d') . ' 12:00:00 GMT'))->format('U') - (new DateTime(substr($ptime, 0, 10) . ' 12:00:00 GMT'))->format('U');
 
     if ($etime === 0) {
       return '<span title="' . $ptime . '">today</span>';
