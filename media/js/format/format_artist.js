@@ -1,5 +1,5 @@
 $.extend(view, {
-  // Get album tags.
+  // Get artist tags.
   getTags: function () {
     $.ajax({
       data:{
