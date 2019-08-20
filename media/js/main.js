@@ -17,27 +17,28 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
+          var today = new Date();
           $.ajax({
             data:{
+              cur_date:today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2),
               hide:{
                 del:true
               },
               json_data:data,
               strlenght:50,
-              time:Math.floor((new Date().getTime() - new Date().getTimezoneOffset() * 60000) / 1000)
+              time:Math.floor((today.getTime() - today.getTimezoneOffset() * 60000) / 1000)
             },
             success: function (data) {
               $('#recentlyListenedLoader2').hide();
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
-              var currentTime = new Date();
-              var hours = currentTime.getHours();
-              var minutes = currentTime.getMinutes();
+              var hours = today.getHours();
+              var minutes = today.getMinutes();
               if (minutes < 10) {
                 minutes = '0' + minutes;
               }
               $('#recentlyUpdated').html('updated <span class="number">' + hours + '</span>:<span class="number">' + minutes + '</span>');
-              $('#recentlyUpdated').attr('value', currentTime.getTime());
+              $('#recentlyUpdated').attr('value', today.getTime());
             },
             type:'POST',
             url:'/ajax/musicTable'
@@ -55,13 +56,14 @@ $.extend(view, {
   },
   // Get top albums.
   getTopAlbums: function (interval) {
+    var lower_limit;
     if (interval === 'overall') {
-      var lower_limit = '1970-00-00';
+      lower_limit = '1970-00-00';
     }
     else {
-      var date = new Date();
-      date.setDate(date.getDate() - parseInt(interval));
-      var lower_limit = date.toISOString().split('T')[0];
+      var today = new Date();
+      today.setDate(today.getDate() - parseInt(interval));
+      lower_limit = today.toISOString().split('T')[0];
     }
     $.ajax({
       data:{
@@ -96,13 +98,14 @@ $.extend(view, {
   },
   // Get top artists.
   getTopArtists: function (interval) {
+    var lower_limit;
     if (interval === 'overall') {
-      var lower_limit = '1970-00-00';
+      lower_limit = '1970-00-00';
     }
     else {
-      var date = new Date();
-      date.setDate(date.getDate() - parseInt(interval));
-      var lower_limit = date.toISOString().split('T')[0];
+      var today = new Date();
+      today.setDate(today.getDate() - parseInt(interval));
+      lower_limit = today.toISOString().split('T')[0];
     }
     $.ajax({
       data:{

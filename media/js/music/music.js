@@ -22,14 +22,15 @@ $.extend(view, {
   },
   getListeningHistory: function (type) {
     view.initChart();
+    var where;
     if (type == '%w') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
+      where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
     }
     else if (type == '%Y%m') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
+      where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
     }
     else {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
+      where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
     }
     $.ajax({
       data:{
@@ -107,13 +108,14 @@ $.extend(view, {
     });
   },
   getPopularAlbums: function (interval) {
+    var lower_limit;
     if (interval === 'overall') {
-      var lower_limit = '1970-00-00';
+      lower_limit = '1970-00-00';
     }
     else {
-      var date = new Date();
-      date.setDate(date.getDate() - parseInt(interval));
-      var lower_limit = date.toISOString().split('T')[0];
+      var today = new Date();
+      today.setDate(today.getDate() - parseInt(interval));
+      lower_limit = today.toISOString().split('T')[0];
     }
     $.ajax({
       data:{
