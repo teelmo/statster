@@ -228,7 +228,6 @@ $.extend(view, {
         200: function(data) {
           $('.year_heading .value').html('<a href="/year/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'year', 'Year', lower_limit);
-          
           $.ajax({
             data:{
               json_data:data
