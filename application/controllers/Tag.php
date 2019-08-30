@@ -70,13 +70,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
-      $data['limit'] = 1;
-      $data['lower_limit'] = date('Y-m-d', time() - (180 * 24 * 60 * 60));
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
-      $data['genre'] = json_decode(getGenres($data), true)[0];
-      $data['keyword'] = json_decode(getKeywords($data), true)[0];
-      $data['nationality'] = json_decode(getNationalities($data), true)[0];
-      $data['year'] = json_decode(getYears($data), true)[0];
       $data['js_include'] = array('tag/tags', 'helpers/time_interval_helper');
 
       $this->load->view('site_templates/header');

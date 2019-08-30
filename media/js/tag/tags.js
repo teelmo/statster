@@ -1,10 +1,10 @@
 $.extend(view, {
   // Get top albums.
-  getTopAlbums: function (tag_id, tag_type, element) {
+  getTopAlbums: function (tag_id, tag_type, element, lower_limit) {
     $.ajax({
       data:{
         limit:9,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         tag_id:tag_id,
         tag_type:tag_type,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -35,12 +35,12 @@ $.extend(view, {
     });
   },
   // Get top artists.
-  getTopArtists: function (tag_id, tag_type, element) {
+  getTopArtists: function (tag_id, tag_type, element, lower_limit) {
     $.ajax({
       data:{
         group_by:'`artist_id`',
         limit:9,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         order_by:'`count` DESC, <?=TBL_artist?>.`artist_name` ASC',
         tag_id:tag_id,
         tag_type:tag_type,
@@ -89,6 +89,9 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
+          $('.genre_heading').html('<a href="/genre/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          view.getTopAlbums(data[0].tag_id, 'genre', 'Genre', lower_limit);
+          view.getTopArtists(data[0].tag_id, 'genre', 'Genre', lower_limit);
           $.ajax({
             data:{
               json_data:data
@@ -102,8 +105,10 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topGenreLoader, #topGenreLoader2').hide();
-          $('#topGenre').html('<?=ERR_NO_RESULTS?>');
+          $('#topGenreLoader, #topGenreLoader2, #topAlbumGenreLoader, #topArtistGenreLoader').hide();
+          $('#topGenre, #topAlbumGenre').html('<?=ERR_NO_RESULTS?>');
+          $('.genre_heading').html('Genres');
+          $('#topArtistGenre').html('');
         }
       },
       type:'GET',
@@ -128,6 +133,9 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
+           $('.keyword_heading').html('<a href="/keyword/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          view.getTopAlbums(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
+          view.getTopArtists(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           $.ajax({
             data:{
               json_data:data
@@ -141,8 +149,10 @@ $.extend(view, {
           });  
         },
         204: function () { // 204 No Content
-          $('#topKeywordLoader, #topKeywordLoader2').hide();
-          $('#topKeyword').html('<?=ERR_NO_RESULTS?>');
+          $('#topKeywordLoader, #topKeywordLoader2, #topAlbumKeywordLoader, #topArtistKeywordLoader').hide();
+          $('#topKeyword, #topAlbumKeyword').html('<?=ERR_NO_RESULTS?>');
+          $('.keyword_heading').html('Keywords');
+          $('#topArtistKeyword').html('');
         }
       },
       type:'GET',
@@ -167,6 +177,9 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
+           $('.nationality_heading').html('<a href="/nationality/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          view.getTopAlbums(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
+          view.getTopArtists(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
           $.ajax({
             data:{
               json_data:data
@@ -180,8 +193,10 @@ $.extend(view, {
           });  
         },
         204: function () { // 204 No Content
-          $('#topNationalityLoader, #topNationalityLoader2').hide();
-          $('#topNationality').html('<?=ERR_NO_RESULTS?>');
+          $('#topNationalityLoader, #topNationalityLoader2, #topAlbumNationalityLoader, #topArtistNationalityLoader').hide();
+          $('#topNationality, #topAlbumNationality').html('<?=ERR_NO_RESULTS?>');
+          $('.nationality_heading').html('Nationalities');
+          $('#topArtistNationality').html('');
         }
       },
       type:'GET',
@@ -206,6 +221,8 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
+          $('.year_heading').html('<a href="/year/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          view.getTopAlbums(data[0].tag_id, 'year', 'Year', lower_limit);
           $.ajax({
             data:{
               json_data:data
@@ -219,8 +236,9 @@ $.extend(view, {
           });  
         },
         204: function () { // 204 No Content
-          $('#topYearLoader, #topYearLoader2').hide();
-          $('#topYear').html('<?=ERR_NO_RESULTS?>');
+          $('#topYearLoader, #topYearLoader2, #topAlbumYearLoader').hide();
+          $('#topYear, #topAlbumYear').html('<?=ERR_NO_RESULTS?>');
+          $('.year_heading').html('Years');
         }
       },
       type:'GET',
@@ -230,13 +248,6 @@ $.extend(view, {
 });
 
 $(document).ready(function() {
-  view.getTopAlbums('<?=$genre['tag_id']?>', 'genre', 'Genre');
-  view.getTopArtists('<?=$genre['tag_id']?>', 'genre', 'Genre');
-  view.getTopAlbums('<?=$keyword['tag_id']?>', 'keyword', 'Keyword');
-  view.getTopArtists('<?=$keyword['tag_id']?>', 'keyword', 'Keyword');
-  view.getTopAlbums('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
-  view.getTopArtists('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
-  view.getTopAlbums('<?=$year['year']?>', 'year', 'Year');
   view.topGenre('<?=$top_genre_tags?>');
   view.topKeyword('<?=$top_keyword_tags?>');
   view.topNationality('<?=$top_nationality_tags?>');
