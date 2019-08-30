@@ -89,7 +89,7 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-          $('.genre_heading .value').html('<a href="/genre/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          $('.genre_heading .value').html('<a href="/genre/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'genre', 'Genre', lower_limit);
           view.getTopArtists(data[0].tag_id, 'genre', 'Genre', lower_limit);
           $.ajax({
@@ -107,8 +107,8 @@ $.extend(view, {
         204: function () { // 204 No Content
           $('#topGenreLoader, #topGenreLoader2, #topGenreLoader3, #topAlbumGenreLoader, #topArtistGenreLoader').hide();
           $('#topGenre, #topAlbumGenre').html('<?=ERR_NO_RESULTS?>');
-          $('.genre_heading').html('Genres');
           $('#topArtistGenre').html('');
+          $('.genre_heading .value').html('Genres').removeClass('not_available');
         }
       },
       type:'GET',
@@ -133,7 +133,7 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-          $('.keyword_heading .value').html('<a href="/keyword/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          $('.keyword_heading .value').html('<a href="/keyword/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           view.getTopArtists(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           
@@ -152,8 +152,8 @@ $.extend(view, {
         204: function () { // 204 No Content
           $('#topKeywordLoader, #topKeywordLoader2, #topKeywordLoader3, #topAlbumKeywordLoader, #topArtistKeywordLoader').hide();
           $('#topKeyword, #topAlbumKeyword').html('<?=ERR_NO_RESULTS?>');
-          $('.keyword_heading').html('Keywords');
           $('#topArtistKeyword').html('');
+          $('.keyword_heading .value').html('Keywords').removeClass('not_available');
         }
       },
       type:'GET',
@@ -178,7 +178,7 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-          $('.nationality_heading .value').html('<a href="/nationality/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          $('.nationality_heading .value').html('<a href="/nationality/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
           view.getTopArtists(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
           $.ajax({
@@ -196,8 +196,8 @@ $.extend(view, {
         204: function () { // 204 No Content
           $('#topNationalityLoader, #topNationalityLoader2, #topNationalityLoader3, #topAlbumNationalityLoader, #topArtistNationalityLoader').hide();
           $('#topNationality, #topAlbumNationality').html('<?=ERR_NO_RESULTS?>');
-          $('.nationality_heading').html('Nationalities');
           $('#topArtistNationality').html('');
+          $('.nationality_heading .value').html('Nationalities').removeClass('not_available');
         }
       },
       type:'GET',
@@ -222,7 +222,7 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-          $('.year_heading .value').html('<a href="/year/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          $('.year_heading .value').html('<a href="/year/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'year', 'Year', lower_limit);
           $.ajax({
             data:{
@@ -239,7 +239,7 @@ $.extend(view, {
         204: function () { // 204 No Content
           $('#topYearLoader, #topYearLoader2, #topYearLoader3, #topAlbumYearLoader').hide();
           $('#topYear, #topAlbumYear').html('<?=ERR_NO_RESULTS?>');
-          $('.year_heading').html('Years');
+          $('.year_heading .value').html('Years').removeClass('not_available');
         }
       },
       type:'GET',
