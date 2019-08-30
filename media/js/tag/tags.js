@@ -80,6 +80,7 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(lower_limit));
       lower_limit = date.toISOString().split('T')[0];
     }
+    $('#topGenreLoader3').show();
     $.ajax({
       data:{
         limit:20,
@@ -92,7 +93,6 @@ $.extend(view, {
           $('.genre_heading .value').html('<a href="/genre/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'genre', 'Genre', lower_limit);
           view.getTopArtists(data[0].tag_id, 'genre', 'Genre', lower_limit);
-          $('#topGenreLoader3').show();
           $.ajax({
             data:{
               json_data:data
@@ -125,6 +125,7 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(lower_limit));
       lower_limit = date.toISOString().split('T')[0];
     }
+    $('#topKeywordLoader3').show();
     $.ajax({
       data:{
         limit:20,
@@ -137,7 +138,7 @@ $.extend(view, {
           $('.keyword_heading .value').html('<a href="/keyword/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           view.getTopArtists(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
-          $('#topKeywordLoader3').show();
+          
           $.ajax({
             data:{
               json_data:data
@@ -170,6 +171,7 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(lower_limit));
       lower_limit = date.toISOString().split('T')[0];
     }
+    $('#topNationalityLoader3').show();
     $.ajax({
       data:{
         limit:20,
@@ -182,7 +184,6 @@ $.extend(view, {
           $('.nationality_heading .value').html('<a href="/nationality/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
           view.getTopArtists(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
-          $('#topNationalityLoader3').show();
           $.ajax({
             data:{
               json_data:data
@@ -215,6 +216,7 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(lower_limit));
       lower_limit = date.toISOString().split('T')[0];
     }
+    $('#topYearLoader3').show();
     $.ajax({
       data:{
         limit:20,
@@ -226,7 +228,7 @@ $.extend(view, {
         200: function(data) {
           $('.year_heading .value').html('<a href="/year/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'year', 'Year', lower_limit);
-          $('#topYearLoader3').show();
+          
           $.ajax({
             data:{
               json_data:data
