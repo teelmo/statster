@@ -18,7 +18,7 @@ $.extend(view, {
               type:'album'
             },
             success: function (data) {
-              $('#topAlbum' + element + 'Loader').hide();
+              $('#topAlbum' + element + 'Loader, #top' + element + 'Loader3').hide();
               $('#topAlbum' + element).html(data);
             },
             type:'POST',
@@ -98,7 +98,7 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topGenreLoader, #topGenreLoader2, #topGenreLoader3').hide();
+              $('#topGenreLoader, #topGenreLoader2').hide();
               $('#topGenre').html(data);
             },
             type:'POST',
@@ -143,7 +143,7 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topKeywordLoader, #topKeywordLoader2, #topKeywordLoader3').hide();
+              $('#topKeywordLoader, #topKeywordLoader2').hide();
               $('#topKeyword').html(data);
             },
             type:'POST',
@@ -188,7 +188,7 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topNationalityLoader, #topNationalityLoader2, #topNationalityLoader3').hide();
+              $('#topNationalityLoader, #topNationalityLoader2').hide();
               $('#topNationality').html(data);
             },
             type:'POST',
@@ -232,7 +232,7 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topYearLoader, #topYearLoader2, #topYearLoader3').hide();
+              $('#topYearLoader, #topYearLoader2').hide();
               $('#topYear').html(data);
             },
             type:'POST',
