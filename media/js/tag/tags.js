@@ -89,15 +89,16 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-          $('.genre_heading').html('<a href="/genre/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          $('.genre_heading .value').html('<a href="/genre/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'genre', 'Genre', lower_limit);
           view.getTopArtists(data[0].tag_id, 'genre', 'Genre', lower_limit);
+          $('#topGenreLoader3').show();
           $.ajax({
             data:{
               json_data:data
             },
             success: function(data) {
-              $('#topGenreLoader, #topGenreLoader2').hide();
+              $('#topGenreLoader, #topGenreLoader2, #topGenreLoader3').hide();
               $('#topGenre').html(data);
             },
             type:'POST',
@@ -105,7 +106,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#topGenreLoader, #topGenreLoader2, #topAlbumGenreLoader, #topArtistGenreLoader').hide();
+          $('#topGenreLoader, #topGenreLoader2, #topGenreLoader3, #topAlbumGenreLoader, #topArtistGenreLoader').hide();
           $('#topGenre, #topAlbumGenre').html('<?=ERR_NO_RESULTS?>');
           $('.genre_heading').html('Genres');
           $('#topArtistGenre').html('');
@@ -133,15 +134,16 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-           $('.keyword_heading').html('<a href="/keyword/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          $('.keyword_heading .value').html('<a href="/keyword/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           view.getTopArtists(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
+          $('#topKeywordLoader3').show();
           $.ajax({
             data:{
               json_data:data
             },
             success: function(data) {
-              $('#topKeywordLoader, #topKeywordLoader2').hide();
+              $('#topKeywordLoader, #topKeywordLoader2, #topKeywordLoader3').hide();
               $('#topKeyword').html(data);
             },
             type:'POST',
@@ -149,7 +151,7 @@ $.extend(view, {
           });  
         },
         204: function () { // 204 No Content
-          $('#topKeywordLoader, #topKeywordLoader2, #topAlbumKeywordLoader, #topArtistKeywordLoader').hide();
+          $('#topKeywordLoader, #topKeywordLoader2, #topKeywordLoader3, #topAlbumKeywordLoader, #topArtistKeywordLoader').hide();
           $('#topKeyword, #topAlbumKeyword').html('<?=ERR_NO_RESULTS?>');
           $('.keyword_heading').html('Keywords');
           $('#topArtistKeyword').html('');
@@ -177,15 +179,16 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-           $('.nationality_heading').html('<a href="/nationality/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          $('.nationality_heading .value').html('<a href="/nationality/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
           view.getTopArtists(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
+          $('#topNationalityLoader3').show();
           $.ajax({
             data:{
               json_data:data
             },
             success: function(data) {
-              $('#topNationalityLoader, #topNationalityLoader2').hide();
+              $('#topNationalityLoader, #topNationalityLoader2, #topNationalityLoader3').hide();
               $('#topNationality').html(data);
             },
             type:'POST',
@@ -193,7 +196,7 @@ $.extend(view, {
           });  
         },
         204: function () { // 204 No Content
-          $('#topNationalityLoader, #topNationalityLoader2, #topAlbumNationalityLoader, #topArtistNationalityLoader').hide();
+          $('#topNationalityLoader, #topNationalityLoader2, #topNationalityLoader3, #topAlbumNationalityLoader, #topArtistNationalityLoader').hide();
           $('#topNationality, #topAlbumNationality').html('<?=ERR_NO_RESULTS?>');
           $('.nationality_heading').html('Nationalities');
           $('#topArtistNationality').html('');
@@ -221,14 +224,15 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-          $('.year_heading').html('<a href="/year/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
+          $('.year_heading .value').html('<a href="/year/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>');
           view.getTopAlbums(data[0].tag_id, 'year', 'Year', lower_limit);
+          $('#topYearLoader3').show();
           $.ajax({
             data:{
               json_data:data
             },
             success: function(data) {
-              $('#topYearLoader, #topYearLoader2').hide();
+              $('#topYearLoader, #topYearLoader2, #topYearLoader3').hide();
               $('#topYear').html(data);
             },
             type:'POST',
@@ -236,7 +240,7 @@ $.extend(view, {
           });  
         },
         204: function () { // 204 No Content
-          $('#topYearLoader, #topYearLoader2, #topAlbumYearLoader').hide();
+          $('#topYearLoader, #topYearLoader2, #topYearLoader3, #topAlbumYearLoader').hide();
           $('#topYear, #topAlbumYear').html('<?=ERR_NO_RESULTS?>');
           $('.year_heading').html('Years');
         }

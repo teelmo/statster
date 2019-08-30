@@ -17,28 +17,28 @@
   </div>
   <div class="left_container">
     <div class="container clearfix">
-      <h1 class="genre_heading"></h1>
+      <h1 class="genre_heading"><span class="value"></span><img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topGenreLoader3" /></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumGenreLoader" />
       <ul id="topAlbumGenre" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistGenreLoader" />
       <ul id="topArtistGenre" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1 class="keyword_heading"></h1>
+      <h1 class="keyword_heading"><span class="value"></span><img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topKeywordLoader3" /></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumKeywordLoader" />
       <ul id="topAlbumKeyword" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistKeywordLoader" />
       <ul id="topArtistKeyword" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1 class="nationality_heading"></h1>
+      <h1 class="nationality_heading"><span class="value"></span><img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topNationalityLoader3" /></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumNationalityLoader" />
       <ul id="topAlbumNationality" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistNationalityLoader" />
       <ul id="topArtistNationality" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container clearfix">
-      <h1 class="year_heading"></h1>
+      <h1 class="year_heading"><span class="value"></span><img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader3" /></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearLoader" />
       <ul id="topAlbumYear" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
