@@ -57,6 +57,12 @@ class Tag extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('genre_helper', 'keyword_helper', 'nationality_helper', 'music_helper', 'img_helper', 'year_helper', 'output_helper'));
 
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_genre_tags'] = isset($intervals['top_genre_tags']) ? $intervals['top_genre_tags'] : 180;
+      $data['top_keyword_tags'] = isset($intervals['top_keyword_tags']) ? $intervals['top_keyword_tags'] : 180;
+      $data['top_nationality_tags'] = isset($intervals['top_nationality_tags']) ? $intervals['top_nationality_tags'] : 180;
+      $data['top_year_tags'] = isset($intervals['top_year_tags']) ? $intervals['top_year_tags'] : 180;
+
       $opts = array(
         'human_readable' => false,
         'limit' => '1',
@@ -71,7 +77,7 @@ class Tag extends CI_Controller {
       $data['keyword'] = json_decode(getKeywords($data), true)[0];
       $data['nationality'] = json_decode(getNationalities($data), true)[0];
       $data['year'] = json_decode(getYears($data), true)[0];
-      $data['js_include'] = array('tag/tags');
+      $data['js_include'] = array('tag/tags', 'helpers/time_interval_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('tag/tags_view', $data);

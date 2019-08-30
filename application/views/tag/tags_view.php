@@ -46,38 +46,94 @@
   <div class="right_container">
     <div class="container">
       <h1>Hot</h1>
-      <h2>Genres</h2>
+      <h2>
+        Genres
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topGenreLoader2" />
+        <div class="func_container">
+          <div class="value top_genre_value" data-value="<?=$top_genre_tags?>"><?=INTERVAL_TEXTS[$top_genre_tags]?></div>
+          <ul class="subnav" data-name="top_genre_tags" data-callback="topGenre" data-loader="topGenreLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('genre'), 'More', array('title' => 'Browse more listenings'))?>
+        <?=anchor(array('genre'), 'More', array('title' => 'Browse more genres'))?>
       </div>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Keywords</h2>
+      <h2>
+        Keywords
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topKeywordLoader2" />
+        <div class="func_container">
+          <div class="value top_keyword_value" data-value="<?=$top_keyword_tags?>"><?=INTERVAL_TEXTS[$top_keyword_tags]?></div>
+          <ul class="subnav" data-name="top_keyword_tags" data-callback="topKeyword" data-loader="topKeywordLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('keyword'), 'More', array('title' => 'Browse more listenings'))?>
+        <?=anchor(array('keyword'), 'More', array('title' => 'Browse more keywords'))?>
       </div>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Nationalities</h2>
+      <h2>
+        Nationalities
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topNationalityLoader2" />
+        <div class="func_container">
+          <div class="value top_nationality_value" data-value="<?=$top_nationality_tags?>"><?=INTERVAL_TEXTS[$top_nationality_tags]?></div>
+          <ul class="subnav" data-name="top_nationality_tags" data-callback="topNationality" data-loader="topNationalityLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('nationality'), 'More', array('title' => 'Browse more listenings'))?>
+        <?=anchor(array('nationality'), 'More', array('title' => 'Browse more nationalities'))?>
       </div>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Years</h2>
+      <h2>
+        Years
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader2" />
+        <div class="func_container">
+          <div class="value top_year_value" data-value="<?=$top_year_tags?>"><?=INTERVAL_TEXTS[$top_year_tags]?></div>
+          <ul class="subnav" data-name="top_year_tags" data-callback="topYear" data-loader="topYearLoader2">
+            <li data-value="7">Last 7 days</li>
+            <li data-value="30">Last 30 days</li>
+            <li data-value="90">Last 90 days</li>
+            <li data-value="180">Last 180 days</li>
+            <li data-value="365">Last 365 days</li>
+            <li data-value="overall">All time</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('year'), 'More', array('title' => 'Browse more listenings'))?>
+        <?=anchor(array('year'), 'More', array('title' => 'Browse more years'))?>
       </div>
     </div>
   </div>

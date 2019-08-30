@@ -71,11 +71,19 @@ $.extend(view, {
       url:'/api/tag/get'
     });
   },
-  topGenre: function () {
+  topGenre: function (lower_limit) {
+    if (lower_limit === 'overall') {
+      lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit));
+      lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:20,
-        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -86,23 +94,35 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topGenreLoader').hide();
+              $('#topGenreLoader, #topGenreLoader2').hide();
               $('#topGenre').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });
+        },
+        204: function () { // 204 No Content
+          $('#topGenreLoader, #topGenreLoader2').hide();
+          $('#topGenre').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/genre/get'
     });
   },
-  topKeyword: function () {
+  topKeyword: function (lower_limit) {
+    if (lower_limit === 'overall') {
+      lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit));
+      lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:20,
-        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -113,29 +133,35 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topKeywordLoader').hide();
+              $('#topKeywordLoader, #topKeywordLoader2').hide();
               $('#topKeyword').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });  
         },
-        204: function() { // 204 No Content
-          alert('204 No Content');
-        },
-        404: function() { // 404 Not found
-          alert('404 Not Found');
+        204: function () { // 204 No Content
+          $('#topKeywordLoader, #topKeywordLoader2').hide();
+          $('#topKeyword').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/keyword/get'
     });
   },
-  topNationality: function () {
+  topNationality: function (lower_limit) {
+    if (lower_limit === 'overall') {
+      lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit));
+      lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:20,
-        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -146,29 +172,35 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topNationalityLoader').hide();
+              $('#topNationalityLoader, #topNationalityLoader2').hide();
               $('#topNationality').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });  
         },
-        204: function() { // 204 No Content
-          alert('204 No Content');
-        },
-        404: function() { // 404 Not found
-          alert('404 Not Found');
+        204: function () { // 204 No Content
+          $('#topNationalityLoader, #topNationalityLoader2').hide();
+          $('#topNationality').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/nationality/get/listenings'
     });
   },
-  topYear: function () {
+  topYear: function (lower_limit) {
+    if (lower_limit === 'overall') {
+      lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit));
+      lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:20,
-        lower_limit:'<?=date('Y-m-d', time() - (180 * 24 * 60 * 60))?>',
+        lower_limit:lower_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -179,18 +211,16 @@ $.extend(view, {
               json_data:data
             },
             success: function(data) {
-              $('#topYearLoader').hide();
+              $('#topYearLoader, #topYearLoader2').hide();
               $('#topYear').html(data);
             },
             type:'POST',
             url:'/ajax/columnTable'
           });  
         },
-        204: function() { // 204 No Content
-          alert('204 No Content');
-        },
-        404: function() { // 404 Not found
-          alert('404 Not Found');
+        204: function () { // 204 No Content
+          $('#topYearLoader, #topYearLoader2').hide();
+          $('#topYear').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -207,9 +237,9 @@ $(document).ready(function() {
   view.getTopAlbums('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
   view.getTopArtists('<?=$nationality['tag_id']?>', 'nationality', 'Nationality');
   view.getTopAlbums('<?=$year['year']?>', 'year', 'Year');
-  view.topGenre();
-  view.topKeyword();
-  view.topNationality();
-  view.topYear();
+  view.topGenre('<?=$top_genre_tags?>');
+  view.topKeyword('<?=$top_keyword_tags?>');
+  view.topNationality('<?=$top_nationality_tags?>');
+  view.topYear('<?=$top_year_tags?>');
 });
 
