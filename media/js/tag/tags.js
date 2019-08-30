@@ -80,7 +80,6 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(lower_limit));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $('#topGenreLoader3').show();
     $.ajax({
       data:{
         limit:20,
@@ -125,7 +124,6 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(lower_limit));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $('#topKeywordLoader3').show();
     $.ajax({
       data:{
         limit:20,
@@ -171,7 +169,6 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(lower_limit));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $('#topNationalityLoader3').show();
     $.ajax({
       data:{
         limit:20,
@@ -216,7 +213,6 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(lower_limit));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $('#topYearLoader3').show();
     $.ajax({
       data:{
         limit:20,

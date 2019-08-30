@@ -51,7 +51,7 @@
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topGenreLoader2" />
         <div class="func_container">
           <div class="value top_genre_value" data-value="<?=$top_genre_tags?>"><?=INTERVAL_TEXTS[$top_genre_tags]?></div>
-          <ul class="subnav" data-name="top_genre_tags" data-callback="topGenre" data-loader="topGenreLoader2">
+          <ul class="subnav" data-name="top_genre_tags" data-callback="topGenre" data-loader="topGenreLoader2, #topGenreLoader3">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -74,7 +74,7 @@
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topKeywordLoader2" />
         <div class="func_container">
           <div class="value top_keyword_value" data-value="<?=$top_keyword_tags?>"><?=INTERVAL_TEXTS[$top_keyword_tags]?></div>
-          <ul class="subnav" data-name="top_keyword_tags" data-callback="topKeyword" data-loader="topKeywordLoader2">
+          <ul class="subnav" data-name="top_keyword_tags" data-callback="topKeyword" data-loader="topKeywordLoader2, #topKeywordLoader3">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -97,7 +97,7 @@
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topNationalityLoader2" />
         <div class="func_container">
           <div class="value top_nationality_value" data-value="<?=$top_nationality_tags?>"><?=INTERVAL_TEXTS[$top_nationality_tags]?></div>
-          <ul class="subnav" data-name="top_nationality_tags" data-callback="topNationality" data-loader="topNationalityLoader2">
+          <ul class="subnav" data-name="top_nationality_tags" data-callback="topNationality" data-loader="topNationalityLoader2, #topNationalityLoader3">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -120,7 +120,7 @@
         <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader2" />
         <div class="func_container">
           <div class="value top_year_value" data-value="<?=$top_year_tags?>"><?=INTERVAL_TEXTS[$top_year_tags]?></div>
-          <ul class="subnav" data-name="top_year_tags" data-callback="topYear" data-loader="topYearLoader2">
+          <ul class="subnav" data-name="top_year_tags" data-callback="topYear" data-loader="topYearLoader2, #topYearLoader3">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
