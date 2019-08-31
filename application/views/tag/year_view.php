@@ -33,8 +33,16 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
+    </div>
+    <div class="container">
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader"/>
       <table id="topYear" class="column_table full"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Top albums yearly</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearlyLoader" />
+      <ul id="topAlbumYearly" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div class="right_container">

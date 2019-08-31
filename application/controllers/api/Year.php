@@ -6,10 +6,18 @@ class Year extends CI_Controller {
   }
 
   /* List years */
-  public function get() {
+  public function get($type = '') {
     // Load helpers
     $this->load->helper(array('year_helper', 'output_helper'));
-    echo getYears($_REQUEST);
+    switch ($type) {
+      case 'yearly':
+        echo getTopAlbumByYear($_REQUEST);
+        break;
+      default:
+        echo getYears($_REQUEST);
+        break;
+    }
+    
   }
 
   /* Add a year */

@@ -225,6 +225,7 @@ if (!function_exists('getYearListenings')) {
     return ($query->num_rows() > 0) ? $query->result_array()[0] : array($count_type => 0);
   }
 }
+
 /**
   * Returns top music for given year.
   *
@@ -271,6 +272,47 @@ if (!function_exists('getMusicByYear')) {
             ORDER BY " . $ci->db->escape_str($order_by) . " 
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Returns top album for each year.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON encoded data containing album information.
+  *
+  **/
+if (!function_exists('getTopAlbumByYear')) {
+  function getTopAlbumByYear($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+
+    $sql = "SELECT * 
+            FROM (SELECT count(*) as `count`,
+                        " . TBL_artist . ".`artist_name`,
+                        " . TBL_artist . ".`id` as `artist_id`,
+                        " . TBL_album . ".`album_name`,
+                        " . TBL_album . ".`id` as `album_id`,
+                        " . TBL_album . ".`year`
+                  FROM " . TBL_listening . ",
+                       " . TBL_album . ",
+                       " . TBL_user . ",
+                       " . TBL_artist . "
+                  WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                    AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".id
+                    AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                    AND " . TBL_user . ".`username` LIKE ?
+                  GROUP BY " . TBL_album . ".`id`
+                  ORDER by " . TBL_album . ".`year` DESC, `count` DESC) as `result`
+            GROUP BY `result`.`year`
+            ORDER BY `result`.`year` DESC";
+    $query = $ci->db->query($sql, array($username));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

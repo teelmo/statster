@@ -61,7 +61,7 @@ $.extend(view, {
       }
       vars = {
         container:'#topYear',
-        limit:'0, 200',
+        limit:'0, 10',
         template:'/ajax/columnTable'
       }
       upper_limit = '<?=CUR_DATE?>';
@@ -116,42 +116,36 @@ $.extend(view, {
       view.getTopYears(year + '-00-00', year + '-12-31', vars);
     }
   },
-  // getTopAlbumPerYear: function () {
-  //   console.log()
-  //   $.ajax({
-  //     data:{
-  //       group_by:'album_id, year',
-  //       limit:100,
-  //       order_by:'year DESC',
-  //       lower_limit:'1970-00-00',
-  //       tag_type:'year',
-  //       username:'<?=!(empty($_GET['u'])) ? $_GET['u'] : ''?>'
-  //     },
-  //     dataType:'json',
-  //     statusCode:{
-  //       200: function (data) { // 200 OK
-  //         console.log(data)
-  //         // $.ajax({
-  //         //   data:{
-  //         //     hide:vars.hide,
-  //         //     json_data:data,
-  //         //     rank:1
-  //         //   },
-  //         //   success: function (data) {
-  //         //   },
-  //         //   type:'POST',
-  //         //   url:vars.template
-  //         // });
-  //       },
-  //       204: function (data) { // 204 No Content
-  //         // $(vars.container + 'Loader').hide();
-  //         // $(vars.container).html('<?=ERR_NO_RESULTS?>');
-  //       }
-  //     },
-  //     type:'GET',
-  //     url:'/api/tag/get'
-  //   });
-  // }
+  getTopAlbumPerYear: function () {
+    $.ajax({
+      data:{
+        username:'<?=!(empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              type:'album'
+            },
+            success: function (data) {
+              $('#topAlbumYearlyLoader').hide();
+              $('#topAlbumYearly').html(data);
+            },
+            type:'POST',
+            url:'/ajax/albumList'
+          });
+        },
+        204: function (data) { // 204 No Content
+          // $(vars.container + 'Loader').hide();
+          // $(vars.container).html('<?=ERR_NO_RESULTS?>');
+        }
+      },
+      type:'GET',
+      url:'/api/year/get/yearly'
+    });
+  }
 });
 
 $(document).ready(function () {
