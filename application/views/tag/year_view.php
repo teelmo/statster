@@ -18,7 +18,7 @@
       <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader2" />
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_year_year]?></div>
-          <ul class="subnav" data-name="top_year_year" data-callback="getTopYears" data-loader="topYearLoader2">
+          <ul class="subnav" data-name="top_year_year" data-callback="getYearsHistory" data-loader="topYearLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>

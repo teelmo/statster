@@ -1,10 +1,18 @@
 $.extend(view, {
-  getYearsHistory: function (type) {
-    view.initChart();
+  getYearsHistory: function (lower_limit, type = '%Y') {
+    view.getTopYears(lower_limit);
+    if (lower_limit === 'overall') {
+      lower_limit = '1970-00-00';
+    }
+    else {
+      var date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit));
+      lower_limit = date.toISOString().split('T')[0];
+    }
     $.ajax({
       data:{
         limit:200,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
         order_by:'<?=TBL_album?>.`year` ASC',
         select:'<?=TBL_album?>.`year` as bar_date',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
@@ -21,6 +29,7 @@ $.extend(view, {
             success: function (data) {
               $('#historyLoader').hide();
               $('#history').html(data).hide();
+              $('.music_bar').show();
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
             },
@@ -29,8 +38,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#historyLoader').hide();
-          $('#history').html('<?=ERR_NO_RESULTS?>');
+          $('#historyLoader, .music_bar, #topYearLoader2').hide();
         },
         400: function () { // 400 Bad request
           $('#historyLoader').hide();
@@ -84,7 +92,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?=ERR_NO_DATA?>');
+          $(vars.container).html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -107,11 +115,48 @@ $.extend(view, {
       }
       view.getTopYears(year + '-00-00', year + '-12-31', vars);
     }
-  }
+  },
+  // getTopAlbumPerYear: function () {
+  //   console.log()
+  //   $.ajax({
+  //     data:{
+  //       group_by:'album_id, year',
+  //       limit:100,
+  //       order_by:'year DESC',
+  //       lower_limit:'1970-00-00',
+  //       tag_type:'year',
+  //       username:'<?=!(empty($_GET['u'])) ? $_GET['u'] : ''?>'
+  //     },
+  //     dataType:'json',
+  //     statusCode:{
+  //       200: function (data) { // 200 OK
+  //         console.log(data)
+  //         // $.ajax({
+  //         //   data:{
+  //         //     hide:vars.hide,
+  //         //     json_data:data,
+  //         //     rank:1
+  //         //   },
+  //         //   success: function (data) {
+  //         //   },
+  //         //   type:'POST',
+  //         //   url:vars.template
+  //         // });
+  //       },
+  //       204: function (data) { // 204 No Content
+  //         // $(vars.container + 'Loader').hide();
+  //         // $(vars.container).html('<?=ERR_NO_RESULTS?>');
+  //       }
+  //     },
+  //     type:'GET',
+  //     url:'/api/tag/get'
+  //   });
+  // }
 });
 
 $(document).ready(function () {
-  view.getYearsHistory('%Y');
-  view.getTopYears('<?=$top_year_year?>');
+  view.initChart();
+  view.getYearsHistory('<?=$top_year_year?>', '%Y');
+  view.getTopAlbumPerYear();
   view.getTopYearsYearly();
 });
