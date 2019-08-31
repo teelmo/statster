@@ -89,7 +89,7 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function(data) {
-          $('.genre_heading .value').html('<a href="/genre/' + encodeURIComponent(data[0].name.toLowerCase()) + '">' + data[0].name + '</a>').removeClass('not_available');
+          $('.genre_heading .value').html('<a href="/genre/' + encodeURIComponent(data[0].name.replace(/ /g,'+')) + '">' + data[0].name + '</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'genre', 'Genre', lower_limit);
           view.getTopArtists(data[0].tag_id, 'genre', 'Genre', lower_limit);
           $.ajax({
