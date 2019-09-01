@@ -42,7 +42,7 @@
       <div class="value number"><?=anchor(array('listener', url_title($artist_name)), number_format($listener_count))?></div>
     </div>
     <div class="meta">
-      <div class="label">Added</div>
+      <div class="label">Added in</div>
       <div class="value number"><?=anchor(array('year', $created), $created)?></div>
     </div>
     <?php
@@ -57,7 +57,7 @@
             </svg>
             <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
           </div>
-          <span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library</span>
+          <span class="user_value" title="<?php echo ($most_listened_alltime !== false) ? 'Rank ' . ($most_listened_alltime + 1) : ''?>"><span class="value number"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library</span>
           <span id="fan" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fanLoader"/><span class="like_msg"></span></span>
         </div>
       </div>

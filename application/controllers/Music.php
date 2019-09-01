@@ -12,7 +12,7 @@ class Music extends CI_Controller {
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'limit' => '1',
-      'human_readable' => false
+      'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
@@ -33,10 +33,9 @@ class Music extends CI_Controller {
       $this->load->helper(array('img_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper', 'spotify_helper', 'output_helper'));
       $data['year'] = $value;
       $data += array(
-        'lower_limit' => $data['year'] . '-00-00',
-        'upper_limit' => $data['year'] . '-12-31',
         'limit' => '1',
-        'human_readable' => false
+        'lower_limit' => $data['year'] . '-00-00',
+        'upper_limit' => $data['year'] . '-12-31'
       );
       $data['username'] = $this->session->userdata('username');
       $data['artist_count'] = getListeningCount($data, TBL_artist);
@@ -87,6 +86,13 @@ class Music extends CI_Controller {
         if (empty($data['spotify_uri'])) {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
+        $opts = array(
+          'lower_limit' => '1970-00-00',
+          'limit' => 200,
+          'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+        );
+        $data['most_listened_alltime'] = array_search($data['artist_id'], array_column(json_decode(getArtists($opts)), 'artist_id'));
+
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('music/artist', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper');
@@ -112,7 +118,7 @@ class Music extends CI_Controller {
         'lower_limit' => $data['year'] . '-' . $data['month'] . '-00',
         'upper_limit' => $data['year'] . '-' . $data['month'] . '-31',
         'limit' => '1',
-        'human_readable' => false
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['username'] = $this->session->userdata('username');
       $data['artist_count'] = getListeningCount($data, TBL_artist);
@@ -134,7 +140,7 @@ class Music extends CI_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'nationality_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
       $data['artist_name'] = decode($value1);
       $data['album_name'] = decode($value2);
@@ -162,6 +168,22 @@ class Music extends CI_Controller {
         if (empty($data['spotify_uri'])) {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
+
+        $opts = array(
+          'lower_limit' => '1970-00-00',
+          'limit' => 200,
+          'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+        );
+        $data['most_listened_alltime'] = array_search($data['album_id'], array_column(json_decode(getAlbums($opts)), 'album_id'));
+
+        $opts = array(
+          'lower_limit' => '1970-00-00',
+          'limit' => 200,
+          'tag_id' => $data['year'],
+          'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+        );
+        $data['most_listened_releaseyear'] = array_search($data['album_id'], array_column(json_decode(getMusicByYear($opts)), 'album_id'));
+
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('music/album', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper');
@@ -239,7 +261,8 @@ class Music extends CI_Controller {
         'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
@@ -314,7 +337,8 @@ class Music extends CI_Controller {
         'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
