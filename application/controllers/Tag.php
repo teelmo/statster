@@ -64,10 +64,10 @@ class Tag extends CI_Controller {
       $data['top_year_tags'] = isset($intervals['top_year_tags']) ? $intervals['top_year_tags'] : 180;
 
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
@@ -173,10 +173,10 @@ class Tag extends CI_Controller {
       $intervals = unserialize($this->session->userdata('intervals'));
       $data['top_genre_genre'] = isset($intervals['top_genre_genre']) ? $intervals['top_genre_genre'] : 'overall';
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data['js_include'] = array('tag/genres', 'helpers/time_interval_helper');
@@ -280,7 +280,6 @@ class Tag extends CI_Controller {
       $intervals = unserialize($this->session->userdata('intervals'));
       $data['top_keyword_keyword'] = isset($intervals['top_keyword_keyword']) ? $intervals['top_keyword_keyword'] : 'overall';
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
@@ -386,10 +385,10 @@ class Tag extends CI_Controller {
       $intervals = unserialize($this->session->userdata('intervals'));
       $data['top_nationality_nationality'] = isset($intervals['top_nationality_nationality']) ? $intervals['top_nationality_nationality'] : 'overall';
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data['js_include'] = array('tag/nationalities', 'helpers/time_interval_helper');
@@ -493,10 +492,10 @@ class Tag extends CI_Controller {
       $intervals = unserialize($this->session->userdata('intervals'));
       $data['top_year_year'] = isset($intervals['top_year_year']) ? $intervals['top_year_year'] : 'overall';
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data['js_include'] = array('tag/years', 'libs/highcharts', 'helpers/chart_helper', 'helpers/time_interval_helper');

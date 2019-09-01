@@ -57,10 +57,10 @@ class Shout extends CI_Controller {
       $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
 
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
       $data['js_include'] = array('shout/shout', 'helpers/shout_helper');

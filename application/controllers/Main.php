@@ -12,10 +12,10 @@ class Main extends CI_Controller {
       $data['top_artist_main'] = isset($intervals['top_artist_main']) ? $intervals['top_artist_main'] : 30;
       
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array('name' => 'No data', 'count' => 0);
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
@@ -34,10 +34,10 @@ class Main extends CI_Controller {
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array('name' => 'No data', 'count' => 0);
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);

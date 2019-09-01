@@ -8,10 +8,10 @@ class Search extends CI_Controller {
     $data = array();
     $data['q'] = (isset($_REQUEST['q'])) ? $_REQUEST['q'] : '';
     $opts = array(
-      'human_readable' => false,
       'limit' => '1',
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+      'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
     $data['js_include'] = array('search/search');

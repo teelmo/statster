@@ -10,10 +10,10 @@ class User extends CI_Controller {
     $data['top_listener_user'] = isset($intervals['top_listener_user']) ? $intervals['top_listener_user'] : 'overall';
 
     $opts = array(
-      'human_readable' => false,
       'limit' => '1',
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+      'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array();
     $data['js_include'] = array('user/user', 'helpers/time_interval_helper');
@@ -39,7 +39,6 @@ class User extends CI_Controller {
       $data['top_year_profile'] = isset($intervals['top_year_profile']) ? $intervals['top_year_profile'] : 'overall';
 
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
@@ -51,7 +50,6 @@ class User extends CI_Controller {
       $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
       $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
       $opts = array(
-        'human_readable' => false,
         'limit' => '1',
         'lower_limit' => '1970-00-00',
         'username' => $username
