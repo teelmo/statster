@@ -87,7 +87,7 @@ class Music extends CI_Controller {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
 
-        $index = 1;
+        $rank = 0;
         $data['most_listened_alltime'] = false;
         $last_item_count = false;
         foreach (json_decode(getArtists(array('lower_limit' => '1970-00-00','limit' => 200))) as $item) {
@@ -101,7 +101,7 @@ class Music extends CI_Controller {
           $last_item_count = $item->count;
         }
         if ($this->session->userdata('username')) {
-          $index = 1;
+          $rank = 0;
           $data['most_listened_alltime_user'] = false;
           $last_item_count = false;
           foreach (json_decode(getArtists(array('lower_limit' => '1970-00-00','limit' => 200,'username' => $this->session->userdata('username')))) as $item) {
@@ -192,11 +192,11 @@ class Music extends CI_Controller {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
 
-        $rank = 1;
+        $rank = 0;
         $data['most_listened_alltime'] = false;
         $last_item_count = false;
         foreach (json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200))) as $item) {
-        if ($item->count != $last_item_count) {
+          if ($item->count != $last_item_count) {
             $rank++;
           }
           if ($item->album_id == $data['album_id']) {
@@ -220,19 +220,18 @@ class Music extends CI_Controller {
             $last_item_count = $item->count;
           }
         }
-        $rank = 1;
+        $rank = 0;
         $data['most_listened_releaseyear'] = false;
         $last_item_count = false;
         foreach (json_decode(getMusicByYear(array('lower_limit' => '1970-00-00','limit' => 200,'tag_id' => $data['year'],'username' => (!empty($_GET['u']) ? $_GET['u'] : '')))) as $item) {
           if ($item->count != $last_item_count) {
-              $rank++;
-            }
-            if ($item->album_id == $data['album_id']) {
-              $data['most_listened_releaseyear'] = $rank;
-              break;
-            }
-            $last_item_count = $item->count;
+            $rank++;
           }
+          if ($item->album_id == $data['album_id']) {
+            $data['most_listened_releaseyear'] = $rank;
+            break;
+          }
+          $last_item_count = $item->count;
         }
 
         $data += $_REQUEST;
