@@ -86,12 +86,14 @@ class Music extends CI_Controller {
         if (empty($data['spotify_uri'])) {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
-        $opts = array(
-          'lower_limit' => '1970-00-00',
-          'limit' => 200,
-          'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
-        );
-        $data['most_listened_alltime'] = array_search($data['artist_id'], array_column(json_decode(getArtists($opts)), 'artist_id'));
+
+
+        $data['most_listened_alltime'] = array_search($data['artist_id'], array_column(json_decode(getArtists(array('lower_limit' => '1970-00-00','limit' => 200,
+        ))), 'artist_id'));
+        if ($this->session->userdata('username')) {
+          $data['most_listened_alltime_user'] = array_search($data['artist_id'], array_column(json_decode(getArtists(array('lower_limit' => '1970-00-00',
+          'limit' => 200,'username' => $this->session->userdata('username')))), 'artist_id'));
+        }
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
@@ -169,20 +171,13 @@ class Music extends CI_Controller {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
 
-        $opts = array(
-          'lower_limit' => '1970-00-00',
-          'limit' => 200,
-          'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
-        );
-        $data['most_listened_alltime'] = array_search($data['album_id'], array_column(json_decode(getAlbums($opts)), 'album_id'));
-
-        $opts = array(
-          'lower_limit' => '1970-00-00',
-          'limit' => 200,
-          'tag_id' => $data['year'],
-          'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
-        );
-        $data['most_listened_releaseyear'] = array_search($data['album_id'], array_column(json_decode(getMusicByYear($opts)), 'album_id'));
+        $data['most_listened_alltime'] = array_search($data['album_id'], array_column(json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200,
+        ))), 'album_id'));
+        if ($this->session->userdata('username')) {
+          $data['most_listened_alltime_user'] = array_search($data['album_id'], array_column(json_decode(getAlbums(array('lower_limit' => '1970-00-00',
+          'limit' => 200,'username' => $this->session->userdata('username')))), 'album_id'));
+        }
+        $data['most_listened_releaseyear'] = array_search($data['album_id'], array_column(json_decode(getMusicByYear(array('lower_limit' => '1970-00-00','limit' => 200,'tag_id' => $data['year'],'username' => (!empty($_GET['u']) ? $_GET['u'] : '')))), 'album_id'));
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
