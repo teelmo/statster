@@ -87,12 +87,33 @@ class Music extends CI_Controller {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
 
-
-        $data['most_listened_alltime'] = array_search($data['artist_id'], array_column(json_decode(getArtists(array('lower_limit' => '1970-00-00','limit' => 200,
-        ))), 'artist_id'));
+        $index = 1;
+        $data['most_listened_alltime'] = false;
+        $last_item_count = false;
+        foreach (json_decode(getArtists(array('lower_limit' => '1970-00-00','limit' => 200))) as $item) {
+          if ($item->artist_id === $data['artist_id']) {
+            $data['most_listened_alltime'] = $index;
+            break;
+          }
+          if ($item->count !== $last_item_count) {
+            $last_item_count = $item->count;
+            $index++;
+          }
+        }
         if ($this->session->userdata('username')) {
-          $data['most_listened_alltime_user'] = array_search($data['artist_id'], array_column(json_decode(getArtists(array('lower_limit' => '1970-00-00',
-          'limit' => 200,'username' => $this->session->userdata('username')))), 'artist_id'));
+          $index = 1;
+          $data['most_listened_alltime_user'] = false;
+          $last_item_count = false;
+          foreach (json_decode(getArtists(array('lower_limit' => '1970-00-00','limit' => 200,'username' => $this->session->userdata('username')))) as $item) {
+            if ($item->artist_id === $data['artist_id']) {
+              $data['most_listened_alltime_user'] = $index;
+              break;
+            }
+            if ($item->count != $last_item_count) {
+              $last_item_count = $item->count;
+              $index++;
+            }
+          }
         }
 
         $data += $_REQUEST;
@@ -171,13 +192,47 @@ class Music extends CI_Controller {
           $data['spotify_uri'] = getSpotifyResourceId($data);
         }
 
-        $data['most_listened_alltime'] = array_search($data['album_id'], array_column(json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200,
-        ))), 'album_id'));
-        if ($this->session->userdata('username')) {
-          $data['most_listened_alltime_user'] = array_search($data['album_id'], array_column(json_decode(getAlbums(array('lower_limit' => '1970-00-00',
-          'limit' => 200,'username' => $this->session->userdata('username')))), 'album_id'));
+        $index = 1;
+        $data['most_listened_alltime'] = false;
+        $last_item_count = false;
+        foreach (json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200))) as $item) {
+          if ($item->album_id === $data['album_id']) {
+            $data['most_listened_alltime'] = $index;
+            break;
+          }
+          if ($item->count !== $last_item_count) {
+            $last_item_count = $item->count;
+            $index++;
+          }
         }
-        $data['most_listened_releaseyear'] = array_search($data['album_id'], array_column(json_decode(getMusicByYear(array('lower_limit' => '1970-00-00','limit' => 200,'tag_id' => $data['year'],'username' => (!empty($_GET['u']) ? $_GET['u'] : '')))), 'album_id'));
+        if ($this->session->userdata('username')) {
+          $index = 1;
+          $data['most_listened_alltime_user'] = false;
+          $last_item_count = false;
+          foreach (json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200,'username' => $this->session->userdata('username')))) as $item) {
+            if ($item->album_id === $data['album_id']) {
+              $data['most_listened_alltime_user'] = $index;
+              break;
+            }
+            if ($item->count != $last_item_count) {
+              $last_item_count = $item->count;
+              $index++;
+            }
+          }
+        }
+        $index = 1;
+        $data['most_listened_releaseyear'] = false;
+        $last_item_count = false;
+        foreach (json_decode(getMusicByYear(array('lower_limit' => '1970-00-00','limit' => 200,'tag_id' => $data['year'],'username' => (!empty($_GET['u']) ? $_GET['u'] : '')))) as $item) {
+          if ($item->album_id === $data['album_id']) {
+            $data['most_listened_releaseyear'] = $index;
+            break;
+          }
+          if ($item->count != $last_item_count) {
+            $last_item_count = $item->count;
+            $index++;
+          }
+        }
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
