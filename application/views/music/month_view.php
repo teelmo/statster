@@ -12,13 +12,13 @@
       <div class="label">Listenings</div>
       <div class="value number"><?=anchor(array('recent'), number_format($listening_count))?></div>
     </div>
-    <div class="meta">
-      <div class="label">Albums (new)</div>
-      <div class="value number"><?=anchor(array('album'), number_format($album_count))?> (<?=$new_album_count?>)</div>
+     <div class="meta">
+      <div class="label">Albums, new</div>
+       <div class="value number"><?=anchor(array('artist'), number_format($album_count))?>, <?=($new_album_count) ? '<span class="share" title="' . $new_album_count . '">' . number_format($new_album_count / $album_count * 100) . '%</span>' : '–'?></div>
     </div>
     <div class="meta">
-      <div class="label">Artists (new)</div>
-      <div class="value number"><?=anchor(array('artist'), number_format($artist_count))?> (<?=$new_artist_count?>)</div>
+      <div class="label">Artists, new</div>
+      <div class="value number"><?=anchor(array('artist'), number_format($artist_count))?>, <?=($new_artist_count) ? '<span class="share" title="' . $new_artist_count . '">' . number_format($new_artist_count / $artist_count * 100) . '%</span>' : '–'?></div>
     </div>
     <div class="meta">
       <div class="label">Shouts</div>
