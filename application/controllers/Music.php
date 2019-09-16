@@ -223,7 +223,7 @@ class Music extends CI_Controller {
         $rank = 0;
         $data['most_listened_releaseyear'] = false;
         $last_item_count = false;
-        foreach (json_decode(getMusicByYear(array('lower_limit' => '1970-00-00','limit' => 100,'tag_id' => $data['year'],'username' => (!empty($_GET['u']) ? $_GET['u'] : '')))) as $item) {
+        foreach (json_decode(getMusicByYear(array('lower_limit' => '1970-00-00','limit' => 10,'tag_id' => $data['year'],'username' => (!empty($_GET['u']) ? $_GET['u'] : '')))) as $item) {
           if ($item->count != $last_item_count) {
             $rank++;
           }
