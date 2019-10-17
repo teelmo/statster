@@ -90,7 +90,7 @@ if (!function_exists('getArtists')) {
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . "
+            GROUP BY " . $ci->db->escape_str($group_by) . ", " . TBL_user . ". `username`
             " . $ci->db->escape_str($having) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
@@ -142,7 +142,7 @@ if (!function_exists('getAlbums')) {
                    " . TBL_album . ".`year`,
                    " . TBL_album . ".`spotify_uri`,
                    " . TBL_user . ". `username`,
-                   ".TBL_listening.".`date`,
+                   " . TBL_listening . ".`date`,
                    " . TBL_user . ". `id` as user_id,
                   (SELECT count(" . TBL_love . ".`album_id`)
                     FROM " . TBL_love . "
@@ -161,7 +161,7 @@ if (!function_exists('getAlbums')) {
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?
               " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . "
+            GROUP BY " . $ci->db->escape_str($group_by) . ", " . TBL_user . ". `username`, " . TBL_listening . ".`date`
             " . $ci->db->escape_str($having) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
