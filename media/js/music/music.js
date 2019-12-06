@@ -23,22 +23,22 @@ $.extend(view, {
   getListeningHistory: function (type) {
     view.initChart();
     if (type == '%w') {
-      var where = 'WEEKDAY(<?=TBL_listening?>.`date`) IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
       var group_by = 'WEEKDAY(<?=TBL_listening?>.`date`)';
       var order_by = 'WEEKDAY(<?=TBL_listening?>.`date`) ASC';
       var select = 'WEEKDAY(<?=TBL_listening?>.`date`) as `bar_date`';
+      var where = 'WEEKDAY(<?=TBL_listening?>.`date`) IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
     }
     else if (type == '%Y%m') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
       var group_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')';
       var order_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC';
       var select = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
     }
     else {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
       var group_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')';
       var order_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC';
       var select = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`';
+      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
     }
     $.ajax({
       data:{
@@ -160,10 +160,11 @@ $.extend(view, {
   getSecondChance: function () {
     $.ajax({
       data:{
-        having:'`count` = 1 AND <?=TBL_listening?>.`date` BETWEEN \'<?=CUR_YEAR - 4?>-00-00\' AND \'<?=CUR_YEAR - 1?>-12-31\'',
+        having:'`count` = 1',
         limit:100,
         lower_limit:'1970-00-00',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        where:'<?=TBL_listening?>.`date` < \'<?=CUR_YEAR - 1?>-12-31\''
       },
       dataType:'json',
       statusCode:{
