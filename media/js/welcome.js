@@ -36,7 +36,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:5,
-        lower_limit:'1970-01-01'
+        lower_limit:'1970-00-00'
       },
       dataType:'json',
       statusCode:{

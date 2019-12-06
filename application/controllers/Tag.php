@@ -97,7 +97,7 @@ class Tag extends CI_Controller {
           if ($data['user_id'] = $this->session->userdata('user_id')) {
             $data += getGenreListenings($data);
           }
-          $data['lower_limit'] = '1970-01-01';
+          $data['lower_limit'] = '1970-00-00';
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
@@ -147,7 +147,7 @@ class Tag extends CI_Controller {
           if ($data['user_id'] = $this->session->userdata('user_id')) {
             $data += getGenreListenings($data);
           }
-          $data['lower_limit'] = '1970-01-01';
+          $data['lower_limit'] = '1970-00-00';
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
@@ -204,7 +204,7 @@ class Tag extends CI_Controller {
           if ($data['user_id'] = $this->session->userdata('user_id')) {
             $data += getKeywordListenings($data);
           }
-          $data['lower_limit'] = '1970-01-01';
+          $data['lower_limit'] = '1970-00-00';
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
@@ -254,7 +254,7 @@ class Tag extends CI_Controller {
           if ($data['user_id'] = $this->session->userdata('user_id')) {
             $data += getKeywordListenings($data);
           }
-          $data['lower_limit'] = '1970-01-01';
+          $data['lower_limit'] = '1970-00-00';
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
@@ -309,7 +309,7 @@ class Tag extends CI_Controller {
           if ($data['user_id'] = $this->session->userdata('user_id')) {
             $data += getNationalityListenings($data);
           }
-          $data['lower_limit'] = '1970-01-01';
+          $data['lower_limit'] = '1970-00-00';
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
@@ -359,7 +359,7 @@ class Tag extends CI_Controller {
           if ($data['user_id'] = $this->session->userdata('user_id')) {
             $data += getNationalityListenings($data);
           }
-          $data['lower_limit'] = '1970-01-01';
+          $data['lower_limit'] = '1970-00-00';
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
@@ -416,7 +416,7 @@ class Tag extends CI_Controller {
           if ($data['user_id'] = $this->session->userdata('user_id')) {
             $data += getYearListenings($data);
           }
-          $data['lower_limit'] = '1970-01-01';
+          $data['lower_limit'] = '1970-00-00';
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
@@ -466,7 +466,7 @@ class Tag extends CI_Controller {
           if ($data['user_id'] = $this->session->userdata('user_id')) {
             $data += getYearListenings($data);
           }
-          $data['lower_limit'] = '1970-01-01';
+          $data['lower_limit'] = '1970-00-00';
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';

@@ -3,7 +3,7 @@ $.extend(view, {
     return $.ajax({
       data:{
         limit:1000,
-        lower_limit:'1970-01-01',
+        lower_limit:'1970-00-00',
         order_by:order_by,
         username:'<?=!empty($_GET['u']) ? $_GET['u'] : ''?>'
       },

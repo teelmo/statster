@@ -13,7 +13,7 @@ class Main extends CI_Controller {
       
       $opts = array(
         'limit' => '1',
-        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-01',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
@@ -35,7 +35,7 @@ class Main extends CI_Controller {
 
       $opts = array(
         'limit' => '1',
-        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-01',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
