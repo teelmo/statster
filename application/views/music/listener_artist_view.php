@@ -74,7 +74,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Listerners</h1>
+      <h1>Listeners</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
       <table id="topListener" class="side_table full"><!-- Content is loaded with AJAX --></table>
     </div>
