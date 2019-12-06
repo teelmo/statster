@@ -48,7 +48,7 @@
       <div class="value number"><?=anchor(array('listener', url_title($artist_name), url_title($album_name)), number_format($listener_count))?></div>
     </div>
     <div class="meta">
-      <div class="label">Added in</div>
+      <div class="label">Added</div>
       <div class="value number"><?=anchor(array('year', $created), $created)?></div>
     </div>
     <?php
