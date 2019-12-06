@@ -30,15 +30,15 @@ if (!function_exists('getListeningFormat')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(SUBSTRING_INDEX(`format_type`.`name`,' ', 1)) as count, 
-                    SUBSTRING_INDEX(`format_type`.`name`,' ', 1) as `group_by_name`, 
+    $sql = "SELECT count(SUBSTRING_INDEX(`format_type`.`name`,' ', 1)) AS `count`, 
+                    SUBSTRING_INDEX(`format_type`.`name`,' ', 1) AS `group_by_name`, 
                    `format_types`.`listening_format_type_id`,
                    `formats`.`listening_format_id`,
                    `format_type`.`name` AS `format_type_name`,
                    `format_type`.`img` AS `format_type_img`,
                    " . TBL_listening_format . ".`name` AS `format_name`,
                    " . TBL_listening_format . ".`img` AS `format_img`,
-                   'format' as `type`
+                   'format' AS `type`
             FROM " . TBL_listening . ",
                  " . TBL_listening_format . ",
                  " . TBL_artist . ",
@@ -59,7 +59,8 @@ if (!function_exists('getListeningFormat')) {
               AND " . TBL_album . ".`album_name` LIKE ?
               AND " . TBL_user . ".username LIKE ?
             GROUP BY `group_by_name`,
-                     `formats`.`listening_format_id`
+                     `formats`.`listening_format_id`,
+                     `format_types`.`listening_format_type_id`
             ORDER BY `count` DESC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $album_name, $username));

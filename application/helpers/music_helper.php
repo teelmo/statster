@@ -22,7 +22,7 @@ if (!function_exists('getListeningCount')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) as `count`
+    $sql = "SELECT count(*) AS `count`
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
                  " . TBL_listening . ",
@@ -68,12 +68,12 @@ if (!function_exists('getArtists')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) as `count`,
-                   " . TBL_artist . ".`artist_name`, 
-                   " . TBL_artist . ".`id` as artist_id,
+    $sql = "SELECT count(*) AS `count`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`id` AS `artist_id`,
                    " . TBL_artist . ".`spotify_uri`,
-                   " . TBL_user . ". `username`, 
-                   " . TBL_user . ". `id` as user_id, 
+                   " . TBL_user . ". `username`,
+                   " . TBL_user . ". `id` AS `user_id`,
                   (SELECT count(" . TBL_fan . ".`artist_id`)
                     FROM " . TBL_fan . "
                     WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
@@ -90,7 +90,8 @@ if (!function_exists('getArtists')) {
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . ", " . TBL_user . ". `username`
+            GROUP BY " . $ci->db->escape_str($group_by) . ",
+                     " . TBL_user . ".`id`
             " . $ci->db->escape_str($having) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
@@ -134,16 +135,13 @@ if (!function_exists('getAlbums')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) as `count`,
+    $sql = "SELECT count(*) AS `count`,
                    " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`id` as artist_id,
+                   " . TBL_artist . ".`id` AS `artist_id`,
                    " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`id` as album_id,
+                   " . TBL_album . ".`id` AS `album_id`,
                    " . TBL_album . ".`year`,
                    " . TBL_album . ".`spotify_uri`,
-                   " . TBL_user . ". `username`,
-                   " . TBL_listening . ".`date`,
-                   " . TBL_user . ". `id` as user_id,
                   (SELECT count(" . TBL_love . ".`album_id`)
                     FROM " . TBL_love . "
                     WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
@@ -161,7 +159,8 @@ if (!function_exists('getAlbums')) {
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?
               " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . ", " . TBL_user . ". `username`, " . TBL_listening . ".`date`
+            GROUP BY " . $ci->db->escape_str($group_by) . ",
+                     " . TBL_user . ".`id`
             " . $ci->db->escape_str($having) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);
@@ -205,14 +204,15 @@ if (!function_exists('getListeners')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) as `count`,
-                   " . TBL_user . ". `username`,
-                   " . TBL_user . ". `id` as `user_id`,
-                   " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`id` as `artist_id`,
-                   " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`id` as `album_id`,
-                   " . TBL_album . ".`year`
+    $sql = "SELECT count(*) AS `count`,
+                   ANY_VALUE(" . TBL_user . ". `username`),
+                   ANY_VALUE(" . TBL_user . ". `id`) AS `user_id`,
+                   ANY_VALUE(" . TBL_artist . ".`artist_name`),
+                   ANY_VALUE(" . TBL_artist . ".`id`) AS `artist_id`,
+                   ANY_VALUE(" . TBL_album . ".`album_name`),
+                   ANY_VALUE(" . TBL_album . ".`id`) AS `album_id`,
+                   ANY_VALUE(" . TBL_album . ".`year`),
+                   ANY_VALUE(" . TBL_listening . ".`date`)
                   " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ", 
                  " . TBL_artist . ", 
@@ -255,7 +255,7 @@ if (!function_exists('getListenersCumulative')) {
     $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') as `line_date`,
+    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
                    (SELECT COUNT(*) 
                     FROM " . TBL_listening . ",
                          " . TBL_user . ",
@@ -267,8 +267,8 @@ if (!function_exists('getListenersCumulative')) {
                       AND " . TBL_user . ".username LIKE ?
                       AND " . TBL_artist . ".`artist_name` LIKE ?
                       AND " . TBL_album . ".`album_name` LIKE ?
-                      AND `date` <= MAX(a.`date`)) as `cumulative_count`
-            FROM " . TBL_listening . " as a
+                      AND `date` <= MAX(a.`date`)) AS `cumulative_count`
+            FROM " . TBL_listening . " AS `a`
             WHERE MONTH(a.`date`) <> 0
             GROUP BY `line_date`
             ORDER BY `line_date` ASC";
@@ -297,13 +297,13 @@ if (!function_exists('getArtistAlbums')) {
 
     $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT count(*) as `count`,
+    $sql = "SELECT count(*) AS `count`,
                    " . TBL_artist . ". `artist_name`,
                    " . TBL_album . ". `album_name`,
                    " . TBL_album . ". `year`, 
                    " . TBL_album . ". `spotify_uri`, 
-                   " . TBL_artist . ". `id` as `artist_id`,
-                   " . TBL_album . ". `id` as `album_id`
+                   " . TBL_artist . ". `id` AS `artist_id`,
+                   " . TBL_album . ". `id` AS `album_id`
             FROM " . TBL_listening . ",
                  " . TBL_artist . ",
                  " . TBL_album . ",

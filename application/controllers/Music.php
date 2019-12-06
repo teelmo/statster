@@ -9,7 +9,7 @@ class Music extends CI_Controller {
     $intervals = unserialize($this->session->userdata('intervals'));
     $data['popular_album_music'] = isset($intervals['popular_album_music']) ? $intervals['popular_album_music'] : 90;
     $opts = array(
-      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-01',
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'limit' => '1',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
