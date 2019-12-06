@@ -142,6 +142,9 @@ if (!function_exists('getAlbums')) {
                    " . TBL_album . ".`id` AS `album_id`,
                    " . TBL_album . ".`year`,
                    " . TBL_album . ".`spotify_uri`,
+                   ANY_VALUE(" . TBL_user . ". `username`) AS `username`,
+                   ANY_VALUE(" . TBL_listening . ".`date`) AS `date`,
+                   ANY_VALUE(" . TBL_user . ". `id`) AS `user_id`,
                   (SELECT count(" . TBL_love . ".`album_id`)
                     FROM " . TBL_love . "
                     WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
@@ -199,20 +202,20 @@ if (!function_exists('getListeners')) {
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_user . '.`id`';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-01-01';
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
     $select = !empty($opts['select']) ? ', ' . $opts['select'] : '';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) AS `count`,
-                   ANY_VALUE(" . TBL_user . ". `username`),
+                   ANY_VALUE(" . TBL_user . ". `username`) AS `username`,
                    ANY_VALUE(" . TBL_user . ". `id`) AS `user_id`,
-                   ANY_VALUE(" . TBL_artist . ".`artist_name`),
+                   ANY_VALUE(" . TBL_artist . ".`artist_name`) AS `artist_name`,
                    ANY_VALUE(" . TBL_artist . ".`id`) AS `artist_id`,
-                   ANY_VALUE(" . TBL_album . ".`album_name`),
+                   ANY_VALUE(" . TBL_album . ".`album_name`) AS `album_name`,
                    ANY_VALUE(" . TBL_album . ".`id`) AS `album_id`,
-                   ANY_VALUE(" . TBL_album . ".`year`),
-                   ANY_VALUE(" . TBL_listening . ".`date`)
+                   ANY_VALUE(" . TBL_album . ".`year`) AS `year`,
+                   ANY_VALUE(" . TBL_listening . ".`date`) AS `date`
                   " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ", 
                  " . TBL_artist . ", 
