@@ -67,9 +67,7 @@ if (!empty($json_data)) {
         </td>
       </tr>
       <?php
-      if ($row['count'] != $prev_count) {
-        $rank++;
-      }
+      $rank++;
       $prev_count = $row['count'];
     }
   }
