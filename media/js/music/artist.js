@@ -87,7 +87,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $('#tagsLoader').hide();
-          $('#tags').html('<?=ERR_NO_RESULTS?>');
+          $('#tags').html('<li class="tag addtags" id="addtags"><a href="javascript:;"><i class="fa fa-bars"></i></a></li>');
         },
         400: function () { // 400 Bad request
           $('#tagsLoader').hide();
