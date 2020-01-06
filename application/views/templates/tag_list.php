@@ -60,6 +60,10 @@ if (!empty($json_data)) {
   }
 }
 else {
-  echo ERR_NO_RESULTS;
+  if ($logged_in === 'true' && empty($hide['add'])) {
+    ?>
+    <li class="tag addtags" id="addtags"><a href="javascript:;"><i class="fa fa-bars"></i></a></li>
+    <?php
+  }
 }
 ?>
