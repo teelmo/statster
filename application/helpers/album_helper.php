@@ -78,8 +78,8 @@ if (!function_exists('getAlbumInfo')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : FALSE;
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $album_name = isset($opts['album_name']) ? $opts['album_name'] : FALSE;
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     if ($artist_name !== FALSE && $album_name !== FALSE) {
       $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                      " . TBL_album . ".`id` as `album_id`,
