@@ -16,7 +16,7 @@ if (!function_exists('addAlbum')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $data['album_info'] = !empty($opts['album_name']) ? $opts['album_name'] : '';
+    $data['album_info'] = !empty($opts['album_name']) ? ucwords($opts['album_name']) : '';
     $data['artist_id'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
     $data['artist_name'] = $opts['artist_name'];

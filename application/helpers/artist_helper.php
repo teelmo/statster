@@ -16,10 +16,10 @@ if (!function_exists('addArtist')) {
     $ci->load->database();
 
     // Load helpers.
-    $data['artist_name'] = !empty($opts['artist_name']) ? ucwords($opts['artist_name']) : '';
+    $data['artist_name'] = isset($opts['artist_name']) ? ucwords($opts['artist_name']) : FALSE;
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
 
-    if (!empty($data['artist_name'])) {
+    if ($data['artist_name'] !=== FALSE) {
       $sql = "INSERT
                 INTO " . TBL_artist . " (`user_id`, `artist_name`, `created`)
                 VALUES (?, ?, CURRENT_TIMESTAMP())";
@@ -341,16 +341,21 @@ if (!function_exists('updateArtist')) {
     $ci->load->database();
 
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $spotify_uri = !empty($opts['spotify_uri']) ? $opts['spotify_uri'] : '';
 
-    $sql = "UPDATE " . TBL_artist . "
-              SET " . TBL_artist . ".`artist_name` = ?,
-                  " . TBL_artist . ".`spotify_uri` = ?
-              WHERE " . TBL_artist . ".`id` = ?";
+    if ($album_name !== FALSE) {
+      $sql = "UPDATE " . TBL_artist . "
+                SET " . TBL_artist . ".`artist_name` = ?,
+                    " . TBL_artist . ".`spotify_uri` = ?
+                WHERE " . TBL_artist . ".`id` = ?";
 
-    $query = $ci->db->query($sql, array($artist_name, $spotify_uri, $artist_id));
-    return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
+      $query = $ci->db->query($sql, array($artist_name, $spotify_uri, $artist_id));
+      return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
+    }
+    else {
+      return FALSE;
+    }
   }
 }
 ?>
