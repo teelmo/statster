@@ -373,7 +373,6 @@ if (!function_exists('updateAlbum')) {
     $year = !empty($opts['year']) ? $opts['year'] : '';
 
     if ($album_name !== FALSE) {
-
       $sql = "UPDATE " . TBL_album . "
                 SET " . TBL_album . ".`album_name` = ?,
                     " . TBL_album . ".`artist_id` = ?,
