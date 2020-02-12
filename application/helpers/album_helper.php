@@ -383,7 +383,7 @@ if (!function_exists('updateAlbum')) {
       $query = $ci->db->query($sql, array($album_name, $artist_id, $year, $spotify_uri, $album_id));
       return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
     }
-    else {
+    else {
       return FALSE;
     }
   }
