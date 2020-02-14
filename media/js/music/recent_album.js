@@ -110,9 +110,13 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
+          var today = new Date();
           $.ajax({
             data:{
-              json_data:data
+              cur_date:today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2),
+              json_data:data,
+              strlenght:50,
+              time:Math.floor((new Date().getTime() - new Date().getTimezoneOffset() * 60000) / 1000)
             },
             success: function (data) {
               $('#recentlyListenedLoader').hide();
