@@ -18,8 +18,8 @@ if (!function_exists('addAlbum')) {
 
     $data['album_info'] = !empty($opts['album_name']) ? ucwords($opts['album_name']) : '';
     $data['artist_id'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
-    $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
     $data['artist_name'] = $opts['artist_name'];
+    $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
     if (empty($data['artist_id'])) {
       if (!$data['artist_id'] = addArtist($data)) {
         return FALSE;
