@@ -15,7 +15,7 @@ if (!function_exists('getBulletins')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $sql = "SELECT " . TBL_bulletin . ".`id`,
                    " . TBL_bulletin . ".`user_id`,
                    " . TBL_bulletin . ".`sender_id`,

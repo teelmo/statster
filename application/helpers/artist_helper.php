@@ -51,7 +51,7 @@ if (!function_exists('getArtistInfo')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     if ($artist_name === FALSE) {
       $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : FALSE;
       $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,

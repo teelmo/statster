@@ -16,8 +16,8 @@ if (!function_exists('addAlbum')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $data['album_info'] = !empty($opts['album_name']) ? ucwords($opts['album_name']) : '';
-    $data['artist_id'] = !empty($opts['artist_name']) ? getArtistID($opts) : '';
+    $data['album_info'] = isset($opts['album_name']) ? ucwords($opts['album_name']) : '';
+    $data['artist_id'] = isset($opts['artist_name']) ? getArtistID($opts) : '';
     $data['artist_name'] = $opts['artist_name'];
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
     if (empty($data['artist_id'])) {
@@ -368,7 +368,7 @@ if (!function_exists('updateAlbum')) {
 
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
     $album_name = isset($opts['album_name']) ? $opts['album_name'] : FALSE;
-    $artist_id = !empty($opts['artist_name']) ? getArtistID($opts) : '';
+    $artist_id = isset($opts['artist_name']) ? getArtistID($opts) : '';
     $spotify_uri = !empty($opts['spotify_uri']) ? $opts['spotify_uri'] : '';
     $year = !empty($opts['year']) ? $opts['year'] : '';
 

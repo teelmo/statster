@@ -59,7 +59,7 @@ if (!function_exists('getArtists')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
     $having = !empty($opts['having']) ? 'HAVING ' . $opts['having'] : '';
     $limit = !empty($opts['limit']) ? $opts['limit'] : '10';
@@ -125,8 +125,8 @@ if (!function_exists('getAlbums')) {
     $ci=& get_instance();
     $ci->load->database();
     
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_album . '.`id`';
     $having = !empty($opts['having']) ? 'HAVING ' . $opts['having'] : '';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -196,8 +196,8 @@ if (!function_exists('getListeners')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_user . '.`id`';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
@@ -255,8 +255,8 @@ if (!function_exists('getListenersCumulative')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
                    (SELECT COUNT(*) 
@@ -298,7 +298,7 @@ if (!function_exists('getArtistAlbums')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT count(*) AS `count`,
                    " . TBL_artist . ". `artist_name`,

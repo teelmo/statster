@@ -15,7 +15,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   */
 if (!function_exists('fetchSimilar')) {
   function fetchSimilar($opts = array()) {
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $limit = !empty($opts['limit']) ? $opts['limit'] : 4;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {
@@ -56,8 +56,8 @@ if (!function_exists('fetchSimilar')) {
   */
 if (!function_exists('fetchAlbumInfo')) {
   function fetchAlbumInfo($opts = array(), $get = array()) {
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : FALSE;
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $album_name = isset($opts['album_name']) ? $opts['album_name'] : FALSE;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE && $album_name !== FALSE) {
       $data = array();
@@ -99,7 +99,7 @@ if (!function_exists('fetchAlbumInfo')) {
   */
 if (!function_exists('fetchArtistInfo')) {
   function fetchArtistInfo($opts = array(), $get = array()) {
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {
       $data = array();
@@ -167,7 +167,7 @@ if (!function_exists('fetchTagBio')) {
 if (!function_exists('getEvents')) {
   function getEvents($opts = array()) {
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $limit = !empty($opts['limit']) ? $opts['limit'] : 8;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {

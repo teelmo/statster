@@ -70,7 +70,7 @@ if (!empty($json_data)) {
               echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
             }
             else {
-              if (!empty($row['album_name']) && empty($hide['album'])) {
+              if (isset($row['album_name']) && empty($hide['album'])) {
                 if (empty($hide['spotify']) && $row['spotify_uri']) {
                   echo '<a href="' . $row['spotify_uri'] . '" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>';
                 }

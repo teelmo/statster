@@ -103,8 +103,8 @@ if (!function_exists('getAlbumShout')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $album_name = !empty($opts['album_name']) ? $opts['album_name'] : '%';
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
@@ -157,7 +157,7 @@ if (!function_exists('getArtistShout')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $artist_name = !empty($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
