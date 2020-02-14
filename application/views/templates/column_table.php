@@ -44,7 +44,7 @@ if (!empty($json_data)) {
             }
           }
           else {
-            if (!empty($row['album_name']) && empty($hide['album'])) {
+            if (isset($row['album_name']) && empty($hide['album'])) {
               echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
             }
             else {

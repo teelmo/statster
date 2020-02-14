@@ -7,11 +7,11 @@ if (!empty($json_data)) {
       <tr data-created="<?=$row['created']?>">
         <td class="img<?=$size?>">
           <?php
-          if (empty($row['album_name'])) {
-            echo anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'));
+          if (isset($row['album_name'])) {
+            echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'));
           }
           else {
-            echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'));
+            echo anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img' . $size . '" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to artist\'s page'));
           }
           ?>
         </td>
@@ -19,11 +19,11 @@ if (!empty($json_data)) {
           <div class="title">
             <?php
             if (empty($hide['title'])) {
-              if (empty($row['album_name'])) {
-                echo anchor(array('music', url_title($row['artist_name'])), '<span class="title">' . $row['artist_name'] . '</span>', array('title' => 'Browse to artist\'s page'));
+              if (isset($row['album_name'])) {
+                echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
               }
               else {
-                echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
+                echo anchor(array('music', url_title($row['artist_name'])), '<span class="title">' . $row['artist_name'] . '</span>', array('title' => 'Browse to artist\'s page'));
               }
             }
             ?>

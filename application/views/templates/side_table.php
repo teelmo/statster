@@ -47,7 +47,7 @@ if (!empty($json_data)) {
           <?php
         }
         if (empty($row['type'])) {
-          if (!empty($row['album_name']) && empty($hide['album'])) {
+          if (isset($row['album_name']) && empty($hide['album'])) {
             ?>
             <td class="img<?=$size?> album_img">
               <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img' . $size . '" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to album\'s page'))?>
