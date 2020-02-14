@@ -15,7 +15,6 @@ if (!function_exists('addArtist')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    // Load helpers.
     $data['artist_name'] = isset($opts['artist_name']) ? ucwords($opts['artist_name']) : FALSE;
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
 
