@@ -11,8 +11,9 @@ $.extend(view, {
           $.ajax({
             data:{
               json_data:data,
-              rank:9,
-              size:32
+              hide:{
+                artist:true
+              }
             },
             success: function(data) {
               $('#artistAlbumLoader').hide();
