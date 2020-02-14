@@ -18,7 +18,7 @@ if (!function_exists('addArtist')) {
     $data['artist_name'] = isset($opts['artist_name']) ? ucwords($opts['artist_name']) : FALSE;
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
 
-    if ($data['artist_name'] !=== FALSE) {
+    if ($data['artist_name'] !== FALSE) {
       $sql = "INSERT
                 INTO " . TBL_artist . " (`user_id`, `artist_name`, `created`)
                 VALUES (?, ?, CURRENT_TIMESTAMP())";
