@@ -5,9 +5,10 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * Handles user login form posts.
   *
   * @param array $opts.
-  *          'artist'  => Artist name
+  *          'username'  => Username
+  *          'password'  => Password
   *
-  * @return int artist ID or boolean FALSE.
+  * @return array user session
   */
 if (!function_exists('loginUser')) {
   function loginUser($opts = array()) {
@@ -52,12 +53,28 @@ if (!function_exists('loginUser')) {
         'user_image'   => getUserImg(array('user_id' => $result->user_id, 'size' => 64)),
         'logged_in'    => TRUE
       ));
+      return TRUE;
     }
     else {
       return json_encode(array('error' => array('msg' => ERR_INCORRECT_CREDENTIALS)));
     }
   }
 }
+
+/**
+  * Handles user register form posts.
+  *
+  * @param array $opts.
+  *          'username'  => Username
+  *          'password'  => Password
+  *          'email'     => Email
+  *
+  * @return int artist ID or boolean FALSE.
+  */
+if (!function_exists('loginUser')) {
+  function loginUser($opts = array()) {
+
+
 
 /**
   * Handles user logout.
