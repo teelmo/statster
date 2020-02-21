@@ -71,8 +71,11 @@ if (!function_exists('loginUser')) {
   *
   * @return int artist ID or boolean FALSE.
   */
-if (!function_exists('loginUser')) {
-  function loginUser($opts = array()) {
+if (!function_exists('registerUser')) {
+  function registerUser($opts = array()) {
+
+  }
+}
 
 
 
