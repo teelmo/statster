@@ -30,13 +30,13 @@
       </div>
     </div>
     <div class="container">
-      <h3>What is Statster?</h3>
-      <p>Statster is a web service designed to track listened albums.</p>
-      <p>Bacon ipsum dolor amet hamburger drumstick shankle, ball tip kevin tail pastrami doner swine frankfurter bresaola landjaeger. Capicola tenderloin beef ribs picanha pork loin corned beef. Pastrami beef ribs sirloin jerky landjaeger kielbasa. Meatball cow bresaola corned beef turkey, ribeye alcatra venison tail tongue andouille. Beef ribs pancetta meatball biltong hamburger. T-bone porchetta landjaeger ground round chuck meatball pork belly swine cow short ribs chicken jerky beef.</p>
-      <p>T-bone frankfurter shoulder meatball. Beef meatloaf brisket short loin kielbasa bacon tail. Turducken beef ribs rump chicken, meatloaf picanha corned beef. Ham meatloaf cow tenderloin shoulder. Strip steak hamburger burgdoggen ham hock spare ribs venison rump. Pork loin corned beef leberkas, turducken meatloaf flank shoulder t-bone tenderloin.</p>
-      <p>Pastrami bresaola turkey leberkas landjaeger pig salami. Kielbasa turkey jowl chicken jerky kevin. Cow short ribs ham frankfurter. Drumstick beef ribs meatball, biltong tri-tip brisket ham hock cupim corned beef. Ball tip turkey burgdoggen ribeye doner kevin. Prosciutto turkey biltong tenderloin. Leberkas frankfurter kielbasa, flank salami shank kevin shankle.</p>
-      <p>Turducken kevin chicken fatback, brisket ribeye pork loin filet mignon. Ball tip spare ribs ham, leberkas tri-tip ham hock rump kevin strip steak chicken meatloaf bresaola turkey landjaeger venison. Meatloaf cow strip steak biltong rump bacon cupim jerky corned beef beef ribs ribeye alcatra. Ham pork belly rump jerky. Pork chop corned beef flank, hamburger shankle prosciutto turkey fatback sausage ribeye ball tip turducken burgdoggen tenderloin.</p>
-     <p>Landjaeger pancetta drumstick pork chop beef ribs turducken cow beef flank jowl spare ribs pork. Tenderloin jowl flank kevin boudin, rump kielbasa pork pancetta spare ribs meatball filet mignon tri-tip bacon. Venison cupim brisket, hamburger sausage t-bone shoulder filet mignon strip steak beef. Landjaeger tail hamburger ham bresaola pancetta.</p>
+      <h3>Statster is a web service for tracking your music</h3>
+      <p>The story of Statster dates back to year 2007. Back then I was studying at the university where I learned some PHP and SQL.</p>
+      <p>I had been tracking my listening habits by hand for several years before and then I realised I can use these new skills to make my life easier. The idea of Statster was born.</p>
+      <p>I came up with the first version farely quickly. It was crappy but it worked. Luckily I was very passionate to develop the service further.</p>
+      <p>In 2009 Statster had it's high point when almost 9,000 album listenings were registered into the system.</p>
+      <p>Nowadays Statster is only used by me for my own purposes and the story continues.</p>
+      <p>– Teemo Tebest, founder of Statster</p>
    </div>
   </div>
   <div class="right_container">

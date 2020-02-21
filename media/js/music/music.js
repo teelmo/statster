@@ -163,6 +163,7 @@ $.extend(view, {
         having:'`count` = 1',
         limit:100,
         lower_limit:'1970-00-00',
+        order_by:'`count` ASC',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:'<?=TBL_listening?>.`date` < \'<?=CUR_YEAR - 1?>-12-31\''
       },
