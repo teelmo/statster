@@ -16,7 +16,7 @@ if (!function_exists('loginUser')) {
     $ci->load->database();
 
     $username = trim($opts['username']);
-    $password = md5(trim($opts['password'])); 
+    $password = md5(trim($opts['password']));
 
     $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
@@ -69,15 +69,17 @@ if (!function_exists('loginUser')) {
   *          'password'  => Password
   *          'email'     => Email
   *
-  * @return int artist ID or boolean FALSE.
+  * @return int user ID or boolean FALSE.
   */
 if (!function_exists('registerUser')) {
   function registerUser($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
 
+    $username = trim($opts['username']);
+    $password = md5(trim($opts['password']));
   }
 }
-
-
 
 /**
   * Handles user logout.

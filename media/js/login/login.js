@@ -9,7 +9,7 @@ $.extend(view, {
           username:$('#loginUsername').val()
         },
         success: function (data) {
-          if (data.trim() === '') {
+          if (data.trim() === '1') {
             window.location.href = encodeURI('<?=addslashes($redirect)?>').replace(/%20/g,'+');
           }
           else {
