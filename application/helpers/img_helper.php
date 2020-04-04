@@ -51,14 +51,14 @@ if (!function_exists('getArtistImg')) {
       return site_url() . $filename;
     }
     else {
-      $ci->load->helper('lastfm_helper');
-      fetchArtistInfo($opts, array('image'));
-      if (read_file('./' . $filename)) {
-        return site_url() . $filename;
-      }
-      else {
-        return site_url() . $empty_filename;
-      }
+      // $ci->load->helper('lastfm_helper');
+      // fetchArtistInfo($opts, array('image'));
+      // if (read_file('./' . $filename)) {
+      //   return site_url() . $filename;
+      // }
+      // else {
+      //   return site_url() . $empty_filename;
+      // }
     }
   }   
 }
@@ -88,14 +88,14 @@ if (!function_exists('getAlbumImg')) {
       return site_url() . $filename;
     }
     else {
-      $ci->load->helper('lastfm_helper');
-      fetchAlbumInfo($opts, array('image'));
-      if (read_file('./' . $filename)) {
-        return site_url() . $filename;
-      }
-      else {
-        return site_url() . $empty_filename;
-      }
+      // $ci->load->helper('lastfm_helper');
+      // fetchAlbumInfo($opts, array('image'));
+      // if (read_file('./' . $filename)) {
+      //   return site_url() . $filename;
+      // }
+      // else {
+      //   return site_url() . $empty_filename;
+      // }
     }
   }   
 }
