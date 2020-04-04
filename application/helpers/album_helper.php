@@ -77,7 +77,7 @@ if (!function_exists('getAlbumInfo')) {
   function getAlbumInfo($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
-    
+
     $album_name = isset($opts['album_name']) ? $opts['album_name'] : FALSE;
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     if ($artist_name !== FALSE && $album_name !== FALSE) {

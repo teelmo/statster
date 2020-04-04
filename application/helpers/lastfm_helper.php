@@ -75,7 +75,7 @@ if (!function_exists('fetchAlbumInfo')) {
             $ci->load->helper(array('img_helper'));
             $url = explode('/', end($lastfm_data['image'])['#text']);
             $opts['image_uri'] = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-            fetchImages($opts, 'album_img');
+            // fetchImages($opts, 'album_img');
           }
         }
       }
