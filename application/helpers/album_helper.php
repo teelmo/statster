@@ -90,7 +90,7 @@ if (!function_exists('getAlbumInfo')) {
                      YEAR(" . TBL_album . ".`created`) as `created`
               FROM " . TBL_artist . ",
                    " . TBL_album . "
-              WHERE ".TBL_album.".`artist_id` = " . TBL_artist . ".`id` 
+              WHERE ".TBL_album.".`artist_id` = " . TBL_artist . ".`id`
                 AND " . TBL_artist . ".`artist_name` = ?
                 AND " . TBL_album . ".`album_name` = ?";
       $query = $ci->db->query($sql, array($artist_name, $album_name));
@@ -129,8 +129,8 @@ if (!function_exists('getAlbumBio')) {
 
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
     $sql = "SELECT " . TBL_album_biography . ".`id` as `biography_id`,
-                   " . TBL_album_biography . ".`summary` as `bio_summary`, 
-                   " . TBL_album_biography . ".`text` as `bio_content`, 
+                   " . TBL_album_biography . ".`summary` as `bio_summary`,
+                   " . TBL_album_biography . ".`text` as `bio_content`,
                    " . TBL_album_biography . ".`updated` as `bio_updated`,
                    'false' as `update_bio`
             FROM " . TBL_album_biography . "
