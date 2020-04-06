@@ -2,28 +2,28 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-  * Get path to user's profile image.
+  * Get path to album's art.
   *
   * @param array $opts.
-  *          'size'     => Desired image size
-  *          'user_id'  => User ID
+  *          'size'      => Desired image size
+  *          'album_id'  => Artist ID
   *
   * @return string Absolute path to image file.
   */
-if (!function_exists('getUserImg')) {
-  function getUserImg($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->helper('file');
-    if (empty($opts['size'])) {
-      return '';
-    }
-    $empty_filename = 'media/img/user_img/' . $opts['size'] . '/' . 0 . '.jpg';
-    if (empty($opts['user_id'])) {
-      return site_url() . $empty_filename;
-    }
-    $filename = 'media/img/user_img/' . $opts['size'] . '/' . $opts['user_id'] . '.jpg';
-    return (read_file('./' . $filename)) ? site_url() . $filename : site_url() . $empty_filename;
-  }   
+if (!function_exists('getAlbumImg')) {
+  function getAlbumImg($opts = array()) {
+    return file_get_contents('http://77.37.18.167/img/getImage.php?size=' . $opts['size'] . '&type=album&id=' . $opts['album_id'] . '');
+    // else {
+      // $ci->load->helper('lastfm_helper');
+      // fetchAlbumInfo($opts, array('image'));
+      // if (read_file('./' . $filename)) {
+      //   return site_url() . $filename;
+      // }
+      // else {
+      //   return site_url() . $empty_filename;
+      // }
+    // }
+  }
 }
 
 /**
@@ -37,67 +37,33 @@ if (!function_exists('getUserImg')) {
   */
 if (!function_exists('getArtistImg')) {
   function getArtistImg($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->helper('file');
-    if (empty($opts['size'])) {
-      return '';
-    }
-    $empty_filename = 'media/img/artist_img/' . $opts['size'] . '/0.jpg';
-    if (empty($opts['artist_id'])) {
-      return site_url() . $empty_filename;
-    }
-    $filename = 'media/img/artist_img/' . $opts['size'] . '/' . $opts['artist_id'] . '.jpg';
-    if (read_file('./' . $filename)) {
-      return site_url() . $filename;
-    }
-    else {
-      // $ci->load->helper('lastfm_helper');
-      // fetchArtistInfo($opts, array('image'));
-      // if (read_file('./' . $filename)) {
-      //   return site_url() . $filename;
-      // }
-      // else {
-      //   return site_url() . $empty_filename;
-      // }
-    }
-  }   
+    return file_get_contents('http://77.37.18.167/img/getImage.php?size=' . $opts['size'] . '&type=artist&id=' . $opts['artist_id'] . '');
+    // else {
+    //   $ci->load->helper('lastfm_helper');
+    //   fetchArtistInfo($opts, array('image'));
+    //   if (read_file('./' . $filename)) {
+    //     return site_url() . $filename;
+    //   }
+    //   else {
+    //     return site_url() . $empty_filename;
+    //   }
+    // }
+  }
 }
 
 /**
-  * Get path to album's art.
+  * Get path to user's profile image.
   *
   * @param array $opts.
-  *          'size'      => Desired image size
-  *          'album_id'  => Artist ID
+  *          'size'     => Desired image size
+  *          'user_id'  => User ID
   *
   * @return string Absolute path to image file.
   */
-if (!function_exists('getAlbumImg')) {
-  function getAlbumImg($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->helper('file');
-    if (empty($opts['size'])) {
-      return '';
-    }
-    $empty_filename = 'media/img/album_img/' . $opts['size'] . '/0.jpg';
-    if (empty($opts['album_id'])) {
-      return site_url() . $empty_filename;
-    }
-    $filename = 'media/img/album_img/' . $opts['size'] . '/' . $opts['album_id'] . '.jpg';
-    if (read_file('./' . $filename)) {
-      return site_url() . $filename;
-    }
-    else {
-      // $ci->load->helper('lastfm_helper');
-      // fetchAlbumInfo($opts, array('image'));
-      // if (read_file('./' . $filename)) {
-      //   return site_url() . $filename;
-      // }
-      // else {
-      //   return site_url() . $empty_filename;
-      // }
-    }
-  }   
+if (!function_exists('getUserImg')) {
+  function getUserImg($opts = array()) {
+    return file_get_contents('http://77.37.18.167/img/getImage.php?size=' . $opts['size'] . '&type=user&id=' . $opts['user_id'] . '');
+  }
 }
 
 /**
@@ -147,6 +113,7 @@ if (!function_exists('getListeningFormatImg')) {
     $query = $ci->db->query($sql, array($listening_id));
     if ($query->num_rows() > 0) {
       $result = $query->result();
+      $ci->load->helper('file');
       $filename = 'media/img/format_img/format_icons/' . $result[0]->img . '.png';
       return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
     }
@@ -178,6 +145,7 @@ if (!function_exists('getListeningFormatTypeImg')) {
     $query = $ci->db->query($sql, array($listening_id));
     if ($query->num_rows() > 0) {
       $result = $query->result();
+      $ci->load->helper('file');
       $filename = 'media/img/format_img/format_icons/' . $result[0]->img . '.png';
       return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
     }
