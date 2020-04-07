@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
@@ -81,7 +81,7 @@ if (!function_exists('getUserImg')) {
 
 /**
   * Collection function for getting the listening's
-  * format or format type information 
+  * format or format type information
   *
   * @param array $opts.
   *          'listening_id'  => Listening ID
@@ -102,7 +102,7 @@ if (!function_exists('getListeningImg')) {
       return array('filename' => site_url() . '/media/img/format_img/format_icons/empty.png', 'name' => '');
     }
   }
-}    
+}
 
 /**
   * Get listening's format image.
@@ -188,7 +188,7 @@ if (!function_exists('getFormatImg')) {
             LIMIT 1";
     $query = $ci->db->query($sql, array($format));
     return ($query->num_rows() > 0) ? $query->result()[0]->img : FALSE;
-  }   
+  }
 }
 
 /**
@@ -211,7 +211,7 @@ if (!function_exists('getFormatTypeImg')) {
             LIMIT 1";
     $query = $ci->db->query($sql, array($format_type));
     return ($query->num_rows() > 0) ? $query->result()[0]->img : FALSE;
-  }   
+  }
 }
 
 if (!function_exists('getImagePath')) {
