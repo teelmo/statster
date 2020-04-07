@@ -216,7 +216,7 @@ if (!function_exists('getFormatTypeImg')) {
 
 if (!function_exists('getImagePath')) {
   function getImagePath($opts, $type) {
-    if (ENVIRONMENT === 'development') {
+    if (ENVIRONMENT === 'production') {
       return @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']);
     }
     else {
