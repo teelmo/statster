@@ -39,8 +39,7 @@ class Admin extends CI_Controller {
       if (!empty($_POST)) {
         $data = $_POST;
         if (strpos($data['image_uri'], IMAGE_SERVER) === FALSE) {
-          $data['type'] = 'artist';
-          fetchImages($data, 'artist_img');
+          fetchImages($data, 'artist');
         }
         updateArtist($data);
         redirect('/music/' . url_title($data['artist_name']));
@@ -71,7 +70,7 @@ class Admin extends CI_Controller {
         $data = $_POST;
         if (strpos($data['image_uri'], IMAGE_SERVER) === FALSE) {
           $data['type'] = 'album';
-          fetchImages($data, 'album_img');
+          fetchImages($data, 'album');
         }
         updateAlbum($data);
         redirect('/music/' . url_title($data['artist_name']) . '/' . url_title($data['album_name']));
