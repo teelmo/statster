@@ -12,7 +12,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   */
 if (!function_exists('getAlbumImg')) {
   function getAlbumImg($opts = array()) {
-    $filename = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=album&id=' . $opts['album_id'] . '');
+    $opts['id'] = $opts['album_id'];
+    $filename = getImagePath($opts, 'album');
     if (empty($filename)) {
       $ci=& get_instance();
       $ci->load->helper('lastfm_helper');
@@ -39,7 +40,8 @@ if (!function_exists('getAlbumImg')) {
   */
 if (!function_exists('getArtistImg')) {
   function getArtistImg($opts = array()) {
-    $filename = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=artist&id=' . $opts['artist_id'] . '');
+    $opts['id'] = $opts['artist_id'];
+    $filename = getImagePath($opts, 'artist');
     if (empty($filename)) {
       // $ci=& get_instance();
       // $ci->load->helper('lastfm_helper');
@@ -66,7 +68,8 @@ if (!function_exists('getArtistImg')) {
   */
 if (!function_exists('getUserImg')) {
   function getUserImg($opts = array()) {
-    $filename = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=user&id=' . $opts['user_id'] . '');
+    $opts['id'] = $opts['user_id'];
+    $filename = getImagePath($opts, 'user');
     if (empty($filename)) {
       return IMAGE_SERVER . 'user_img/' . $opts['size'] . '/0.jpg';
     }
@@ -209,6 +212,25 @@ if (!function_exists('getFormatTypeImg')) {
     $query = $ci->db->query($sql, array($format_type));
     return ($query->num_rows() > 0) ? $query->result()[0]->img : FALSE;
   }   
+}
+
+if (!function_exists('getImagePath')) {
+  function getImagePath($opts, $type) {
+    if (ENVIRONMENT === 'development') {
+      return @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']);
+    }
+    else {
+      $ci=& get_instance();
+      $ci->load->helper('file');
+      $filename = 'media/img/' . $type . '_img/' . $opts['size'] . '/' . $opts['id'] . '.jpg';
+      if (read_file('./' . $filename)) {
+        return site_url() . $filename;
+      }
+      else {
+        return site_url() . '/media/img/' . $type . '_img/' . $opts['size'] . '/0.jpg';
+      }
+    }
+  }
 }
 
 if (!function_exists('fetchImages')) {
