@@ -177,7 +177,7 @@ class Music extends CI_Controller {
           $this->load->helper(array('lastfm_helper'));
           unset($data['bio_summary']);
           unset($data['bio_content']);
-          $data += fetchAlbumInfo($data, array('bio', 'image'));
+          $data += fetchAlbumInfo($data, array('bio'));
           addAlbumBio($data);
         }
         else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
