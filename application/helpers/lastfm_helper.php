@@ -31,9 +31,10 @@ if (!function_exists('fetchAlbumInfo')) {
           // Get image.
           if (!empty(end($lastfm_data['image'])['#text']) && in_array('image', $get)) {
             $url = explode('/', end($lastfm_data['image'])['#text']);
-            $url = end($url);
-            if (!empty($url)) {
-              $data['image_uri'] = file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode('https://lastfm-img2.akamaized.net/i/u/' . $url) . '&type=album&id=' . $opts['album_id']);
+            $opts['image_uri'] = end($url);
+            if (!empty($opts['image_uri'])) {
+              $ci->load->helper(array('img_helper'));
+              fetchImages($opts, 'album');
             }
           }
         }

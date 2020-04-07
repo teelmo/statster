@@ -67,7 +67,7 @@ if (!function_exists('getArtistImg')) {
 if (!function_exists('getUserImg')) {
   function getUserImg($opts = array()) {
     $filename = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=user&id=' . $opts['user_id'] . '');
-    if ($filename === '') {
+    if (empty($filename)) {
       return IMAGE_SERVER . 'user_img/' . $opts['size'] . '/0.jpg';
     }
     else {
@@ -212,12 +212,12 @@ if (!function_exists('getFormatTypeImg')) {
 }
 
 if (!function_exists('fetchImages')) {
-  function fetchImages($opts, $target_folder) {
-    if ($target_folder === 'album_img') {
-      file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode($opts['image_uri']) . '&type=album&id=' . $opts['album_id']);
+  function fetchImages($opts, $type) {
+    if ($type === 'album') {
+      return file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode($opts['image_uri']) . '&type=album&id=' . $opts['album_id']);
     }
-    else if ($target_folder === 'artist_img') {
-      file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode($opts['image_uri']) . '&type=artist&id=' . $opts['artist_id']);
+    else if ($type === 'artist') {
+      return file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode($opts['image_uri']) . '&type=artist&id=' . $opts['artist_id']);
     }
   }
 }
