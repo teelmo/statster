@@ -10,7 +10,7 @@ class Admin extends CI_Controller {
 
       // Load helpers.
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
-      
+
       $data = array();
 
       $opts = array(
@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
-      
+
       $data['js_include'] = array('admin/admin');
       $this->load->view('site_templates/header');
       $this->load->view('admin/admin_view', $data);
