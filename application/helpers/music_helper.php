@@ -162,8 +162,7 @@ if (!function_exists('getAlbums')) {
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?
               " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . ",
-                     " . TBL_user . ".`id`
+            GROUP BY " . $ci->db->escape_str($group_by) . "
             " . $ci->db->escape_str($having) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);

@@ -160,12 +160,12 @@ $.extend(view, {
   getSecondChance: function () {
     $.ajax({
       data:{
-        having:'`count` = 1',
-        limit:100,
+        having:'`count` < 3',
+        limit:4,
         lower_limit:'1970-00-00',
-        order_by:'`count` ASC',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'<?=TBL_listening?>.`date` < \'<?=CUR_YEAR - 1?>-12-31\''
+        order_by:'RAND()',
+        upper_limit:'<?=CUR_YEAR - 1?>-12-31',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
       statusCode:{
