@@ -42,7 +42,7 @@ class Admin extends CI_Controller {
           $this->load->helper(array('lastfm_helper'));
           fetchArtistInfo($data, array('bio'));
         }
-        else if (strpos($data['image_uri'], 'statster.') === false) {
+        else if (strpos($data['image_uri'], IMAGE_SERVER_IP) === false) {
           fetchImages($data, 'artist_img');
         }
         updateArtist($data);
@@ -76,7 +76,7 @@ class Admin extends CI_Controller {
           $this->load->helper(array('lastfm_helper'));
           fetchAlbumInfo($data, array('bio'));
         }
-        else if (strpos($data['image_uri'], 'statster.') === false) {
+        else if (strpos($data['image_uri'], IMAGE_SERVER_IP) === false) {
           fetchImages($data, 'album_img');
         }
         updateAlbum($data);

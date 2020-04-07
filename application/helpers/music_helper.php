@@ -397,7 +397,6 @@ if (!function_exists('getUserSimilarity')) {
         'value' => 0
       );
     }
-
   }
 }
 

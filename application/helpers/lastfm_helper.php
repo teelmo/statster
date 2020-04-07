@@ -2,51 +2,10 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-  * Gets artist's similar artists from Last.fm
-  *
-  * @param array $opts.
-  *          'artist_name'      => Artist name
-  *          'format'           => Format
-  *          'limit'            => Limit
-  *
-  * @return array Artist's similar artists.
-  *
-  * http://www.last.fm/api/show/artist.getSimilar
-  */
-if (!function_exists('fetchSimilar')) {
-  function fetchSimilar($opts = array()) {
-    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 4;
-    $format = !empty($opts['format']) ? $opts['format'] : 'json';
-    if ($artist_name !== FALSE) {
-      $data = array();
-      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
-      if (!empty($lastfm_data['similarartists'])) {
-        $similar_artists = $lastfm_data['similarartists']['artist'];
-        foreach ($similar_artists as $idx => $similar_artist) {
-          if ($artist_info = getArtistInfo(array('artist_name' => $similar_artist['name']))) {
-            $data[] = $artist_info;
-          }
-          else {
-            $data[] = array('artist_id' => 0, 'artist_name' => $similar_artist['name']);
-          }
-        }
-      }
-      else {
-        return json_encode(array('error' => array('msg' => ERR_NO_DATA)));
-      }
-      return json_encode($data);  
-    }
-    return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
-  }
-}
-
-/**
   * Gets album's info from Last.fm
   *
   * @param array $opts.
-  *          'album_name'       => Album name
-  *          'artist_name'      => Artist name
+  *          'album_id'         => Album ID
   *          'format'           => Format
   *
   * @return array Album's bio.
@@ -71,11 +30,11 @@ if (!function_exists('fetchAlbumInfo')) {
           } 
           // Get image.
           if (!empty(end($lastfm_data['image'])['#text']) && in_array('image', $get)) {
-            $ci=& get_instance();
-            $ci->load->helper(array('img_helper'));
             $url = explode('/', end($lastfm_data['image'])['#text']);
-            $opts['image_uri'] = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-            // fetchImages($opts, 'album_img');
+            $url = end($url);
+            if (!empty($url)) {
+              $data['image_uri'] = file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode('https://lastfm-img2.akamaized.net/i/u/' . $url) . '&type=album&id=' . $opts['album_id']);
+            }
           }
         }
       }
@@ -111,15 +70,15 @@ if (!function_exists('fetchArtistInfo')) {
             $data['bio_summary'] = $lastfm_data['bio']['summary']; 
             $data['bio_content'] = $lastfm_data['bio']['content'];
           }
+          // Removed due: https://getsatisfaction.com/lastfm/topics/api-announcement-dac8oefw5vrxq
           // Get image.
-          if (!empty(end($lastfm_data['image'])['#text']) && in_array('image', $get)) {
-            $ci=& get_instance();
-            $ci->load->helper(array('img_helper'));
-            $url = explode('/', end($lastfm_data['image'])['#text']);
-            $opts['image_uri'] = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-            // Removed due: https://getsatisfaction.com/lastfm/topics/api-announcement-dac8oefw5vrxq
-            // fetchImages($opts, 'artist_img');
-          }
+          // if (!empty(end($lastfm_data['image'])['#text']) && in_array('image', $get)) {
+          //   $ci=& get_instance();
+          //   $ci->load->helper(array('img_helper'));
+          //   $url = explode('/', end($lastfm_data['image'])['#text']);
+          //   $opts['image_uri'] = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
+          //   // fetchImages($opts, 'artist_img');
+          // }
         }
       }
       return $data;
@@ -152,6 +111,47 @@ if (!function_exists('fetchTagBio')) {
       return $data; 
     }
     return json_encode(array('error' => array('msg' => ERR_NO_TAG)));
+  }
+}
+
+/**
+  * Gets artist's similar artists from Last.fm
+  *
+  * @param array $opts.
+  *          'artist_name'      => Artist name
+  *          'format'           => Format
+  *          'limit'            => Limit
+  *
+  * @return array Artist's similar artists.
+  *
+  * http://www.last.fm/api/show/artist.getSimilar
+*/
+
+if (!function_exists('fetchSimilar')) {
+  function fetchSimilar($opts = array()) {
+    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 4;
+    $format = !empty($opts['format']) ? $opts['format'] : 'json';
+    if ($artist_name !== FALSE) {
+      $data = array();
+      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
+      if (!empty($lastfm_data['similarartists'])) {
+        $similar_artists = $lastfm_data['similarartists']['artist'];
+        foreach ($similar_artists as $idx => $similar_artist) {
+          if ($artist_info = getArtistInfo(array('artist_name' => $similar_artist['name']))) {
+            $data[] = $artist_info;
+          }
+          else {
+            $data[] = array('artist_id' => 0, 'artist_name' => $similar_artist['name']);
+          }
+        }
+      }
+      else {
+        return json_encode(array('error' => array('msg' => ERR_NO_DATA)));
+      }
+      return json_encode($data);  
+    }
+    return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
   }
 }
 

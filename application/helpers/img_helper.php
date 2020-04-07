@@ -6,23 +6,25 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *
   * @param array $opts.
   *          'size'      => Desired image size
-  *          'album_id'  => Artist ID
+  *          'album_id'  => Album ID
   *
   * @return string Absolute path to image file.
   */
 if (!function_exists('getAlbumImg')) {
   function getAlbumImg($opts = array()) {
-    return file_get_contents('http://77.37.18.167/img/getImage.php?size=' . $opts['size'] . '&type=album&id=' . $opts['album_id'] . '');
-    // else {
-      // $ci->load->helper('lastfm_helper');
-      // fetchAlbumInfo($opts, array('image'));
-      // if (read_file('./' . $filename)) {
-      //   return site_url() . $filename;
-      // }
-      // else {
-      //   return site_url() . $empty_filename;
-      // }
-    // }
+    $filename = @file_get_contents(IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'getImage.php?size=' . $opts['size'] . '&type=album&id=' . $opts['album_id'] . '');
+    if (empty($filename)) {
+      $ci=& get_instance();
+      $ci->load->helper('lastfm_helper');
+      $data = fetchAlbumInfo($opts, array('image'));
+      if (!empty($data['image_uri'])) {
+        return $data['image_uri'];
+      }
+      return IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'album_img/' . $opts['size'] . '/0.jpg';
+    }
+    else {
+      return $filename;
+    }
   }
 }
 
@@ -37,17 +39,19 @@ if (!function_exists('getAlbumImg')) {
   */
 if (!function_exists('getArtistImg')) {
   function getArtistImg($opts = array()) {
-    return file_get_contents('http://77.37.18.167/img/getImage.php?size=' . $opts['size'] . '&type=artist&id=' . $opts['artist_id'] . '');
-    // else {
-    //   $ci->load->helper('lastfm_helper');
-    //   fetchArtistInfo($opts, array('image'));
-    //   if (read_file('./' . $filename)) {
-    //     return site_url() . $filename;
-    //   }
-    //   else {
-    //     return site_url() . $empty_filename;
-    //   }
-    // }
+    $filename = @file_get_contents(IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'getImage.php?size=' . $opts['size'] . '&type=artist&id=' . $opts['artist_id'] . '');
+    if ($filename === '') {
+      // $ci=& get_instance();
+      // $ci->load->helper('lastfm_helper');
+      // $data = fetchArtistInfo($opts, array('image'));
+      // if ($data['image_uri'] !== '') {
+      //   return $data['image_uri'];
+      // }
+      return IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'artist_img/' . $opts['size'] . '/0.jpg';
+    }
+    else {
+      return $filename;
+    }
   }
 }
 
@@ -62,7 +66,13 @@ if (!function_exists('getArtistImg')) {
   */
 if (!function_exists('getUserImg')) {
   function getUserImg($opts = array()) {
-    return file_get_contents('http://77.37.18.167/img/getImage.php?size=' . $opts['size'] . '&type=user&id=' . $opts['user_id'] . '');
+    $filename = @file_get_contents(IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'getImage.php?size=' . $opts['size'] . '&type=user&id=' . $opts['user_id'] . '');
+    if ($filename === '') {
+      return IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'user_img/' . $opts['size'] . '/0.jpg';
+    }
+    else {
+      return $filename;
+    }
   }
 }
 
