@@ -211,7 +211,7 @@ if (!function_exists('getFormatTypeImg')) {
             LIMIT 1";
     $query = $ci->db->query($sql, array($format_type));
     return ($query->num_rows() > 0) ? $query->result()[0]->img : FALSE;
-  }   
+  }
 }
 
 if (!function_exists('getImagePath')) {
