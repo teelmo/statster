@@ -12,7 +12,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   */
 if (!function_exists('getAlbumImg')) {
   function getAlbumImg($opts = array()) {
-    $filename = @file_get_contents(IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'getImage.php?size=' . $opts['size'] . '&type=album&id=' . $opts['album_id'] . '');
+    $filename = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=album&id=' . $opts['album_id'] . '');
     if (empty($filename)) {
       $ci=& get_instance();
       $ci->load->helper('lastfm_helper');
@@ -20,7 +20,7 @@ if (!function_exists('getAlbumImg')) {
       if (!empty($data['image_uri'])) {
         return $data['image_uri'];
       }
-      return IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'album_img/' . $opts['size'] . '/0.jpg';
+      return IMAGE_SERVER . 'album_img/' . $opts['size'] . '/0.jpg';
     }
     else {
       return $filename;
@@ -39,7 +39,7 @@ if (!function_exists('getAlbumImg')) {
   */
 if (!function_exists('getArtistImg')) {
   function getArtistImg($opts = array()) {
-    $filename = @file_get_contents(IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'getImage.php?size=' . $opts['size'] . '&type=artist&id=' . $opts['artist_id'] . '');
+    $filename = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=artist&id=' . $opts['artist_id'] . '');
     if ($filename === '') {
       // $ci=& get_instance();
       // $ci->load->helper('lastfm_helper');
@@ -47,7 +47,7 @@ if (!function_exists('getArtistImg')) {
       // if ($data['image_uri'] !== '') {
       //   return $data['image_uri'];
       // }
-      return IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'artist_img/' . $opts['size'] . '/0.jpg';
+      return IMAGE_SERVER . 'artist_img/' . $opts['size'] . '/0.jpg';
     }
     else {
       return $filename;
@@ -66,9 +66,9 @@ if (!function_exists('getArtistImg')) {
   */
 if (!function_exists('getUserImg')) {
   function getUserImg($opts = array()) {
-    $filename = @file_get_contents(IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'getImage.php?size=' . $opts['size'] . '&type=user&id=' . $opts['user_id'] . '');
+    $filename = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=user&id=' . $opts['user_id'] . '');
     if ($filename === '') {
-      return IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . 'user_img/' . $opts['size'] . '/0.jpg';
+      return IMAGE_SERVER . 'user_img/' . $opts['size'] . '/0.jpg';
     }
     else {
       return $filename;
