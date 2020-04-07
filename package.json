@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sync-prod":"ssh teelmo@saksa git -C /home/statster.info pull"
+    "sync-prod":"ssh teelmo@saksa2 git -C /home/teelmo/Sites/statster.info pull"
   },
   "repository": {
     "type": "git",
