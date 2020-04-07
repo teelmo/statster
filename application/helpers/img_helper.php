@@ -40,7 +40,7 @@ if (!function_exists('getAlbumImg')) {
 if (!function_exists('getArtistImg')) {
   function getArtistImg($opts = array()) {
     $filename = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=artist&id=' . $opts['artist_id'] . '');
-    if ($filename === '') {
+    if (empty($filename)) {
       // $ci=& get_instance();
       // $ci->load->helper('lastfm_helper');
       // $data = fetchArtistInfo($opts, array('image'));
