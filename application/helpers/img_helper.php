@@ -235,11 +235,13 @@ if (!function_exists('getImagePath')) {
 
 if (!function_exists('fetchImages')) {
   function fetchImages($opts, $type) {
-    if ($type === 'album') {
-      return file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode($opts['image_uri']) . '&type=album&id=' . $opts['album_id']);
-    }
-    else if ($type === 'artist') {
-      return file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode($opts['image_uri']) . '&type=artist&id=' . $opts['artist_id']);
+    if (ENVIRONMENT === 'production') {
+      if ($type === 'album') {
+        return file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode($opts['image_uri']) . '&type=album&id=' . $opts['album_id']);
+      }
+      else if ($type === 'artist') {
+        return file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode($opts['image_uri']) . '&type=artist&id=' . $opts['artist_id']);
+      }
     }
   }
 }
