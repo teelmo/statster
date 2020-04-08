@@ -237,11 +237,31 @@ if (!function_exists('fetchImages')) {
   function fetchImages($opts, $type) {
     if (ENVIRONMENT === 'production') {
       if ($type === 'album') {
-        return file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode(urlencode($opts['image_uri'])) . '&type=album&id=' . $opts['album_id']);
+        $data = array(
+          'id' => $opts['album_id'],
+          'type' => 'album',
+          'uri' => $opts['image_uri']
+        );
       }
       else if ($type === 'artist') {
-        return file_get_contents(IMAGE_SERVER . 'addImage.php?uri=' . urlencode(urlencode($opts['image_uri'])) . '&type=artist&id=' . $opts['artist_id']);
+        $data = array(
+          'id' => $opts['artist_id'],
+          'type' => 'artist',
+          'uri' => $opts['image_uri']
+        );
       }
+      $ch = curl_init(IMAGE_SERVER . 'addImage.php');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+      curl_setopt($ch, CURLOPT_POST, true);
+      $payload = json_encode($data);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($payload))
+      );
+      $result = curl_exec($ch);
+      curl_close($ch);
     }
   }
 }
