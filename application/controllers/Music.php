@@ -59,6 +59,7 @@ class Music extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'output_helper'));
 
+
       // Decode artist information.
       $data['artist_name'] = decode($value);
       // Get artist information aka. artist's name and id.

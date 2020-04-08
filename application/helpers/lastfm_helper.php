@@ -33,6 +33,7 @@ if (!function_exists('fetchAlbumInfo')) {
             $url = explode('/', end($lastfm_data['image'])['#text']);
             $opts['image_uri'] = end($url);
             if (!empty($opts['image_uri'])) {
+              $ci=& get_instance();
               $ci->load->helper(array('img_helper'));
               fetchImages($opts, 'album');
             }
@@ -63,23 +64,29 @@ if (!function_exists('fetchArtistInfo')) {
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE) {
       $data = array();
-      if ($lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)) {
-        if (empty($lastfm_data['error'])) {
-          $lastfm_data = $lastfm_data['artist'];
-          // Get biography.
-          if (!empty($lastfm_data['bio']) && in_array('bio', $get)) {
-            $data['bio_summary'] = $lastfm_data['bio']['summary']; 
-            $data['bio_content'] = $lastfm_data['bio']['content'];
+      if (in_array('bio', $get)) {
+        if ($lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)) {
+          if (empty($lastfm_data['error'])) {
+            $lastfm_data = $lastfm_data['artist'];
+            // Get biography.
+            if (!empty($lastfm_data['bio'])) {
+              $data['bio_summary'] = $lastfm_data['bio']['summary']; 
+              $data['bio_content'] = $lastfm_data['bio']['content'];
+            }
           }
-          // Removed due: https://getsatisfaction.com/lastfm/topics/api-announcement-dac8oefw5vrxq
-          // Get image.
-          // if (!empty(end($lastfm_data['image'])['#text']) && in_array('image', $get)) {
-          //   $ci=& get_instance();
-          //   $ci->load->helper(array('img_helper'));
-          //   $url = explode('/', end($lastfm_data['image'])['#text']);
-          //   $opts['image_uri'] = 'https://lastfm-img2.akamaized.net/i/u/' . end($url);
-          //   // fetchImages($opts, 'artist_img');
-          // }
+        }
+      }
+      if (in_array('image', $get)) {
+        if ($napster_data = json_decode(file_get_contents('http://api.napster.com/v2.2/artists/' . urlencode(strtolower($artist_name)) . '?apikey='. NAPSTER_API_KEY), TRUE)) {
+          if (!empty($napster_data['artists'])) {
+            //Get image.
+            if (!empty($napster_data['artists'][0]['id'])) {
+              $ci=& get_instance();
+              $ci->load->helper(array('img_helper'));
+              $opts['image_uri'] = 'https://api.napster.com/imageserver/v2/artists/' . $napster_data['artists'][0]['id'] . '/images/633x422.jpg';
+              fetchImages($opts, 'artist');
+            }
+          }
         }
       }
       return $data;
