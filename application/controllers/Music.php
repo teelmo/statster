@@ -120,7 +120,7 @@ class Music extends CI_Controller {
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('music/artist', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper');
-        
+
         $this->load->view('site_templates/header');
         $this->load->view('music/artist_view', $data);
         $this->load->view('site_templates/footer');
@@ -241,7 +241,7 @@ class Music extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);
-        $this->load->view('site_templates/footer');      
+        $this->load->view('site_templates/footer');
       }
       else {
         show_404();
