@@ -5,7 +5,8 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * Gets album's info from Last.fm
   *
   * @param array $opts.
-  *          'album_id'         => Album ID
+  *          'album_name'       => Album name
+  *          'artist_name       => Artist name
   *          'format'           => Format
   *
   * @return array Album's bio.
@@ -35,6 +36,7 @@ if (!function_exists('fetchAlbumInfo')) {
             if (!empty($opts['image_uri'])) {
               $ci=& get_instance();
               $ci->load->helper(array('img_helper'));
+              $opts['album_id'] = getArtistID(array('album_name' => $album_name, 'artist_name' => $artist_name);
               fetchImages($opts, 'album');
             }
           }
@@ -50,7 +52,7 @@ if (!function_exists('fetchAlbumInfo')) {
   * Gets artist's biography from Last.fm
   *
   * @param array $opts.
-  *          'artist'           => Artist name
+  *          'artist_name       => Artist name
   *          'format'           => Format
   *
   * @return array Artist's bio.
@@ -82,7 +84,8 @@ if (!function_exists('fetchArtistInfo')) {
             //Get image.
             if (!empty($napster_data['artists'][0]['id'])) {
               $ci=& get_instance();
-              $ci->load->helper(array('img_helper'));
+              $ci->load->helper(array('img_helper', 'id_helper'));
+              $opts['artist_id'] = getArtistID(array('artist_name' => $artist_name);
               $opts['image_uri'] = 'https://api.napster.com/imageserver/v2/artists/' . $napster_data['artists'][0]['id'] . '/images/633x422.jpg';
               fetchImages($opts, 'artist');
             }

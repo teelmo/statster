@@ -15,12 +15,12 @@ if (!function_exists('getAlbumImg')) {
     $opts['id'] = $opts['album_id'];
     $filename = getImagePath($opts, 'album');
     if (empty($filename)) {
-      $ci=& get_instance();
-      $ci->load->helper('lastfm_helper');
-      $data = fetchAlbumInfo($opts, array('image'));
-      if (!empty($data['image_uri'])) {
-        return $data['image_uri'];
-      }
+      // $ci=& get_instance();
+      // $ci->load->helper('lastfm_helper');
+      // $data = fetchAlbumInfo($opts, array('image'));
+      // if (!empty($data['image_uri'])) {
+      //   return $data['image_uri'];
+      // }
       return IMAGE_SERVER . 'album_img/' . $opts['size'] . '/0.jpg';
     }
     else {
