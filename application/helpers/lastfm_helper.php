@@ -26,17 +26,16 @@ if (!function_exists('fetchAlbumInfo')) {
           $lastfm_data = $lastfm_data['album'];
           // Get biography.
           if (!empty($lastfm_data['wiki']) && in_array('bio', $get)) {
-            $data['bio_summary'] = $lastfm_data['wiki']['summary']; 
+            $data['bio_summary'] = $lastfm_data['wiki']['summary'];
             $data['bio_content'] = $lastfm_data['wiki']['content'];
-          } 
+          }
           // Get image.
           if (!empty(end($lastfm_data['image'])['#text']) && in_array('image', $get)) {
-            $url = explode('/', end($lastfm_data['image'])['#text']);
-            $opts['image_uri'] = end($url);
+            $opts['image_uri'] = end($lastfm_data['image'])['#text'];
             if (!empty($opts['image_uri'])) {
               $ci=& get_instance();
-              $ci->load->helper(array('img_helper'));
-              $opts['album_id'] = getArtistID(array('album_name' => $album_name, 'artist_name' => $artist_name));
+              $ci->load->helper(array('img_helper', 'id_helper'));
+              $opts['album_id'] = getAlbumID(array('album_name' => $album_name, 'artist_name' => $artist_name));
               fetchImages($opts, 'album');
             }
           }
