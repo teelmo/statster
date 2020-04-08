@@ -250,18 +250,15 @@ if (!function_exists('fetchImages')) {
           'uri' => $opts['image_uri']
         );
       }
-      $ch = curl_init(IMAGE_SERVER . 'addImage.php');
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-      curl_setopt($ch, CURLOPT_POST, true);
-      $payload = json_encode($data);
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, IMAGE_SERVER . 'addImage.php');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      $payload = $data;
       curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($payload))
-      );
       $result = curl_exec($ch);
       curl_close($ch);
+      return $result;
     }
   }
 }
