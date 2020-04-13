@@ -328,7 +328,6 @@ class Music extends CI_Controller {
 
       $data['artist_name'] = decode($artist_name);
       if ($data = getArtistInfo($data)) {
-        $data['album_name'] = decode($album_name);
         // Get artist's total listening data.
         $data += getArtistListenings($data);
         // Get logged in user's listening data.
@@ -477,7 +476,6 @@ class Music extends CI_Controller {
 
       $data['artist_name'] = decode($artist_name);
       if ($data = getArtistInfo($data)) {
-        $data['album_name'] = decode($album_name);
         // Get artist's total listening data.
         $data += getArtistListenings($data);
         // Get logged in user's listening data.

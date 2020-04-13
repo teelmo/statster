@@ -1,5 +1,5 @@
 $.extend(view, {
-  // Get album tags.
+  // Get artist tags.
   getTags: function () {
     $.ajax({
       data:{
@@ -102,7 +102,6 @@ $.extend(view, {
   getRecentListenings: function (isFirst, callback) {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:<?=($artist_name) ? 1000 : 100?>,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -139,7 +138,6 @@ $.extend(view, {
   getUsers: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:14
       },

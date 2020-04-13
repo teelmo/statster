@@ -140,7 +140,6 @@ class Like extends CI_Controller {
           }
         }
 
-
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('like/like_artist', 'helpers/tag_helper');

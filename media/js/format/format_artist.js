@@ -101,7 +101,6 @@ $.extend(view, {
   getFormats: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:100,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -137,7 +136,6 @@ $.extend(view, {
   getListenings: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:14
       },

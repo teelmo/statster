@@ -101,7 +101,6 @@ $.extend(view, {
   topListeners: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:100
       },
@@ -133,7 +132,6 @@ $.extend(view, {
   getListenings: function () {
     $.ajax({
       data:{
-        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:14
       },
