@@ -14,6 +14,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:8,
+        hide:{},
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -43,7 +44,7 @@ $.extend(view, {
     });
     var vars = {
       container:'#topArtist',
-      limit:'8, 200',
+      limit:'8, 192',
       template:'/ajax/columnTable'
     }
     view.getTopArtist(lower_limit, upper_limit, vars);
