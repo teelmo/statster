@@ -108,7 +108,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Albums</h2>
+      <h2>Discography</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
       <ul id="artistAlbum" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>

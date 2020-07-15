@@ -119,7 +119,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Artist's albums</h2>
+      <h2>Discography</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
       <ul id="artistAlbum" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
@@ -134,7 +134,7 @@
       <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shoutLoader2" /><span id="shoutTotal"></span></h2>
       <table class="shout_table">
         <?php
-        if ($this->session->userdata('logged_in') === TRUE) {
+        if ($logged_in === TRUE) {
           ?>
           <tr class="post_shout">
             <td class="img user_img">

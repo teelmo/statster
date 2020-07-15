@@ -72,8 +72,8 @@ if (!function_exists('getArtists')) {
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_artist . ".`id` AS `artist_id`,
                    " . TBL_artist . ".`spotify_uri`,
-                   " . TBL_user . ". `username`,
-                   " . TBL_user . ". `id` AS `user_id`,
+                   " . TBL_user . ".`username`,
+                   " . TBL_user . ".`id` AS `user_id`,
                   (SELECT count(" . TBL_fan . ".`artist_id`)
                     FROM " . TBL_fan . "
                     WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
@@ -142,9 +142,9 @@ if (!function_exists('getAlbums')) {
                    " . TBL_album . ".`id` AS `album_id`,
                    " . TBL_album . ".`year`,
                    " . TBL_album . ".`spotify_uri`,
-                   " . TBL_user . ". `username` AS `username`,
+                   " . TBL_user . ".`username` AS `username`,
                    " . TBL_listening . ".`date` AS `date`,
-                   " . TBL_user . ". `id` AS `user_id`,
+                   " . TBL_user . ".`id` AS `user_id`,
                   (SELECT count(" . TBL_love . ".`album_id`)
                     FROM " . TBL_love . "
                     WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
@@ -207,8 +207,8 @@ if (!function_exists('getListeners')) {
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) AS `count`,
-                   " . TBL_user . ". `username` AS `username`,
-                   " . TBL_user . ". `id` AS `user_id`,
+                   " . TBL_user . ".`username` AS `username`,
+                   " . TBL_user . ".`id` AS `user_id`,
                    " . TBL_artist . ".`artist_name` AS `artist_name`,
                    " . TBL_artist . ".`id` AS `artist_id`,
                    " . TBL_album . ".`album_name` AS `album_name`,
@@ -225,7 +225,7 @@ if (!function_exists('getListeners')) {
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_user . ". `username` LIKE ?
+              AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_album . ".`album_name` LIKE ?
               " . $ci->db->escape_str($where) . "
@@ -299,24 +299,29 @@ if (!function_exists('getArtistAlbums')) {
 
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT count(*) AS `count`,
-                   " . TBL_artist . ". `artist_name`,
-                   " . TBL_album . ". `album_name`,
-                   " . TBL_album . ". `year`, 
-                   " . TBL_album . ". `spotify_uri`, 
-                   " . TBL_artist . ". `id` AS `artist_id`,
-                   " . TBL_album . ". `id` AS `album_id`
-            FROM " . TBL_listening . ",
-                 " . TBL_artist . ",
-                 " . TBL_album . ",
-                 " . TBL_user . " 
-            WHERE " . TBL_album . ". `id` = " . TBL_listening . ". `album_id`
-              AND " . TBL_user . ". `id` = " . TBL_listening . ". `user_id`
-              AND " . TBL_artist . ". `id` = " . TBL_album . ". `artist_id`
-              AND " . TBL_user . ". `username` LIKE ?
-              AND " . TBL_artist . ". `artist_name` LIKE ?
-            GROUP BY " . TBL_album . ".`id`
-            ORDER BY count(" . TBL_album . ".`id`) DESC";
+    $sql = "SELECT " . TBL_artist . ".`artist_name`,
+                   albums.`album_name`,
+                   albums.`year`, 
+                   albums.`spotify_uri`, 
+                   " . TBL_artist . ".`id` AS `artist_id`,
+                   albums.`id` AS `album_id`,
+                   COALESCE(t.`count`, 0) AS `count`
+            FROM " . TBL_artist . ",
+                 " . TBL_album . " `albums`
+            LEFT JOIN (
+                SELECT count(*) AS `count`, 
+                       " . TBL_album . ".`id` AS `album_id`
+                FROM " . TBL_listening . ",
+                     " . TBL_album . ",
+                     " . TBL_user . "
+                WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+                  AND " . TBL_user . ".`id` = " . TBL_listening . ".`user_id`
+                  AND " . TBL_user . ".`username` LIKE ?
+                GROUP BY " . TBL_album . ".`id`)
+             t ON albums.`id` = t.`album_id`
+            WHERE " . TBL_artist . ".`id` = `albums`.`artist_id`
+              AND " . TBL_artist . ".`artist_name` LIKE ?
+            ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($username, $artist_name));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
