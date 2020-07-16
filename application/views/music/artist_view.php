@@ -46,7 +46,7 @@
       <div class="value number"><?=anchor(array('year', $created), $created)?></div>
     </div>
     <?php
-    if ($this->session->userdata('logged_in') === TRUE) {
+    if ($logged_in === 'true') {
       ?>
       <div class="meta">
         <div class="label user_listening">

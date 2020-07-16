@@ -134,7 +134,7 @@
       <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shoutLoader2" /><span id="shoutTotal"></span></h2>
       <table class="shout_table">
         <?php
-        if ($logged_in === TRUE) {
+        if ($logged_in === 'true') {
           ?>
           <tr class="post_shout">
             <td class="img user_img">
