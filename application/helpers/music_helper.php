@@ -300,11 +300,11 @@ if (!function_exists('getArtistAlbums')) {
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_artist . ".`artist_name`,
-                   albums.`album_name`,
-                   albums.`year`, 
-                   albums.`spotify_uri`, 
+                   `albums`.`album_name`,
+                   `albums`.`year`, 
+                   `albums`.`spotify_uri`, 
                    " . TBL_artist . ".`id` AS `artist_id`,
-                   albums.`id` AS `album_id`,
+                   `albums`.`id` AS `album_id`,
                    COALESCE(t.`count`, 0) AS `count`
             FROM " . TBL_artist . ",
                  " . TBL_album . " `albums`
@@ -318,7 +318,7 @@ if (!function_exists('getArtistAlbums')) {
                   AND " . TBL_user . ".`id` = " . TBL_listening . ".`user_id`
                   AND " . TBL_user . ".`username` LIKE ?
                 GROUP BY " . TBL_album . ".`id`)
-             t ON albums.`id` = t.`album_id`
+             `t` ON `albums`.`id` = `t`.`album_id`
             WHERE " . TBL_artist . ".`id` = `albums`.`artist_id`
               AND " . TBL_artist . ".`artist_name` LIKE ?
             ORDER BY `count` DESC";
