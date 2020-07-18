@@ -108,7 +108,17 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Discography</h2>
+      <h2>Discography
+        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="discographyLoader" />
+        <div class="func_container">
+          <div class="value artist_album_value" data-value="<?=$artist_album?>"><?=ORDER_TEXTS[$artist_album]?></div>
+          <ul class="subnav" data-name="artist_album" data-callback="artistAlbum" data-loader="discographyLoader">
+            <li data-value="`count` DESC">Count</li>
+            <li data-value="`albums`.`album_name` ASC">Name</li>
+            <li data-value="`albums`.`year` DESC">Year</li>
+          </ul>
+        </div>
+      </h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
       <ul id="artistAlbum" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>

@@ -135,6 +135,12 @@ define('INTERVAL_TEXTS', array(
   'overall' => 'All time'
 ));
 
+define('ORDER_TEXTS', array(
+  '`count` DESC' => 'Count',
+  '`albums`.`album_name` ASC' => 'Name',
+  '`albums`.`year` DESC' => 'Year'
+));
+
 /* API keys */
 define('NAPSTER_API_KEY', $_SERVER['CI_NAPSTER_API_KEY']);
 define('LASTFM_API_KEY', $_SERVER['CI_LASTFM_API_KEY']);

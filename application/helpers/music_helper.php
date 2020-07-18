@@ -287,6 +287,7 @@ if (!function_exists('getListenersCumulative')) {
   * @param array $opts.
   *          'artist_name'     => Artist name
   *          'human_readable'  => Output format
+  *          'order_by'        => Order by argument
   *          'username'        => Username
   *
   * @return array Album information or boolean FALSE.
@@ -298,6 +299,7 @@ if (!function_exists('getArtistAlbums')) {
     $ci->load->database();
 
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_artist . ".`artist_name`,
                    `albums`.`album_name`,
@@ -311,8 +313,8 @@ if (!function_exists('getArtistAlbums')) {
             LEFT JOIN (
                 SELECT count(*) AS `count`, 
                        " . TBL_album . ".`id` AS `album_id`
-                FROM " . TBL_listening . ",
-                     " . TBL_album . ",
+                FROM " . TBL_album . ",
+                     " . TBL_listening . ",
                      " . TBL_user . "
                 WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
                   AND " . TBL_user . ".`id` = " . TBL_listening . ".`user_id`
@@ -321,7 +323,8 @@ if (!function_exists('getArtistAlbums')) {
              `t` ON `albums`.`id` = `t`.`album_id`
             WHERE " . TBL_artist . ".`id` = `albums`.`artist_id`
               AND " . TBL_artist . ".`artist_name` LIKE ?
-            ORDER BY `count` DESC";
+            ORDER BY " . $ci->db->escape_str($order_by);
+
     $query = $ci->db->query($sql, array($username, $artist_name));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;

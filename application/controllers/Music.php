@@ -28,7 +28,7 @@ class Music extends CI_Controller {
 
   public function artist_or_year($value) {
     $data = array();
-    if ((int) $value > 1900 && (int) $value <= CUR_YEAR) {
+    if ((int) $value > 1900 && (int) $value <= (CUR_YEAR + 1)) {
       // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper', 'spotify_helper', 'output_helper'));
       $data['year'] = $value;
@@ -59,11 +59,13 @@ class Music extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'output_helper'));
 
-
       // Decode artist information.
       $data['artist_name'] = decode($value);
+
       // Get artist information aka. artist's name and id.
       if ($data = getArtistInfo($data)) {
+        $intervals = unserialize($this->session->userdata('intervals'));
+        $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : 'count';
         // Get artist's total listening data.
         $data += getArtistListenings($data);
         // Get biography.
@@ -119,7 +121,7 @@ class Music extends CI_Controller {
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/artist', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper');
+        $data['js_include'] = array('music/artist', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/artist_view', $data);
@@ -168,8 +170,11 @@ class Music extends CI_Controller {
 
       $data['artist_name'] = decode($value1);
       $data['album_name'] = decode($value2);
+
       // Get artist information aka. artist's name and id.
       if ($data = getAlbumInfo($data)) {
+        $intervals = unserialize($this->session->userdata('intervals'));
+        $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : 'count';
         // Get albums's total listening data.
         $data += getAlbumListenings($data);
         // Get biography.
@@ -237,7 +242,7 @@ class Music extends CI_Controller {
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/album', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper');
+        $data['js_include'] = array('music/album', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);

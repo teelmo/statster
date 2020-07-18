@@ -1,8 +1,9 @@
 $.extend(view, {
-  artistAlbum: function () {
+  artistAlbum: function (order_by) {
     $.ajax({
       data:{
         artist_name:'<?php echo $artist_name?>',
+        order_by:order_by,
         username:'<?php echo !empty($_GET['u']) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -17,6 +18,7 @@ $.extend(view, {
             },
             success: function(data) {
               $('#artistAlbumLoader').hide();
+              $('#discographyLoader').hide();
               $('#artistAlbum').html(data);
             },
             type:'POST',
@@ -51,6 +53,6 @@ $.extend(view, {
 });
 
 $(document).ready(function() {
-  view.artistAlbum();
+  view.artistAlbum('<?=$artist_album?>');
   view.artistAlbumEvents();
 });
