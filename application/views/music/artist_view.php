@@ -113,9 +113,9 @@
         <div class="func_container">
           <div class="value artist_album_value" data-value="<?=$artist_album?>"><?=ORDER_TEXTS[$artist_album]?></div>
           <ul class="subnav" data-name="artist_album" data-callback="artistAlbum" data-loader="discographyLoader">
-            <li data-value="`count` DESC">Count</li>
+            <li data-value="`count` DESC, `albums`.`year` DESC">Count</li>
             <li data-value="`albums`.`album_name` ASC">Name</li>
-            <li data-value="`albums`.`year` DESC">Year</li>
+            <li data-value="`albums`.`year` DESC, `count` DESC">Year</li>
           </ul>
         </div>
       </h2>

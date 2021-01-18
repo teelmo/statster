@@ -299,7 +299,7 @@ if (!function_exists('getArtistAlbums')) {
     $ci->load->database();
 
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `albums`.`year` DESC';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_artist . ".`artist_name`,
                    `albums`.`album_name`,
