@@ -13,7 +13,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * @return string JSON encoded data containing artist information.
   */
 if (!function_exists('getListeningCount')) {
-  function getListeningCount($opts = array(), $type) {
+  function getListeningCount($opts = array(), $type = '') {
     $ci=& get_instance();
     $ci->load->database();
 

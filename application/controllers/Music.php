@@ -95,9 +95,7 @@ class Music extends CI_Controller {
         $data['most_listened_alltime'] = false;
         $last_item_count = false;
         foreach (json_decode(getArtists(array('lower_limit' => '1970-00-00','limit' => 200))) as $item) {
-          if ($item->count != $last_item_count) {
-            $rank++;
-          }
+          $rank++;
           if ($item->artist_id == $data['artist_id']) {
             $data['most_listened_alltime'] = $rank;
             break;
@@ -109,9 +107,7 @@ class Music extends CI_Controller {
           $data['most_listened_alltime_user'] = false;
           $last_item_count = false;
           foreach (json_decode(getArtists(array('lower_limit' => '1970-00-00','limit' => 200,'username' => $this->session->userdata('username')))) as $item) {
-            if ($item->count != $last_item_count) {
-              $rank++;
-            }
+            $rank++;
             if ($item->artist_id == $data['artist_id']) {
               $data['most_listened_alltime_user'] = $rank;
               break;
@@ -203,10 +199,9 @@ class Music extends CI_Controller {
         $rank = 0;
         $data['most_listened_alltime'] = false;
         $last_item_count = false;
+        // pr(json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200))));
         foreach (json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200))) as $item) {
-          if ($item->count != $last_item_count) {
-            $rank++;
-          }
+          $rank++;
           if ($item->album_id == $data['album_id']) {
             $data['most_listened_alltime'] = $rank;
             break;
@@ -218,9 +213,7 @@ class Music extends CI_Controller {
           $data['most_listened_alltime_user'] = false;
           $last_item_count = false;
           foreach (json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200,'username' => $this->session->userdata('username')))) as $item) {
-            if ($item->count != $last_item_count) {
-              $rank++;
-            }
+            $rank++;
             if ($item->album_id == $data['album_id']) {
               $data['most_listened_alltime_user'] = $rank;
               break;
