@@ -1,11 +1,11 @@
 {
   "name": "statster",
   "version": "1.0.0",
-  "description": "What is CodeIgniter ###################",
+  "description": "Statster",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "sync-prod":"ssh teelmo@saksa2 git -C /home/teelmo/Sites/statster.info pull",
+    "start-services":"sudo apachectl restart && mysql.server start",
     "get-latest-prod-db":"scp backup@teelmo.info:/home/backup/vs6828/Backups/db-statster.info-$(date +\"%Y-%m-%d\").sql.bz2 .",
     "truncate-local-db":"mysql -Nse 'show tables' -D statster -ustatster -pstatster | while read table; do echo \"SET FOREIGN_KEY_CHECKS=0;truncate table $table;SET FOREIGN_KEY_CHECKS=1;\"; done | mysql statster -ustatster -pstatster",
     "populate-local-db":"bzip2 -dc db-statster.info-$(date +\"%Y-%m-%d\").sql.bz2 | mysql -u statster -pstatster statster",
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/teelmo/statster.git"
   },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/teelmo/statster#readme"
+  "author": "Teemo Tebest, teemo.tebest@gmail.com",
+  "license": "",
+  "homepage": "http://statster.info"
 }
