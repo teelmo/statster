@@ -68,14 +68,12 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#historyLoader').hide();
+          $('#historyLoader, .music_bar').hide();
           $('#history').html('<?=ERR_NO_RESULTS?>');
-          $('.music_bar').hide();
         },
         400: function () { // 400 Bad request
-          $('#historyLoader').hide();
+          $('#historyLoader, .music_bar').hide();
           alert('<?=ERR_BAD_REQUEST?>');
-          $('.music_bar').hide();
         }
       },
       type:'GET',
@@ -127,7 +125,7 @@ $.extend(view, {
     }
     $.ajax({
       data:{
-        limit:15,
+        limit:20,
         lower_limit:lower_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
@@ -165,14 +163,14 @@ $.extend(view, {
         lower_limit:'1970-00-00',
         order_by:'RAND()',
         upper_limit:'<?=CUR_YEAR - 1?>-12-31',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        username:'<?=(!empty($_SESSION['username'])) ? $_SESSION['username'] : ''?>'
       },
       dataType:'json',
       statusCode:{
         200: function (data) {
           $.ajax({
             complete: function () {
-              setTimeout(view.secondChance, 60 * 10 * 1000);
+              setTimeout(view.getSecondChance, 60 * 10 * 1000);
             },
             data:{
               json_data:data,
@@ -185,7 +183,7 @@ $.extend(view, {
               limit:4
             },
             success: function (data) {
-              $('#secondChanceLoader').hide();
+              $('#secondChanceLoader, #secondChanceLoader2').hide();
               $('#secondChance').html(data);
             },
             type:'POST',
@@ -193,7 +191,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#secondChanceLoader').hide();
+          $('#secondChanceLoader, #secondChanceLoader2').hide();
           $('#secondChance').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -201,10 +199,53 @@ $.extend(view, {
       url:'/api/secondChance'
     });
   },
+  getFromOthers: function () {
+    $.ajax({
+      data:{
+        having:'`count` > 20',
+        limit:4,
+        lower_limit:'1970-00-00',
+        order_by:'RAND()',
+        where:'<?=TBL_user?>.`id` <> <?=(!empty($_SESSION['user_id'])) ? $_SESSION['user_id'] : 0?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) {
+          $.ajax({
+            complete: function () {
+              setTimeout(view.getFromOthers, 60 * 10 * 1000);
+            },
+            data:{
+              json_data:data,
+              hide:{
+                calendar:true,
+                count:true,
+                date:true,
+                rank:true
+              },
+              limit:4
+            },
+            success: function (data) {
+              $('#fromOthersLoader, #fromOthersLoader2').hide();
+              $('#fromOthers').html(data);
+            },
+            type:'POST',
+            url:'/ajax/sideTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#fromOthersLoader, #fromOthersLoader2').hide();
+          $('#fromOthers').html('<?=ERR_NO_RESULTS?>');
+        }
+      },
+      type:'GET',
+      url:'/api/fromOthers'
+    });
+  },
   getRecentlyFaned: function () {
     $.ajax({
       data:{
-        limit:10,
+        limit:8,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -232,7 +273,7 @@ $.extend(view, {
   getRecentlyLoved: function () {
     $.ajax({
       data:{
-        limit:10,
+        limit:8,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -265,7 +306,12 @@ $.extend(view, {
       $('#recentlyLikedLoader').hide();
     });
     $('#refreshSecondChanceAlbums').click(function () {
-      view.secondChance();
+      $('#secondChanceLoader2').show();
+      view.getSecondChance();
+    });
+    $('#refreshFromOthersAlbums').click(function () {
+      $('#fromOthersLoader2').show();
+      view.getFromOthers();
     });
   }
 });
@@ -276,6 +322,7 @@ $(document).ready(function () {
   view.getPopularGenres();
   view.getPopularAlbums('<?=$popular_album_music?>');
   view.getSecondChance();
+  view.getFromOthers();
   view.getRecentlyFaned();
   view.getRecentlyLoved();
   view.initMusicEvents();

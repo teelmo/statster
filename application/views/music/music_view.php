@@ -130,9 +130,13 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h1>Second chance <span class="func_container"><i class="fa fa-sync-alt" id="refreshSecondChanceAlbums"></i></span></h1>
+      <h1>Suggestions</h1>
+      <h2>Second chance <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="secondChanceLoader2" /><span class="func_container"><i class="fa fa-sync-alt" id="refreshSecondChanceAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="secondChanceLoader" />
       <table class="side_table" id="secondChance"><!-- Content is loaded with AJAX --></table>
+      <h2>From others <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="fromOthersLoader2" /><span class="func_container"><i class="fa fa-sync-alt" id="refreshFromOthersAlbums"></i></span></h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fromOthersLoader" />
+      <table class="side_table" id="fromOthers"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">

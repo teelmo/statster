@@ -134,10 +134,10 @@
       <div class="more">
         <?=anchor(array('music', date('Y', strtotime('first day of last month')), date('m', strtotime('first day of last month'))), 'More', array('title' => 'Browse more listenings'))?>
       </div>
-      <h2>Hot albums <span class="func_container"><i class="fa fa-sync-alt" id="refreshHotAlbums"></i></span></h2>
+      <h2>Hot albums <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recommentedTopAlbumLoader2" /><span class="func_container"><i class="fa fa-sync-alt" id="refreshHotAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedTopAlbumLoader" />
       <table id="recommentedTopAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
-      <h2>New releases <span class="func_container"><i class="fa fa-sync-alt" id="refreshNewAlbums"></i></span></h2>
+      <h2>New releases <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recommentedNewAlbumLoader2" /><span class="func_container"><i class="fa fa-sync-alt" id="refreshNewAlbums"></i></span></h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recommentedNewAlbumLoader" />
       <table id="recommentedNewAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>

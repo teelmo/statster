@@ -1,9 +1,6 @@
 $.extend(view, {
   // Get recent listenings.
-  getRecentListenings: function (isFirst, callback) {
-    if (isFirst != true) {
-      $('#recentlyListenedLoader2').show();
-    }
+  getRecentListenings: function (callback) {
     $.ajax({
       complete: function () {
         if (callback != undefined) {
@@ -163,7 +160,7 @@ $.extend(view, {
               limit:4
             },
             success: function (data) {
-              $('#recommentedTopAlbumLoader').hide();
+              $('#recommentedTopAlbumLoader, #recommentedTopAlbumLoader2').hide();
               $('#recommentedTopAlbum').html(data);
             },
             type:'POST',
@@ -171,7 +168,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#recommentedTopAlbumLoader').hide();
+          $('#recommentedTopAlbumLoader, #recommentedTopAlbumLoader2').hide();
           $('#recommentedTopAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -206,7 +203,7 @@ $.extend(view, {
               limit:4
             },
             success: function (data) {
-              $('#recommentedNewAlbumLoader').hide();
+              $('#recommentedNewAlbumLoader, #recommentedNewAlbumLoader2').hide();
               $('#recommentedNewAlbum').html(data);
             },
             type:'POST',
@@ -214,7 +211,7 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          $('#recommentedNewAlbumLoader').hide();
+          $('#recommentedNewAlbumLoader, #recommentedNewAlbumLoader2').hide();
           $('#recommentedNewAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
@@ -231,19 +228,22 @@ $.extend(view, {
       }
     });
     $('#refreshRecentAlbums').click(function () {
+      $('#recentlyListenedLoader2').show();
       view.getRecentListenings();
     });
     $('#refreshHotAlbums').click(function () {
+      $('#recommentedTopAlbumLoader2').show();
       view.getRecommentedTopAlbum();
     });
     $('#refreshNewAlbums').click(function () {
+      $('#recommentedNewAlbumLoader2').show();
       view.getRecommentedNewAlbum();
     });
   }
 });
 
 $(document).ready(function () {
-  view.getRecentListenings(true, function() {
+  view.getRecentListenings(function() {
     view.getTopAlbums('<?=$top_album_main?>');
   });
   view.getTopArtists('<?=$top_artist_main?>');

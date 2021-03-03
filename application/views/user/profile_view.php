@@ -230,7 +230,8 @@
           <?php
         }
         $data_found = false;
-         if ($top_artist) {
+         if ($top_artist['artist_id'] > 0) {
+          pr($top_artist);
           $data_found = true;
           ?>
           <tr>
