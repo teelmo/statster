@@ -30,10 +30,10 @@ if (!function_exists('getSpotifyResourceId')) {
 
     // pr($result);
     if (!empty($data['album_name'])) {
-      $spotify_id = (json_decode($result)->albums->total !== 0) ? json_decode($result)->albums->items[0]->uri : FALSE; 
+      $spotify_id = (json_decode($result)->albums->total !== 0) ? json_decode($result)->albums->items[0]->id : FALSE; 
     } 
     else {
-      $spotify_id = (json_decode($result)->artists->total !== 0) ? json_decode($result)->artists->items[0]->uri : FALSE;
+      $spotify_id = (json_decode($result)->artists->total !== 0) ? json_decode($result)->artists->items[0]->id : FALSE;
     }
     if ($spotify_id !== FALSE) {
       addSpotifyResourceId($data, $spotify_id);
