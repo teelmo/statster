@@ -5,7 +5,7 @@
         <?php
         if ($spotify_id !== FALSE) {
           ?>
-          <a href="open:artist:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container artist_spotify_container"></div></a>
+          <a href="spotify:artist:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container artist_spotify_container"></div></a>
           <?php
         }
         ?>
