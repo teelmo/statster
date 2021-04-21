@@ -3,9 +3,9 @@
     <div class="info">
       <div class="float_left cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')">
         <?php
-        if ($spotify_uri !== FALSE) {
+        if ($spotify_id !== FALSE) {
           ?>
-          <a href="<?=$spotify_uri?>" class="spotify_link"><div class="spotify_container album_spotify_container"></div></a>
+          <a href="open:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container"></div></a>
           <?php
         }
         ?>

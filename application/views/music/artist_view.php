@@ -3,9 +3,9 @@
     <div class="info">
       <div class="float_left cover artist_img img174" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'artist_name' => $artist_name, 'size' => 174))?>')">
         <?php
-        if ($spotify_uri !== FALSE) {
+        if ($spotify_id !== FALSE) {
           ?>
-          <a href="<?=$spotify_uri?>" class="spotify_link"><div class="spotify_container artist_spotify_container"></div></a>
+          <a href="open:artist:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container artist_spotify_container"></div></a>
           <?php
         }
         ?>

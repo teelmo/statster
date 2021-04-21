@@ -56,7 +56,7 @@ if (!function_exists('getArtistInfo')) {
       $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : FALSE;
       $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                      " . TBL_artist . ".`artist_name`,
-                     " . TBL_artist . ".`spotify_uri`,
+                     " . TBL_artist . ".`spotify_id`,
                      YEAR(" . TBL_artist . ".`created`) as `created`
               FROM " . TBL_artist . "
               WHERE " . TBL_artist . ".`id` = ?";
@@ -65,7 +65,7 @@ if (!function_exists('getArtistInfo')) {
     else {
       $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                      " . TBL_artist . ".`artist_name`,
-                     " . TBL_artist . ".`spotify_uri`,
+                     " . TBL_artist . ".`spotify_id`,
                      YEAR(" . TBL_artist . ".`created`) as `created`
               FROM " . TBL_artist . "
               WHERE " . TBL_artist . ".`artist_name` LIKE ?";
@@ -73,7 +73,7 @@ if (!function_exists('getArtistInfo')) {
       if ($query->num_rows() === 0) {
         $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                        " . TBL_artist . ".`artist_name`,
-                       " . TBL_artist . ".`spotify_uri`,
+                       " . TBL_artist . ".`spotify_id`,
                        YEAR(" . TBL_artist . ".`created`) as `created`
                 FROM " . TBL_artist . "
                 WHERE " . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci";
@@ -329,7 +329,7 @@ if (!function_exists('getArtistNationalities')) {
    * @param array $opts.
    *          'artist_id'  => Artist ID
    *          'artist_name'  => Artist Name
-   *          'spotify_uri'  => Spotify URI
+   *          'spotify_id'  => Spotify ID
    *
    * @return boolean TRUE or FALSE.
    *
@@ -341,15 +341,15 @@ if (!function_exists('updateArtist')) {
 
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
-    $spotify_uri = !empty($opts['spotify_uri']) ? $opts['spotify_uri'] : '';
+    $spotify_id = !empty($opts['spotify_id']) ? $opts['spotify_id'] : '';
 
     if ($album_name !== FALSE) {
       $sql = "UPDATE " . TBL_artist . "
                 SET " . TBL_artist . ".`artist_name` = ?,
-                    " . TBL_artist . ".`spotify_uri` = ?
+                    " . TBL_artist . ".`spotify_id` = ?
                 WHERE " . TBL_artist . ".`id` = ?";
 
-      $query = $ci->db->query($sql, array($artist_name, $spotify_uri, $artist_id));
+      $query = $ci->db->query($sql, array($artist_name, $spotify_id, $artist_id));
       return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
     }
     else {

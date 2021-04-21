@@ -30,7 +30,7 @@ if (!function_exists('getListenings')) {
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_album . ".`album_name`,
                    " . TBL_album . ".`year`,
-                   " . TBL_album . ".`spotify_uri`,
+                   " . TBL_album . ".`spotify_id`,
                    " . TBL_user . ".`username`,
                    " . TBL_listening . ".`date`,
                    " . TBL_listening . ".`created`,
@@ -97,8 +97,8 @@ if (!function_exists('addListening')) {
       }
       else {
         // Get Spotify information only if existing album.
-        if (empty($data['spotify_uri'])) {
-          $data['spotify_uri'] = getSpotifyResourceId($data);
+        if (empty($data['spotify_id'])) {
+          $data['spotify_id'] = getSpotifyResourceId($data);
         }
       }
 

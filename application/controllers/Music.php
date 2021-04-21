@@ -87,8 +87,8 @@ class Music extends CI_Controller {
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
 
-        if (empty($data['spotify_uri'])) {
-          $data['spotify_uri'] = getSpotifyResourceId($data);
+        if (empty($data['spotify_id'])) {
+          $data['spotify_id'] = getSpotifyResourceId($data);
         }
 
         $rank = 0;
@@ -192,8 +192,8 @@ class Music extends CI_Controller {
           $data += getAlbumListenings($data);
         }
         $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
-        if (empty($data['spotify_uri'])) {
-          $data['spotify_uri'] = getSpotifyResourceId($data);
+        if (empty($data['spotify_id'])) {
+          $data['spotify_id'] = getSpotifyResourceId($data);
         }
 
         $rank = 0;

@@ -30,34 +30,34 @@ if (!function_exists('getSpotifyResourceId')) {
 
     // pr($result);
     if (!empty($data['album_name'])) {
-      $spotify_uri = (json_decode($result)->albums->total !== 0) ? json_decode($result)->albums->items[0]->uri : FALSE; 
-    }
+      $spotify_id = (json_decode($result)->albums->total !== 0) ? json_decode($result)->albums->items[0]->uri : FALSE; 
+    } 
     else {
-      $spotify_uri = (json_decode($result)->artists->total !== 0) ? json_decode($result)->artists->items[0]->uri : FALSE;
+      $spotify_id = (json_decode($result)->artists->total !== 0) ? json_decode($result)->artists->items[0]->uri : FALSE;
     }
-    if ($spotify_uri !== FALSE) {
-      addSpotifyResourceId($data, $spotify_uri);
+    if ($spotify_id !== FALSE) {
+      addSpotifyResourceId($data, $spotify_id);
     }
-    return $spotify_uri;
+    return $spotify_id;
   }
 }
 
 if (!function_exists('addSpotifyResourceId')) {
-  function addSpotifyResourceId($data, $spotify_uri) {
+  function addSpotifyResourceId($data, $spotify_id) {
     $ci=& get_instance();
     $ci->load->database();
 
     if (!empty($data['album_name'])) {
       $sql = "UPDATE " . TBL_album . "
-                SET " . TBL_album . ".`spotify_uri` = ?
+                SET " . TBL_album . ".`spotify_id` = ?
                 WHERE " . TBL_album . ".`id` = ?";
-      $query = $ci->db->query($sql, array($spotify_uri, $data['album_id']));
+      $query = $ci->db->query($sql, array($spotify_id, $data['album_id']));
     }
     else {
       $sql = "UPDATE " . TBL_artist . "
-                SET " . TBL_artist . ".`spotify_uri` = ?
+                SET " . TBL_artist . ".`spotify_id` = ?
                 WHERE " . TBL_artist . ".`id` = ?";
-      $query = $ci->db->query($sql, array($spotify_uri, $data['artist_id']));
+      $query = $ci->db->query($sql, array($spotify_id, $data['artist_id']));
     }
   }
 }

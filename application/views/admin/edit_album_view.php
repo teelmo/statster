@@ -18,8 +18,8 @@
             <div><input type="text" name="year" value="<?=$year?>" /></div>
           </div>
           <div class="input_container">
-            <div class="label">Spotify uri</div>
-            <div><input type="text" name="spotify_uri" value="<?=$spotify_uri?>" /></div>
+            <div class="label">Spotify id</div>
+            <div><input type="text" name="spotify_id" class="spotify_id" value="<?=$spotify_id?>" /></div>
           </div>
           <div class="input_container">
             <div class="label">Cover art uri</div>

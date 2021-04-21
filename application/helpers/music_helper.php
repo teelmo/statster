@@ -71,7 +71,7 @@ if (!function_exists('getArtists')) {
     $sql = "SELECT count(*) AS `count`,
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_artist . ".`id` AS `artist_id`,
-                   " . TBL_artist . ".`spotify_uri`,
+                   " . TBL_artist . ".`spotify_id`,
                    " . TBL_user . ".`username`,
                    " . TBL_user . ".`id` AS `user_id`,
                   (SELECT count(" . TBL_fan . ".`artist_id`)
@@ -141,7 +141,7 @@ if (!function_exists('getAlbums')) {
                    " . TBL_album . ".`album_name`,
                    " . TBL_album . ".`id` AS `album_id`,
                    " . TBL_album . ".`year`,
-                   " . TBL_album . ".`spotify_uri`,
+                   " . TBL_album . ".`spotify_id`,
                    " . TBL_user . ".`username` AS `username`,
                    " . TBL_listening . ".`date` AS `date`,
                    " . TBL_user . ".`id` AS `user_id`,
@@ -304,7 +304,7 @@ if (!function_exists('getArtistAlbums')) {
     $sql = "SELECT " . TBL_artist . ".`artist_name`,
                    `albums`.`album_name`,
                    `albums`.`year`, 
-                   `albums`.`spotify_uri`, 
+                   `albums`.`spotify_id`, 
                    " . TBL_artist . ".`id` AS `artist_id`,
                    `albums`.`id` AS `album_id`,
                    COALESCE(t.`count`, 0) AS `count`

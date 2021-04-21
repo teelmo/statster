@@ -33,9 +33,9 @@ if (!empty($json_data)) {
           </td>
           <td class="title">
             <?php
-            if (empty($hide['spotify']) && $row['spotify_uri']) {
+            if (empty($hide['spotify']) && $row['spotify_id']) {
               ?>
-              <a href="<?=$row['spotify_uri']?>" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>
+              <a href="spotify:album:<?=$row['spotify_id']?>" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>
               <?php
             }
             ?>
