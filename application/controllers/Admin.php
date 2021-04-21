@@ -51,6 +51,7 @@ class Admin extends CI_Controller {
 
         $data['image_uri'] = getArtistImg(array('artist_id' => $artist_id, 'size' => 32));
 
+        $data['js_include'] = array('admin/edit_artist');
         $this->load->view('site_templates/header');
         $this->load->view('admin/edit_artist_view', $data);
         $this->load->view('site_templates/footer');
