@@ -138,7 +138,7 @@ define('INTERVAL_TEXTS', array(
 define('ORDER_TEXTS', array(
   '`count` DESC' => 'Count',
   '`albums`.`album_name` ASC' => 'Name',
-  '`albums`.`year` DESC' => 'Year'
+  '`albums`.`year` DESC, `count` DESC' => 'Year'
 ));
 
 /* API keys */
