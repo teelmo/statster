@@ -4,6 +4,9 @@ $.extend(view, {
     $('.spotify_id').blur(function() {
       $(this).val(($(this).val().replace(/(https:\/\/open\.spotify\.com\/album\/)?([a-zA-Z0-9]{22})(.*)/, '$2')));
     });
+    $('.spotify_id').keyup(function() {
+      $(this).val(($(this).val().replace(/(https:\/\/open\.spotify\.com\/album\/)?([a-zA-Z0-9]{22})(.*)/, '$2')));
+    });
   }
 });
 
