@@ -6,6 +6,10 @@
         <input type="hidden" name="artist_id" value="<?=$artist_id?>" />
         <fieldset>
           <div class="input_container">
+            <div class="label">Artist id</div>
+            <div><input disabled="disabled" type="text" name="artist_id" value="<?=htmlentities($artist_id)?>" /></div>
+          </div>
+          <div class="input_container">
             <div class="label">Artist name</div>
             <div><input type="text" name="artist_name" value="<?=htmlentities($artist_name)?>" /></div>
           </div>

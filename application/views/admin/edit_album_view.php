@@ -6,6 +6,10 @@
         <input type="hidden" name="album_id" value="<?=$album_id?>" />
         <fieldset>
           <div class="input_container">
+            <div class="label">Album id</div>
+            <div><input disabled="disabled" type="text" name="album_id" value="<?=htmlentities($album_id)?>" /></div>
+          </div>
+          <div class="input_container">
             <div class="label">Artist name</div>
             <div><input type="text" name="artist_name" class="artist_name" value="<?=htmlentities($artist_name)?>" autocomplete="off" /></div>
           </div>
