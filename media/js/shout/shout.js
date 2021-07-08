@@ -109,7 +109,7 @@ $.extend(view, {
       url:'/api/shout/get/users'
     });
   },
-  initShoutEvents: function () {
+  initShoutEvents: function () {
     $(document).ajaxStop(function (event, request, settings) {
       $('#shout').append($('.shouts tr').detach().sort(function (a, b) {
         return app.compareStrings($(a).data('created'), $(b).data('created'));

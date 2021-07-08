@@ -76,7 +76,7 @@ var app = {
       $('.search_text').focus();
     });
   },
-  initToolTipster: function () {
+  initToolTipster: function () {
     // http://iamceege.github.io/tooltipster/
     $('.tooltip').tooltipster({
       theme:'tooltipster-shadow'
@@ -86,7 +86,7 @@ var app = {
     $('.search_text').autocomplete({
       html:true,
       minLength:3,
-      response: function () {
+      response: function () {
         $(this).removeClass('working');
       },
       select: function (event, ui) {

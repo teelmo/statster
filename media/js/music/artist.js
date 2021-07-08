@@ -309,7 +309,7 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  getFormats: function () {
+  getFormats: function () {
     $.ajax({
       data:{
         artist_name:'<?=$artist_name?>',
@@ -444,7 +444,7 @@ $.extend(view, {
       }
     });
     $('html').on('click', '#submitTags', function () {
-      $.each($('.chosen-select').val(), function (i, el) {
+      $.each($('.chosen-select').val(), function (i, el) {
         var tag = el.split(':');
         $.ajax({
           async:false,

@@ -28,7 +28,6 @@ if (!function_exists('getSpotifyResourceId')) {
     $result = curl_exec($ch);
     curl_close($ch);
 
-    // pr($result);
     if (!empty($data['album_name'])) {
       $spotify_id = (json_decode($result)->albums->total !== 0) ? json_decode($result)->albums->items[0]->id : FALSE; 
     } 

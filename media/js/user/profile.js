@@ -374,7 +374,7 @@ $.extend(view, {
       url:'/api/love/get'
     });
   },
-  getTopFormats: function (interval) {
+  getTopFormats: function (interval) {
     if (interval === 'overall') {
       var lower_limit = '1970-00-00';
     }
@@ -569,7 +569,7 @@ $.extend(view, {
       url:'/api/year/get'
     });
   },
-  initProfileEvents: function () {
+  initProfileEvents: function () {
     $(document).ajaxStop(function (event, request, settings) {
       if ($('.shouts tr').length === 0) {
         $('#musicShout').html('<?=ERR_NO_RESULTS?>');
@@ -581,7 +581,7 @@ $.extend(view, {
       }
       $('#musicShoutLoader').hide();
 
-      if ($('.likes tr').length === 0) {
+      if ($('.likes tr').length === 0) {
         $('#recentlyLiked').html('<?=ERR_NO_RESULTS?>');
       }
       else {
@@ -591,7 +591,7 @@ $.extend(view, {
       }
       $('#recentlyLikedLoader').hide();
     });
-    $('#refreshRecentAlbums').click(function () {
+    $('#refreshRecentAlbums').click(function () {
       view.getRecentListenings();
     });
   }

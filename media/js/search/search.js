@@ -32,7 +32,7 @@ $.extend(view, {
       url:'/api/search/get/100/'
     });
   },
-  initSearchEvents: function () {
+  initSearchEvents: function () {
     
   }
 });

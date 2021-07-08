@@ -305,11 +305,11 @@ $.extend(view, {
       }));
       $('#recentlyLikedLoader').hide();
     });
-    $('#refreshSecondChanceAlbums').click(function () {
+    $('#refreshSecondChanceAlbums').click(function () {
       $('#secondChanceLoader2').show();
       view.getSecondChance();
     });
-    $('#refreshFromOthersAlbums').click(function () {
+    $('#refreshFromOthersAlbums').click(function () {
       $('#fromOthersLoader2').show();
       view.getFromOthers();
     });

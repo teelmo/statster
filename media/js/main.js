@@ -227,15 +227,15 @@ $.extend(view, {
         view.getRecentListenings();
       }
     });
-    $('#refreshRecentAlbums').click(function () {
+    $('#refreshRecentAlbums').click(function () {
       $('#recentlyListenedLoader2').show();
       view.getRecentListenings();
     });
-    $('#refreshHotAlbums').click(function () {
+    $('#refreshHotAlbums').click(function () {
       $('#recommentedTopAlbumLoader2').show();
       view.getRecommentedTopAlbum();
     });
-    $('#refreshNewAlbums').click(function () {
+    $('#refreshNewAlbums').click(function () {
       $('#recommentedNewAlbumLoader2').show();
       view.getRecommentedNewAlbum();
     });

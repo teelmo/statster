@@ -199,7 +199,6 @@ class Music extends CI_Controller {
         $rank = 0;
         $data['most_listened_alltime'] = false;
         $last_item_count = false;
-        // pr(json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200))));
         foreach (json_decode(getAlbums(array('lower_limit' => '1970-00-00','limit' => 200))) as $item) {
           $rank++;
           if ($item->album_id == $data['album_id']) {

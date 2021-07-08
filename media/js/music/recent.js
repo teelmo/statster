@@ -85,7 +85,7 @@ $.extend(view, {
     });
   },
   initRecentEvents: function () {
-    $('#refreshRecentAlbums').click(function () {
+    $('#refreshRecentAlbums').click(function () {
       view.getRecentListenings();
     });
     $('html body').on('click', 'span.delete', function () {

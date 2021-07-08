@@ -37,7 +37,7 @@ $.extend(view, {
     });
     $('#shoutSubmit').click(function () {
       var text_value = $('#shoutText').val().trim();
-      if (text_value === '') {
+      if (text_value === '') {
         return false;
       }
       $('#shoutLoader2').show();

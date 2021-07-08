@@ -84,7 +84,7 @@ $.extend(view, {
     });
     $('#addListeningSubmit').click(function () {
       var text_value = $('#addListeningText').val();
-      if (text_value === '') {
+      if (text_value === '') {
         return false;
       }
       var format_value = $('input[name="addListeningFormat"]:checked').val()

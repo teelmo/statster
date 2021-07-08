@@ -58,8 +58,8 @@ $.extend(view, {
       url:'/api/artist/get'
     });
   },
-  initWelcomeEvents: function () {
-    $('#toggleRegisterForm').click(function () {
+  initWelcomeEvents: function () {
+    $('#toggleRegisterForm').click(function () {
       $('#registerForm').slideToggle();
     });
   }

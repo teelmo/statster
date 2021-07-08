@@ -1,5 +1,5 @@
 $.extend(view, {
-  getFormats: function () {
+  getFormats: function () {
     $.ajax({
       data:{
         limit:100,

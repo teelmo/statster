@@ -3,7 +3,7 @@ $.extend(view, {
   initAdminEvents: function () {
     $('#addGenreSubmit').click(function () {
       var name = $('#addGenreText').val();
-      if (name === '') {
+      if (name === '') {
         return false;
       }
       $.ajax({
@@ -32,7 +32,7 @@ $.extend(view, {
     });
     $('#addKeywordSubmit').click(function () {
       var name = $('#addKeywordText').val();
-      if (name === '') {
+      if (name === '') {
         return false;
       }
       $.ajax({

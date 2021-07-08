@@ -76,10 +76,10 @@ $.extend(view, {
       }]
     }).highcharts();
   },
-  initGraph: function (data) {
+  initGraph: function (data) {
     if (data[data.length - 1].cumulative_count !== '1') {
       var chart_data = [0];
-      $.each(data, function (i, value) {
+      $.each(data, function (i, value) {
         if (value.cumulative_count !== 0 && (value.cumulative_count - data[0].cumulative_count > 0)) {
           chart_data.push(value.cumulative_count - data[0].cumulative_count);
         }

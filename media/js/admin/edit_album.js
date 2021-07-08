@@ -4,7 +4,7 @@ $.extend(view, {
     $('.artist_name').autocomplete({
       html:true,
       minLength:3,
-      response: function () {
+      response: function () {
         $(this).removeClass('working');
       },
       select: function (event, ui) {

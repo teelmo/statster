@@ -98,7 +98,7 @@ $.extend(view, {
       url:'/api/love/get/<?=$album_id?>'
     });
   },
-  getFormats: function () {
+  getFormats: function () {
     $.ajax({
       data:{
         album_name:'<?=$album_name?>',
@@ -231,7 +231,7 @@ $.extend(view, {
     });
     $('html').on('click', '#submitTags', function () {
       $.when(
-        $.each($('.chosen-select').val(), function (i, el) {
+        $.each($('.chosen-select').val(), function (i, el) {
           var tag = el.split(':');
           $.ajax({
             data:{

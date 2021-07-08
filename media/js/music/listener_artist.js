@@ -225,7 +225,7 @@ $.extend(view, {
     });
     $('html').on('click', '#submitTags', function () {
       $.when(
-        $.each($('.chosen-select').val(), function (i, el) {
+        $.each($('.chosen-select').val(), function (i, el) {
           var tag = el.split(':');
           $.ajax({
             data:{
