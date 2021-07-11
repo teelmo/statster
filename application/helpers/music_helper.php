@@ -249,8 +249,8 @@ if (!function_exists('getListeners')) {
   *
   * @return string JSON encoded data containing album information.
   */
-if (!function_exists('getListenersCumulative')) {
-  function getListenersCumulative($opts = array()) {
+if (!function_exists('getListeningsCumulative')) {
+  function getListeningsCumulative($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 
@@ -259,19 +259,19 @@ if (!function_exists('getListenersCumulative')) {
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
                    (SELECT COUNT(*) 
-                    FROM " . TBL_listening . ",
-                         " . TBL_user . ",
-                         " . TBL_album . ", 
-                         " . TBL_artist . "
-                    WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-                      AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-                      AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-                      AND " . TBL_user . ".username LIKE ?
-                      AND " . TBL_artist . ".`artist_name` LIKE ?
-                      AND " . TBL_album . ".`album_name` LIKE ?
-                      AND `date` <= MAX(a.`date`)) AS `cumulative_count`
-            FROM " . TBL_listening . " AS `a`
-            WHERE MONTH(a.`date`) <> 0
+                    FROM " . TBL_listening . "
+                    WHERE `date` <= MAX(`a`.`date`)) AS `cumulative_count`
+            FROM " . TBL_listening . " AS `a`,
+                 " . TBL_user . ",
+                 " . TBL_album . ", 
+                 " . TBL_artist . "
+            WHERE `a`.`album_id` = " . TBL_album . ".`id`
+              AND `a`.`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_user . ".`username` LIKE ?
+              AND " . TBL_artist . ".`artist_name` LIKE ?
+              AND " . TBL_album . ".`album_name` LIKE ?
+              AND MONTH(`a`.`date`) <> 0
             GROUP BY `line_date`
             ORDER BY `line_date` ASC";
     $query = $ci->db->query($sql, array($username, $artist_name, $album_name));

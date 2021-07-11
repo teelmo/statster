@@ -6,11 +6,19 @@ class Listening extends CI_Controller {
   }
 
   /* Get listenings */
-  public function get() {
+  public function get($type = '') {
     // Load helpers
     $this->load->helper(array('listening_helper', 'love_helper', 'output_helper'));
 
-    echo getListenings($_REQUEST);
+    switch ($type) {
+      case 'cumulative':
+        $this->load->helper('music_helper');
+        echo getListeningsCumulative($_REQUEST);
+        break;
+      default:
+        echo getListenings($_REQUEST);
+        break;
+    }
   }
 
   public function add() {

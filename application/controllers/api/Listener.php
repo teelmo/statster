@@ -11,9 +11,6 @@ class Listener extends CI_Controller {
     $this->load->helper(array('music_helper', 'output_helper'));
 
     switch ($type) {
-      case 'cumulative':
-        echo getListenersCumulative($_REQUEST);
-        break;
       default:
         echo getListeners($_REQUEST);
         break;

@@ -17,7 +17,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/listener/get/cumulative'
+      url:'/api/listening/get/cumulative'
     });
   },
   getListeningHistory: function (type) {
