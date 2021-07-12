@@ -257,24 +257,52 @@ if (!function_exists('getListeningsCumulative')) {
     $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
-                   (SELECT COUNT(*) 
-                    FROM " . TBL_listening . "
-                    WHERE `date` <= MAX(`a`.`date`)) AS `cumulative_count`
-            FROM " . TBL_listening . " AS `a`,
-                 " . TBL_user . ",
-                 " . TBL_album . ", 
-                 " . TBL_artist . "
-            WHERE `a`.`album_id` = " . TBL_album . ".`id`
-              AND `a`.`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_artist . ".`artist_name` LIKE ?
-              AND " . TBL_album . ".`album_name` LIKE ?
-              AND MONTH(`a`.`date`) <> 0
+
+    if ($album_name !== '%' || $artist_name !== '%') {
+      $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
+                     (SELECT COUNT(*)
+                      FROM " . TBL_listening . ",
+                           " . TBL_user . ",
+                           " . TBL_album . ",
+                           " . TBL_artist . "
+                      WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                        AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                        AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+                        AND " . TBL_user . ".`username` LIKE ?
+                        AND " . TBL_artist . ".`artist_name` LIKE ?
+                        AND " . TBL_album . ".`album_name` LIKE ?
+                        AND " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
+              FROM " . TBL_listening . " AS `a`
+              WHERE MONTH(`a`.`date`) <> 0
+              GROUP BY `line_date`
+              ORDER BY `line_date` ASC";
+      $query = $ci->db->query($sql, array($username, $artist_name, $album_name));
+    }
+    else if ($username !== '%') {
+      $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
+                   (SELECT COUNT(*)
+                    FROM " . TBL_listening . ",
+                         " . TBL_user . "
+                    WHERE " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                      AND " . TBL_user . ".`username` = ?
+                      AND " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
+            FROM " . TBL_listening . " AS `a`
+            WHERE MONTH(`a`.`date`) <> 0
             GROUP BY `line_date`
             ORDER BY `line_date` ASC";
-    $query = $ci->db->query($sql, array($username, $artist_name, $album_name));
+      $query = $ci->db->query($sql, array($username));
+    }
+    else {
+      $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
+                   (SELECT COUNT(*)
+                    FROM " . TBL_listening . "
+                    WHERE " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
+            FROM " . TBL_listening . " AS `a`
+            WHERE MONTH(`a`.`date`) <> 0
+            GROUP BY `line_date`
+            ORDER BY `line_date` ASC";
+      $query = $ci->db->query($sql, array());
+    }
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
