@@ -66,7 +66,7 @@ class Music extends CI_Controller {
       // Get artist information aka. artist's name and id.
       if ($data = getArtistInfo($data)) {
         $intervals = unserialize($this->session->userdata('intervals'));
-        $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : '`count` DESC';
+        $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : '`count` DESC, `albums`.`year` DESC';
         // Get artist's total listening data.
         $data += getArtistListenings($data);
         // Get biography.
@@ -172,7 +172,7 @@ class Music extends CI_Controller {
       // Get artist information aka. artist's name and id.
       if ($data = getAlbumInfo($data)) {
         $intervals = unserialize($this->session->userdata('intervals'));
-        $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : '`count` DESC';
+        $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : '`count` DESC, `albums`.`year` DESC';
         // Get albums's total listening data.
         $data += getAlbumListenings($data);
         // Get biography.
