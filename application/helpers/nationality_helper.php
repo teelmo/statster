@@ -33,10 +33,10 @@ if (!function_exists('getNationalities')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) as `count`,
-                   'nationality' as `type`,
-                   " . TBL_nationality . ".`country` as `name`,
-                   " . TBL_nationality . ".`id` as `tag_id`
+    $sql = "SELECT count(*) AS `count`,
+                   'nationality' AS `type`,
+                   " . TBL_nationality . ".`country` AS `name`,
+                   " . TBL_nationality . ".`id` AS `tag_id`
                    " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
@@ -46,7 +46,7 @@ if (!function_exists('getNationalities')) {
                  (SELECT " . TBL_nationalities . ".`nationality_id`,
                          " . TBL_nationalities . ".`album_id`
                   FROM " . TBL_nationalities . "
-                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) as " . TBL_nationalities . "
+                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) AS " . TBL_nationalities . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
@@ -79,9 +79,9 @@ if (!function_exists('getAllNationalities')) {
   function getAllNationalities($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
-    $sql = "SELECT 'nationality' as `type`,
-                   " . TBL_nationality . ".`country` as `name`,
-                   " . TBL_nationality . ".`id` as `tag_id`
+    $sql = "SELECT 'nationality' AS `type`,
+                   " . TBL_nationality . ".`country` AS `name`,
+                   " . TBL_nationality . ".`id` AS `tag_id`
             FROM " . TBL_nationality . "
             WHERE 1
             ORDER BY " . TBL_nationality . ".`country`";
@@ -108,7 +108,7 @@ if (!function_exists('getNationalitiesCumulative')) {
 
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') as `line_date`,
+    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
                    (SELECT COUNT(*) 
                     FROM " . TBL_listening . ",
                          " . TBL_user . ",
@@ -117,15 +117,15 @@ if (!function_exists('getNationalitiesCumulative')) {
                          (SELECT " . TBL_nationalities . ".`nationality_id`,
                                  " . TBL_nationalities . ".`album_id`
                           FROM " . TBL_nationalities . "
-                          GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) as " . TBL_nationalities . "
+                          GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) AS " . TBL_nationalities . "
                    WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
                       AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
                       AND " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
                       AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
                       AND " . TBL_nationalities . ".`nationality_id` LIKE ?
                       AND " . TBL_user . ".`username` LIKE ?
-                      AND `date` <= MAX(a.`date`)) as `cumulative_count`
-            FROM " . TBL_listening . " as a
+                      AND `date` <= MAX(a.`date`)) AS `cumulative_count`
+            FROM " . TBL_listening . " AS a
             WHERE MONTH(a.`date`) <> 0
             GROUP BY `line_date`
             ORDER BY `line_date` ASC";
@@ -150,11 +150,11 @@ if (!function_exists('getNationalityBio')) {
     $ci->load->database();
 
     $nationality_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
-    $sql = "SELECT " . TBL_nationality_biography . ".`id` as `biography_id`,
-                   " . TBL_nationality_biography . ".`summary` as `bio_summary`, 
-                   " . TBL_nationality_biography . ".`text` as `bio_content`, 
-                   " . TBL_nationality_biography . ".`updated` as `bio_updated`,
-                   'false' as `update_bio`
+    $sql = "SELECT " . TBL_nationality_biography . ".`id` AS `biography_id`,
+                   " . TBL_nationality_biography . ".`summary` AS `bio_summary`, 
+                   " . TBL_nationality_biography . ".`text` AS `bio_content`, 
+                   " . TBL_nationality_biography . ".`updated` AS `bio_updated`,
+                   'false' AS `update_bio`
             FROM " . TBL_nationality_biography . "
             WHERE " . TBL_nationality_biography . ".`nationality_id` = ?";
     $query = $ci->db->query($sql, array($nationality_id));
@@ -272,13 +272,13 @@ if (!function_exists('getNationalityListenings')) {
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $tag_id = empty($opts['tag_id']) ? '%' : $opts['tag_id'];
     $user_id = empty($opts['user_id']) ? '%' : $opts['user_id'];
-    $sql = "SELECT count(*) as `" . $count_type . "`
+    $sql = "SELECT count(*) AS `" . $count_type . "`
             FROM " . TBL_album . ",
                  " . TBL_listening . ",
                  (SELECT " . TBL_nationalities . ".`nationality_id`,
                          " . TBL_nationalities . ".`album_id`
                   FROM " . TBL_nationalities . "
-                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) as " . TBL_nationalities . "
+                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) AS " . TBL_nationalities . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_nationalities . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` LIKE ?
@@ -314,11 +314,11 @@ if (!function_exists('getMusicByNationality')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
 
-    $sql = "SELECT count(*) as 'count',
+    $sql = "SELECT count(*) AS 'count',
                    " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`id` as `artist_id`,
+                   " . TBL_artist . ".`id` AS `artist_id`,
                    " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`id` as `album_id`,
+                   " . TBL_album . ".`id` AS `album_id`,
                    " . TBL_album . ".`year`
             FROM " . TBL_artist . ",
                  " . TBL_album . ",
@@ -327,7 +327,7 @@ if (!function_exists('getMusicByNationality')) {
                  (SELECT " . TBL_nationalities . ".`nationality_id`,
                          " . TBL_nationalities . ".`album_id`
                   FROM " . TBL_nationalities . "
-                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) as " . TBL_nationalities . "
+                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) AS " . TBL_nationalities . "
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_nationalities . ".`album_id` = " . TBL_album . ".`id`

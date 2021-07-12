@@ -34,10 +34,10 @@ if (!function_exists('getKeywords')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) as `count`,
-                   'keyword' as `type`,
+    $sql = "SELECT count(*) AS `count`,
+                   'keyword' AS `type`,
                    " . TBL_keyword . ".`name`,
-                   " . TBL_keyword . ".`id` as `tag_id`
+                   " . TBL_keyword . ".`id` AS `tag_id`
                    " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
@@ -47,7 +47,7 @@ if (!function_exists('getKeywords')) {
                  (SELECT " . TBL_keywords . ".`keyword_id`,
                          " . TBL_keywords . ".`album_id`
                   FROM " . TBL_keywords . "
-                  GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) as " . TBL_keywords . "
+                  GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) AS " . TBL_keywords . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
@@ -80,9 +80,9 @@ if (!function_exists('getAllKeywords')) {
   function getAllKeywords($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
-    $sql = "SELECT 'keyword' as `type`,
+    $sql = "SELECT 'keyword' AS `type`,
                    " . TBL_keyword . ".`name`,
-                   " . TBL_keyword . ".`id` as `tag_id`
+                   " . TBL_keyword . ".`id` AS `tag_id`
             FROM " . TBL_keyword . "
             WHERE 1
             ORDER BY " . TBL_keyword . ".`name`";
@@ -109,7 +109,7 @@ if (!function_exists('getKeywordsCumulative')) {
 
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') as `line_date`,
+    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
                    (SELECT COUNT(*) 
                     FROM " . TBL_listening . ",
                          " . TBL_user . ",
@@ -118,15 +118,15 @@ if (!function_exists('getKeywordsCumulative')) {
                          (SELECT " . TBL_keywords . ".`keyword_id`,
                                  " . TBL_keywords . ".`album_id`
                           FROM " . TBL_keywords . "
-                          GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) as " . TBL_keywords . "
+                          GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) AS " . TBL_keywords . "
                    WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
                       AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
                       AND " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
                       AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
                       AND " . TBL_keywords . ".`keyword_id` LIKE ?
                       AND " . TBL_user . ".`username` LIKE ?
-                      AND `date` <= MAX(a.`date`)) as `cumulative_count`
-            FROM " . TBL_listening . " as a
+                      AND `date` <= MAX(a.`date`)) AS `cumulative_count`
+            FROM " . TBL_listening . " AS a
             WHERE MONTH(a.`date`) <> 0
             GROUP BY `line_date`
             ORDER BY `line_date` ASC";
@@ -151,11 +151,11 @@ if (!function_exists('getKeywordBio')) {
     $ci->load->database();
 
     $keyword_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
-    $sql = "SELECT " . TBL_keyword_biography . ".`id` as `biography_id`,
-                   " . TBL_keyword_biography . ".`summary` as `bio_summary`, 
-                   " . TBL_keyword_biography . ".`text` as `bio_content`, 
-                   " . TBL_keyword_biography . ".`updated` as `bio_updated`,
-                   'false' as `update_bio`
+    $sql = "SELECT " . TBL_keyword_biography . ".`id` AS `biography_id`,
+                   " . TBL_keyword_biography . ".`summary` AS `bio_summary`, 
+                   " . TBL_keyword_biography . ".`text` AS `bio_content`, 
+                   " . TBL_keyword_biography . ".`updated` AS `bio_updated`,
+                   'false' AS `update_bio`
             FROM " . TBL_keyword_biography . "
             WHERE " . TBL_keyword_biography . ".`keyword_id` = ?";
     $query = $ci->db->query($sql, array($keyword_id));
@@ -306,13 +306,13 @@ if (!function_exists('getKeywordListenings')) {
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $tag_id = empty($opts['tag_id']) ? '%' : $opts['tag_id'];
     $user_id = empty($opts['user_id']) ? '%' : $opts['user_id'];
-    $sql = "SELECT count(*) as `" . $count_type . "`
+    $sql = "SELECT count(*) AS `" . $count_type . "`
             FROM " . TBL_album . ",
                  " . TBL_listening . ",
                  (SELECT " . TBL_keywords . ".`keyword_id`,
                          " . TBL_keywords . ".`album_id`
                   FROM " . TBL_keywords . "
-                  GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) as " . TBL_keywords . "
+                  GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) AS " . TBL_keywords . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
               AND " . TBL_keywords . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` LIKE ?
@@ -348,11 +348,11 @@ if (!function_exists('getMusicByKeyword')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
 
-    $sql = "SELECT count(*) as 'count',
+    $sql = "SELECT count(*) AS 'count',
                    " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`id` as `artist_id`,
+                   " . TBL_artist . ".`id` AS `artist_id`,
                    " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`id` as `album_id`,
+                   " . TBL_album . ".`id` AS `album_id`,
                    " . TBL_album . ".`year`
             FROM " . TBL_artist . ",
                  " . TBL_album . ",
@@ -361,7 +361,7 @@ if (!function_exists('getMusicByKeyword')) {
                  (SELECT " . TBL_keywords . ".`keyword_id`,
                          " . TBL_keywords . ".`album_id`
                   FROM " . TBL_keywords . "
-                  GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) as " . TBL_keywords . "
+                  GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) AS " . TBL_keywords . "
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
               AND " . TBL_keywords . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`

@@ -35,10 +35,10 @@ if (!function_exists('getYears')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) as `count`,
+    $sql = "SELECT count(*) AS `count`,
                    " . TBL_album . ".`year`,
-                   " . TBL_album . ".`year` as `name`,
-                   'year' as `type`
+                   " . TBL_album . ".`year` AS `name`,
+                   'year' AS `type`
                    " . $ci->db->escape_str($select) . "
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
@@ -79,7 +79,7 @@ if (!function_exists('getYearsCumulative')) {
 
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') as `line_date`,
+    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
                    (SELECT COUNT(*) 
                     FROM " . TBL_listening . ",
                          " . TBL_user . ",
@@ -88,8 +88,8 @@ if (!function_exists('getYearsCumulative')) {
                       AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
                       AND " . TBL_album . ".`year` = ?
                       AND " . TBL_user . ".`username` LIKE ?
-                      AND `date` <= MAX(a.`date`)) as `cumulative_count`
-            FROM " . TBL_listening . " as a
+                      AND `date` <= MAX(a.`date`)) AS `cumulative_count`
+            FROM " . TBL_listening . " AS a
             WHERE MONTH(a.`date`) <> 0
             GROUP BY `line_date`
             ORDER BY `line_date` ASC";
@@ -114,11 +114,11 @@ if (!function_exists('getYearBio')) {
     $ci->load->database();
 
     $year = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
-    $sql = "SELECT " . TBL_year_biography . ".`id` as `biography_id`,
-                   " . TBL_year_biography . ".`summary` as `bio_summary`, 
-                   " . TBL_year_biography . ".`text` as `bio_content`, 
-                   " . TBL_year_biography . ".`updated` as `bio_updated`,
-                   'false' as `update_bio`
+    $sql = "SELECT " . TBL_year_biography . ".`id` AS `biography_id`,
+                   " . TBL_year_biography . ".`summary` AS `bio_summary`, 
+                   " . TBL_year_biography . ".`text` AS `bio_content`, 
+                   " . TBL_year_biography . ".`updated` AS `bio_updated`,
+                   'false' AS `update_bio`
             FROM " . TBL_year_biography . "
             WHERE " . TBL_year_biography . ".`year` = ?";
     $query = $ci->db->query($sql, array($year));
@@ -215,7 +215,7 @@ if (!function_exists('getYearListenings')) {
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $tag_id = empty($opts['tag_id']) ? '%' : $opts['tag_id'];
     $user_id = empty($opts['user_id']) ? '%' : $opts['user_id'];
-    $sql = "SELECT count(*) as `" . $count_type . "`
+    $sql = "SELECT count(*) AS `" . $count_type . "`
             FROM " . TBL_album . ",
                  " . TBL_listening . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
@@ -252,11 +252,11 @@ if (!function_exists('getMusicByYear')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
 
-    $sql = "SELECT count(*) as 'count',
+    $sql = "SELECT count(*) AS 'count',
                    " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`id` as `artist_id`,
+                   " . TBL_artist . ".`id` AS `artist_id`,
                    " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`id` as `album_id`,
+                   " . TBL_album . ".`id` AS `album_id`,
                    " . TBL_album . ".`year`
             FROM " . TBL_artist . ",
                  " . TBL_album . ",
@@ -294,11 +294,11 @@ if (!function_exists('getTopAlbumByYear')) {
     $username = !empty($opts['username']) ? $opts['username'] : '%';
 
     $sql = "SELECT * 
-            FROM (SELECT count(*) as `count`,
+            FROM (SELECT count(*) AS `count`,
                         " . TBL_artist . ".`artist_name`,
-                        " . TBL_artist . ".`id` as `artist_id`,
+                        " . TBL_artist . ".`id` AS `artist_id`,
                         " . TBL_album . ".`album_name`,
-                        " . TBL_album . ".`id` as `album_id`,
+                        " . TBL_album . ".`id` AS `album_id`,
                         " . TBL_album . ".`year`
                   FROM " . TBL_listening . ",
                        " . TBL_album . ",
@@ -309,7 +309,7 @@ if (!function_exists('getTopAlbumByYear')) {
                     AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
                     AND " . TBL_user . ".`username` LIKE ?
                   GROUP BY " . TBL_album . ".`id`
-                  ORDER by " . TBL_album . ".`year` DESC, `count` DESC) as `result`
+                  ORDER by " . TBL_album . ".`year` DESC, `count` DESC) AS `result`
             GROUP BY `result`.`year`
             ORDER BY `result`.`year` DESC";
     $query = $ci->db->query($sql, array($username));
