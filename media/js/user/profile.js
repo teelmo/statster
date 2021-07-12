@@ -1,5 +1,7 @@
+var cumulative_done = false;
 $.extend(view, {
   getListeningCumulation: function (type) {
+    cumulative_done = true;
     $.ajax({
       data:{
         username:'<?=(!empty($username)) ? $username: ''?>'
@@ -590,6 +592,9 @@ $.extend(view, {
         }));
       }
       $('#recentlyLikedLoader').hide();
+      if (cumulative_done === false) {
+        view.getListeningCumulation();
+      }
     });
     $('#refreshRecentAlbums').click(function () {
       view.getRecentListenings();
@@ -599,7 +604,6 @@ $.extend(view, {
 
 $(document).ready(function () {
   view.getListeningHistory('%Y');
-  view.getListeningCumulation();
   view.getRecentListenings();
   view.getTopAlbums('<?=$top_album_profile?>');
   view.getTopArtists('<?=$top_artist_profile?>');
