@@ -1,3 +1,4 @@
+var cumulative_done = false;
 $.extend(view, {
   // Get artist fan.
   getFan: function (user_id) {
@@ -99,6 +100,7 @@ $.extend(view, {
     });
   },
   getListeningCumulation: function (type) {
+    cumulative_done = true;
     $.ajax({
       data:{
         artist_name:'<?=$artist_name?>',
@@ -390,6 +392,11 @@ $.extend(view, {
     });
   },
   initArtistEvents: function () {
+    $(document).ajaxStop(function (event, request, settings ) {
+      if (cumulative_done === false) {
+        view.getListeningCumulation();
+      }
+    });
     $('html').on('click', '#fan', function () {
       $('.like_msg').html('');
       if ($(this).hasClass('fan_add')) {
@@ -483,7 +490,6 @@ $(document).ready(function () {
   view.getFans();
   view.getTags();
   view.getListeningHistory('%Y');
-  view.getListeningCumulation();
   view.getShouts();
   view.getUsers();
   view.getListenings();

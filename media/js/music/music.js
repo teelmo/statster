@@ -1,5 +1,7 @@
+var cumulative_done = false;
 $.extend(view, {
   getListeningCumulation: function (type) {
+    cumulative_done = true;
     $.ajax({
       data:{
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
@@ -304,6 +306,9 @@ $.extend(view, {
         return app.compareStrings($(a).data('created'), $(b).data('created'));
       }));
       $('#recentlyLikedLoader').hide();
+      if (cumulative_done === false) {
+        view.getListeningCumulation();
+      }
     });
     $('#refreshSecondChanceAlbums').click(function () {
       $('#secondChanceLoader2').show();
@@ -318,7 +323,6 @@ $.extend(view, {
 
 $(document).ready(function () {
   view.getListeningHistory('%Y');
-  view.getListeningCumulation();
   view.getPopularGenres();
   view.getPopularAlbums('<?=$popular_album_music?>');
   view.getSecondChance();

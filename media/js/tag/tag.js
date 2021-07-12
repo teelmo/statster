@@ -1,5 +1,7 @@
+var cumulative_done = false;
 $.extend(view, {
   getListeningCumulation: function () {
+    cumulative_done = true;
     $.ajax({
       data:{
         tag_id:'<?=$tag_id?>',
@@ -269,6 +271,11 @@ $.extend(view, {
     });
   },
   initTagEvents: function () {
+    $(document).ajaxStop(function (event, request, settings ) {
+      if (cumulative_done === false) {
+        view.getListeningCumulation();
+      }
+    });
     $('#biographyMore').click(function (event) {
       $('#biographyMore').hide();
       $('.summary').hide();
@@ -287,7 +294,6 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getListeningCumulation();
   view.getListeningHistory('%Y');
   view.getTopAlbums('<?=$top_album_tag?>');
   view.getTopArtists('<?=$top_artist_tag?>');

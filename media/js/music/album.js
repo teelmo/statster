@@ -1,3 +1,4 @@
+var cumulative_done = false;
 $.extend(view, {
   // Get album love.
   getLove: function (user_id) { 
@@ -99,6 +100,7 @@ $.extend(view, {
     });
   },
   getListeningCumulation: function () {
+    cumulative_done = true;
     $.ajax({
       data:{
         album_name:'<?=$album_name?>',
@@ -397,6 +399,11 @@ $.extend(view, {
     });
   },
   initAlbumEvents: function () {
+    $(document).ajaxStop(function (event, request, settings ) {
+      if (cumulative_done === false) {
+        view.getListeningCumulation();
+      }
+    });
     $('html').on('click', '#love', function () {
       $('.like_msg').html('');
       if ($(this).hasClass('love_add')) {
@@ -512,7 +519,6 @@ $(document).ready(function () {
   view.getLoves();
   view.getTags();
   view.getListeningHistory('%Y');
-  view.getListeningCumulation();
   view.getShouts();
   view.getUsers();
   view.getListenings();
