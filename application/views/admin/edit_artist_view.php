@@ -15,7 +15,7 @@
           </div>
           <div class="input_container">
             <div class="label">Spotify id</div>
-            <div><input type="text" name="spotify_id" value="<?=$spotify_id?>" /></div>
+            <div><input type="text" name="spotify_id" class="spotify_id" value="<?=$spotify_id?>" /></div>
           </div>
           <div class="input_container">
             <div class="label">Artist image uri</div>
