@@ -41,6 +41,7 @@ if (!function_exists('loginUser')) {
       $ci->session->set_userdata(array(
         'user_id'      => $result->user_id,
         'username'     => $result->username,
+        'get_username' => $result->username,
         'email'        => $result->email,
         'real_name'    => $result->real_name,
         'lastfm_name'  => $result->lastfm_name,
