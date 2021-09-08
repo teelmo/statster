@@ -7,7 +7,7 @@
         <fieldset>
           <div class="input_container">
             <div class="label">Artist id</div>
-            <div><input disabled="disabled" type="text" name="artist_id" value="<?=htmlentities($artist_id)?>" /></div>
+            <div><input disabled="disabled" type="text" value="<?=htmlentities($artist_id)?>" /></div>
           </div>
           <div class="input_container">
             <div class="label">Artist name</div>
