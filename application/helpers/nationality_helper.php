@@ -379,6 +379,13 @@ if (!function_exists('deleteAlbumNationality')) {
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }
+    else if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+       $sql = "DELETE 
+              FROM " . TBL_nationalities . "
+              WHERE " . TBL_nationalities . ".`album_id` = ?
+                AND " . TBL_nationalities . ".`nationality_id` = ?";
+      $query = $ci->db->query($sql, array($album_id, $tag_id));
+    }
     else {
       header('HTTP/1.1 401 Unauthorized');
       return json_encode(array('error' => array('msg' => $opts, 'affected' => $ci->db->affected_rows())));
