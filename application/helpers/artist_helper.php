@@ -340,7 +340,7 @@ if (!function_exists('updateArtist')) {
     $ci->load->database();
 
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
-    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $artist_name = isset($opts['artist_name']) ? trim(str_replace(' ', '', $opts['artist_name'])) : FALSE; : FALSE;
     $spotify_id = !empty($opts['spotify_id']) ? $opts['spotify_id'] : '';
 
     if ($album_name !== FALSE) {
