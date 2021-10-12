@@ -379,7 +379,7 @@ if (!function_exists('deleteAlbumNationality')) {
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }
-    else if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    else if (in_array($user_id, ADMIN_USERS)) {
        $sql = "DELETE 
               FROM " . TBL_nationalities . "
               WHERE " . TBL_nationalities . ".`album_id` = ?
