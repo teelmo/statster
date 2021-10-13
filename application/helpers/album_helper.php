@@ -370,7 +370,7 @@ if (!function_exists('updateAlbum')) {
     $album_name = isset($opts['album_name']) ? trim(str_replace(' ', '', $opts['album_name'])) : FALSE;
     $artist_id = isset($opts['artist_name']) ? getArtistID($opts) : '';
     $spotify_id = !empty($opts['spotify_id']) ? $opts['spotify_id'] : '';
-    $year = !empty($opts['year']) ? trim(str_replace(' ', ' ', $opts['year']))) : '';
+    $year = !empty($opts['year']) ? trim(str_replace(' ', ' ', $opts['year'])) : '';
 
     if ($album_name !== FALSE) {
       $sql = "UPDATE " . TBL_album . "
