@@ -224,7 +224,7 @@ $.extend(view, {
               alert('404 Not Found');
             }
           },
-          type:'DELETE',
+          type:'POST',
           url:'/api/love/delete/<?=$album_id?>'
         });
       }

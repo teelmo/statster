@@ -7,7 +7,6 @@ class Admin extends CI_Controller {
 
   public function index() {
     if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
-
       // Load helpers.
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
 
