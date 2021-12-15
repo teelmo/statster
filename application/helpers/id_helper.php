@@ -44,8 +44,10 @@ if (!function_exists('getAlbumID')) {
     $year = isset($opts['year']) ? $opts['year'] : '%';
     $sql = "SELECT " . TBL_album . ".`id`
             FROM " . TBL_album . ",
+                 " . TBL_artists . ",
                  " . TBL_artist . "
-            WHERE " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+            WHERE " . TBL_album . ".`id` = " . TBL_artists . ".`album_id`
+              AND " . TBL_artist . ".`id` = " . TBL_artists . ".`artist_id`
               AND " . TBL_album . ".`year` LIKE ?
               AND " . TBL_artist . ".`artist_name` = ?
               AND " . TBL_album . ".`album_name` = ?

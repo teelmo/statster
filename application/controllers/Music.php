@@ -164,13 +164,20 @@ class Music extends CI_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'album_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'album_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
       $data['artist_name'] = decode($value1);
       $data['album_name'] = decode($value2);
-
-      // Get artist information aka. artist's name and id.
+      
+      // Get album information aka. album's name and id.
       if ($data = getAlbumInfo($data)) {
+        $artists = array_map(function($artist) { 
+          return array('artist_id' => $artist['artist_id'],
+                       'artist_name' => $artist['artist_name']);
+        }, $data);
+        $data = $data[0];
+        
+        $data['artists'] = $artists;
         $intervals = unserialize($this->session->userdata('intervals'));
         $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : '`count` DESC, `albums`.`year` DESC';
         // Get albums's total listening data.
@@ -191,7 +198,7 @@ class Music extends CI_Controller {
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getAlbumListenings($data);
         }
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = sizeof(json_decode(getAlbumListeners($data), true));
         if (empty($data['spotify_id'])) {
           $data['spotify_id'] = getSpotifyResourceId($data);
         }
@@ -233,7 +240,9 @@ class Music extends CI_Controller {
           }
           $last_item_count = $item->count;
         }
-
+        $artist_info = getArtistInfo(array('artist_name' => decode($value1)));
+        $data['artist_id'] = $artist_info['artist_id'];
+        $data['artist_name'] = $artist_info['artist_name'];
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('music/album', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper');

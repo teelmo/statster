@@ -174,72 +174,6 @@ if (!function_exists('getAlbums')) {
 }
 
 /**
-  * Returns listeners for given artist or album.
-  *
-  * @param array $opts.
-  *          'album_name'      => Album name
-  *          'artist_name'     => Artist name
-  *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
-  *          'limit'           => Limit
-  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
-  *          'order_by'        => Order by argument
-  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
-  *          'username'        => Username
-  *          'where'           => Custom where argument
-  *
-  * @return string JSON encoded data containing album information.
-  */
-if (!function_exists('getListeners')) {
-  function getListeners($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
-    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
-    $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_user . '.`id`';
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
-    $select = !empty($opts['select']) ? ', ' . $opts['select'] : '';
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) AS `count`,
-                   " . TBL_user . ".`username` AS `username`,
-                   " . TBL_user . ".`id` AS `user_id`,
-                   " . TBL_artist . ".`artist_name` AS `artist_name`,
-                   " . TBL_artist . ".`id` AS `artist_id`,
-                   " . TBL_album . ".`album_name` AS `album_name`,
-                   " . TBL_album . ".`id` AS `album_id`,
-                   " . TBL_album . ".`year` AS `year`,
-                   " . TBL_listening . ".`date` AS `date`
-                  " . $ci->db->escape_str($select) . "
-            FROM " . TBL_album . ", 
-                 " . TBL_artist . ", 
-                 " . TBL_listening . ", 
-                 " . TBL_user . "
-                 " . $ci->db->escape_str($from) . "
-            WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_artist . ".`artist_name` LIKE ?
-              AND " . TBL_album . ".`album_name` LIKE ?
-              " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . "
-            ORDER BY " . $ci->db->escape_str($order_by) . "
-            LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $artist_name, $album_name));
-
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
-  }
-}
-
-/**
   * Returns cumulative listeners for given artist or album.
   *
   * @param array $opts.
@@ -337,6 +271,7 @@ if (!function_exists('getArtistAlbums')) {
                    `albums`.`id` AS `album_id`,
                    COALESCE(t.`count`, 0) AS `count`
             FROM " . TBL_artist . ",
+                 " . TBL_artists . ",
                  " . TBL_album . " `albums`
             LEFT JOIN (
                 SELECT count(*) AS `count`, 
@@ -349,7 +284,8 @@ if (!function_exists('getArtistAlbums')) {
                   AND " . TBL_user . ".`username` LIKE ?
                 GROUP BY " . TBL_album . ".`id`)
              `t` ON `albums`.`id` = `t`.`album_id`
-            WHERE " . TBL_artist . ".`id` = `albums`.`artist_id`
+            WHERE " . TBL_artists . ".`album_id` = `albums`.`id`
+              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_artist . ".`artist_name` LIKE ?
             ORDER BY " . $ci->db->escape_str($order_by);
 

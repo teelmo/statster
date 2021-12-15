@@ -13,7 +13,7 @@
         <span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span>
       </div>
       <div class="top_info album_info">
-        <h2><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h2>
+        <h2><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name']);}, $artists))?></h2>
         <h1>
           <?php
           echo $album_name;
