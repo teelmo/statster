@@ -82,6 +82,7 @@ define('TBL_album_biography', 'album_biography');
 define('TBL_album_shout', 'album_shout');
 define('TBL_album_equalize', 'album_equalize');
 define('TBL_artist', 'artist');
+define('TBL_artists', 'artists');
 define('TBL_artist_biography', 'artist_biography');
 define('TBL_artist_shout', 'artist_shout');
 define('TBL_artist_equalize', 'artist_equalize');
