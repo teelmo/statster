@@ -23,8 +23,11 @@ if (!function_exists('getListeningFormat')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
-    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $ci->load->helper(array('id_helper'));
+
+    $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
+    $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
+    $sub_group_by = ($album_id !== '%') ? "GROUP BY " . TBL_artists . ".`album_id`" : (($artist_id !== '%') ? '' : "GROUP BY " . TBL_artists . ".`album_id`");
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
@@ -42,6 +45,10 @@ if (!function_exists('getListeningFormat')) {
             FROM " . TBL_listening . ",
                  " . TBL_listening_format . ",
                  " . TBL_artist . ",
+                 (SELECT " . TBL_artists . ".`artist_id`,
+                         " . TBL_artists . ".`album_id`
+                  FROM " . TBL_artists . "
+                  " . $sub_group_by . ") AS " . TBL_artists . ",
                  " . TBL_album . ",
                  " . TBL_user . ",
                  " . TBL_listening_formats . " `formats`
@@ -51,18 +58,19 @@ if (!function_exists('getListeningFormat')) {
                       ON `format_type`.`id` = `format_types`.`listening_format_type_id`
             WHERE `formats`.`listening_id` = " . TBL_listening . ".`id`
               AND " . TBL_listening_format . ".`id` = `formats`.`listening_format_id`
+              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_user . ".`id` = " . TBL_listening . ".`user_id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_artist . ".`artist_name` LIKE ?
-              AND " . TBL_album . ".`album_name` LIKE ?
+              AND " . TBL_artist . ".`id` LIKE ?
+              AND " . TBL_album . ".`id` LIKE ?
               AND " . TBL_user . ".username LIKE ?
             GROUP BY `group_by_name`,
                      `formats`.`listening_format_id`
             ORDER BY `count` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $album_name, $username));
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_id, $album_id, $username));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

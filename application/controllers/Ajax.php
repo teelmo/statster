@@ -28,7 +28,7 @@ class Ajax extends CI_Controller {
   public function musicTable() {
     if (!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'love_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'love_helper', 'output_helper'));
 
       $this->load->view('templates/music_table', $_POST);
       header('HTTP/1.1 200 OK');

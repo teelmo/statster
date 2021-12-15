@@ -171,10 +171,15 @@ if (!function_exists('getArtistListenings')) {
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sql = "SELECT count(" . TBL_artist . ".`id`) as `" . $count_type . "`
             FROM " . TBL_artist . ",
+                  (SELECT " . TBL_artists . ".`artist_id`,
+                         " . TBL_artists . ".`album_id`
+                  FROM " . TBL_artists . ") AS " . TBL_artists . ",
                  " . TBL_album . ",
                  " . TBL_listening . "
-            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
-              AND " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+            WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+              AND " . TBL_album . ".`id` = " . TBL_artists . ".`album_id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_listening . ".`user_id` LIKE ?
               AND " . TBL_artist . ".`id` LIKE ?";
     $query = $ci->db->query($sql, array($user_id, $artist_id));

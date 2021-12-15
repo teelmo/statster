@@ -103,8 +103,13 @@ if (!function_exists('getAlbumShout')) {
     $ci=& get_instance();
     $ci->load->database();
 
+    $ci->load->helper(array('id_helper'));
+
+
     $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
-    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
+    $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
+    $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
+    $sub_group_by = ($album_id !== '%') ? "GROUP BY " . TBL_artists . ".`album_id`" : (($artist_id !== '%') ? '' : "GROUP BY " . TBL_artists . ".`album_id`");
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
@@ -119,24 +124,28 @@ if (!function_exists('getAlbumShout')) {
                    " . TBL_user . ".`username`,
                   (SELECT count(" . TBL_album_shout . ".`album_id`)
                    FROM " . TBL_album_shout . "
-                   WHERE " . TBL_album_shout . ".`album_id` = " . TBL_album . ".`id`
-                     AND " . TBL_album . ".`album_name` LIKE ?
+                   WHERE " . TBL_album_shout . ".`album_id` LIKE ?
                    ) AS `count`,
                    'album' as `type`
             FROM " . TBL_album_shout . ",
                  " . TBL_album . ",
                  " . TBL_artist . ",
+                 (SELECT " . TBL_artists . ".`artist_id`,
+                         " . TBL_artists . ".`album_id`
+                  FROM " . TBL_artists . "
+                  " . $sub_group_by . ") AS " . TBL_artists . ",
                  " . TBL_user . "
             WHERE " . TBL_album_shout . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_album_shout . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_album . ".`album_name` LIKE ?
-              AND " . TBL_artist . ".`artist_name` LIKE ?
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artist . ".`id` LIKE ?
+              AND " . TBL_album . ".`id` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_album_shout . ".`created` BETWEEN ? AND ?
             ORDER BY " . TBL_album_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($album_name, $album_name, $artist_name, $username, $lower_limit, $upper_limit));
+    $query = $ci->db->query($sql, array($album_id, $artist_id, $album_id, $username, $lower_limit, $upper_limit));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

@@ -88,7 +88,6 @@ if (!function_exists('getAlbumInfo')) {
     $ci->load->helper(array('id_helper'));
 
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : ((isset($opts['artist_name']) && isset($opts['album_name'])) ? getAlbumID($opts) : FALSE);
-
     if ($album_id !== FALSE) {
       $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                      " . TBL_album . ".`id` as `album_id`,
@@ -107,7 +106,6 @@ if (!function_exists('getAlbumInfo')) {
       $query = $ci->db->query($sql, array($album_id));
 
       return ($query->num_rows() > 0) ? $query->result_array() : FALSE;
-      // return _json_return_helper($query, $human_readable);
     }
     else {
       return FALSE;
