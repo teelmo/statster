@@ -43,6 +43,8 @@ if (!function_exists('addArtist')) {
   *
   * @param array $opts.
   *          'artist_name'  => Artist name
+  *          OR
+  *          'artist_id'    => Arist ID
   *
   * @return array Artist information or boolean FALSE.
   */
@@ -51,9 +53,13 @@ if (!function_exists('getArtistInfo')) {
     $ci=& get_instance();
     $ci->load->database();
 
+    // Load helpers.
+    $ci->load->helper(array('id_helper'));
+
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
+    $artist_id = !empty($opts['artist_id']) ? $opts['album_id'] : FALSE;
+
     if ($artist_name === FALSE) {
-      $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : FALSE;
       $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
                      " . TBL_artist . ".`artist_name`,
                      " . TBL_artist . ".`spotify_id`,

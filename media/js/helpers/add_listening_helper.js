@@ -88,12 +88,16 @@ $.extend(view, {
         return false;
       }
       var format_value = $('input[name="addListeningFormat"]:checked').val()
+      var album_id = $('#addListeningText').data('ui-autocomplete').selectedItem || false;
+      var artist_ids = $('#addListeningText').data('ui-autocomplete').selectedItem || false;
       $('#recentlyListenedLoader2').show();
       $('#addListeningText').val('');
       $('input[name="addListeningFormat"]').prop('checked', false);
       $('.listening_format').removeClass('selected');
       $.ajax({
         data:{
+          album_id:album_id,
+          artist_ids:artist_ids,
           created:new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace('T', ' '),
           date:$('#addListeningDate').val(),
           format:format_value,

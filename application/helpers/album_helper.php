@@ -76,6 +76,8 @@ if (!function_exists('addAlbum')) {
   * @param array $opts.
   *          'album_name'   => Album name
   *          'artist_name'  => Artist name
+  *          OR
+  *          'album_id'     => Album ID
   *
   * @return array Album information or boolean FALSE.
   */

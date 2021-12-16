@@ -81,40 +81,48 @@ if (!function_exists('addListening')) {
       header('HTTP/1.1 400 Bad Request');
       return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
     }
-    else if (strpos($opts['text'], DASH)) {
+    else {
       $ci=& get_instance();
       $ci->load->database();
 
       $data = array();
+      $data['album_id'] = $opts['album_id'];
 
       // Get user id from session.
       if (!$data['user_id'] = $ci->session->userdata('user_id')) {
         header('HTTP/1.1 401 Unauthorized');
         return json_encode(array('error' => array('msg' => $data)));
       }
-      list($data['artist_name'], $data['album_name']) = explode(DASH, $opts['text'], 2);
-      $data['artist_name'] = trim($data['artist_name']);
-      $data['album_name'] = trim($data['album_name']);
-      // Check that album exists.
-      if (!$data['album_id'] = getAlbumID($data)) {
-        // Try to add if it doesn't.
-        if (!$data['album_id'] = addAlbum($data)) {
-          header('HTTP/1.1 404 Not Found');
-          return json_encode(array('error' => array('msg' => 'Format error.')));
-        }
-      }
-      else {
+      else if ($data['album_id'] !== 'false') {
         // Get Spotify information only if existing album.
         $data_tmp = getAlbumInfo($data);
         if (empty($data_tmp['spotify_id'])) {
-          getSpotifyResourceId($data_tmp);
+          getSpotifyResourceId($data_tmp[0]);
         }
-        $data_tmp = getArtistInfo($data);
-        if (empty($data_tmp['spotify_id'])) {
-          getSpotifyResourceId($data_tmp);
+        foreach (explode(',', $data['artist_ids']) as $artist_id) {
+          $data_tmp = getArtistInfo(array('artist_id' => $artist_id));
+          if (empty($data_tmp['spotify_id'])) {
+            getSpotifyResourceId($data_tmp);
+          }
         }
       }
-
+      else if (strpos($opts['text'], DASH)) {
+        list($data['artist_name'], $data['album_name']) = explode(DASH, $opts['text'], 2);
+        $data['artist_name'] = trim($data['artist_name']);
+        $data['album_name'] = trim($data['album_name']);
+        // Check that album exists.
+        if (!$data['album_id'] = getAlbumID($data)) {
+          // Try to add album (and artist) if it doesn't.
+          if (!$data['album_id'] = addAlbum($data)) {
+            header('HTTP/1.1 404 Not Found');
+            return json_encode(array('error' => array('msg' => 'Format error.')));
+          }
+        }
+      }
+      else {
+        header('HTTP/1.1 404 Not Found');
+        return json_encode(array('error' => array('msg' => 'Format error.')));
+      }
       $data['date'] = trim($opts['date']);
       $data['created'] = trim($opts['created']);
 
@@ -137,10 +145,6 @@ if (!function_exists('addListening')) {
         header('HTTP/1.1 400 Bad Request');
         return json_encode(array('error' => array('msg' => ERR_GENERAL)));
       }
-    }
-    else {
-      header('HTTP/1.1 404 Not Found');
-      return json_encode(array('error' => array('msg' => 'Format error.')));
     }
   }
 }

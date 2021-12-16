@@ -7,7 +7,7 @@ class AutoComplete extends CI_Controller {
 
   public function addListening() {
     // Load helpers.
-    $this->load->helper(array('img_helper'));
+    $this->load->helper(array('music_helper', 'img_helper'));
     
     $results = array();
     $search_str = $_GET['term'];
@@ -18,18 +18,23 @@ class AutoComplete extends CI_Controller {
         $search_str_db_artist_wc = '%' . trim($data['artist']) . '%';
         $search_str_db_album = trim($data['album']). '%';
         $search_str_db_album_wc = '%' . trim($data['album']) . '%';
-        $sql = "SELECT " . TBL_artist . ".`id` as artist_id,
+        $sql = "SELECT " . TBL_artists . ".`artist_id`,
+                       " . TBL_artists . ".`album_id`,
                        " . TBL_artist . ".`artist_name`,
-                       " . TBL_album . ".`id` as album_id,
                        " . TBL_album . ".`album_name`,
                        " . TBL_album . ".`year`,
                        (CASE WHEN " . TBL_artist . ".`artist_name` LIKE ? THEN 0 ELSE 1 END) AS `artist_relevance`,
                        (CASE WHEN " . TBL_album . ".`album_name` LIKE ? THEN 0 ELSE 1 END) AS `album_relevance`
-                FROM " . TBL_artist . ",
-                     " . TBL_album . "
-                WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
-                  AND (" . TBL_artist . ".`artist_name` LIKE ?
-                   AND " . TBL_album . ".`album_name` LIKE ?)
+                FROM " . TBL_album . ",
+                     " . TBL_artist . ",
+                     (SELECT " . TBL_artists . ".`artist_id`,
+                             " . TBL_artists . ".`album_id`
+                      FROM " . TBL_artists . "
+                      GROUP BY " . TBL_artists . ".`album_id`) AS " . TBL_artists . "
+                WHERE " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+                  AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+                  AND (" . TBL_artist . ".`artist_name` LIKE ? 
+                    AND " . TBL_album . ".`album_name` LIKE ?)
                 ORDER BY `artist_relevance`,
                          " . TBL_album . ".`year` DESC,
                          `album_relevance`
@@ -38,18 +43,22 @@ class AutoComplete extends CI_Controller {
       else {
         $search_str_db_artist = $search_str_db_album = trim($search_str) . '%';
         $search_str_db_artist_wc = $search_str_db_album_wc = '%' . trim($search_str) . '%';
-        $sql = "SELECT " . TBL_artist . ".`id` as artist_id,
+        $sql = "SELECT " . TBL_artists . ".`artist_id`,
+                       " . TBL_artists . ".`album_id`,
                        " . TBL_artist . ".`artist_name`,
-                       " . TBL_album . ".`id` as album_id,
                        " . TBL_album . ".`album_name`,
                        " . TBL_album . ".`year`,
                        (CASE WHEN " . TBL_artist . ".`artist_name` LIKE ? THEN 0 ELSE 1 END) AS `artist_relevance`,
                        (CASE WHEN " . TBL_album . ".`album_name` LIKE ? THEN 0 ELSE 1 END) AS `album_relevance`
-                FROM " . TBL_artist . ",
-                     " . TBL_album . "
-                WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
-                  AND (" . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
-                   OR " . TBL_album . ".`album_name` LIKE ?)
+                FROM " . TBL_album . ",
+                     " . TBL_artist . ",
+                     (SELECT " . TBL_artists . ".`artist_id`,
+                             " . TBL_artists . ".`album_id`
+                      FROM " . TBL_artists . ") AS " . TBL_artists . "
+                WHERE " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+                  AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+                  AND (" . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci 
+                    OR " . TBL_album . ".`album_name` LIKE ?)
                 ORDER BY `artist_relevance`,
                          " . TBL_album . ".`year` DESC,
                          `album_relevance`
@@ -59,22 +68,28 @@ class AutoComplete extends CI_Controller {
       if ($query->num_rows() > 0) {
         if ($query->result()[0]->album_relevance > 0) {
           $results[] = array(
-            'value' => $query->result()[0]->artist_name . ' ' . DASH . ' ',
+            'album_id' => FALSE,
+            'artist_names' => FALSE,
             'img' => '',
             'label' => $query->result()[0]->artist_name . ' ' . DASH . ' ',
+            'value' => $query->result()[0]->artist_name . ' ' . DASH . ' '
           );
         }
         foreach ($query->result() as $row) {
           $results[] = array(
-            'value' => $row->artist_name . ' ' . DASH . ' ' . $row->album_name,
+            'album_id' => $row->album_id,
+            'artist_ids' => implode(', ', array_map(function($artist) { return $artist['id'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')',
             'img' => getAlbumImg(array('album_id' => $row->album_id, 'size' => 32)),
-            'label' => $row->artist_name . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')'
+            'label' => implode(', ', array_map(function($artist) { return $artist['artist_name'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')',
+            'value' => implode(', ', array_map(function($artist) { return $artist['artist_name'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name
           );
         }
       }
       else {
         if (!strpos($search_str, DASH)) {
           $results[] = array(
+            'album_id' => FALSE,
+            'artist_names' => FALSE,
             'img' => '',
             'label' => 'No results',
             'value' => $search_str
