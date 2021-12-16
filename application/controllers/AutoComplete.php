@@ -35,6 +35,7 @@ class AutoComplete extends CI_Controller {
                   AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
                   AND (" . TBL_artist . ".`artist_name` LIKE ? 
                     AND " . TBL_album . ".`album_name` LIKE ?)
+                GROUP BY " . TBL_artists . ".`album_id`
                 ORDER BY `artist_relevance`,
                          " . TBL_album . ".`year` DESC,
                          `album_relevance`
@@ -59,6 +60,7 @@ class AutoComplete extends CI_Controller {
                   AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
                   AND (" . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci 
                     OR " . TBL_album . ".`album_name` LIKE ?)
+                GROUP BY " . TBL_artists . ".`album_id`
                 ORDER BY `artist_relevance`,
                          " . TBL_album . ".`year` DESC,
                          `album_relevance`
