@@ -101,8 +101,8 @@ if (!function_exists('getAlbumInfo')) {
               FROM " . TBL_artist . ",
                    " . TBL_artists . ",
                    " . TBL_album . "
-              WHERE " . TBL_album . ".`id` = " . TBL_artists . ".`album_id`
-                AND " . TBL_artist . ".`id` = " . TBL_artists . ".`artist_id`
+              WHERE " . TBL_artists . ".`album_id`= " . TBL_album . ".`id`
+                AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
                 AND " . TBL_album . ".`id` = ?
               ORDER BY " . TBL_artist . ".`artist_name` ASC";
       $query = $ci->db->query($sql, array($album_id));

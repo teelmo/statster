@@ -87,7 +87,6 @@ if (!function_exists('addListening')) {
 
       $data = array();
       $data['album_id'] = $opts['album_id'];
-
       // Get user id from session.
       if (!$data['user_id'] = $ci->session->userdata('user_id')) {
         header('HTTP/1.1 401 Unauthorized');
