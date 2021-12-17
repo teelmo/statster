@@ -237,8 +237,8 @@ if (!function_exists('getListeners')) {
                  " . $ci->db->escape_str($from) . "
             WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_album . ".`id` = " . TBL_artists . ".`album_id`
-              AND " . TBL_artist . ".`id` = " . TBL_artists . ".`artist_id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_artist . ".`id` LIKE ?

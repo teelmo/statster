@@ -80,6 +80,12 @@ class Admin extends CI_Controller {
 
         $data += getAlbumInfo(array('album_id' => $album_id));
 
+        $artists = array_map(function($artist) { 
+          return array('artist_id' => $artist['artist_id'],
+                       'artist_name' => $artist['artist_name']);
+        }, $data);
+        $data += $data[0];
+
         $data['image_uri'] = getAlbumImg(array('album_id' => $album_id, 'size' => 32));
 
         $data['js_include'] = array('admin/edit_album');
