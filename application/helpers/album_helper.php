@@ -435,19 +435,15 @@ if (!function_exists('updateAlbum')) {
     $year = !empty($opts['year']) ? trim(str_replace(' ', ' ', $opts['year'])) : '';
 
     if ($album_name !== FALSE && $artist_ids !== FALSE) {
-      foreach ($artist_ids as $artist_id) {
-        $sql = "SELECT " . TBL_artists . ".`album_id`,
-                       " . TBL_artists . ".`artist_id`
+      $sql = "DELETE
                 FROM " . TBL_artists . "
-                WHERE " . TBL_artists . ".`album_id` = ?
-                  AND " . TBL_artists . ".`artist_id` = ?";
-        $query = $ci->db->query($sql, array($album_id, $artist_id));
-        if ($query->num_rows() === 0) {
-          $sql = "INSERT
-                    INTO " . TBL_artists . " (`album_id`, `artist_id`, `user_id`)
-                    VALUES (?, ?, ?)";
-          $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id));
-        }
+                WHERE " . TBL_artists . ".`album_id` = ?";
+      $query = $ci->db->query($sql, array($album_id));
+      foreach ($artist_ids as $artist_id) {
+        $sql = "INSERT
+                  INTO " . TBL_artists . " (`album_id`, `artist_id`, `user_id`)
+                  VALUES (?, ?, ?)";
+        $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id));
       }
       $sql = "UPDATE " . TBL_album . "
                 SET " . TBL_album . ".`album_name` = ?,

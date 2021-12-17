@@ -179,7 +179,7 @@ class Music extends CI_Controller {
         }, $data);
         $data = $data[0];
         usort($artists, function($artist_a, $artist_b) use ($value1) {
-          if ($artist_b['artist_name'] === $value1) {
+          if ($artist_b['artist_name'] === decode($value1)) {
             return 1;
           }
           return 0;

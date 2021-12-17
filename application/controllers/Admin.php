@@ -63,7 +63,7 @@ class Admin extends CI_Controller {
   public function album($album_id) {
     if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
-      $this->load->helper(array('album_helper', 'img_helper'));
+      $this->load->helper(array('album_helper', 'artist_helper', 'img_helper'));
 
       $data = array();
       if (!empty($_POST)) {
@@ -74,15 +74,15 @@ class Admin extends CI_Controller {
         }
         $data['user_id'] = $this->session->userdata['user_id'];
         updateAlbum($data);
-        if (in_array($data['parent_artist_name'], explode(',', $data['artist_names']))) {
+        if (in_array($data['parent_artist_name'], array_map(function($artist_id) { return getArtistInfo(array('artist_id' => $artist_id))['artist_name'];}, $data['artist_ids']))) {
           redirect('/music/' . url_title($data['parent_artist_name']) . '/' . url_title($data['album_name']));
         } 
         else {
-          redirect('/music/' . url_title(explode(',', $data['artist_names'])[0]) . '/' . url_title($data['album_name']));
+          redirect('/music/' . url_title(getArtistInfo(array('artist_id' => $data['artist_ids'][0]))['artist_name']) . '/' . url_title($data['album_name']));
         }
       }
       else {
-        $this->load->helper(array('form'));
+        $this->load->helper(array('form', 'artist_helper'));
 
         $data += getAlbumInfo(array('album_id' => $album_id));
 
@@ -92,6 +92,7 @@ class Admin extends CI_Controller {
         }, $data);
         $data += $data[0];
 
+        $data['all_artists'] = getArtistsUnique();
         $data['artists'] = $artists;
         $data['image_uri'] = getAlbumImg(array('album_id' => $album_id, 'size' => 32));
 

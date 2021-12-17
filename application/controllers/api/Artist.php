@@ -14,6 +14,9 @@ class Artist extends CI_Controller {
       case 'count':
         echo getListeningCount($_REQUEST, 'artist');
         break;
+      case 'unique':
+        echo getArtistUnique($_REQUEST);
+        break;
       default:
         echo getArtists($_REQUEST);
         break;

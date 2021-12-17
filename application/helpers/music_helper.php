@@ -344,10 +344,10 @@ if (!function_exists('getArtistAlbums')) {
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `albums`.`year` DESC';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $sql = "SELECT " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`id` AS `artist_id`,
                    `albums`.`album_name`,
                    `albums`.`year`, 
                    `albums`.`spotify_id`, 
-                   " . TBL_artist . ".`id` AS `artist_id`,
                    `albums`.`id` AS `album_id`,
                    COALESCE(t.`count`, 0) AS `count`
             FROM " . TBL_artist . ",

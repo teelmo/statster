@@ -2,7 +2,47 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-  * Add new album.
+  * Get unique artists
+  *
+  * @param array $opts.
+  *          'artist_name'  => Artist name
+  *          'user_id'      => User ID
+  *
+  * @return array Artist ID or boolean FALSE.
+  */
+if (!function_exists('getArtistsUnique')) {
+  function getArtistsUnique($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : TBL_artist . '.`artist_name` ASC';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+
+    $sql = "SELECT " . TBL_artist . ".`id` AS `artist_id`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`spotify_id`, 
+                   COALESCE(t.`count`, 0) AS `count`
+            FROM " . TBL_artist . "
+            LEFT JOIN (
+                SELECT count(*) AS `count`, 
+                       " . TBL_artist . ".`id` AS `artist_id`
+                FROM " . TBL_album . ",
+                     " . TBL_artist . ",
+                     " . TBL_listening . "
+                WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                  AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+                GROUP BY " . TBL_artist . ".`id`)
+             `t` ON " . TBL_artist . ".`id` = `t`.`artist_id`
+            GROUP BY " . TBL_artist . ".`id`
+            ORDER BY " . $ci->db->escape_str($order_by);
+    $query = $ci->db->query($sql, array($username));
+
+    return ($query->num_rows() > 0) ? $query->result_array() : array();
+  }
+}
+
+/**
+  * Add new artist.
   *
   * @param array $opts.
   *          'artist_name'  => Artist name
