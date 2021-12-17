@@ -171,12 +171,19 @@ class Music extends CI_Controller {
       
       // Get album information aka. album's name and id.
       if ($data = getAlbumInfo($data)) {
-        $artists = array_map(function($artist) { 
+        $idx = 0;
+        $selected_artist_idx = 0;
+        $artists = array_map(function($artist) {
           return array('artist_id' => $artist['artist_id'],
                        'artist_name' => $artist['artist_name']);
         }, $data);
         $data = $data[0];
-        
+        usort($artists, function($artist_a, $artist_b) use ($value1) {
+          if ($artist_b['artist_name'] === $value1) {
+            return 1;
+          }
+          return 0;
+        });
         $data['artists'] = $artists;
         $intervals = unserialize($this->session->userdata('intervals'));
         $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : '`count` DESC, `albums`.`year` DESC';

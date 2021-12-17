@@ -15,7 +15,7 @@
           <?php
           echo $artist_name;
           if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
-            echo anchor(array('admin', 'artist', $artist_id), '<span class="fa fa-pen-square"></span>');
+            echo anchor(array('admin', 'artist', $artist_id . '?redirect=' . $_SERVER['REQUEST_URI']), '<span class="fa fa-pen-square"></span>');
           }
           ?>
         </h1>

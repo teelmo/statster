@@ -103,10 +103,6 @@ class Tag extends CI_Controller {
           $this->load->helper(array('nationality_helper'));
           echo addAlbumNationality($_REQUEST);
           break;
-        case 'year':
-          $this->load->helper(array('year_helper'));
-          echo addAlbumYear($_REQUEST);
-          break;
         default:
           header("HTTP/1.1 400 Bad Request");
           break;

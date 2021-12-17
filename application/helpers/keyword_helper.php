@@ -272,18 +272,32 @@ if (!function_exists('addAlbumKeyword')) {
     }
     $data += $opts;
   
-    // Add keyword data to DB.
-    $sql = "INSERT
-              INTO " . TBL_keywords . " (`album_id`, `keyword_id`, `user_id`)
-              VALUES (?, ?, ?)";
+    // Add genre data to DB.
+    $sql = "SELECT " . TBL_keywords . ".`album_id`,
+                   " . TBL_keywords . ".`keyword_id`,
+                   " . TBL_keywords . ".`user_id`
+            FROM " . TBL_keywords . "
+            WHERE " . TBL_keywords . ".`album_id` = ?
+              AND " . TBL_keywords . ".`keyword_id` = ?
+              AND " . TBL_keywords . ".`user_id` = ?";
     $query = $ci->db->query($sql, array($data['album_id'], $data['tag_id'], $data['user_id']));
-    if ($ci->db->affected_rows() === 1) {
-      header('HTTP/1.1 201 Created');
-      return json_encode(array('success' => array('msg' => $data)));
+    if ($query->num_rows() === 0) {
+      $sql = "INSERT
+                INTO " . TBL_keywords . " (`album_id`, `keyword_id`, `user_id`)
+                VALUES (?, ?, ?)";
+      $query = $ci->db->query($sql, array($data['album_id'], $data['tag_id'], $data['user_id']));
+      if ($ci->db->affected_rows() === 1) {
+        header('HTTP/1.1 201 Created');
+        return json_encode(array('success' => array('msg' => $data)));
+      }
+      else {
+        header('HTTP/1.1 400 Bad Request');
+        return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+      }
     }
     else {
-      header('HTTP/1.1 400 Bad Request');
-      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+      header('HTTP/1.1 409 Conflict');
+      return json_encode(array('error' => array('msg' => ERR_CONFLICT)));
     }
   }
 }

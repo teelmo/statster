@@ -429,19 +429,34 @@ if (!function_exists('updateAlbum')) {
 
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '';
     $album_name = isset($opts['album_name']) ? trim(str_replace(' ', '', $opts['album_name'])) : FALSE;
-    $artist_id = isset($opts['artist_name']) ? getArtistID($opts) : '';
+    $artist_ids = isset($opts['artist_ids']) ? $opts['artist_ids'] : FALSE;
     $spotify_id = !empty($opts['spotify_id']) ? $opts['spotify_id'] : '';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : FALSE;
     $year = !empty($opts['year']) ? trim(str_replace(' ', ' ', $opts['year'])) : '';
 
-    if ($album_name !== FALSE) {
+    if ($album_name !== FALSE && $artist_ids !== FALSE) {
+      foreach ($artist_ids as $artist_id) {
+        $sql = "SELECT " . TBL_artists . ".`album_id`,
+                       " . TBL_artists . ".`artist_id`
+                FROM " . TBL_artists . "
+                WHERE " . TBL_artists . ".`album_id` = ?
+                  AND " . TBL_artists . ".`artist_id` = ?";
+        $query = $ci->db->query($sql, array($album_id, $artist_id));
+        if ($query->num_rows() === 0) {
+          $sql = "INSERT
+                    INTO " . TBL_artists . " (`album_id`, `artist_id`, `user_id`)
+                    VALUES (?, ?, ?)";
+          $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id));
+        }
+      }
       $sql = "UPDATE " . TBL_album . "
                 SET " . TBL_album . ".`album_name` = ?,
                     " . TBL_album . ".`artist_id` = ?,
                     " . TBL_album . ".`year` = ?,
                     " . TBL_album . ".`spotify_id` = ?
                 WHERE " . TBL_album . ".`id` = ?";
+      $query = $ci->db->query($sql, array($album_name, $artist_ids[0], $year, $spotify_id, $album_id));
 
-      $query = $ci->db->query($sql, array($album_name, $artist_id, $year, $spotify_id, $album_id));
       return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
     }
     else {

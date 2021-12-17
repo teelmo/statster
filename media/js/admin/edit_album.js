@@ -15,7 +15,7 @@ $.extend(view, {
           });
           $('#artistAdd select').chosen();
           $('#artistAdd').show();
-          $('.artist_name').hide();
+          $('.artist_names').hide();
         }
       },
       url:'/api/artist/get',

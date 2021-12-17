@@ -2,7 +2,7 @@
   <div class="left_container">
     <div class="container">
       <h1>Edit artist</h1>
-      <?=form_open('', array('class' => '', 'id' => 'editArtistForm'), array('editArtist' => 'form'))?>
+      <?=form_open($_SERVER['REQUEST_URI'], array('class' => '', 'id' => 'editArtistForm'), array('editArtist' => 'form'))?>
         <input type="hidden" name="artist_id" value="<?=$artist_id?>" />
         <fieldset>
           <div class="input_container">
@@ -25,6 +25,7 @@
         </fieldset>
         <div class="submit_container">
           <input type="submit" name="submit" value="Save artist" />
+          <?=anchor(array_map(function($item) { return url_title($item);}, explode('/', $_GET['redirect'])), 'Cancel')?>
         </div>
       </form>
     </div>

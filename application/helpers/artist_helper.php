@@ -57,7 +57,7 @@ if (!function_exists('getArtistInfo')) {
     $ci->load->helper(array('id_helper'));
 
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
-    $artist_id = !empty($opts['artist_id']) ? $opts['album_id'] : FALSE;
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : FALSE;
 
     if ($artist_name === FALSE) {
       $sql = "SELECT " . TBL_artist . ".`id` as `artist_id`,
@@ -354,7 +354,7 @@ if (!function_exists('updateArtist')) {
     $artist_name = isset($opts['artist_name']) ? trim(str_replace(' ', '', $opts['artist_name'])) : FALSE;
     $spotify_id = !empty($opts['spotify_id']) ? $opts['spotify_id'] : '';
 
-    if ($album_name !== FALSE) {
+    if ($artist_name !== FALSE) {
       $sql = "UPDATE " . TBL_artist . "
                 SET " . TBL_artist . ".`artist_name` = ?,
                     " . TBL_artist . ".`spotify_id` = ?

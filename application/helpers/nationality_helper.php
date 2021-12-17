@@ -230,26 +230,40 @@ if (!function_exists('addAlbumNationality')) {
     $data += $opts;
   
     // Add nationality data to DB.
-    $sql = "INSERT
-              INTO " . TBL_nationalities . " (`album_id`, `nationality_id`, `user_id`)
-              VALUES (?, ?, ?)";
+    $sql = "SELECT " . TBL_nationalities . ".`album_id`,
+                   " . TBL_nationalities . ".`nationality_id`,
+                   " . TBL_nationalities . ".`user_id`
+            FROM " . TBL_nationalities . "
+            WHERE " . TBL_nationalities . ".`album_id` = ?
+              AND " . TBL_nationalities . ".`nationality_id` = ?
+              AND " . TBL_nationalities . ".`user_id` = ?";
     $query = $ci->db->query($sql, array($data['album_id'], $data['tag_id'], $data['user_id']));
+    if ($query->num_rows() === 0) {
+      $sql = "INSERT
+                INTO " . TBL_nationalities . " (`album_id`, `nationality_id`, `user_id`)
+                VALUES (?, ?, ?)";
+      $query = $ci->db->query($sql, array($data['album_id'], $data['tag_id'], $data['user_id']));
 
-    if ($ci->db->affected_rows() === 1) {
-      header('HTTP/1.1 201 Created');
-      // Remove unknown.
-      if ($data['tag_id'] != '242') {
-        $sql = "DELETE 
-                  FROM " . TBL_nationalities . "
-                  WHERE " . TBL_nationalities . ".`album_id` = ?
-                    AND " . TBL_nationalities . ".`nationality_id` = '242'";
-        $query = $ci->db->query($sql, array($data['album_id']));
+      if ($ci->db->affected_rows() === 1) {
+        header('HTTP/1.1 201 Created');
+        // Remove unknown.
+        if ($data['tag_id'] != '242') {
+          $sql = "DELETE 
+                    FROM " . TBL_nationalities . "
+                    WHERE " . TBL_nationalities . ".`album_id` = ?
+                      AND " . TBL_nationalities . ".`nationality_id` = '242'";
+          $query = $ci->db->query($sql, array($data['album_id']));
+        }
+        return json_encode(array('success' => array('msg' => $data)));
       }
-      return json_encode(array('success' => array('msg' => $data)));
+      else {
+        header('HTTP/1.1 400 Bad Request');
+        return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+      }
     }
     else {
-      header('HTTP/1.1 400 Bad Request');
-      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
+      header('HTTP/1.1 409 Conflict');
+      return json_encode(array('error' => array('msg' => ERR_CONFLICT)));
     }
   }
 }

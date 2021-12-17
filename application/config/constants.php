@@ -59,6 +59,7 @@ define('ERR_NO_ALBUM', 'Album error.');
 define('ERR_NO_TAG', 'Tag error.');
 define('ERR_NO_USER', 'Album error.');
 define('ERR_NO_EVENT', 'No events.');
+define('ERR_CONFLICT', 'Data conflict.');
 define('ERR_NO_DATA', '<div class="empty_data_container">No data.</div>');
 define('ERR_GENERAL', 'General error.');
 define('ERR_INCORRECT_CREDENTIALS', 'Username or password error.');

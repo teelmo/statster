@@ -72,8 +72,14 @@ class Admin extends CI_Controller {
           $data['type'] = 'album';
           fetchImages($data, 'album');
         }
+        $data['user_id'] = $this->session->userdata['user_id'];
         updateAlbum($data);
-        redirect('/music/' . url_title($data['artist_name']) . '/' . url_title($data['album_name']));
+        if (in_array($data['parent_artist_name'], explode(',', $data['artist_names']))) {
+          redirect('/music/' . url_title($data['parent_artist_name']) . '/' . url_title($data['album_name']));
+        } 
+        else {
+          redirect('/music/' . url_title(explode(',', $data['artist_names'])[0]) . '/' . url_title($data['album_name']));
+        }
       }
       else {
         $this->load->helper(array('form'));

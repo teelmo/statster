@@ -4,6 +4,8 @@
       <h1>Edit Album</h1>
       <?=form_open('', array('class' => '', 'id' => 'editAlbumForm'), array('editAlbum' => 'form'))?>
         <input type="hidden" name="album_id" value="<?=$album_id?>" />
+        <input type="hidden" name="parent_artist_name" value="<?=$_GET['artist']?>" />
+        <input type="hidden" name="artist_names" value="<?=htmlentities(implode(',', array_map(function($artist) { return $artist['artist_name'];}, $artists)))?>" />
         <fieldset>
           <div class="input_container">
             <div class="label">Artist id</div>
@@ -11,9 +13,9 @@
           </div>
           <div class="input_container">
             <div class="label">Artist name</div>
-            <div><input type="text" name="artist_name" class="artist_name" value="<?=htmlentities(implode(', ', array_map(function($artist) { return $artist['artist_name'];}, $artists)))?>" autocomplete="off" /></div>
+            <div><input type="text" class="artist_names" disabled="disabled" name="artist_names_disabled" value="<?=htmlentities(implode(', ', array_map(function($artist) { return $artist['artist_name'];}, $artists)))?>" autocomplete="off" /></div>
             <div id="artistAdd" class="hidden">
-              <select class="chosen-select" multiple id="artists">
+              <select class="chosen-select" multiple id="artists" name="artist_ids[]">
                 <?=implode('', array_map(function($artist) { return '<option selected="selected" value="' . $artist['artist_id'] . '">' . $artist['artist_name'] . '</option>';}, $artists))?>
               </select>
             </div>
@@ -41,6 +43,7 @@
         </fieldset>
         <div class="submit_container">
           <input type="submit" name="submit" value="Save album" />
+          <?=anchor(array('music', url_title($_GET['artist']), url_title($album_name)), 'Cancel')?>
         </div>
       </form>
     </div>
