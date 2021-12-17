@@ -7,11 +7,16 @@
         <fieldset>
           <div class="input_container">
             <div class="label">Artist id</div>
-            <div><input disabled="disabled" type="text" value="<?=htmlentities($artist_id)?>" /></div>
+            <div><input disabled="disabled" type="text" value="<?=htmlentities(implode(', ', array_map(function($artist) { return $artist['artist_id'];}, $artists)))?>" /></div>
           </div>
           <div class="input_container">
             <div class="label">Artist name</div>
-            <div><input type="text" name="artist_name" class="artist_name" value="<?=htmlentities($artist_name)?>" autocomplete="off" /></div>
+            <div><input type="text" name="artist_name" class="artist_name" value="<?=htmlentities(implode(', ', array_map(function($artist) { return $artist['artist_name'];}, $artists)))?>" autocomplete="off" /></div>
+            <div id="artistAdd" class="hidden">
+              <select class="chosen-select" multiple id="artists">
+                <?=implode('', array_map(function($artist) { return '<option selected="selected" value="' . $artist['artist_id'] . '">' . $artist['artist_name'] . '</option>';}, $artists))?>
+              </select>
+            </div>
           </div>
           <div class="input_container">
             <div class="label">Album id</div>

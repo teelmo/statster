@@ -60,11 +60,11 @@ if (!function_exists('getArtists')) {
     $ci->load->database();
 
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`, ' . TBL_user . '.`id`';
     $having = !empty($opts['having']) ? 'HAVING ' . $opts['having'] : '';
     $limit = !empty($opts['limit']) ? $opts['limit'] : '10';
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
+    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_artist . '.`artist_name` ASC';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
@@ -94,8 +94,7 @@ if (!function_exists('getArtists')) {
               AND " . TBL_artist . ".`artist_name` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . ",
-                     " . TBL_user . ".`id`
+            GROUP BY " . $ci->db->escape_str($group_by) . "
             " . $ci->db->escape_str($having) . "
             ORDER BY " . $ci->db->escape_str($order_by) . "
             LIMIT " . $ci->db->escape_str($limit);

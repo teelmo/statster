@@ -1,0 +1,58 @@
+/** Chosen styles */
+#artistAdd {
+  div.chosen-container {
+    width: 100% !important;
+  }
+}
+div.chosen-container {
+  color: #000;
+  outline: none;
+  text-transform: none;
+  width: 450px !important;
+  .search-field {
+  }
+  .chosen-results {
+    li {
+      &.second {
+        padding-left: 12px;
+      }
+      &.group-option {
+        padding-left: 15px;
+      }
+      &.highlighted {
+        background: #f1f1f1;
+        border-left: 5px solid #444;
+        color: #000;
+        font-size: 13px;
+        padding-left: 7px;
+        &.group-option {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+  &.chosen-container-active {
+    .chosen-choices {
+      border: 1px solid #aaa;
+    }
+  }
+  .chosen-choices {
+    box-shadow: none;
+    .search-field {
+      padding: 5px 20px 6px 4px;
+      color: #222;
+    }
+    .search-choice {
+      background-image: none;
+      background: #666;
+      border-radius: 0;
+      border: 0;
+      box-shadow: none;
+      color: #fff;
+      padding: 4px 20px 5px 4px;
+      .search-choice-close {
+        top: 5px;
+      }
+    }
+  }
+}
