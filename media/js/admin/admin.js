@@ -64,4 +64,6 @@ $.extend(view, {
 
 $(document).ready(function () {
   view.initAdminEvents();
+  $('#deleteArtist').chosen({search_contains:true});
+  $('#deleteAlbum').chosen({search_contains:true});
 });

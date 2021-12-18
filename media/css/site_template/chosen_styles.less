@@ -1,15 +1,26 @@
 /** Chosen styles */
+#artistDelete,
+#albumDelete,
 #artistAdd {
+  width: 100%;
+  select {
+    width: 100%;
+  }
   div.chosen-container {
     width: 100% !important;
     &.chosen-container-active {
+      a.chosen-single,
       .chosen-choices {
         background: #fff;
       }
     }
+    a.chosen-single,
     .chosen-choices {
       background: #eee;
       border-radius: 3px;
+      .chosen-choices {
+        box-shadow: none;
+      }
     }
   }
 }
@@ -41,6 +52,7 @@ div.chosen-container {
     }
   }
   &.chosen-container-active {
+    .chosen-single,
     .chosen-choices {
       border: 1px solid #aaa;
     }

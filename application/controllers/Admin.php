@@ -8,7 +8,7 @@ class Admin extends CI_Controller {
   public function index() {
     if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
-      $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
+      $this->load->helper(array('form', 'img_helper', 'artist_helper', 'album_helper', 'music_helper', 'output_helper'));
 
       $data = array();
 
@@ -19,6 +19,9 @@ class Admin extends CI_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+
+      $data['all_artists'] = getArtistsUnique();
+      $data['all_albums'] = getAlbumsUnique();
 
       $data['js_include'] = array('admin/admin');
       $this->load->view('site_templates/header');
