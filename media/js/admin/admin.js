@@ -59,7 +59,7 @@ $.extend(view, {
       });
       return false;
     });
-    $('#deleteArtistForm').click(function () {
+    $('#deleteArtistSubmit').click(function () {
       var artist_id = $('#deleteArtist').val();
       if (artist_id === '') {
         return false;
@@ -86,12 +86,12 @@ $.extend(view, {
         type:'POST',
         url:'/api/artist/delete'
       });
-      $('deleteArtist option:selected').remove();
+      $('#deleteArtist option:selected').remove();
       // $('deleteArtist option').removeAttr('selected');
-      $('#deleteArtist select').trigger('chosen:updated');
+      $('#deleteArtist').trigger('chosen:updated');
       return false;
     });
-    $('#deleteAlbumForm').click(function () {
+    $('#deleteAlbumSubmit').click(function () {
       var album_id = $('#deleteAlbum').val();
       if (album_id === '') {
         return false;
@@ -118,9 +118,9 @@ $.extend(view, {
         type:'POST',
         url:'/api/album/delete'
       });
-      $('deleteAlbum option:selected').remove();
+      $('#deleteAlbum option:selected').remove();
       // $('deleteAlbum option').removeAttr('selected');
-      $('#deleteAlbum select').trigger('chosen:updated');
+      $('#deleteAlbum').trigger('chosen:updated');
       return false;
     });
   }

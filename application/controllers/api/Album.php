@@ -48,6 +48,5 @@ class Album extends CI_Controller {
     
     deleteAlbum($_REQUEST);
   }
-
 }
 ?>

@@ -100,7 +100,7 @@ if (!function_exists('deleteArtist')) {
       header('HTTP/1.1 401 Unauthorized');
       return json_encode(array('error' => array('msg' => $data)));
     }
-    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    if (in_array($ci->session->userdata['user_id'], ADMIN_USERS)) {
       // Delete artist data from DB.
       $sql = "DELETE 
                 FROM " . TBL_artist . "
@@ -305,7 +305,7 @@ if (!function_exists('getArtistTags')) {
         uasort($data['tags'], '_tagsSortByCount');
       }
       uasort($data, '_tagsSortByCount');
-      $data['tags'] = array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']);
+      $data['tags'] = ($data) ? array_slice($data['tags'], 0, empty($opts['limit']) ? 8 : $opts['limit']) : [];
       return json_encode($data['tags']);
     }
     return array();

@@ -47,9 +47,9 @@ class Artist extends CI_Controller {
   /* Delete artist information */
   public function delete() {
     // Load helpers
-    $this->load->helper(array('album_helper'));
+    $this->load->helper(array('artist_helper'));
 
-    deleteAlbum($_REQUEST);
+    deleteArtist($_REQUEST);
   }
 }
 ?>

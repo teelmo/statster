@@ -46,7 +46,7 @@
       <div class="value number"><?=anchor(array('year', $created), $created)?></div>
     </div>
     <?php
-    if ($logged_in === 'true') {
+    if ($logged_in === 'true' && $total_count > 0) {
       ?>
       <div class="meta">
         <div class="label user_listening">
