@@ -79,6 +79,50 @@ if (!function_exists('addArtist')) {
 }
 
 /**
+  * Delete artist.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('deleteArtist')) {
+  function deleteArtist($opts = array()) {
+    $data = array();
+    if (!$data['artist_id'] = $opts['artist_id']) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+      // Delete artist data from DB.
+      $sql = "DELETE 
+                FROM " . TBL_artist . "
+                WHERE " . TBL_artist . ".`id` = ?";
+      $query = $ci->db->query($sql, array($data['artist_id']));
+
+      if ($ci->db->affected_rows() === 1) {
+        header('HTTP/1.1 200 OK');
+        return json_encode(array());
+      }
+      else {
+        header('HTTP/1.1 401 Unauthorized');
+        return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
+      }
+    }
+    else {
+      show_403();
+    }
+  }
+}
+
+/**
   * Gets artist's info.
   *
   * @param array $opts.

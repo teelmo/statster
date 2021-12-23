@@ -9,7 +9,7 @@
     "get-latest-prod-db":"scp backup@teelmo.info:/home/backup/vs6828/Backups/db-statster.info-$(date +\"%Y-%m-%d\").sql.bz2 .",
     "truncate-local-db":"mysql -Nse 'show tables' -D statster -ustatster -pstatster | while read table; do echo \"SET FOREIGN_KEY_CHECKS=0;truncate table $table;SET FOREIGN_KEY_CHECKS=1;\"; done | mysql statster -ustatster -pstatster",
     "populate-local-db":"bzip2 -dc db-statster.info-$(date +\"%Y-%m-%d\").sql.bz2 | mysql -u statster -pstatster statster",
-    "use_php_8.0":"brew unlink php && brew link --overwrite --force php@8.0",
+    "use_php_8.0":"brew unlink php && brew link --overwrite --force php@8.0"
   },
   "repository": {
     "type": "git",

@@ -30,7 +30,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Add keywords</h2>
+      <h2>Add keyword</h2>
       <?=form_open('', array('class' => '', 'id' => 'addKeywordForm'))?>
         <div><input type="text" autocomplete="off" tabindex="1" id="addKeywordText" placeholder="New keyword name" name="addKeywordText" /></div>
         <div><input type="submit" name="addKeywordSubmit" tabindex="11" id="addKeywordSubmit" value="Add" /></div>
@@ -42,6 +42,7 @@
       <?=form_open('', array('class' => '', 'id' => 'deleteArtistForm'))?>
         <div id="artistDelete">
           <select data-placeholder="Select artist" class="chosen-select" id="deleteArtist">
+            <option>Select artist to delete</option>
             <?=implode('', array_map(function($artist) {
               return '<option value="' . $artist['artist_id'] . '">' . $artist['artist_name'] . ' [' . $artist['artist_id'] . '], ' . $artist['count'] . ' listenings</option>';
             }, $all_artists))?>
@@ -56,6 +57,7 @@
       <?=form_open('', array('class' => '', 'id' => 'deleteAlbumForm'))?>
         <div id="albumDelete">
           <select data-placeholder="Select album" class="chosen-select" id="deleteAlbum">
+            <option>Select album to delete</option>
             <?=implode('', array_map(function($album) {
               return '<option value="' . $album['album_id'] . '">' . $album['artist_name'] . ' [' . $album['artist_id'] . '] – ' . $album['album_name'] . ' [' . $album['album_id'] . '], ' . $album['count'] . ' listenings</option>';
             }, $all_albums))?>

@@ -112,6 +112,50 @@ if (!function_exists('addAlbum')) {
 }
 
 /**
+  * Delete album.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('deleteAlbum')) {
+  function deleteAlbum($opts = array()) {
+    $data = array();
+    if (!$data['album_id'] = $opts['album_id']) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+      // Delete album data from DB.
+      $sql = "DELETE 
+                FROM " . album_id . "
+                WHERE " . TBL_album . ".`id` = ?";
+      $query = $ci->db->query($sql, array($data['album_id']));
+
+      if ($ci->db->affected_rows() === 1) {
+        header('HTTP/1.1 200 OK');
+        return json_encode(array());
+      }
+      else {
+        header('HTTP/1.1 401 Unauthorized');
+        return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
+      }
+    }
+    else {
+      show_403();
+    }
+  }
+}
+
+/**
   * Gets album's info.
   *
   * @param array $opts.

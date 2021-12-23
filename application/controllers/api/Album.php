@@ -44,7 +44,9 @@ class Album extends CI_Controller {
   /* Delete album information */
   public function delete() {
     // Load helpers
+    $this->load->helper(array('album_helper'));
     
+    deleteAlbum($_REQUEST);
   }
 
 }

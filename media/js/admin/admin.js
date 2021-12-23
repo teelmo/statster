@@ -59,6 +59,70 @@ $.extend(view, {
       });
       return false;
     });
+    $('#deleteArtistForm').click(function () {
+      var artist_id = $('#deleteArtist').val();
+      if (artist_id === '') {
+        return false;
+      }
+      $.ajax({
+        data:{
+          artist_id:artist_id
+        },
+        dataType:'json',
+        statusCode:{
+          201: function (data) { // 200 OK
+            alert('Artist with ID ' + artist_id + ' deleted!');
+          },
+          400: function () { // 400 Bad Request
+            alert('400 Bad Request');
+          },
+          401: function () { // 401 Unauthorized
+            alert('401 Unauthorized');
+          },
+          401: function () { // 403 Forbidden
+            alert('401 Forbidden');
+          }
+        },
+        type:'POST',
+        url:'/api/artist/delete'
+      });
+      $('deleteArtist option:selected').remove();
+      // $('deleteArtist option').removeAttr('selected');
+      $('#deleteArtist select').trigger('chosen:updated');
+      return false;
+    });
+    $('#deleteAlbumForm').click(function () {
+      var album_id = $('#deleteAlbum').val();
+      if (album_id === '') {
+        return false;
+      }
+      $.ajax({
+        data:{
+          album_id:album_id
+        },
+        dataType:'json',
+        statusCode:{
+          201: function (data) { // 200 OK
+            alert('Album with ID ' + album_id + ' deleted!');
+          },
+          400: function () { // 400 Bad Request
+            alert('400 Bad Request');
+          },
+          401: function () { // 401 Unauthorized
+            alert('401 Unauthorized');
+          },
+          401: function () { // 403 Forbidden
+            alert('401 Forbidden');
+          }
+        },
+        type:'POST',
+        url:'/api/album/delete'
+      });
+      $('deleteAlbum option:selected').remove();
+      // $('deleteAlbum option').removeAttr('selected');
+      $('#deleteAlbum select').trigger('chosen:updated');
+      return false;
+    });
   }
 });
 
