@@ -1,6 +1,36 @@
 $.extend(view, {
   // Init Edit album events.
   initAdminEvents: function () {
+    $('#addArtistSubmit').click(function () {
+      var name = $('#addArtistText').val();
+      if (name === '') {
+        return false;
+      }
+      $.ajax({
+        data:{
+          artist_name:name,
+          user_id:parseInt(<?=$this->session->userdata('user_id')?>)
+        },
+        dataType:'json',
+        statusCode:{
+          201: function (data) { // 201 Created
+            alert('Artist ' + name + ' added!');
+            $('#addArtistText').val('');
+          },
+          400: function () { // 400 Bad Request
+            alert('400 Bad Request');
+            $('#addArtistText').val('');
+          },
+          401: function () { // 401 Unauthorized
+            alert('401 Unauthorized');
+            $('#addArtistText').val('');
+          }
+        },
+        type:'POST',
+        url:'/api/artist/add'
+      });
+      return false;
+    });
     $('#addGenreSubmit').click(function () {
       var name = $('#addGenreText').val();
       if (name === '') {
