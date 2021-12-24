@@ -100,7 +100,7 @@ $.extend(view, {
         },
         dataType:'json',
         statusCode:{
-          201: function (data) { // 200 OK
+          200: function (data) { // 200 OK
             alert('Artist with ID ' + artist_id + ' deleted!');
           },
           400: function () { // 400 Bad Request
@@ -109,7 +109,7 @@ $.extend(view, {
           401: function () { // 401 Unauthorized
             alert('401 Unauthorized');
           },
-          401: function () { // 403 Forbidden
+          403: function () { // 403 Forbidden
             alert('401 Forbidden');
           }
         },
@@ -132,7 +132,7 @@ $.extend(view, {
         },
         dataType:'json',
         statusCode:{
-          201: function (data) { // 200 OK
+          200: function (data) { // 200 OK
             alert('Album with ID ' + album_id + ' deleted!');
           },
           400: function () { // 400 Bad Request
@@ -141,7 +141,7 @@ $.extend(view, {
           401: function () { // 401 Unauthorized
             alert('401 Unauthorized');
           },
-          401: function () { // 403 Forbidden
+          403: function () { // 403 Forbidden
             alert('401 Forbidden');
           }
         },
