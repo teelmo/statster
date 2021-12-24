@@ -336,10 +336,12 @@ if (!function_exists('getArtistGenres')) {
             FROM " . TBL_genre . ",
                  " . TBL_genres . ",
                  " . TBL_artist . ",
+                 " . TBL_artists . ",
                  " . TBL_album . "
-            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
-              AND " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
-              AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
+            WHERE " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_genres . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_genres . ".`genre_id` = " . TBL_genre . ".`id`
               AND " . TBL_artist . ".`id` LIKE ?
             GROUP BY " . TBL_genre . ".`id`
             ORDER BY `count` DESC";
@@ -371,10 +373,12 @@ if (!function_exists('getArtistKeywords')) {
             FROM " . TBL_keyword . ",
                  " . TBL_keywords . ",
                  " . TBL_artist . ",
+                 " . TBL_artists . ",
                  " . TBL_album . "
-            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
-              AND " . TBL_album . ".`id` = " . TBL_keywords . ".`album_id`
-              AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
+            WHERE " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_keywords . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_keywords . ".`keyword_id` = " . TBL_keyword . ".`id`
               AND " . TBL_artist . ".`id` = ?
             GROUP BY " . TBL_keyword . ".`id`
             ORDER BY `count` DESC";
@@ -407,10 +411,12 @@ if (!function_exists('getArtistNationalities')) {
             FROM " . TBL_nationality . ",
                  " . TBL_nationalities . ",
                  " . TBL_artist . ",
+                 " . TBL_artists . ",
                  " . TBL_album . "
-            WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
-              AND " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
-              AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
+            WHERE " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_nationalities . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_nationalities . ".`nationality_id` = " . TBL_nationality . ".`id`
               AND " . TBL_artist . ".`id` = ?
             GROUP BY " . TBL_nationality . ".`id`
             ORDER BY `count` DESC";
