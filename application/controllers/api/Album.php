@@ -28,25 +28,35 @@ class Album extends CI_Controller {
 
   /* Update album information */
   public function update($type) {
-    // Load helpers
-    switch ($type) {
-      case 'biography':
-        $this->load->helper(array('album_helper', 'lastfm_helper'));
-        
-        $_REQUEST += fetchAlbumInfo($_REQUEST, array('bio'));
-        echo addAlbumBio($_REQUEST);
-        break;
-      default:
-        break;
+    if ($this->session->userdata('logged_in') === TRUE) {
+      // Load helpers
+      switch ($type) {
+        case 'biography':
+          $this->load->helper(array('album_helper', 'lastfm_helper'));
+          
+          $_REQUEST += fetchAlbumInfo($_REQUEST, array('bio'));
+          echo addAlbumBio($_REQUEST);
+          break;
+        default:
+          break;
+      }
+    }
+    else {
+      show_403();
     }
   }
 
   /* Delete album information */
   public function delete() {
-    // Load helpers
-    $this->load->helper(array('album_helper'));
-    
-    deleteAlbum($_REQUEST);
+    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+      // Load helpers
+      $this->load->helper(array('album_helper'));
+      
+      deleteAlbum($_REQUEST);
+    }
+    else {
+      show_403();
+    }
   }
 }
 ?>

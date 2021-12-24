@@ -28,26 +28,35 @@ class Keyword extends CI_Controller {
 
   /* Update keyword information */
   public function update($type) {
-    switch ($type) {
-      case 'biography':
-        // Load helpers
-        $this->load->helper(array('keyword_helper', 'lastfm_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      switch ($type) {
+        case 'biography':
+          // Load helpers
+          $this->load->helper(array('keyword_helper', 'lastfm_helper'));
 
-        $_REQUEST += fetchTagBio($_REQUEST);
-        echo addKeywordBio($_REQUEST);
-        break;
-      default:
-        break;
+          $_REQUEST += fetchTagBio($_REQUEST);
+          echo addKeywordBio($_REQUEST);
+          break;
+        default:
+          break;
+      }
+    }
+    else {
+      show_403();
     }
   }
 
   /* Delete keyword information */
   public function delete() {
-    // Load helpers
-    $this->load->helper(array('keyword_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      // Load helpers
+      $this->load->helper(array('keyword_helper'));
 
-    echo deleteAlbumKeyword($_REQUEST);
-    
+      echo deleteAlbumKeyword($_REQUEST);
+    }
+    else {
+      show_403();
+    }
   }
 }
 ?>

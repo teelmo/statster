@@ -3,7 +3,7 @@ $.extend(view, {
   getTags: function () {
     $.ajax({
       data:{
-        artist_id:<?=$artist_id?>,
+        artist_id:parseInt(<?=$artist_id?>),
         limit:9
       },
       dataType:'json',
@@ -306,7 +306,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getFan(<?=$this->session->userdata('user_id')?>);
+  view.getFan(parseInt(<?=$this->session->userdata('user_id')?>));
   view.getFans();
   view.getTags();
   view.getArtistShouts();

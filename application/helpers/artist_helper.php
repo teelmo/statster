@@ -64,6 +64,7 @@ if (!function_exists('addArtist')) {
                 VALUES (?, ?, CURRENT_TIMESTAMP())";
       $query = $ci->db->query($sql, array($data['user_id'], $data['artist_name']));
       if ($ci->db->affected_rows() === 1) {
+        header('HTTP/1.1 201 Created');
         $data['artist_id'] = $ci->db->insert_id();
         $ci->load->helper(array('artist_helper', 'lastfm_helper'));
         // Add Spotify resource.

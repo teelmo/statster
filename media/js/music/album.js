@@ -26,7 +26,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/love/get/' + parseInt(<?=$album_id?>)
+      url:'/api/love/get/<?=$album_id?>'
     });
   },
   // Get album loves.
@@ -59,7 +59,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/love/get/' + parseInt(<?=$album_id?>)
+      url:'/api/love/get/<?=$album_id?>'
     });
   },
   // Get album tags.
@@ -76,7 +76,7 @@ $.extend(view, {
             data:{
               json_data:data,
               delete:true,
-              logged_in:<?=$logged_in?>
+              logged_in:'<?=$logged_in?>'
             },
             success: function (data) {
               $('#tagsLoader').hide();
@@ -515,7 +515,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getLove(parseInt(<?=$this->session->userdata('user_id')?>));
+  view.getLove(parseInt(parseInt(<?=$this->session->userdata('user_id')?>)));
   view.getLoves();
   view.getTags();
   view.getListeningHistory('%Y');

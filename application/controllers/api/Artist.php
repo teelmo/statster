@@ -25,31 +25,48 @@ class Artist extends CI_Controller {
 
   /* Add a artist */
   public function add() {
-    // Load helpers
-    header('HTTP/1.1 501 Not Implemented');
+    if ($this->session->userdata('logged_in') === TRUE) {
+      // Load helpers
+      $this->load->helper(array('artist_helper', 'spotify_helper'));
+
+      echo addArtist($_REQUEST);
+    }
+    else {
+      show_403();
+    }
   }
 
   /* Update artist information */
   public function update($type) {
-    switch ($type) {
-      case 'biography':
-        // Load helpers
-        $this->load->helper(array('artist_helper', 'lastfm_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      switch ($type) {
+        case 'biography':
+          // Load helpers
+          $this->load->helper(array('artist_helper', 'lastfm_helper'));
 
-        $_REQUEST += fetchArtistInfo($_REQUEST, array('bio', 'image'));
-        echo addArtistBio($_REQUEST);
-        break;
-      default:
-        break;
+          $_REQUEST += fetchArtistInfo($_REQUEST, array('bio', 'image'));
+          echo addArtistBio($_REQUEST);
+          break;
+        default:
+          break;
+      }
+    }
+    else {
+      show_403();
     }
   }
 
   /* Delete artist information */
   public function delete() {
-    // Load helpers
-    $this->load->helper(array('artist_helper'));
+    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+      // Load helpers
+      $this->load->helper(array('artist_helper'));
 
-    deleteArtist($_REQUEST);
+      deleteArtist($_REQUEST);
+    }
+    else {
+      show_403();
+    }
   }
 }
 ?>

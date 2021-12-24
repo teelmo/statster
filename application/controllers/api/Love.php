@@ -20,14 +20,19 @@ class Love extends CI_Controller {
 
   /* Add a love */
   public function add($album_id = FALSE) {
-    if (is_numeric($album_id)) {
-      // Load helpers
-      $this->load->helper(array('love_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      if (is_numeric($album_id)) {
+        // Load helpers
+        $this->load->helper(array('love_helper'));
 
-      echo addLove($album_id);
+        echo addLove($album_id);
+      }
+      else {
+        header('HTTP/1.1 400 Bad Request');
+      }
     }
     else {
-      header('HTTP/1.1 400 Bad Request');
+      show_403();
     }
   }
 
@@ -39,14 +44,19 @@ class Love extends CI_Controller {
 
   /* Delete love information */
   public function delete($album_id = FALSE) {
-    if (is_numeric($album_id)) {
-      // Load helpers
-      $this->load->helper(array('love_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      if (is_numeric($album_id)) {
+        // Load helpers
+        $this->load->helper(array('love_helper'));
 
-      deleteLove($album_id);
+        deleteLove($album_id);
+      }
+      else {
+        header('HTTP/1.1 400 Bad Request');
+      }
     }
     else {
-      header('HTTP/1.1 400 Bad Request');
+      show_403();
     }
   }
 }

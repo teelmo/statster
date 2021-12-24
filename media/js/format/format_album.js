@@ -3,7 +3,7 @@ $.extend(view, {
   getTags: function () {
     $.ajax({
       data:{
-        album_id:<?=$album_id?>,
+        album_id:parseInt(<?=$album_id?>),
         limit:9
       },
       dataType:'json',
@@ -267,7 +267,7 @@ $.extend(view, {
 });
 
 $(document).ready(function() {
-  view.getLove(<?=$this->session->userdata('user_id')?>);
+  view.getLove(parseInt(parseInt(<?=$this->session->userdata('user_id')?>)));
   view.getLoves();
   view.getTags();
   view.getFormats();

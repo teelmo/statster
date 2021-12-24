@@ -28,25 +28,35 @@ class Genre extends CI_Controller {
 
   /* Update genre information */
   public function update($type) {
-    switch ($type) {
-      case 'biography':
-        // Load helpers
-        $this->load->helper(array('genre_helper', 'lastfm_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      switch ($type) {
+        case 'biography':
+          // Load helpers
+          $this->load->helper(array('genre_helper', 'lastfm_helper'));
 
-        $_REQUEST += fetchTagBio($_REQUEST);
-        echo addGenreBio($_REQUEST);
-        break;
-      default:
-        break;
+          $_REQUEST += fetchTagBio($_REQUEST);
+          echo addGenreBio($_REQUEST);
+          break;
+        default:
+          break;
+      }
+    }
+    else {
+      show_403();
     }
   }
 
   /* Delete genre information */
   public function delete() {
-    // Load helpers
-    $this->load->helper(array('genre_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      // Load helpers
+      $this->load->helper(array('genre_helper'));
 
-    echo deleteAlbumGenre($_REQUEST);
+      echo deleteAlbumGenre($_REQUEST);
+    }
+    else {
+      show_403();
+    }
   }
 }
 ?>

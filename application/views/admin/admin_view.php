@@ -22,6 +22,14 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
+      <h2>Add artist</h2>
+      <?=form_open('', array('class' => '', 'id' => 'addArtistForm'))?>
+        <div><input type="text" autocomplete="off" tabindex="1" id="addArtistText" placeholder="New artist name" name="addArtistText" /></div>
+        <div><input type="submit" name="addArtistSubmit" tabindex="10" id="addArtistSubmit" value="Add" /></div>
+      </form>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h2>Add genre</h2>
       <?=form_open('', array('class' => '', 'id' => 'addGenreForm'))?>
         <div><input type="text" autocomplete="off" tabindex="1" id="addGenreText" placeholder="New genre name" name="addGenreText" /></div>

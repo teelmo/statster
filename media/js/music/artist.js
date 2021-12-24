@@ -26,7 +26,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/fan/get/' + parseInt(<?=$artist_id?>)
+      url:'/api/fan/get/<?=$artist_id?>'
     });
   },
   // Get artist fans.
@@ -59,7 +59,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/fan/get/' + parseInt(<?=$artist_id?>)
+      url:'/api/fan/get/<?=$artist_id?>'
     });
   },
   // Get artist tags.
@@ -486,7 +486,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getFan(<?=$this->session->userdata('user_id')?>);
+  view.getFan(parseInt(<?=$this->session->userdata('user_id')?>));
   view.getFans();
   view.getTags();
   view.getListeningHistory('%Y');

@@ -20,14 +20,19 @@ class Fan extends CI_Controller {
 
   /* Add a fan */
   public function add($artist_id = FALSE) {
-    if (is_numeric($artist_id)) {
-      // Load helpers
-      $this->load->helper(array('fan_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      if (is_numeric($artist_id)) {
+        // Load helpers
+        $this->load->helper(array('fan_helper'));
 
-      echo addFan($artist_id);
+        echo addFan($artist_id);
+      }
+      else {
+        header('HTTP/1.1 400 Bad Request');
+      }
     }
     else {
-      header('HTTP/1.1 400 Bad Request');
+      show_403();
     }
   }
 
@@ -42,15 +47,19 @@ class Fan extends CI_Controller {
 
   /* Delete fan information */
   public function delete($artist_id = FALSE) {
-    echo $artist_id;
-    if (is_numeric($artist_id)) {
-      // Load helpers
-      $this->load->helper(array('fan_helper'));
+    if ($this->session->userdata('logged_in') === TRUE) {
+      if (is_numeric($artist_id)) {
+        // Load helpers
+        $this->load->helper(array('fan_helper'));
 
-      deleteFan($artist_id);      
+        deleteFan($artist_id);      
+      }
+      else {
+        header('HTTP/1.1 400 Bad Request');
+      }
     }
     else {
-      header('HTTP/1.1 400 Bad Request');
+      show_403();
     }
   }
 }
