@@ -146,10 +146,15 @@ class Tag extends CI_Controller {
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['js_include'] = array('tag/tags', 'helpers/time_interval_helper');
 
-      $data['total_genres'] = count(json_decode(getAllGenres()));
-      $data['total_keywords'] = count(json_decode(getAllKeywords()));
-      $data['total_nationalities'] = count(json_decode(getAllNationalities()));
-      $data['total_years'] = count(json_decode(getAllYears()));
+      $opts = array(
+        'limit' => '1000',
+        'lower_limit' => '1970-00-00',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+      );
+      $data['total_genres'] = count(json_decode(getGenres($opts)));
+      $data['total_keywords'] = count(json_decode(getKeywords($opts)));
+      $data['total_nationalities'] = count(json_decode(getNationalities($opts)));
+      $data['total_years'] = count(json_decode(getYears($opts)));
 
       $this->load->view('site_templates/header');
       $this->load->view('tag/tags_view', $data);
@@ -246,7 +251,7 @@ class Tag extends CI_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+      $this->load->helper(array('genre_helper', 'music_helper', 'img_helper', 'output_helper'));
       
       $intervals = unserialize($this->session->userdata('intervals'));
       $data['top_genre_genre'] = isset($intervals['top_genre_genre']) ? $intervals['top_genre_genre'] : 'overall';
@@ -257,6 +262,16 @@ class Tag extends CI_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $opts = array(
+        'limit' => '1000',
+        'lower_limit' => '1970-00-00',
+        'username' => (!empty($_GET['u'] && ($this->session->userdata('username') !== $_GET['u'])) ? $_GET['u'] : '')
+      );
+      $data['total_count'] = count(json_decode(getGenres($opts)));
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $opts['username'] = $this->session->userdata('username');
+        $data['user_count'] = count(json_decode(getGenres($opts)));
+      }
       $data['js_include'] = array('tag/genres', 'helpers/time_interval_helper');
 
       $this->load->view('tag/genre_view', $data);
@@ -353,7 +368,7 @@ class Tag extends CI_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+      $this->load->helper(array('keyword_helper', 'music_helper', 'img_helper', 'output_helper'));
       
       $intervals = unserialize($this->session->userdata('intervals'));
       $data['top_keyword_keyword'] = isset($intervals['top_keyword_keyword']) ? $intervals['top_keyword_keyword'] : 'overall';
@@ -363,6 +378,16 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $opts = array(
+        'limit' => '1000',
+        'lower_limit' => '1970-00-00',
+        'username' => (!empty($_GET['u'] && ($this->session->userdata('username') !== $_GET['u'])) ? $_GET['u'] : '')
+      );
+      $data['total_count'] = count(json_decode(getKeywords($opts)));
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $opts['username'] = $this->session->userdata('username');
+        $data['user_count'] = count(json_decode(getKeywords($opts)));
+      }
       $data['js_include'] = array('tag/keywords', 'helpers/time_interval_helper');
 
       $this->load->view('tag/keyword_view', $data);
@@ -469,6 +494,16 @@ class Tag extends CI_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $opts = array(
+        'limit' => '1000',
+        'lower_limit' => '1970-00-00',
+        'username' => (!empty($_GET['u'] && ($this->session->userdata('username') !== $_GET['u'])) ? $_GET['u'] : '')
+      );
+      $data['total_count'] = count(json_decode(getNationalities($opts)));
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $opts['username'] = $this->session->userdata('username');
+        $data['user_count'] = count(json_decode(getNationalities($opts)));
+      }
       $data['js_include'] = array('tag/nationalities', 'helpers/time_interval_helper');
       
       $this->load->view('tag/nationality_view', $data);
@@ -576,6 +611,16 @@ class Tag extends CI_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $opts = array(
+        'limit' => '1000',
+        'lower_limit' => '1970-00-00',
+        'username' => (!empty($_GET['u'] && ($this->session->userdata('username') !== $_GET['u'])) ? $_GET['u'] : '')
+      );
+      $data['total_count'] = count(json_decode(getYears($opts)));
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $opts['username'] = $this->session->userdata('username');
+        $data['user_count'] = count(json_decode(getYears($opts)));
+      }
       $data['js_include'] = array('tag/years', 'libs/highcharts', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
       $this->load->view('tag/year_view', $data);
