@@ -28,6 +28,11 @@ class Artist extends CI_Controller {
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
     $data['js_include'] = array('music/artists', 'helpers/time_interval_helper');
+
+    $data['total_count'] = getListeningCount(array(), TBL_artist);
+    if ($this->session->userdata('logged_in') === TRUE) {
+      $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_artist);
+    }
     
     $this->load->view('site_templates/header');
     $this->load->view('music/artists_view', $data);
