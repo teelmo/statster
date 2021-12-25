@@ -4,6 +4,24 @@
       <h1><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span><div class="top_music"><?=anchor(array('music', date('Y', strtotime('last month')), date('m', strtotime('last month'))), 'Top in ' . date('F', strtotime('last month')))?></div></h1>
     </div>
   </div>
+  <div class="tag_meta">
+    <div class="meta">
+      <div class="label">Genres</div>
+      <div class="value number"><?=anchor(array('genre'), number_format($total_genres))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Keywords</div>
+      <div class="value number"><?=anchor(array('keyword'), number_format($total_keywords))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Nationalities</div>
+      <div class="value number"><?=anchor(array('nationality'), number_format($total_nationalities))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Years</div>
+      <div class="value number"><?=anchor(array('year'), number_format($total_years))?></div>
+    </div>
+  </div>
 </div>
 <div class="main_container">
   <div class="page_links">

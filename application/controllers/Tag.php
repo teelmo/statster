@@ -146,9 +146,10 @@ class Tag extends CI_Controller {
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['js_include'] = array('tag/tags', 'helpers/time_interval_helper');
 
-      pr(count(json_decode(getAllGenres())));
-
-      $data['total_genres'];
+      $data['total_genres'] = count(json_decode(getAllGenres()));
+      $data['total_keywords'] = count(json_decode(getAllKeywords()));
+      $data['total_nationalities'] = count(json_decode(getAllNationalities()));
+      $data['total_years'] = count(json_decode(getAllYears()));
 
       $this->load->view('site_templates/header');
       $this->load->view('tag/tags_view', $data);

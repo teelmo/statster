@@ -64,6 +64,29 @@ if (!function_exists('getYears')) {
 }
 
 /**
+  * Returns all years.
+  * @param array $opts.
+  *          'human_readable'  => Output format
+  *
+  * @return string JSON encoded the data
+  */
+if (!function_exists('getAllYears')) {
+  function getAllYears($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    $sql = "SELECT DISTINCT 'year' AS `type`,
+                   " . TBL_album . ".`year`
+            FROM " . TBL_album . "
+            WHERE 1
+            ORDER BY " . TBL_album . ".`year`";
+    $query = $ci->db->query($sql, array());
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
   * Returns cumulative listeners for given nationality.
   *
   * @param array $opts.
