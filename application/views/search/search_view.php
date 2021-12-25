@@ -27,7 +27,7 @@
       <?php
       if ($q !== '') {
         ?>
-        <h1>Search: <?=$q?></h1>
+        <h1>Search: <?=urldecode(urldecode($q))?></h1>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="searchResultLoader"/>
         <ul id="searchResult" class="search_list no_bullets"><!-- Content is loaded with AJAX --></ul>
         <?php

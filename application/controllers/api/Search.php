@@ -11,6 +11,7 @@ class Search extends CI_Controller {
     
     $results = array();
     $search_str = isset($_GET['q']) ? $_GET['q'] : (isset($_GET['term']) ? $_GET['term'] : FALSE);
+    $search_str = urldecode(urldecode($search_str));
     if (!empty($search_str)) {
       $search_str = trim($search_str);
       $results[] = array(
