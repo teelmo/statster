@@ -6,7 +6,7 @@
   </div>
   <div class="artist_meta">
     <div class="meta">
-      <div class="label">Total albums</div>
+      <div class="label">Albums</div>
       <div class="value number"><?=number_format($total_count)?></div>
     </div>
     <?php
