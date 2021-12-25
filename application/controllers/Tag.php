@@ -60,7 +60,7 @@ class Tag extends CI_Controller {
           $last_item_count = $item->count;
         }
         
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('tag/tags_album', 'helpers/tag_helper');
 
@@ -114,7 +114,7 @@ class Tag extends CI_Controller {
           }
         }
 
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('tag/tags_artist', 'helpers/tag_helper');
 
@@ -146,6 +146,10 @@ class Tag extends CI_Controller {
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['js_include'] = array('tag/tags', 'helpers/time_interval_helper');
 
+      pr(count(json_decode(getAllGenres())));
+
+      $data['total_genres'];
+
       $this->load->view('site_templates/header');
       $this->load->view('tag/tags_view', $data);
       $this->load->view('site_templates/footer');
@@ -174,7 +178,7 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByGenre($data), true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
@@ -224,7 +228,7 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = sizeof(json_decode(getMusicByGenre($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByGenre($data), true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
@@ -281,7 +285,7 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = sizeof(json_decode(getMusicByKeyword($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByKeyword($data), true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
@@ -331,7 +335,7 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = sizeof(json_decode(getMusicByKeyword($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByKeyword($data), true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
@@ -386,7 +390,7 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = sizeof(json_decode(getMusicByNationality($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByNationality($data), true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
@@ -436,7 +440,7 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = sizeof(json_decode(getMusicByNationality($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByNationality($data), true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
@@ -493,7 +497,7 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = sizeof(json_decode(getMusicByYear($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByYear($data), true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
@@ -543,7 +547,7 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = sizeof(json_decode(getMusicByYear($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByYear($data), true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';

@@ -58,7 +58,7 @@ class Like extends CI_Controller {
           $last_item_count = $item->count;
         }
         
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('like/like_album', 'helpers/tag_helper');
 
@@ -140,7 +140,7 @@ class Like extends CI_Controller {
           }
         }
 
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('like/like_artist', 'helpers/tag_helper');
 

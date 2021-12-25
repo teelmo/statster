@@ -85,7 +85,7 @@ class Music extends CI_Controller {
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getArtistListenings($data);
         }
-        $data['listener_count'] = json_decode(getListeners($data), true) !== NULL ? sizeof(json_decode(getListeners($data), true)) : 0;
+        $data['listener_count'] = json_decode(getListeners($data), true) !== NULL ? count(json_decode(getListeners($data), true)) : 0;
 
         if (empty($data['spotify_id'])) {
           $data['spotify_id'] = getSpotifyResourceId($data);
@@ -205,7 +205,7 @@ class Music extends CI_Controller {
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getAlbumListenings($data);
         }
-        $data['listener_count'] = sizeof(json_decode(getAlbumListeners($data), true));
+        $data['listener_count'] = count(json_decode(getAlbumListeners($data), true));
         if (empty($data['spotify_id'])) {
           $data['spotify_id'] = getSpotifyResourceId($data);
         }
@@ -325,7 +325,7 @@ class Music extends CI_Controller {
           $last_item_count = $item->count;
         }
 
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('music/recent_album', 'helpers/tag_helper');
 
@@ -379,7 +379,7 @@ class Music extends CI_Controller {
           }
         }
 
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('music/recent_artist', 'helpers/tag_helper');
 
@@ -473,7 +473,7 @@ class Music extends CI_Controller {
           $last_item_count = $item->count;
         }
         
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('music/listener_album', 'helpers/tag_helper');
 
@@ -527,7 +527,7 @@ class Music extends CI_Controller {
           }
         }
 
-        $data['listener_count'] = sizeof(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('music/listener_artist', 'helpers/tag_helper');
 
