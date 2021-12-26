@@ -57,13 +57,30 @@ if (!function_exists('addAlbum')) {
     $ci=& get_instance();
     $ci->load->database();
 
+    $data['artist_id'] = array();
     $data['album_info'] = isset($opts['album_name']) ? ucwords($opts['album_name']) : '';
-    $data['artist_id'] = isset($opts['artist_name']) ? getArtistID($opts) : '';
+    $data['artist_id'][] = isset($opts['artist_name']) ? getArtistID($opts) : '';
     $data['artist_name'] = $opts['artist_name'];
     $data['user_id'] = !empty($opts['user_id']) ? $opts['user_id'] : '';
-    if (empty($data['artist_id'])) {
-      if (!$data['artist_id'] = addArtist($data)) {
-        return FALSE;
+    // Artist doesn't exist with given name.
+    if (empty($data['artist_id'][0])) {
+      array_shift($data['artist_id']);
+      // Let's check for multi artist.
+      if (strpos($data['artist_name'], ', ')) {
+        foreach (explode(', ', $data['artist_name']) as $artist_name) {
+          // Let's check for missing artists.
+          $artist_name = trim($artist_name);
+          if (getArtistID(array('artist_name' => $artist_name)) === FALSE) {
+            $data['artist_id'][] = addArtist(array('artist_name' => $artist_name, 'user_id' => $data['user_id']));
+          }
+          else {
+            $data['artist_id'][] = getArtistID(array('artist_name' => $artist_name));
+          }
+        }
+      }
+      // Let's add single artist.
+      else {
+        $data['artist_id'][] = addArtist($data);
       }
     }
     preg_match('/(.*)\(([0-9]{4})\)/', $data['album_info'], $matches);
@@ -74,14 +91,16 @@ if (!function_exists('addAlbum')) {
       $sql = "INSERT
                 INTO " . TBL_album . " (`artist_id`, `user_id`, `album_name`, `year`, `created`)
                 VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP())";
-      $query = $ci->db->query($sql, array($data['artist_id'], $data['user_id'], $data['album_name'], $data['album_year']));
+      $query = $ci->db->query($sql, array($data['artist_id'][0], $data['user_id'], $data['album_name'], $data['album_year']));
       if ($ci->db->affected_rows() === 1) {
         $data['album_id'] = $ci->db->insert_id();
 
-        $sql = "INSERT
-                  INTO " . TBL_artists . " (`artist_id`, `album_id`, `user_id`, `created`)
-                  VALUES (?, ?, ?, CURRENT_TIMESTAMP())";
-        $query = $ci->db->query($sql, array($data['artist_id'], $data['album_id'], $data['user_id']));
+        foreach ($data['artist_id'] as $artist_id) {
+          $sql = "INSERT
+                    INTO " . TBL_artists . " (`artist_id`, `album_id`, `user_id`, `created`)
+                    VALUES (?, ?, ?, CURRENT_TIMESTAMP())";
+          $query = $ci->db->query($sql, array($artist_id, $data['album_id'], $data['user_id']));
+        }
 
         // Load helpers.
         $ci->load->helper(array('keyword_helper', 'artist_helper', 'nationality_helper', 'lastfm_helper'));
@@ -90,14 +109,16 @@ if (!function_exists('addAlbum')) {
         $data['tag_id'] = getKeywordID($data);
         addAlbumKeyword($data);
         // Add nationality information.
-        $nationalities = getArtistNationalities(array('artist_id' => $data['artist_id']));
-        if (!empty($nationalities)) {
-          foreach ($nationalities as $key => $nationality) {
-            addAlbumNationality(array('album_id' => $data['album_id'], 'tag_id' => $nationality->tag_id));
+        foreach ($data['artist_id'] as $artist_id) {
+          $nationalities = getArtistNationalities(array('artist_id' => $artist_id));
+          if (!empty($nationalities)) {
+            foreach ($nationalities as $key => $nationality) {
+              addAlbumNationality(array('album_id' => $data['album_id'], 'tag_id' => $nationality->tag_id));
+            }
           }
-        }
-        else {
-          addAlbumNationality(array('album_id' => $data['album_id'], 'tag_id' => '242'));
+          else {
+            addAlbumNationality(array('album_id' => $data['album_id'], 'tag_id' => '242'));
+          }
         }
         // Add Spotify resource.
         getSpotifyResourceId($data);
