@@ -21,7 +21,7 @@ if (!function_exists('fetchAlbumInfo')) {
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($artist_name !== FALSE && $album_name !== FALSE) {
       $data = array();
-      if ($lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist=' . urlencode($artist_name) . '&album=' . urlencode($album_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)) {
+      if ($lastfm_data = json_decode(@file_get_contents('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&artist=' . urlencode($artist_name) . '&album=' . urlencode($album_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)) {
         if (empty($lastfm_data['error'])) {
           $lastfm_data = $lastfm_data['album'];
           // Get biography.
