@@ -22,7 +22,7 @@ class Main extends CI_Controller {
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array('name' => 'No data', 'count' => 0);
       $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array('name' => 'No data', 'count' => 0);
       $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array('name' => 'No data', 'count' => 0);
-      $data['js_include'] = array('main', 'helpers/add_listening_helper', 'helpers/time_interval_helper');
+      $data['js_include'] = array('main', 'libs/jquery.daterangepicker', 'helpers/add_listening_helper', 'helpers/time_interval_helper');
 
       $this->load->view('site_templates/header');
         
