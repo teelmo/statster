@@ -54,7 +54,7 @@ class Album extends CI_Controller {
     else {
       $data['title'] = 'Albums '. $year;
     }
-    $data['side_title'] = ($month === FALSE) ? 'Monthly': 'Listeners';
+    $data['side_title'] = ($month === FALSE) ? 'Monthly' : (($day === FALSE) ? 'Listenings' : 'Listeners');
     $data['day'] = $day;
     $data['month'] = $month;
     $data['year'] = $year;
