@@ -14,6 +14,14 @@
     <?=anchor(array('listener'), 'Listeners')?>
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
+    <div class="float_right">
+      <span class="month_selector_container"><select class="month_selector"><option value="">Month</option><option value="" disabled="disabled">-----</option></select></span>
+      <span class="day_selector_container"><select class="day_selector"><option value="">Day</option><option value="" disabled="disabled">-----</option></select></span>
+      <span class="weekday_selector_container"><select class="weekday_selector"><option value="">Weekday</option><option value="" disabled="disabled">-----</option></select></span>
+      <span class="date_range_container"><span class="date_range_picker">All time</span></span>
+      <span class="date_filter_clear hidden"><span class="fa fa-times"></span></span>
+      <a class="date_filter_submit" href="javascript:;"><span class="fa fa-calendar-alt"></span></a>
+    </div>
   </div>
   <div class="left_container">
     <div class="container">

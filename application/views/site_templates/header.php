@@ -26,6 +26,7 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/libs/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/media/js/libs/moment.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min.js"></script>
     <script type="text/javascript" src="/media/js/statster.js"></script>

@@ -19,7 +19,7 @@ $.extend(view, {
       var order_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC';
       var select = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`';
     }
-    where += ' AND MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>';
+    where += ' AND MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>';
     $.ajax({
       data:{
         group_by:group_by,
@@ -72,7 +72,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{
@@ -106,7 +106,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{
@@ -139,7 +139,7 @@ $.extend(view, {
         limit:5,
         lower_limit:lower_limit,
         upper_limit:upper_limit,
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{
@@ -182,7 +182,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_album?>.`created`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_album?>.`created`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_album?>.`created`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_album?>.`created`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_album?>.`created`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{
@@ -223,7 +223,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{
@@ -260,7 +260,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{
@@ -296,7 +296,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{
@@ -332,7 +332,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{
@@ -368,7 +368,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?>'
+        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
       dataType:'json',
       statusCode:{

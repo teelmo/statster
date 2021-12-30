@@ -5,6 +5,7 @@
 @import 'libs/tooltipster.bundle.min.css';
 @import 'libs/tooltipster-sideTip-shadow.min.css';
 @import 'libs/jquery.autocomplete.less';
+@import 'libs/daterangepicker.min.css';
 @import '//fonts.googleapis.com/css?family=Barlow:100,200,300,400,500,600,700,800,900';
 @import '//fonts.googleapis.com/css?family=Open+Sans:300,400,600';
 @import '//fonts.googleapis.com/css?family=Poiret+One:400';
@@ -1526,6 +1527,44 @@ h2 {
 .fa-heart,
 .fa-star {
   color: #666;
+}
+
+/**
+ * Date picker overrides 
+ */
+.date-picker-wrapper {
+  margin: 5px 0 0 27px;
+  box-shadow: 0 0 0 transparent;
+  border: 0;
+  padding: 0;
+  &.no-shortcuts,
+  &.no-topbar {
+    padding: 0;
+  }
+  .month-wrapper {
+    border-radius: 0;
+    table .day {
+      &.real-today.toMonth {
+        background-color: #000;
+        color: #fff;
+        &.hovering {
+          color: #000;
+        }
+      }
+      &.toMonth.hovering,
+      &.checked {
+        background-color: #f1f1f1;
+      }
+      &.first-date-selected,
+      &.last-date-selected {
+        background-color: #999 !important;
+        color: #fff !important;
+      }
+    }
+  }
+  .footer {
+    display: none;
+  }
 }
 
 /** 

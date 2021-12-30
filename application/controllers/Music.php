@@ -3,69 +3,40 @@ class Music extends CI_Controller {
 
   public function index() {
     $data = array();
-    if (isset($_GET['from']) || isset($_GET['to'])) {
+    if (isset($_GET['from']) || isset($_GET['to']) || isset($_GET['month']) || isset($_GET['day']) || isset($_GET['weekday'])) {
       // Load helpers.
       $this->load->helper(array('img_helper', 'id_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper', 'spotify_helper', 'output_helper'));
-      $data['from'] = isset($_GET['from']) ? $_GET['from'] : '1970-00-00' ;
+      $data['from'] = isset($_GET['from']) ? $_GET['from'] : '1970-00-00';
       $data['to'] = isset($_GET['to']) ? $_GET['to'] : CUR_DATE;
       $data['from_array'] = explode('-', $data['from']);
       $data['to_array'] = explode('-', $data['to']);
-      $data['month'] = '\'%\'' ;
-      $data['day'] = '\'%\'' ;
+      $data['month'] = isset($_GET['month']) ? $_GET['month'] : '\'%\'' ;
+      $data['day'] = isset($_GET['day']) ? $_GET['day'] : '\'%\'' ;
+      $data['weekday'] = isset($_GET['weekday']) ? $_GET['weekday'] - 1 : '\'%\'' ;
       $data += array(
         'limit' => '1',
         'lower_limit' => $data['from'],
         'upper_limit' => $data['to'],
-        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : ''),
+        'where' => 'MONTH(' . TBL_listening . '.`date`) LIKE ' . $data['month'] . ' AND DAY(' . TBL_listening . '.`date`) LIKE ' . $data['day'] . ' AND WEEKDAY(' . TBL_listening . '.`date`) LIKE ' . $data['weekday']
       );
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
       $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array('artist_id' => 0);
       $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
-      $data['where'] = TBL_artist . '.`created` BETWEEN  \'' . $data['from'] . '\' AND \'' . $data['to'] . '\'';
+      $data['where'] .= ' AND ' . TBL_artist . '.`created` BETWEEN  \'' . $data['from'] . '\' AND \'' . $data['to'] . '\'';
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
-      $data['where'] = TBL_album . '.`created` BETWEEN  \'' . $data['from'] . '\' AND \'' . $data['to'] . '\'';
+      $data['where'] .= ' AND ' . TBL_album . '.`created` BETWEEN  \'' . $data['from'] . '\' AND \'' . $data['to'] . '\'';
       $data['new_album_count'] = getListeningCount($data, TBL_album);
       $data['user_id'] = (!empty($data['username']) ? getUserID($data) : '');
+      $data['where'] = 'MONTH(' . TBL_fan . '.`created`) LIKE ' .  $data['month'] . ' AND DAY(' . TBL_fan . '.`created`) LIKE ' . $data['day'] . ' AND WEEKDAY(' . TBL_fan . '.`created`) LIKE ' . $data['weekday'];
       $data['fan_count'] = getFanCount($data);
+      $data['where'] = 'MONTH(' . TBL_love . '.`created`) LIKE ' .  $data['month'] . ' AND DAY(' . TBL_love . '.`created`) LIKE ' . $data['day'] . ' AND WEEKDAY(' . TBL_love . '.`created`) LIKE ' . $data['weekday'];
       $data['love_count'] = getLoveCount($data);
+      $data['where'] = 'MONTH(`shouts`.`created`) LIKE ' .  $data['month'] . ' AND DAY(`shouts`.`created`) LIKE ' . $data['day'] . ' AND WEEKDAY(`shouts`.`created`) LIKE ' . $data['weekday'];
       $data['shout_count'] = getShoutCount($data);
-      $data['js_include'] = array('music/library', 'libs/highcharts', 'helpers/chart_helper');
-
-      $this->load->view('site_templates/header');
-      $this->load->view('music/library_view', $data);
-      $this->load->view('site_templates/footer');
-    }
-    else if (isset($_GET['month']) || isset($_GET['day'])) {
-      // Load helpers.
-      $this->load->helper(array('img_helper', 'id_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper', 'spotify_helper', 'output_helper'));
-      $data['month'] = isset($_GET['month']) ? $_GET['month'] : '\'%\'' ;
-      $data['day'] = isset($_GET['day']) ? $_GET['day'] : '\'%\'' ;
-      $data += array(
-        'limit' => '1',
-        'lower_limit' => '1970-00-00',
-        'upper_limit' => CUR_DATE,
-        'where' => 'MONTH(' . TBL_listening . '.`date`) LIKE ' . $data['month'] . ' AND DAY(' . TBL_listening . '.`date`) LIKE ' . $data['day'],
-        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
-      );
-      $data['artist_count'] = getListeningCount($data, TBL_artist);
-      $data['album_count'] = getListeningCount($data, TBL_album);
-      $data['listening_count'] = getListeningCount($data, TBL_listening);
-      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array('artist_id' => 0);
-      $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
-      $data['where'] = 'MONTH(' . TBL_artist . '.`created`) LIKE ' .  $data['month'] . ' AND DAY(' . TBL_artist . '.`created`) LIKE ' .  $data['day'];
-      $data['new_artist_count'] = getListeningCount($data, TBL_artist);
-      $data['where'] = 'MONTH(' . TBL_album . '.`created`) LIKE ' .  $data['month'] . ' AND DAY(' . TBL_album . '.`created`) LIKE ' .  $data['day'];
-      $data['new_album_count'] = getListeningCount($data, TBL_album);
-      $data['where'] = 'MONTH(' . TBL_fan . '.`created`) LIKE ' .  $data['month'] . ' AND DAY(' . TBL_fan . '.`created`) LIKE ' .  $data['day'];
-      $data['user_id'] = (!empty($data['username']) ? getUserID($data) : '');
-      $data['fan_count'] = getFanCount($data);
-      $data['where'] = 'MONTH(' . TBL_love . '.`created`) LIKE ' .  $data['month'] . ' AND DAY(' . TBL_love . '.`created`) LIKE ' .  $data['day'];
-      $data['love_count'] = getLoveCount($data);
-      $data['where'] = 'MONTH(`shouts`.`created`) LIKE ' .  $data['month'] . ' AND DAY(`shouts`.`created`) LIKE ' .  $data['day'];
-      $data['shout_count'] = getShoutCount($data);
-      $data['js_include'] = array('music/library', 'libs/highcharts', 'helpers/chart_helper');
+      $data['js_include'] = array('music/library', 'libs/jquery.daterangepicker', 'libs/highcharts', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/library_view', $data);
@@ -88,7 +59,7 @@ class Music extends CI_Controller {
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
       $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
       $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
-      $data['js_include'] = array('music/music', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
+      $data['js_include'] = array('music/music', 'libs/jquery.daterangepicker', 'libs/highcharts', 'libs/peity', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/music_view', $data);

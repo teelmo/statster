@@ -25,13 +25,15 @@ $.extend(view, {
       return (yyyy + sp + mm + sp + dd);
     };
     $('#addListeningDate').val(curday('-'));
-    $('#addListeningDate').datepicker({
-      dateFormat:'yy-mm-dd',
-      firstDay:1,
-      maxDate:'today',
-      selectOtherMonths:true,
-      showAnim:'slideDown',
-      showOtherMonths:true
+    $('#addListeningDate').dateRangePicker({
+      autoClose: true,
+      endDate: '<?=CUR_DATE?>',
+      hoveringTooltip: false,
+      showShortcuts: false,
+      showTopbar: false,
+      singleDate : true,
+      singleMonth: true,
+      startOfWeek: 'monday'
     });
     $('#addListeningDate').change(function () {
       setTimeout(function () {

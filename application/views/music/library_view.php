@@ -3,26 +3,31 @@
     <div class="info">
       <div class="top_info year_info">
         <h2><?=anchor(array('music'), 'Music')?></h2>
-        <h1><?php
+        <?php
+        $title_elements = array();
         if (isset($from_array) && $from !== '1970-00-00' && isset($to_array) && $to !== CUR_DATE) {
-          echo 'From ' . DateTime::createFromFormat('!m', $from_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $from_array[2])->format('jS') . ' ' . $from_array[0] . ' to ' . DateTime::createFromFormat('!m', $to_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $to_array[2])->format('jS') . ' ' . $to_array[0];
+          $title_elements[] = DateTime::createFromFormat('!m', $from_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $from_array[2])->format('jS') . ' ' . $from_array[0] . ' to ' . DateTime::createFromFormat('!m', $to_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $to_array[2])->format('jS') . ' ' . $to_array[0];
         }
-        else if (isset($from_array) && $to === CUR_DATE) {
-          echo 'After ' . DateTime::createFromFormat('!m', $from_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $from_array[2])->format('jS') . ' ' . $from_array[0];
+        else if (isset($from_array) && $from !== '1970-00-00' && $to === CUR_DATE) {
+          $title_elements[] = 'After ' . DateTime::createFromFormat('!m', $from_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $from_array[2])->format('jS') . ' ' . $from_array[0];
         }
-        else if (isset($to_array) && $from === '1970-00-00') {
-          echo 'Before ' . DateTime::createFromFormat('!m', $to_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $to_array[2])->format('jS') . ' ' . $to_array[0];
+        else if (isset($to_array) && $to !== CUR_DATE && $from === '1970-00-00') {
+          $title_elements[] = 'Before ' . DateTime::createFromFormat('!m', $to_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $to_array[2])->format('jS') . ' ' . $to_array[0];
         }
-        else if ($month !== '\'%\'' && $day !== '\'%\'') {
-          echo 'From ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . DateTime::createFromFormat('!d', $day)->format('jS');
+        if ($month !== '\'%\'' && $day !== '\'%\'') {
+          $title_elements[] = DateTime::createFromFormat('!m', $month)->format('F') . ' ' . DateTime::createFromFormat('!d', $day)->format('jS');
         }
         else if ($month !== '\'%\'') {
-          echo 'From ' . DateTime::createFromFormat('!m', $month)->format('F');
+          $title_elements[] = DateTime::createFromFormat('!m', $month)->format('F');
         }
         else if ($day !== '\'%\'') {
-          echo 'From ' . DateTime::createFromFormat('!d', $day)->format('jS');
+          $title_elements[] = DateTime::createFromFormat('!d', $day)->format('jS');
         }
-        ?></h1>
+        if ($weekday !== '\'%\'') {
+          $title_elements[] = jddayofweek($weekday - 1, 1);
+        }
+        ?>
+        <h1><?=implode(', ', $title_elements)?></h1>
       </div>
     </div>
   </div>
@@ -62,6 +67,14 @@
     <?=anchor(array('listener'), 'Listeners')?>
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
+    <div class="float_right">
+      <span class="month_selector_container"><select class="month_selector"><option value="">Month</option><option value="" disabled="disabled">-----</option></select></span>
+      <span class="day_selector_container"><select class="day_selector"><option value="">Day</option><option value="" disabled="disabled">-----</option></select></span>
+      <span class="weekday_selector_container"><select class="weekday_selector"><option value="">Weekday</option><option value="" disabled="disabled">-----</option></select></span>
+      <span class="date_range_container"><span class="date_range_picker"><?=($from !== '1970-00-00') ? $from . ' to ' . $to : 'All time'?></span></span>
+      <span class="date_filter_clear hidden"><span class="fa fa-times"></span></span>
+      <a class="date_filter_submit" href="javascript:;"><span class="fa fa-calendar-alt"></span></a>
+    </div>
   </div>
   <div class="left_container">
     <div class="container">
