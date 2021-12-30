@@ -19,7 +19,8 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          alert('204 No Content');
+          $('#userMosaikLoader').hide();
+          $('#userMosaik').html('<?=ERR_NO_RESULTS?>');
         },
         404: function () { // 404 Not found
           alert('404 Not Found');

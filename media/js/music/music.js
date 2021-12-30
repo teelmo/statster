@@ -105,7 +105,8 @@ $.extend(view, {
           });
         },
         204: function () { // 204 No Content
-          alert('204 No Content');
+          $('#popularGenreLoader').hide();
+          $('#popularGenre').html('<?=ERR_NO_RESULTS?>');
         },
         404: function () { // 404 Not found
           alert('404 Not Found');

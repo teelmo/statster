@@ -269,6 +269,13 @@ $.extend(view, {
             type:'POST',
             url:'/ajax/columnTable'
           });
+        },
+        204: function() { // 204 No Content
+          $('#topGenreLoader').hide();
+          $('#topGenre').html('<?=ERR_NO_RESULTS?>');
+        },
+        404: function() { // 404 Not found
+          alert('404 Not Found');
         }
       },
       type:'GET',
@@ -296,10 +303,11 @@ $.extend(view, {
             },
             type:'POST',
             url:'/ajax/columnTable'
-          });  
+          });
         },
         204: function() { // 204 No Content
-          alert('204 No Content');
+          $('#topKeywordLoader').hide();
+          $('#topKeyword').html('<?=ERR_NO_RESULTS?>');
         },
         404: function() { // 404 Not found
           alert('404 Not Found');
@@ -330,10 +338,11 @@ $.extend(view, {
             },
             type:'POST',
             url:'/ajax/columnTable'
-          });  
+          });
         },
         204: function() { // 204 No Content
-          alert('204 No Content');
+          $('#topNationalityLoader').hide();
+          $('#topNationality').html('<?=ERR_NO_RESULTS?>');
         },
         404: function() { // 404 Not found
           alert('404 Not Found');
@@ -364,10 +373,11 @@ $.extend(view, {
             },
             type:'POST',
             url:'/ajax/columnTable'
-          });  
+          });
         },
         204: function() { // 204 No Content
-          alert('204 No Content');
+          $('#topYearLoader').hide();
+          $('#topYear').html('<?=ERR_NO_RESULTS?>');
         },
         404: function() { // 404 Not found
           alert('404 Not Found');
@@ -383,7 +393,7 @@ $(document).ready(function () {
   view.initChart();
   view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topReleases('<?=$lower_limit?>', '<?=$upper_limit?>');;
+  view.topReleases('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.getListeningHistory('%d', '<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topListeners('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topFormats('<?=$lower_limit?>', '<?=$upper_limit?>');
