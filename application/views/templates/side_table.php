@@ -11,7 +11,7 @@ if (!empty($json_data)) {
     $prev_count = FALSE;
     foreach ($json_data as $idx => $row) {
       ?>
-      <tr data-created="<?=$row['created']?>">
+      <tr data-created="<?=(!empty($row['created'])) ? $row['created'] : ''?>">
         <?php
         if (empty($hide['rank'])) {
           ?>
@@ -79,7 +79,7 @@ if (!empty($json_data)) {
                 echo anchor(array('year', url_title($row['year'])), '<span class="album_year number">' . $row['year'] . '</span>', array('title' => 'Browse release year'));
               }
               if (empty($hide['artist'])) {
-                echo '<div class="metainfo">' . anchor(array('music', url_title($row['artist_name'])), substrwords($row['artist_name'], $strlenght), array('title' => 'Browse to artist\'s page')) . '</div>';
+                echo '<div class="metainfo">' . implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, getAlbumArtists($row))) . '</div>';
               }
             }
             ?>
