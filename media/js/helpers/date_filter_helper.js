@@ -38,6 +38,9 @@ $.extend(view, {
     }
   },
   initDateFilterHelperEvents: function () {
+    function checkIfFilterActive() {
+      return ($('.month_selector option:selected').val() === '' && $('.day_selector option:selected').val() === '' && $('.weekday_selector option:selected').val() === '' && $('.date_range_picker').html() === 'All time') ? true : false;
+    }
     $('.date_filter_clear').click(function(event) {
       event.stopPropagation();
       $('.date_range_picker').data('dateRangePicker').clear();
@@ -48,13 +51,28 @@ $.extend(view, {
       $('.date_filter_clear').hide();
     });
     $('.month_selector').change(function(event) {
-      $('.date_filter_clear').show();
+      if ($(this).val() !== '') {
+        $('.date_filter_clear').show();
+      }
+      else if (checkIfFilterActive()) {
+        $('.date_filter_clear').hide();
+      }
     });
     $('.day_selector').change(function(event) {
-      $('.date_filter_clear').show();
+      if ($(this).val() !== '') {
+        $('.date_filter_clear').show();
+      }
+      else if (checkIfFilterActive()) {
+        $('.date_filter_clear').hide();
+      }
     });
     $('.weekday_selector').change(function(event) {
-      $('.date_filter_clear').show();
+      if ($(this).val() !== '') {
+        $('.date_filter_clear').show();
+      }
+      else if (checkIfFilterActive()) {
+        $('.date_filter_clear').hide();
+      }
     });
     $('.date_filter_submit').click(function(event) {
       var filter = [];
@@ -72,11 +90,15 @@ $.extend(view, {
         filter.push('from=' + dates[0]);
         filter.push('to=' + dates[1]);
       }
-      window.location.replace('/music/?' + filter.join('&'));
+      if (filter.length > 0) {
+        window.location.replace('/music?' + filter.join('&'));
+      }
+      else if (window.location.href.split('/')[3] !== 'music' || window.location.href.split('/').length > 3) {
+        window.location.replace('/music');
+      }
     });
   }
 });
-
 $(document).ready(function () {
   view.populateMonthPicker();
   view.populateDayPicker();
