@@ -9,6 +9,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
+  *          'where'           => Where
   *
   * @return string JSON encoded data containing artist information.
   */
@@ -51,6 +52,7 @@ if (!function_exists('getListeningCount')) {
   *          'order_by'        => Order by argument
   *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
   *          'username'        => Username
+  *          'where'           => Where
   *
   * @return string JSON encoded data containing artist information.
   */
