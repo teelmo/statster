@@ -66,6 +66,7 @@ if (!function_exists('getListeningFormat')) {
               AND " . TBL_artist . ".`id` LIKE ?
               AND " . TBL_album . ".`id` LIKE ?
               AND " . TBL_user . ".username LIKE ?
+              " . $ci->db->escape_str($where) . "
             GROUP BY `group_by_name`,
                      `formats`.`listening_format_id`
             ORDER BY `count` DESC

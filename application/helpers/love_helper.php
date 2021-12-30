@@ -67,6 +67,7 @@ if (!function_exists('getLoves')) {
     
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
                    " . TBL_album . ".`id` as `album_id`,
                    " . TBL_artist . ".`artist_name`,
@@ -78,6 +79,7 @@ if (!function_exists('getLoves')) {
             WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_love . ".`album_id` LIKE ?
+              " . $ci->db->escape_str($where) . "
             GROUP BY " . TBL_love . ".`album_id`
             ORDER BY `count` DESC, " . TBL_album . ".`album_name` ASC
             LIMIT " . $ci->db->escape_str($limit);
@@ -106,12 +108,13 @@ if (!function_exists('getLoveCount')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT " . TBL_love . ".`album_id`
             FROM " . TBL_love . "
             WHERE " . TBL_love . ".`album_id` LIKE ?
               AND " . TBL_love . ".`user_id` LIKE ?
-              AND " . TBL_love . ".`created` BETWEEN ?
-                                             AND ?";
+              AND " . TBL_love . ".`created` BETWEEN ? AND ?
+              " . $ci->db->escape_str($where) . "";
         
     $query = $ci->db->query($sql, array($album_id, $user_id, $lower_limit, $upper_limit));
     return $query->num_rows();

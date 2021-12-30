@@ -60,6 +60,7 @@ if (!function_exists('getFans')) {
     
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
                    " . TBL_artist . ".`id` as `artist_id`,
                    " . TBL_artist . ".`artist_name`,
@@ -68,6 +69,7 @@ if (!function_exists('getFans')) {
                  " . TBL_artist . "
             WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_fan . ".`artist_id` LIKE ?
+              " . $ci->db->escape_str($where) . "
             GROUP BY " . TBL_fan . ".`artist_id`
             ORDER BY `count` DESC,
                     " . TBL_artist . ".`artist_name` ASC
@@ -97,12 +99,13 @@ if (!function_exists('getFanCount')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT " . TBL_fan . ".`artist_id`
             FROM " . TBL_fan . "
             WHERE " . TBL_fan . ".`artist_id` LIKE ?
               AND " . TBL_fan . ".`user_id` LIKE ?
-              AND " . TBL_fan . ".`created` BETWEEN ?
-                                             AND ?";
+              AND " . TBL_fan . ".`created` BETWEEN ? AND ?
+              " . $ci->db->escape_str($where) . "";
 
     $query = $ci->db->query($sql, array($artist_id, $user_id, $lower_limit, $upper_limit));
     return $query->num_rows();

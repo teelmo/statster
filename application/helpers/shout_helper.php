@@ -17,26 +17,32 @@ if (!function_exists('getShoutCount')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d');
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
-    $sql = "SELECT " . TBL_artist_shout . ".`id`,
-                   " . TBL_artist_shout . ".`artist_id` as `target_id`,
-                   'artist' as `target_type`
-            FROM " . TBL_artist_shout . "
-            WHERE " . TBL_artist_shout . ".`user_id` LIKE ?
-              AND " . TBL_artist_shout . ".`created` BETWEEN ? AND ?
-            UNION
-            SELECT " . TBL_album_shout . ".`id`,
-                   " . TBL_album_shout . ".`album_id` as `target_id`,
-                   'album' as `target_type`
-            FROM " . TBL_album_shout . "
-            WHERE " . TBL_album_shout . ".`user_id` LIKE ?
-              AND " . TBL_album_shout . ".`created` BETWEEN ? AND ?
-            UNION
-            SELECT " . TBL_user_shout . ".`id`,
-                   " . TBL_user_shout . ".`user_id` as `target_id`,
-                   'user' as `target_type`
-            FROM " . TBL_user_shout . "
-            WHERE " . TBL_user_shout . ".`adder_id` LIKE ?
-              AND " . TBL_user_shout . ".`created` BETWEEN ? AND ?";
+    $where = !empty($opts['where']) ? '' . $opts['where'] : '';
+    $sql = "SELECT * 
+            FROM (SELECT " . TBL_artist_shout . ".`id`,
+                         " . TBL_artist_shout . ".`created` as `created`,
+                         " . TBL_artist_shout . ".`artist_id` as `target_id`,
+                         'artist' as `target_type`
+                  FROM " . TBL_artist_shout . "
+                  WHERE " . TBL_artist_shout . ".`user_id` LIKE ?
+                    AND " . TBL_artist_shout . ".`created` BETWEEN ? AND ?
+                  UNION
+                  SELECT " . TBL_album_shout . ".`id`,
+                         " . TBL_album_shout . ".`created` as `created`,
+                         " . TBL_album_shout . ".`album_id` as `target_id`,
+                         'album' as `target_type`
+                  FROM " . TBL_album_shout . "
+                  WHERE " . TBL_album_shout . ".`user_id` LIKE ?
+                    AND " . TBL_album_shout . ".`created` BETWEEN ? AND ?
+                  UNION
+                  SELECT " . TBL_user_shout . ".`id`,
+                         " . TBL_user_shout . ".`created` as `created`,
+                         " . TBL_user_shout . ".`user_id` as `target_id`,
+                         'user' as `target_type`
+                  FROM " . TBL_user_shout . "
+                  WHERE " . TBL_user_shout . ".`adder_id` LIKE ?
+                    AND " . TBL_user_shout . ".`created` BETWEEN ? AND ?) AS `shouts`
+            WHERE " . $ci->db->escape_str($where) . "";
     $query = $ci->db->query($sql, array($user_id, $lower_limit, $upper_limit, $user_id, $lower_limit, $upper_limit, $user_id, $lower_limit, $upper_limit));
     return $query->num_rows();
   }
