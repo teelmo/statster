@@ -444,7 +444,7 @@ class Music extends CI_Controller {
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('music/recent', 'helpers/add_listening_helper');
+      $data['js_include'] = array('music/recent', 'libs/jquery.daterangepicker', 'helpers/add_listening_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/recent_view', $data);
