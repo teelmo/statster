@@ -32,6 +32,7 @@
       cursor: pointer;
       font-size: 12px;
       font-weight: 300;
+      user-select: none;
       vertical-align: sub;
       &:hover {
         color: #000;
@@ -39,11 +40,14 @@
       select {
         border: 0;
         color: #777;
+        cursor: pointer;
         font-family: 'Barlow', 'Open Sans', 'Lucida Grande', 'Helvetica Neue', 'Helvetica', 'Arial', 'Sans-serif';
         font-size: 12px;
         font-weight: 300;
         outline: none;
-        // text-align-last: center;
+        &:hover {
+          color: #000;
+        }
       }
     }
   }

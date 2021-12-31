@@ -15,19 +15,19 @@
           $title_elements[] = 'Before ' . DateTime::createFromFormat('!m', $to_array[1])->format('F') . ' ' . DateTime::createFromFormat('!d', $to_array[2])->format('jS') . ' ' . $to_array[0];
         }
         if ($month !== '\'%\'' && $day !== '\'%\'') {
-          $title_elements[] = DateTime::createFromFormat('!m', $month)->format('F') . ' ' . DateTime::createFromFormat('!d', $day)->format('jS');
+          $title_elements[] = 'on ' . DateTime::createFromFormat('!m', $month)->format('F') . ' ' . DateTime::createFromFormat('!d', $day)->format('jS');
         }
         else if ($month !== '\'%\'') {
-          $title_elements[] = DateTime::createFromFormat('!m', $month)->format('F');
+          $title_elements[] = 'in ' . DateTime::createFromFormat('!m', $month)->format('F');
         }
         else if ($day !== '\'%\'') {
-          $title_elements[] = DateTime::createFromFormat('!d', $day)->format('jS');
+          $title_elements[] = 'on ' . DateTime::createFromFormat('!d', $day)->format('jS');
         }
         if ($weekday !== '\'%\'') {
-          $title_elements[] = jddayofweek($weekday - 1, 1);
+          $title_elements[] = 'on a ' . jddayofweek($weekday, 1);
         }
         ?>
-        <h1><?=implode(', ', $title_elements)?></h1>
+        <h1><?=ucfirst(implode(', ', $title_elements))?></h1>
       </div>
     </div>
   </div>
