@@ -88,6 +88,7 @@ class Music extends CI_Controller {
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
       $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '%\'';
       $data['new_album_count'] = getListeningCount($data, TBL_album);
+      $data['where'] = '';
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
@@ -193,6 +194,7 @@ class Music extends CI_Controller {
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
       $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '%\'';
       $data['new_album_count'] = getListeningCount($data, TBL_album);
+      $data['where'] = '';
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);

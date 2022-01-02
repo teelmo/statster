@@ -17,7 +17,7 @@ if (!function_exists('getShoutCount')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d');
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
-    $where = !empty($opts['where']) ? '' . $opts['where'] : '';
+    $where = !empty($opts['where']) ? '' . $opts['where'] : '1';
     $sql = "SELECT * 
             FROM (SELECT " . TBL_artist_shout . ".`id`,
                          " . TBL_artist_shout . ".`created` as `created`,
