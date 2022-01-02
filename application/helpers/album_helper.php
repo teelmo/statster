@@ -177,7 +177,7 @@ if (!function_exists('deleteAlbum')) {
 }
 
 /**
-  * Gets album's info.
+  * Get album's info.
   *
   * @param array $opts.
   *          'album_name'   => Album name
@@ -222,7 +222,7 @@ if (!function_exists('getAlbumInfo')) {
 }
 
 /**
-  * Gets album's bio.
+  * Get album's bio.
   *
   * @param array $opts.
   *          'album_id'  => Album ID
@@ -290,7 +290,7 @@ if (!function_exists('addAlbumBio')) {
 
 
 /**
-   * Gets album's listenings.
+   * Get album's listenings.
    *
    * @param array $opts.
    *          'album_id'  => Album ID
@@ -379,7 +379,7 @@ if (!function_exists('getAlbumListeners')) {
 }
 
 /**
-   * Gets album's tags (genres and keywords).
+   * Get album's tags (genres and keywords).
    *
    * @param array $opts.
    *          'album_id'  => Album ID
@@ -413,7 +413,7 @@ if (!function_exists('getAlbumTags')) {
 }
 
 /**
-   * Gets album's genres.
+   * Get album's genres.
    *
    * @param array $opts.
    *          'album_id'  => Album ID
@@ -446,7 +446,7 @@ if (!function_exists('getAlbumGenres')) {
 }
 
 /**
-   * Gets album's keywords.
+   * Get album's keywords.
    *
    * @param array $opts.
    *          'album_id'  => Album ID
@@ -479,7 +479,7 @@ if (!function_exists('getAlbumKeywords')) {
 }
 
 /**
-   * Gets album's nationalities.
+   * Get album's nationalities.
    *
    * @param array $opts.
    *          'album_id'  => Album ID

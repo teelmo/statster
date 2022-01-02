@@ -124,7 +124,7 @@ if (!function_exists('deleteArtist')) {
 }
 
 /**
-  * Gets artist's info.
+  * Get artist's info.
   *
   * @param array $opts.
   *          'artist_name'  => Artist name
@@ -176,7 +176,7 @@ if (!function_exists('getArtistInfo')) {
 }
 
 /**
-  * Gets artist's bio.
+  * Get artist's bio.
   *
   * @param array $opts.
   *          'artist_id'  => Artist ID
@@ -243,7 +243,7 @@ if (!function_exists('addArtistBio')) {
 }
 
 /**
-   * Gets artist's listenings.
+   * Get artist's listenings.
    *
    * @param array $opts.
    *          'artist_id'  => Artist ID
@@ -279,7 +279,7 @@ if (!function_exists('getArtistListenings')) {
 }
 
 /**
-   * Gets artist's tags (genres, keywords and nationalities).
+   * Get artist's tags (genres, keywords and nationalities).
    *
    * @param array $opts.
    *          'artist_id'  => Artist ID
@@ -314,7 +314,7 @@ if (!function_exists('getArtistTags')) {
 }
 
 /**
-   * Gets artist's genres.
+   * Get artist's genres.
    *
    * @param array $opts.
    *          'artist_id'  => Artist ID
@@ -351,7 +351,7 @@ if (!function_exists('getArtistGenres')) {
 }
 
 /**
-   * Gets artist's keywords.
+   * Get artist's keywords.
    *
    * @param array $opts.
    *          'artist_id'  => Artist ID
@@ -426,12 +426,57 @@ if (!function_exists('getArtistNationalities')) {
 }
 
 /**
-   * Edit artist info.
+   * Get artist's associated artists.
    *
    * @param array $opts.
    *          'artist_id'  => Artist ID
-   *          'artist_name'  => Artist Name
-   *          'spotify_id'  => Spotify ID
+   *
+   * @return array artist's Associated artists information.
+   *
+   */
+if (!function_exists('getAssociatedArtists')) {
+  function getAssociatedArtists($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
+    $sql = "SELECT `associated`.`artist2` AS `artist_id`,
+                   `associated`.`artist_name`
+            FROM (SELECT " . TBL_associated_artist . ".`artist1`,
+                         " . TBL_associated_artist . ".`artist2`,
+                         " . TBL_artist . ".`artist_name` 
+                  FROM " . TBL_artist . ",
+                       " . TBL_associated_artist . "
+                  WHERE " . TBL_associated_artist . ".`artist2` = " . TBL_artist . ".`id`) AS `associated`,
+                  " . TBL_artist . " 
+            WHERE " . TBL_artist . ".`id` = `associated`.`artist1`
+              AND " . TBL_artist . ".`id` IN(?)
+            UNION
+            SELECT `associated`.`artist1` AS `artist_id`,
+                   `associated`.`artist_name`
+            FROM (SELECT " . TBL_associated_artist . ".`artist1`,
+                         " . TBL_associated_artist . ".`artist2`,
+                         " . TBL_artist . ".`artist_name` 
+                  FROM " . TBL_artist . ",
+                       " . TBL_associated_artist . "
+                  WHERE " . TBL_associated_artist . ".`artist1` = " . TBL_artist . ".`id`) AS `associated`,
+                  " . TBL_artist . " 
+            WHERE " . TBL_artist . ".`id` = `associated`.`artist2`
+              AND " . TBL_artist . ".`id` IN(?)";
+    $query = $ci->db->query($sql, array($artist_id, $artist_id));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+   * Edit artist info.
+   *
+   * @param array $opts.
+   *          'artist_id'     => Artist ID
+   *          'artist_name'   => Artist Name
+   *          'spotify_id'    => Spotify ID
    *
    * @return boolean TRUE or FALSE.
    *

@@ -87,7 +87,7 @@ define('TBL_artists', 'artists');
 define('TBL_artist_biography', 'artist_biography');
 define('TBL_artist_shout', 'artist_shout');
 define('TBL_artist_equalize', 'artist_equalize');
-define('TBL_associated_artist', 'assosiated_artist');
+define('TBL_associated_artist', 'associated_artist');
 define('TBL_blog', 'blog');
 define('TBL_blog_shout', 'blog_shout');
 define('TBL_bmi', 'bmi');
