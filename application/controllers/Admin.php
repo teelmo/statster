@@ -46,7 +46,7 @@ class Admin extends CI_Controller {
         $data['user_id'] = $this->session->userdata['user_id'];
         updateArtist($data);
         updateAssociatedArtists($data);
-        // redirect('/music/' . url_title($data['artist_name']));
+        redirect('/music/' . url_title($data['artist_name']));
       }
       else {
         $this->load->helper(array('form'));
