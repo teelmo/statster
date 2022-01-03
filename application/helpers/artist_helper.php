@@ -426,6 +426,41 @@ if (!function_exists('getArtistNationalities')) {
 }
 
 /**
+   * Edit artist info.
+   *
+   * @param array $opts.
+   *          'artist_id'     => Artist ID
+   *          'artist_name'   => Artist Name
+   *          'spotify_id'    => Spotify ID
+   *
+   * @return boolean TRUE or FALSE.
+   *
+   */
+if (!function_exists('updateArtist')) {
+  function updateArtist($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
+    $artist_name = isset($opts['artist_name']) ? trim(str_replace(' ', '', $opts['artist_name'])) : FALSE;
+    $spotify_id = !empty($opts['spotify_id']) ? $opts['spotify_id'] : '';
+
+    if ($artist_name !== FALSE) {
+      $sql = "UPDATE " . TBL_artist . "
+                SET " . TBL_artist . ".`artist_name` = ?,
+                    " . TBL_artist . ".`spotify_id` = ?
+                WHERE " . TBL_artist . ".`id` = ?";
+
+      $query = $ci->db->query($sql, array($artist_name, $spotify_id, $artist_id));
+      return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
+    }
+    else {
+      return FALSE;
+    }
+  }
+}
+
+/**
    * Get artist's associated artists.
    *
    * @param array $opts.
@@ -462,46 +497,12 @@ if (!function_exists('getAssociatedArtists')) {
                   WHERE " . TBL_associated_artist . ".`artist1` = " . TBL_artist . ".`id`) AS `associated`,
                   " . TBL_artist . " 
             WHERE " . TBL_artist . ".`id` = `associated`.`artist2`
-              AND " . TBL_artist . ".`id` IN(?)";
+              AND " . TBL_artist . ".`id` IN(?)
+            ORDER BY `artist_name` ASC";
     $query = $ci->db->query($sql, array($artist_id, $artist_id));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
-  }
-}
-
-/**
-   * Edit artist info.
-   *
-   * @param array $opts.
-   *          'artist_id'     => Artist ID
-   *          'artist_name'   => Artist Name
-   *          'spotify_id'    => Spotify ID
-   *
-   * @return boolean TRUE or FALSE.
-   *
-   */
-if (!function_exists('updateArtist')) {
-  function updateArtist($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '';
-    $artist_name = isset($opts['artist_name']) ? trim(str_replace(' ', '', $opts['artist_name'])) : FALSE;
-    $spotify_id = !empty($opts['spotify_id']) ? $opts['spotify_id'] : '';
-
-    if ($artist_name !== FALSE) {
-      $sql = "UPDATE " . TBL_artist . "
-                SET " . TBL_artist . ".`artist_name` = ?,
-                    " . TBL_artist . ".`spotify_id` = ?
-                WHERE " . TBL_artist . ".`id` = ?";
-
-      $query = $ci->db->query($sql, array($artist_name, $spotify_id, $artist_id));
-      return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
-    }
-    else {
-      return FALSE;
-    }
   }
 }
 ?>

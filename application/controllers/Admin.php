@@ -22,8 +22,8 @@ class Admin extends CI_Controller {
 
       $data['all_artists'] = getArtistsUnique();
       $data['all_albums'] = getAlbumsUnique();
-
       $data['js_include'] = array('admin/admin');
+
       $this->load->view('site_templates/header');
       $this->load->view('admin/admin_view', $data);
       $this->load->view('site_templates/footer');
@@ -35,7 +35,7 @@ class Admin extends CI_Controller {
   public function artist($artist_id) {
     if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
-      $this->load->helper(array('artist_helper', 'img_helper'));
+      $this->load->helper(array('artist_helper', 'img_helper', 'output_helper'));
 
       $data = array();
       if (!empty($_POST)) {
@@ -51,9 +51,11 @@ class Admin extends CI_Controller {
 
         $data += getArtistInfo(array('artist_id' => $artist_id));
 
+        $data['associated_artists'] = (json_decode(getAssociatedArtists($data), true) !== NULL) ? json_decode(getAssociatedArtists($data), true) : array();
+        $data['all_artists'] = getArtistsUnique();
         $data['image_uri'] = getArtistImg(array('artist_id' => $artist_id, 'size' => 32));
-
         $data['js_include'] = array('admin/edit_artist');
+
         $this->load->view('site_templates/header');
         $this->load->view('admin/edit_artist_view', $data);
         $this->load->view('site_templates/footer');
@@ -98,8 +100,8 @@ class Admin extends CI_Controller {
         $data['all_artists'] = getArtistsUnique();
         $data['artists'] = $artists;
         $data['image_uri'] = getAlbumImg(array('album_id' => $album_id, 'size' => 32));
-
         $data['js_include'] = array('admin/edit_album');
+
         $this->load->view('site_templates/header');
         $this->load->view('admin/edit_album_view', $data);
         $this->load->view('site_templates/footer');
