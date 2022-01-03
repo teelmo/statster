@@ -32,7 +32,7 @@ class Fan extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 
@@ -59,7 +59,7 @@ class Fan extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 }

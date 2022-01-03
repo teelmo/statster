@@ -32,7 +32,7 @@ class Love extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 
@@ -56,7 +56,7 @@ class Love extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 }

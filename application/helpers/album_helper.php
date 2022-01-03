@@ -171,7 +171,7 @@ if (!function_exists('deleteAlbum')) {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 }

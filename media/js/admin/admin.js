@@ -8,8 +8,7 @@ $.extend(view, {
       }
       $.ajax({
         data:{
-          artist_name:name,
-          user_id:parseInt(<?=$this->session->userdata('user_id')?>)
+          artist_name:name
         },
         dataType:'json',
         statusCode:{

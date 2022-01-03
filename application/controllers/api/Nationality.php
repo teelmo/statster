@@ -40,7 +40,7 @@ class Nationality extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 
@@ -53,7 +53,7 @@ class Nationality extends CI_Controller {
       echo deleteAlbumNationality($_REQUEST);
     }
     else {
-      show_403();
+      show_404();
     }
   }
 }

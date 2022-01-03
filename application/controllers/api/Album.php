@@ -42,7 +42,7 @@ class Album extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 
@@ -55,7 +55,7 @@ class Album extends CI_Controller {
       deleteAlbum($_REQUEST);
     }
     else {
-      show_403();
+      show_404();
     }
   }
 }

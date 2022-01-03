@@ -92,7 +92,7 @@ class User extends CI_Controller {
         redirect('/user/' . $this->session->userdata('username'), 'refresh');
       }
       else {
-        show_403();
+        show_404();
       }
     }
     else {

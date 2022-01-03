@@ -28,11 +28,12 @@ class Artist extends CI_Controller {
     if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers
       $this->load->helper(array('artist_helper', 'spotify_helper'));
-
+      
+      $_REQUEST['user_id'] = $this->session->userdata('user_id');
       echo addArtist($_REQUEST);
     }
     else {
-      show_403();
+      show_404();
     }
   }
 
@@ -52,7 +53,7 @@ class Artist extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 
@@ -65,7 +66,7 @@ class Artist extends CI_Controller {
       deleteArtist($_REQUEST);
     }
     else {
-      show_403();
+      show_404();
     }
   }
 }

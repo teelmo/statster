@@ -118,7 +118,7 @@ if (!function_exists('deleteArtist')) {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
 }
@@ -503,6 +503,57 @@ if (!function_exists('getAssociatedArtists')) {
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+   * Update artist's associated artists.
+   *
+   * @param array $opts.
+   *          'artist_id'  => Artist ID
+   *
+   * @return array artist's Associated artists information.
+   *
+   */
+if (!function_exists('updateAssociatedArtists')) {
+  function updateAssociatedArtists($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $ci->load->helper(array('output_helper'));
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : FALSE;
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : FALSE;
+    $associated_artist_ids = !empty($opts['associated_artist_ids']) ? $opts['associated_artist_ids'] : array();
+
+    // Get currect associations.
+    $associated_artists = (json_decode(getAssociatedArtists(array('artist_id' => $artist_id)), true) !== NULL) ? json_decode(getAssociatedArtists(array('artist_id' => $artist_id)), true) : array();
+
+    // Check what needs to be done.
+    foreach ($associated_artists as $associated_artist) {
+      // Nothing, already exists.
+      if (in_array($associated_artist['artist_id'], $associated_artist_ids)) {
+        $associated_artist_ids = array_diff($associated_artist_ids, [$associated_artist['artist_id']]);
+      }
+      // Doesn't exist anymore, needs to be deleded.
+      else {
+        $sql = "DELETE 
+              FROM " . TBL_associated_artist . "
+              WHERE (" . TBL_associated_artist . ".`artist1` = ?
+                 AND " . TBL_associated_artist . ".`artist2` = ?)
+                 OR (" . TBL_associated_artist . ".`artist1` = ?
+                 AND " . TBL_associated_artist . ".`artist2` = ?)";
+        $query = $ci->db->query($sql, array($associated_artist['artist_id'], $artist_id, $artist_id, $associated_artist['artist_id']));
+      }
+    }
+    // Add new associations.
+    foreach ($associated_artist_ids as $associated_artist_id) {
+      $sql = "INSERT
+              INTO " . TBL_associated_artist . " (`artist1`, `artist2`, `user_id`, `created`)
+              VALUES (?, ?, ?, CURRENT_TIMESTAMP())";
+      $query = $ci->db->query($sql, array($artist_id, $associated_artist_id, $user_id));
+    }
+    return TRUE;
   }
 }
 ?>

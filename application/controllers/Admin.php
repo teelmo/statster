@@ -6,7 +6,7 @@
 class Admin extends CI_Controller {
 
   public function index() {
-    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    if (isset($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
       $this->load->helper(array('form', 'img_helper', 'artist_helper', 'album_helper', 'music_helper', 'output_helper'));
 
@@ -29,11 +29,11 @@ class Admin extends CI_Controller {
       $this->load->view('site_templates/footer');
     }
     else {
-      show_403();
+      show_404();
     }
   }
   public function artist($artist_id) {
-    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    if (isset($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
       $this->load->helper(array('artist_helper', 'img_helper', 'output_helper'));
 
@@ -43,8 +43,10 @@ class Admin extends CI_Controller {
         if (strpos($data['image_uri'], IMAGE_SERVER) === FALSE) {
           fetchImages($data, 'artist');
         }
+        $data['user_id'] = $this->session->userdata['user_id'];
         updateArtist($data);
-        redirect('/music/' . url_title($data['artist_name']));
+        updateAssociatedArtists($data);
+        // redirect('/music/' . url_title($data['artist_name']));
       }
       else {
         $this->load->helper(array('form'));
@@ -62,11 +64,11 @@ class Admin extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
   public function album($album_id) {
-    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    if (isset($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
       $this->load->helper(array('album_helper', 'artist_helper', 'img_helper'));
 
@@ -108,11 +110,11 @@ class Admin extends CI_Controller {
       }
     }
     else {
-      show_403();
+      show_404();
     }
   }
   public function genre($genre_id) {
-    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    if (isset($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
       $this->load->helper(array());
 
@@ -123,11 +125,11 @@ class Admin extends CI_Controller {
       $this->load->view('site_templates/footer');
     }
     else {
-      show_403();
+      show_404();
     }
   }
   public function keyword($keyword_id) {
-    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    if (isset($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
       $this->load->helper(array());
 
@@ -138,11 +140,11 @@ class Admin extends CI_Controller {
       $this->load->view('site_templates/footer');
     }
     else {
-      show_403();
+      show_404();
     }
   }
   public function nationality($nationality_id) {
-    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+    if (isset($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers.
       $this->load->helper(array());
 
@@ -153,7 +155,7 @@ class Admin extends CI_Controller {
       $this->load->view('site_templates/footer');
     }
     else {
-      show_403();
+      show_404();
     }
   }
 }
