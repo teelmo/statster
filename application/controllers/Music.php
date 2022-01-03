@@ -82,7 +82,7 @@ class Music extends CI_Controller {
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
-      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
+      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array('artist_id' => 0);
       $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
       $data['where'] = TBL_artist . '.`created` LIKE \'' . $data['year'] . '%\'';
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
@@ -188,7 +188,7 @@ class Music extends CI_Controller {
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
-      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array();
+      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array('artist_id' => 0);
       $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
       $data['where'] = TBL_artist . '.`created` LIKE \'' . $data['year'] . '%\'';
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
