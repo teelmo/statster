@@ -26,11 +26,13 @@ if (!function_exists('getListeningCount')) {
     $sql = "SELECT count(*) AS `count`
             FROM " . TBL_album . ",
                  " . TBL_artist . ",
+                 " . TBL_artists . ",
                  " . TBL_listening . ",
                  " . TBL_user . "
             WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
+              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
