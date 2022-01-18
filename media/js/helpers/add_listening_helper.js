@@ -26,14 +26,16 @@ $.extend(view, {
     };
     $('#addListeningDate').val(curday('-'));
     $('#addListeningDate').dateRangePicker({
-      autoClose: true,
-      endDate: '<?=CUR_DATE?>',
-      hoveringTooltip: false,
-      showShortcuts: false,
-      showTopbar: false,
-      singleDate : true,
-      singleMonth: true,
-      startOfWeek: 'monday'
+      autoClose:true,
+      endDate:'<?=date('Y-m-d',strtotime(CUR_DATE . "+1 days"))?>',
+      hoveringTooltip:false,
+      showShortcuts:false,
+      showTopbar:false,
+      singleDate:true,
+      singleMonth:true,
+      startOfWeek:'monday',
+      customArrowPrevSymbol:'<i class="fa fa-angle-left"></i>',
+      customArrowNextSymbol:'<i class="fa fa-angle-right"></i>'
     });
     $('#addListeningDate').change(function () {
       setTimeout(function () {

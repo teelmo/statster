@@ -1541,24 +1541,49 @@ h2 {
   &.no-topbar {
     padding: 0;
   }
+  &.single-date {
+    margin: 5px 0 0 0;
+    .week-name {
+      display: none;
+    }
+  }
   .month-wrapper {
+    padding: 2px 4px;
     border-radius: 0;
-    table .day {
-      &.real-today.toMonth {
-        background-color: #000;
-        color: #fff;
-        &.hovering {
-          color: #000;
+    table {
+      thead {
+        .caption {
+          height: 22px;
+          .prev:hover,
+          .next:hover {
+            background-color: #fff;
+            color: #aaa;
+          }
         }
       }
-      &.toMonth.hovering,
-      &.checked {
-        background-color: #f1f1f1;
+      .week-number,
+      .week-name {
+        font-size: 9px;
       }
-      &.first-date-selected,
-      &.last-date-selected {
-        background-color: #999 !important;
-        color: #fff !important;
+      .day {
+        padding: 4px 0;
+        &.real-today.toMonth {
+          background-color: #999;
+          color: #fff;
+          &.hovering {
+            background-color: #999;
+            color: #fff;
+          }
+        }
+        &.toMonth.hovering,
+        &.checked {
+          background-color: #f1f1f1;
+        }
+        &.first-date-selected,
+        &.last-date-selected {
+          background-color: #000 !important;
+          color: #fff !important;
+        }
       }
     }
   }
