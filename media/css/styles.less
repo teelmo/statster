@@ -1565,28 +1565,35 @@ h2 {
           }
         }
       }
-      .week-number,
-      .week-name {
-        font-size: 9px;
-      }
-      .day {
-        padding: 4px 0;
-        &.real-today.toMonth {
-          background-color: #999;
-          color: #fff;
-          &.hovering {
+      tbody {
+        border-top: 5px solid #fff;
+        .week-number,
+        .week-name {
+          font-size: 9px;
+        }
+        .week-number {
+          font-family: 'Raleway', georgia;
+        }
+        .day {
+          font-family: 'Raleway', georgia;
+          padding: 4px 0;
+          &.real-today.toMonth {
             background-color: #999;
             color: #fff;
+            &.hovering {
+              background-color: #999;
+              color: #fff;
+            }
           }
-        }
-        &.toMonth.hovering,
-        &.checked {
-          background-color: #f1f1f1;
-        }
-        &.first-date-selected,
-        &.last-date-selected {
-          background-color: #000 !important;
-          color: #fff !important;
+          &.toMonth.hovering,
+          &.checked {
+            background-color: #f1f1f1;
+          }
+          &.first-date-selected,
+          &.last-date-selected {
+            background-color: #000 !important;
+            color: #fff !important;
+          }
         }
       }
     }
