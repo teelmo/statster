@@ -1548,16 +1548,20 @@ h2 {
     }
   }
   .month-wrapper {
-    padding: 2px 4px;
     border-radius: 0;
+    padding: 0;
     table {
       thead {
         .caption {
-          height: 22px;
+          background-color: #f1f1f1;
+          height: 24px;
+          .month-name {
+            text-transform: capitalize;
+          }
           .prev:hover,
           .next:hover {
             background-color: #fff;
-            color: #aaa;
+            color: #000;
           }
         }
       }
