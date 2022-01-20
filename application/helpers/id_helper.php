@@ -72,8 +72,10 @@ if (!function_exists('getAlbumIDs')) {
 
     $artist_id = isset($opts['artist_id']) ? $opts['artist_id'] : '';
     $sql = "SELECT " . TBL_album . ".`id` as `album_id`
-            FROM " . TBL_album . " 
-            WHERE " . TBL_album . ".`artist_id` = ?";
+            FROM " . TBL_album . ",
+                 " . TBL_artists . " 
+            WHERE " . TBL_artists . ".`artist_id` = " . TBL_album . ".`artist_id`
+              AND " . TBL_artists . ".`artist_id` = ?";
     $query = $ci->db->query($sql, array($artist_id));
     return ($query->num_rows() > 0) ? $query->result() : FALSE;
   }

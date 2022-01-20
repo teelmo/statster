@@ -116,7 +116,6 @@ $.extend(view, {
         url:'/api/artist/delete'
       });
       $('#deleteArtist option:selected').remove();
-      // $('deleteArtist option').removeAttr('selected');
       $('#deleteArtist').trigger('chosen:updated');
       return false;
     });
@@ -148,8 +147,42 @@ $.extend(view, {
         url:'/api/album/delete'
       });
       $('#deleteAlbum option:selected').remove();
-      // $('deleteAlbum option').removeAttr('selected');
       $('#deleteAlbum').trigger('chosen:updated');
+      return false;
+    });
+    $('#transferAlbumDataSubmit').click(function () {
+      var album_id_from = $('#transferAlbumDataFrom').val();
+      var album_id_to = $('#transferAlbumDataTo').val();
+      if (album_id_from === '' || album_id_to === '') {
+        return false;
+      }
+      $.ajax({
+        data:{
+          album_id_from:album_id_from,
+          album_id_to:album_id_to
+        },
+        dataType:'json',
+        statusCode:{
+          200: function (data) { // 200 OK
+            alert('Album with ID ' + album_id_from + ' data transferred to album with ID ' + album_id_to + '!');
+          },
+          400: function () { // 400 Bad Request
+            alert('400 Bad Request');
+          },
+          401: function () { // 401 Unauthorized
+            alert('401 Unauthorized');
+          },
+          403: function () { // 403 Forbidden
+            alert('401 Forbidden');
+          }
+        },
+        type:'POST',
+        url:'/api/album/transfer'
+      });
+      $('#transferAlbumDataFrom option:selected').remove();
+      $('#transferAlbumDataTo option:selected').remove();
+      $('#transferAlbumDataFrom').trigger('chosen:updated');
+      $('#transferAlbumDataTo').trigger('chosen:updated');
       return false;
     });
   }
@@ -159,4 +192,6 @@ $(document).ready(function () {
   view.initAdminEvents();
   $('#deleteArtist').chosen({search_contains:true});
   $('#deleteAlbum').chosen({search_contains:true});
+  $('#transferAlbumDataFrom').chosen({search_contains:true});
+  $('#transferAlbumDataTo').chosen({search_contains:true});
 });

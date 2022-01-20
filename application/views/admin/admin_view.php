@@ -74,4 +74,30 @@
         <div><input type="submit" name="deleteAlbumSubmit" tabindex="13" id="deleteAlbumSubmit" value="Delete" /></div>
       </form>
     </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h2>Transfer album's data</h2>
+      <?=form_open('', array('class' => '', 'id' => 'transferAlbumDataForm'))?>
+        <div id="albumTransferData">
+          <div>
+            <select data-placeholder="Select source album" class="chosen-select" id="transferAlbumDataFrom">
+              <option>Select album to transfer from</option>
+              <?=implode('', array_map(function($album) {
+                return '<option value="' . $album['album_id'] . '">' . $album['artist_name'] . ' [' . $album['artist_id'] . '] – ' . $album['album_name'] . ' [' . $album['album_id'] . '], ' . $album['count'] . ' listenings</option>';
+              }, $all_albums))?>
+            </select>
+          </div>
+          <br />
+          <div>
+            <select data-placeholder="Select target album" class="chosen-select" id="transferAlbumDataTo">
+              <option>Select album to transfer to</option>
+              <?=implode('', array_map(function($album) {
+                return '<option value="' . $album['album_id'] . '">' . $album['artist_name'] . ' [' . $album['artist_id'] . '] – ' . $album['album_name'] . ' [' . $album['album_id'] . '], ' . $album['count'] . ' listenings</option>';
+              }, $all_albums))?>
+            </select>
+          </div>
+        </div>
+        <div><input type="submit" name="transferAlbumDataSubmit" tabindex="13" id="transferAlbumDataSubmit" value="Transfer" /></div>
+      </form>
+    </div>
   </div>

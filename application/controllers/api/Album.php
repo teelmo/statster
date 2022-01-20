@@ -58,5 +58,19 @@ class Album extends CI_Controller {
       show_404();
     }
   }
+
+
+  /* Delete album information */
+  public function tranfer() {
+    if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+      // Load helpers
+      $this->load->helper(array('album_helper'));
+      
+      transferAlbumData($_REQUEST);
+    }
+    else {
+      show_404();
+    }
+  }
 }
 ?>

@@ -70,6 +70,7 @@ if (!function_exists('addAlbum')) {
         foreach (explode(', ', $data['artist_name']) as $artist_name) {
           // Let's check for missing artists.
           $artist_name = trim($artist_name);
+          $data['artist_name'] = $artist_name;
           if (getArtistID(array('artist_name' => $artist_name)) === FALSE) {
             $data['artist_id'][] = addArtist(array('artist_name' => $artist_name, 'user_id' => $data['user_id']));
           }
@@ -155,6 +156,72 @@ if (!function_exists('deleteAlbum')) {
       return json_encode(array('error' => array('msg' => $data)));
     }
     if (in_array($ci->session->userdata['user_id'], ADMIN_USERS)) {
+      // Delete album data from DB.
+      $sql = "DELETE 
+                FROM " . TBL_album . "
+                WHERE " . TBL_album . ".`id` = ?";
+      $query = $ci->db->query($sql, array($data['album_id']));
+
+      if ($ci->db->affected_rows() === 1) {
+        header('HTTP/1.1 200 OK');
+        return json_encode(array());
+      }
+      else {
+        header('HTTP/1.1 401 Unauthorized');
+        return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
+      }
+    }
+    else {
+      show_404();
+    }
+  }
+}
+
+/**
+  * Transfer album data.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON.
+  */
+if (!function_exists('transferAlbumData')) {
+  function transferAlbumData($opts = array()) {
+    $data = array();
+    if (!$data['album_id_from'] = $opts['album_id_from'] && !$data['album_id_to'] = $opts['album_id_to']) {
+      header('HTTP/1.1 400 Bad Request');
+      return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
+    }
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    // Get user id from session.
+    if (!$data['user_id'] = $ci->session->userdata('user_id')) {
+      header('HTTP/1.1 401 Unauthorized');
+      return json_encode(array('error' => array('msg' => $data)));
+    }
+    if (in_array($ci->session->userdata['user_id'], ADMIN_USERS)) {
+      // Transfer keywords.
+      $sql = "UPDATE " . TBL_keywords . "
+                SET " . TBL_keywords . ".album_id = ?
+              WHERE " . TBL_keywords . ".album_id = ?";
+      $query = $ci->db->query($sql, array($data['album_id_from'], $data['album_id_to']));
+      // Transfer genres.
+      $sql = "UPDATE " . TBL_genres . "
+                SET " . TBL_genres . ".album_id = ?
+              WHERE " . TBL_genres . ".album_id = ?";
+      $query = $ci->db->query($sql, array($data['album_id_from'], $data['album_id_to']));
+      // Transfer nationalities.
+      $sql = "UPDATE " . TBL_nationalities . "
+                SET " . TBL_nationalities . ".album_id = ?
+              WHERE " . TBL_nationalities . ".album_id = ?";
+      $query = $ci->db->query($sql, array($data['album_id_from'], $data['album_id_to']));
+      // Transfer listenings.
+      $sql = "UPDATE " . TBL_listenings . "
+                SET " . TBL_listenings . ".album_id = ?
+              WHERE " . TBL_listenings . ".album_id = ?";
+      $query = $ci->db->query($sql, array($data['album_id_from'], $data['album_id_to']));
+
+
       // Delete album data from DB.
       $sql = "DELETE 
                 FROM " . album_id . "
