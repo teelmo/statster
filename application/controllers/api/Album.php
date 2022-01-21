@@ -61,11 +61,11 @@ class Album extends CI_Controller {
 
 
   /* Delete album information */
-  public function tranfer() {
+  public function transfer() {
     if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
       // Load helpers
       $this->load->helper(array('album_helper'));
-      
+
       transferAlbumData($_REQUEST);
     }
     else {

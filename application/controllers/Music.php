@@ -127,7 +127,7 @@ class Music extends CI_Controller {
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getArtistListenings($data);
         }
-        $data['listener_count'] = json_decode(getListeners($data), true) !== NULL ? count(json_decode(getListeners($data), true)) : 0;
+        $data['listener_count'] = (getListeners($data) !== NULL) ? count(json_decode(getListeners($data), true)) : 0;
 
         if (empty($data['spotify_id'])) {
           $data['spotify_id'] = getSpotifyResourceId($data);
@@ -247,7 +247,7 @@ class Music extends CI_Controller {
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getAlbumListenings($data);
         }
-        $data['listener_count'] = count(json_decode(getAlbumListeners($data), true));
+        $data['listener_count'] = (getListeners($data) !== NULL) ? count(json_decode(getListeners($data), true)) : 0;
         if (empty($data['spotify_id'])) {
           $data['spotify_id'] = getSpotifyResourceId($data);
         }

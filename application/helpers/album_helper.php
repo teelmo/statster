@@ -186,14 +186,14 @@ if (!function_exists('deleteAlbum')) {
   */
 if (!function_exists('transferAlbumData')) {
   function transferAlbumData($opts = array()) {
-    $data = array();
-    if (!$data['album_id_from'] = $opts['album_id_from'] && !$data['album_id_to'] = $opts['album_id_to']) {
+    $data = $opts;
+    if (!$data['album_id_from'] || !$data['album_id_to']) {
       header('HTTP/1.1 400 Bad Request');
       return json_encode(array('error' => array('msg' => ERR_BAD_REQUEST)));
     }
     $ci=& get_instance();
     $ci->load->database();
-    
+
     // Get user id from session.
     if (!$data['user_id'] = $ci->session->userdata('user_id')) {
       header('HTTP/1.1 401 Unauthorized');
@@ -201,41 +201,27 @@ if (!function_exists('transferAlbumData')) {
     }
     if (in_array($ci->session->userdata['user_id'], ADMIN_USERS)) {
       // Transfer keywords.
-      $sql = "UPDATE " . TBL_keywords . "
+      $sql = "UPDATE IGNORE " . TBL_keywords . "
                 SET " . TBL_keywords . ".album_id = ?
               WHERE " . TBL_keywords . ".album_id = ?";
-      $query = $ci->db->query($sql, array($data['album_id_from'], $data['album_id_to']));
+      $query = $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
       // Transfer genres.
-      $sql = "UPDATE " . TBL_genres . "
+      $sql = "UPDATE IGNORE " . TBL_genres . "
                 SET " . TBL_genres . ".album_id = ?
               WHERE " . TBL_genres . ".album_id = ?";
-      $query = $ci->db->query($sql, array($data['album_id_from'], $data['album_id_to']));
+      $query = $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
       // Transfer nationalities.
-      $sql = "UPDATE " . TBL_nationalities . "
+      $sql = "UPDATE IGNORE " . TBL_nationalities . "
                 SET " . TBL_nationalities . ".album_id = ?
               WHERE " . TBL_nationalities . ".album_id = ?";
-      $query = $ci->db->query($sql, array($data['album_id_from'], $data['album_id_to']));
+      $query = $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
       // Transfer listenings.
-      $sql = "UPDATE " . TBL_listenings . "
-                SET " . TBL_listenings . ".album_id = ?
-              WHERE " . TBL_listenings . ".album_id = ?";
-      $query = $ci->db->query($sql, array($data['album_id_from'], $data['album_id_to']));
-
-
-      // Delete album data from DB.
-      $sql = "DELETE 
-                FROM " . album_id . "
-                WHERE " . TBL_album . ".`id` = ?";
-      $query = $ci->db->query($sql, array($data['album_id']));
-
-      if ($ci->db->affected_rows() === 1) {
-        header('HTTP/1.1 200 OK');
-        return json_encode(array());
-      }
-      else {
-        header('HTTP/1.1 401 Unauthorized');
-        return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
-      }
+      $sql = "UPDATE " . TBL_listening . "
+                SET " . TBL_listening . ".album_id = ?
+              WHERE " . TBL_listening . ".album_id = ?";
+      $query = $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
+      header('HTTP/1.1 200 OK');
+      return json_encode(array());
     }
     else {
       show_404();
@@ -382,66 +368,6 @@ if (!function_exists('getAlbumListenings')) {
               AND " . TBL_album . ".`id` LIKE ?";
     $query = $ci->db->query($sql, array($user_id, $album_id));
     return ($query->num_rows() > 0) ? $query->result_array()[0] : array($count_type => 0);
-  }
-}
-
-/**
-  * Returns listeners for given artist or album.
-  *
-  * @param array $opts.
-  *          'album_id'        => Album id
-  *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
-  *          'limit'           => Limit
-  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
-  *          'order_by'        => Order by argument
-  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
-  *          'username'        => Username
-  *          'where'           => Custom where argument
-  *
-  * @return string JSON encoded data containing album information.
-  */
-if (!function_exists('getAlbumListeners')) {
-  function getAlbumListeners($opts = array()) {
-    $ci=& get_instance();
-    $ci->load->database();
-
-    $album_id = isset($opts['album_id']) ? $opts['album_id'] : '';
-    $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_user . '.`id`';
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
-    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
-    $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC';
-    $select = !empty($opts['select']) ? ', ' . $opts['select'] : '';
-    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-
-    $sql = "SELECT count(*) AS `count`,
-                   " . TBL_user . ".`username` AS `username`,
-                   " . TBL_user . ".`id` AS `user_id`,
-                   " . TBL_album . ".`album_name` AS `album_name`,
-                   " . TBL_album . ".`id` AS `album_id`,
-                   " . TBL_album . ".`year` AS `year`,
-                   " . TBL_listening . ".`date` AS `date`
-                  " . $ci->db->escape_str($select) . "
-            FROM " . TBL_album . ", 
-                 " . TBL_listening . ", 
-                 " . TBL_user . "
-                 " . $ci->db->escape_str($from) . "
-            WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_album . ".`id` = ?
-              " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . "
-            ORDER BY " . $ci->db->escape_str($order_by) . "
-            LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $album_id));
-
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
   }
 }
 
