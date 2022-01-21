@@ -66,7 +66,10 @@ class User extends CI_Controller {
         $data['similarity'] = getUserSimilarity($data);
       }
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('user/profile', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/add_listening_helper', 'helpers/time_interval_helper');
+      $data['js_include'] = array('user/profile', 'libs/highcharts', 'libs/peity', 'libs/jquery.daterangepicker', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/time_interval_helper');
+      if ($data['logged_in'] === 'true') {
+        $data['js_include'][] = 'helpers/add_listening_helper';
+      }
       
       $this->load->view('site_templates/header');
       $this->load->view('user/profile_view', $data);
