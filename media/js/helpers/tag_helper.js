@@ -34,7 +34,7 @@ $(document).ready(function () {
     view.populateTagsMenu('keyword', 'name'),
     view.populateTagsMenu('nationality', 'country')
   ).done(function () {
-    $(document).ajaxStop(function () {
+    $(document).one('ajaxStop', function (event, request, settings) {
       $('#tagAdd select').chosen();
     });
   });

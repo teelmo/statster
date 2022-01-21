@@ -302,7 +302,7 @@ $.extend(view, {
     });
   },
   initMusicEvents: function () {
-    $(document).ajaxStop(function (event, request, settings ) {
+    $(document).one('ajaxStop', function (event, request, settings) {
       $('#recentlyLiked').append($('.recently_liked tr').detach().sort(function (a, b) {
         return app.compareStrings($(a).data('created'), $(b).data('created'));
       }));

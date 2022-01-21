@@ -149,7 +149,7 @@ $.extend(view, {
     });
   },
   initUserEvents: function () {
-    $(document).ajaxStop(function (event, request, settings) {
+    $(document).one('ajaxStop', function (event, request, settings) {
       $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
         return app.compareStrings($(a).data('created'), $(b).data('created'));
       }));

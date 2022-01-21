@@ -572,7 +572,7 @@ $.extend(view, {
     });
   },
   initProfileEvents: function () {
-    $(document).ajaxStop(function (event, request, settings) {
+    $(document).one('ajaxStop', function (event, request, settings) {
       if ($('.shouts tr').length === 0) {
         $('#musicShout').html('<?=ERR_NO_RESULTS?>');
       }

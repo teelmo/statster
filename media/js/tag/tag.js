@@ -271,7 +271,7 @@ $.extend(view, {
     });
   },
   initTagEvents: function () {
-    $(document).ajaxStop(function (event, request, settings ) {
+    $(document).one('ajaxStop', function (event, request, settings) {
       if (cumulative_done === false) {
         view.getListeningCumulation();
       }
