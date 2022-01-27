@@ -2,7 +2,7 @@ $.extend(view, {
   initDateRangePicker: function () {
     $('.date_range_picker').dateRangePicker({
       autoClose: true,
-      endDate: '<?=CUR_DATE?>',
+      // endDate: '<?=CUR_DATE?>',
       getValue: function() {
         return this.innerHTML;
       },

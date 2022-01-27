@@ -9,7 +9,7 @@
 @import '//fonts.googleapis.com/css?family=Barlow:100,200,300,400,500,600,700,800,900';
 @import '//fonts.googleapis.com/css?family=Open+Sans:300,400,600';
 @import '//fonts.googleapis.com/css?family=Poiret+One:400';
-@import '//fonts.googleapis.com/css?family=Raleway:400';
+@import '//fonts.googleapis.com/css?family=Raleway:400,700';
 
 /**
   * Template styles
@@ -91,7 +91,7 @@ h3 {
 }
 .number {
   font-family: Raleway, georgia;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.05em;
 }
 .settings,
@@ -1551,6 +1551,10 @@ h2 {
   .month-wrapper {
     border-radius: 0;
     padding: 0;
+    .gap {
+      margin: 0 10px 0;
+      top: 0;
+    }
     table {
       thead {
         .caption {
@@ -1567,25 +1571,32 @@ h2 {
           }
         }
       }
+      thead {
+        tr.week-name {
+          font-size: 9px;
+        }
+      }
       tbody {
         border-bottom: 3px solid #fff;
         border-top: 3px solid #fff;
         tr {
-          .week-number,
-          .week-name {
-            font-size: 9px;
-          }
           .week-number {
             font-family: Raleway, georgia;
+            font-size: 9px;
+            &.week-number-selected {
+              color: #000;
+              font-weight: 700;
+            }
           }
           .day {
             font-family: Raleway, georgia;
             padding: 4px 0;
             &.real-today.toMonth {
-              background-color: #999;
-              color: #fff;
+              background-color: #fff;
+              color: #000;
+              font-weight: 700;
               &.hovering {
-                background-color: #999;
+                background-color: #ccc;
                 color: #fff;
               }
             }
@@ -1595,7 +1606,7 @@ h2 {
             }
             &.first-date-selected,
             &.last-date-selected {
-              background-color: #000 !important;
+              background-color: #ccc !important;
               color: #fff !important;
             }
           }
