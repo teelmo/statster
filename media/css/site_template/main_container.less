@@ -22,31 +22,33 @@
         margin-right: 0;
       }
     }
-    .date_filter_clear,
-    .date_filter_submit,
-    .month_selector_container,
-    .day_selector_container,
-    .weekday_selector_container,
-    .date_range_container {
-      color: #777;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 300;
-      user-select: none;
-      vertical-align: sub;
-      &:hover {
-        color: #000;
-      }
-      select {
-        border: 0;
+    .music_date_selector {
+      .date_filter_clear,
+      .date_filter_submit,
+      .month_selector_container,
+      .day_selector_container,
+      .weekday_selector_container,
+      .date_range_container {
         color: #777;
         cursor: pointer;
-        font-family: 'Barlow', 'Open Sans', 'Lucida Grande', 'Helvetica Neue', 'Helvetica', 'Arial', 'Sans-serif';
         font-size: 12px;
         font-weight: 300;
-        outline: none;
+        user-select: none;
+        vertical-align: sub;
         &:hover {
           color: #000;
+        }
+        select {
+          border: 0;
+          color: #777;
+          cursor: pointer;
+          font-family: 'Barlow', 'Open Sans', 'Lucida Grande', 'Helvetica Neue', 'Helvetica', 'Arial', 'Sans-serif';
+          font-size: 12px;
+          font-weight: 300;
+          outline: none;
+          &:hover {
+            color: #000;
+          }
         }
       }
     }
