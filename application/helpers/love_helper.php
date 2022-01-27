@@ -76,8 +76,8 @@ if (!function_exists('getLoves')) {
             FROM " . TBL_love . ",
                  " . TBL_artist . ",
                  " . TBL_album . "
-            WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+            WHERE " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_love . ".`album_id` LIKE ?
               " . $ci->db->escape_str($where) . "
             GROUP BY " . TBL_love . ".`album_id`
