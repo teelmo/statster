@@ -16,15 +16,15 @@ if (!function_exists('getAlbumsUnique')) {
     $ci->load->database();
 
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`albums`.`album_name` ASC, ' . TBL_artist . '.`artist_name` ASC';
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`id` AS `artist_id`,
+    $sql = "SELECT GROUP_CONCAT(" . TBL_artist . ".`artist_name` SEPARATOR ', ') AS `artist_name`,
+                   GROUP_CONCAT(" . TBL_artist . ".`id` SEPARATOR ', ') AS `artist_id`,
                    `albums`.`album_name`,
                    `albums`.`year`, 
                    `albums`.`spotify_id`, 
                    `albums`.`id` AS `album_id`,
                    COALESCE(t.`count`, 0) AS `count`
             FROM " . TBL_artist . ",
+                 " . TBL_artists . ",
                  " . TBL_album . " `albums`
             LEFT JOIN (
                 SELECT count(*) AS `count`, 
@@ -34,9 +34,11 @@ if (!function_exists('getAlbumsUnique')) {
                 WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
                 GROUP BY " . TBL_album . ".`id`)
              `t` ON `albums`.`id` = `t`.`album_id`
-            WHERE " . TBL_artist . ".`id` = `albums`.`artist_id`
+            WHERE " . TBL_artists . ".`artist_id` = "  .TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` = `albums`.`id`
+            GROUP BY `albums`.`id`
             ORDER BY " . $ci->db->escape_str($order_by);
-    $query = $ci->db->query($sql, array($username));
+    $query = $ci->db->query($sql, array());
 
     return ($query->num_rows() > 0) ? $query->result_array() : array();
   }
