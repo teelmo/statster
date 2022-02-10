@@ -23,7 +23,7 @@
     <?php
   }
   ?>
-  <div class="user_meta">
+  <div class="meta_container">
     <div class="meta">
       <div class="label">Listenings</div>
       <div class="value number"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></div>

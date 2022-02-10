@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  <div class="artist_meta">
+  <div class="meta_container">
     <div class="meta">
       <div class="label">Listenings</div>
       <div class="value number"><?=anchor(array('recent', url_title($artist_name)), number_format($total_count))?><?=($most_listened_alltime !== false) ? ', ' . anchor(array('artist'), '<span class="rank">#<span class="number">' . $most_listened_alltime . '</span></span>') : ''?></div>

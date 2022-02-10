@@ -4,7 +4,7 @@
       <h1><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span><div class="top_music"><?=anchor(array('music', date('Y', strtotime('last month')), date('m', strtotime('last month'))), 'Top in ' . date('F', strtotime('last month')))?></div></h1>
     </div>
   </div>
-  <div class="tag_meta">
+  <div class="meta_container">
     <div class="meta">
       <div class="label">Album shouts</div>
       <div class="value number"><?=anchor(array('shout', 'album'), number_format($total_album_shouts))?></div>

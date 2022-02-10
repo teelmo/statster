@@ -7,7 +7,7 @@
   <?php
   if (isset($total_count)) {
     ?>
-    <div class="artist_meta">
+    <div class="meta_container">
       <div class="meta">
         <div class="label">Albums</div>
         <div class="value number"><?=number_format($total_count)?></div>

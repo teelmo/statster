@@ -7,7 +7,7 @@
   <?php
   if (isset($total_count)) {
     ?>
-    <div class="tag_meta">
+    <div class="meta_container">
       <div class="meta">
         <div class="label">Listenings</div>
         <div class="value number" data-value="<?=$total_count?>"><?=number_format($total_count)?></div>

@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  <div class="month_meta">
+  <div class="meta_container">
     <div class="meta">
       <div class="label">Listenings</div>
       <div class="value number"><?=anchor(array('recent'), number_format($listening_count))?></div>
