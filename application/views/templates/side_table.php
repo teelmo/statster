@@ -79,7 +79,13 @@ if (!empty($json_data)) {
                 echo anchor(array('year', url_title($row['year'])), '<span class="album_year number">' . $row['year'] . '</span>', array('title' => 'Browse release year'));
               }
               if (empty($hide['artist'])) {
-                echo '<div class="metainfo">' . implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, getAlbumArtists($row))) . '</div>';
+                if (isset($row['album_name'])) {
+                  echo '<div class="metainfo">' . implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, getAlbumArtists($row))) . '</div>';
+                }
+                else {
+                  echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page')) . '';
+
+                }
               }
             }
             ?>
