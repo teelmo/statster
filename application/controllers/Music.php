@@ -453,6 +453,10 @@ class Music extends CI_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['total_count'] = getListeningCount(array(), TBL_listening);
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
+      }
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['js_include'] = array('music/recent', 'libs/jquery.daterangepicker', 'helpers/add_listening_helper');
 
