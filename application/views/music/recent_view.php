@@ -7,10 +7,10 @@
   <?php
   if (isset($total_count)) {
     ?>
-    <div class="artist_meta">
+    <div class="tag_meta">
       <div class="meta">
         <div class="label">Listenings</div>
-        <div class="value number"><?=number_format($total_count)?></div>
+        <div class="value number" data-value="<?=$total_count?>"><?=number_format($total_count)?></div>
       </div>
       <?php
       if (isset($user_count)) {
@@ -24,7 +24,7 @@
               </svg>
               <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
             </div>
-            <span class="user_value"><span class="value number"><?=anchor(array('user', url_title($this->session->userdata('username'))), number_format($user_count))?></span> in your library</span>
+            <span class="user_value"><span class="value number" data-value="<?=$user_count?>"><?=anchor(array('user', url_title($this->session->userdata('username'))), number_format($user_count))?></span> in your library</span>
           </div>
         </div>
         <?php

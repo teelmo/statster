@@ -118,6 +118,17 @@ $.extend(view, {
             if (view.getTopAlbums) {
               view.getTopAlbums($('.top_album_value').data('value'));
             }
+            if (view.getUsers) {
+              view.getUsers();
+            }
+            if ($('.tag_meta div.value').length > 0) {
+              $('.tag_meta div.value').data('value', parseInt($('.tag_meta div.value').data('value')) + 1);
+              $('.tag_meta div.value').html((parseInt($('.tag_meta div.value').data('value'))).toLocaleString());
+            }
+            if ($('.tag_meta span.user_value').length > 0) {
+              $('.tag_meta span.user_value .value').data('value', parseInt($('.tag_meta span.user_value .value').data('value')) + 1);
+              $('.tag_meta span.user_value .value').html((parseInt($('.tag_meta span.user_value .value').data('value'))).toLocaleString());
+            }
             $('#addListeningText').focus();
           },
           400: function () { // 400 Bad Request
