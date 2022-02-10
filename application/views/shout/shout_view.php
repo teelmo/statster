@@ -7,37 +7,15 @@
   <div class="tag_meta">
     <div class="meta">
       <div class="label">Album shouts</div>
-      <div class="value number">
-        <?php
-        echo anchor(array('shout', 'album'), number_format($total_album_shouts));
-        if (isset($total_album_shouts_user)) {
-          echo ', <span class="rank"><span class="number">' . anchor(array('shout', 'album?' . $_GET['u']), number_format($total_album_shouts_user)). '</span> by ' . $_GET['u'] . '</span>';
-        }
-        ?>
-      </div>
+      <div class="value number"><?=anchor(array('shout', 'album'), number_format($total_album_shouts))?></div>
     </div>
     <div class="meta">
       <div class="label">Artist shouts</div>
-      <div class="value number">
-        <?php
-        echo anchor(array('shout', 'artist'), number_format($total_artist_shouts));
-        if (isset($total_artist_shouts_user)) {
-          echo ', <span class="rank"><span class="number">' . anchor(array('shout', 'artist?' . $_GET['u']), number_format($total_artist_shouts_user)). '</span> by ' . $_GET['u'] . '</span>';
-        }
-        ?>
-      </div>
+      <div class="value number"><?=anchor(array('shout', 'artist'), number_format($total_artist_shouts))?></div>
     </div>
     <div class="meta">
       <div class="label">User shouts</div>
-      <div class="value number">
-        <?php
-        echo anchor(array('shout', 'user'), number_format($total_user_shouts));
-        if (isset($total_user_shouts_user)) {
-          echo ', <span class="rank"><span class="number">' . anchor(array('shout', 'user?' . $_GET['u']), number_format($total_user_shouts_user)). '</span> by ' . $_GET['u'] . '</span>';
-        }
-        ?>
-          
-      </div>
+      <div class="value number"><?=anchor(array('shout', 'user'), number_format($total_user_shouts))?></div>
     </div>
   </div>
 </div>

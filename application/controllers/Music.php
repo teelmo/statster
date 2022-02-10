@@ -44,16 +44,24 @@ class Music extends CI_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'genre_helper', 'shout_helper', 'fan_helper', 'love_helper', 'nationality_helper', 'year_helper', 'id_helper', 'output_helper'));
 
       $intervals = unserialize($this->session->userdata('intervals'));
       $data['popular_album_music'] = isset($intervals['popular_album_music']) ? $intervals['popular_album_music'] : 90;
       $opts = array(
-        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
-        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'lower_limit' => '1970-00-00',
+        'upper_limit' => CUR_DATE,
         'limit' => '1',
+        'user_id' => (!empty($_GET['u']) ? getUserID(array('username' => $_GET['u'])) : ''),
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
+      $data['artist_count'] = getListeningCount($opts, TBL_artist);
+      $data['album_count'] = getListeningCount($opts, TBL_album);
+      $data['listening_count'] = getListeningCount($opts, TBL_listening);
+      $data['shout_count'] = getShoutCount($opts);
+      $data['fan_count'] = getFanCount($opts);
+      $data['love_count'] = getLoveCount($opts);
+     
       $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();

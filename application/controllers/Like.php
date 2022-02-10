@@ -154,7 +154,7 @@ class Like extends CI_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('music_helper', 'fan_helper', 'love_helper', 'img_helper', 'output_helper'));
+      $this->load->helper(array('music_helper', 'fan_helper', 'love_helper', 'id_helper', 'img_helper', 'output_helper'));
 
       $data = array();
       $opts = array(
@@ -166,19 +166,11 @@ class Like extends CI_Controller {
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $opts = array(
         'limit' => '1000',
-        'lower_limit' => '1970-00-00'
+        'lower_limit' => '1970-00-00',
+        'user_id' => (!empty($_GET['u']) ? getUserID(array('username' => $_GET['u'])) : '')
       );
-      $data['total_album_loves'] = count(json_decode(getLoves($opts)));
-      $data['total_artist_fans'] = count(json_decode(getFans($opts)));
-      if (!empty($_GET['u'])) {
-         $opts = array(
-          'limit' => '1000',
-          'lower_limit' => '1970-00-00',
-          'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
-        );
-        $data['total_album_loves_user'] = count(json_decode(getLoves($opts)));
-        $data['total_artist_fans_user'] = count(json_decode(getFans($opts)));
-      }
+      $data['total_album_loves'] = getLoveCount($opts);
+      $data['total_artist_fans'] = getFanCount($opts);
       $data['js_include'] = array('like/like');
 
       $this->load->view('site_templates/header');
@@ -189,7 +181,7 @@ class Like extends CI_Controller {
 
   public function love() {
     // Load helpers.
-    $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+    $this->load->helper(array('music_helper', 'love_helper', 'img_helper', 'output_helper'));
 
     $data = array();
     $opts = array(
@@ -199,6 +191,10 @@ class Like extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['total_count'] = getLoveCount(array(), TBL_artist);
+    if ($this->session->userdata('logged_in') === TRUE) {
+      $data['user_count'] = getLoveCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+    }
     $data['js_include'] = array('like/love');
 
     $this->load->view('site_templates/header');
@@ -208,7 +204,7 @@ class Like extends CI_Controller {
 
   public function fan() {
     // Load helpers.
-    $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+    $this->load->helper(array('music_helper', 'fan_helper', 'img_helper', 'output_helper'));
 
     $data = array();
     $opts = array(
@@ -218,6 +214,10 @@ class Like extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['total_count'] = getFanCount(array(), TBL_artist);
+    if ($this->session->userdata('logged_in') === TRUE) {
+      $data['user_count'] = getFanCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+    }
     $data['js_include'] = array('like/fan');
 
     $this->load->view('site_templates/header');

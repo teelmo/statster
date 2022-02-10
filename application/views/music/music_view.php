@@ -4,6 +4,32 @@
       <h1><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span><div class="top_music"><?=anchor(array('music', date('Y', strtotime('last month')), date('m', strtotime('last month'))), 'Top in ' . date('F', strtotime('last month')))?></div></h1>
     </div>
   </div>
+  <div class="year_meta">
+    <div class="meta">
+      <div class="label">Listenings</div>
+      <div class="value number"><?=anchor(array('recent'), number_format($listening_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Albums</div>
+       <div class="value number"><?=anchor(array('album'), number_format($album_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Artists</div>
+      <div class="value number"><?=anchor(array('artist'), number_format($artist_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Shouts</div>
+      <div class="value number"><?=anchor(array('shout'), number_format($shout_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Loved</div>
+      <div class="value number"><?=anchor(array('shout'), number_format($love_count))?></div>
+    </div>
+    <div class="meta">
+      <div class="label">Faned</div>
+      <div class="value number"><?=anchor(array('fan'), number_format($fan_count))?></div>
+    </div>
+  </div>
 </div>
 <div class="main_container">
   <div class="page_links">

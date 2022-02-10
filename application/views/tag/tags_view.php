@@ -7,47 +7,19 @@
   <div class="tag_meta">
     <div class="meta">
       <div class="label">Genres</div>
-      <div class="value number">
-        <?php
-        echo anchor(array('genre'), number_format($total_genres));
-        if (isset($total_genres_user)) {
-          echo ', <span class="rank"><span class="number">' . anchor(array('genre?' . $_GET['u']), number_format($total_genres_user)). '</span> by ' . $_GET['u'] . '</span>';
-        }
-        ?>
-      </div>
+      <div class="value number"><?=anchor(array('genre'), number_format($total_genres))?></div>
     </div>
     <div class="meta">
       <div class="label">Keywords</div>
-      <div class="value number">
-        <?php
-        echo anchor(array('keyword'), number_format($total_keywords));
-        if (isset($total_keywords_user)) {
-          echo ', <span class="rank"><span class="number">' . anchor(array('keyword?' . $_GET['u']), number_format($total_keywords_user)). '</span> by ' . $_GET['u'] . '</span>';
-        }
-        ?>
-      </div>
+      <div class="value number"><?=anchor(array('keyword'), number_format($total_keywords))?></div>
     </div>
     <div class="meta">
       <div class="label">Nationalities</div>
-      <div class="value number">
-        <?php
-        echo anchor(array('nationality'), number_format($total_nationalities));
-        if (isset($total_nationalities_user)) {
-          echo ', <span class="rank"><span class="number">' . anchor(array('nationality?' . $_GET['u']), number_format($total_nationalities_user)). '</span> by ' . $_GET['u'] . '</span>';
-        }
-        ?>
-      </div>
+      <div class="value number"><?=anchor(array('nationality'), number_format($total_nationalities))?></div>
     </div>
     <div class="meta">
       <div class="label">Years</div>
-      <div class="value number">
-        <?php
-        echo anchor(array('year'), number_format($total_years));
-        if (isset($total_years_user)) {
-          echo ', <span class="rank"><span class="number">' . anchor(array('year?' . $_GET['u']), number_format($total_years_user)). '</span> by ' . $_GET['u'] . '</span>';
-        }
-        ?>
-      </div>
+      <div class="value number"><?=anchor(array('year'), number_format($total_years))?></div>
     </div>
   </div>
 </div>

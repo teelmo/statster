@@ -82,7 +82,7 @@ if (!function_exists('getShoutCountUser')) {
                         " . TBL_user . ".`username` as `username`
                   FROM " . TBL_user_shout . ", " . TBL_user . "
                   WHERE " . TBL_user_shout . ".`adder_id` = " . TBL_user . ".`id`
-                  GROUP BY `user_id`, `adder_id`) `t`
+                  GROUP BY `adder_id`) `t`
             WHERE 1
             GROUP BY `user_id`,
                      `username`
@@ -278,6 +278,96 @@ if (!function_exists('getUserShout')) {
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
+  * Get album shout count.
+  *
+  * @param array $opts.
+  *          'album_id'   => Album ID
+  *          'user_id'    => User ID
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getAlbumShoutCount')) {
+  function getAlbumShoutCount($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
+    $sql = "SELECT " . TBL_album_shout . ".`album_id`
+            FROM " . TBL_album_shout . "
+            WHERE " . TBL_album_shout . ".`album_id` LIKE ?
+              AND " . TBL_album_shout . ".`user_id` LIKE ?
+              AND " . TBL_album_shout . ".`created` BETWEEN ? AND ?
+              " . $ci->db->escape_str($where) . "";
+
+    $query = $ci->db->query($sql, array($album_id, $user_id, $lower_limit, $upper_limit));
+    return $query->num_rows();
+  }
+}
+
+/**
+  * Get artist shout count.
+  *
+  * @param array $opts.
+  *          'artist_id'   => Artist ID
+  *          'user_id'    => User ID
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getArtistShoutCount')) {
+  function getArtistShoutCount($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
+    $sql = "SELECT " . TBL_artist_shout . ".`artist_id`
+            FROM " . TBL_artist_shout . "
+            WHERE " . TBL_artist_shout . ".`artist_id` LIKE ?
+              AND " . TBL_artist_shout . ".`user_id` LIKE ?
+              AND " . TBL_artist_shout . ".`created` BETWEEN ? AND ?
+              " . $ci->db->escape_str($where) . "";
+
+    $query = $ci->db->query($sql, array($artist_id, $user_id, $lower_limit, $upper_limit));
+    return $query->num_rows();
+  }
+}
+
+/**
+  * Get user shout count.
+  *
+  * @param array $opts.
+  *          'user_id'    => User ID
+  *
+  * @return string JSON.
+  */
+if (!function_exists('getUserShoutCount')) {
+  function getUserShoutCount($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
+    $sql = "SELECT " . TBL_user_shout . ".`adder_id`
+            FROM " . TBL_user_shout . "
+            WHERE " . TBL_user_shout . ".`adder_id` LIKE ?
+              AND " . TBL_user_shout . ".`created` BETWEEN ? AND ?
+              " . $ci->db->escape_str($where) . "";
+
+    $query = $ci->db->query($sql, array($user_id, $lower_limit, $upper_limit));
+    return $query->num_rows();
   }
 }
 
