@@ -66,6 +66,7 @@ if (!function_exists('getLoves')) {
     $ci->load->database();
     
     $album_id = !empty($opts['album_id']) ? $opts['album_id'] : '%';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
@@ -74,16 +75,19 @@ if (!function_exists('getLoves')) {
                    " . TBL_album . ".`album_name`,
                    'heart' as `type`
             FROM " . TBL_love . ",
+                 " . TBL_user . ",
                  " . TBL_artist . ",
                  " . TBL_album . "
             WHERE " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_love . ".`album_id` LIKE ?
+              AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
             GROUP BY " . TBL_love . ".`album_id`
             ORDER BY `count` DESC, " . TBL_album . ".`album_name` ASC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($album_id));
+    $query = $ci->db->query($sql, array($album_id, $username));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

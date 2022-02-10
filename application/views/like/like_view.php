@@ -4,6 +4,30 @@
       <h1><span class="stats">stats</span><span class="ter">ter</span><span class="separator"></span><span class="meta">reconcile with music</span><div class="top_music"><?=anchor(array('music', date('Y', strtotime('last month')), date('m', strtotime('last month'))), 'Top in ' . date('F', strtotime('last month')))?></div></h1>
     </div>
   </div>
+  <div class="tag_meta">
+    <div class="meta">
+      <div class="label">Albums loved</div>
+      <div class="value number">
+        <?php
+        echo anchor(array('love'), number_format($total_album_loves));
+        if (isset($total_album_loves_user)) {
+          echo ', <span class="rank"><span class="number">' . anchor(array('love?u=' . $_GET['u']), number_format($total_album_loves_user)). '</span> by ' . $_GET['u'] . '</span>';
+        }
+        ?>
+      </div>
+    </div>
+    <div class="meta">
+     <div class="label">Artists faned</div>
+     <div class="value number">
+        <?php
+        echo anchor(array('fan'), number_format($total_artist_fans));
+        if (isset($total_artist_fans_user)) {
+          echo ', <span class="rank"><span class="number">' . anchor(array('fan?u=' . $_GET['u']), number_format($total_artist_fans_user)). '</span> by ' . $_GET['u'] . '</span>';
+        }
+        ?>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="main_container">
   <div class="page_links">

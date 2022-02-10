@@ -127,7 +127,7 @@ class Shout extends CI_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+      $this->load->helper(array('music_helper', 'shout_helper', 'img_helper', 'output_helper'));
 
       $opts = array(
         'limit' => '1',
@@ -136,6 +136,27 @@ class Shout extends CI_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $opts = array(
+        'limit' => '1000',
+        'type' => 'user',
+        'lower_limit' => '1970-00-00'
+      );
+      // pr(json_decode(getUserShout($opts)));
+      $data['total_album_shouts'] = count(json_decode(getAlbumShout($opts)));
+      $data['total_artist_shouts'] = count(json_decode(getArtistShout($opts)));
+      $data['total_user_shouts'] = count(json_decode(getUserShout($opts)));
+      if (!empty($_GET['u'])) {
+        $opts = array(
+          'limit' => '1000',
+          'lower_limit' => '1970-00-00',
+          'type' => 'user',
+          'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+        );
+        $data['total_album_shouts_user'] = count(json_decode(getAlbumShout($opts)));
+        $data['total_artist_shouts_user'] = count(json_decode(getArtistShout($opts)));
+        $data['total_user_shouts_user'] = count(json_decode(getUserShout($opts)));
+      }
+
       $data['js_include'] = array('shout/shout', 'helpers/shout_helper');
 
       $this->load->view('site_templates/header');

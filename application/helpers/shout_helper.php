@@ -223,29 +223,57 @@ if (!function_exists('getUserShout')) {
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00  00:00:00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT " . TBL_user_shout . ".`id` as `shout_id`,
-                   " . TBL_user_shout . ".`text`,
-                   " . TBL_user_shout . ".`created`,
-                   " . TBL_user_shout . ".`user_id` as `profile_id`,
-                   " . TBL_user_shout . ".`adder_id` as `user_id`,
-                   " . TBL_user . ".`username` as `profile`,
-                   (SELECT count(" . TBL_user_shout . ".`user_id`)
-                     FROM " . TBL_user_shout . "
-                     WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
-                       AND " . TBL_user . ".`username` LIKE ?
-                   ) AS `count`,
-                   (SELECT " . TBL_user . ".`username`
-                     FROM " . TBL_user . "
-                     WHERE " . TBL_user_shout . ".`adder_id` = " . TBL_user . ".`id`
-                   ) AS `username`,
-                   'user' as `type`
-            FROM " . TBL_user_shout . ",
-                 " . TBL_user . "
-            WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_user_shout . ".`created` BETWEEN ? AND ?
-            ORDER BY " . TBL_user_shout . ".`created` DESC
-            LIMIT " . $ci->db->escape_str($limit);
+
+    if (isset($opts['type']) && $opts['type'] === 'user') {
+      $sql = "SELECT " . TBL_user_shout . ".`id` as `shout_id`,
+                     " . TBL_user_shout . ".`text`,
+                     " . TBL_user_shout . ".`created`,
+                     " . TBL_user_shout . ".`user_id` as `profile_id`,
+                     " . TBL_user_shout . ".`adder_id` as `user_id`,
+                     " . TBL_user . ".`username` as `profile`,
+                     (SELECT count(" . TBL_user_shout . ".`user_id`)
+                       FROM " . TBL_user_shout . "
+                       WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
+                         AND " . TBL_user . ".`username` LIKE ?
+                     ) AS `count`,
+                     (SELECT " . TBL_user . ".`username`
+                       FROM " . TBL_user . "
+                       WHERE " . TBL_user_shout . ".`adder_id` = " . TBL_user . ".`id`
+                     ) AS `username`,
+                     'user' as `type`
+              FROM " . TBL_user_shout . ",
+                   " . TBL_user . "
+              WHERE " . TBL_user_shout . ".`adder_id` = " . TBL_user . ".`id`
+                AND " . TBL_user . ".`username` LIKE ?
+                AND " . TBL_user_shout . ".`created` BETWEEN ? AND ?
+              ORDER BY " . TBL_user_shout . ".`created` DESC
+              LIMIT " . $ci->db->escape_str($limit);
+    }
+    else {
+      $sql = "SELECT " . TBL_user_shout . ".`id` as `shout_id`,
+                     " . TBL_user_shout . ".`text`,
+                     " . TBL_user_shout . ".`created`,
+                     " . TBL_user_shout . ".`user_id` as `profile_id`,
+                     " . TBL_user_shout . ".`adder_id` as `user_id`,
+                     " . TBL_user . ".`username` as `profile`,
+                     (SELECT count(" . TBL_user_shout . ".`user_id`)
+                       FROM " . TBL_user_shout . "
+                       WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
+                         AND " . TBL_user . ".`username` LIKE ?
+                     ) AS `count`,
+                     (SELECT " . TBL_user . ".`username`
+                       FROM " . TBL_user . "
+                       WHERE " . TBL_user_shout . ".`adder_id` = " . TBL_user . ".`id`
+                     ) AS `username`,
+                     'user' as `type`
+              FROM " . TBL_user_shout . ",
+                   " . TBL_user . "
+              WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
+                AND " . TBL_user . ".`username` LIKE ?
+                AND " . TBL_user_shout . ".`created` BETWEEN ? AND ?
+              ORDER BY " . TBL_user_shout . ".`created` DESC
+              LIMIT " . $ci->db->escape_str($limit);
+    }
     $query = $ci->db->query($sql, array($username, $username, $lower_limit, $upper_limit));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;

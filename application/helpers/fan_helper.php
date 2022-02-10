@@ -59,6 +59,7 @@ if (!function_exists('getFans')) {
     $ci->load->database();
     
     $artist_id = !empty($opts['artist_id']) ? $opts['artist_id'] : '%';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
     $sql = "SELECT count(*) as `count`,
@@ -66,15 +67,18 @@ if (!function_exists('getFans')) {
                    " . TBL_artist . ".`artist_name`,
                    'star' as `type`
             FROM " . TBL_fan . ",
+                 " . TBL_user . ",
                  " . TBL_artist . "
             WHERE " . TBL_fan . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_fan . ".`user_id` = " . TBL_user . ".`id`
               AND " . TBL_fan . ".`artist_id` LIKE ?
+              AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
             GROUP BY " . TBL_fan . ".`artist_id`
             ORDER BY `count` DESC,
                     " . TBL_artist . ".`artist_name` ASC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($artist_id));
+    $query = $ci->db->query($sql, array($artist_id, $username));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
