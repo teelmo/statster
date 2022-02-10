@@ -16,7 +16,7 @@ if (!empty($json_data)) {
         else if ($row['type'] === 'user') {
           ?>
           <td class="img user_img">
-            <?=anchor(array('user', url_title($row['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $row['profile_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+            <?=anchor(array('user', url_title($row['profile'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $row['profile_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
           </td>
           <?php
         }

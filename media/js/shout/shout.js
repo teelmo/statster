@@ -2,7 +2,7 @@ $.extend(view, {
   getAlbumShouts: function (size) {
     $.ajax({
       data:{
-        limit:20,
+        limit:33,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -28,7 +28,7 @@ $.extend(view, {
   getArtistShouts: function (size) {
     $.ajax({
       data:{
-        limit:20,
+        limit:33,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -54,7 +54,8 @@ $.extend(view, {
   getUserShouts: function (size) {
     $.ajax({
       data:{
-        limit:20,
+        limit:33,
+        type:'user',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -80,8 +81,7 @@ $.extend(view, {
   getShoutUsers: function () {
     $.ajax({
       data:{
-        limit:20,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        limit:20
       },
       dataType:'json',
       statusCode:{

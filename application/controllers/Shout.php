@@ -152,5 +152,86 @@ class Shout extends CI_Controller {
       $this->load->view('site_templates/footer');
     }
   }
+  public function album() {
+    // Load helpers.
+    $this->load->helper(array('music_helper', 'shout_helper', 'img_helper', 'id_helper', 'output_helper'));
+
+    $opts = array(
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+      'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $opts = array(
+      'limit' => '1000',
+      'lower_limit' => '1970-00-00',  
+      'type' => 'user',
+      'user_id' => (!empty($_GET['u']) ? getUserID(array('username' => $_GET['u'])) : '')
+    );
+    $data['total_count'] = getAlbumShoutCount(array(), TBL_artist);
+    if ($this->session->userdata('logged_in') === TRUE) {
+      $data['user_count'] = getAlbumShoutCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+    }
+    $data['js_include'] = array('shout/shout_albums', 'helpers/shout_helper');
+
+    $this->load->view('site_templates/header');
+    $this->load->view('shout/shout_albums_view', $data);
+    $this->load->view('site_templates/footer');
+  }
+  public function artist() {
+    // Load helpers.
+    $this->load->helper(array('music_helper', 'shout_helper', 'img_helper', 'id_helper', 'output_helper'));
+
+    $opts = array(
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+      'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $opts = array(
+      'limit' => '1000',
+      'lower_limit' => '1970-00-00',  
+      'type' => 'user',
+      'user_id' => (!empty($_GET['u']) ? getUserID(array('username' => $_GET['u'])) : '')
+    );
+    $data['total_count'] = getArtistShoutCount(array(), TBL_artist);
+    if ($this->session->userdata('logged_in') === TRUE) {
+      $data['user_count'] = getArtistShoutCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+    }
+    $data['js_include'] = array('shout/shout_artists', 'helpers/shout_helper');
+
+    $this->load->view('site_templates/header');
+    $this->load->view('shout/shout_artists_view', $data);
+    $this->load->view('site_templates/footer');
+  }
+  public function user() {
+    // Load helpers.
+    $this->load->helper(array('music_helper', 'shout_helper', 'img_helper', 'id_helper', 'output_helper'));
+
+    $opts = array(
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+      'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $opts = array(
+      'limit' => '1000',
+      'lower_limit' => '1970-00-00',  
+      'type' => 'user',
+      'user_id' => (!empty($_GET['u']) ? getUserID(array('username' => $_GET['u'])) : '')
+    );
+    $data['total_count'] = getUserShoutCount(array(), TBL_artist);
+    if ($this->session->userdata('logged_in') === TRUE) {
+      $data['user_count'] = getUserShoutCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+    }
+    $data['js_include'] = array('shout/shout_users', 'helpers/shout_helper');
+
+    $this->load->view('site_templates/header');
+    $this->load->view('shout/shout_users_view', $data);
+    $this->load->view('site_templates/footer');
+  }
 }
 ?>

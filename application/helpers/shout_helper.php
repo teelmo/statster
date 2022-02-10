@@ -60,34 +60,39 @@ if (!function_exists('getShoutCountUser')) {
   function getShoutCountUser($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
+
+    $type = isset($opts['type']) ? $opts['type'] : '%';
+
     $sql = "SELECT SUM(`count`) AS `count`,
                   `user_id`,
                   `username`
-            FROM (SELECT count(" . TBL_artist_shout . ".`id`) as `count`,
-                         " . TBL_artist_shout . ".`user_id` as `user_id`,
-                         " . TBL_user . ".`username` as `username`
-                  FROM " . TBL_artist_shout . ", " . TBL_user . "
-                  WHERE " . TBL_artist_shout . ".`user_id` = " . TBL_user . ".`id`
-                  GROUP BY `user_id`
-                  UNION
-                  SELECT count(" . TBL_album_shout . ".id) as `count`,
+            FROM (SELECT count(" . TBL_album_shout . ".id) as `count`,
                         " . TBL_album_shout . ".`user_id` as `user_id`,
-                        " . TBL_user . ".`username` as `username`
+                        " . TBL_user . ".`username` as `username`,
+                         'album' AS `type`
                   FROM " . TBL_album_shout . ", " . TBL_user . "
                   WHERE " . TBL_album_shout . ".`user_id` = " . TBL_user . ".`id`
                   GROUP BY `user_id`
                   UNION
+                  SELECT count(" . TBL_artist_shout . ".`id`) as `count`,
+                         " . TBL_artist_shout . ".`user_id` as `user_id`,
+                         " . TBL_user . ".`username` as `username`,
+                         'artist' AS `type`
+                  FROM " . TBL_artist_shout . ", " . TBL_user . "
+                  WHERE " . TBL_artist_shout . ".`user_id` = " . TBL_user . ".`id`
+                  GROUP BY `user_id`
+                  UNION
                   SELECT count(" . TBL_user_shout . ".id) as `count`,
                         " . TBL_user_shout . ".`adder_id` as `user_id`,
-                        " . TBL_user . ".`username` as `username`
+                        " . TBL_user . ".`username` as `username`,
+                         'user' AS `type`
                   FROM " . TBL_user_shout . ", " . TBL_user . "
                   WHERE " . TBL_user_shout . ".`adder_id` = " . TBL_user . ".`id`
                   GROUP BY `adder_id`) `t`
-            WHERE 1
-            GROUP BY `user_id`,
-                     `username`
+            WHERE `type` LIKE ?
+            GROUP BY `user_id`
             ORDER BY `count` DESC";
-    $query = $ci->db->query($sql);
+    $query = $ci->db->query($sql, array($type));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);
@@ -230,7 +235,7 @@ if (!function_exists('getUserShout')) {
                      " . TBL_user_shout . ".`created`,
                      " . TBL_user_shout . ".`user_id` as `profile_id`,
                      " . TBL_user_shout . ".`adder_id` as `user_id`,
-                     " . TBL_user . ".`username` as `profile`,
+                     " . TBL_user . ".`username`,
                      (SELECT count(" . TBL_user_shout . ".`user_id`)
                        FROM " . TBL_user_shout . "
                        WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
@@ -238,8 +243,8 @@ if (!function_exists('getUserShout')) {
                      ) AS `count`,
                      (SELECT " . TBL_user . ".`username`
                        FROM " . TBL_user . "
-                       WHERE " . TBL_user_shout . ".`adder_id` = " . TBL_user . ".`id`
-                     ) AS `username`,
+                       WHERE " . TBL_user_shout . ".`user_id` = " . TBL_user . ".`id`
+                     ) AS `profile`,
                      'user' as `type`
               FROM " . TBL_user_shout . ",
                    " . TBL_user . "

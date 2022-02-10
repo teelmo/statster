@@ -110,6 +110,9 @@ $route['like/(:any)/(:any)'] = 'like/index/$1/$2';
 $route['like/(:any)'] = 'like/index/$1';
 
 /* Shout page's routes */
+$route['shout/album'] = 'shout/album';
+$route['shout/artist'] = 'shout/artist';
+$route['shout/user'] = 'shout/user';
 $route['shout/(:any)/(:any)'] = 'shout/index/$1/$2';
 $route['shout/(:any)'] = 'shout/index/$1';
 
