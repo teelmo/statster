@@ -205,7 +205,7 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistShoutLoader" />
       <table id="artistShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('format', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more shouts'))?>
+        <?=anchor(array('shout', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more shouts'))?>
       </div>
     </div>
   </div>

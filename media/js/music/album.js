@@ -188,8 +188,9 @@ $.extend(view, {
   getShouts: function () {
     $.ajax({
       data:{
+        album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
-        album_name:'<?=$album_name?>'
+        sub_group_by:'album'
       },
       dataType:'json',
       statusCode:{
@@ -236,7 +237,8 @@ $.extend(view, {
       data:{
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
-        limit:6
+        limit:6,
+        sub_group_by:'album'
       },
       dataType:'json',
       statusCode:{
@@ -278,6 +280,7 @@ $.extend(view, {
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:6,
+        sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -321,6 +324,7 @@ $.extend(view, {
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:5,
+        sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',

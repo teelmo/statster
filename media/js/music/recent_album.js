@@ -105,6 +105,7 @@ $.extend(view, {
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
         limit:<?=($artist_name) ? 1000 : 100?>,
+        sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -141,7 +142,8 @@ $.extend(view, {
       data:{
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
-        limit:14
+        limit:14,
+        sub_group_by:'album'
       },
       dataType:'json',
       statusCode:{

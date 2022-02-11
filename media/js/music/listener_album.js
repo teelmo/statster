@@ -103,7 +103,8 @@ $.extend(view, {
       data:{
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
-        limit:100
+        limit:100,
+        sub_group_by:'album'
       },
       dataType:'json',
       statusCode:{
@@ -135,7 +136,8 @@ $.extend(view, {
       data:{
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
-        limit:14
+        limit:14,
+        sub_group_by:'album'
       },
       dataType:'json',
       statusCode:{

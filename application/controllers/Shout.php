@@ -9,7 +9,7 @@ class Shout extends CI_Controller {
 
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
-      if ($data = getAlbumInfo($data)) {
+      if ($data = getAlbumInfo($data)[0]) {
         // Get albums's total listening data.
         $data += getAlbumListenings($data);
         // Get logged in user's listening data.
