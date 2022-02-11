@@ -133,26 +133,24 @@ $.extend(view, {
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
-      statusCode:{
-        200: function (data) {
-          $.ajax({
-            data:{
-              json_data:data,
-              hide:{
-                calendar:true,
-                count:true,
-                date:true,
-                rank:true
-              }
-            },
-            success: function (data) {
-              $('#popularAlbumLoader, #popularAlbumLoader2').hide();
-              $('#popularAlbum').html(data);
-            },
-            type:'POST',
-            url:'/ajax/sideTable'
-          });
-        }
+      success: function (data) {
+        $.ajax({
+          data:{
+            json_data:data,
+            hide:{
+              calendar:true,
+              count:true,
+              date:true,
+              rank:true
+            }
+          },
+          success: function (data) {
+            $('#popularAlbumLoader, #popularAlbumLoader2').hide();
+            $('#popularAlbum').html(data);
+          },
+          type:'POST',
+          url:'/ajax/sideTable'
+        });
       },
       type:'GET',
       url:'/api/album/get'

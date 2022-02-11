@@ -62,6 +62,12 @@ class Music extends CI_Controller {
       $data['fan_count'] = getFanCount($opts);
       $data['love_count'] = getLoveCount($opts);
      
+      $opts = array(
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+      );
       $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();

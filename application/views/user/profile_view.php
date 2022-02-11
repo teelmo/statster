@@ -229,9 +229,7 @@
           </tr>
           <?php
         }
-        $data_found = false;
-         if ($top_artist['artist_id'] > 0) {
-          $data_found = true;
+        if ($top_artist['artist_id'] > 0) {
           ?>
           <tr>
             <td class="img64 artist_img"><?=anchor(array('music', url_title($top_artist['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?></td>
@@ -243,7 +241,6 @@
           <?php
         }
         if ($top_genre) {
-          $data_found = true;
           ?>
           <tr>
             <td class="img64 tag_img"><i class="fa fa-music"></i></td>
@@ -255,7 +252,6 @@
           <?php
         }
         if ($top_nationality) {
-          $data_found = true;
           ?>
           <tr>
             <td class="img64 tag_img"><i class="fa fa-flag"></i></td>
@@ -267,7 +263,6 @@
           <?php
         }
         if ($top_year) {
-          $data_found = true;
           ?>
           <tr>
             <td class="img64 tag_img"><i class="fa fa-hashtag"></i></td>
@@ -278,8 +273,8 @@
           </tr>
           <?php
         }
-        if ($data_found === false) {
-          echo ERR_NO_DATA;
+        if (!$top_album && !$top_artist['artist_id'] !== 0 && !$top_genre && !$top_nationality && !$top_year) {
+          echo ERR_NO_RESULTS;
         }
         ?>
       </table>
@@ -287,8 +282,8 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Shouts</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="musicShoutLoader" />
-      <table id="musicShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="shoutLoader" />
+      <table id="shout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
       <table id="artistShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
       <div class="more">

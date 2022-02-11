@@ -91,5 +91,12 @@ header('HTTP/1.1 200 OK');
           }
           ?>
         </div>
+        <?php
+        if ($_GET['u'] && $_GET['u'] !== $this->session->userdata('username')) {
+          ?>
+          <div class="selected_user">selected: <?=anchor(array('user', $_GET['u']), $_GET['u'])?></div>
+          <?php
+        }
+        ?>
       </div>
     </div>

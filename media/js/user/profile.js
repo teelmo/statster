@@ -265,8 +265,12 @@ $.extend(view, {
         username:'<?=$username?>'
       },
       dataType:'json',
+      success: function (data) {
+        console.log(data)
+      },
       statusCode:{
         200: function (data) { // 200 OK
+          console.log(data)
           $.ajax({
             data:{
               hide:{
@@ -574,14 +578,14 @@ $.extend(view, {
   initProfileEvents: function () {
     $(document).one('ajaxStop', function (event, request, settings) {
       if ($('.shouts tr').length === 0) {
-        $('#musicShout').html('<?=ERR_NO_RESULTS?>');
+        $('#shout').html('<?=ERR_NO_RESULTS?>');
       }
       else {
-        $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
+        $('#shout').append($('.shouts tr').detach().sort(function (a, b) {
           return app.compareStrings($(a).data('created'), $(b).data('created'));
         }));
       }
-      $('#musicShoutLoader').hide();
+      $('#shoutLoader').hide();
 
       if ($('.likes tr').length === 0) {
         $('#recentlyLiked').html('<?=ERR_NO_RESULTS?>');
