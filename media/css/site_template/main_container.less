@@ -1,14 +1,17 @@
 .main_container {
   .clearfix;
   background-color: #f9f9f9;
+  display: flex;
+  flex-wrap: wrap;
   margin: 20px auto auto auto;
   max-width: 950px;
   &.no_heading {
     margin: 40px auto auto auto;
   }
   .page_links {
-    font-family: 'Barlow', 'Open Sans', 'Lucida Grande', 'Helvetica Neue', 'Helvetica', 'Arial', 'Sans-serif';
     background-color: #fff;
+    flex-basis: 100%;
+    font-family: 'Barlow', 'Open Sans', 'Lucida Grande', 'Helvetica Neue', 'Helvetica', 'Arial', 'Sans-seri;f';
     font-size: 18px;
     padding: 0 0 0 2px;
     a {
@@ -57,9 +60,9 @@
     background-color: #fff;
     border-right: 1px solid #ccc;
     border-top: 1px solid #ccc;
+    flex: 0 0 640px;
     float: left;
     padding-bottom: 30px;
-    width: 640px;
     .container {
       box-sizing: border-box;
       margin: 15px 10px 15px 0;
@@ -79,9 +82,8 @@
     }
   }
   .right_container {
-    border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
-    margin-left: 640px;
+    flex: 1 1 0;
     padding-bottom: 20px;
     .container {
       margin: 7px 8px 15px 15px;
