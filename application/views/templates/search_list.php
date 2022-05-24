@@ -12,7 +12,7 @@ if (!empty($json_data)) {
           echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . $row['img'] . ')"></div><div class="title">' . $row['artist_name'] . '</div>', array('title' => 'Browse to artist\'s page')) . '</li>';
         }
         else if ($row['type'] === 'genre') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img">' . anchor(array('genre', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to genre\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="fa fa-music"></i>' . anchor(array('genre', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to genre\'s page')) . '</li>';
         }
         else if ($row['type'] === 'keyword') {
           echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img">' . anchor(array('keyword', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to keyword\'s page')) . '</li>';
