@@ -139,7 +139,7 @@ class Format extends CI_Controller {
       $data['js_include'] = array('format/format');
 
       $this->load->view('site_templates/header');
-      $this->load->view('format/format_view', $data);
+      $this->load->view('format/formats_view', $data);
       $this->load->view('site_templates/footer');
     }
   }
