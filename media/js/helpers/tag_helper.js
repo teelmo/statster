@@ -21,7 +21,12 @@ $.extend(view, {
   },
   initTagHelperEvents: function () {
     $('html').on('click', '#addtags', function () {
-      $('#tagAdd').toggle();
+      if ($('#tagAdd').is(':visible')) {
+        $('#tagAdd').css('display', 'none');
+      }
+      else {
+        $('#tagAdd').css('display', 'inline');
+      }
       $('.search-field input[type="text"]').focus();
     });
   }
