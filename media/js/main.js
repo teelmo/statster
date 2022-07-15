@@ -9,6 +9,7 @@ $.extend(view, {
       },
       data:{
         limit:12,
+	sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',

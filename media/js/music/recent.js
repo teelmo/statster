@@ -7,6 +7,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:100,
+        sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
