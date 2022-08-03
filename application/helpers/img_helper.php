@@ -216,10 +216,11 @@ if (!function_exists('getFormatTypeImg')) {
 
 if (!function_exists('getImagePath')) {
   function getImagePath($opts, $type) {
-    if (ENVIRONMENT === 'production') {
+    if (ENVIRONMENT === 'production' or ENVIRONMENT === 'development') {
       return @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']);
     }
     else {
+      // If you want to use local files.
       $ci=& get_instance();
       $ci->load->helper('file');
       $filename = 'media/img/' . $type . '_img/' . $opts['size'] . '/' . $opts['id'] . '.jpg';
@@ -227,7 +228,7 @@ if (!function_exists('getImagePath')) {
         return site_url() . $filename;
       }
       else {
-        return site_url() . '/media/img/' . $type . '_img/' . $opts['size'] . '/0.jpg';
+        return site_url() . 'media/img/' . $type . '_img/' . $opts['size'] . '/0.jpg';
       }
     }
   }

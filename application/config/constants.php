@@ -144,10 +144,10 @@ define('ORDER_TEXTS', array(
 ));
 
 /* API keys */
-define('NAPSTER_API_KEY', $_SERVER['CI_NAPSTER_API_KEY']);
-define('LASTFM_API_KEY', $_SERVER['CI_LASTFM_API_KEY']);
-define('SPOTIFY_CLIENT_ID', $_SERVER['CI_SPOTIFY_CLIENT_ID']);
-define('SPOTIFY_CLIENT_SECRET', $_SERVER['CI_SPOTIFY_CLIENT_SECRET']);
+(isset($_SERVER['CI_NAPSTER_API_KEY'])) ? define('NAPSTER_API_KEY', $_SERVER['CI_NAPSTER_API_KEY']) : print_r('CI_NAPSTER_API_KEY NOT SET<br />');
+(isset($_SERVER['CI_NAPSTER_API_KEY'])) ? define('LASTFM_API_KEY', $_SERVER['CI_LASTFM_API_KEY']) : print_r('CI_LASTFM_API_KEY NOT SET<br />');
+(isset($_SERVER['CI_NAPSTER_API_KEY'])) ? define('SPOTIFY_CLIENT_ID', $_SERVER['CI_SPOTIFY_CLIENT_ID']) : print_r('CI_SPOTIFY_CLIENT_ID NOT SET<br />');
+(isset($_SERVER['CI_NAPSTER_API_KEY'])) ? define('SPOTIFY_CLIENT_SECRET', $_SERVER['CI_SPOTIFY_CLIENT_SECRET']) : print_r('CI_SPOTIFY_CLIENT_SECRET NOT SET<br />');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

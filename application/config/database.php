@@ -50,6 +50,9 @@ $query_builder = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'statster';
+if (!isset($_SERVER['CI_PASSWD'])) {
+	exit('CI_PASSWD NOT SET<br />');
+}
 $db['default']['password'] = $_SERVER['CI_PASSWD'];
 $db['default']['database'] = 'statster';
 $db['default']['dbdriver'] = 'mysqli';
