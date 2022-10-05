@@ -93,7 +93,7 @@
       <table class="side_table">
         <tr>
           <td class="img32 album_img">
-            <?=($top_album['album_id'] !== 0 && ) ? anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), '<div class="cover album_img img32" style="background-image:url(' . getAlbumImg(array('album_id' => $top_album['album_id'], 'size' => 32)) . ')"></div>', array('title' => 'Browse to album\'s page')) : ''?>
+            <?=($top_album['album_id'] !== 0) ? anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), '<div class="cover album_img img32" style="background-image:url(' . getAlbumImg(array('album_id' => $top_album['album_id'], 'size' => 32)) . ')"></div>', array('title' => 'Browse to album\'s page')) : ''?>
           </td>
           <td class="title">
             <?=($top_album['album_id'] !== 0) ? anchor(array('music', url_title($top_album['artist_name']), url_title($top_album['album_name'])), substrwords($top_album['album_name'], 80), array('title' => $top_album['count'] . ' listenings')) . ' ' . anchor(array('year', url_title($top_album['year'])), '<span class="album_year number">' . $top_album['year'] . '</span>', array('title' => 'Browse release year')) : ''?>
@@ -112,21 +112,21 @@
         <tr>
           <td class="img32 tag_img"><i class="fa fa-music"></i></td>
           <td class="title">
-            <?=($top_year['tag_id'] !== 0) ? anchor(array('genre', url_title($top_genre['name'])), $top_genre['name']) : ''?>
+            <?=($top_year['count'] !== 0) ? anchor(array('genre', url_title($top_genre['name'])), $top_genre['name']) : ''?>
             <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
           </td>
         </tr>
         <tr>
           <td class="img32 tag_img"><i class="fa fa-flag"></i></td>
           <td class="title">
-            <?=($top_nationality['tag_id'] !== 0) ? anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name']) : ''?>
+            <?=($top_nationality['count'] !== 0) ? anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name']) : ''?>
             <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
           </td>
         </tr>
         <tr>
           <td class="img32 tag_img"><i class="fa fa-hashtag"></i></td>
           <td class="title">
-            <?=($top_year['tag_id'] !== 0) ? anchor(array('year', url_title($top_year['year'])), $top_year['year']) : ''?>
+            <?=($top_year['count'] !== 0) ? anchor(array('year', url_title($top_year['year'])), $top_year['year']) : ''?>
             <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>
           </td>
         </tr>
