@@ -42,6 +42,7 @@ $.extend(view, {
     $.ajax({
       data:{
         limit:10,
+        sub_group_by:'album',
         lower_limit:lower_limit,
       },
       dataType:'json',

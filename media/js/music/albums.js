@@ -223,6 +223,7 @@ $.extend(view, {
       data:{
         limit:14,
         lower_limit:date,
+        sub_group_by:'album',
         upper_limit:date
       },
       dataType:'json',

@@ -145,12 +145,13 @@ $.extend(view, {
     }
     $.ajax({
       data:{
-        artist_name:'<?=$artist_name?>',
         album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
         group_by:group_by,
         limit:200,
         order_by:order_by,
         select:select,
+        sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },

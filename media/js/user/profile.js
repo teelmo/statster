@@ -49,6 +49,7 @@ $.extend(view, {
         limit:200,
         order_by:order_by,
         select:select,
+        sub_group_by:'album',
         username:'<?=(!empty($username)) ? $username: ''?>',
         where:where
       },

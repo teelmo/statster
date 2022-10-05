@@ -143,7 +143,8 @@ $.extend(view, {
     $.ajax({
       data:{
         artist_name:'<?=$artist_name?>',
-        limit:6
+        limit:6,
+        sub_group_by:'album'
       },
       dataType:'json',
       statusCode:{

@@ -149,6 +149,7 @@ $.extend(view, {
         limit:200,
         order_by:order_by,
         select:select,
+        sub_group_by:'artist',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
@@ -232,6 +233,7 @@ $.extend(view, {
     $.ajax({
       data:{
         artist_name:'<?=$artist_name?>',
+        sub_group_by:'artist',
         limit:6
       },
       dataType:'json',

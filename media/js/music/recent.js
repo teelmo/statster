@@ -50,7 +50,8 @@ $.extend(view, {
   getUsers: function () {
     $.ajax({
       data:{
-        limit:14
+        limit:14,
+        sub_group_by:'album'
       },
       dataType:'json',
       statusCode:{

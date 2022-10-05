@@ -27,6 +27,7 @@ $.extend(view, {
         lower_limit:lower_limit,
         order_by:order_by,
         select:select,
+        sub_group_by:'album',
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
@@ -138,6 +139,7 @@ $.extend(view, {
       data:{
         limit:5,
         lower_limit:lower_limit,
+        sub_group_by:'album',
         upper_limit:upper_limit,
         where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },

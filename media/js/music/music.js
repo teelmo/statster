@@ -47,6 +47,7 @@ $.extend(view, {
         group_by:group_by,
         limit:200,
         order_by:order_by,
+        sub_group_by:'album',
         select:select,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
