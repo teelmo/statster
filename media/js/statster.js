@@ -14,7 +14,7 @@ var app = {
     return (x == '') ? 0 : x;
   },
   highlightPatch: function () {
-    var image_server = <?=IMAGE_SERVER?>;
+    var image_server = '<?=IMAGE_SERVER?>';
     $.ui.autocomplete.prototype._renderItem = function (ul, item) {
       if (item.value === '') {
         return $('<li></li>').addClass('header').data('item.autocomplete', item).append(item.label).appendTo(ul);
