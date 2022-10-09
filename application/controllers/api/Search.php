@@ -38,6 +38,8 @@ class Search extends CI_Controller {
           $results[] = array(
             'artist_id' => $row->artist_id,
             'artist_name' => $row->artist_name,
+            'image_server_protocol' => IMAGE_SERVER_IP,
+            'image_server_ip' => IMAGE_SERVER_IP,
             'img' => str_replace(IMAGE_SERVER, '', getArtistImg(array('artist_id' => $row->artist_id, 'size' => 64))),
             'label' => $row->artist_name,
             'type' => 'artist',
