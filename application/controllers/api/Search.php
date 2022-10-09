@@ -36,8 +36,8 @@ class Search extends CI_Controller {
         );
         foreach ($query->result() as $row) {
           $results[] = array(
-            'artist_name' => $row->artist_name,
             'artist_id' => $row->artist_id,
+            'artist_name' => $row->artist_name,
             'img' => str_replace(IMAGE_SERVER, '', getArtistImg(array('artist_id' => $row->artist_id, 'size' => 64))),
             'label' => $row->artist_name,
             'type' => 'artist',
@@ -66,10 +66,11 @@ class Search extends CI_Controller {
         );
         foreach ($query->result() as $row) {
           $results[] = array(
+            'album_id' => $row->album_id,
             'album_name' => $row->album_name,
             'artist_name' =>  $row->artist_name,
-            'album_id' => $row->album_id,
-              'label' => $row->album_name,
+            'img' => str_replace(IMAGE_SERVER, '', getAlbumImg(array('album_id' => $row->artist_id, 'size' => 64))),
+            'label' => $row->album_name,
             'type' => 'album',
             'url' => '/music/' . url_title($row->artist_name) . '/' . url_title($row->album_name),
             'value' => $row->album_name

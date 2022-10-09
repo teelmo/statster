@@ -30,7 +30,7 @@ var app = {
             item_arr[1] = item_arr[1].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
             if (item.label != item_arr[0] + ' – ') {
               if (item.img) {
-                return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><div class="cover album_img img40" style="background-image: url(' + item.img + ')"></div>' + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+                return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><div class="cover album_img img40" style="background-image: url(<?=IMAGE_SERVER?>' + item.img + ')"></div>' + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
               }
               else {
                 return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><span class="no_img">' + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</span></a>').appendTo(ul);
