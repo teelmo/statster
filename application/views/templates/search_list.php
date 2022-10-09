@@ -29,7 +29,7 @@ if (!empty($json_data)) {
       }
       else if ($row['value'] === '') {
         $result_id = 0;
-        echo '<li class="title"><h3>' . $row['label'] . '</h3></li>';
+        echo '<li class="title"><h3><span class="title">' . $row['label'] . '</span></h3></li>';
       }
     }
   }

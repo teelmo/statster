@@ -31,7 +31,7 @@ class Search extends CI_Controller {
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Artists</span>',
+          'label' => 'Artists',
           'value' => ''
         );
         foreach ($query->result() as $row) {
@@ -60,7 +60,7 @@ class Search extends CI_Controller {
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Albums</span>',
+          'label' => 'Albums',
           'value' => '',
         );
         foreach ($query->result() as $row) {
@@ -85,7 +85,7 @@ class Search extends CI_Controller {
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Genres</span>',
+          'label' => 'Genres',
           'value' => '',
         );
         foreach ($query->result() as $row) {
@@ -108,7 +108,7 @@ class Search extends CI_Controller {
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Keywords</span>',
+          'label' => 'Keywords',
           'value' => '',
         );
         foreach ($query->result() as $row) {
@@ -131,7 +131,7 @@ class Search extends CI_Controller {
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Nationalities</span>',
+          'label' => 'Nationalities',
           'value' => '',
         );
         foreach ($query->result() as $row) {
@@ -153,7 +153,7 @@ class Search extends CI_Controller {
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Years</span>',
+          'label' => 'Years',
           'value' => '',
         );
         foreach ($query->result() as $row) {
@@ -176,7 +176,7 @@ class Search extends CI_Controller {
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
         $results[] = array(
-          'label' => '<span class="title">Users</span>',
+          'label' => 'Users',
           'value' => '',
         );
         foreach ($query->result() as $row) {

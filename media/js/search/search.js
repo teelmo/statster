@@ -29,7 +29,7 @@ $.extend(view, {
         }
       },
       type:'GET',
-      url:'/api/search/get/100/'
+      url:'/api/search/Get/100/'
     });
   },
   initSearchEvents: function () {
