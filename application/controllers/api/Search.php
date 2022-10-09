@@ -38,6 +38,7 @@ class Search extends CI_Controller {
           $results[] = array(
             'artist_name' => $row->artist_name,
             'artist_id' => $row->artist_id,
+            'img' => getArtistImg(array('artist_id' => $row->artist_id, 'size' => 64)),
             'label' => $row->artist_name,
             'type' => 'artist',
             'url' => '/music/' . url_title($row->artist_name),

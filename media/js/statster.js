@@ -22,6 +22,7 @@ var app = {
         return $('<li></li>').addClass('header').data('item.autocomplete', item).append('<a>' + item.label + '</a>').appendTo(ul);
       }
       else {
+            console.log(item)
         if (this.term.indexOf('–') !== -1) {
           var item_arr = this.term.split('–');
           if (item_arr[1] != '') {
