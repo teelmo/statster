@@ -135,6 +135,49 @@ $.extend(view, {
       url:'/api/format/get'
     });
   },
+  // Get album listeners.
+  getUsers: function () {
+    $.ajax({
+      data:{
+        album_name:'<?=$album_name?>',
+        artist_name:'<?=$artist_name?>',
+        limit:6,
+        sub_group_by:'album'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:{
+                calendar:true,
+                date:true
+              },
+              json_data:data,
+              size:32
+            },
+            success: function (data) {
+              $('#topListenerLoader').hide();
+              $('#topListener').html(data);
+            },
+            type:'POST',
+            url:'/ajax/userTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/listener/get'
+    });
+  },
+  // Get album listenings.
   getListenings: function () {
     $.ajax({
       data:{
@@ -273,6 +316,7 @@ $(document).ready(function() {
   view.getLoves();
   view.getTags();
   view.getFormats();
+  view.getUsers();
   view.getListenings();
   view.initListenerAlbumEvents();
 });

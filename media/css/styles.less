@@ -447,16 +447,12 @@ form#loginForm input[type="text"] {
 /* Search form */
 .search_container {
   vertical-align: top;
-  ::-webkit-input-placeholder,
-  ::-moz-placeholder,
-  ::-ms-input-placeholder {  
+  &::placeholder {
     color: rgba(255, 255, 255, 0.3);
     font-weight: 300;
   }
   &:hover {
-    ::-webkit-input-placeholder,
-    ::-moz-placeholder,
-    ::-ms-input-placeholder {
+    &::placeholder {
       color: rgba(255, 255, 255, 1);
       transition-duration: 0.3s;
     }
@@ -472,9 +468,13 @@ form#loginForm input[type="text"] {
     &:focus {
       background-color: transparent;
       color: #fff;
-      &::-webkit-input-placeholder,
-      &::-moz-placeholder,
-      &::-ms-input-placeholder {
+      &::placeholder {
+        color: rgba(255, 255, 255, 1);
+        font-weight: 300;
+      }
+    }
+    &:hover {
+      &::placeholder {
         color: rgba(255, 255, 255, 1);
         font-weight: 300;
       }

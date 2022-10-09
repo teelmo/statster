@@ -133,6 +133,48 @@ $.extend(view, {
       url:'/api/format/get'
     });
   },
+  // Get artist listeners.
+  getUsers: function () {
+    $.ajax({
+      data:{
+        artist_name:'<?=$artist_name?>',
+        limit:6,
+        sub_group_by:''
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:{
+                calendar:true,
+                date:true
+              },
+              json_data:data,
+              size:32
+            },
+            success: function (data) {
+              $('#topListenerLoader').hide();
+              $('#topListener').html(data);
+            },
+            type:'POST',
+            url:'/ajax/userTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/listener/get'
+    });
+  },
+  // Get artist listenings.
   getListenings: function () {
     $.ajax({
       data:{
@@ -264,11 +306,12 @@ $.extend(view, {
   }
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
   view.getFan(parseInt(<?=$this->session->userdata('user_id')?>));
   view.getFans();
   view.getTags();
   view.getFormats();
+  view.getUsers();
   view.getListenings();
   view.initListenerArtistEvents();
 });

@@ -233,7 +233,7 @@ $.extend(view, {
     $.ajax({
       data:{
         artist_name:'<?=$artist_name?>',
-        sub_group_by:'artist',
+        sub_group_by:'',
         limit:6
       },
       dataType:'json',

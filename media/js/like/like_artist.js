@@ -140,7 +140,7 @@ $.extend(view, {
       data:{
         artist_name:'<?=$artist_name?>',
         limit:6,
-        sub_group_by:'artist'
+        sub_group_by:''
       },
       dataType:'json',
       statusCode:{

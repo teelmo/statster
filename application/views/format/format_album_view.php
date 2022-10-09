@@ -85,6 +85,14 @@
   <div class="right_container">
     <div class="container">
       <h1>Statistics</h1>
+      <h2>Top listeners</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
+      <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'More listeners', array('title' => 'Browse more listenings'))?>
+      </div>
+    </div>
+    <div class="container"><hr /></div>
       <h2>Latest listenings</h2>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
