@@ -37,7 +37,7 @@ class Search extends CI_Controller {
         foreach ($query->result() as $row) {
           $results[] = array(
             'artist_name' => $row->artist_name,
-            'img' => getArtistImg(array('artist_id' => $row->artist_id, 'size' => 64)),
+            'artist_id' => $row->artist_id,
             'label' => $row->artist_name,
             'type' => 'artist',
             'url' => '/music/' . url_title($row->artist_name),
@@ -67,8 +67,8 @@ class Search extends CI_Controller {
           $results[] = array(
             'album_name' => $row->album_name,
             'artist_name' =>  $row->artist_name,
-            'img' => getAlbumImg(array('album_id' => $row->album_id, 'size' => 64)),
-            'label' => $row->album_name,
+            'album_id' => $row->album_id,
+              'label' => $row->album_name,
             'type' => 'album',
             'url' => '/music/' . url_title($row->artist_name) . '/' . url_title($row->album_name),
             'value' => $row->album_name

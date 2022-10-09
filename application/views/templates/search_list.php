@@ -6,10 +6,10 @@ if (!empty($json_data)) {
       if (isset($row['type'])) {
         $result_id++;
         if ($row['type'] === 'album') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img64" style="background-image:url(' . $row['img'] . ')"></div><div class="title">' . $row['artist_name'] . ' – ' . $row['album_name'] . '</div>', array('title' => 'Browse to album\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img64" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 64)) . ')"></div><div class="title">' . $row['artist_name'] . ' – ' . $row['album_name'] . '</div>', array('title' => 'Browse to album\'s page')) . '</li>';
         }
         else if ($row['type'] === 'artist') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . $row['img'] . ')"></div><div class="title">' . $row['artist_name'] . '</div>', array('title' => 'Browse to artist\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 64)) . ')"></div><div class="title">' . $row['artist_name'] . '</div>', array('title' => 'Browse to artist\'s page')) . '</li>';
         }
         else if ($row['type'] === 'genre') {
           echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="fa fa-music"></i>' . anchor(array('genre', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to genre\'s page')) . '</li>';
