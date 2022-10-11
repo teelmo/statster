@@ -81,7 +81,9 @@ class AutoComplete extends CI_Controller {
           $results[] = array(
             'album_id' => $row->album_id,
             'artist_ids' => implode(', ', array_map(function($artist) { return $artist['id'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')',
-            'img' => getAlbumImg(array('album_id' => $row->album_id, 'size' => 32)),
+            'image_server_ip' => IMAGE_SERVER_IP,
+            'image_server_protocol' => IMAGE_SERVER_PROTOCOL,
+            'img' => str_replace(IMAGE_SERVER, '', getAlbumImg(array('album_id' => $row->album_id, 'size' => 64))),
             'label' => implode(', ', array_map(function($artist) { return $artist['artist_name'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')',
             'value' => implode(', ', array_map(function($artist) { return $artist['artist_name'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name
           );
@@ -131,7 +133,9 @@ class AutoComplete extends CI_Controller {
         foreach ($query->result() as $row) {
           $results[] = array(
             'id' => $row->id,
-            'img' => getArtistImg(array('artist_id' => $row->id, 'size' => 32)),
+            'image_server_ip' => IMAGE_SERVER_IP,
+            'image_server_protocol' => IMAGE_SERVER_PROTOCOL,
+            'img' => str_replace(IMAGE_SERVER, '', getArtistImg(array('artist_id' => $row->id, 'size' => 64))),
             'label' => $row->artist_name,
             'value' => $row->artist_name
           );

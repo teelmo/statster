@@ -73,7 +73,7 @@ class Search extends CI_Controller {
             'artist_name' =>  $row->artist_name,
             'image_server_ip' => IMAGE_SERVER_IP,
             'image_server_protocol' => IMAGE_SERVER_PROTOCOL,
-            'img' => str_replace(IMAGE_SERVER, '', getAlbumImg(array('album_id' => $row->artist_id, 'size' => 64))),
+            'img' => str_replace(IMAGE_SERVER, '', getAlbumImg(array('album_id' => $row->album_id, 'size' => 64))),
             'label' => $row->album_name,
             'type' => 'album',
             'url' => '/music/' . url_title($row->artist_name) . '/' . url_title($row->album_name),
