@@ -2,7 +2,8 @@ $.extend(view, {
   topListeners: function () {
     $.ajax({
       data:{
-        limit:100
+        limit:100,
+        sub_group_by:'album'
       },
       dataType:'json',
       statusCode:{
