@@ -20,6 +20,7 @@
           if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
             echo anchor(array('admin', 'album', $album_id . '?artist=' . $artist_name), '<span class="fa fa-pen-square"></span>');
           }
+          // TODO: To add listening, not implemented. Would need a way (pop up) to add the listening format.
           if (!empty($this->session->userdata['user_id'])) {
             echo '<a href="javascript:;" class="hidden"><span class="fa fa-plus-square"></span></a>';
           }

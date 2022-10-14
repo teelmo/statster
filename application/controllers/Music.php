@@ -227,18 +227,13 @@ class Music extends CI_Controller {
       
       // Get album information aka. album's name and id.
       if ($data = getAlbumInfo($data)) {
-        $idx = 0;
-        $selected_artist_idx = 0;
         $artists = array_map(function($artist) {
           return array('artist_id' => $artist['artist_id'],
                        'artist_name' => $artist['artist_name']);
         }, $data);
         $data = $data[0];
         usort($artists, function($artist_a, $artist_b) use ($value1) {
-          if ($artist_b['artist_name'] === decode($value1)) {
-            return 1;
-          }
-          return 0;
+          ($artist_b['artist_name'] === decode($value1)) ? 1 : 0;
         });
         $data['artists'] = $artists;
         $intervals = unserialize($this->session->userdata('intervals'));
@@ -331,7 +326,16 @@ class Music extends CI_Controller {
 
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
-      if ($data = getAlbumInfo($data)[0]) {
+      if ($data = getAlbumInfo($data)) {
+        $artists = array_map(function($artist) {
+          return array('artist_id' => $artist['artist_id'],
+                       'artist_name' => $artist['artist_name']);
+        }, $data);
+        $data = $data[0];
+        usort($artists, function($artist_a, $artist_b) use ($artist_name) {
+          ($artist_b['artist_name'] === decode($artist_name)) ? 1 : 0;
+        });
+        $data['artists'] = $artists;
         // Get albums's total listening data.
         $data += getAlbumListenings($data);
         // Get logged in user's listening data.
@@ -483,7 +487,16 @@ class Music extends CI_Controller {
 
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
-      if ($data = getAlbumInfo($data)[0]) {
+      if ($data = getAlbumInfo($data)) {
+        $artists = array_map(function($artist) {
+          return array('artist_id' => $artist['artist_id'],
+                       'artist_name' => $artist['artist_name']);
+        }, $data);
+        $data = $data[0];
+        usort($artists, function($artist_a, $artist_b) use ($artist_name) {
+          ($artist_b['artist_name'] === decode($artist_name)) ? 1 : 0;
+        });
+        $data['artists'] = $artists;
         // Get albums's total listening data.
         $data += getAlbumListenings($data);
         // Get logged in user's listening data.

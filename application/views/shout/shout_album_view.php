@@ -13,7 +13,7 @@
         <span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span>
       </div>
       <div class="top_info album_info">
-        <h2><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h2>
+        <h2><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name']);}, $artists))?></h2>
         <h1><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $album_name)?></h1>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="tagsLoader"/>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>

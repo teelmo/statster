@@ -8,7 +8,16 @@ class Like extends CI_Controller {
 
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
-      if ($data = getAlbumInfo($data)[0]) {
+      if ($data = getAlbumInfo($data)) {
+        $artists = array_map(function($artist) {
+          return array('artist_id' => $artist['artist_id'],
+                       'artist_name' => $artist['artist_name']);
+        }, $data);
+        $data = $data[0];
+        usort($artists, function($artist_a, $artist_b) use ($artist_name) {
+          ($artist_b['artist_name'] === decode($artist_name)) ? 1 : 0;
+        });
+        $data['artists'] = $artists;
         // Get albums's total listening data.
         $data += getAlbumListenings($data);
         // Get logged in user's listening data.
