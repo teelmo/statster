@@ -98,7 +98,7 @@ $.extend(view, {
   },
   topArtistYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-      $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + year + 'Loader"/><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/<?=$tag_type?>/<?=url_title($tag_name)?>/<?=$type?>/' + year + '" title="Browse more">More <span class="number">' + year + '</span></</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + year + 'Loader"/><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/<?=$tag_type?>/' + year + '/<?=$type?>" title="Browse more">More <span class="number">' + year + '</span></</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopArtist' + year,
         hide:{
