@@ -7,7 +7,7 @@
       }
     }
     .meta_container {
-      max-width: 640px;
+      width: 100%;
     }
   }
   .main_container {
@@ -41,10 +41,12 @@
   }
 }
 
-@media all and (max-width: 750px) {
+@media all and (max-width: 800px) {
   .heading_container {
     .meta_container {
-      padding-left: 2px;
+      display: flex;
+      justify-content: space-evenly;
+      max-width: 640px;
     }
     .float_left.img174 {
       display: none;
@@ -69,8 +71,12 @@
   }
 }
 @media all and (max-width: 600px) {
-  .heading_container .meta_container .meta:nth-child(4) {
-    display: none;
+  .heading_container .meta_container {
+    display: flex;
+    justify-content: flex-start;
+    .meta:nth-child(4) {
+      display: none;
+    }
   }
 }
 
