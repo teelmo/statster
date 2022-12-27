@@ -386,9 +386,9 @@ if (!function_exists('getAlbumListenings')) {
 if (!function_exists('getAlbumTags')) {
   function getAlbumTags($opts = array()) {
     $tags_array = array();
-    $tags_array[] = getAlbumNationalities($opts);
     $tags_array[] = getAlbumGenres($opts);
     $tags_array[] = getAlbumKeywords($opts);
+    $tags_array[] = getAlbumNationalities($opts);
 
     if (is_array($tags_array)) {
       $data = array();
@@ -434,7 +434,8 @@ if (!function_exists('getAlbumGenres')) {
               AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
               AND " . TBL_album . ".`id` LIKE ?
             GROUP BY " . TBL_genre . ".`id`
-            ORDER BY `count` DESC";
+            ORDER BY `count` DESC,
+                     " . TBL_genre . ".`name` ASC";
     $query = $ci->db->query($sql, array($album_id));
     return ($query->num_rows() > 0) ? $query->result() : array();
   }
@@ -467,7 +468,8 @@ if (!function_exists('getAlbumKeywords')) {
               AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
               AND " . TBL_album . ".`id` LIKE ?
             GROUP BY " . TBL_keyword . ".`id`
-            ORDER BY `count` DESC";
+            ORDER BY `count` DESC
+                     " . TBL_keyword . ".`name` ASC";
     $query = $ci->db->query($sql, array($album_id));
     return ($query->num_rows() > 0) ? $query->result() : array();
   }
@@ -501,7 +503,8 @@ if (!function_exists('getAlbumNationalities')) {
               AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
               AND " . TBL_album . ".`id` LIKE ?
             GROUP BY " . TBL_nationality . ".`id`
-            ORDER BY `count` DESC";
+            ORDER BY `count` DESC,
+                     " . TBL_nationality . ".`name` ASC";
     $query = $ci->db->query($sql, array($album_id));
     return ($query->num_rows() > 0) ? $query->result() : array();
   }
