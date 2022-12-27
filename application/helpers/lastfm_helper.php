@@ -66,7 +66,7 @@ if (!function_exists('fetchArtistInfo')) {
     if ($artist_name !== FALSE) {
       $data = array();
       if (in_array('bio', $get)) {
-        if ($lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)) {
+        if ($lastfm_data = json_decode(@file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE)) {
           if (empty($lastfm_data['error'])) {
             $lastfm_data = $lastfm_data['artist'];
             // Get biography.
@@ -78,7 +78,7 @@ if (!function_exists('fetchArtistInfo')) {
         }
       }
       if (in_array('image', $get)) {
-        if ($napster_data = json_decode(file_get_contents('http://api.napster.com/v2.2/artists/' . urlencode(strtolower($artist_name)) . '?apikey='. NAPSTER_API_KEY), TRUE)) {
+        if ($napster_data = json_decode(@file_get_contents('http://api.napster.com/v2.2/artists/' . urlencode(strtolower($artist_name)) . '?apikey='. NAPSTER_API_KEY), TRUE)) {
           if (!empty($napster_data['artists'])) {
             //Get image.
             if (!empty($napster_data['artists'][0]['id'])) {
@@ -115,7 +115,7 @@ if (!function_exists('fetchTagBio')) {
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
     if ($tag_name !== FALSE) {
       $data = array();
-      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=' . urlencode($tag_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
+      $lastfm_data = json_decode(@file_get_contents('http://ws.audioscrobbler.com/2.0/?method=tag.getinfo&tag=' . urlencode($tag_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format), TRUE);
       $data['bio_summary'] = $lastfm_data['tag']['wiki']['summary']; 
       $data['bio_content'] = $lastfm_data['tag']['wiki']['content'];
       return $data; 

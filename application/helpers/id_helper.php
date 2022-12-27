@@ -74,7 +74,7 @@ if (!function_exists('getAlbumIDs')) {
     $sql = "SELECT " . TBL_album . ".`id` as `album_id`
             FROM " . TBL_album . ",
                  " . TBL_artists . " 
-            WHERE " . TBL_artists . ".`artist_id` = " . TBL_album . ".`artist_id`
+            WHERE " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_artists . ".`artist_id` = ?";
     $query = $ci->db->query($sql, array($artist_id));
     return ($query->num_rows() > 0) ? $query->result() : FALSE;
