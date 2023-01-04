@@ -468,7 +468,7 @@ if (!function_exists('getAlbumKeywords')) {
               AND " . TBL_keyword . ".`id` = " . TBL_keywords . ".`keyword_id`
               AND " . TBL_album . ".`id` LIKE ?
             GROUP BY " . TBL_keyword . ".`id`
-            ORDER BY `count` DESC
+            ORDER BY `count` DESC,
                      " . TBL_keyword . ".`name` ASC";
     $query = $ci->db->query($sql, array($album_id));
     return ($query->num_rows() > 0) ? $query->result() : array();
