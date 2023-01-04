@@ -504,7 +504,7 @@ if (!function_exists('getAlbumNationalities')) {
               AND " . TBL_album . ".`id` LIKE ?
             GROUP BY " . TBL_nationality . ".`id`
             ORDER BY `count` DESC,
-                     " . TBL_nationality . ".`name` ASC";
+                     `name` ASC";
     $query = $ci->db->query($sql, array($album_id));
     return ($query->num_rows() > 0) ? $query->result() : array();
   }
