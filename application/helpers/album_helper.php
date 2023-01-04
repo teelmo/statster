@@ -386,9 +386,9 @@ if (!function_exists('getAlbumListenings')) {
 if (!function_exists('getAlbumTags')) {
   function getAlbumTags($opts = array()) {
     $tags_array = array();
+    $tags_array[] = getAlbumNationalities($opts);
     $tags_array[] = getAlbumGenres($opts);
     $tags_array[] = getAlbumKeywords($opts);
-    $tags_array[] = getAlbumNationalities($opts);
 
     if (is_array($tags_array)) {
       $data = array();
