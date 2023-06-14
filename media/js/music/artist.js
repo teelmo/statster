@@ -149,7 +149,7 @@ $.extend(view, {
         limit:200,
         order_by:order_by,
         select:select,
-        sub_group_by:'artist',
+        sub_group_by:'',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
