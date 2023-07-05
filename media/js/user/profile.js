@@ -93,6 +93,7 @@ $.extend(view, {
     }
     $.ajax({
       data:{
+        sub_group_by:'album',
         limit:12,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
