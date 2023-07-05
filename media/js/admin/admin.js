@@ -156,8 +156,6 @@ $.extend(view, {
       if (album_id_from === '' || album_id_to === '') {
         return false;
       }
-      console.log(album_id_from)
-      console.log(album_id_to)
       $.ajax({
         data:{
           album_id_from:album_id_from,
@@ -169,7 +167,6 @@ $.extend(view, {
             alert('Album with ID ' + album_id_from + ' data transferred to album with ID ' + album_id_to + '!');
           },
           400: function (data) { // 400 Bad Request
-            console.log(data)
             alert('400 Bad Request');
           },
           401: function () { // 401 Unauthorized

@@ -271,7 +271,6 @@ $.extend(view, {
       },
       statusCode:{
         200: function (data) { // 200 OK
-          console.log(data)
           $.ajax({
             data:{
               hide:{
