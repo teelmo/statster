@@ -268,7 +268,6 @@ $.extend(view, {
       },
       dataType:'json',
       success: function (data) {
-        console.log(data)
       },
       statusCode:{
         200: function (data) { // 200 OK
