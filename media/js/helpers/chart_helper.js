@@ -20,8 +20,8 @@ $.extend(view, {
           y:17,
           style:{
             color:'#999',
-            fontFamily:'Raleway',
-            fontSize:'14px',
+            fontFamily:'Lato',
+            fontSize:'11px',
             fontWeight:'300'
           },
         },
@@ -37,7 +37,7 @@ $.extend(view, {
           },
           style:{
             color:'#999',
-            fontFamily:'Raleway',
+            fontFamily:'Lato',
             fontSize:'14px',
             fontWeight:'300'
           }
@@ -57,7 +57,7 @@ $.extend(view, {
         shadow:false,
         style:{
           color:'#999',
-          fontFamily:'Raleway',
+          fontFamily:'Lato',
           fontSize:'14px',
           fontWeight:'300'
         }
