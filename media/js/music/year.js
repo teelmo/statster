@@ -28,6 +28,7 @@ $.extend(view, {
         select:select,
         upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        sub_group_by:'album',
         where:where
       },
       dataType:'json',
@@ -135,6 +136,7 @@ $.extend(view, {
       data:{
         limit:5,
         lower_limit:lower_limit,
+        sub_group_by:'album',
         upper_limit:upper_limit
       },
       dataType:'json',

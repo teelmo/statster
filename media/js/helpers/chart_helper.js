@@ -21,7 +21,7 @@ $.extend(view, {
           style:{
             color:'#999',
             fontFamily:'Lato',
-            fontSize:'11px',
+            fontSize:'12px',
             fontWeight:'300'
           },
         },
@@ -38,7 +38,7 @@ $.extend(view, {
           style:{
             color:'#999',
             fontFamily:'Lato',
-            fontSize:'14px',
+            fontSize:'12px',
             fontWeight:'300'
           }
         },

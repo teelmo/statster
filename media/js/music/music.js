@@ -50,6 +50,7 @@ $.extend(view, {
         sub_group_by:'album',
         select:select,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        sub_group_by:'album',
         where:where
       },
       dataType:'json',
