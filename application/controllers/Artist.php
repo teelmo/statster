@@ -97,7 +97,7 @@ class Artist extends CI_Controller {
     }
 
     $this->load->view('site_templates/header');
-    $this->load->view('music/artist_mosaic', $data);
+    $this->load->view('music/artists_mosaic', $data);
     $this->load->view('site_templates/footer');
   }
 }
