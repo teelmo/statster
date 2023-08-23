@@ -1,9 +1,21 @@
 $.extend(view, {
-  getTopArtist: function () {
+  getTopArtist: function (lower_limit, upper_limit = false) {
+    if (!upper_limit) {
+      if (lower_limit === 'overall') {
+        lower_limit = '1970-00-00';
+      }
+      else {
+        var date = new Date();
+        date.setDate(date.getDate() - parseInt(lower_limit));
+        lower_limit = date.toISOString().split('T')[0];
+      }
+      upper_limit = '<?=CUR_DATE?>'
+    }
     $.ajax({
       data:{
         limit:102,
-        lower_limit:'1970-00-00',
+        lower_limit:lower_limit,
+        upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -15,7 +27,7 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#artistMosaikLoader').hide();
+              $('#artistMosaikLoader, #artistMosaikLoader2').hide();
               $('#artistMosaik').html(data);
             },
             type:'POST',
@@ -23,7 +35,7 @@ $.extend(view, {
           });
         },
         204: function (data) { // 204 No Content
-          $('#artistMosaikLoader').hide();
+          $('#artistMosaikLoader, #artistMosaikLoader2').hide();
           $('#artistMosaik').html('<?=ERR_NO_DATA?>');
         }
       },
@@ -34,6 +46,5 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getTopArtist();
-  
+  view.getTopArtist('<?=$lower_limit?>', '<?=$upper_limit?>');
 });

@@ -78,14 +78,9 @@ class Album extends CI_Controller {
 
     $data = array();
     $intervals = unserialize($this->session->userdata('intervals'));
-    $data['top_album_album'] = isset($intervals['top_album_album']) ? $intervals['top_album_album'] : 'overall';
-    $data['lower_limit'] = $data['top_album_album'];
-    $data['upper_limit'] = CUR_DATE;
+    $data['top_album_mosaik'] = isset($intervals['top_album_mosaik']) ? $intervals['top_album_mosaik'] : 'overall';
+    $data['lower_limit'] = $data['top_album_mosaik'];
     $data['title'] = 'Albums';
-    $data['side_title'] = 'Yearly';
-    $data['day'] = '';
-    $data['month'] = '';
-    $data['year'] = '';
 
     $opts = array(
       'limit' => '1',
@@ -94,7 +89,7 @@ class Album extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
-    $data['js_include'] = array('music/album_mosaik');
+    $data['js_include'] = array('music/album_mosaik', 'helpers/time_interval_helper');
 
     $data['total_count'] = getListeningCount(array(), TBL_album);
     if ($this->session->userdata('logged_in') === TRUE) {

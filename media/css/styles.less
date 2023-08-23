@@ -116,6 +116,9 @@ h3 {
     }
   }
 }
+.empty_data_container {
+  font-size: 14px;
+}
 .settings {
   font-weight: 600;
 }
@@ -1121,14 +1124,12 @@ ul {
   &.artist_list {
     font-size: 0;
     margin: 20px 0;
-    &.album_list_150 li,
-    &.artist_list_150 li { 
+    li {
       box-sizing: border-box;
       display: inline-block;
       margin: 0;
       overflow: visible;
       vertical-align: top;
-      width: 150px;
     }
   }
   &.like_list {
@@ -1249,6 +1250,10 @@ div.cover {
     .box-shadow(3px 3px 4px #ddd);
     border: 1px solid #232323;
     box-sizing: border-box;
+    &.no_overlay {
+      .box-shadow(0 0 0 transparent);
+      border: 1px solid #ded9d5;
+    }
   }
   &.img32 {
     height: 32px;
@@ -1339,6 +1344,11 @@ div.cover {
   &.img300 {
     &:after {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.8) 100%);
+    }
+    &.no_overlay {
+      &:after {
+        background-image: none;
+      }
     }
   }
   &.img124 {

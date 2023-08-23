@@ -47,6 +47,26 @@
   </div>
   <div class="full_container">
     <div class="container">
+      <h1><?=$title?>
+        <?php
+        if (isset($top_album_mosaik)) {
+          ?>
+          <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="albumMosaikLoader2" />
+          <div class="func_container">
+            <div class="value"><?=INTERVAL_TEXTS[$top_album_mosaik]?></div>
+            <ul class="subnav" data-name="top_album_mosaik" data-callback="getTopAlbum" data-loader="albumMosaikLoader2">
+              <li data-value="7">Last 7 days</li>
+              <li data-value="30">Last 30 days</li>
+              <li data-value="90">Last 90 days</li>
+              <li data-value="180">Last 180 days</li>
+              <li data-value="365">Last 365 days</li>
+              <li data-value="overall">All time</li>
+            </ul>
+          </div>
+          <?php
+        }
+        ?>
+      </h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumMosaikLoader"/>
       <ul id="albumMosaik" class="album_list album_list_150"><!-- Content is loaded with AJAX --></ul>
     </div>

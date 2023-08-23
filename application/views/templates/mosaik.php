@@ -6,7 +6,7 @@ if (!empty($json_data)) {
         foreach ($json_data as $idx => $row) {
           ?>
           <li>
-            <?=anchor(array(url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to albums\'s page'))?>
+            <?=anchor(array(url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150 no_overlay" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to albums\'s page'))?>
           </li>
           <?php
         }
@@ -15,7 +15,7 @@ if (!empty($json_data)) {
         foreach ($json_data as $idx => $row) {
           ?>
           <li>
-            <?=anchor(array(url_title($row['artist_name'])), '<div class="cover artist_img img150" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
+            <?=anchor(array(url_title($row['artist_name'])), '<div class="cover artist_img img150 no_overlay" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
           </li>
           <?php
         }
