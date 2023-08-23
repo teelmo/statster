@@ -89,7 +89,7 @@ class Album extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
-    $data['js_include'] = array('music/album_mosaic', 'helpers/time_interval_helper');
+    $data['js_include'] = array('music/albums_mosaic', 'helpers/time_interval_helper');
 
     $data['total_count'] = getListeningCount(array(), TBL_album);
     if ($this->session->userdata('logged_in') === TRUE) {
