@@ -74,9 +74,7 @@
       </h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
-      <div class="container">
-        <div class="more"><?=anchor(array('mosaic'), 'Mosaic')?></div>
-      </div>
+      <div class="more"><?=anchor(array('mosaic'), 'Mosaic')?></div>
     </div>
   </div>
   <div class="right_container">
