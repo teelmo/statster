@@ -27,16 +27,16 @@ $.extend(view, {
               type:'artist'
             },
             success: function (data) {
-              $('#artistMosaikLoader, #artistMosaikLoader2').hide();
-              $('#artistMosaik').html(data);
+              $('#artistMosaicLoader, #artistMosaicLoader2').hide();
+              $('#artistMosaic').html(data);
             },
             type:'POST',
-            url:'/ajax/mosaik'
+            url:'/ajax/mosaic'
           });
         },
         204: function (data) { // 204 No Content
-          $('#artistMosaikLoader, #artistMosaikLoader2').hide();
-          $('#artistMosaik').html('<?=ERR_NO_DATA?>');
+          $('#artistMosaicLoader, #artistMosaicLoader2').hide();
+          $('#artistMosaic').html('<?=ERR_NO_DATA?>');
         }
       },
       type:'GET',

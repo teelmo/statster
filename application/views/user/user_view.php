@@ -9,8 +9,8 @@
   <div class="left_container">
     <div class="container">
       <h1>People</h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="userMosaikLoader"/>
-      <ul id="userMosaik" class="user_list user_list_150"><!-- Content is loaded with AJAX --></ul>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="userMosaicLoader"/>
+      <ul id="userMosaic" class="user_list user_list_150"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div class="right_container">

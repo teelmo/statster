@@ -12,16 +12,16 @@ $.extend(view, {
               type:'user'
             },
             success: function (data) {
-              $('#userMosaikLoader').hide();
-              $('#userMosaik').html(data);
+              $('#userMosaicLoader').hide();
+              $('#userMosaic').html(data);
             },
             type:'POST',
-            url:'/ajax/mosaik'
+            url:'/ajax/mosaic'
           });
         },
         204: function () { // 204 No Content
-          $('#userMosaikLoader').hide();
-          $('#userMosaik').html('<?=ERR_NO_RESULTS?>');
+          $('#userMosaicLoader').hide();
+          $('#userMosaic').html('<?=ERR_NO_RESULTS?>');
         },
         404: function () { // 404 Not found
           alert('404 Not Found');

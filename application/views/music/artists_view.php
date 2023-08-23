@@ -76,7 +76,7 @@
       <table id="topArtist" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container">
-      <div class="more"><?=anchor(array('artist', 'mosaik'), 'See mosaik')?></div>
+      <div class="more"><?=anchor(array('artist', 'mosaic'), 'Mosaic')?></div>
     </div>
   </div>
   <div class="right_container">

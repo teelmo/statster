@@ -20,6 +20,22 @@ if (!empty($json_data)) {
           <?php
         }
         break;
+      case 'recent':
+        $prev_date = '';
+        foreach ($json_data as $idx => $row) {
+          if (strip_tags(timeAgo($row['date'], CUR_DATE)) != $prev_date) {
+            ?>
+            <li class="block"><h3><?=timeAgo($row['date'], CUR_DATE)?></h3></li>
+            <?php
+          }
+          ?>
+          <li>
+            <?=anchor(array(url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150 no_overlay" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to albums\'s page'))?>
+          </li>
+          <?php
+          $prev_date = strip_tags(timeAgo($row['date'], CUR_DATE));
+        }
+        break;
       case 'user':
         foreach ($json_data as $idx => $row) {
           ?>

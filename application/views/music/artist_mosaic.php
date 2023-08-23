@@ -49,12 +49,12 @@
     <div class="container">
       <h1><?=$title?>
         <?php
-        if (isset($top_artist_mosaik)) {
+        if (isset($top_artist_mosaic)) {
           ?>
-          <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="artistMosaikLoader2" />
+          <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="artistMosaicLoader2" />
           <div class="func_container">
-            <div class="value"><?=INTERVAL_TEXTS[$top_artist_mosaik]?></div>
-            <ul class="subnav" data-name="top_artist_mosaik" data-callback="getTopArtist" data-loader="artistMosaikLoader2">
+            <div class="value"><?=INTERVAL_TEXTS[$top_artist_mosaic]?></div>
+            <ul class="subnav" data-name="top_artist_mosaic" data-callback="getTopArtist" data-loader="artistMosaicLoader2">
               <li data-value="7">Last 7 days</li>
               <li data-value="30">Last 30 days</li>
               <li data-value="90">Last 90 days</li>
@@ -67,7 +67,7 @@
         }
         ?>
       </h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistMosaikLoader"/>
-      <ul id="artistMosaik" class="artist_list"><!-- Content is loaded with AJAX --></ul>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="artistMosaicLoader"/>
+      <ul id="artistMosaic" class="artist_list"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

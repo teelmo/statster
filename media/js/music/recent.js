@@ -22,8 +22,7 @@ $.extend(view, {
               time:Math.floor((new Date().getTime() - new Date().getTimezoneOffset() * 60000) / 1000)
             },
             success: function (data) {
-              $('#recentlyListenedLoader2').hide();
-              $('#recentlyListenedLoader').hide();
+              $('#recentlyListenedLoader, #recentlyListenedLoader2').hide();
               $('#recentlyListened').html(data);
               var hours = today.getHours();
               var minutes = today.getMinutes();

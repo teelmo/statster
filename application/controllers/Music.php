@@ -476,6 +476,31 @@ class Music extends CI_Controller {
     }
   }
 
+  public function mosaic() {
+    // Load helpers.
+    $this->load->helper(array('form', 'img_helper', 'music_helper', 'output_helper'));
+
+    $data = array();
+    $opts = array(
+      'human_readable' => false,
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+      'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['total_count'] = getListeningCount(array(), TBL_listening);
+    if ($this->session->userdata('logged_in') === TRUE) {
+      $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
+    }
+    $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
+    $data['js_include'] = array('music/mosaic', 'libs/jquery.daterangepicker', 'helpers/add_listening_helper');
+
+    $this->load->view('site_templates/header');
+    $this->load->view('music/mosaic_view', $data);
+    $this->load->view('site_templates/footer');
+  }
+
   public function listener($artist_name = '', $album_name = FALSE) {
     // Load helpers.
     $this->load->helper(array('form'));

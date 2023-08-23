@@ -45,7 +45,7 @@
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
-  <div class="left_container">
+  <div class="full_container">
     <div class="container">
       <?php
       if ($logged_in === 'true') {
@@ -70,30 +70,10 @@
         <?php
       }
       ?>
-      <h1>Listenings <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span>
+      <h1>Listenings <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentMosaicLoader2" /> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span>
       </h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
-      <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
-      <div class="container">
-        <div class="more"><?=anchor(array('mosaic'), 'Mosaic')?></div>
-      </div>
-    </div>
-  </div>
-  <div class="right_container">
-    <div class="container">
-      <h1>Statistics</h1>
-      <h2>Top listeners</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
-      <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
-      <div class="more">
-        <?php
-        if (!empty($album_name)) {
-          echo anchor(array('listener', url_title($artist_name), url_title($album_name)), 'See more', array('title' => 'Browse more listenings'));
-        }
-        elseif (!empty($artist_name)) {
-          echo anchor(array('listener', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'));
-        }
-        ?>
-      </div>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="recentMosaicLoader"/>
+      <div id="recentlyUpdated" class="updated"></div>
+      <ul id="recentMosaic" class="album_list"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

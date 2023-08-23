@@ -5,7 +5,7 @@ if (!empty($json_data)) {
     ?>
     <thead>
       <tr>
-        <td colspan="6" id="recentlyUpdated" value=""></td>
+        <td colspan="6" id="recentlyUpdated" value="" class="updated"></td>
       </tr>
     </thead>
     <tbody>

@@ -72,14 +72,14 @@ class Album extends CI_Controller {
     $this->load->view('music/albums_view', $data);
     $this->load->view('site_templates/footer');
   }
-  public function mosaik() {
+  public function mosaic() {
     // Load helpers.
     $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
 
     $data = array();
     $intervals = unserialize($this->session->userdata('intervals'));
-    $data['top_album_mosaik'] = isset($intervals['top_album_mosaik']) ? $intervals['top_album_mosaik'] : 'overall';
-    $data['lower_limit'] = $data['top_album_mosaik'];
+    $data['top_album_mosaic'] = isset($intervals['top_album_mosaic']) ? $intervals['top_album_mosaic'] : 'overall';
+    $data['lower_limit'] = $data['top_album_mosaic'];
     $data['title'] = 'Albums';
 
     $opts = array(
@@ -89,7 +89,7 @@ class Album extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
-    $data['js_include'] = array('music/album_mosaik', 'helpers/time_interval_helper');
+    $data['js_include'] = array('music/album_mosaic', 'helpers/time_interval_helper');
 
     $data['total_count'] = getListeningCount(array(), TBL_album);
     if ($this->session->userdata('logged_in') === TRUE) {
@@ -97,7 +97,7 @@ class Album extends CI_Controller {
     }
 
     $this->load->view('site_templates/header');
-    $this->load->view('music/album_mosaik', $data);
+    $this->load->view('music/album_mosaic', $data);
     $this->load->view('site_templates/footer');
   }
 }

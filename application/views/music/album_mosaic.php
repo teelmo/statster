@@ -49,12 +49,12 @@
     <div class="container">
       <h1><?=$title?>
         <?php
-        if (isset($top_album_mosaik)) {
+        if (isset($top_album_mosaic)) {
           ?>
-          <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="albumMosaikLoader2" />
+          <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="albumMosaicLoader2" />
           <div class="func_container">
-            <div class="value"><?=INTERVAL_TEXTS[$top_album_mosaik]?></div>
-            <ul class="subnav" data-name="top_album_mosaik" data-callback="getTopAlbum" data-loader="albumMosaikLoader2">
+            <div class="value"><?=INTERVAL_TEXTS[$top_album_mosaic]?></div>
+            <ul class="subnav" data-name="top_album_mosaic" data-callback="getTopAlbum" data-loader="albumMosaicLoader2">
               <li data-value="7">Last 7 days</li>
               <li data-value="30">Last 30 days</li>
               <li data-value="90">Last 90 days</li>
@@ -67,7 +67,7 @@
         }
         ?>
       </h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumMosaikLoader"/>
-      <ul id="albumMosaik" class="album_list album_list_150"><!-- Content is loaded with AJAX --></ul>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumMosaicLoader"/>
+      <ul id="albumMosaic" class="album_list album_list_150"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
