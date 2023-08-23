@@ -45,43 +45,9 @@
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
-  <div class="left_container">
+  <div class="full_container">
     <div class="container">
-      <h1>
-        <?=$title?>
-        <?php
-        if (isset($top_artist_artist)) {
-          ?>
-          <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topArtist10Loader2" />
-          <div class="func_container">
-            <div class="value"><?=INTERVAL_TEXTS[$top_artist_artist]?></div>
-            <ul class="subnav" data-name="top_artist_artist" data-callback="getTopArtist10" data-loader="topArtist10Loader2">
-              <li data-value="7">Last 7 days</li>
-              <li data-value="30">Last 30 days</li>
-              <li data-value="90">Last 90 days</li>
-              <li data-value="180">Last 180 days</li>
-              <li data-value="365">Last 365 days</li>
-              <li data-value="overall">All time</li>
-            </ul>
-          </div>
-          <?php
-        }
-        ?>
-      </h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtist10Loader"/>
-      <ul id="topArtist10" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumMosaikLoader"/>
+      <ul id="albumMosaik" class="album_list album_list_150"><!-- Content is loaded with AJAX --></ul>
     </div>
-    <div class="container">
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader"/>
-      <table id="topArtist" class="column_table full"><!-- Content is loaded with AJAX --></table>
-    </div>
-    <div class="container">
-      <div class="more"><?=anchor(array('artist', 'mosaik'), 'See mosaik')?></div>
-    </div>
-  </div>
-  <div class="right_container">
-    <div class="container">
-      <h1><?=$side_title?></h1>
-    </div>
-    <div id="sideTable"><!-- Content is loaded with AJAX --></div>
   </div>

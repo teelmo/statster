@@ -8,14 +8,15 @@ $.extend(view, {
         200: function (data) {
           $.ajax({
             data:{
-              json_data:data
+              json_data:data,
+              type:'user'
             },
             success: function (data) {
               $('#userMosaikLoader').hide();
               $('#userMosaik').html(data);
             },
             type:'POST',
-            url:'/ajax/userMosaik'
+            url:'/ajax/mosaik'
           });
         },
         204: function () { // 204 No Content

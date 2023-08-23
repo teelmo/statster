@@ -72,5 +72,38 @@ class Artist extends CI_Controller {
     $this->load->view('music/artists_view', $data);
     $this->load->view('site_templates/footer');
   }
+  public function mosaik() {
+    // Load helpers.
+    $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
+    
+    $data = array();
+    $intervals = unserialize($this->session->userdata('intervals'));
+    $data['top_artist_artist'] = isset($intervals['top_artist_artist']) ? $intervals['top_artist_artist'] : 'overall';
+    $data['lower_limit'] = $data['top_artist_artist'];
+    $data['upper_limit'] = CUR_DATE;
+    $data['title'] = 'Artists';
+    $data['side_title'] = 'Yearly';
+    $data['day'] = '';
+    $data['month'] = '';
+    $data['year'] = '';
+
+    $opts = array(
+      'limit' => '1',
+      'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+      'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+      'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+    );
+    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['js_include'] = array('music/artists_mosaik');
+
+    $data['total_count'] = getListeningCount(array(), TBL_artist);
+    if ($this->session->userdata('logged_in') === TRUE) {
+      $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_artist);
+    }
+
+    $this->load->view('site_templates/header');
+    $this->load->view('music/artist_mosaik', $data);
+    $this->load->view('site_templates/footer');
+  }
 }
 ?>

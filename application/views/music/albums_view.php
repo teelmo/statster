@@ -74,6 +74,9 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader"/>
       <table id="topAlbum" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
+    <div class="container">
+      <div class="more"><?=anchor(array('album', 'mosaik'), 'See mosaik')?></div>
+    </div>
   </div>
   <div class="right_container">
     <div class="container">

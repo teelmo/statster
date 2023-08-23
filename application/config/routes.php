@@ -56,10 +56,12 @@ $route['404_override'] = '';
 $route['artist/(:num)'] = 'artist/stats/$1';
 $route['artist/(:num)/(:num)'] = 'artist/stats/$1/$2';
 $route['artist/(:num)/(:num)/(:num)'] = 'artist/stats/$1/$2/$3';
+$route['artist/mosaik'] = 'artist/mosaik';
 
 $route['album/(:num)'] = 'album/stats/$1';
 $route['album/(:num)/(:num)'] = 'album/stats/$1/$2';
 $route['album/(:num)/(:num)/(:num)'] = 'album/stats/$1/$2/$3';
+$route['album/mosaik'] = 'album/mosaik';
 
 /* Artist and albums page's routes */
 $route['music/(:any)/(:any)'] = 'music/album_or_month/$1/$2';
