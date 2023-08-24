@@ -124,6 +124,7 @@ class Ajax extends CI_Controller {
   }
 
   public function columnTable() {
+    $this->load->helper(array('img_helper'));
     if (!empty($_POST)) {
       $this->load->view('templates/column_table', $_POST);
       header('HTTP/1.1 200 OK');
