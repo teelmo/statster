@@ -6,7 +6,7 @@ if (!empty($json_data)) {
         foreach ($json_data as $idx => $row) {
           ?>
           <li>
-            <?=anchor(array(url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150 no_overlay" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to albums\'s page'))?>
+            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150 no_overlay" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to albums\'s page'))?>
           </li>
           <?php
         }
@@ -15,7 +15,7 @@ if (!empty($json_data)) {
         foreach ($json_data as $idx => $row) {
           ?>
           <li>
-            <?=anchor(array(url_title($row['artist_name'])), '<div class="cover artist_img img150 no_overlay" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
+            <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img150 no_overlay" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to artist\'s page'))?>
           </li>
           <?php
         }
@@ -30,7 +30,10 @@ if (!empty($json_data)) {
           }
           ?>
           <li>
-            <?=anchor(array(url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150 no_overlay" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to albums\'s page'))?>
+            <?php
+            $listeningsFormatImg = getListeningImg(array('listening_id' => $row['listening_id']));
+            ?>
+            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150 no_overlay" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"><div class="meta"><div class="title main">' . anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], 35), array('title' => 'Browse to album\'s page')) . '</div><div class="title">' . implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, getAlbumArtists($row))) . '</div></div><img src="' . $listeningsFormatImg['filename'] . '" alt="" title="' . $listeningsFormatImg['name'] . '" class="middle icon listeningFormatType"/></div>', array('title' => 'Browse to albums\'s page'))?>
           </li>
           <?php
           $prev_date = strip_tags(timeAgo($row['date'], CUR_DATE));
