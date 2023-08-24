@@ -1259,6 +1259,10 @@ div.cover {
     &.no_overlay {
       .box-shadow(0 0 0 transparent);
       border: 1px solid #ded9d5;
+      &:hover {
+        .box-shadow(3px 3px 4px #ddd);
+        border: 1px solid #ccc;
+      }
     }
   }
   &.img32 {
@@ -1354,6 +1358,10 @@ div.cover {
     &.no_overlay {
       &:after {
         background-image: none;
+      }
+      &:hover:after {
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.8) 100%);
+        opacity: 1;
       }
     }
   }
