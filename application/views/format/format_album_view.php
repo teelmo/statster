@@ -89,7 +89,7 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'More listeners', array('title' => 'Browse more listenings'))?>
+        <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more listeners'))?>
       </div>
     </div>
     <div class="container"><hr /></div>
@@ -100,10 +100,10 @@
       <div class="more">
         <?php
         if (!empty($album_name)) {
-          echo anchor(array('recent', url_title($artist_name), url_title($album_name)), 'See more', array('title' => 'Browse more listenings'));
+          echo anchor(array('recent', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more listenings'));
         }
         elseif (!empty($artist_name)) {
-          echo anchor(array('recent', url_title($artist_name)), 'See more', array('title' => 'Browse more listenings'));
+          echo anchor(array('recent', url_title($artist_name)), 'More', array('title' => 'Browse more listenings'));
         }
         ?>
       </div>

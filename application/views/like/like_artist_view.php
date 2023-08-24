@@ -86,7 +86,7 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('listener', url_title($artist_name)), 'More listeners', array('title' => 'Browse more listenings'))?>
+        <?=anchor(array('listener', url_title($artist_name)), 'More', array('title' => 'Browse more listeners'))?>
       </div>
     </div>
     <div class="container"><hr /></div>
@@ -95,7 +95,7 @@
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
-        <?=anchor(array('recent', url_title($artist_name)), 'More listenings', array('title' => 'Browse more listenings'))?>
+        <?=anchor(array('recent', url_title($artist_name)), 'More', array('title' => 'Browse more listenings'))?>
       </div>
     </div>
   </div>
