@@ -49,12 +49,12 @@
     <div class="container">
       <h1><?=$title?>
         <?php
-        if (isset($top_artist_mosaic)) {
+        if (isset($top_artist_artist)) {
           ?>
           <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="artistMosaicLoader2" />
           <div class="func_container">
-            <div class="value"><?=INTERVAL_TEXTS[$top_artist_mosaic]?></div>
-            <ul class="subnav" data-name="top_artist_mosaic" data-callback="getTopArtist" data-loader="artistMosaicLoader2">
+            <div class="value"><?=INTERVAL_TEXTS[$top_artist_artist]?></div>
+            <ul class="subnav" data-name="top_artist_artist" data-callback="getTopArtist" data-loader="artistMosaicLoader2">
               <li data-value="7">Last 7 days</li>
               <li data-value="30">Last 30 days</li>
               <li data-value="90">Last 90 days</li>

@@ -78,8 +78,8 @@ class Artist extends CI_Controller {
     
     $data = array();
     $intervals = unserialize($this->session->userdata('intervals'));
-    $data['top_artist_mosaic'] = isset($intervals['top_artist_mosaic']) ? $intervals['top_artist_mosaic'] : 'overall';
-    $data['lower_limit'] = $data['top_artist_mosaic'];
+    $data['top_artist_artist'] = isset($intervals['top_artist_artist']) ? $intervals['top_artist_artist'] : 'overall';
+    $data['lower_limit'] = $data['top_artist_artist'];
     $data['title'] = 'Artists';
 
     $opts = array(

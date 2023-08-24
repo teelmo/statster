@@ -78,8 +78,8 @@ class Album extends CI_Controller {
 
     $data = array();
     $intervals = unserialize($this->session->userdata('intervals'));
-    $data['top_album_mosaic'] = isset($intervals['top_album_mosaic']) ? $intervals['top_album_mosaic'] : 'overall';
-    $data['lower_limit'] = $data['top_album_mosaic'];
+    $data['top_album_album'] = isset($intervals['top_album_album']) ? $intervals['top_album_album'] : 'overall';
+    $data['lower_limit'] = $data['top_album_album'];
     $data['title'] = 'Albums';
 
     $opts = array(
