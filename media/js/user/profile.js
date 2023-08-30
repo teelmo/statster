@@ -149,7 +149,7 @@ $.extend(view, {
     }
     $.ajax({
       data:{
-        limit:9,
+        limit:13,
         lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
@@ -194,7 +194,7 @@ $.extend(view, {
       dataType:'json',
       url:'/api/artist/get',
       data:{
-        limit:9,
+        limit:13,
         lower_limit:lower_limit,
         username:'<?=(!empty($username)) ? $username: ''?>'
       },
