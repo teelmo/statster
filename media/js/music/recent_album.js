@@ -104,7 +104,7 @@ $.extend(view, {
       data:{
         album_name:'<?=$album_name?>',
         artist_name:'<?=$artist_name?>',
-        limit:<?=($artist_name) ? 1000 : 100?>,
+        limit:100,
         sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
@@ -114,10 +114,8 @@ $.extend(view, {
           var today = new Date();
           $.ajax({
             data:{
-              cur_date:today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2),
               json_data:data,
-              strlenght:50,
-              time:Math.floor((new Date().getTime() - new Date().getTimezoneOffset() * 60000) / 1000)
+              strlenght:50
             },
             success: function (data) {
               $('#recentlyListenedLoader').hide();
@@ -131,7 +129,7 @@ $.extend(view, {
           $('#recentlyListenedLoader').hide();
           $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function (data) {alert('400 Bad Request')}
+        400: function () {alert('400 Bad Request')}
       },
       type:'GET',
       url:'/api/listening/get'
@@ -195,10 +193,10 @@ $.extend(view, {
             400: function () { // 400 Bad request
               alert('<?=ERR_BAD_REQUEST?>');
             },
-            401: function () {
+            401: function () { // 401 Unauthorized
               alert('401 Unauthorized');
             },
-            404: function () {
+            404: function () { // 404 Not Found
               alert('404 Not Found');
             }
           },
@@ -220,10 +218,10 @@ $.extend(view, {
             400: function () { // 400 Bad request
               alert('<?=ERR_BAD_REQUEST?>');
             },
-            401: function () {
+            401: function () { // 401 Unauthorized
               alert('401 Unauthorized');
             },
-            404: function () {
+            404: function () { // 404 Not Found
               alert('404 Not Found');
             }
           },
@@ -248,10 +246,10 @@ $.extend(view, {
               400: function () { // 400 Bad request
                 alert('<?=ERR_BAD_REQUEST?>');
               },
-              401: function () {
+              401: function () { // 401 Unauthorized
                 alert('401 Unauthorized');
               },
-              404: function () {
+              404: function () { // 404 Not Found
                 alert('404 Not Found');
               }
             },
@@ -285,7 +283,7 @@ $.extend(view, {
           400: function () { // 400 Bad Request
             alert('400 Bad Request');
           },
-          401: function (data) { // 403 Forbidden
+          401: function () { // 401 Unauthorized
             alert('401 Unauthorized');
           },
           404: function () { // 404 Not found
