@@ -691,10 +691,13 @@ table.side_table {
       vertical-align: middle;
       &.img32 {
         width: 32px;
-        .user_img,
-        .artist_img,
-        .album_img {
+        .album_img,
+        .album_img,
+        .user_img {
           width: 32px;
+        }
+        .artist_img,
+        .user_img {
           .border-radius(16px);
           &:after {
             .border-radius(16px);
@@ -1036,12 +1039,13 @@ ul.music_wall {
       }
     }
     .meta {
-      bottom: 15px;
+      bottom: 10px;
       color: #fff;
       font-size: 12px;
-      left: 15px;
+      left: 10px;
       line-height: 18px;
       margin: 0;
+      padding-right: 2px;
       position: absolute;
       text-shadow: 0 0 10px rgba(0, 0, 0, .7);
       .title {
