@@ -7,15 +7,36 @@
   <div class="meta_container">
     <div class="meta">
       <div class="label">Album shouts</div>
-      <div class="value number"><?=anchor(array('shout', 'album'), number_format($total_album_shouts))?></div>
+      <div class="value">
+        <?php
+        echo anchor(array('shout', 'album'), number_format($total_album_shouts), array('class' => 'number'));
+        if (isset($total_artist_shouts_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_album_shouts_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
     <div class="meta">
       <div class="label">Artist shouts</div>
-      <div class="value number"><?=anchor(array('shout', 'artist'), number_format($total_artist_shouts))?></div>
+      <div class="value">
+        <?php
+        echo anchor(array('shout', 'artist'), number_format($total_artist_shouts), array('class' => 'number'));
+        if (isset($total_artist_shouts_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_artist_shouts_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
     <div class="meta">
       <div class="label">User shouts</div>
-      <div class="value number"><?=anchor(array('shout', 'user'), number_format($total_user_shouts))?></div>
+      <div class="value">
+        <?php
+        echo anchor(array('shout', 'user'), number_format($total_user_shouts), array('class' => 'number'));
+        if (isset($total_artist_shouts_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_user_shouts_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
   </div>
 </div>

@@ -7,19 +7,47 @@
   <div class="meta_container">
     <div class="meta">
       <div class="label">Genres</div>
-      <div class="value number"><?=anchor(array('genre'), number_format($total_genres))?></div>
+      <div class="value">
+        <?php
+        echo anchor(array('genre'), number_format($total_genres), array('class' => 'number'));
+        if (isset($total_genres_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_genres_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
     <div class="meta">
       <div class="label">Keywords</div>
-      <div class="value number"><?=anchor(array('keyword'), number_format($total_keywords))?></div>
+      <div class="value">
+        <?php
+        echo anchor(array('keyword'), number_format($total_keywords), array('class' => 'number'));
+        if (isset($total_keywords_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_keywords_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
     <div class="meta">
       <div class="label">Nationalities</div>
-      <div class="value number"><?=anchor(array('nationality'), number_format($total_nationalities))?></div>
+      <div class="value">
+        <?php
+        echo anchor(array('nationality'), number_format($total_nationalities), array('class' => 'number'));
+        if (isset($total_nationalities_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_nationalities_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
     <div class="meta">
       <div class="label">Years</div>
-      <div class="value number"><?=anchor(array('year'), number_format($total_years))?></div>
+      <div class="value">
+        <?php
+        echo anchor(array('year'), number_format($total_years), array('class' => 'number'));
+        if (isset($total_years_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_years_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
   </div>
 </div>

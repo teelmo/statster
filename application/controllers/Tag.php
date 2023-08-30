@@ -157,13 +157,23 @@ class Tag extends CI_Controller {
 
       $opts = array(
         'limit' => '1000',
-        'lower_limit' => '1970-00-00',
-        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+        'lower_limit' => '1970-00-00'
       );
       $data['total_genres'] = count(json_decode(getGenres($opts)));
       $data['total_keywords'] = count(json_decode(getKeywords($opts)));
       $data['total_nationalities'] = count(json_decode(getNationalities($opts)));
       $data['total_years'] = count(json_decode(getYears($opts)));
+      $opts = array(
+        'limit' => '1000',
+        'lower_limit' => '1970-00-00',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+      );
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $data['total_genres_user_count'] = count(json_decode(getGenres($opts)));
+        $data['total_keywords_user_count'] = count(json_decode(getKeywords($opts)));
+        $data['total_nationalities_user_count'] = count(json_decode(getNationalities($opts)));
+        $data['total_years_user_count'] = count(json_decode(getYears($opts)));
+      }
 
       $this->load->view('site_templates/header');
       $this->load->view('tag/tags_view', $data);

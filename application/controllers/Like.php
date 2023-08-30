@@ -148,7 +148,6 @@ class Like extends CI_Controller {
             $last_item_count = $item->count;
           }
         }
-
         $data['listener_count'] = count(json_decode(getListeners($data), true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('like/like_artist', 'helpers/tag_helper');
@@ -176,10 +175,13 @@ class Like extends CI_Controller {
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
-        'user_id' => (!empty($_GET['u']) ? getUserID(array('username' => $_GET['u'])) : '')
       );
       $data['total_album_loves'] = getLoveCount($opts);
       $data['total_artist_fans'] = getFanCount($opts);
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $data['total_album_loves_user_count'] = getLoveCount(array('user_id' => $this->session->userdata('user_id')), TBL_album);
+        $data['total_artist_fans_user_count'] = getFanCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+      }
       $data['js_include'] = array('like/like');
 
       $this->load->view('site_templates/header');

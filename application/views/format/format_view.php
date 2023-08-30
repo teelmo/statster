@@ -23,5 +23,13 @@
     </div>
   </div>
   <div class="right_container">
-   
+    <div class="container">
+      <h1>Statistics</h1>
+      <h2>Latest listenings</h2>
+      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
+      <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
+      <div class="more">
+        <?=anchor(array('recent'), 'More', array('title' => 'Browse more listenings'))?>
+      </div>
+    </div>
   </div>

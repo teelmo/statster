@@ -148,12 +148,16 @@ class Shout extends CI_Controller {
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',  
-        'type' => 'user',
-        'user_id' => (!empty($_GET['u']) ? getUserID(array('username' => $_GET['u'])) : '')
+        'type' => 'user'
       );
       $data['total_album_shouts'] = getAlbumShoutCount($opts);
       $data['total_artist_shouts'] = getArtistShoutCount($opts);
       $data['total_user_shouts'] = getUserShoutCount($opts);
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $data['total_album_shouts_user_count'] = getAlbumShoutCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+        $data['total_artist_shouts_user_count'] = getArtistShoutCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+        $data['total_user_shouts_user_count'] = getUserShoutCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
+      }
       $data['js_include'] = array('shout/shout', 'helpers/shout_helper');
 
       $this->load->view('site_templates/header');

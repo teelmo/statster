@@ -7,11 +7,25 @@
   <div class="meta_container">
     <div class="meta">
       <div class="label">Albums loved</div>
-      <div class="value number"><?=anchor(array('love'), number_format($total_album_loves))?></div>
+      <div class="value">
+        <?php
+        echo anchor(array('love'), number_format($total_album_loves), array('class' => 'number'));
+        if (isset($total_album_loves_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_album_loves_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
     <div class="meta">
-     <div class="label">Artists faned</div>
-     <div class="value number"><?=anchor(array('fan'), number_format($total_artist_fans))?></div>
+      <div class="label">Artists faned</div>
+      <div class="value">
+        <?php
+        echo anchor(array('fan'), number_format($total_artist_fans), array('class' => 'number'));
+        if (isset($total_artist_fans_user_count)) {
+          echo '<span class="user_value">, <span class="number">' . $total_artist_fans_user_count . '</span> by you</span>';
+        }
+        ?>
+      </div>
     </div>
   </div>
 </div>

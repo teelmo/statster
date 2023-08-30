@@ -136,7 +136,7 @@ class Format extends CI_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('music_helper', 'img_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
 
       $opts = array(
         'limit' => '1',
@@ -145,6 +145,11 @@ class Format extends CI_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['total_count'] = getListeningFormatCount(array(), TBL_listening_formats);
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $data['user_count'] = getListeningFormatCount(array('username' => $this->session->userdata('username')), TBL_listening_formats);
+      }
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['js_include'] = array('format/format');
 
       $this->load->view('site_templates/header');

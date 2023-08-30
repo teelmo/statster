@@ -77,3 +77,46 @@ if (!function_exists('getListeningFormat')) {
     return _json_return_helper($query, $human_readable);
   }
 }
+
+/**
+  * Returns listening count for given artist or album.
+  *
+  * @param array $opts.
+  *          'group_by'        => Group By
+  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
+  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
+  *          'username'        => Username
+  *          'where'           => Where
+  *
+  * @return string JSON encoded data containing artist information.
+  */
+if (!function_exists('getListeningFormatCount')) {
+  function getListeningFormatCount($opts = array(), $type = '') {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : $type . '.`id`';
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
+    $sql = "SELECT count(*) AS `count`
+            FROM " . TBL_album . ",
+                 " . TBL_artist . ",
+                 " . TBL_artists . ",
+                 " . TBL_listening . ",
+                 " . TBL_listening_formats . ",
+                 " . TBL_user . "
+            WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_listening . ".`id` = " . TBL_listening_formats . ".`listening_id`
+              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+              AND " . TBL_user . ".`username` LIKE ?
+              " . $ci->db->escape_str($where) . "
+            GROUP BY " . $ci->db->escape_str($group_by);
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
+    return $query->num_rows();
+  }
+}

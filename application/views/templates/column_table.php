@@ -34,11 +34,12 @@ if (!empty($json_data)) {
               echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
             }
             else if ($row['type'] === 'heart') {
-              echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
+              echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
             }
             else if ($row['type'] === 'format') {
-              $listeningsFormatImg = getFormatTypeImg(array('format_type' => $row['format_type_name']));
-              echo (empty($row['format_type_name'])) ? $row['format_name'] : '<img src="/media/img/format_img/format_icons/' . $listeningsFormatImg . '.png" alt="" title="' . $row['format_type_name'] . '" class="middle icon listeningFormatType"/> ' . str_replace(['Spotify Premium', 'Spotify Unlimited'], 'Spotify', $row['format_type_name']);
+              $listeningsFormatImg = getFormatImg(array('format' => $row['format_name']));
+              $listeningsFormatTypeImg = getFormatTypeImg(array('format_type' => $row['format_type_name']));
+              echo (empty($row['format_type_name'])) ? '<img src="/media/img/format_img/format_icons/' . $listeningsFormatImg . '.png" alt="" title="' . $row['format_type_name'] . '" class="middle icon listeningFormatType"/> ' . $row['format_name'] : '<img src="/media/img/format_img/format_icons/' . $listeningsFormatTypeImg . '.png" alt="" title="' . $row['format_type_name'] . '" class="middle icon listeningFormatType"/> ' . str_replace(['Spotify Premium', 'Spotify Unlimited'], 'Spotify', $row['format_type_name']);
             }
             else {
               echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
@@ -46,7 +47,7 @@ if (!empty($json_data)) {
           }
           else {
             if (isset($row['album_name']) && empty($hide['album'])) {
-              echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to artist\'s page'));
+              echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
             }
             else {
               echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
