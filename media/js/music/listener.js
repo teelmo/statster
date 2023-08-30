@@ -15,14 +15,15 @@ $.extend(view, {
                 date:true
               },
               json_data:data,
-              size:32
+              size:32,
+              type:'user'
             },
             success: function(data) {
               $('#topListenerLoader').hide();
               $('#topListener').html(data);
             },
             type:'POST',
-            url:'/ajax/userTable'
+            url:'/ajax/columnTable'
           });
         }
       },
@@ -33,7 +34,7 @@ $.extend(view, {
   getListenings: function () {
     $.ajax({
       data:{
-        limit:14
+        limit:10
       },
       dataType:'json',
       statusCode:{
