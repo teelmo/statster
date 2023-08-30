@@ -40,7 +40,7 @@ $.extend(view, {
           $('#recentlyListenedLoader').hide();
           $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
-        400: function (data) {alert('400 Bad Request')}
+        400: function () {alert('400 Bad Request')}
       },
       type:'GET',
       url:'/api/listening/get'
@@ -110,7 +110,7 @@ $.extend(view, {
           400: function () { // 400 Bad Request
             alert('400 Bad Request');
           },
-          401: function (data) { // 403 Forbidden
+          401: function () { // 401 Unauthorized
             alert('401 Unauthorized');
           },
           404: function () { // 404 Not found
