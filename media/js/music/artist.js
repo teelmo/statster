@@ -375,7 +375,7 @@ $.extend(view, {
         },
         204: function () {
           $('#albumShoutLoader').hide();
-          $('#albumShout').html('<?=ERR_NO_DATA?>');
+          $('#albumShout').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

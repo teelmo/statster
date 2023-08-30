@@ -36,7 +36,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $('#topArtist10Loader, #topArtist10Loader2').hide();
-          $('#topArtist10').html('<?=ERR_NO_DATA?>');
+          $('#topArtist10').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

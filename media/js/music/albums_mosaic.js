@@ -36,7 +36,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $('#albumMosaicLoader, #albumMosaicLoader2').hide();
-          $('#albumMosaic').html('<?=ERR_NO_DATA?>');
+          $('#albumMosaic').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

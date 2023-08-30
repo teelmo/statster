@@ -35,7 +35,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $('#recentMosaicLoader').hide();
-          $('#recentMosaic').html('<?=ERR_NO_DATA?>');
+          $('#recentMosaic').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

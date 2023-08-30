@@ -84,7 +84,7 @@ $.extend(view, {
         },
         204: function () { // 204 No Content
           $(vars.container + 'Loader').hide();
-          $(vars.container).html('<?=ERR_NO_DATA?>');
+          $(vars.container).html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

@@ -36,7 +36,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $('#topAlbum10Loader, #topAlbum10Loader2').hide();
-          $('#topAlbum10').html('<?=ERR_NO_DATA?>');
+          $('#topAlbum10').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

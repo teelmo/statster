@@ -27,7 +27,7 @@ $.extend(view, {
         },
         204: function () {
           $('#artistAlbumLoader').hide();
-          $('#artistAlbum').html('<?=ERR_NO_DATA?>');
+          $('#artistAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -59,7 +59,7 @@ $.extend(view, {
         },
         204: function () {
           $('#associatedArtistLoader').hide();
-          $('#associatedArtist').html('<?=ERR_NO_DATA?>');
+          $('#associatedArtist').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

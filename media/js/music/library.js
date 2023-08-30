@@ -94,7 +94,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $('#topAlbumLoader').hide();
-          $('#topAlbum').html('<?=ERR_NO_DATA?>');
+          $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -128,7 +128,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $('#topArtistLoader').hide();
-          $('#topArtist').html('<?=ERR_NO_DATA?>');
+          $('#topArtist').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -212,7 +212,7 @@ $.extend(view, {
         },
         204: function (data) { // 204 No Content
           $('#topReleasesLoader').hide();
-          $('#topReleases').html('<?=ERR_NO_DATA?>');
+          $('#topReleases').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

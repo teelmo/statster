@@ -383,7 +383,7 @@ $.extend(view, {
         },
         204: function () {
           $('#artistShoutLoader').hide();
-          $('#artistShout').html('<?=ERR_NO_DATA?>');
+          $('#artistShout').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',

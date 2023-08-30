@@ -157,7 +157,7 @@ if (!function_exists('fetchSimilar')) {
         }
       }
       else {
-        return json_encode(array('error' => array('msg' => ERR_NO_DATA)));
+        return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
       }
       return json_encode($data);  
     }
