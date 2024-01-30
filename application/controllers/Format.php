@@ -150,12 +150,39 @@ class Format extends CI_Controller {
         $data['user_count'] = getListeningFormatCount(array('username' => $this->session->userdata('username')), TBL_listening_formats);
       }
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('format/format');
+      $data['js_include'] = array('format/formats');
 
       $this->load->view('site_templates/header');
       $this->load->view('format/formats_view', $data);
       $this->load->view('site_templates/footer');
     }
+  }
+
+  public function stats($format, $format_type = '') {
+    $data = array();
+
+
+    $data['format'] = $format;
+    
+    if ($format_type) {
+      $data['format_type'] = $format_type;
+      // Load helpers.
+      $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
+
+      $data['js_include'] = array('format/format_type');
+      $this->load->view('site_templates/header');
+      $this->load->view('format/format_view', $data);
+      $this->load->view('site_templates/footer');
+    }
+    else {
+      $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
+
+      $data['js_include'] = array('format/format');
+      $this->load->view('site_templates/header');
+      $this->load->view('format/format_view', $data);
+      $this->load->view('site_templates/footer');
+    }
+
   }
 }
 ?>

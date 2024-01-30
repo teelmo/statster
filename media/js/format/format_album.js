@@ -220,7 +220,7 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  initListenerAlbumEvents: function () {
+  initMetaAlbumEvents: function () {
     $('html').on('click', '#love', function () {
       $('.like_msg').html('');
       if ($(this).hasClass('love_add')) {
@@ -318,5 +318,5 @@ $(document).ready(function() {
   view.getFormats();
   view.getUsers();
   view.getListenings();
-  view.initListenerAlbumEvents();
+  view.initMetaAlbumEvents();
 });

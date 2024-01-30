@@ -17,6 +17,11 @@
   </div>
   <div class="left_container">
     <div class="container">
+      <?php
+      pr($format_type);
+      pr($format);
+      ?>
+
       <h1>Listening formats</h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
       <table id="topListeningFormatTypes" class="column_table full"><!-- Content is loaded with AJAX --></table>

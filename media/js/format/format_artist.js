@@ -215,7 +215,7 @@ $.extend(view, {
       url:'/api/listening/get'
     });
   },
-  initListenerArtistEvents: function () {
+  initMetaArtistEvents: function () {
     $('html').on('click', '#fan', function () {
       $('.like_msg').html('');
       if ($(this).hasClass('fan_add')) {
@@ -313,5 +313,5 @@ $(document).ready(function () {
   view.getFormats();
   view.getUsers();
   view.getListenings();
-  view.initListenerArtistEvents();
+  view.initMetaArtistEvents();
 });
