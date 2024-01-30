@@ -90,6 +90,7 @@ $.extend(view, {
       statusCode:{
         200: function(data) {
           $('.genre_heading .value').html('<a href="/genre/' + data[0].name.replace(/ /g,'+') + '">' + data[0].name + '</a>').removeClass('not_available');
+          $('.genre_link').html('<a href="/genre/' + data[0].name.replace(/ /g,'+') + '">More</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'genre', 'Genre', lower_limit);
           view.getTopArtists(data[0].tag_id, 'genre', 'Genre', lower_limit);
           $.ajax({
@@ -134,6 +135,7 @@ $.extend(view, {
       statusCode:{
         200: function(data) {
           $('.keyword_heading .value').html('<a href="/keyword/' + data[0].name.replace(/ /g,'+') + '">' + data[0].name + '</a>').removeClass('not_available');
+          $('.keyword_link').html('<a href="/keyword/' + data[0].name.replace(/ /g,'+') + '">More</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           view.getTopArtists(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           
@@ -179,6 +181,7 @@ $.extend(view, {
       statusCode:{
         200: function(data) {
           $('.nationality_heading .value').html('<a href="/nationality/' + data[0].name.replace(/ /g,'+') + '">' + data[0].name + '</a>').removeClass('not_available');
+          $('.nationality_link').html('<a href="/nationality/' + data[0].name.replace(/ /g,'+') + '">More</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
           view.getTopArtists(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
           $.ajax({
@@ -223,6 +226,7 @@ $.extend(view, {
       statusCode:{
         200: function(data) {
           $('.year_heading .value').html('<a href="/year/' + data[0].name.replace(/ /g,'+') + '">' + data[0].name + '</a>').removeClass('not_available');
+          $('.year_link').html('<a href="/year/' + data[0].name.replace(/ /g,'+') + '">More</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'year', 'Year', lower_limit);
           $.ajax({
             data:{
