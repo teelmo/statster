@@ -39,7 +39,7 @@
 */
 
 $route['default_controller'] = 'main';
-$route['404_override'] = '';
+$route['404_override'] = 'main/error_404';
 
 /*
  * Statster defined routes
@@ -105,6 +105,7 @@ $route['tag/(:any)/(:any)'] = 'tag/index/$1/$2';
 $route['tag/(:any)'] = 'tag/index/$1';
 
 /* Listening format page's routes */
+$route['format/(Not-Chosen|Compact-Cassette|Compact-Disc|Vinyl-Record|Digital-Video-Disc|File|Stream)'] = 'format/format_type';
 $route['format/(:any)/(:any)'] = 'format/index/$1/$2';
 $route['format/(:any)'] = 'format/index/$1';
 

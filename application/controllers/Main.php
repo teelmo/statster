@@ -52,6 +52,28 @@ class Main extends CI_Controller {
     }
   }
 
+  public function error_404() {
+    // Load helpers.
+      $this->load->helper(array('form', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+
+      $opts = array(
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+      );
+      $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array('album_id' => 0, 'album_name' => 'No data', 'count' => 0);
+      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0, 'artist_name' => 'No data', 'count' => 0);
+      $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
+      $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
+      $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
+      $data['js_include'] = array('404');
+
+      $this->load->view('site_templates/header');
+      $this->load->view('404_view', $data);
+      $this->load->view('site_templates/footer');
+  }
+
   /* 
    * Meta page's controllers.
    */
