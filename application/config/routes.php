@@ -105,7 +105,8 @@ $route['tag/(:any)/(:any)'] = 'tag/index/$1/$2';
 $route['tag/(:any)'] = 'tag/index/$1';
 
 /* Listening format page's routes */
-$route['format/(Not-Chosen|Compact-Cassette|Compact-Disc|Vinyl-Record|Digital-Video-Disc|File|Stream)'] = 'format/format_type';
+$route['format/(Not-Chosen|Compact-Cassette|Compact-Disc|Vinyl-Record|Digital-Video-Disc|File|Stream)/(:any)'] = 'format/stats/$1/$2';
+$route['format/(Not-Chosen|Compact-Cassette|Compact-Disc|Vinyl-Record|Digital-Video-Disc|File|Stream)'] = 'format/stats/$1';
 $route['format/(:any)/(:any)'] = 'format/index/$1/$2';
 $route['format/(:any)'] = 'format/index/$1';
 
