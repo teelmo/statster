@@ -39,7 +39,7 @@ if (!empty($json_data)) {
             else if ($row['type'] === 'format') {
               $listeningsFormatImg = getFormatImg(array('format' => $row['format_name']));
               $listeningsFormatTypeImg = getFormatTypeImg(array('format_type' => $row['format_type_name']));
-              echo (empty($row['format_type_name'])) ? '<img src="/media/img/format_img/format_icons/' . $listeningsFormatImg . '.png" alt="" title="' . $row['format_type_name'] . '" class="middle icon listeningFormatType"/> ' . $row['format_name'] : '<img src="/media/img/format_img/format_icons/' . $listeningsFormatTypeImg . '.png" alt="" title="' . $row['format_type_name'] . '" class="middle icon listeningFormatType"/> ' . str_replace(['Spotify Premium', 'Spotify Unlimited'], 'Spotify', $row['format_type_name']);
+              echo (empty($row['format_type_name'])) ? anchor(array('format', url_title(str_replace(' ', '-', $row['format_name']))), '<img src="/media/img/format_img/format_icons/' . $listeningsFormatImg . '.png" alt="" title="' . $row['format_type_name'] . '" class="middle icon listeningFormatType"/>' . $row['format_name'], array('title' => 'Browse to format\'s page')) : anchor(array('format', url_title(str_replace(' ', '-', $row['format_name'])), url_title($row['format_type_name'])), '<img src="/media/img/format_img/format_icons/' . $listeningsFormatTypeImg . '.png" alt="" title="' . $row['format_type_name'] . '" class="middle icon listeningFormatType"/>' . $row['format_type_name'], array('title' => 'Browse to format type\'s page'));
             }
             else {
               echo anchor(array($row['type'], url_title($row['name'])), $row['name'], array('title' => 'Browse to ' . $row['type'] . '\'s page'));
