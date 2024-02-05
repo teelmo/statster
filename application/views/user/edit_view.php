@@ -58,17 +58,17 @@
             foreach ($formats as $format_key => $format) {
               if (isset($format->format_types)) {
                 ?>
-                <label><div class="middle checkbox_container"><input type="checkbox" name="listening_formats[]" value="<?=$format->format_name?>" <?php if (in_array($format->format_name, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format->format_img?>.png" alt="" class="middle"/> <?=ucfirst($format->format_name)?></div></label>
+                <label><div class="middle checkbox_container"><input type="checkbox" name="listening_formats[]" value="<?=$format->format_name?>" <?php if (in_array($format->format_name, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format->format_img?>.png" alt="" style="vertical-align: -3px;"/> <?=ucfirst($format->format_name)?></div></label>
                 <?php
                 foreach ($format->format_types as $format_type_key => $format_type) {
                   ?>
-                  <label><div class="middle checkbox_container">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="listening_formats[]" value="<?=$format->format_name?>:<?=$format_type->format_type_name?>" <?php if (in_array($format->format_name . ':'. $format_type->format_type_name, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format_type->format_type_img?>.png" alt="" class="middle"/> <?=ucfirst($format_type->format_type_name)?></div></label>
+                  <label><div class="middle checkbox_container">&nbsp;&nbsp;&nbsp;<input type="checkbox" name="listening_formats[]" value="<?=$format->format_name?>:<?=$format_type->format_type_name?>" <?php if (in_array($format->format_name . ':'. $format_type->format_type_name, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format_type->format_type_img?>.png" alt="" style="vertical-align: -3px;"/> <?=ucfirst($format_type->format_type_name)?></div></label>
                   <?php
                 }
               }
               else {
                 ?>
-                <label><div class="middle checkbox_container"><input type="checkbox" name="listening_formats[]" value="<?=$format->format_name?>" <?php if (in_array($format->format_name, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format->format_img?>.png" alt="" class="middle"/> <?=ucfirst($format->format_name)?></div></label>
+                <label><div class="middle checkbox_container"><input type="checkbox" name="listening_formats[]" value="<?=$format->format_name?>" <?php if (in_array($format->format_name, $listening_formats)) { echo 'checked="checked"'; }?> /> <img src="/media/img/format_img/format_icons/<?=$format->format_img?>.png" alt="" style="vertical-align: -3px;"/> <?=ucfirst($format->format_name)?></div></label>
                 <?php
               }
             }
