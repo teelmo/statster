@@ -63,7 +63,8 @@ $.extend(view, {
               hide:{
                 artist:true,
                 count:true,
-                rank:true
+                rank:true,
+                spotify:true
               },
               json_data:data,
               size:32
@@ -88,14 +89,10 @@ $.extend(view, {
       type:'GET',
       url:'/api/listening/get'
     });
-  },
-  initFormatsEvents: function () {
-  
   }
 });
 
 $(document).ready(function () {
   view.getFormats('<?=$lower_limit?>');
-  view.initFormatsEvents();
   view.getListenings();
 });
