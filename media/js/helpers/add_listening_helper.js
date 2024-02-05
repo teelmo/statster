@@ -59,14 +59,21 @@ $.extend(view, {
   },
   initAddListeningHelperEvents: function () {
     // Listening format click.
-    $('.listening_format').click(function () {
+    $('.listening_format').click(function (event) {
       if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
+        console.log($('#' + $(this).parent().attr('for')).prop('checked'))
+        $('#' + $(this).parent().attr('for')).prop('checked', false).trigger('change');
+        console.log($('#' + $(this).parent().attr('for')).prop('checked'))
       }
       else {
         $('.listening_format').removeClass('selected');
         $(this).addClass('selected');
+        $('#' + $(this).parent().attr('for')).prop('checked', true).trigger('change');
       }
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
     });
     // Listening format keypress.
     $('.listening_format').keypress(function (event) {
@@ -74,12 +81,12 @@ $.extend(view, {
       if (code === 13) {
         if ($(this).hasClass('selected')) {
           $(this).removeClass('selected');
-          $('#' + $(this).parent().attr('for')).prop('checked', false);
+          $('#' + $(this).parent().attr('for')).prop('checked', false).trigger('change');
         }
         else {
           $('.listening_format').removeClass('selected');
           $(this).addClass('selected');
-          $('#' + $(this).parent().attr('for')).prop('checked', true);
+          $('#' + $(this).parent().attr('for')).prop('checked', true).trigger('change');
         }
       }
       event.preventDefault();
