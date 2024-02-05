@@ -117,12 +117,12 @@ if (!function_exists('getFormatID')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $format = isset($opts['format']) ? $opts['format'] : '';
+    $format_name = isset($opts['format_name']) ? $opts['format_name'] : '';
     $sql = "SELECT " . TBL_listening_format . ".`id`
             FROM " . TBL_listening_format . "
             WHERE " . TBL_listening_format . ".`name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql, array($format));
+    $query = $ci->db->query($sql, array($format_name));
     return ($query->num_rows() > 0) ? $query->result()[0]->id : FALSE;
   }   
 }
@@ -140,12 +140,16 @@ if (!function_exists('getFormatTypeID')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $format_type = isset($opts['format_type']) ? $opts['format_type'] : '';
+    $format_name = isset($opts['format_name']) ? $opts['format_name'] : '';
+    $format_type_name = isset($opts['format_type_name']) ? $opts['format_type_name'] : '';
     $sql = "SELECT " . TBL_listening_format_type . ".`id`
-            FROM " . TBL_listening_format_type . "
-            WHERE " . TBL_listening_format_type . ".`name` = ?
+            FROM " . TBL_listening_format . ",
+                 " . TBL_listening_format_type . "
+            WHERE " . TBL_listening_format . ".`id` = " . TBL_listening_format_type . ".`listening_format_id`
+              AND " . TBL_listening_format . ".`name` = ?
+              AND " . TBL_listening_format_type . ".`name` = ?
             LIMIT 1";
-    $query = $ci->db->query($sql, array($format_type));
+    $query = $ci->db->query($sql, array($format_name, $format_type_name));
     return ($query->num_rows() > 0) ? $query->result()[0]->id : FALSE;
   }   
 }

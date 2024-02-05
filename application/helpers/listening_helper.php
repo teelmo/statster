@@ -134,7 +134,7 @@ if (!function_exists('addListening')) {
         $data['listening_id'] = $ci->db->insert_id();
         // Add listening format data to DB.
         if (!empty($_POST['format'])) {
-          list($data['format'], $data['format_type']) = explode(':', $_POST['format']);
+          list($data['format_name'], $data['format_type_name']) = explode(':', $_POST['format']);
           addListeningFormat($data);
         }
         header('HTTP/1.1 201 Created');

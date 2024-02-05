@@ -14,6 +14,7 @@ $.extend(view, {
     $.ajax({
       data:{
         format_name:'<?=$format_name?>',
+        format_type_name:'<?=$format_type_name?>',
         hide:{},
         limit:8,
         lower_limit:lower_limit,
@@ -36,6 +37,7 @@ $.extend(view, {
           });
         },
         204: function (data) { // 204 No Content
+          console.log(data)
           $('#topAlbum10Loader, #topAlbum10Loader2').hide();
           $('#topAlbum10').html('<?=ERR_NO_RESULTS?>');
         }
@@ -54,6 +56,7 @@ $.extend(view, {
     $.ajax({
       data:{
         format_name:'<?=$format_name?>',
+        format_type_name:'<?=$format_type_name?>',
         limit:vars.limit,
         lower_limit:lower_limit,
         upper_limit:upper_limit,

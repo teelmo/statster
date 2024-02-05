@@ -17,14 +17,14 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1><?=$format_name?>
+      <h1><div class="desc"><?=anchor(array('format', url_title($format_name)), $format_name)?></div><?=$format_type_name?>
         <?php
-        if (isset($top_format)) {
+        if (isset($top_format_type)) {
           ?>
           <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topAlbum10Loader2" />
           <div class="func_container">
-            <div class="value"><?=INTERVAL_TEXTS[$top_format]?></div>
-            <ul class="subnav" data-name="top_format" data-callback="getTopAlbum10" data-loader="topAlbum10Loader2">
+            <div class="value"><?=INTERVAL_TEXTS[$top_format_type]?></div>
+            <ul class="subnav" data-name="top_format_type" data-callback="getTopAlbum10" data-loader="topAlbum10Loader2">
               <li data-value="7">Last 7 days</li>
               <li data-value="30">Last 30 days</li>
               <li data-value="90">Last 90 days</li>

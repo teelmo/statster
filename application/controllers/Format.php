@@ -2,6 +2,7 @@
 class Format extends CI_Controller {
 
   public function index($artist_name = '', $album_name = '') {
+
     $data = array();
     if (!empty($album_name)) {
       // Load helpers.
@@ -138,6 +139,10 @@ class Format extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
 
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_formats'] = isset($intervals['top_formats']) ? $intervals['top_formats'] : 'overall';
+      $data['lower_limit'] = $data['top_formats'];
+
       $opts = array(
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
@@ -150,7 +155,7 @@ class Format extends CI_Controller {
         $data['user_count'] = getListeningFormatCount(array('username' => $this->session->userdata('username')), TBL_listening_formats);
       }
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('format/formats');
+      $data['js_include'] = array('format/formats', 'helpers/time_interval_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('format/formats_view', $data);
@@ -158,29 +163,36 @@ class Format extends CI_Controller {
     }
   }
 
-  public function stats($format, $format_type = '') {
+  public function stats($format_name, $format_type_name = '') {
     $data = array();
 
-
-    $data['format'] = $format;
+    $data['format_name'] = decode(str_replace('-', '+', $format_name));
+    $data['format_type_name'] = decode(str_replace('-', '+', $format_type_name));
     
-    if ($format_type) {
-      $data['format_type'] = $format_type;
+    if ($data['format_type_name']) {
       // Load helpers.
       $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
 
-      $data['js_include'] = array('format/format_type');
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_format_type'] = isset($intervals['top_format_type']) ? $intervals['top_format_type'] : 'overall';
+      $data['lower_limit'] = $data['top_format_type'];
+
+      $data['js_include'] = array('format/format_type', 'helpers/time_interval_helper');
       $this->load->view('site_templates/header');
-      $this->load->view('format/format_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('format/format_type_view', $data);
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
 
-      $data['js_include'] = array('format/format');
+      $intervals = unserialize($this->session->userdata('intervals'));
+      $data['top_format'] = isset($intervals['top_format']) ? $intervals['top_format'] : 'overall';
+      $data['lower_limit'] = $data['top_format'];
+
+      $data['js_include'] = array('format/format', 'helpers/time_interval_helper');
       $this->load->view('site_templates/header');
       $this->load->view('format/format_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
 
   }

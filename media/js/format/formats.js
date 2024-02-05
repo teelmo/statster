@@ -1,8 +1,22 @@
 $.extend(view, {
-  getFormats: function () {
+  getFormats: function (lower_limit, upper_limit = false) {
+    console.log(lower_limit)
+    if (!upper_limit) {
+      if (lower_limit === 'overall') {
+        lower_limit = '1970-00-00';
+      }
+      else {
+        var date = new Date();
+        date.setDate(date.getDate() - parseInt(lower_limit));
+        lower_limit = date.toISOString().split('T')[0];
+      }
+      upper_limit = '<?=CUR_DATE?>'
+    }
     $.ajax({
       data:{
         limit:100,
+        lower_limit:lower_limit,
+        upper_limit:upper_limit,
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -13,7 +27,7 @@ $.extend(view, {
               json_data:data,
             },
             success: function (data) {
-              $('#topListeningFormatTypesLoader').hide();
+              $('#topListeningFormatTypesLoader, #topListeningFormatTypesLoader2').hide();
               $('#topListeningFormatTypes').html(data);
             },
             type:'POST',
@@ -37,7 +51,7 @@ $.extend(view, {
   getListenings: function () {
     $.ajax({
       data:{
-        limit:14,
+        limit:10,
         sub_group_by:'album'
       },
       dataType:'json',
@@ -80,7 +94,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getFormats();
+  view.getFormats('<?=$lower_limit?>');
   view.initFormatsEvents();
   view.getListenings();
 });
