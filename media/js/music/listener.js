@@ -43,9 +43,9 @@ $.extend(view, {
             data:{
               hide:{
                 artist:true,
+                calendar:true,
                 count:true,
-                date:true,
-                year:true,
+                rank:true,
                 spotify:true
               },
               json_data:data,
