@@ -333,7 +333,10 @@ $.extend(view, {
         200: function (data) { // 200 OK
           $.ajax({
             data:{
-              json_data:data,
+              hide:{
+                format_icon:true
+              },
+              json_data:data
             },
             success: function (data) {
               $('#topListeningFormatTypesLoader').hide();
