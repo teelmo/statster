@@ -25,7 +25,7 @@ if (!empty($json_data)) {
         foreach ($json_data as $idx => $row) {
           if (strip_tags(timeAgo($row['date'], CUR_DATE)) != $prev_date) {
             ?>
-            <li class="block"><h3><?=timeAgo($row['date'], CUR_DATE)?> <span class="datetime number"><?=$row['date']?></span></h3></li>
+            <li class="block"><h3><?=timeAgo($row['date'], CUR_DATE)?> <?=(str_contains(timeAgo($row['date']), 'day') ? '<span class="datetime number">' . $row['date'] . '</span>' : '')?></h3></li>
             <?php
           }
           ?>
