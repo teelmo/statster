@@ -78,6 +78,7 @@ if (!function_exists('timeAgo')) {
       $a = array(
         12 * 30.5 * 24 * 60 * 60 => 'year',
         30.5 * 24 * 60 * 60 => 'month',
+        14.5 * 24 * 60 * 60 => 'week',
         24 * 60 * 60 => 'day',
         60 * 60 => 'today',
       );
