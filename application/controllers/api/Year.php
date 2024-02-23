@@ -17,7 +17,6 @@ class Year extends CI_Controller {
         echo getYears($_REQUEST);
         break;
     }
-    
   }
 
   /* Add a year */

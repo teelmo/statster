@@ -298,7 +298,7 @@ if (!function_exists('getTopAlbumByYear')) {
                        " . TBL_user . ",
                        " . TBL_artist . "
                   WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-                    AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".id
+                    AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
                     AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
                     AND " . TBL_user . ".`username` LIKE ?
                   GROUP BY " . TBL_album . ".`id`
