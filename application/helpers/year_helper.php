@@ -284,6 +284,8 @@ if (!function_exists('getTopAlbumByYear')) {
     $ci=& get_instance();
     $ci->load->database();
 
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
 
     $sql = "SELECT * 
@@ -298,6 +300,7 @@ if (!function_exists('getTopAlbumByYear')) {
                        " . TBL_user . ",
                        " . TBL_artist . "
                   WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                    AND " . TBL_listening . ".`date` BETWEEN ? AND ?
                     AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
                     AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
                     AND " . TBL_user . ".`username` LIKE ?
@@ -305,7 +308,7 @@ if (!function_exists('getTopAlbumByYear')) {
                   ORDER by " . TBL_album . ".`year` DESC, `count` DESC) AS `result`
             GROUP BY `result`.`year`
             ORDER BY `result`.`year` DESC";
-    $query = $ci->db->query($sql, array($username));
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
 
     $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
     return _json_return_helper($query, $human_readable);

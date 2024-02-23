@@ -91,13 +91,16 @@ $.extend(view, {
           });
         },
         204: function (data) { // 204 No Content
-          $(vars.container + 'Loader').hide();
+          $(vars.container + 'Loader, ' + vars.container + 'Loader2').hide();
           $(vars.container).html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/year/get'
     });
+    if (vars.container === '#topYear') {
+      view.getTopAlbumPerYear(lower_limit, upper_limit, vars);
+    }
   },
   getTopYearsYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
@@ -116,9 +119,11 @@ $.extend(view, {
       view.getTopYears(year + '-00-00', year + '-12-31', vars);
     }
   },
-  getTopAlbumPerYear: function () {
+  getTopAlbumPerYear: function (lower_limit, upper_limit, vars) {
     $.ajax({
       data:{
+        lower_limit:lower_limit,
+        upper_limit:upper_limit,
         username:'<?=!(empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -138,8 +143,8 @@ $.extend(view, {
           });
         },
         204: function (data) { // 204 No Content
-          // $(vars.container + 'Loader').hide();
-          // $(vars.container).html('<?=ERR_NO_RESULTS?>');
+          $('#topAlbumYearlyLoader').hide();
+          $('#topAlbumYearly').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -151,6 +156,5 @@ $.extend(view, {
 $(document).ready(function () {
   view.initChart();
   view.getYearsHistory('<?=$top_year_year?>', '%Y');
-  view.getTopAlbumPerYear();
   view.getTopYearsYearly();
 });

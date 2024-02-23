@@ -41,17 +41,22 @@ $.extend(view, {
           });
         },
         204: function (data) { // 204 No Content
-          $(vars.container + 'Loader').hide();
+          $(vars.container + 'Loader, ' + vars.container + 'Loader2').hide();
           $(vars.container).html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
       url:'/api/nationality/get'
     });
+    if (vars.container === '#topNationality') {
+      view.getTopArtistPerNationality(lower_limit, upper_limit, vars);
+    }
   },
-  getTopArtistPerNationality: function () {
+  getTopArtistPerNationality: function (lower_limit, upper_limit, vars) {
     $.ajax({
       data:{
+        lower_limit:lower_limit,
+        upper_limit:upper_limit,
         username:'<?=!(empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
@@ -71,8 +76,8 @@ $.extend(view, {
           });
         },
         204: function (data) { // 204 No Content
-          // $(vars.container + 'Loader').hide();
-          // $(vars.container).html('<?=ERR_NO_RESULTS?>');
+          $('#topArtistNationalityLoader').hide();
+          $('#topArtistNationality').html('<?=ERR_NO_RESULTS?>');
         }
       },
       type:'GET',
@@ -101,6 +106,5 @@ $.extend(view, {
 
 $(document).ready(function () {
   view.getTopNationalities('<?=$top_nationality_nationality?>');
-  view.getTopArtistPerNationality();
   view.getTopNationalitiesYearly();
 });
