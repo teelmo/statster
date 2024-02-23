@@ -431,7 +431,8 @@ if (!function_exists('getTopArtistByNationality')) {
                         " . TBL_album . ".`album_name`,
                         " . TBL_album . ".`id` AS `album_id`,
                         " . TBL_album . ".`year`,
-                        " . TBL_nationality . ".`country`
+                        " . TBL_nationality . ".`country`,
+                        " . TBL_nationality . ".`country_code`
                   FROM " . TBL_listening . ",
                        " . TBL_album . ",
                        " . TBL_nationalities . ",
