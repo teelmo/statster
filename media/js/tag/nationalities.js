@@ -11,7 +11,7 @@ $.extend(view, {
       }
       vars = {
         container:'#topNationality',
-        limit:'0, 200',
+        limit:'0, 50',
         template:'/ajax/columnTable'
       }
       upper_limit = '<?=CUR_DATE?>';
@@ -49,6 +49,36 @@ $.extend(view, {
       url:'/api/nationality/get'
     });
   },
+  getTopArtistPerNationality: function () {
+    $.ajax({
+      data:{
+        username:'<?=!(empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              type:'artist'
+            },
+            success: function (data) {
+              $('#topArtistNationalityLoader').hide();
+              $('#topArtistNationality').html(data);
+            },
+            type:'POST',
+            url:'/ajax/artistList'
+          });
+        },
+        204: function (data) { // 204 No Content
+          // $(vars.container + 'Loader').hide();
+          // $(vars.container).html('<?=ERR_NO_RESULTS?>');
+        }
+      },
+      type:'GET',
+      url:'/api/nationality/get/artist'
+    });
+  },
   getTopNationalitiesYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
       $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationality' + year + 'Loader"/><table id="topNationality' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
@@ -71,5 +101,6 @@ $.extend(view, {
 
 $(document).ready(function () {
   view.getTopNationalities('<?=$top_nationality_nationality?>');
+  view.getTopArtistPerNationality();
   view.getTopNationalitiesYearly();
 });

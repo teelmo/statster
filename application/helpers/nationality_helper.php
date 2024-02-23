@@ -407,6 +407,52 @@ if (!function_exists('deleteAlbumNationality')) {
   }
 }
 
+/**
+  * Returns top artists for each nationality.
+  *
+  * @param array $opts.
+  *
+  * @return string JSON encoded data containing artist information.
+  *
+  **/
+if (!function_exists('getTopArtistByNationality')) {
+  function getTopArtistByNationality($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+
+    $sql = "SELECT * 
+            FROM (SELECT count(*) AS `count`,
+                        " . TBL_artist . ".`artist_name`,
+                        " . TBL_artist . ".`id` AS `artist_id`,
+                        " . TBL_album . ".`album_name`,
+                        " . TBL_album . ".`id` AS `album_id`,
+                        " . TBL_album . ".`year`,
+                        " . TBL_nationality . ".`country`
+                  FROM " . TBL_listening . ",
+                       " . TBL_album . ",
+                       " . TBL_nationalities . ",
+                       " . TBL_nationality . ",
+                       " . TBL_user . ",
+                       " . TBL_artist . "
+                  WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                    AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+                    AND " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
+                    AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
+                    AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                    AND " . TBL_user . ".`username` LIKE ?
+                  GROUP BY " . TBL_artist . ".`id`
+                  ORDER by " . TBL_nationality . ".`country` DESC, `count` DESC) AS `result`
+            GROUP BY `result`.`country`
+            ORDER BY `result`.`country` ASC";
+    $query = $ci->db->query($sql, array($username));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
 /*
  Get albums with out nationality
 select nationalities.nationality_id, nationalities.album_id, album_name

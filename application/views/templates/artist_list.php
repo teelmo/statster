@@ -6,7 +6,10 @@ if (!empty($json_data)) {
       <li>
         <?php
         if (getArtistID($row)) {
-          echo anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img150" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 174)) . ')"><div class="meta"><div class="title main">' . anchor(array('music', url_title($row['artist_name'])), '' . substrwords($row['artist_name'], 35), array('title' => 'Browse to artist\'s page')) . '</div></div></div>', array('title' => 'Browse to artist\'s page'));        
+          ?>
+          <?=($row['country']) ? anchor(array('nationality', url_title($row['country'])), '<div>' . $row['country'] . '</div>') : ''?>
+          <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img150" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 174)) . ')"><div class="meta"><div class="title main">' . anchor(array('music', url_title($row['artist_name'])), '' . substrwords($row['artist_name'], 35), array('title' => 'Browse to artist\'s page')) . '</div></div></div>', array('title' => 'Browse to artist\'s page'))?>
+          <?php
         }
         else {
           echo '<div class="cover artist_img img150" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 174)) . ')"><div class="meta"><div class="title main">' . $row['artist_name'] . '</div></div></div>';

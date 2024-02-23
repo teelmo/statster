@@ -10,11 +10,16 @@ class Nationality extends CI_Controller {
     // Load helpers
     $this->load->helper(array('nationality_helper', 'output_helper'));
     
-    if ($type === 'all') {
-      echo getAllNationalities($_REQUEST);
-    }
-    else {
-      echo getNationalities($_REQUEST);
+    switch ($type) {
+      case 'all':
+        echo getAllNationalities($_REQUEST);
+        break;
+      case 'artist':
+        echo getTopArtistByNationality($_REQUEST);
+        break;
+      default:
+        echo getNationalities($_REQUEST);
+        break;
     }
   }
 
