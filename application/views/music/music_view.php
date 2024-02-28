@@ -6,8 +6,8 @@
   </div>
   <div class="meta_container">
     <div class="meta">
-      <div class="label">Listenings</div>
-      <div class="value number"><?=anchor(array('recent'), number_format($listening_count))?></div>
+      <div class="label">Listenings, age</div>
+      <div class="value number"><?=anchor(array('recent'), number_format($listening_count))?> <?=($album_average_age) ? '<span class="share" title="' . number_format($album_average_age['average_year'], 0, '.', '') . '">' . number_format($album_average_age['count'], 1) . 'y</span>' : '–'?></div>
     </div>
     <div class="meta">
       <div class="label">Albums</div>
@@ -173,7 +173,6 @@
           <?php
         }
         ?>
-
       </table>
     </div>
     <div class="container"><hr /></div>

@@ -8,10 +8,13 @@ class Year extends CI_Controller {
   /* List years */
   public function get($type = '') {
     // Load helpers
-    $this->load->helper(array('year_helper', 'output_helper'));
+    $this->load->helper(array('music_helper', 'year_helper', 'output_helper'));
     switch ($type) {
       case 'yearly':
         echo getTopAlbumByYear($_REQUEST);
+        break;
+      case 'age':
+        echo getAlbumAverageAge($_REQUEST);
         break;
       default:
         echo getYears($_REQUEST);

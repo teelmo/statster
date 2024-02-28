@@ -49,6 +49,43 @@ $.extend(view, {
       url:'/api/year/get/'
     });
   },
+  getAgeHistory: function () {
+    $.ajax({
+      data:{
+        group_by:'GROUP BY `bar_date`',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      },
+      dataType:'json',
+      statusCode:{
+        200: function (data) { // 200 OK
+          $.ajax({
+            data:{
+              json_data:data,
+              type:'%Y'
+            },
+            success: function (data) {
+              $('#historyLoader').hide();
+              $('#history').html(data).hide();
+              $('.music_bar').show();
+              app.chart.xAxis[0].setCategories(view.categories, false);
+              app.chart.series[0].setData(view.chart_data, true);
+            },
+            type:'POST',
+            url:'/ajax/musicBar'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#historyLoader, .music_bar, #topYearLoader2').hide();
+        },
+        400: function () { // 400 Bad request
+          $('#historyLoader').hide();
+          alert('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/year/get/age'
+    });
+  },
   getTopYears: function (lower_limit, upper_limit = false, vars = false) {
     if (!upper_limit) {
       if (lower_limit === 'overall') {

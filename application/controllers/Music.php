@@ -36,6 +36,7 @@ class Music extends CI_Controller {
       $data['love_count'] = getLoveCount($data);
       $data['where'] = 'MONTH(`shouts`.`created`) LIKE ' .  $data['month'] . ' AND DAY(`shouts`.`created`) LIKE ' . $data['day'] . ' AND WEEKDAY(`shouts`.`created`) LIKE ' . $data['weekday'];
       $data['shout_count'] = getShoutCount($data);
+      $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
       $data['js_include'] = array('music/library', 'libs/jquery.daterangepicker', 'libs/highcharts', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
@@ -73,6 +74,7 @@ class Music extends CI_Controller {
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
       $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
       $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
+      $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
       $data['js_include'] = array('music/music', 'libs/jquery.daterangepicker', 'libs/highcharts', 'libs/peity', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
@@ -106,6 +108,7 @@ class Music extends CI_Controller {
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
+      $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
       $data['js_include'] = array('music/year', 'libs/highcharts', 'helpers/chart_helper');
 
       $this->load->view('site_templates/header');

@@ -54,6 +54,9 @@
       </h1>
     </div>
     <div class="container">
+      <div class="float_right settings">
+        <a href="javascript:;" class="unactive" onclick="view.getAgeHistory()">Age</a> | <a href="javascript:;" class="" onclick="view.getYearsHistory('<?=$top_year_year?>', '%Y');">Year</a>
+      </div>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>

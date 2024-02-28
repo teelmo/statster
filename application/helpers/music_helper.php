@@ -448,7 +448,6 @@ if (!function_exists('getUserSimilarity')) {
       'username' => $ci->session->userdata('username')
     )));
 
-
     if ($profile_artists && $user_artists) {
       $profile_top = array_map('_filter_artist_name', $profile_artists);
       $user_top = array_map('_filter_artist_name', $user_artists);
@@ -466,7 +465,7 @@ if (!function_exists('getUserSimilarity')) {
       else if ($similarity_value > 0.25) { // Low.
         $similarity_text = 'Low';
       }
-      else if ($similarity_value > 0.15) { // Very low
+      else if ($similarity_value > 0.15) { // Very low.
         $similarity_text = 'Very low';
       }
       else { // Not existing.
@@ -489,6 +488,44 @@ if (!function_exists('getUserSimilarity')) {
         'value' => 0
       );
     }
+  }
+}
+
+/**
+  * Get average age of album listened
+  *
+  * @param array $opts.
+  *          'username' => Username
+  *          'year'     => Album year
+  *
+  * @return array average age.
+  *
+  */
+if (!function_exists('getAlbumAverageAge')) {
+  function getAlbumAverageAge($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+    
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : '';
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $sql = "SELECT YEAR(" . TBL_listening . ".`date`) AS `bar_date`,
+                   ROUND(AVG(YEAR(" . TBL_listening . ".`date`) - " . TBL_album . ".`year`), 1) AS `count`,
+                   ROUND(AVG(" . TBL_album . ".`year`), 1) AS `average_year`
+            FROM " . TBL_listening . ",
+                 " . TBL_album . ",
+                 " . TBL_user . "
+            WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+              AND " . TBL_user . ".`username` LIKE ?
+            $group_by
+            ORDER BY YEAR(" . TBL_listening . ".`date`) ASC";
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
   }
 }
 
