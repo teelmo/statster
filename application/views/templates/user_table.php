@@ -46,7 +46,7 @@ if (!empty($json_data)) {
           <?php
         }
         ?>
-        <td class="img<?=$size?> userImg">
+        <td class="img<?=$size?> user_img">
           <?=anchor(array('user', url_title($row['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $row['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
         </td>
         <td class="title">

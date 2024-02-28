@@ -662,7 +662,7 @@ table.music_table {
           width: 32px;
         }
         td.title {
-            position: relative;
+          position: relative;
           span.title,
           span.delete,
           div.confirmation,
@@ -712,6 +712,13 @@ table.side_table {
         &.tag_img {
           font-size: 38px;
           text-align: center;
+        }
+        .artist_img,
+        .user_img {
+          .border-radius(32px);
+          &:after {
+            .border-radius(32px);
+          }
         }
       }
       &.rank,
