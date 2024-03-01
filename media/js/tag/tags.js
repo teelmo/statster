@@ -138,7 +138,6 @@ $.extend(view, {
           $('.keyword_link').html('<a href="/keyword/' + data[0].name.replace(/ /g,'+') + '">More</a>').removeClass('not_available');
           view.getTopAlbums(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           view.getTopArtists(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
-          
           $.ajax({
             data:{
               json_data:data
