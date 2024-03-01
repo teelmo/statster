@@ -181,6 +181,7 @@ $.extend(view, {
       data:{
         from:from,
         limit:10,
+        sub_group_by:'album',
         where:where
       },
       dataType:'json',
