@@ -128,11 +128,11 @@ define('IMAGE_SERVER_IP', '77.37.18.167');
 define('IMAGE_SERVER', IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . '/');
 
 define('INTERVAL_TEXTS', array(
-  7 => 'Last 7 days',
-  30 => 'Last 30 days',
-  90 => 'Last 90 days',
-  180 => 'Last 180 days',
-  365 => 'Last 365 days',
+  7 => 'Last <span class="number">7</span> days',
+  30 => 'Last <span class="number">30</span> days',
+  90 => 'Last <span class="number">90</span> days',
+  180 => 'Last <span class="number">180</span> days',
+  365 => 'Last <span class="number">365</span> days',
   'overall' => 'All time'
 ));
 

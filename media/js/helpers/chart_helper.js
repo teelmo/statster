@@ -20,7 +20,7 @@ $.extend(view, {
           y:17,
           style:{
             color:'#999',
-            fontFamily:'Lato',
+            fontFamily:'IBM Plex Mono',
             fontSize:'12px',
             fontWeight:'300'
           },
@@ -37,7 +37,7 @@ $.extend(view, {
           },
           style:{
             color:'#999',
-            fontFamily:'Lato',
+            fontFamily:'IBM Plex Mono',
             fontSize:'12px',
             fontWeight:'300'
           }
@@ -57,7 +57,7 @@ $.extend(view, {
         shadow:false,
         style:{
           color:'#999',
-          fontFamily:'Lato',
+          fontFamily:'IBM Plex Mono',
           fontSize:'14px',
           fontWeight:'300'
         }

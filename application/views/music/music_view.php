@@ -69,7 +69,7 @@
             <?php
             for ($year = CUR_YEAR; $year >= 2004; $year--) {
               ?>
-              <tr><td><span class="r"><?=anchor(array('music', url_title($year)), $year, array('title' => $year . ' overview'))?></span></td></tr>
+              <tr><td><span class="number"><?=anchor(array('music', url_title($year)), $year, array('title' => $year . ' overview'))?></span></td></tr>
               <?php
             }
             ?>

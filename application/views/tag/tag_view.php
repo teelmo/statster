@@ -49,7 +49,6 @@
     if (!empty($bio_summary)) {
       ?>
       <div class="container">
-        <h2>Info</h2>
         <p class="summary"><?=nl2br($bio_summary)?></p>
         <div class="more moreDown">
           <?=anchor('', 'See more', array('title' => 'See full biography', 'id' => 'biographyMore'))?>

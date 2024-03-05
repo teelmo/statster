@@ -8,7 +8,7 @@
 @import 'libs/daterangepicker.min.css';
 @import '//fonts.googleapis.com/css?family=IBM+Plex+Mono:300,400,500';
 @import '//fonts.googleapis.com/css?family=Poiret+One:400';
-@import '//fonts.googleapis.com/css?family=Open+Sans:400';
+@import '//fonts.googleapis.com/css?family=Open+Sans:300,400,700';
 
 /**
   * Template styles
@@ -119,6 +119,11 @@ h3 {
     &.unactive {
       font-weight: 300;
     }
+  }
+}
+.settings {
+  a {
+    font-weight: 700;
   }
 }
 .empty_data_container {
@@ -1612,9 +1617,9 @@ h2 {
  * Date picker overrides 
  */
 .date-picker-wrapper {
-  margin: 5px 0 0 27px;
-  box-shadow: 0 0 0 transparent;
   border: 0;
+  box-shadow: 0 0 0 transparent;
+  margin: 5px 0 0 27px;
   padding: 0;
   &.no-shortcuts,
   &.no-topbar {
