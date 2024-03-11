@@ -18,7 +18,7 @@
   <div class="left_container">
     <div class="container welcome_container">
       <div class="content">
-        <h1>Statster&nbsp; &middot; &middot; &middot; &nbsp;greetings!</h1>
+        <h1>Statster &middot; &middot; &middot; Hi!</h1>
         <p>Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm"><strong>register!</strong></a></p>
         <?=form_open('', array('class' => 'hidden', 'id' => 'registerForm'), array('addListeningType' => 'form'))?>
           <div><input type="text" autocomplete="off" tabindex="1" id="registerUsername" placeholder="Desired username" name="registerUsername" /></div>
