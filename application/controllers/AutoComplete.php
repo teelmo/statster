@@ -12,6 +12,7 @@ class AutoComplete extends CI_Controller {
     $results = array();
     $search_str = $_GET['term'];
     if (!empty($search_str)) {
+      $search_str = preg_replace('/\s+/u', ' ', $search_str);
       if (strpos($search_str, DASH)) {
         list($data['artist'], $data['album']) = explode(DASH, $search_str);
         $search_str_db_artist = trim($data['artist']);
