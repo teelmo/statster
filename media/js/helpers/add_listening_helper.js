@@ -62,9 +62,7 @@ $.extend(view, {
     $('.listening_format').click(function (event) {
       if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
-        console.log($('#' + $(this).parent().attr('for')).prop('checked'))
         $('#' + $(this).parent().attr('for')).prop('checked', false).trigger('change');
-        console.log($('#' + $(this).parent().attr('for')).prop('checked'))
       }
       else {
         $('.listening_format').removeClass('selected');

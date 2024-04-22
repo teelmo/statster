@@ -174,10 +174,14 @@ class Music extends CI_Controller {
             $last_item_count = $item->count;
           }
         }
+        $data['sub_group_by'] = TBL_artists . '.`album_id`';
+        $data['per_year_user'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+        unset($data['user_id']);
+        $data['per_year'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/artist', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper');
+        $data['js_include'] = array('music/artist', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/artist_view', $data);
@@ -299,12 +303,18 @@ class Music extends CI_Controller {
           }
           $last_item_count = $item->count;
         }
+
+        $data['sub_group_by'] = TBL_artists . '.`album_id`';
+        $data['group_by'] = TBL_album . '.`id`';
+        $data['per_year_user'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+        unset($data['user_id']);
+        $data['per_year'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
         $artist_info = getArtistInfo(array('artist_name' => decode($value1)));
         $data['artist_id'] = $artist_info['artist_id'];
         $data['artist_name'] = $artist_info['artist_name'];
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/album', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper');
+        $data['js_include'] = array('music/album', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);

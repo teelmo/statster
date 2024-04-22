@@ -530,6 +530,77 @@ if (!function_exists('getAlbumAverageAge')) {
 }
 
 /**
+  * Get average listenings per year
+  *
+  * @param array $opts.
+  *          'username' => Username
+  *          'year'     => Album year
+  *
+  * @return array average age.
+  *
+  */
+if (!function_exists('getListeningsPerYear')) {
+  function getListeningsPerYear($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $ci->load->helper(array('id_helper'));
+
+    $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
+    $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
+    $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
+    $sub_group_by = (isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'album') ? "GROUP BY " . TBL_artists . ".`album_id`" : ((isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'artist') ? "GROUP BY " . TBL_artists . ".`artist_id`" : "GROUP BY " . TBL_artists . ".`id`");
+    $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
+    $sql = "SELECT (
+      (
+        SELECT count(*) AS `count`
+        FROM " . TBL_album . ",
+             " . TBL_artist . ",
+            (SELECT " . TBL_artists . ".`artist_id`,
+                    " . TBL_artists . ".`album_id`
+                FROM " . TBL_artists . "
+                " . $sub_group_by . ") AS " . TBL_artists . ",
+             " . TBL_listening . " 
+        WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+          AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+          AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+          AND " . TBL_listening . ".`user_id` LIKE ?
+          AND " . TBL_artist . ".`id` LIKE ?
+          AND " . TBL_album . ".`id` LIKE ?
+        GROUP BY " . $ci->db->escape_str($group_by) . "
+        LIMIT 1
+      )
+      / 
+      (
+       SELECT DATEDIFF(NOW(), (
+          SELECT " . TBL_listening . ".`date`
+          FROM " . TBL_album . ",
+               " . TBL_artist . ",
+              (SELECT " . TBL_artists . ".`artist_id`,
+                      " . TBL_artists . ".`album_id`
+                  FROM " . TBL_artists . "
+                  " . $sub_group_by . ") AS " . TBL_artists . ",
+               " . TBL_listening . "
+          WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+            AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+            AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+            AND " . TBL_listening . ".`user_id` LIKE ?
+            AND " . TBL_artist . ".`id` LIKE ?
+            AND " . TBL_album . ".`id` LIKE ?
+            AND YEAR(" . TBL_listening . ".`date`) <> YEAR(CURRENT_DATE())
+          ORDER BY " . TBL_listening . ".`date` ASC
+          LIMIT 1)
+        ) / 365
+      )
+    ) AS `count`";
+    $query = $ci->db->query($sql, array($user_id, $artist_id, $album_id, $user_id, $artist_id, $album_id));
+
+    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    return _json_return_helper($query, $human_readable);
+  }
+}
+
+/**
   * Helper function for sorting tags
   */
 if (!function_exists('_tagsSortByCount')) {
