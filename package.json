@@ -7,10 +7,9 @@
     "sync-prod":"ssh teelmo@saksa2 git -C /home/teelmo/Sites/statster.info pull",
     "push": "git push && git push github master",
     "start-services":"sudo apachectl restart && brew services restart mariadb && open http://statster.local/",
-    "get-latest-prod-db":"scp backup@teelmo.info:/home/backup/vs6828/Backups/db-statster.info-$(date +\"%Y-%m-%d\").sql.bz2 .",
+    "get-latest-prod-db":"scp backupper@teelmo.info:/home/backupper/vs6828/Backups/db-statster.info-$(date +\"%Y-%m-%d\").sql.bz2 .",
     "truncate-local-db":"mysql -Nse 'show tables' -D statster -ustatster -pstatster | while read table; do echo \"SET FOREIGN_KEY_CHECKS=0;truncate table $table;SET FOREIGN_KEY_CHECKS=1;\"; done | mysql statster -ustatster -pstatster",
-    "populate-local-db":"bzip2 -dc db-statster.info-$(date +\"%Y-%m-%d\").sql.bz2 | mysql -u statster -pstatster statster",
-    "use_php_8.0":"brew unlink php && brew link --overwrite --force php@8.0"
+    "populate-local-db":"bzip2 -dc db-statster.info-$(date +\"%Y-%m-%d\").sql.bz2 | mysql -u statster -pstatster statster"
   },
   "repository": {
     "type": "git",
