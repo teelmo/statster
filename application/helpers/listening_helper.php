@@ -99,11 +99,11 @@ if (!function_exists('addListening')) {
           getSpotifyResourceId($data_tmp[0]);
         }
         $ci->load->helper(array('music_helper'));
-        foreach (explode(',', getAlbumArtists($data['album_id'])) AS $artist) {
-         $data_tmp = getArtistInfo(array('artist_id' => $artist['id']));
-         if (empty($data_tmp['spotify_id'])) {
-           getSpotifyResourceId($data_tmp);
-         }
+        foreach (getAlbumArtists($data) as $artist) {
+          $data_tmp = getArtistInfo(array('artist_id' => $artist['id']));
+          if (empty($data_tmp['spotify_id'])) {
+            getSpotifyResourceId($data_tmp);
+          }
         }
       }
       else if (strpos($opts['text'], DASH)) {
