@@ -49,12 +49,7 @@ class User extends CI_Controller {
       $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
       $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
       $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
-      $opts = array(
-        'limit' => '1',
-        'lower_limit' => '1970-00-00',
-        'username' => $username
-      );
-      $data += (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0, 'artist_name' => 'Unknown');
+      
       $data += getUserTags($data);
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
@@ -68,7 +63,13 @@ class User extends CI_Controller {
       $data['sub_group_by'] = 'album';
       $data['group_by'] = TBL_listening . '.`user_id`';
       unset($data['artist_name']);
-      $data['per_year'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+      $data['per_year'] = (getListeningsPerYear($data) !== NULL) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+      $opts = array(
+        'limit' => '1',
+        'lower_limit' => '1970-00-00',
+        'username' => $username
+      );
+      $data += (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0, 'artist_name' => 'Unknown');
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['js_include'] = array('user/profile', 'libs/highcharts', 'libs/peity', 'libs/jquery.daterangepicker', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/time_interval_helper', 'helpers/shout_helper', 'helpers/per_year_helper');
       if ($data['logged_in'] === 'true' && $this->session->userdata('username') === $data['username']) {

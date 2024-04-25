@@ -98,11 +98,12 @@ if (!function_exists('addListening')) {
         if (empty($data_tmp['spotify_id'])) {
           getSpotifyResourceId($data_tmp[0]);
         }
-        foreach (explode(',', $data['artist_ids']) as $artist_id) {
-          $data_tmp = getArtistInfo(array('artist_id' => $artist_id));
-          if (empty($data_tmp['spotify_id'])) {
-            getSpotifyResourceId($data_tmp);
-          }
+        $ci->load->helper(array('music_helper'));
+        foreach (explode(',', getAlbumArtists($data['album_id'])) AS $artist) {
+         $data_tmp = getArtistInfo(array('artist_id' => $artist['id']));
+         if (empty($data_tmp['spotify_id'])) {
+           getSpotifyResourceId($data_tmp);
+         }
         }
       }
       else if (strpos($opts['text'], DASH)) {
@@ -164,7 +165,7 @@ if (!function_exists('deleteListening')) {
     }
     $ci=& get_instance();
     $ci->load->database();
-    
+
     // Get user id from session.
     if (!$data['user_id'] = $ci->session->userdata('user_id')) {
       header('HTTP/1.1 401 Unauthorized');

@@ -7,7 +7,7 @@ if (!empty($json_data)) {
         <?php
         if (getArtistID($row)) {
           ?>
-          <?=($row['country']) ? anchor(array('nationality', url_title($row['country'])), '<div>' . $row['country'] . ' <img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['name'] . '" /></div>') : ''?>
+          <?=(isset($row['country'])) ? anchor(array('nationality', url_title($row['country'])), '<div>' . $row['country'] . ' <img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['name'] . '" /></div>') : ''?>
           <?=anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img150" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 174)) . ')"><div class="meta"><div class="title main">' . anchor(array('music', url_title($row['artist_name'])), '' . substrwords($row['artist_name'], 35), array('title' => 'Browse to artist\'s page')) . '</div></div></div>', array('title' => 'Browse to artist\'s page'))?>
           <?php
         }

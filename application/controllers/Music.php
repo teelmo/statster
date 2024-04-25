@@ -62,7 +62,7 @@ class Music extends CI_Controller {
       $data['shout_count'] = getShoutCount($opts);
       $data['fan_count'] = getFanCount($opts);
       $data['love_count'] = getLoveCount($opts);
-     
+
       $opts = array(
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
@@ -175,9 +175,9 @@ class Music extends CI_Controller {
           }
         }
         $data['sub_group_by'] = TBL_artists . '.`album_id`';
-        $data['per_year_user'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+        $data['per_year_user'] = (getListeningsPerYear($data) !== NULL) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
         unset($data['user_id']);
-        $data['per_year'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+        $data['per_year'] = (getListeningsPerYear($data) !== NULL) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';

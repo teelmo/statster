@@ -35,7 +35,7 @@
   <div class="meta_container">
     <div class="meta">
       <div class="label">Listenings</div>
-      <div class="value number"><span class="<?=($per_year === NULL) ? '' : 'data_per_year'?>" data-per-year="<?=$per_year?>"><?=anchor(array('recent', url_title($artist_name), url_title($album_name)), number_format($total_count))?></span><?=($most_listened_alltime !== false) ? ', ' . anchor(array('artist'), '<span class="rank">#<span class="number">' . $most_listened_alltime . '</span></span>') : ''?></div>
+      <div class="value number"><span class="<?=($per_year === NULL) ? '' : 'data_per_year'?>" data-per-year="<?=$per_year?>"><?=anchor(array('recent', url_title($artist_name)), number_format($total_count))?></span><?=($most_listened_alltime !== false) ? ', ' . anchor(array('artist'), '<span class="rank">#<span class="number">' . $most_listened_alltime . '</span></span>') : ''?></div>
     </div>
     <div class="meta">
       <div class="label">Listeners</div>

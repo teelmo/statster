@@ -323,6 +323,7 @@ $.extend(view, {
       dataType:'json',
       statusCode:{
         200: function (data) { // 200 OK
+          console.log(data);
           $.ajax({
             data:{
               hide:{

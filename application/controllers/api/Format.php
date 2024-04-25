@@ -9,10 +9,10 @@ class Format extends CI_Controller {
     // Load helpers
     $this->load->helper(array('format_helper', 'output_helper'));
 
-    if ($_REQUEST['format_type_name']) {
+    if (isset($_REQUEST['format_type_name'])) {
       echo getFormatTypeListenings($_REQUEST);
     }
-    else if ($_REQUEST['format_name']) {
+    else if (isset($_REQUEST['format_name'])) {
       echo getFormatListenings($_REQUEST);
     }
     else {
