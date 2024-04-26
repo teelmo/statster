@@ -10,7 +10,7 @@ class Album extends CI_Controller {
     $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
 
     $data = array();
-    $intervals = unserialize($this->session->userdata('intervals'));
+    $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
     $data['top_album_album'] = isset($intervals['top_album_album']) ? $intervals['top_album_album'] : 'overall';
     $data['lower_limit'] = $data['top_album_album'];
     $data['upper_limit'] = CUR_DATE;
@@ -36,7 +36,7 @@ class Album extends CI_Controller {
       
     $this->load->view('site_templates/header');
     $this->load->view('music/albums_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
   public function stats($year, $month = FALSE, $day = FALSE) {
     // Load helpers.
@@ -70,14 +70,14 @@ class Album extends CI_Controller {
       
     $this->load->view('site_templates/header');
     $this->load->view('music/albums_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
   public function mosaic() {
     // Load helpers.
     $this->load->helper(array('music_helper', 'img_helper', 'output_helper'));
 
     $data = array();
-    $intervals = unserialize($this->session->userdata('intervals'));
+    $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
     $data['top_album_album'] = isset($intervals['top_album_album']) ? $intervals['top_album_album'] : 'overall';
     $data['lower_limit'] = $data['top_album_album'];
     $data['title'] = 'Albums';
@@ -98,7 +98,7 @@ class Album extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('music/albums_mosaic', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 }
 ?>

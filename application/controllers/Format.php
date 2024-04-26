@@ -75,7 +75,7 @@ class Format extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('format/format_album_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -129,7 +129,7 @@ class Format extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('format/format_artist_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -139,7 +139,7 @@ class Format extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
 
-      $intervals = unserialize($this->session->userdata('intervals'));
+      $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['top_formats'] = isset($intervals['top_formats']) ? $intervals['top_formats'] : 'overall';
       $data['lower_limit'] = $data['top_formats'];
 
@@ -159,7 +159,7 @@ class Format extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('format/formats_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
   }
 
@@ -173,7 +173,7 @@ class Format extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
 
-      $intervals = unserialize($this->session->userdata('intervals'));
+      $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['top_format_type'] = isset($intervals['top_format_type']) ? $intervals['top_format_type'] : 'overall';
       $data['lower_limit'] = $data['top_format_type'];
 
@@ -185,7 +185,7 @@ class Format extends CI_Controller {
     else {
       $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
 
-      $intervals = unserialize($this->session->userdata('intervals'));
+      $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['top_format'] = isset($intervals['top_format']) ? $intervals['top_format'] : 'overall';
       $data['lower_limit'] = $data['top_format'];
 

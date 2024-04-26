@@ -74,7 +74,7 @@ class Shout extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('shout/shout_album_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -128,7 +128,7 @@ class Shout extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('shout/shout_artist_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -162,7 +162,7 @@ class Shout extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('shout/shout_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
   }
   public function album() {
@@ -190,7 +190,7 @@ class Shout extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('shout/shout_albums_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
   public function artist() {
     // Load helpers.
@@ -217,7 +217,7 @@ class Shout extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('shout/shout_artists_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
   public function user() {
     // Load helpers.
@@ -244,7 +244,7 @@ class Shout extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('shout/shout_users_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 }
 ?>

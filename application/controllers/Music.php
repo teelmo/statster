@@ -41,13 +41,13 @@ class Music extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('music/library_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       // Load helpers.
       $this->load->helper(array('img_helper', 'music_helper', 'genre_helper', 'shout_helper', 'fan_helper', 'love_helper', 'nationality_helper', 'year_helper', 'id_helper', 'output_helper'));
 
-      $intervals = unserialize($this->session->userdata('intervals'));
+      $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['popular_album_music'] = isset($intervals['popular_album_music']) ? $intervals['popular_album_music'] : 90;
       $opts = array(
         'lower_limit' => '1970-00-00',
@@ -79,7 +79,7 @@ class Music extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('music/music_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
   }
 
@@ -113,7 +113,7 @@ class Music extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('music/year_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       // Load helpers.
@@ -124,7 +124,7 @@ class Music extends CI_Controller {
 
       // Get artist information aka. artist's name and id.
       if ($data = getArtistInfo($data)) {
-        $intervals = unserialize($this->session->userdata('intervals'));
+        $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
         $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : '`count` DESC, `albums`.`year` DESC';
         // Get artist's total listening data.
         $data += getArtistListenings($data);
@@ -185,7 +185,7 @@ class Music extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('music/artist_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -223,7 +223,7 @@ class Music extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('music/month_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       // Load helpers.
@@ -243,7 +243,7 @@ class Music extends CI_Controller {
           ($artist_b['artist_name'] === decode($value1)) ? 1 : 0;
         });
         $data['artists'] = $artists;
-        $intervals = unserialize($this->session->userdata('intervals'));
+        $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
         $data['artist_album'] = isset($intervals['artist_album']) ? $intervals['artist_album'] : '`count` DESC, `albums`.`year` DESC';
         // Get albums's total listening data.
         $data += getAlbumListenings($data);
@@ -318,7 +318,7 @@ class Music extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -402,7 +402,7 @@ class Music extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('music/recent_album_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -456,7 +456,7 @@ class Music extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('music/recent_artist_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -483,7 +483,7 @@ class Music extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('music/recent_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
   }
 
@@ -509,7 +509,7 @@ class Music extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('music/mosaic_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function listener($artist_name = '', $album_name = FALSE) {
@@ -588,7 +588,7 @@ class Music extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('music/listener_album_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -642,7 +642,7 @@ class Music extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('music/listener_artist_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -668,7 +668,7 @@ class Music extends CI_Controller {
       
       $this->load->view('site_templates/header');
       $this->load->view('music/listener_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
   }
 }

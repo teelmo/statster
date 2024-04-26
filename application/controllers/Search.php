@@ -18,7 +18,7 @@ class Search extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('search/search_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 }
 ?>

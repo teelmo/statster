@@ -7,7 +7,7 @@ class Main extends CI_Controller {
       // Load helpers.
       $this->load->helper(array('form', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
-      $intervals = unserialize($this->session->userdata('intervals'));
+      $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['top_album_main'] = isset($intervals['top_album_main']) ? $intervals['top_album_main'] : 30;
       $data['top_artist_main'] = isset($intervals['top_artist_main']) ? $intervals['top_artist_main'] : 30;
       
@@ -27,7 +27,7 @@ class Main extends CI_Controller {
       $this->load->view('site_templates/header');
         
       $this->load->view('main_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       // Load helpers.
@@ -48,7 +48,7 @@ class Main extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('welcome_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
   }
 
@@ -71,7 +71,7 @@ class Main extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('404_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
   }
 
   /* 
@@ -80,31 +80,31 @@ class Main extends CI_Controller {
   public function about() {
     $this->load->view('site_templates/header');
     $this->load->view('meta/about_view');
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function career() {
     $this->load->view('site_templates/header');
     $this->load->view('meta/career_view');
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function developers() {
     $this->load->view('site_templates/header');
     $this->load->view('meta/developers_view');
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function privacy() {
     $this->load->view('site_templates/header');
     $this->load->view('meta/privacy_view');
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function terms() {
     $this->load->view('site_templates/header');
     $this->load->view('meta/terms_view');
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 }
 ?>

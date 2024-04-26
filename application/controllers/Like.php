@@ -73,7 +73,7 @@ class Like extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('like/like_album_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -154,7 +154,7 @@ class Like extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('like/like_artist_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
       else {
         show_404();
@@ -186,7 +186,7 @@ class Like extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('like/like_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
   }
 
@@ -210,7 +210,7 @@ class Like extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('like/love_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function fan() {
@@ -233,6 +233,6 @@ class Like extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('like/fan_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 }

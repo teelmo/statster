@@ -6,7 +6,7 @@ class User extends CI_Controller {
     $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
     
     $data = array();
-    $intervals = unserialize($this->session->userdata('intervals'));
+    $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
     $data['top_listener_user'] = isset($intervals['top_listener_user']) ? $intervals['top_listener_user'] : 'overall';
 
     $opts = array(
@@ -20,7 +20,7 @@ class User extends CI_Controller {
     
     $this->load->view('site_templates/header');
     $this->load->view('user/user_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function profile($username) {
@@ -29,7 +29,7 @@ class User extends CI_Controller {
     $data['username'] = $username;
     if ($data = getUser($data)) {
       $data['username'] = $this->uri->segment(2);
-      $intervals = unserialize($this->session->userdata('intervals'));
+      $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['top_album_profile'] = isset($intervals['top_album_profile']) ? $intervals['top_album_profile'] : 'overall';
       $data['top_artist_profile'] = isset($intervals['top_artist_profile']) ? $intervals['top_artist_profile'] : 'overall';
       $data['top_listening_format_profile'] = isset($intervals['top_listening_format_profile']) ? $intervals['top_listening_format_profile'] : 'overall';
@@ -78,7 +78,7 @@ class User extends CI_Controller {
       
       $this->load->view('site_templates/header');
       $this->load->view('user/profile_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       show_404();
@@ -119,7 +119,7 @@ class User extends CI_Controller {
       }
       $this->load->view('site_templates/header');
       $this->load->view('user/edit_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
   }
 }

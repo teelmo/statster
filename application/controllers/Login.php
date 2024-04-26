@@ -23,7 +23,7 @@ class Login extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('login_view', $data);
-    $this->load->view('site_templates/footer');  
+    $this->load->view('site_templates/footer', $data);  
   }
 }
 ?>

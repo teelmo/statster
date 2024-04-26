@@ -26,7 +26,7 @@ class Admin extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('admin/admin_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       show_404();
@@ -60,7 +60,7 @@ class Admin extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('admin/edit_artist_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
     }
     else {
@@ -106,7 +106,7 @@ class Admin extends CI_Controller {
 
         $this->load->view('site_templates/header');
         $this->load->view('admin/edit_album_view', $data);
-        $this->load->view('site_templates/footer');
+        $this->load->view('site_templates/footer', $data);
       }
     }
     else {
@@ -122,7 +122,7 @@ class Admin extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('music/edit_genre_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       show_404();
@@ -137,7 +137,7 @@ class Admin extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('music/edit_keyword_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       show_404();
@@ -152,7 +152,7 @@ class Admin extends CI_Controller {
 
       $this->load->view('site_templates/header');
       $this->load->view('music/edit_nationality_view', $data);
-      $this->load->view('site_templates/footer');
+      $this->load->view('site_templates/footer', $data);
     }
     else {
       show_404();
