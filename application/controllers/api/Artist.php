@@ -43,7 +43,7 @@ class Artist extends CI_Controller {
       switch ($type) {
         case 'biography':
           // Load helpers
-          $this->load->helper(array('artist_helper', 'lastfm_helper'));
+          $this->load->helper(array('artist_helper', 'metadata_helper'));
 
           $_REQUEST += fetchArtistInfo($_REQUEST, array('bio', 'image'));
           echo addArtistBio($_REQUEST);

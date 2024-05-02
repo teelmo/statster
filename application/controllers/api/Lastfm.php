@@ -7,14 +7,14 @@ class Lastfm extends CI_Controller {
 
   public function getEvents() {
     // Load helpers
-    $this->load->helper(array('lastfm_helper'));
+    $this->load->helper(array('metadata_helper'));
     
     echo getEvents($_REQUEST);
   }
 
   public function fetchSimilar() {
     // Load helpers
-    $this->load->helper(array('lastfm_helper', 'artist_helper'));
+    $this->load->helper(array('metadata_helper', 'artist_helper'));
     
     echo fetchSimilar($_REQUEST);
   }

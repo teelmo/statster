@@ -32,7 +32,7 @@ class Genre extends CI_Controller {
       switch ($type) {
         case 'biography':
           // Load helpers
-          $this->load->helper(array('genre_helper', 'lastfm_helper'));
+          $this->load->helper(array('genre_helper', 'metadata_helper'));
 
           $_REQUEST += fetchTagBio($_REQUEST);
           echo addGenreBio($_REQUEST);

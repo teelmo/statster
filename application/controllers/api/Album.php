@@ -32,7 +32,7 @@ class Album extends CI_Controller {
       // Load helpers
       switch ($type) {
         case 'biography':
-          $this->load->helper(array('album_helper', 'lastfm_helper'));
+          $this->load->helper(array('album_helper', 'metadata_helper'));
           
           $_REQUEST += fetchAlbumInfo($_REQUEST, array('bio'));
           echo addAlbumBio($_REQUEST);

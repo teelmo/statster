@@ -33,7 +33,7 @@ class Year extends CI_Controller {
     switch ($type) {
       case 'biography':
         // Load helpers
-        $this->load->helper(array('year_helper', 'lastfm_helper'));
+        $this->load->helper(array('year_helper', 'metadata_helper'));
 
         $_REQUEST += fetchTagBio($_REQUEST);
         echo addYearBio($_REQUEST);

@@ -32,7 +32,7 @@ class Keyword extends CI_Controller {
       switch ($type) {
         case 'biography':
           // Load helpers
-          $this->load->helper(array('keyword_helper', 'lastfm_helper'));
+          $this->load->helper(array('keyword_helper', 'metadata_helper'));
 
           $_REQUEST += fetchTagBio($_REQUEST);
           echo addKeywordBio($_REQUEST);

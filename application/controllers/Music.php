@@ -131,7 +131,7 @@ class Music extends CI_Controller {
         // Get biography.
         $data += getArtistBio($data);
         if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-          $this->load->helper(array('lastfm_helper'));
+          $this->load->helper(array('metadata_helper'));
           unset($data['bio_summary']);
           unset($data['bio_content']);
           $data += fetchArtistInfo($data, array('bio', 'image'));
@@ -250,7 +250,7 @@ class Music extends CI_Controller {
         // Get biography.
         $data += getAlbumBio($data);
         if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-          $this->load->helper(array('lastfm_helper'));
+          $this->load->helper(array('metadata_helper'));
           unset($data['bio_summary']);
           unset($data['bio_content']);
           $data += fetchAlbumInfo($data, array('bio'));

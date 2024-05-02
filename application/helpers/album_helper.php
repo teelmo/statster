@@ -106,7 +106,7 @@ if (!function_exists('addAlbum')) {
         }
 
         // Load helpers.
-        $ci->load->helper(array('keyword_helper', 'artist_helper', 'nationality_helper', 'lastfm_helper'));
+        $ci->load->helper(array('keyword_helper', 'artist_helper', 'nationality_helper', 'metadata_helper'));
         // Add decade keyword.
         $data['tag_name'] = (floor((int)$data['album_year'] / 10) * 10) . 's';
         $data['tag_id'] = getKeywordID($data);

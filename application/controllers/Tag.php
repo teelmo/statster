@@ -237,7 +237,7 @@ class Tag extends CI_Controller {
           // Get biography.
           $data += getGenreBio($data);
           if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-            $this->load->helper(array('lastfm_helper'));
+            $this->load->helper(array('metadata_helper'));
             unset($data['bio_summary']);
             unset($data['bio_content']);
             $data += fetchTagBio($data);
@@ -354,7 +354,7 @@ class Tag extends CI_Controller {
           // Get biography.
           $data += getKeywordBio($data);
           if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-            $this->load->helper(array('lastfm_helper'));
+            $this->load->helper(array('metadata_helper'));
             unset($data['bio_summary']);
             unset($data['bio_content']);
             $data += fetchTagBio($data);
@@ -469,7 +469,7 @@ class Tag extends CI_Controller {
           // Get biography.
           $data += getNationalityBio($data);
           if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-            $this->load->helper(array('lastfm_helper'));
+            $this->load->helper(array('metadata_helper'));
             unset($data['bio_summary']);
             unset($data['bio_content']);
             $data += fetchTagBio($data);
@@ -586,7 +586,7 @@ class Tag extends CI_Controller {
           // Get biography.
           $data += getYearBio($data);
           if (empty($data['bio_summary']) || empty($data['bio_content'])) {
-            $this->load->helper(array('lastfm_helper'));
+            $this->load->helper(array('metadata_helper'));
             unset($data['bio_summary']);
             unset($data['bio_content']);
             $data += fetchTagBio($data);

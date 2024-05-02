@@ -16,7 +16,7 @@ if (!function_exists('getAlbumImg')) {
     $filename = getImagePath($opts, 'album');
     if (empty($filename)) {
       // $ci=& get_instance();
-      // $ci->load->helper('lastfm_helper');
+      // $ci->load->helper('metadata_helper');
       // $data = fetchAlbumInfo($opts, array('image'));
       // if (!empty($data['image_uri'])) {
       //   return $data['image_uri'];
@@ -44,7 +44,7 @@ if (!function_exists('getArtistImg')) {
     $filename = getImagePath($opts, 'artist');
     if (empty($filename)) {
       // $ci=& get_instance();
-      // $ci->load->helper('lastfm_helper');
+      // $ci->load->helper('metadata_helper');
       // $data = fetchArtistInfo($opts, array('image'));
       // if ($data['image_uri'] !== '') {
       //   return $data['image_uri'];
