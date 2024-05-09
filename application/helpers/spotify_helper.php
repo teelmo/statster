@@ -4,11 +4,11 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
 if (!function_exists('getSpotifyResourceId')) {
   function getSpotifyResourceId($data) {
     if (!empty($data['album_name'])) {
-      $q = str_replace('%2F', '+', urlencode($data['artist_name'] . ' '  . $data['album_name']));
+      $q = str_replace('%2F', '+', urlencode('artist:' . $data['artist_name'] . ' '  . 'album:' . $data['album_name']));
       $type = urlencode('album,track');
     }
     else {
-      $q = str_replace('%2F', '+', urlencode($data['artist_name']));
+      $q = str_replace('%2F', '+', urlencode('artist:' . $data['artist_name']));
       $type = urlencode('artist');
     }
 
