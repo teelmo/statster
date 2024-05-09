@@ -78,7 +78,7 @@ if (!function_exists('fetchArtistInfo')) {
         }
       }
       if (in_array('image', $get)) {
-        $q = str_replace('%2F', '+', urlencode('artist:' . $data['artist_name']));
+        $q = str_replace('%2F', '+', urlencode('artist:' . $opts['artist_name']));
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://accounts.spotify.com/api/token');
