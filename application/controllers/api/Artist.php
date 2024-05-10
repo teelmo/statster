@@ -45,7 +45,7 @@ class Artist extends CI_Controller {
           // Load helpers
           $this->load->helper(array('artist_helper', 'metadata_helper'));
 
-          $_REQUEST += fetchArtistInfo($_REQUEST, array('bio', 'image'));
+          $_REQUEST += fetchArtistInfo($_REQUEST, array('bio'));
           echo addArtistBio($_REQUEST);
           break;
         default:

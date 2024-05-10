@@ -134,7 +134,7 @@ class Music extends CI_Controller {
           $this->load->helper(array('metadata_helper'));
           unset($data['bio_summary']);
           unset($data['bio_content']);
-          $data += fetchArtistInfo($data, array('bio', 'image'));
+          $data += fetchArtistInfo($data, array('bio'));
           addArtistBio($data);
         }
         else if ((time() - strtotime($data['bio_updated'])) > BIO_UPDATE_TIME) {
