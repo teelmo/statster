@@ -317,7 +317,6 @@ if (!function_exists('getListeningsCumulative')) {
                     WHERE " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
             FROM " . TBL_listening . " AS `a`
             WHERE MONTH(`a`.`date`) <> 0
-            GROUP BY `line_date`
             ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql, array());
     }

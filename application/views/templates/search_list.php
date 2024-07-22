@@ -15,13 +15,13 @@ if (!empty($json_data)) {
           echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="fa fa-music"></i>' . anchor(array('genre', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to genre\'s page')) . '</li>';
         }
         else if ($row['type'] === 'keyword') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img">' . anchor(array('keyword', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to keyword\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="fa fa-tag"></i>' . anchor(array('keyword', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to keyword\'s page')) . '</li>';
         }
         else if ($row['type'] === 'nationality') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img">' . anchor(array('nationality', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to nationality\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="fa fa-flag"></i>' . anchor(array('nationality', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to nationality\'s page')) . '</li>';
         }
         else if ($row['type'] === 'year') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img">' . anchor(array('year', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to year\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="fa fa-hashtag"></i>' . anchor(array('year', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to year\'s page')) . '</li>';
         }
         else if ($row['type'] === 'user') {
           echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('user', url_title($row['value'])), '<div class="cover artist_img img64" style="background-image:url(' . $row['img'] . ')"></div><div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to user\'s page')) . '</li>';

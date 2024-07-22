@@ -633,7 +633,7 @@ class Tag extends CI_Controller {
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
-        'username' => (!empty($_GET['u'] && ($this->session->userdata('username') !== $_GET['u'])) ? $_GET['u'] : '')
+        'username' => (!empty($_GET['u']) && ($this->session->userdata('username') !== $_GET['u']) ? $_GET['u'] : '')
       );
       $data['total_count'] = count(json_decode(getYears($opts)));
       if ($this->session->userdata('logged_in') === TRUE) {
