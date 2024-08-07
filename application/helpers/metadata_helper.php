@@ -205,7 +205,7 @@ if (!function_exists('fetchSimilar')) {
  
 if (!function_exists('getEvents')) {
   function getEvents($opts = array()) {
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $limit = !empty($opts['limit']) ? $opts['limit'] : 8;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';

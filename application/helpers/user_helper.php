@@ -130,8 +130,8 @@ if (!function_exists('getUsers')) {
               AND FIND_IN_SET(" . TBL_user. ".`username`, ?) = 0";
     $query = $ci->db->query($sql, array($exclude_username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

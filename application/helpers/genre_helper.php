@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -64,15 +64,15 @@ if (!function_exists('getGenres')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $album_name, $tag_id, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
 /**
   * Returns all genres.
   * @param array $opts.
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *
   * @return string JSON encoded the data
   */
@@ -88,8 +88,8 @@ if (!function_exists('getAllGenres')) {
             ORDER BY " . TBL_genre . ".`name`";
     $query = $ci->db->query($sql, array());
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -132,8 +132,8 @@ if (!function_exists('getGenresCumulative')) {
             ORDER BY `line_date` ASC";
     $query = $ci->db->query($sql, array($tag_id, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -339,7 +339,7 @@ if (!function_exists('getGenreListenings')) {
   *
   * @param array $opts.
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -361,6 +361,7 @@ if (!function_exists('getMusicByGenre')) {
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+    
     $sql = "SELECT count(*) AS 'count',
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_artist . ".`id` AS `artist_id`,
@@ -388,8 +389,8 @@ if (!function_exists('getMusicByGenre')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

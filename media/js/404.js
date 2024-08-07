@@ -2,7 +2,7 @@ $.extend(view, {
   recentlyListened: function () {
     $.ajax({
       data:{
-        limit:5,
+        limit:10,
       },
       dataType:'json',
       statusCode:{

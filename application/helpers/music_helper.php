@@ -48,7 +48,7 @@ if (!function_exists('getListeningCount')) {
   * @param array $opts.
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -104,8 +104,8 @@ if (!function_exists('getArtists')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -117,7 +117,7 @@ if (!function_exists('getArtists')) {
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
   *          'having'          => Custom having argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -180,8 +180,8 @@ if (!function_exists('getAlbums')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $artist_name, $album_name));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -192,7 +192,7 @@ if (!function_exists('getAlbums')) {
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -252,8 +252,8 @@ if (!function_exists('getListeners')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $artist_id, $album_id));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -321,8 +321,8 @@ if (!function_exists('getListeningsCumulative')) {
       $query = $ci->db->query($sql, array());
     }
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -331,7 +331,7 @@ if (!function_exists('getListeningsCumulative')) {
   *
   * @param array $opts.
   *          'artist_name'     => Artist name
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'order_by'        => Order by argument
   *          'username'        => Username
   *
@@ -374,8 +374,8 @@ if (!function_exists('getArtistAlbums')) {
 
     $query = $ci->db->query($sql, array($username, $artist_name));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -384,7 +384,7 @@ if (!function_exists('getArtistAlbums')) {
   *
   * @param array $opts.
   *          'album_id'        => Album ID
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *
   * @return string JSON encoded data containing artists' information.
   *
@@ -523,8 +523,8 @@ if (!function_exists('getAlbumAverageAge')) {
             ORDER BY YEAR(" . TBL_listening . ".`date`) ASC";
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -594,8 +594,8 @@ if (!function_exists('getListeningsPerYear')) {
     ) AS `count`";
     $query = $ci->db->query($sql, array($user_id, $artist_id, $album_id, $user_id, $artist_id, $album_id));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

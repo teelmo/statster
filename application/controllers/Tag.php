@@ -69,7 +69,7 @@ class Tag extends CI_Controller {
           $last_item_count = $item->count;
         }
         
-        $data['listener_count'] = count(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data) ?? '', true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('tag/tags_album', 'helpers/tag_helper');
 
@@ -123,7 +123,7 @@ class Tag extends CI_Controller {
           }
         }
 
-        $data['listener_count'] = count(json_decode(getListeners($data), true));
+        $data['listener_count'] = count(json_decode(getListeners($data) ?? '', true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('tag/tags_artist', 'helpers/tag_helper');
 
@@ -151,7 +151,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['js_include'] = array('tag/tags', 'helpers/time_interval_helper');
 
@@ -203,11 +203,12 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = count(json_decode(getMusicByGenre($data), true));
+          $data['no_content'] = FALSE;
+          $data['listener_count'] = count(json_decode(getMusicByGenre($data) ?? '', true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
+          $data['artist'] = json_decode(getMusicByGenre($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           if ($type === 'album') {
             $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
@@ -253,11 +254,11 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = count(json_decode(getMusicByGenre($data), true));
+          $data['listener_count'] = count(json_decode(getMusicByGenre($data) ?? '', true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode(getMusicByGenre($data), true)[0];
+          $data['artist'] = json_decode(getMusicByGenre($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
@@ -280,7 +281,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
@@ -320,11 +321,12 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = count(json_decode(getMusicByKeyword($data), true));
+          $data['no_content'] = FALSE;
+          $data['listener_count'] = count(json_decode(getMusicByKeyword($data) ?? '', true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
+          $data['artist'] = json_decode(getMusicByKeyword($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           if ($type === 'album') {
             $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
@@ -370,11 +372,12 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = count(json_decode(getMusicByKeyword($data), true));
+          $data['no_content'] = FALSE;
+          $data['listener_count'] = count(json_decode(getMusicByKeyword($data) ?? '', true) ?? array());
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode(getMusicByKeyword($data), true)[0];
+          $data['artist'] = json_decode(getMusicByKeyword($data) ?? '', true)[0] ?? array('artist_id' => 0);
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
@@ -396,7 +399,7 @@ class Tag extends CI_Controller {
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
@@ -435,11 +438,12 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = count(json_decode(getMusicByNationality($data), true));
+          $data['no_content'] = FALSE;
+          $data['listener_count'] = count(json_decode(getMusicByNationality($data) ?? '', true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
+          $data['artist'] = json_decode(getMusicByNationality($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';;
           if ($type === 'album') {
             $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
@@ -485,11 +489,12 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = count(json_decode(getMusicByNationality($data), true));
+          $data['no_content'] = FALSE;
+          $data['listener_count'] = count(json_decode(getMusicByNationality($data) ?? '', true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode(getMusicByNationality($data), true)[0];
+          $data['artist'] = json_decode(getMusicByNationality($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
@@ -512,7 +517,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
@@ -552,11 +557,12 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = count(json_decode(getMusicByYear($data), true));
+          $data['no_content'] = FALSE;
+          $data['listener_count'] = count(json_decode(getMusicByYear($data) ?? '', true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode(getMusicByYear($data), true)[0];
+          $data['artist'] = json_decode(getMusicByYear($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           if ($type === 'album') {
             $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
@@ -602,11 +608,12 @@ class Tag extends CI_Controller {
           $data['upper_limit'] = CUR_DATE;
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
-          $data['listener_count'] = count(json_decode(getMusicByYear($data), true));
+          $data['no_content'] = FALSE;
+          $data['listener_count'] = count(json_decode(getMusicByYear($data) ?? '', true));
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode(getMusicByYear($data), true)[0];
+          $data['artist'] = json_decode(getMusicByYear($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
@@ -629,7 +636,7 @@ class Tag extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',

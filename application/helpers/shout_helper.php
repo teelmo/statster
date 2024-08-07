@@ -52,7 +52,7 @@ if (!function_exists('getShoutCount')) {
   * Get shout counts per user.
   *
   * @param array $opts.
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *
   * @return string JSON.
   */
@@ -94,8 +94,8 @@ if (!function_exists('getShoutCountUser')) {
             ORDER BY `count` DESC";
     $query = $ci->db->query($sql, array($type));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -156,8 +156,8 @@ if (!function_exists('getAlbumShout')) {
             ORDER BY " . TBL_album_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($album_id, $artist_id, $album_id, $username, $lower_limit, $upper_limit));
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -205,8 +205,8 @@ if (!function_exists('getArtistShout')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($artist_name, $artist_name, $username, $lower_limit, $upper_limit));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -280,8 +280,8 @@ if (!function_exists('getUserShout')) {
     }
     $query = $ci->db->query($sql, array($username, $username, $lower_limit, $upper_limit));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

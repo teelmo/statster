@@ -69,11 +69,11 @@ class Music extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_album'] = (json_decode(getAlbums($opts), true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
-      $data['top_genre'] = (json_decode(getGenres($opts), true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
-      $data['top_nationality'] = (json_decode(getNationalities($opts), true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
-      $data['top_year'] = (json_decode(getYears($opts), true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
+      $data['top_album'] = (json_decode(getAlbums($opts) ?? '', true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_genre'] = (json_decode(getGenres($opts) ?? '', true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
+      $data['top_nationality'] = (json_decode(getNationalities($opts) ?? '', true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
+      $data['top_year'] = (json_decode(getYears($opts) ?? '', true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
       $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
       $data['js_include'] = array('music/music', 'libs/jquery.daterangepicker', 'libs/highcharts', 'libs/peity', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
@@ -467,13 +467,13 @@ class Music extends CI_Controller {
       $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
 
       $opts = array(
-        'human_readable' => false,
+        'no_content' => false,
         'limit' => '1',
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $data['total_count'] = getListeningCount(array(), TBL_listening);
       if ($this->session->userdata('logged_in') === TRUE) {
         $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
@@ -493,13 +493,13 @@ class Music extends CI_Controller {
 
     $data = array();
     $opts = array(
-      'human_readable' => false,
+      'no_content' => false,
       'limit' => '1',
       'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
     $data['total_count'] = getListeningCount(array(), TBL_listening);
     if ($this->session->userdata('logged_in') === TRUE) {
       $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
@@ -658,7 +658,7 @@ class Music extends CI_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
       $data['total_count'] = getListeningCount(array(), TBL_listening);
       if ($this->session->userdata('logged_in') === TRUE) {
         $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);

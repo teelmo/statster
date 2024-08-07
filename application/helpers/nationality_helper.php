@@ -9,7 +9,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -63,15 +63,15 @@ if (!function_exists('getNationalities')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $album_name, $tag_id, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
 /**
   * Returns all nationalities.
   * @param array $opts.
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *
   * @return string JSON encoded the data
   */
@@ -87,8 +87,8 @@ if (!function_exists('getAllNationalities')) {
             ORDER BY " . TBL_nationality . ".`country`";
     $query = $ci->db->query($sql, array());
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -131,8 +131,8 @@ if (!function_exists('getNationalitiesCumulative')) {
             ORDER BY `line_date` ASC";
     $query = $ci->db->query($sql, array($tag_id, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -307,7 +307,7 @@ if (!function_exists('getNationalityListenings')) {
   *
   * @param array $opts.
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'order_by'        => Order by argument
   *          'tag_id'          => Tag id
@@ -341,7 +341,8 @@ if (!function_exists('getMusicByNationality')) {
                  (SELECT " . TBL_nationalities . ".`nationality_id`,
                          " . TBL_nationalities . ".`album_id`
                   FROM " . TBL_nationalities . "
-                  GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) AS " . TBL_nationalities . "
+                  GROUP BY " . TBL_nationalities . ".`nationality_id`, 
+                           " . TBL_nationalities . ".`album_id`) AS " . TBL_nationalities . "
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_nationalities . ".`album_id` = " . TBL_album . ".`id`
@@ -354,8 +355,8 @@ if (!function_exists('getMusicByNationality')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
             
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -452,8 +453,8 @@ if (!function_exists('getTopArtistByNationality')) {
             ORDER BY `result`.`country` ASC";
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

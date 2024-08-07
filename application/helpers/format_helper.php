@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -72,8 +72,8 @@ if (!function_exists('getListeningFormat')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_id, $album_id, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -84,7 +84,7 @@ if (!function_exists('getListeningFormat')) {
   *          'format_name'        => Artist name
   *          'date'               => Listening date in yyyy-mm-dd format
   *          'from'               => Extra from
-  *          'human_readable'     => Output format
+  *          'no_content'     => Output format
   *          'limit'              => Limit
   *          'username'           => Username
   *
@@ -142,8 +142,8 @@ if (!function_exists('getFormatListenings')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($username, $lower_limit, $upper_limit, $format_id, $date));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -154,7 +154,7 @@ if (!function_exists('getFormatListenings')) {
   *          'format_name'        => Artist name
   *          'date'               => Listening date in yyyy-mm-dd format
   *          'from'               => Extra from
-  *          'human_readable'     => Output format
+  *          'no_content'     => Output format
   *          'limit'              => Limit
   *          'username'           => Username
   *
@@ -211,8 +211,8 @@ if (!function_exists('getFormatTypeListenings')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($username, $lower_limit, $upper_limit, $format_type_id, $date));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

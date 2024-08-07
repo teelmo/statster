@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -64,15 +64,15 @@ if (!function_exists('getKeywords')) {
               LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $album_name, $tag_id, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
 /**
   * Returns all keywords.
   * @param array $opts.
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *
   * @return string JSON encoded the data
   */
@@ -88,8 +88,8 @@ if (!function_exists('getAllKeywords')) {
             ORDER BY " . TBL_keyword . ".`name`";
     $query = $ci->db->query($sql, array());
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -132,8 +132,8 @@ if (!function_exists('getKeywordsCumulative')) {
             ORDER BY `line_date` ASC";
     $query = $ci->db->query($sql, array($tag_id, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -341,7 +341,7 @@ if (!function_exists('getKeywordListenings')) {
   *
   * @param array $opts.
   *          'group_by'        => Group by argument
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'order_by'        => Order by argument
   *          'tag_id'          => Keyword id
@@ -358,7 +358,7 @@ if (!function_exists('getMusicByKeyword')) {
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, ' . TBL_album . '.`album_name` ASC';
-    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
 
@@ -375,7 +375,8 @@ if (!function_exists('getMusicByKeyword')) {
                  (SELECT " . TBL_keywords . ".`keyword_id`,
                          " . TBL_keywords . ".`album_id`
                   FROM " . TBL_keywords . "
-                  GROUP BY " . TBL_keywords . ".`keyword_id`, " . TBL_keywords . ".`album_id`) AS " . TBL_keywords . "
+                  GROUP BY " . TBL_keywords . ".`keyword_id`,
+                           " . TBL_keywords . ".`album_id`) AS " . TBL_keywords . "
             WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id` 
               AND " . TBL_keywords . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
@@ -388,8 +389,8 @@ if (!function_exists('getMusicByKeyword')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

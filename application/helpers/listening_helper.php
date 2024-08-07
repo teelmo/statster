@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'date'            => Listening date in yyyy-mm-dd format
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *          'limit'           => Limit
   *          'username'        => Username
   *
@@ -63,8 +63,8 @@ if (!function_exists('getListenings')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($username, $artist_id, $album_id, $date));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -193,7 +193,7 @@ if (!function_exists('deleteListening')) {
   * Get listening formats.
   *
   * @param array $opts.
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   *
   * @return string JSON.
   */
@@ -210,8 +210,8 @@ if (!function_exists('getListeningFormats')) {
             ORDER BY " . TBL_listening_format . ".`id` ASC";
     $query = $ci->db->query($sql, array());
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -220,7 +220,7 @@ if (!function_exists('getListeningFormats')) {
   *
   * @param array $opts.
   *          'format_id'       => format ID
-  *          'human_readable'  => Output format
+  *          'no_content'  => Output format
   */
 if (!function_exists('getListeningFormatTypes')) {
   function getListeningFormatTypes($opts = array()) {
@@ -239,8 +239,8 @@ if (!function_exists('getListeningFormatTypes')) {
             ORDER BY " . TBL_listening_format_type . ".`name` ASC";
     $query = $ci->db->query($sql, array($format_id));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

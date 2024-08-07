@@ -63,7 +63,7 @@
   </div>
   <div class="left_container">
     <div class="container clearfix">
-      <h1 class="genre_heading"><span class="value not_available">Genres</span><img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topGenreLoader3" /></h1>
+      <h1 class="genre_heading"><span class="value not_available">Genres</span> <img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topGenreLoader3" /></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumGenreLoader" />
       <ul id="topAlbumGenre" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistGenreLoader" />
@@ -71,7 +71,7 @@
       <div class="more genre_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="keyword_heading"><span class="value not_available">Keywords</span><img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topKeywordLoader3" /></h1>
+      <h1 class="keyword_heading"><span class="value not_available">Keywords</span> <img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topKeywordLoader3" /></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumKeywordLoader" />
       <ul id="topAlbumKeyword" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistKeywordLoader" />
@@ -79,7 +79,7 @@
       <div class="more keyword_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="nationality_heading"><span class="value not_available">Nationalities</span><img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topNationalityLoader3" /></h1>
+      <h1 class="nationality_heading"><span class="value not_available">Nationalities</span> <img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topNationalityLoader3" /></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumNationalityLoader" />
       <ul id="topAlbumNationality" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistNationalityLoader" />
@@ -87,7 +87,7 @@
       <div class="more nationality_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="year_heading"><span class="value not_available">Years</span><img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topYearLoader3" /></h1>
+      <h1 class="year_heading"><span class="value not_available">Years</span> <img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topYearLoader3" /></h1>
       <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearLoader" />
       <ul id="topAlbumYear" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more year_link not_available">More</div>

@@ -105,7 +105,7 @@
             <?=($top_artist['artist_id'] !== 0) ? anchor(array('music', url_title($top_artist['artist_name'])), '<div class="cover artist_img img32" style="background-image:url(' . getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 32)) . ')"></div>', array('title' => 'Browse to artist\'s page')) : ''?>
           </td>
           <td class="title">
-           <?=($top_artist['artist_id'] !== 0) ? anchor(array('music', url_title($top_artist['artist_name'])), substrwords($top_artist['artist_name'], 80), array('title' => $top_artist['count'] . ' listenings')) : ''?>
+            <?=($top_artist['artist_id'] !== 0) ? anchor(array('music', url_title($top_artist['artist_name'])), substrwords($top_artist['artist_name'], 80), array('title' => $top_artist['count'] . ' listenings')) : ''?>
             <?=($top_artist['count'] !== 0) ? '<div class="count"><span class="number">' . $top_artist['count'] . ' </span> listenings</div>' : ''?>
           </td>
         </tr>

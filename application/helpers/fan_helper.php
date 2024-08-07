@@ -39,8 +39,8 @@ if (!function_exists('getFan')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($artist_id, $username, $user_id));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 
@@ -80,8 +80,8 @@ if (!function_exists('getFans')) {
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($artist_id, $username));
 
-    $human_readable = !empty($opts['human_readable']) ? $opts['human_readable'] : FALSE;
-    return _json_return_helper($query, $human_readable);
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
   }
 }
 

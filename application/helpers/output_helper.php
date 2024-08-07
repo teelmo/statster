@@ -103,14 +103,15 @@ if (!function_exists('timeAgo')) {
   *
   * @param object $query.
   *
-  * @param string $human_readable.
+  * @param string $no_content.
   *
   * @return string JSON.
   */
 if (!function_exists('_json_return_helper')) {
-  function _json_return_helper($query, $human_readable) {
+
+  function _json_return_helper($query, $no_content = TRUE, $debug = FALSE) {
     if ($query->num_rows() > 0) {
-      if (!empty($human_readable) && $human_readable != 'false') {
+      if ($debug === TRUE) {
         $ci=& get_instance();
 
         // Load helpers
@@ -122,11 +123,15 @@ if (!function_exists('_json_return_helper')) {
         header('HTTP/1.1 200 OK');
         return json_encode($query->result());
       }
-      header('HTTP/1.1 400 Bad Request');
-      return json_encode(array('error' => array('msg' => ERR_GENERAL)));
     }
     else {
-      return header('HTTP/1.1 204 No Content');
+      if ($no_content === FALSE) {
+        header('HTTP/1.1 200 OK');
+        return '';
+      }
+      else {
+        return header('HTTP/1.1 204 No Content');
+      }
     }
   }
 }

@@ -1,3 +1,4 @@
+
 <div class="heading_container">
   <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
     <div class="info">
