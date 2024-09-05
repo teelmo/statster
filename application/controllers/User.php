@@ -111,7 +111,7 @@ class User extends CI_Controller {
       $data['formats'] = array();
       foreach (json_decode(getListeningFormats()) as $key => $format) {
         $data['formats'][$format->format_name] = $format;
-        if ($format_types = json_decode(getListeningFormatTypes(array('format_id' => $format->format_id)))) {
+        if ($format_types = json_decode(getListeningFormatTypes(array('format_id' => $format->format_id)) ?? '')) {
           foreach ($format_types as $key => $format_type) {
             $data['formats'][$format->format_name]->format_types[] = $format_type;
           }
