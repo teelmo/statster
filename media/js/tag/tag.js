@@ -223,6 +223,7 @@ $.extend(view, {
       data:{
         from:from,
         limit:10,
+        sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
       },
