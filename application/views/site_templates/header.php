@@ -30,7 +30,7 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min.js"></script>
     <script type="text/javascript" src="/media/js/statster.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
     <?php
     echo link_tag('media/css/styles.css?v=1');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');

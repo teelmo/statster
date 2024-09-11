@@ -519,6 +519,47 @@ $.extend(view, {
         type:'POST'
       });
     });
+    $('.quick_add_listening .subnav li').click(function () {
+      var format_value = $(this).data('value')
+      var album_id = <?=$album_id?>;
+      var artist_ids = <?=$artist_id?>;
+      $('.quick_add_listening .subnav').hide();
+      $.ajax({
+        data:{
+          album_id:album_id,
+          artist_ids:artist_ids,
+          created:new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace('T', ' '),
+          date:new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().slice(0, 10).replace('T', ' '),
+          format:format_value,
+          submitType:$('input[name="submitType"]').val(),
+          text:false
+        },
+        dataType:'json',
+        statusCode:{
+          201: function (data) { // 201 Created
+            $('#love').find('.like_msg').html('New listening!').show();
+            setTimeout(function() {
+              $('.like_msg').fadeOut(1000);
+            }, <?=MSG_FADEOUT?>);
+          },
+          400: function () { // 400 Bad Request
+            alert('400 Bad Request');
+            $('#recentlyListenedLoader2').hide();
+          },
+          401: function () { // 401 Unauthorized
+            alert('401 Unauthorized');
+            $('#recentlyListenedLoader2').hide();
+          },
+          404: function () { // 404 Not found
+            alert('404 Not Found');
+            $('#recentlyListenedLoader2').hide();
+          }
+        },
+        type:'POST',
+        url:'/api/listening/add'
+      });
+      return false;
+    });
   }
 });
 
@@ -538,4 +579,24 @@ $(document).ready(function () {
   if (update_bio === 1) {
     view.updateAlbumBio();
   }
+
+  $('.quick_add_listening').click(function() {
+    var sub_nav = $(this).parent().find('ul.subnav');
+    if (sub_nav.is(':visible')) {
+      $(this).removeClass('active');
+      sub_nav.slideUp('fast');
+    }
+    else {
+      $(this).addClass('active');
+      sub_nav.slideDown('fast').show();
+      $(this).parent().hover(function() {
+      }, function() {
+        // sub_nav.slideUp('slow');
+      });
+    }
+  }).hover(function() {
+    $(this).addClass('subhover');
+  }, function() {
+    $(this).removeClass('subhover');
+  });
 });

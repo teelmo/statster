@@ -96,7 +96,7 @@ $.extend(view, {
       if (text_value === '') {
         return false;
       }
-      var format_value = $('input[name="addListeningFormat"]:checked').val()
+      var format_value = $('input[name="addListeningFormat"]:checked').val();
       var album_id = ($('#addListeningText').data('ui-autocomplete').selectedItem) ? $('#addListeningText').data('ui-autocomplete').selectedItem.album_id : false ;
       var artist_ids = ($('#addListeningText').data('ui-autocomplete').selectedItem) ? $('#addListeningText').data('ui-autocomplete').selectedItem.artist_ids : false ;
       $('#recentlyListenedLoader2').show();

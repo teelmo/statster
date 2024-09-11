@@ -210,6 +210,28 @@ p {
     width: 130px;
   }
 }
+.quick_add_listening {
+  ul {
+    text-transform: none;
+    li {
+      .icon {
+        margin-right: 5px;
+      }
+    }
+  }
+  span {
+    color: #000;
+    cursor: pointer;
+    float: right;
+    font-family: 'Font Awesome 5 Free';
+    font-size: 16px;
+    left: 9px;
+    margin-right: 5px;
+    position: relative;
+    text-transform: none;
+    top: 9px;
+  }
+}
 #artistBio p.content {
   display: none;
 }
@@ -1523,8 +1545,10 @@ div.cover_shadow {
 }
 
 /* Fa styles */
+.user_listening,
 h1,
 h2 { 
+  .quick_add_listening,
   .func_container {
     .user-select(none);
     color: #666;
@@ -1580,9 +1604,8 @@ h2 {
         background-size: 36px 18px;
         content: '';
         height: 18px;
-        left: 41px;
         position: absolute;
-        right: auto;
+        right: 0;
         top: -18px;
         width: 36px;
       }

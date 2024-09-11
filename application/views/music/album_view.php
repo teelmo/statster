@@ -20,10 +20,6 @@
           if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
             echo anchor(array('admin', 'album', $album_id . '?artist=' . $artist_name), '<span class="fa fa-pen-square"></span>');
           }
-          // TODO: To add listening, not implemented. Would need a way (pop up) to add the listening format.
-          if (!empty($this->session->userdata['user_id'])) {
-            echo '<a href="javascript:;" class="hidden"><span class="fa fa-plus-square"></span></a>';
-          }
           ?>
         </h1>
         <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="tagsLoader"/>
@@ -66,6 +62,19 @@
           </div>
           <span class="user_value"><span class="value number"><span class="<?=($per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year_user?>"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('album' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
           <span id="love" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/><span class="like_msg"></span></span>
+          <span id="quick_add_listening" class="quick_add_listening">
+            <span class="fa fa-plus-square"></span>
+            <ul class="subnav">
+              <?php
+              foreach(unserialize($this->session->formats) as $key => $format) {
+                list($format, $format_type) = array_pad(explode(':', $format), 2, false);
+                ?>
+                  <li data-value="<?=(empty($format_type) ? $format : $format . ':' . $format_type)?>"><img src="/media/img/format_img/format_icons/<?=(empty($format_type) ? getFormatImg(array('format' => $format)) : getFormatTypeImg(array('format_type' => $format_type)))?>.png" tabindex="<?=($key + 2)?>" class="middle icon listening_format_type" title="<?=(empty($format_type) ? $format : $format_type)?>" alt="" /> <?=$format_type?></li>
+                <?php
+              }
+              ?>
+            </ul>
+          </span>
         </div>
       </div>
       <?php
