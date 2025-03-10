@@ -25,6 +25,14 @@ Changelog and New Features
 You can find a list of all changes for each release in the `user
 guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
 
+This is a fork of CodeIgniter 3, with the goal of keeping it up to date with PHP 8.4 and beyond. There is no intention to add new features or change the way CI3 works. This is purely a maintenance fork.
+
+The original CodeIgniter 3.x branch is no longer maintained, and has not been updated to work with PHP 8.2, or any newer version. This fork is intended to fill that gap.
+
+If the original CodeIgniter 3.x branch is updated to work with PHP 8.2+, and starts to be maintained again, this fork might be retired.
+
+See: https://github.com/pocketarc/codeigniter
+
 *******************
 Server Requirements
 *******************
