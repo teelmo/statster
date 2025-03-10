@@ -417,7 +417,7 @@ class CI_Session {
 		{
 			$bits_per_character = (int) ini_get('session.sid_bits_per_character');
 			$sid_length         = (int) ini_get('session.sid_length');
-			if (($bits = $sid_length * $bits_per_character) < 160)
+			if (($bits = $sid_length * $bits_per_character) < 160 && version_compare(PHP_VERSION, '8.4', '<'))
 			{
 				// Add as many more characters as necessary to reach at least 160 bits
 				$sid_length += (int) ceil((160 % $bits) / $bits_per_character);

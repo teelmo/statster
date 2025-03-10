@@ -384,16 +384,16 @@ class CI_DB_mysqli_driver extends CI_DB {
 
 	// --------------------------------------------------------------------
 
-	/**
-	 * Platform-dependent string escape
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	protected function _escape_str($str)
-	{
-		return preg_replace('/\\\\\'([0-9{4}\-0-9{2}\-0-9{2}]{10}|[00]*[Ymd\-%]*|[0-9]{4}%|[0-9{4}\-0-9{2}]{7}%)\\\\\'/', '\'${1}\'', $this->conn_id->real_escape_string($str));
-	}
+  /**
+   * Platform-dependent string escape
+   *
+   * @param string
+   * @return  string
+   */
+  protected function _escape_str($str)
+  {
+    return preg_replace('/\\\\\'([0-9{4}\-0-9{2}\-0-9{2}]{10}|[00]*[Ymd\-%]*|[0-9]{4}%|[0-9{4}\-0-9{2}]{7}%)\\\\\'/', '\'${1}\'', $this->conn_id->real_escape_string($str));
+  }
 
 	// --------------------------------------------------------------------
 
