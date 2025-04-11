@@ -593,6 +593,7 @@ table.music_table {
           width: 100%;
         }
         &.title {
+          color: @color-black;
           padding: 0 5px;
           width: 100%;
           .spotify_link {
@@ -683,12 +684,18 @@ table.music_table {
       }
       &.just_added {
         background-color: @color-yellow-alt;
+        td.title {
+          color: #000
+        }
         a {
           color: #000;
           .album_year {
             color: #333;
             font-size: 11px;
           }
+        }
+        .datetime {
+          color: #000;
         }
         td.user_img,
         td.album_img {
@@ -1669,7 +1676,7 @@ h2 {
     vertical-align: bottom;
     &.peity {
       polyline {
-        stroke: @color-gray-dark;
+        stroke: @color-yellow-alt;
       }
     }
   }
