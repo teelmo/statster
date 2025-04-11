@@ -367,7 +367,7 @@ textarea {
     background-color: @color-gray-soft;
     border-radius: 3px;
     border: 1px solid @color-gray-medium;
-    color: @color-white-alter;
+    color: @color-black-alter;
     font-size: 14px;
     margin: 0;
     padding: 6px 4px 6px 8px;
@@ -415,6 +415,7 @@ button {
 fieldset {
   margin-bottom: 20px;
   legend {
+    color: @color-black;
     font-size: 18px;
     font-style: normal;
     font-variant: normal;
@@ -425,9 +426,13 @@ fieldset {
 .input_container {
   margin: 10px 0 5px 0;
   .label {
+    color: @color-black;
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 2px;
+  }
+  label {
+    color: @color-black;
   }
   .checkbox_container {
     line-height: 20px;
@@ -475,6 +480,7 @@ form#loginForm input[type="password"],
 form#loginForm input[type="text"] {
   background-color: @color-white;
   border-radius: 2px;
+  color: @color-black;
   font-size: 14px;
   padding: 4px 4px 4px 4px;
   width: 70%;
@@ -742,6 +748,7 @@ table.side_table {
           }
         }
         &.tag_img {
+          color: @color-accent;
           font-size: 24px;
           text-align: center;
         }
@@ -749,6 +756,7 @@ table.side_table {
       &.img64 {
         width: 64px;
         &.tag_img {
+          color: @color-accent;
           font-size: 38px;
           text-align: center;
         }

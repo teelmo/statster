@@ -105,10 +105,16 @@ class User extends CI_Controller {
     }
     else {
       // Load helpers
-      $this->load->helper(array('form', 'user_helper', 'listening_helper', 'output_helper'));
+      $this->load->helper(array('form', 'music_helper', 'user_helper', 'img_helper', 'listening_helper', 'output_helper'));
 
       $data = getUser(array('username' => $this->session->userdata('username')));
       $data['theme'] = (empty($data['theme'])) ? 'light' : $data['theme'];
+      $opts = array(
+        'limit' => '1',
+        'lower_limit' => '1970-00-00',
+        'username' => $this->session->userdata('username')
+      );
+      $data += (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0, 'artist_name' => 'Unknown');
       $data['formats'] = array();
       foreach (json_decode(getListeningFormats()) as $key => $format) {
         $data['formats'][$format->format_name] = $format;
