@@ -1,6 +1,6 @@
 .main_container {
   .clearfix;
-  background-color: #f9f9f9;
+  background-color: @color-bg-white-alter;
   display: flex;
   flex-wrap: wrap;
   margin: 20px auto auto auto;
@@ -9,7 +9,7 @@
     margin: 39px auto auto auto;
   }
   .page_links {
-    background-color: #fff;
+    background-color: @color-bg-white;
     flex-basis: 100%;
     font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
     font-size: 18px;
@@ -19,7 +19,7 @@
       font-weight: 400;
       margin: 5px 15px 2px 0;
       &:hover {
-        color: #777;
+        color: @color-gray-mid;
         text-decoration: none;
       }
       &.date_filter_submit {
@@ -33,33 +33,35 @@
       .day_selector_container,
       .weekday_selector_container,
       .date_range_container {
-        color: #777;
+        background-color: @color-bg-white;
+        color: @color-gray-mid;
         cursor: pointer;
         font-size: 12px;
         font-weight: 300;
         user-select: none;
         vertical-align: sub;
         &:hover {
-          color: #000;
+          color: @color-black;
         }
         select {
+          background-color: @color-bg-white;
           border: 0;
-          color: #777;
+          color: @color-gray-mid;
           cursor: pointer;
           font-family: 'Montserrat', 'Open Sans', 'Lucida Grande', 'Helvetica Neue', 'Helvetica', 'Arial', 'Sans-serif';
           font-size: 12px;
           font-weight: 300;
           outline: none;
           &:hover {
-            color: #000;
+            color: @color-black;
           }
         }
       }
     }
   }
   .full_container {
-    background-color: #fff;
-    border-top: 1px solid #ccc;
+    background-color: @color-bg-white;
+    border-top: 1px solid @color-gray-light;
     flex: 0 0 100%;
     .container {
       box-sizing: border-box;
@@ -68,9 +70,9 @@
     }
   }
   .left_container {
-    background-color: #fff;
-    border-right: 1px solid #ccc;
-    border-top: 1px solid #ccc;
+    background-color: @color-bg-white;
+    border-right: 1px solid @color-gray-light;
+    border-top: 1px solid @color-gray-light;
     flex: 0 0 640px;
     float: left;
     padding-bottom: 30px;
@@ -85,7 +87,7 @@
       width: 150px;
     }
     .left_container_outer {
-      color: #222;
+      color: @color-gray-dark;
       font-size: 22px;
       font-weight: normal;
       letter-spacing: 0.01em;
@@ -93,7 +95,7 @@
     }
   }
   .right_container {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid @color-gray-light;
     flex: 1 1 0;
     padding-bottom: 20px;
     .container {

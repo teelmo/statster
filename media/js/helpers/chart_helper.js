@@ -3,6 +3,7 @@ $.extend(view, {
     app.chart = $('.music_bar').highcharts({
       chart:{
         height:300,
+        backgroundColor:'transparent',
         zoomType:'x'
       },
       credits:{
@@ -17,7 +18,7 @@ $.extend(view, {
       xAxis:{
         allowDecimals:false,
         labels:{
-          y:17,
+          y:14,
           style:{
             color:'#999',
             fontFamily:'IBM Plex Mono',
@@ -25,6 +26,10 @@ $.extend(view, {
             fontWeight:'300'
           },
         },
+        lineWidth: 0,
+        minorGridLineWidth: 0,
+        minorTickLength: 0,
+        tickLength: 0,
         title:{
           enabled:false
         }
@@ -42,6 +47,9 @@ $.extend(view, {
             fontWeight:'300'
           }
         },
+        gridLineColor:'rgba(170, 170, 170, 0.5)',
+        gridLineDashStyle:'Dash',
+        gridLineWidth:0.5,
         title:{
           enabled:false
         }
@@ -64,7 +72,8 @@ $.extend(view, {
       },
       plotOptions:{
         column:{
-          color:'rgba(182, 192, 191, 0.5)',
+          borderWidth: 0,
+          color:(getComputedStyle(document.documentElement).getPropertyValue('--theme').trim() === 'dark') ? '#FFE082' : '#FFC107',
           groupPadding:0.01,
           maxPointWidth:100,
           pointPadding:0.06
@@ -91,7 +100,6 @@ $.extend(view, {
           height: 18,
           max: null,
           min: 0,
-          stroke: '#333',
           strokeWidth: 2,
           width: 100
         }).next('svg').hide().fadeIn(1000);

@@ -1,19 +1,8 @@
-@import 'libs/reset.css';
-@import 'libs/prefixer.less';
-@import 'libs/jquery-ui-1.13.2.custom.min.css';
-@import 'libs/chosen.css';
-@import 'libs/tooltipster.bundle.min.css';
-@import 'libs/tooltipster-sideTip-shadow.min.css';
-@import 'libs/jquery.autocomplete.less';
-@import 'libs/daterangepicker.min.css';
-@import '//fonts.googleapis.com/css?family=IBM+Plex+Mono:300,400,500';
-@import '//fonts.googleapis.com/css?family=Poiret+One:400';
-@import '//fonts.googleapis.com/css?family=Open+Sans:300,400,700';
-
 /**
   * Template styles
   */
 body {
+  background-color: @color-bg-white;
   font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
   font-size: 11px;
   line-height: 1.2;
@@ -21,17 +10,12 @@ body {
 div.container {
   font-size: 13px;
 }
-@import 'site_template/top_container.less';
-@import 'site_template/heading_container.less';
-@import 'site_template/main_container.less';
-@import 'site_template/footer.less';
-@import 'site_template/chosen_styles.less';
 
 /** 
   * Heading styles
   */
 h1 {
-  color: #222;
+  color: @color-gray-dark;
   font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', 'Sans-serif';
   font-size: 22px;
   font-style: normal;
@@ -44,6 +28,7 @@ h1 {
   }
 }
 h2 {
+  color: @color-gray-dark;
   font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', 'Sans-serif';
   font-size: 19px;
   font-style: normal;
@@ -54,14 +39,14 @@ h2 {
   margin: 15px 0 15px 0;
 }
 h3 {
-  color: #222;
+  color: @color-gray-dark;
   font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', 'Sans-serif';
   font-size: 14px;
   font-weight: 300;
   margin: 10px 0 10px 0;
   &.album_love,
   &.artist_fan {
-    color: #222;
+    color: @color-gray-dark;
     letter-spacing: 0.1em;
     margin-bottom: 5px;
     width: 100%;
@@ -76,23 +61,23 @@ h3 {
 .location,
 .metainfo,
 .datetime {
-  color: #999;
+  color: @color-gray-medium;
   font-size: 11px;
   font-weight: 300;
   letter-spacing: 0.02em;
 }
 .updated {
-  color: #999;
+  color: @color-gray-medium;
   font-size: 11px;
   font-weight: 300;
   text-align: right;
 }
 .not_available {
-  color: transparent;
-  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+  color: @transparent;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .listening_date {
-  color: #999;
+  color: @color-gray-medium;
 }
 .number {
   font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', 'Sans-serif';
@@ -110,34 +95,35 @@ h3 {
   text-transform: uppercase;
   white-space: nowrap;
   a {
-    color: #666;
+    color: @color-gray-mid;
     &:hover {
-      color: #000;
+      color: @color-black;
     }
     &:visited {
-      color: #666;
+      color: @color-gray-mid;
     }
     &.unactive {
       font-weight: 300;
     }
   }
 }
-.settings {
-  a {
-    font-weight: 700;
-  }
-}
 .empty_data_container {
+  color: @color-black;
   font-size: 13px;
   font-weight: 300;
 }
 .settings {
   font-weight: 600;
+  a {
+    font-weight: 700;
+  }
 }
 h3 {
+  color: @color-black;
   font-size: 20px;
 }
 p {
+  color: @color-black;
   font-size: 14px;
   font-weight: 300;
   line-height: 20px;
@@ -155,6 +141,7 @@ p {
   top: 9px;
   &.love_add {
     &:hover {
+      color: @color-red;
       &:after {
         content: '\f004';
         font-weight: 900;
@@ -165,6 +152,7 @@ p {
     }
   }
   &.love_del {
+    color: @color-red;
     &:hover {
       &:after {
         content: '\f004';
@@ -178,6 +166,7 @@ p {
   }
   &.fan_add {
     &:hover {
+      color: @color-yellow;
       &:after {
         content: '\f005';
         font-weight: 900;
@@ -188,6 +177,7 @@ p {
     }
   }
   &.fan_del {
+    color: @color-yellow;
     &:hover {
       &:after {
         font-weight: 500;
@@ -200,7 +190,7 @@ p {
     }
   }
   .like_msg {
-    color: #222;
+    color: @color-gray-dark;
     display: inline-block;
     font-size: 10px;
     opacity: 0.7;
@@ -220,7 +210,7 @@ p {
     }
   }
   span {
-    color: #000;
+    color: @color-black;
     cursor: pointer;
     float: right;
     font-family: 'Font Awesome 5 Free';
@@ -240,7 +230,7 @@ p {
   * User profile similarity
   */
 .similarity_info {
-  background-color: #fff;
+  background-color: @color-white;
   padding-bottom: 30px;
   .simililarity_image {
     position: relative;
@@ -250,8 +240,12 @@ p {
       position: absolute;
       top: 0;
       width: 54px;
+      path {
+        stroke: rgba(182, 192, 191, 0.5);
+      }
       .similarity_path {
         animation: progress 3s ease-out forwards;
+        stroke: @color-accent;
       }
       @keyframes progress {
         0% {
@@ -261,8 +255,8 @@ p {
     }
     .user_similarity_img {
       .border-radius(20px);
-      background-color: #fff;
-      border: 2px solid #fff;
+      background-color: @color-white;
+      border: 2px solid @color-white;
       display: inline-block;
       float: left;
       left: 5px;
@@ -305,6 +299,9 @@ p {
         font-size: 10px;
         margin-bottom: 2px;
         padding: 4px;
+        &:hover {
+          background-color: #000;
+        }
         &.hidden {
           display: none;
         }
@@ -319,7 +316,7 @@ p {
       position: relative;
       top: 2px;
       > a {
-        background-color: transparent;
+        background-color: @transparent;
         &.remove {
           position: relative;
           top: -2px;
@@ -330,7 +327,7 @@ p {
     a:visited {
       color: #fff;
       &:hover {
-        color: #eee;
+        color: #fff;
         text-decoration: none;
       }
     }
@@ -342,18 +339,18 @@ p {
   * Anchor styles
   */
 a {
-  color: #222;
+  color: @color-gray-dark;
   cursor: pointer;
   text-decoration: none;
   &:hover {
-    color: #444;
+    color: @color-gray-dark;
     text-decoration: underline;
   }
   &:visited {
-    color: #222;
+    color: @color-gray-dark;
     text-decoration: none;
     &:hover {
-      color: #444;
+      color: @color-gray-dark;
     }
   }
 }
@@ -364,21 +361,21 @@ a {
 input,
 textarea {
   box-sizing: border-box;
-  outline: none;
   &.text,
   &[type="password"],
   &[type="text"] {
-    background-color: #eee;
+    background-color: @color-gray-soft;
     border-radius: 3px;
-    border: 1px solid #aaa;
+    border: 1px solid @color-gray-medium;
+    color: @color-white-alter;
     font-size: 14px;
     margin: 0;
     padding: 6px 4px 6px 8px;
     width: 100%;
     &:active,
     &:focus {
-      background-color: #fff;
-      color: #222;
+      background-color: @color-white;
+      color: @color-gray-dark;
     }
   }
   &.text {
@@ -388,29 +385,30 @@ textarea {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background: #333;
-    border: 1px solid #444;
-    color: #eee;
+    background-color: #000;
+    border: 0;
+    color: #fff;
     cursor: pointer;
     font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
     font-size: 14px;
     letter-spacing: 0.1em;
-    padding: 5px 13px;
+    padding: 6px 14px;
     text-align: center;
     &:focus,
     &:hover {
-      background: #333;
-      border-color: #444;
+      background-color: #666;
       color: #fff;
     }
   }
   &.working {
-    background-color: #fff;
+    background-color: @color-white;
     background-image: url('/media/img/ajax-loader-circle.gif');
     background-position: 99% 50%;
     background-repeat: no-repeat;
   }
 }
+input,
+textarea,
 button {
   outline: none;
 }
@@ -447,9 +445,9 @@ form#addListeningForm {
       margin: 10px 0 15px 0;
     }
     &#addListeningDate {
-      background: 0;
+      background-color: @color-bg-white;
       border: 0;
-      color: #000;
+      color: @color-black;
       cursor: pointer;
       font-size: 14px;
       padding: 0;
@@ -475,7 +473,7 @@ form#registerForm {
 /** Login form */
 form#loginForm input[type="password"],
 form#loginForm input[type="text"] {
-  background-color: #fff;
+  background-color: @color-white;
   border-radius: 2px;
   font-size: 14px;
   padding: 4px 4px 4px 4px;
@@ -495,16 +493,16 @@ form#loginForm input[type="text"] {
     }
   }
   .search_form input {
-    background-color: transparent;
+    background-color: @transparent;
     border: 0;
-    color: rgba(255, 255, 255, 0.3);
+    color: @color-black-alter;
     font-size: 16px;
     font-weight: 300;
     padding: 2px 0 4px 14px;
     width: 250px;
     &:focus {
-      background-color: transparent;
-      color: #fff;
+      background-color: @transparent;
+      color: @color-black;
       &::placeholder {
         color: rgba(255, 255, 255, 1);
         font-weight: 300;
@@ -512,13 +510,13 @@ form#loginForm input[type="text"] {
     }
   }
   .search_submit {
-    background-color: transparent;
+    background-color: @transparent;
     border: 0;
     cursor: pointer;
     height: 16px;
     width: 16px;
     &:before {
-      color: #ccc;
+      color: @color-gray-light;
       content: '\f002';
       font-family: 'Font Awesome 5 Free';
       font-size: 16px;
@@ -572,8 +570,8 @@ table.music_table {
   border: 0;
   tbody {
     tr {
-      border-bottom: 1px solid #e9e9e9;
-      border-top: 1px solid #e9e9e9;
+      border-bottom: 1px solid @color-gray-soft;
+      border-top: 1px solid @color-gray-soft;
       height: 32px;
       td {
         vertical-align: middle;
@@ -595,7 +593,7 @@ table.music_table {
             text-decoration: none;
             .spotify_container {
               &:after {
-                color: #666;
+                color: @color-gray-mid;
                 content: '\f144';
                 font-family: 'Font Awesome 5 Free';
                 font-size: 16px;
@@ -605,19 +603,19 @@ table.music_table {
                 top: 1px;
               }
               &:hover:after {
-                color: #000;
+                color: @color-black;
               }
             }
           }
           .album_year {
-            color: #999;
+            color: @color-gray-medium;
             font-size: 11px;
           }
           .confirmation,
           .delete {
             display: none;
              .fa {
-              color: #999;
+              color: @color-gray-medium;
               display: inline-block;
               font-size: 15px;
               margin-left: 5px;
@@ -625,7 +623,7 @@ table.music_table {
               top: 3px;
               &:hover {
                 .opacity(1);
-                color: #000;
+                color: @color-black;
               }
             }
           }
@@ -646,6 +644,7 @@ table.music_table {
           padding-left: 17px;
         }
         .love_icon {
+          color: @color-red;
           font-family: 'Font Awesome 5 Free';
           font-size: 14px;
           &:after {
@@ -655,10 +654,10 @@ table.music_table {
         }
       }
       &:nth-child(2n) {
-        background-color: rgba(245, 245, 245, 0.8);
+        background-color: @color-white-alter;
       }
       &:nth-child(2n+1) {
-        background-color: #fff;
+        background-color: @transparent;
       }
       &:hover {
         span.delete {
@@ -677,13 +676,26 @@ table.music_table {
         }
       }
       &.just_added {
-        background-color: #ff8;
+        background-color: @color-yellow-alt;
+        a {
+          color: #000;
+          .album_year {
+            color: #333;
+            font-size: 11px;
+          }
+        }
         td.user_img,
         td.album_img {
           width: 64px;
         }
       }
       &.just_added_rest {
+        a {
+          color: @color-black;
+          &:visited {
+            color: @color-black;
+          }
+        }
         td.user_img,
         td.album_img {
           width: 32px;
@@ -754,9 +766,9 @@ table.side_table {
         text-align: center;  
         vertical-align: middle;
         .rank {
-          background: #444;
+          background-color: @color-black-alter;
           border-radius: 10px;
-          color: #fff;
+          color: @color-white;
           display: inline-block;
           font-size: 12px;
           height: 20px;
@@ -778,7 +790,7 @@ table.side_table {
           text-decoration: none;
           .spotify_container {
             &:after {
-              color: #666;
+              color: @color-gray-mid;
               content: '\f144';
               font-family: 'Font Awesome 5 Free';
               font-size: 16px;
@@ -788,12 +800,12 @@ table.side_table {
               top: 1px;
             }
             &:hover:after {
-              color: #000;
+              color: @color-black;
             }
           }
         }
         .album_year {
-          color: #999;
+          color: @color-gray-medium;
           font-size: 11px;
         }
         .artist_name {
@@ -806,9 +818,9 @@ table.side_table {
         padding-right: 2px;
         width: 30px;
         .month {
-          background-color: #444;
+          background-color: #000;
           border-bottom: 0px;
-          border: 1px solid #CCC;
+          border: 1px solid @color-gray-light;
           color: #fff;
           display: inline-block;
           margin-top: 2px;
@@ -818,7 +830,7 @@ table.side_table {
         }
         .day {
           background-color: #fff;
-          border: 1px solid #ccc;
+          border: 1px solid @color-gray-light;
           display: inline-block;
           line-height: 1.1em;
           padding: 0;
@@ -832,25 +844,25 @@ table.side_table {
 .left_container table.side_table {
   tr {
     td.rank {
-      background-color: #fff;
+      background-color: @color-white;
     }
     &:nth-child(2n) {
-      background-color: rgba(245, 245, 245, 0.8);
+      background-color: @color-white-alter;
     }
     &:nth-child(2n+1) {
-      background-color: transparent;
+      background-color: @transparent;
     }
   }
 }
 
 table.year_table tr td {
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid @color-gray-soft;
   padding-top: 5px;
   font-size: 14px;
 }
 /** genreTable */
 table.genre_table tr td {
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid @color-gray-soft;
   padding-top: 3px;
   vertical-align: bottom;
 }
@@ -865,9 +877,9 @@ table.column_table {
         text-align: right;
         width: 2%;
         .rank {
-          background-color: #444;
+          background-color: @color-black-alter;
           border-radius: 10px;
-          color: #fff;
+          color: @color-white;
           display: inline-block;
           font-size: 12px;
           height: 20px;
@@ -887,13 +899,13 @@ table.column_table {
         }
       }
       &.bar {
-        background-color: transparent;
+        background-color: @transparent;
         padding-right: 1px;
         vertical-align: middle;
         width: 42%;
         div {
-          background-color: #999;
-          color: #fff;
+          background-color: @color-yellow-alt;
+          color: #000;
           padding: 2px 0 2px 3px;
           &.number {
             font-size: 11px;
@@ -906,7 +918,7 @@ table.column_table {
     margin-top: 20px;
     tr:nth-child(2n) {
       td.name {
-        background-color: rgba(245, 245, 245, 0.8);
+        background-color: @color-white-alter;
       }
     }
   }
@@ -914,7 +926,7 @@ table.column_table {
 
 /** shoutTable */
 #shoutTotal {
-  color: #999;
+  color: @color-gray-medium;
   float: right;
   font-size: 14px;
 }
@@ -922,10 +934,10 @@ table.column_table {
   table.shout_table {
     tr {
       &:nth-child(2n) {
-        background-color: rgba(245, 245, 245, 0.8);
+        background-color: @color-white-alter;
       }
       &:nth-child(2n+1) {
-        background-color: transparent;
+        background-color: @transparent;
       }
     }
   }
@@ -954,9 +966,11 @@ table.shout_table {
         padding-left: 10px;
         width: 100%;
         textarea {
+          background-color: @color-white-alter;
           border-radius: 5px;
-          border: 1px solid #ebebeb;
+          border: 1px solid @color-gray-soft;
           box-sizing: border-box;
+          color: @color-black-alter;
           font-size: 13px;
           height: 64px;
           padding: 8px 12px;
@@ -967,26 +981,27 @@ table.shout_table {
           -moz-appearance: none;
           -webkit-appearance: none;
           appearance: none;
-          background: #333;
-          border: 1px solid #444;
-          color: #eee;
+          background-color: #000;
+          border: 0;
+          color: #fff;
           cursor: pointer;
           float: right;
           font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
           font-size: 14px;
-          letter-spacing: .1em;
-          margin: 10px 0 15px 0;
-          padding: 5px 13px;
+          letter-spacing: 0.1em;
+          margin-top: 10px;
+          padding: 6px 14px;
           text-align: center;
           &:focus,
           &:hover {
-            background: #333;
-            border-color: #444;
-            color: #fff;
+            background-color: @color-gray-dark;
+            border-color: @color-gray-dark;
+            color: @color-white;
           }
         }
       }
       &.text {
+        color: @color-black;
         padding-left: 10px;
         vertical-align: top;
         width: 100%;
@@ -997,7 +1012,7 @@ table.shout_table {
         .delete {
           display: none;
           .fa {
-            color: #999;
+            color: @color-gray-medium;
             display: inline-block;
             font-size: 15px;
             margin-left: 5px;
@@ -1005,7 +1020,7 @@ table.shout_table {
             top: 1px;
             &:hover {
               .opacity(1);
-              color: #000;
+              color: @color-black;
             }
           }
         }
@@ -1088,7 +1103,7 @@ ul.music_wall {
         font-size: 11px;
         line-height: 12px;
         &.count {
-          color: #ddd;
+          color: #ccc;
         }
         &.main {
           font-size: 14px;
@@ -1114,6 +1129,7 @@ ul {
     padding: 0;
   }
   &.music_list {
+    color: @color-black-alter;
     display: block;
     overflow: hidden;
     width: 100%;
@@ -1164,6 +1180,7 @@ ul {
     font-size: 0;
     margin: 0 0 20px 0;
     li {
+      color: @color-black;
       box-sizing: border-box;
       display: inline-block;
       margin: 0;
@@ -1225,10 +1242,10 @@ ul {
         margin-top: 30px;
       }
       &.even {
-        background-color: transparent;
+        background-color: @transparent;
       }
       &.odd {
-        background-color: rgba(245, 245, 245, 0.8);
+        background-color: @color-white-alter
       }
       &.no_img {
         line-height: 35px;
@@ -1258,10 +1275,10 @@ ul {
   * Icons / images
   */
 .main_container .left_container .container.welcome_container {
-  background-image: url('../img/og_image.jpg');
+  background-image: url('/media/img/og_image.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
-  color: #fff;
+  color: @color-white;
   position: relative;
   &:before {
     background-color: rgba(0, 0, 0, 0.5);
@@ -1280,8 +1297,8 @@ ul {
     h1,
     a,
     p {
-      color: #fff;
-      text-shadow: 2px 0px 10px #000;
+      color: @color-white;
+      text-shadow: 2px 0px 10px @color-black;
     }
     h1 {
       font-size: 30px;
@@ -1328,21 +1345,21 @@ div.cover {
   background-size: 100%;
   &.img32,
   &.img64 {
-    border: 1px solid #444;
+    border: 1px solid @color-gray-light;
   }
   &.img124,
   &.img150,
   &.img174,
   &.img300 {
-    .box-shadow(3px 3px 4px #ddd);
-    border: 1px solid #232323;
+    .box-shadow(3px 3px 4px @color-gray-light);
+    border: 1px solid @color-gray-light;
     box-sizing: border-box;
     &.no_overlay {
-      .box-shadow(0 0 0 transparent);
-      border: 1px solid #ded9d5;
+      .box-shadow(0 0 0 @transparent);
+      border: 1px solid @color-gray-light;
       &:hover {
-        .box-shadow(3px 3px 4px #ddd);
-        border: 1px solid #ccc;
+        .box-shadow(3px 3px 4px @color-gray-light);
+        border: 1px solid @color-gray-light;
       }
     }
   }
@@ -1492,13 +1509,13 @@ div.cover {
       width: auto;
       &:hover {
         text-decoration: none;
-        color: #ccc;
+        color: @color-gray-light;
       }
     }
   }
   .rank {
     bottom: 20px;
-    color: #ddd;
+    color: @color-gray-light;
     display: block;
     font-size: 14px;
     padding: 4px 6px;
@@ -1531,8 +1548,8 @@ div.cover {
 }
 
 span.divider {
-  border-left: 1px solid #111;
-  border-right: 1px solid #555;
+  border-left: 1px solid @color-gray-dark;
+  border-right: 1px solid @color-gray-mid;
   margin: 0 12px 0 5px;
   padding-bottom: 5px;
   padding-top: 2px;
@@ -1551,21 +1568,24 @@ h2 {
   .quick_add_listening,
   .func_container {
     .user-select(none);
-    color: #666;
+    color: @color-gray-dark;
     cursor: pointer;
     float: right;
     font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
     font-size: 13px;
     letter-spacing: 0;
     position: relative;
+    &:hover {
+      color: @color-gray-medium;
+    }
     .fa-refresh {
       &:hover {
-        color: #000;
+        color: @color-black;
       }
     }
     .value {
       &:hover {
-        color: #000;
+        color: @color-black;
       }
       &:after {
         content: '\f0d7';
@@ -1586,7 +1606,8 @@ h2 {
     ul.subnav {
       background-color: #fff;
       border-radius: 5px;
-      border: 1px solid #999;
+      border: 1px solid #333;
+      color: #000;
       display: none;
       float: left;
       list-style: none;
@@ -1627,7 +1648,7 @@ h2 {
           margin-bottom: 4px;
         }
         &:hover {
-          background-color: #ebebeb;
+          background-color: #eee;
           color: #000;
         }
       }
@@ -1638,19 +1659,27 @@ h2 {
     float: right;
     position: relative;
     vertical-align: bottom;
+    &.peity {
+      polyline {
+        stroke: @color-gray-dark;
+      }
+    }
   }
 }
-.fa-heart,
 .fa-star {
-  color: #666;
+  color: @color-yellow;
 }
+.fa-heart {
+  color: @color-red;
+}
+
 
 /**
  * Date picker overrides 
  */
 .date-picker-wrapper {
   border: 0;
-  box-shadow: 0 0 0 transparent;
+  box-shadow: 0 0 0 @transparent;
   margin: 5px 0 0 27px;
   padding: 0;
   &.no-shortcuts,
@@ -1673,16 +1702,17 @@ h2 {
     table {
       thead {
         .caption {
-          background-color: #f1f1f1;
+          background-color: #fff;
           height: 24px;
           .month-name {
+            color: #000;
             font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', 'Sans-serif';
             text-transform: capitalize;
           }
           .prev:hover,
           .next:hover {
-            background-color: #f1f1f1;
-            color: #000;
+            background-color: @color-white-alter;
+            color: @color-black;
           }
         }
       }
@@ -1692,14 +1722,14 @@ h2 {
         }
       }
       tbody {
-        border-bottom: 3px solid #fff;
-        border-top: 3px solid #fff;
+        border-bottom: 0;
+        border-top: 0;
         tr {
           .week-number {
             font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', 'Sans-serif';
             font-size: 9px;
             &.week-number-selected {
-              color: #000;
+              color: @color-black;
               font-weight: 700;
             }
           }
@@ -1717,11 +1747,11 @@ h2 {
             }
             &.toMonth.hovering,
             &.checked {
-              background-color: #f1f1f1;
+              background-color: #ccc;
             }
             &.first-date-selected,
             &.last-date-selected {
-              background-color: #ccc !important;
+              background-color: #000 !important;
               color: #fff !important;
             }
           }
@@ -1739,9 +1769,9 @@ h2 {
   */
 hr {
   .opacity(0.3);
-  border-bottom: 1px dotted #9e9e9e;
+  border-bottom: 1px dotted @color-gray-medium;
   border: 0;
-  color: #9e9e9e;
+  color: @color-gray-medium;
   height: 1px;
   text-align: left;
   width: 100%;
@@ -1786,4 +1816,3 @@ hr {
   }
 }
 
-@import 'responsive.less';

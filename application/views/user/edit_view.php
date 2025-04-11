@@ -76,6 +76,13 @@
           </div>
         </fieldset>
         <fieldset>
+          <legend>Theme</legend>
+          <div class="input_container">
+            <label><div><input type="radio" name="theme" value="light" <?php if ($theme === 'light') { echo 'checked="checked"'; }?> /> Light</div></label>
+            <label><div><input type="radio" name="theme" value="dark" <?php if ($theme === 'dark') { echo 'checked="checked"'; }?> /> Dark</div></label>
+          </div>
+          </fieldset>
+        <fieldset>
           <legend>Privacy settings</legend>
           <div class="input_container">
             <?php

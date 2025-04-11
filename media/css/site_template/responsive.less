@@ -1,0 +1,188 @@
+/* Portrait Tablet */
+@media all and (max-width: 900px) {
+  .heading_container {
+    .heading_cont {
+      .info {
+        padding-left: 5px;
+      }
+    }
+    .meta_container {
+      width: 100%;
+    }
+  }
+  .main_container {
+    background-color: @color-bg-white;
+    .page_links {
+      box-sizing: border-box;
+      margin: auto auto;
+      max-width: 640px;
+      .music_date_selector {
+        display: none;
+      }
+    }
+   .left_container {
+      border-right: 0;
+      flex: none;
+      margin: auto auto;
+      width: 100%;
+      .container {
+        margin: 15px auto 15px auto;
+        max-width: 640px;
+        padding: 0 2px;
+      }
+    }
+    
+    .right_container {
+      display: none;
+    }
+  }
+  div.footer {
+    margin-top: 20px;
+  }
+}
+
+@media all and (max-width: 800px) {
+  .heading_container {
+    .meta_container {
+      display: flex;
+      justify-content: space-evenly;
+      max-width: 640px;
+    }
+    .float_left.img174 {
+      display: none;
+    }
+    .heading_cont .info .top_info {
+      margin-left: 2px;
+    }
+  }
+}
+
+@media all and (max-width: 700px) {
+  div.top_container .inner .user_container .profile_img {
+    display: none;
+  }
+  div.top_container .inner .user_container .profile_text {
+    margin-right: 2px;
+  }
+}
+@media all and (max-width: 630px) {
+  div.top_container .inner .search_container {
+    display: none;
+  }
+}
+@media all and (max-width: 600px) {
+  .heading_container .meta_container {
+    display: flex;
+    justify-content: flex-start;
+    .meta:nth-child(4) {
+      display: none;
+    }
+  }
+}
+
+/* Smart phone */
+@media all and (max-width: 480px) {
+  ul.music_wall {
+    li {
+      float: left;
+      height: auto;
+      max-height: 50%;
+      max-width: 50%;
+      position: relative;
+      width: 100%;
+      &:first-child {
+        height: auto;
+        max-height: 100%;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+  ul.user_list.user_list_150 li,
+  ul.music_list.music_list_150 li {
+    width: 100%;
+    .cover {
+      padding-bottom: 100%;
+      width: 100%;
+    }
+  }
+  .heading_container .heading_cont.main_heading_cont .info h1 .top_music,
+  .heading_container .heading_cont.main_heading_cont .info h1 .meta {
+    display: none;
+  }
+  .top_container .inner .top_links {
+    display: none;
+  }
+  .top_container .inner .mobile {
+    display: block;
+  }
+  div.left_container {
+    width: 100%;
+    .container {
+      box-sizing: border-box;
+      margin: 7px 0 15px 0;
+      padding: 0 5px;
+    }
+  }
+  div.footer {
+    font-size: 10px
+  }
+  .profile_img,
+  .statster_year,
+  .album_year,
+  .artist,
+  .format,
+  .love,
+  .external_link,
+  .social_media {
+    display: none !important;
+  }
+  .profile_text  {
+    margin-right: 5px !important;
+  }
+  div.left_container div.left_containerInner {
+    display: none;
+  }
+  div.left_container div.left_containerOuter {
+    margin-left: 0 !important;
+  }
+  div.container {
+    margin: 7px 5px 15px 5px;
+  }
+  img.img300 {
+    width: 100%;
+  }
+  div.user_info,
+  div.album_info,
+  div.artist_info {
+    clear: both;
+    float: none;
+    margin-left: 0;
+  }
+  img.desktopFormat {
+    display: none;
+  }
+  .heading_container {
+    .heading_cont {
+      .info {
+        .top_info {
+          .chosen-container {
+            
+          }
+        }
+        .submit {
+          
+        }
+      }
+    }
+    .meta_container {
+      .meta {
+        padding: 0 10px 0px 0;
+        .user_listening_image {
+          display: none;
+        }
+      }
+    }
+  }
+}
+

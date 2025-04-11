@@ -23,6 +23,7 @@ if (!function_exists('loginUser')) {
                    " . TBL_user . ".`created`,
                    " . TBL_user . ".`last_login`,
                    " . TBL_user . ".`last_access`,
+                   " . TBL_user_info . ".`theme`,
                    " . TBL_user_info . ".`email`,
                    " . TBL_user_info . ".`real_name`,
                    " . TBL_user_info . ".`lastfm_name`,
@@ -46,6 +47,7 @@ if (!function_exists('loginUser')) {
         'real_name'    => $result->real_name,
         'lastfm_name'  => $result->lastfm_name,
         'gender'       => $result->gender,
+        'theme'        => $result->theme,
         'created'      => $result->created,
         'last_login'   => $result->last_login,
         'last_access'  => $result->last_access,
@@ -161,6 +163,7 @@ if (!function_exists('getUser')) {
                    " . TBL_user_info . ".`height`,
                    " . TBL_user_info . ".`birthday`,
                    " . TBL_user_info . ".`about`,
+                   " . TBL_user_info . ".`theme`,
                    " . TBL_user_info . ".`email_annotations`,
                    " . TBL_user_info . ".`bulletin_settings`,
                    " . TBL_user_info . ".`privacy_settings`,
@@ -199,17 +202,18 @@ if (!function_exists('updateUser')) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $about = !empty($opts['about']) ? $opts['about'] : '';
-    $bulletin_settings = !empty($opts['bulletin_settings']) ? serialize($opts['bulletin_settings']) : 'a:1:{s:6:"shouts";s:1:"0";}';
-    $email = !empty($opts['email']) ? $opts['email'] : '';
-    $email_annotations = !empty($opts['email_annotations']) ? serialize($opts['email_annotations']) : 'a:4:{s:9:"bulletins";s:1:"0";s:6:"shares";s:1:"0";s:7:"notifys";s:1:"0";s:13:"notifications";s:1:"0";}';
+    $social_media_settings = !empty($opts['social_media_settings']) ? serialize($opts['social_media_settings']) : 'a:2:{s:8:"facebook";s:1:"0";s:7:"twitter";s:1:"0";}';
     $gender = !empty($opts['gender']) ? $opts['gender'] : '';
+    $about = !empty($opts['about']) ? $opts['about'] : '';
+    $email = !empty($opts['email']) ? $opts['email'] : '';
     $homepage = !empty($opts['homepage']) ? $opts['homepage'] : '';
     $lastfm_name = !empty($opts['lastfm_name']) ? $opts['lastfm_name'] : '';
-    $listening_formats = !empty($opts['listening_formats']) ? serialize($opts['listening_formats']) : 'a:4:{i:0;s:1:"3";i:1;s:4:"6:17";i:2;s:4:"6:26";i:3;s:4:"7:31";}';
+    $theme = !empty($opts['theme']) ? $opts['theme'] : '';
     $privacy_settings = !empty($opts['privacy_settings']) ? serialize($opts['privacy_settings']) : 'a:2:{s:6:"online";s:1:"0";s:5:"login";s:1:"0";}';
     $real_name = !empty($opts['real_name']) ? $opts['real_name'] : '';
-    $social_media_settings = !empty($opts['social_media_settings']) ? serialize($opts['social_media_settings']) : 'a:2:{s:8:"facebook";s:1:"0";s:7:"twitter";s:1:"0";}';
+    $email_annotations = !empty($opts['email_annotations']) ? serialize($opts['email_annotations']) : 'a:4:{s:9:"bulletins";s:1:"0";s:6:"shares";s:1:"0";s:7:"notifys";s:1:"0";s:13:"notifications";s:1:"0";}';
+    $bulletin_settings = !empty($opts['bulletin_settings']) ? serialize($opts['bulletin_settings']) : 'a:1:{s:6:"shouts";s:1:"0";}';
+    $listening_formats = !empty($opts['listening_formats']) ? serialize($opts['listening_formats']) : 'a:4:{i:0;s:1:"3";i:1;s:4:"6:17";i:2;s:4:"6:26";i:3;s:4:"7:31";}';
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '';
 
     $sql = "UPDATE " . TBL_user_info . "
@@ -219,6 +223,7 @@ if (!function_exists('updateUser')) {
                   " . TBL_user_info . ".`email` = ?,
                   " . TBL_user_info . ".`homepage` = ?,
                   " . TBL_user_info . ".`lastfm_name` = ?,
+                  " . TBL_user_info . ".`theme` = ?,
                   " . TBL_user_info . ".`privacy_settings` = ?,
                   " . TBL_user_info . ".`social_media_settings` = ?,
                   " . TBL_user_info . ".`email_annotations` = ?,
@@ -233,10 +238,11 @@ if (!function_exists('updateUser')) {
       'real_name'    => $real_name,
       'lastfm_name'  => $lastfm_name,
       'gender'       => $gender,
+      'theme'       => $theme,
       'formats'      => $listening_formats
     ));
 
-    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $privacy_settings, $social_media_settings, $email_annotations, $bulletin_settings, $listening_formats, $user_id));
+    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $theme, $privacy_settings, $social_media_settings, $email_annotations, $bulletin_settings, $listening_formats, $user_id));
     return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
   }
 }

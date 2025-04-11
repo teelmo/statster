@@ -46,18 +46,18 @@
             text-shadow: 0px 5px 15px #fff;
           }
           .ter {
-            color: #999;
+            color: @color-gray-medium;
             letter-spacing: 0.05em;
-            text-shadow: 0px 5px 15px #999;
+            text-shadow: 0px 5px 15px @color-gray-medium;
           }
         }
         .separator {
-          color: #999;
+          color: @color-gray-medium;
           display: inline-block;
           width: 40px;
         }
         .meta {
-          color: #999;
+          color: #ccc;
           font-size: 16px;
           line-height: 16px;
           vertical-align: middle;
@@ -65,14 +65,14 @@
       }
       .top_music {
         bottom: -25px;
-        color: #ccc;
+        color: @color-gray-light;
         font-size: 12px;
         line-height: 16px;
         padding-right: 2px;
         position: absolute;
         right: 0;
         a {
-          color: #ccc;
+          color: @color-gray-light;
           &:hover {
             text-decoration: none;
           }
@@ -100,7 +100,7 @@
         &.artist_img {
           background-position: 50% 50%;
           border-radius: 87px;
-          border: 2px solid #333;
+          border: 2px solid @color-gray-dark;
           &:after {
             background-color: transparent;
             border-radius: 87px;
@@ -111,8 +111,8 @@
           .spotify_container {
             &:after {
               .opacity(0.5);
-              border-radius: calc(34px/2);
-              color: #666;
+              border-radius: calc(34px / 2);
+              color: @color-gray-mid;
               content: '\f144';
               font-family: 'Font Awesome 5 Free';
               font-size: 40px;
@@ -124,8 +124,8 @@
             }
             &:hover:after {
               .opacity(1);
-              background: #000;
-              color: #fff;
+              background: @color-black;
+              color: @color-white;
               display: inline-block;
               text-align: center;
               transition-duration: 0.3s;
@@ -145,7 +145,7 @@
           a {
             color: #fff;
             &:hover {
-              color: #ccc;
+              color: @color-gray-light;
               text-decoration: none;
             }
           }
@@ -179,10 +179,10 @@
           font-size: 16px;
           margin-bottom: 10px;
           .username {
-            color: #fff;
+            color: @color-white;
           }
           .meta {
-            color: #ccc;
+            color: @color-gray-light;
           }
         }
         /** Chosen styles */
@@ -200,9 +200,9 @@
                 padding-left: 15px;
               }
               &.highlighted {
-                background: #f1f1f1;
-                border-left: 5px solid #444;
-                color: #000;
+                background: @color-white-alter;
+                border-left: 5px solid @color-gray-dark;
+                color: @color-black;
                 font-size: 13px;
                 padding-left: 7px;
                 &.group-option {
@@ -213,20 +213,20 @@
           }
           &.chosen-container-active {
             .chosen-choices {
-              border: 1px solid #aaa;
+              border: 1px solid @color-gray-medium;
             }
           }
           .chosen-choices {
             .search-field {
               padding: 5px 20px 6px 4px;
-              color: #222;
+              color: @color-gray-dark;
             }
             .search-choice {
-              background: #666;
+              background: @color-gray-mid;
               border-radius: 0;
               border: 0;
               box-shadow: none;
-              color: #fff;
+              color: @color-white;
               padding: 4px 20px 5px 4px;
               .search-choice-close {
                 top: 5px;
@@ -243,7 +243,7 @@
           top: -1px;
           width: 20px;
           &:before {
-            color: #000;
+            color: @color-black;
             content: '\f055';
             cursor: pointer;
             font-family: 'Font Awesome 5 Free';
@@ -266,7 +266,7 @@
     padding-left: 5px;
     a {
       &:hover {
-        color: #666;
+        color: @color-gray-mid;
         text-decoration: none;
       }
     }
@@ -274,31 +274,31 @@
       float: left;
       padding: 0 30px 10px 0;
       .value {
-        color: #222;
+        color: @color-gray-dark;
         font-size: 20px;
         font-weight: 400;
         a {
           &:hover {
-            color: #666;
+            color: @color-gray-mid;
             text-decoration: none;
           }
         }
         .user_value,
         .share,
         .rank {
-          color: #333;
+          color: @color-gray-dark;
           font-weight: 300;
           font-size: 16px;
         }
       }
       .label {
-        color: #222;
+        color: @color-gray-dark;
         font-size: 12px;
         font-weight: 300;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         &.user_listening {
-          border-left: 1px solid #eee;
+          border-left: 1px solid @color-gray-soft;
           padding-left: 30px;
           height: 46px;
           .user_listening_image {
@@ -310,8 +310,12 @@
               position: absolute;
               top: 0;
               width: 46px;
+              path {
+                stroke: @color-gray-light;
+              }
               .similarity_path {
                 animation: progress 3s ease-out forwards;
+                stroke: @color-accent;
               }
               @keyframes progress {
                 0% {
@@ -321,8 +325,8 @@
             }
             .user_listenings_img {
               .border-radius(16px);
-              background-color: #fff;
-              border: 2px solid #fff;
+              background-color: @color-white;
+              border: 2px solid @color-white;
               display: inline-block;
               float: left;
               left: 5px;

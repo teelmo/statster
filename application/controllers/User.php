@@ -108,6 +108,7 @@ class User extends CI_Controller {
       $this->load->helper(array('form', 'user_helper', 'listening_helper', 'output_helper'));
 
       $data = getUser(array('username' => $this->session->userdata('username')));
+      $data['theme'] = (empty($data['theme'])) ? 'light' : $data['theme'];
       $data['formats'] = array();
       foreach (json_decode(getListeningFormats()) as $key => $format) {
         $data['formats'][$format->format_name] = $format;

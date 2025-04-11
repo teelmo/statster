@@ -32,7 +32,8 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/statster.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
     <?php
-    echo link_tag('media/css/styles.css?v=1');
+    echo link_tag('media/css/themes/' . (($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light') . '/styles.css');
+    echo link_tag('media/css/styles.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>
