@@ -73,7 +73,7 @@ $.extend(view, {
       plotOptions:{
         column:{
           borderWidth: 0,
-          color:(getComputedStyle(document.documentElement).getPropertyValue('--theme').trim() === 'dark') ? '#FFE082' : '#FFC107',
+          color:(getComputedStyle(document.documentElement).getPropertyValue('--theme').trim() === 'dark') ? '#FFE082' : '#FFA000',
           groupPadding:0.01,
           maxPointWidth:100,
           pointPadding:0.06
