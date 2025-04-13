@@ -8,7 +8,7 @@
 <div class="main_container">
   <div class="left_container">
     <div class="container">
-      <h1>Edit profile</h1>
+      <h2>Edit profile</h2>
       <?=form_open('', array('class' => '', 'id' => 'editProfileForm'), array('editProfile' => 'form'))?>
         <fieldset>
           <legend>Personal information</legend>
@@ -149,6 +149,6 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1></h1>
+      <h2></h2>
     </div>
   </div>

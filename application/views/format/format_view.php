@@ -17,7 +17,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1><?=$format_name?>
+      <h2><?=$format_name?>
         <?php
         if (isset($top_format)) {
           ?>
@@ -36,7 +36,7 @@
           <?php
         }
         ?>
-      </h1>
+      </h2>
       <div class="lds-facebook" id="topAlbum10Loader"><div></div><div></div><div></div></div>
       <ul id="topAlbum10" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
@@ -47,8 +47,8 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Listening formats</h2>
+      <h2>Statistics</h2>
+      <h3>Listening formats</h3>
       <div class="lds-facebook" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">

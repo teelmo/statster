@@ -8,7 +8,7 @@
 <div class="main_container">
   <div class="full_container">
     <div class="container">
-      <h1>Career</h1>
+      <h2>Career</h2>
     </div>
     <div class="container">
       <p>Statster is always looking for talented people.</p>

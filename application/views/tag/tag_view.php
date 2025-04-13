@@ -1,4 +1,3 @@
-
 <div class="heading_container">
   <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>')">
     <div class="info">
@@ -63,7 +62,7 @@
     }
     ?>
     <div class="container">
-      <h2>History <span class="line"></span></h2>
+      <h3>History <span class="line"></span></h3>
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%Y%m')">Montly</a>
       </div>
@@ -73,7 +72,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Top albums
+      <h3>Top albums
         <span class="lds-ring hidden" id="topAlbumLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_album_tag]?></div>
@@ -86,7 +85,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbum" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
@@ -95,7 +94,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Top artists
+      <h3>Top artists
         <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_artist_tag]?></div>
@@ -108,7 +107,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topArtistLoader"><div></div><div></div><div></div></div>
       <ul id="topArtist" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
@@ -118,14 +117,14 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Top listeners</h2>
+      <h2>Statistics</h2>
+      <h3>Top listeners</h3>
       <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Latest listenings</h2>
+      <h3>Latest listenings</h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>

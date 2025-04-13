@@ -8,13 +8,13 @@
 <div class="main_container">
   <div class="full_container">
     <div class="container">
-      <h1>About</h1>
+      <h2>About</h2>
     </div>
     <div class="container">
       <p>Statster is a web service for collecting your album's listening data.</p>
     </div>
     <div class="container">
-      <h2>Team</h2>
+      <h3>Team</h3>
       <strong>Teemo Tebest</strong>
       <ul>
         <li>Founder and head developer.</li>

@@ -63,7 +63,7 @@
   </div>
   <div class="left_container">
     <div class="container clearfix">
-      <h1 class="genre_heading"><span class="value not_available">Genres</span> <span class="lds-ring hidden" id="topGenreLoader3"><div></div><div></div><div></div><div></div></span></h1>
+      <h1 class="genre_heading"><span class="value not_available">Genres</span> <span class="lds-ring hidden" id="topGenreLoader3"><div></div><div></div><div></div><div></div></span></h2>
       <div class="lds-facebook" id="topAlbumGenreLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumGenre" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="lds-facebook" id="topArtistGenreLoader"><div></div><div></div><div></div></div>
@@ -71,7 +71,7 @@
       <div class="more genre_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="keyword_heading"><span class="value not_available">Keywords</span> <span class="lds-ring hidden" id="topKeywordLoader3"><div></div><div></div><div></div><div></div></span></h1>
+      <h1 class="keyword_heading"><span class="value not_available">Keywords</span> <span class="lds-ring hidden" id="topKeywordLoader3"><div></div><div></div><div></div><div></div></span></h2>
       <div class="lds-facebook" id="topAlbumKeywordLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumKeyword" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="lds-facebook" id="topArtistKeywordLoader"><div></div><div></div><div></div></div>
@@ -79,7 +79,7 @@
       <div class="more keyword_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="nationality_heading"><span class="value not_available">Nationalities</span> <span class="lds-ring hidden" id="topNationalityLoader3"><div></div><div></div><div></div><div></div></span></h1>
+      <h1 class="nationality_heading"><span class="value not_available">Nationalities</span> <span class="lds-ring hidden" id="topNationalityLoader3"><div></div><div></div><div></div><div></div></span></h2>
       <div class="lds-facebook" id="topAlbumNationalityLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumNationality" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="lds-facebook" id="topArtistNationalityLoader"><div></div><div></div><div></div></div>
@@ -87,7 +87,7 @@
       <div class="more nationality_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="year_heading"><span class="value not_available">Years</span> <span class="lds-ring hidden" id="topYearLoader3"><div></div><div></div><div></div><div></div></span></h1>
+      <h1 class="year_heading"><span class="value not_available">Years</span> <span class="lds-ring hidden" id="topYearLoader3"><div></div><div></div><div></div><div></div></span></h2>
       <div class="lds-facebook" id="topAlbumYearLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumYear" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more year_link not_available">More</div>
@@ -95,8 +95,8 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Hot</h1>
-      <h2>
+      <h2>Hot</h2>
+      <h3>
         Genres
         <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
@@ -110,7 +110,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topGenreLoader"><div></div><div></div><div></div></div>
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -119,7 +119,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
+      <h3>
         Keywords
         <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
@@ -133,7 +133,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -142,7 +142,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
+      <h3>
         Nationalities
         <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
@@ -156,7 +156,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -165,7 +165,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>
+      <h3>
         Years
         <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
@@ -179,7 +179,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">

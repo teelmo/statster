@@ -51,8 +51,8 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>History <span class="line"></span></h2>
+      <h2>Statistics</h2>
+      <h3>History <span class="line"></span></h3>
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
@@ -64,7 +64,7 @@
     <div class="container">
       <div class="left_container_inner">
         <div class="container">
-          <h2>Overview</h2>
+          <h3>Overview</h3>
           <table class="year_table">
             <?php
             for ($year = CUR_YEAR; $year >= 2004; $year--) {
@@ -76,14 +76,14 @@
           </table>
         </div>
         <div class="container">
-          <h2>Browse</h2>
+          <h3>Browse</h3>
           <div class="lds-facebook" id="popularGenreLoader"><div></div><div></div><div></div></div>
           <table id="popularGenre" class="genre_table"><!-- Content is loaded with AJAX --></table>
         </div>
       </div>
       <div class="left_container_outer">
         <div class="container">
-          <h2>Popular albums
+          <h3>Popular albums
             <span class="lds-ring hidden" id="popularAlbumLoader2"><div></div><div></div><div></div><div></div></span>
             <div class="func_container">
               <div class="value"><?=INTERVAL_TEXTS[$popular_album_music]?></div>
@@ -96,7 +96,7 @@
                 <li data-value="overall">All time</li>
               </ul>
             </div>
-          </h2>
+          </h3>
           <div class="lds-facebook" id="popularAlbumLoader"><div></div><div></div><div></div></div>
           <table id="popularAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
         </div>
@@ -105,7 +105,7 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Top in <?=date('F', strtotime('first day of last month'))?></h1>
+      <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>
       <table class="side_table">
         <?php
         if ($top_album) {
@@ -177,17 +177,17 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h1>Suggestions</h1>
-      <h2>Second chance <span class="lds-ring hidden" id="secondChanceLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshSecondChanceAlbums"></i></span></h2>
+      <h2>Suggestions</h2>
+      <h3>Second chance <span class="lds-ring hidden" id="secondChanceLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshSecondChanceAlbums"></i></span></h3>
       <div class="lds-facebook" id="secondChanceLoader"><div></div><div></div><div></div></div>
       <table class="side_table" id="secondChance"><!-- Content is loaded with AJAX --></table>
-      <h2>From others <span class="lds-ring hidden" id="fromOthersLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshFromOthersAlbums"></i></span></h2>
+      <h3>From others <span class="lds-ring hidden" id="fromOthersLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshFromOthersAlbums"></i></span></h3>
       <div class="lds-facebook" id="fromOthersLoader"><div></div><div></div><div></div></div>
       <table class="side_table" id="fromOthers"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h1>Likes</h1>
+      <h2>Likes</h2>
       <div class="lds-facebook" id="recentlyLikedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyFaned" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>

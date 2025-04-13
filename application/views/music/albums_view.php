@@ -47,7 +47,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1><?=$title?>
+      <h2><?=$title?>
         <?php
         if (isset($top_album_album)) {
           ?>
@@ -66,7 +66,7 @@
           <?php
         }
         ?>
-      </h1>
+      </h2>
       <div class="lds-facebook" id="topAlbum10Loader"><div></div><div></div><div></div></div>
       <ul id="topAlbum10" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
@@ -80,7 +80,7 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1><?=$side_title?></h1>
+      <h2><?=$side_title?></h2>
     </div>
     <div id="sideTable"><!-- Content is loaded with AJAX --></div>
   </div>

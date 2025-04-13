@@ -36,7 +36,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Recently listened <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h2>
+      <h3>Recently listened <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -45,7 +45,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Popular albums
+      <h3>Popular albums
         <span class="lds-ring hidden" id="topAlbumLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_album_value" data-value="<?=$top_album_main?>"><?=INTERVAL_TEXTS[$top_album_main]?></div>
@@ -58,18 +58,18 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbum" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
+      <h2>Statistics</h2>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Popular artists
+      <h3>Popular artists
         <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_artist_value" data-value="<?=$top_artist_main?>"><?=INTERVAL_TEXTS[$top_artist_main]?></div>
@@ -82,14 +82,14 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topArtistLoader"><div></div><div></div><div></div></div>
       <table id="topArtist" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h1>What's hot</h1>
-      <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>
+      <h2>What's hot</h2>
+      <h3>Top in <?=date('F', strtotime('first day of last month'))?></h3>
       <table class="side_table">
         <tr>
           <td class="img32 album_img">
@@ -147,10 +147,10 @@
       <div class="more">
         <?=anchor(array('music', date('Y', strtotime('first day of last month')), date('m', strtotime('first day of last month'))), 'More', array('title' => 'Browse more listenings'))?>
       </div>
-      <h2>Hot albums <span class="lds-ring hidden" id="recommentedTopAlbumLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshHotAlbums"></i></span></h2>
+      <h3>Hot albums <span class="lds-ring hidden" id="recommentedTopAlbumLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshHotAlbums"></i></span></h3>
       <div class="lds-facebook" id="recommentedTopAlbumLoader"><div></div><div></div><div></div></div>
       <table id="recommentedTopAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
-      <h2>New releases <span class="lds-ring hidden" id="recommentedNewAlbumLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshNewAlbums"></i></span></h2>
+      <h3>New releases <span class="lds-ring hidden" id="recommentedNewAlbumLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshNewAlbums"></i></span></h3>
       <div class="lds-facebook" id="recommentedNewAlbumLoader"><div></div><div></div><div></div></div>
       <table id="recommentedNewAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>

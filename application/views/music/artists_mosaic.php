@@ -47,7 +47,7 @@
   </div>
   <div class="full_container">
     <div class="container">
-      <h1><?=$title?>
+      <h2><?=$title?>
         <?php
         if (isset($top_artist_artist)) {
           ?>
@@ -66,7 +66,7 @@
           <?php
         }
         ?>
-      </h1>
+      </h2>
       <div class="lds-facebook" id="artistMosaicLoader"><div></div><div></div><div></div></div>
       <ul id="artistMosaic" class="artist_list"><!-- Content is loaded with AJAX --></ul>
     </div>

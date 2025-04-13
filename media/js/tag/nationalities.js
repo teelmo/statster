@@ -86,7 +86,7 @@ $.extend(view, {
   },
   getTopNationalitiesYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-      $('<div class="container"><h2 class="number">' + year + '</h2><div class="lds-facebook" id="topNationality' + year + 'Loader"><div></div><div></div><div></div></div><table id="topNationality' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
+      $('<div class="container"><h2 class="number">' + year + '</h3><div class="lds-facebook" id="topNationality' + year + 'Loader"><div></div><div></div><div></div></div><table id="topNationality' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
       var vars = {
         container:'#topNationality' + year,
         limit:3,

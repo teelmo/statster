@@ -41,7 +41,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Most liked</h1>
+      <h2>Most liked</h2>
       <div class="lds-facebook" id="topLovedLoader"><div></div><div></div><div></div></div>
       <ul id="topLoved" class="music_wall"><!-- Content is loaded with AJAX --></ul>
       <div class="lds-facebook" id="topFanedLoader"><div></div><div></div><div></div></div>
@@ -50,8 +50,8 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Loved</h2>
+      <h2>Statistics</h2>
+      <h3>Loved</h3>
       <div class="lds-facebook" id="recentlyLovedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyLoved" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -60,7 +60,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Faned</h2>
+      <h3>Faned</h3>
       <div class="lds-facebook" id="recentlyFanedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyFaned" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">

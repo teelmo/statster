@@ -8,15 +8,15 @@
 <div class="main_container">
   <div class="left_container">
     <div class="container">
-      <h1>People</h1>
+      <h2>People</h2>
       <div class="lds-facebook" id="userMosaicLoader"><div></div><div></div><div></div></div>
       <ul id="userMosaic" class="user_list user_list_150"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Top listeners
+      <h2>Statistics</h2>
+      <h3>Top listeners
         <span class="lds-ring hidden" id="topListenerLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_listener_user]?></div>
@@ -29,7 +29,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -38,7 +38,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Latest shouts</h2>
+      <h3>Latest shouts</h3>
       <div class="lds-facebook" id="musicShoutLoader"><div></div><div></div><div></div></div>
       <table id="musicShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>

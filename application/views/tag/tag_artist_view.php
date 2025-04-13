@@ -46,7 +46,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1><?=$title?>
+      <h2><?=$title?>
         <span class="lds-ring hidden" id="topArtist10Loader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_artist_tag_artist]?></div>
@@ -59,7 +59,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h1>
+      </h2>
       <div class="lds-facebook" id="topArtist10Loader"><div></div><div></div><div></div></div>
       <ul id="topArtist10" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
@@ -70,7 +70,7 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1><?=$side_title?></h1>
+      <h2><?=$side_title?></h2>
     </div>
     <div id="sideTable"><!-- Content is loaded with AJAX --></div>
   </div>

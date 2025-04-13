@@ -38,7 +38,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Top nationalities
+      <h2>Top nationalities
       <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_nationality_nationality]?></div>
@@ -51,7 +51,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h1>
+      </h2>
     </div>
     <div class="container">
       <div class="lds-facebook" id="topNationalityLoader"><div></div><div></div><div></div></div>
@@ -59,14 +59,14 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Top artist per Nationality</h2>
+      <h3>Top artist per Nationality</h3>
       <div class="lds-facebook" id="topArtistNationalityLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistNationality" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Yearly</h1>
+      <h2>Yearly</h2>
     </div>
     <div id="years"><!-- Content is loaded with AJAX --></div>
   </div>

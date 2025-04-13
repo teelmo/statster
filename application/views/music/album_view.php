@@ -100,7 +100,7 @@
     if (!empty($bio_summary)) {
       ?>
       <div class="container">
-        <h2>Biography</h2>
+        <h3>Biography</h3>
         <p class="summary"><?=nl2br(strip_tags($bio_summary))?></p>
         <div class="more">
           <?=anchor('', 'See more', array('title' => 'See full biography', 'id' => 'biographyMore'))?>
@@ -119,7 +119,7 @@
     }
     ?>
     <div class="container">
-      <h2>History <span class="line"></span></h2>
+      <h3>History <span class="line"></span></h3>
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
@@ -129,7 +129,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Discography
+      <h3>Discography
         <span class="lds-ring hidden" id="discographyLoader"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value artist_album_value" data-value="<?=$artist_album?>"><?=ORDER_TEXTS[$artist_album]?></div>
@@ -139,25 +139,25 @@
             <li data-value="`albums`.`year` DESC, `count` DESC">Year</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="artistAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="artistAlbum" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Similar</h2>
+      <h3>Similar</h3>
       <div class="lds-facebook" id="similarArtistLoader"><div></div><div></div><div></div></div>
       <ul id="similarArtist" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Associated</h2>
+      <h3>Associated</h3>
       <div class="lds-facebook" id="associatedArtistLoader"><div></div><div></div><div></div></div>
       <ul id="associatedArtist" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shoutbox <span class="lds-ring hidden" id="shoutLoader2"><div></div><div></div><div></div><div></div></span><span id="shoutTotal"></span></h2>
+      <h3>Shoutbox <span class="lds-ring hidden" id="shoutLoader2"><div></div><div></div><div></div><div></div></span><span id="shoutTotal"></span></h3>
       <table class="shout_table">
         <?php
         if ($logged_in === 'true') {
@@ -183,8 +183,8 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Top listeners</h2>
+      <h2>Statistics</h2>
+      <h3>Top listeners</h3>
       <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -193,7 +193,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Latest listenings</h2>
+      <h3>Latest listenings</h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -202,7 +202,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Listening formats</h2>
+      <h3>Listening formats</h3>
       <div class="lds-facebook" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -211,7 +211,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Artist's comments</h2>
+      <h3>Artist's comments</h3>
       <div class="lds-facebook" id="artistShoutLoader"><div></div><div></div><div></div></div>
       <table id="artistShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">

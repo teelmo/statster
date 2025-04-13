@@ -8,7 +8,7 @@
 <div class="main_container">
   <div class="full_container">
     <div class="container">
-      <h1>Terms of use</h1>
+      <h2>Terms of use</h2>
     </div>
     <div class="container">
       <p>Don't violate any rules, laws or common good behaviour.</p>

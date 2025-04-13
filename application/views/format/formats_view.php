@@ -47,7 +47,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Listening formats
+      <h2>Listening formats
         <?php
         if (isset($top_formats)) {
           ?>
@@ -66,15 +66,15 @@
           <?php
         }
         ?>
-      </h1>
+      </h2>
       <div class="lds-facebook" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Latest listenings</h2>
+      <h2>Statistics</h2>
+      <h3>Latest listenings</h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">

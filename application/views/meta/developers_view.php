@@ -8,14 +8,14 @@
 <div class="main_container">
   <div class="full_container">
     <div class="container">
-      <h1>Developers</h1>
+      <h2>Developers</h2>
     </div>
     <div class="container">
       <p>Here are the available information for the developers.</p>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>api/artist/get</h2>
+      <h3>api/artist/get</h3>
       <p>Returns listened artists for the given user.</p>
       <strong>@param array $opts.</strong>
       <pre>
@@ -36,7 +36,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>api/album/get</h2>
+      <h3>api/album/get</h3>
       <p>Returns listened albums for the given user.</p>
       <strong>@param array $opts.</strong>
       <pre>
@@ -58,7 +58,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>api/listening/get</h2>
+      <h3>api/listening/get</h3>
       <p>Returns recently listened albums for the given user.</p>
       <strong>@param array $opts.</strong>
       <pre>

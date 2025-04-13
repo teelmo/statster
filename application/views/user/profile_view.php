@@ -101,7 +101,7 @@
     </div>
     <div class="clear"></div>
     <div class="container">
-      <h2>History <span class="line"></span></h2>
+      <h3>History <span class="line"></span></h3>
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
@@ -134,7 +134,7 @@
     }
     ?>
     <div class="container">
-      <h2>Recently listened <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h2>
+      <h3>Recently listened <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -143,7 +143,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Favorite albums
+      <h3>Favorite albums
         <span class="lds-ring hidden" id="topAlbumLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_album_value" data-value="<?=$top_album_profile?>"><?=INTERVAL_TEXTS[$top_album_profile]?></div>
@@ -156,7 +156,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbum" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
@@ -165,7 +165,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Favorite artist
+      <h3>Favorite artist
         <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_artist_value" data-value="<?=$top_artist_profile?>"><?=INTERVAL_TEXTS[$top_artist_profile]?></div>
@@ -178,7 +178,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topArtistLoader"><div></div><div></div><div></div></div>
       <ul id="topArtist" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
@@ -187,7 +187,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shoutbox <span class="lds-ring hidden" id="shoutLoader2"><div></div><div></div><div></div><div></div></span><span id="shoutTotal"></span></h2>
+      <h3>Shoutbox <span class="lds-ring hidden" id="shoutLoader2"><div></div><div></div><div></div><div></div></span><span id="shoutTotal"></span></h3>
       <table class="shout_table">
         <?php
         if ($logged_in === 'true') {
@@ -213,7 +213,7 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Top in <?=date('F', strtotime('first day of last month'))?></h1>
+      <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>
       <table class="side_table">
         <?php
         if ($top_album) {
@@ -281,7 +281,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shouts</h2>
+      <h3>Shouts</h3>
       <div class="lds-facebook" id="shoutLoader"><div></div><div></div><div></div></div>
       <table id="shout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
@@ -292,7 +292,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Likes</h2>
+      <h3>Likes</h3>
       <div class="lds-facebook" id="recentlyLikedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyFaned" class="likes hidden"><!-- Content is loaded with AJAX --></table>
@@ -303,7 +303,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Listening formats
+      <h3>Listening formats
         <span class="lds-ring hidden" id="topFormatLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_listening_format_profile]?></div>
@@ -316,7 +316,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topFormatLoader"><div></div><div></div><div></div></div>
       <table id="topFormat" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -324,7 +324,7 @@
       </div>
     </div>
     <div class="container">
-      <h2>Genres
+      <h3>Genres
         <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_genre_profile]?></div>
@@ -337,7 +337,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topGenreLoader"><div></div><div></div><div></div></div>
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -346,7 +346,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Keywords
+      <h3>Keywords
         <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_keyword_profile]?></div>
@@ -359,7 +359,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -368,7 +368,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Nationalities
+      <h3>Nationalities
         <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_nationality_profile]?></div>
@@ -381,7 +381,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -390,7 +390,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Years
+      <h3>Years
         <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_year_profile]?></div>
@@ -403,7 +403,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h2>
+      </h3>
       <div class="lds-facebook" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">

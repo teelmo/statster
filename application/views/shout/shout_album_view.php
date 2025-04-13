@@ -13,8 +13,8 @@
         <span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span>
       </div>
       <div class="top_info album_info">
-        <h2><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name']);}, $artists))?></h2>
-        <h1><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $album_name)?></h1>
+        <h3><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name']);}, $artists))?></h3>
+        <h2><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $album_name)?></h2>
         <div class="lds-facebook inline" id="tagsLoader"><div></div><div></div><div></div></div>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
@@ -77,15 +77,15 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Shouts</h1>
+      <h2>Shouts</h2>
       <div class="lds-facebook" id="albumShoutLoader"><div></div><div></div><div></div></div>
       <table id="albumShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Top listeners</h2>
+      <h2>Statistics</h2>
+      <h3>Top listeners</h3>
       <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -94,7 +94,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Latest listenings</h2>
+      <h3>Latest listenings</h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">

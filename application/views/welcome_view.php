@@ -18,7 +18,7 @@
   <div class="left_container">
     <div class="container welcome_container">
       <div class="content">
-        <h1>Statster &middot; &middot; &middot; Hi!</h1>
+        <h2>Statster &middot; &middot; &middot; Hi!</h2>
         <p>Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm"><strong>register!</strong></a></p>
         <?=form_open('', array('class' => 'hidden', 'id' => 'registerForm'), array('addListeningType' => 'form'))?>
           <div><input type="text" autocomplete="off" tabindex="1" id="registerUsername" placeholder="Desired username" name="registerUsername" /></div>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="container">
-      <h2>Statster is a web service for tracking your music</h2>
+      <h3>Statster is a web service for tracking your music</h3>
       <p>The story of Statster dates back to year 2007. Back then I was studying at the university where I learned some PHP and SQL.</p>
       <p>I had been tracking my listening habits by hand for several years before and then I realised I can use these new skills to make my life easier. The idea of Statster was born.</p>
       <p>I came up with the first version farely quickly. It was crappy but it worked. Luckily I was very passionate to develop the service further.</p>
@@ -41,8 +41,8 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Top in <?=date('F', strtotime('first day of last month'))?></h2>
+      <h2>Statistics</h2>
+      <h3>Top in <?=date('F', strtotime('first day of last month'))?></h3>
       <table class="side_table">
         <tr>
           <td class="img32 album_img">
@@ -100,13 +100,13 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Recently listened</h2>
+      <h3>Recently listened</h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>All time artists</h2>
+      <h3>All time artists</h3>
       <div class="lds-facebook" id="topArtistLoader"><div></div><div></div><div></div></div>
       <table id="topArtist" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>

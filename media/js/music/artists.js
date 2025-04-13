@@ -109,7 +109,7 @@ $.extend(view, {
   },
   getTopArtistYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-      $('<div class="container"><h2 class="number">' + year + '</h2><div class="lds-facebook" id="sideTopArtist' + year + 'Loader"><div></div><div></div><div></div></div><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><h2 class="number">' + year + '</h3><div class="lds-facebook" id="sideTopArtist' + year + 'Loader"><div></div><div></div><div></div></div><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopArtist' + year,
         hide:{
@@ -141,7 +141,7 @@ $.extend(view, {
       var str = '' + month;
       var pad = '00';
       var pad_month = pad.substring(0, pad.length - str.length) + str;
-      $('<div class="container"><h2 class="number">' + month_str[month] + '</h2><div class="lds-facebook" id="sideTopArtist' + month + 'Loader"><div></div><div></div><div></div></div><table id="sideTopArtist' + month + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><h2 class="number">' + month_str[month] + '</h3><div class="lds-facebook" id="sideTopArtist' + month + 'Loader"><div></div><div></div><div></div></div><table id="sideTopArtist' + month + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopArtist' + month,
         hide:{

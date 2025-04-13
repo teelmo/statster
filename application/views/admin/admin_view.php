@@ -17,12 +17,12 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Admin</h1>
+      <h2>Admin</h2>
       <p>Unauthorized access not allowed.</p>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Add artist</h2>
+      <h3>Add artist</h3>
       <?=form_open('', array('class' => '', 'id' => 'addArtistForm'))?>
         <div><input type="text" autocomplete="off" tabindex="1" id="addArtistText" placeholder="New artist name" name="addArtistText" /></div>
         <div><input type="submit" name="addArtistSubmit" tabindex="10" id="addArtistSubmit" value="Add" /></div>
@@ -30,7 +30,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Add genre</h2>
+      <h3>Add genre</h3>
       <?=form_open('', array('class' => '', 'id' => 'addGenreForm'))?>
         <div><input type="text" autocomplete="off" tabindex="1" id="addGenreText" placeholder="New genre name" name="addGenreText" /></div>
         <div><input type="submit" name="addGenreSubmit" tabindex="10" id="addGenreSubmit" value="Add" /></div>
@@ -38,7 +38,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Add keyword</h2>
+      <h3>Add keyword</h3>
       <?=form_open('', array('class' => '', 'id' => 'addKeywordForm'))?>
         <div><input type="text" autocomplete="off" tabindex="1" id="addKeywordText" placeholder="New keyword name" name="addKeywordText" /></div>
         <div><input type="submit" name="addKeywordSubmit" tabindex="11" id="addKeywordSubmit" value="Add" /></div>
@@ -46,7 +46,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Delete artist</h2>
+      <h3>Delete artist</h3>
       <?=form_open('', array('class' => '', 'id' => 'deleteArtistForm'))?>
         <div id="artistDelete">
           <select data-placeholder="Select artist" class="chosen-select" id="deleteArtist">
@@ -61,7 +61,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Delete album</h2>
+      <h3>Delete album</h3>
       <?=form_open('', array('class' => '', 'id' => 'deleteAlbumForm'))?>
         <div id="albumDelete">
           <select data-placeholder="Select album" class="chosen-select" id="deleteAlbum">
@@ -76,7 +76,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Transfer album's data</h2>
+      <h3>Transfer album's data</h3>
       <?=form_open('', array('class' => '', 'id' => 'transferAlbumDataForm'))?>
         <div id="albumTransferData">
           <div>

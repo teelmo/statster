@@ -47,7 +47,7 @@
   </div>
   <div class="full_container">
     <div class="container">
-      <h1><?=$title?>
+      <h2><?=$title?>
         <?php
         if (isset($top_album_album)) {
           ?>
@@ -66,7 +66,7 @@
           <?php
         }
         ?>
-      </h1>
+      </h2>
       <div class="lds-facebook" id="albumMosaicLoader"><div></div><div></div><div></div></div>
       <ul id="albumMosaic" class="album_list album_list_150"><!-- Content is loaded with AJAX --></ul>
     </div>

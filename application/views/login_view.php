@@ -17,7 +17,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Login</h1>
+      <h2>Login</h2>
         <?=form_open('', array('class' => '', 'id' => 'loginForm'), array('addListeningType' => 'form'))?>
         <div>
           <input type="text" class="" tabindex="2" id="loginUsername" placeholder="Enter username" name="registerUsername" />

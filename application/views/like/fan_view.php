@@ -43,15 +43,15 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Recently faned</h1>
+      <h2>Recently faned</h2>
       <div class="lds-facebook" id="recentlyFanedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyFaned" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Statistics</h1>
-      <h2>Most faned</h2>
+      <h2>Statistics</h2>
+      <h3>Most faned</h3>
       <div class="lds-facebook" id="topFanedLoader"><div></div><div></div><div></div></div>
       <table id="topFaned" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>

@@ -28,7 +28,7 @@
       <?php
       if ($q !== '') {
         ?>
-        <h1>Search: <?=urldecode(urldecode($q))?></h1>
+        <h2>Search: <?=urldecode(urldecode($q))?></h2>
         <div class="lds-facebook" id="searchResultLoader"><div></div><div></div><div></div></div>
         <ul id="searchResult" class="search_list no_bullets"><!-- Content is loaded with AJAX --></ul>
         <?php

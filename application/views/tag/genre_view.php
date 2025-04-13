@@ -38,7 +38,7 @@
   </div>
   <div class="left_container">
     <div class="container">
-      <h1>Top genres
+      <h2>Top genres
       <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_genre_genre]?></div>
@@ -51,7 +51,7 @@
             <li data-value="overall">All time</li>
           </ul>
         </div>
-      </h1>
+      </h2>
     </div>
     <div class="container">
       <div class="lds-facebook" id="topGenreLoader"><div></div><div></div><div></div></div>
@@ -60,7 +60,7 @@
   </div>
   <div class="right_container">
     <div class="container">
-      <h1>Yearly</h1>
+      <h2>Yearly</h2>
     </div>
     <div id="years"><!-- Content is loaded with AJAX --></div>
   </div>
