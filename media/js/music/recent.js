@@ -1,9 +1,6 @@
 $.extend(view, {
   // Get recent listenings.
   getRecentListenings: function (isFirst, callback) {
-    if (isFirst != true) {
-      $('#recentlyListenedLoader2').show();
-    }
     $.ajax({
       data:{
         limit:100,
@@ -87,6 +84,7 @@ $.extend(view, {
   },
   initRecentEvents: function () {
     $('#refreshRecentAlbums').click(function () {
+      $('#recentlyListenedLoader2').show();
       view.getRecentListenings();
     });
     $('html body').on('click', 'span.delete', function () {
