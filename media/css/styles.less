@@ -508,7 +508,7 @@ form#loginForm input[type="text"] {
     width: 250px;
     &:focus {
       background-color: @transparent;
-      color: @color-black;
+      color: #fff;
       &::placeholder {
         color: rgba(255, 255, 255, 1);
         font-weight: 300;
@@ -685,7 +685,18 @@ table.music_table {
       &.just_added {
         background-color: @color-yellow-alt;
         td.title {
-          color: #000
+          color: #000;
+          .spotify_link {
+
+            .spotify_container {
+              &:after {
+                color: #000;
+              }
+              &:hover:after {
+                color: @color-gray-light;
+              }
+            }
+          }
         }
         a {
           color: #000;
@@ -1579,7 +1590,7 @@ div.cover_shadow {
 /* Fa styles */
 .user_listening,
 h1,
-h2 { 
+h2 {
   .quick_add_listening,
   .func_container {
     .user-select(none);
