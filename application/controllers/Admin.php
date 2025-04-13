@@ -53,7 +53,7 @@ class Admin extends CI_Controller {
 
         $data += getArtistInfo(array('artist_id' => $artist_id));
 
-        $data['associated_artists'] = (json_decode(getAssociatedArtists($data), true) !== NULL) ? json_decode(getAssociatedArtists($data), true) : array();
+        $data['associated_artists'] = is_string(getAssociatedArtists($data)) ? json_decode(getAssociatedArtists($data), true) : array();
         $data['all_artists'] = getArtistsUnique();
         $data['image_uri'] = getArtistImg(array('artist_id' => $artist_id, 'size' => 32));
         $data['js_include'] = array('admin/edit_artist');

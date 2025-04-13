@@ -380,6 +380,9 @@ textarea {
       background-color: @color-bg-white-alter;
       color: @color-gray-dark;
     }
+    &:disabled {
+      color: @color-gray-medium;
+    }
   }
   &.text {
     height: 120px;
@@ -632,6 +635,9 @@ table.music_table {
       height: 32px;
       td {
         vertical-align: middle;
+        div.cover {
+          border-width: 0 1px 0 1px;
+        }
         &.icon {
           padding: 0 5px;
           text-align: center;
