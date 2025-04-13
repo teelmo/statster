@@ -10,7 +10,7 @@
         }
         ?>
         <?=($most_listened_releaseyear !== false) ? '<span class="rank">#<span class="number">' . $most_listened_releaseyear . '</span></span>' : ''?>
-        <span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span>
+        <span class="album_year number"><?=anchor(array('year', $year), $year)?></span>
       </div>
       <div class="top_info album_info">
         <h2><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name']);}, $artists))?></h2>

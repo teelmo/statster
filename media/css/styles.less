@@ -659,6 +659,7 @@ table.music_table {
                 margin-top: 1px;
                 position: relative;
                 top: 1px;
+                z-index: 5;
               }
               &:hover:after {
                 color: @color-black;
@@ -738,7 +739,6 @@ table.music_table {
         td.title {
           color: #000;
           .spotify_link {
-
             .spotify_container {
               &:after {
                 color: #000;
@@ -875,6 +875,7 @@ table.side_table {
               margin-top: 1px;
               position: relative;
               top: 1px;
+              z-index: 5;
             }
             &:hover:after {
               color: @color-black;
@@ -1519,6 +1520,7 @@ div.cover {
       content: '';
       height: 100%;
       position: absolute;
+      top: 0;
       width: 100%;
     }
   }
@@ -1553,7 +1555,11 @@ div.cover {
     }
     &.hover,
     &:hover {
-      text-shadow: 0 0 5px #000, 0 0 4px #000, 0 0 3px #000, 0 0 2px #000, 0 0 1px #000;
+      .title,
+      .rank,
+      .album_year {
+        text-shadow: 1px 1px 2px #000, 0 0 1px #000, 0 0 1px #000;
+      }
       &:after {
         opacity: 0;
         transition: opacity 0.5s;
@@ -1566,34 +1572,31 @@ div.cover {
       background-image: none !important;
     }
   }
-  .album_year a,
-  >a {
+  .album_year {
+    bottom: 0;
     display: block;
-    height: 100%;
     position: absolute;
-    width: 100%;
+    right: 0;
     z-index: 3;
-    &.album_year {
+    a {
       .user-select(none);
-      bottom: 0;
       color: #fff;
       font-size: 16px;
       font-weight: 400;
       height: auto;
+      display: inline-block;
       letter-spacing: 0.2em;
       padding: 4px 6px;
-      right: 0;
-      text-shadow: 1px 1px 1px #000;
       width: auto;
       &:hover {
         text-decoration: none;
-        color: @color-gray-light;
+        color: #ccc;
       }
     }
   }
   .rank {
     bottom: 20px;
-    color: @color-gray-light;
+    color: #bbb;
     display: block;
     font-size: 14px;
     padding: 4px 6px;
