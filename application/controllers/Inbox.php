@@ -10,7 +10,7 @@ class Inbox extends CI_Controller {
 
     $this->load->view('site_templates/header');
     $this->load->view('inbox/inbox_view');
-    $this->load->view('site_templates/footer', $data);
+    $this->load->view('site_templates/footer');
   }
 }
 ?>
