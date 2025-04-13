@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="container">
-      <h3>Statster is a web service for tracking your music</h3>
+      <h2>Statster is a web service for tracking your music</h2>
       <p>The story of Statster dates back to year 2007. Back then I was studying at the university where I learned some PHP and SQL.</p>
       <p>I had been tracking my listening habits by hand for several years before and then I realised I can use these new skills to make my life easier. The idea of Statster was born.</p>
       <p>I came up with the first version farely quickly. It was crappy but it worked. Luckily I was very passionate to develop the service further.</p>

@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="container">
-      <h3>If you think there is an error, please report the following details</h3>
+      <h2>If you think there is an error, please report the following details</h2>
       <p>Error code: <code>404 not found</code><br />Request url: <code><?='http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']?></code><br />Request date: <code><?=date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME'])?></code></p>
     </div>
   </div>

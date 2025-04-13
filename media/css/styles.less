@@ -33,21 +33,14 @@ h2 {
   font-size: 19px;
   font-style: normal;
   font-variant: normal;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.05em;
   line-height: 24px;
   margin: 15px 0 15px 0;
-}
-h3 {
-  color: @color-gray-dark;
-  font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', 'Sans-serif';
-  font-size: 14px;
-  font-weight: 300;
-  margin: 10px 0 10px 0;
   &.album_love,
   &.artist_fan {
     color: @color-gray-dark;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.0.5em;
     margin-bottom: 5px;
     width: 100%;
   }
@@ -118,16 +111,15 @@ h3 {
     font-weight: 700;
   }
 }
-h3 {
-  color: @color-black;
-  font-size: 20px;
-}
 p {
   color: @color-black;
   font-size: 14px;
   font-weight: 300;
   line-height: 20px;
   margin-bottom: 20px;
+}
+strong {
+  font-weight: 600;
 }
 
 /** Artist album and user page infos */
@@ -381,7 +373,7 @@ textarea {
       color: @color-gray-dark;
     }
     &:disabled {
-      color: @color-gray-medium;
+      color: @color-gray-mid;
     }
   }
   &.text {
@@ -560,9 +552,11 @@ form#loginForm input[type="text"] {
   &.full {
     position: relative;
     .search_form input {
+      border: 1px solid @color-gray-medium;
       padding: 8px 8px 8px 8px;
+      color: @color-gray-mid;
       background-color: @color-gray-soft;
-      width: 100%;
+      width: 100% !important;
       &:focus {
         background-color: @color-bg-white-alter;
         color: @color-black;
@@ -1276,8 +1270,8 @@ ul {
         &:first-child {
           margin-top: 0;
         }
-        h3 {
-          margin: 0 0 10px 0;
+        h2 {
+          margin: 0;
         }
       }
       .meta {
@@ -1335,21 +1329,29 @@ ul {
         line-height: 35px;
         height: 35px;
       }
-      a:visited,
-      a:hover {
-        text-decoration: underline;
+      a {
+        align-items: center;
+        display: flex;
+        overflow: hidden;
+        &:visited,
+        &:hover {
+          text-decoration: underline;
+        }
+        div {
+          display: inline-block;
+          &.cover {
+            flex-shrink: 0;
+            margin-right: 5px;
+          }
+          &.title {
+            width: 100%;
+          }
+        }
       }
       i {
         display: inline-block;
         margin-right: 5px;
         vertical-align: middle;
-      }
-      div {
-        vertical-align: middle;
-        display: inline-block;
-        &.cover {
-          margin-right: 5px;
-        }
       }
     }
   }
@@ -1393,9 +1395,6 @@ ul {
     p {
       font-size: 17px;
       letter-spacing: 0.02em;
-    }
-    strong {
-      font-weight: 600;
     }
   }
 }
