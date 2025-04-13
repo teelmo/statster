@@ -70,9 +70,9 @@
         <?php
       }
       ?>
-      <h1>Listenings <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentMosaicLoader2" /> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span>
+      <h1>Listenings <span class="lds-ring hidden" id="recentMosaicLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span>
       </h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="recentMosaicLoader"/>
+      <div class="lds-facebook loader" id="recentMosaicLoader"><div></div><div></div><div></div></div>
       <div id="recentlyUpdated" class="updated"></div>
       <ul id="recentMosaic" class="album_list"><!-- Content is loaded with AJAX --></ul>
     </div>

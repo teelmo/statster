@@ -186,13 +186,6 @@ var app = {
 var view = {}
 
 $(document).ready(function () {
-  if (document.images) {
-    var preLoadImg1 = new Image();
-    preLoadImg1.src = '/media/img/ajax-loader-bar.gif';
-    var preLoadImg2 = new Image();
-    preLoadImg2.src = '/media/img/ajax-loader-circle.gif';
-  }
-
   app.highlightPatch();
   app.initMouseTrap();
   app.initStatsterEvents();

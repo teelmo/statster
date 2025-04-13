@@ -39,7 +39,7 @@
   <div class="left_container">
     <div class="container">
       <h1>Top nationalities
-      <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topNationalityLoader2" />
+      <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_nationality_nationality]?></div>
           <ul class="subnav" data-name="top_nationality_nationality" data-callback="getTopNationalities" data-loader="topNationalityLoader2">
@@ -54,13 +54,13 @@
       </h1>
     </div>
     <div class="container">
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
+      <div class="lds-facebook loader" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Top artist per Nationality</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistNationalityLoader" />
+      <div class="lds-facebook loader" id="topArtistNationalityLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistNationality" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

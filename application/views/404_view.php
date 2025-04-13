@@ -34,7 +34,7 @@
     </div>
     <div class="container">
       <h2>Recently listened</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader" />
+      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

@@ -105,7 +105,7 @@
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="historyLoader"/>
+      <div class="lds-facebook loader" id="historyLoader"><div></div><div></div><div></div></div>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
     </div>
@@ -134,8 +134,8 @@
     }
     ?>
     <div class="container">
-      <h2>Recently listened <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="recentlyListenedLoader2" /> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="recentlyListenedLoader"/>
+      <h2>Recently listened <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h2>
+      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('recent?u=' . $username, 'More listenings', array('title' => 'Browse more listenings'))?>
@@ -144,7 +144,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Favorite albums
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topAlbumLoader2" />
+        <span class="lds-ring hidden" id="topAlbumLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_album_value" data-value="<?=$top_album_profile?>"><?=INTERVAL_TEXTS[$top_album_profile]?></div>
           <ul class="subnav" data-name="top_album_profile" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
@@ -157,7 +157,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="topAlbumLoader"/>
+      <div class="lds-facebook loader" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbum" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
         <?=anchor('album?u=' . $username, 'More albums', array('title' => 'Browse more albums'))?>
@@ -166,7 +166,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Favorite artist
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topArtistLoader2" />
+        <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_artist_value" data-value="<?=$top_artist_profile?>"><?=INTERVAL_TEXTS[$top_artist_profile]?></div>
           <ul class="subnav" data-name="top_artist_profile" data-callback="getTopArtists" data-loader="topArtistLoader2">
@@ -179,7 +179,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="topArtistLoader"/>
+      <div class="lds-facebook loader" id="topArtistLoader"><div></div><div></div><div></div></div>
       <ul id="topArtist" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
         <?=anchor('artist?u=' . $username, 'More artists', array('title' => 'Browse more artists'))?>
@@ -187,7 +187,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shoutLoader2" /><span id="shoutTotal"></span></h2>
+      <h2>Shoutbox <span class="lds-ring hidden" id="shoutLoader2"><div></div><div></div><div></div><div></div></span><span id="shoutTotal"></span></h2>
       <table class="shout_table">
         <?php
         if ($logged_in === 'true') {
@@ -207,7 +207,7 @@
         }
         ?>
       </table>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="userShoutLoader"/>
+      <div class="lds-facebook loader" id="userShoutLoader"><div></div><div></div><div></div></div>
       <table id="userShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
@@ -282,7 +282,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Shouts</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="shoutLoader" />
+      <div class="lds-facebook loader" id="shoutLoader"><div></div><div></div><div></div></div>
       <table id="shout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
       <table id="artistShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
@@ -293,7 +293,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Likes</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
+      <div class="lds-facebook loader" id="recentlyLikedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyFaned" class="likes hidden"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyLoved" class="likes hidden"><!-- Content is loaded with AJAX --></table>
@@ -304,7 +304,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Listening formats
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topFormatLoader2" />
+        <span class="lds-ring hidden" id="topFormatLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_listening_format_profile]?></div>
           <ul class="subnav" data-name="top_listening_format_profile" data-callback="getTopFormats" data-loader="topFormatLoader2">
@@ -317,7 +317,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topFormatLoader"/>
+      <div class="lds-facebook loader" id="topFormatLoader"><div></div><div></div><div></div></div>
       <table id="topFormat" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('format?u=' . $username, 'More', array('title' => 'Browse more formats'))?>
@@ -325,7 +325,7 @@
     </div>
     <div class="container">
       <h2>Genres
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topGenreLoader2" />
+        <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_genre_profile]?></div>
           <ul class="subnav" data-name="top_genre_profile" data-callback="getTopGenres" data-loader="topGenreLoader2">
@@ -338,7 +338,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
+      <div class="lds-facebook loader" id="topGenreLoader"><div></div><div></div><div></div></div>
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('genre?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
@@ -347,7 +347,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Keywords
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topKeywordLoader2" />
+        <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_keyword_profile]?></div>
           <ul class="subnav" data-name="top_keyword_profile" data-callback="getTopKeywords" data-loader="topKeywordLoader2">
@@ -360,7 +360,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
+      <div class="lds-facebook loader" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('keyword?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
@@ -369,7 +369,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Nationalities
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topNationalityLoader2" />
+        <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_nationality_profile]?></div>
           <ul class="subnav" data-name="top_nationality_profile" data-callback="getTopNationalities" data-loader="topNationalityLoader2">
@@ -382,7 +382,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
+      <div class="lds-facebook loader" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('nationality?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
@@ -391,7 +391,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Years
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader2" />
+        <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_year_profile]?></div>
           <ul class="subnav" data-name="top_year_profile" data-callback="getTopYears" data-loader="topYearLoader2">
@@ -404,7 +404,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
+      <div class="lds-facebook loader" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('year?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>

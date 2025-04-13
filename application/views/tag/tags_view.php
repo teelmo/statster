@@ -63,32 +63,32 @@
   </div>
   <div class="left_container">
     <div class="container clearfix">
-      <h1 class="genre_heading"><span class="value not_available">Genres</span> <img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topGenreLoader3" /></h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumGenreLoader" />
+      <h1 class="genre_heading"><span class="value not_available">Genres</span> <span class="lds-ring hidden" id="topGenreLoader3"><div></div><div></div><div></div><div></div></span></h1>
+      <div class="lds-facebook loader" id="topAlbumGenreLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumGenre" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistGenreLoader" />
+      <div class="lds-facebook loader" id="topArtistGenreLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistGenre" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more genre_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="keyword_heading"><span class="value not_available">Keywords</span> <img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topKeywordLoader3" /></h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumKeywordLoader" />
+      <h1 class="keyword_heading"><span class="value not_available">Keywords</span> <span class="lds-ring hidden" id="topKeywordLoader3"><div></div><div></div><div></div><div></div></span></h1>
+      <div class="lds-facebook loader" id="topAlbumKeywordLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumKeyword" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistKeywordLoader" />
+      <div class="lds-facebook loader" id="topArtistKeywordLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistKeyword" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more keyword_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="nationality_heading"><span class="value not_available">Nationalities</span> <img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topNationalityLoader3" /></h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumNationalityLoader" />
+      <h1 class="nationality_heading"><span class="value not_available">Nationalities</span> <span class="lds-ring hidden" id="topNationalityLoader3"><div></div><div></div><div></div><div></div></span></h1>
+      <div class="lds-facebook loader" id="topAlbumNationalityLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumNationality" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistNationalityLoader" />
+      <div class="lds-facebook loader" id="topArtistNationalityLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistNationality" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more nationality_link not_available">More</div>
     </div>
     <div class="container clearfix">
-      <h1 class="year_heading"><span class="value not_available">Years</span> <img src="/media/img/ajax-loader-circle.gif" alt="" class="" id="topYearLoader3" /></h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearLoader" />
+      <h1 class="year_heading"><span class="value not_available">Years</span> <span class="lds-ring hidden" id="topYearLoader3"><div></div><div></div><div></div><div></div></span></h1>
+      <div class="lds-facebook loader" id="topAlbumYearLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumYear" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more year_link not_available">More</div>
     </div>
@@ -98,7 +98,7 @@
       <h1>Hot</h1>
       <h2>
         Genres
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topGenreLoader2" />
+        <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_genre_value" data-value="<?=$top_genre_tags?>"><?=INTERVAL_TEXTS[$top_genre_tags]?></div>
           <ul class="subnav" data-name="top_genre_tags" data-callback="topGenre" data-loader="topGenreLoader2, #topGenreLoader3">
@@ -111,7 +111,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
+      <div class="lds-facebook loader" id="topGenreLoader"><div></div><div></div><div></div></div>
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('genre'), 'More', array('title' => 'Browse more genres'))?>
@@ -121,7 +121,7 @@
     <div class="container">
       <h2>
         Keywords
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topKeywordLoader2" />
+        <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_keyword_value" data-value="<?=$top_keyword_tags?>"><?=INTERVAL_TEXTS[$top_keyword_tags]?></div>
           <ul class="subnav" data-name="top_keyword_tags" data-callback="topKeyword" data-loader="topKeywordLoader2, #topKeywordLoader3">
@@ -134,7 +134,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
+      <div class="lds-facebook loader" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('keyword'), 'More', array('title' => 'Browse more keywords'))?>
@@ -144,7 +144,7 @@
     <div class="container">
       <h2>
         Nationalities
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topNationalityLoader2" />
+        <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_nationality_value" data-value="<?=$top_nationality_tags?>"><?=INTERVAL_TEXTS[$top_nationality_tags]?></div>
           <ul class="subnav" data-name="top_nationality_tags" data-callback="topNationality" data-loader="topNationalityLoader2, #topNationalityLoader3">
@@ -157,7 +157,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topNationalityLoader" />
+      <div class="lds-facebook loader" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('nationality'), 'More', array('title' => 'Browse more nationalities'))?>
@@ -167,7 +167,7 @@
     <div class="container">
       <h2>
         Years
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader2" />
+        <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_year_value" data-value="<?=$top_year_tags?>"><?=INTERVAL_TEXTS[$top_year_tags]?></div>
           <ul class="subnav" data-name="top_year_tags" data-callback="topYear" data-loader="topYearLoader2, #topYearLoader3">
@@ -180,7 +180,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader" />
+      <div class="lds-facebook loader" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('year'), 'More', array('title' => 'Browse more years'))?>

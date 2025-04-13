@@ -51,7 +51,7 @@
         <?php
         if (isset($top_formats)) {
           ?>
-          <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topListeningFormatTypesLoader2" />
+          <span class="lds-ring hidden" id="topListeningFormatTypesLoader2"><div></div><div></div><div></div><div></div></span>
           <div class="func_container">
             <div class="value"><?=INTERVAL_TEXTS[$top_formats]?></div>
             <ul class="subnav" data-name="top_formats" data-callback="getFormats" data-loader="topListeningFormatTypesLoader2">
@@ -67,7 +67,7 @@
         }
         ?>
       </h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
+      <div class="lds-facebook loader" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
@@ -75,7 +75,7 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Latest listenings</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
+      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('recent'), 'More', array('title' => 'Browse more listenings'))?>

@@ -22,7 +22,7 @@
           }
           ?>
         </h1>
-        <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="tagsLoader"/>
+        <div class="lds-facebook loader" id="tagsLoader"><div></div><div></div><div></div></div>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
           <select data-placeholder="Add metadata" class="chosen-select" multiple>
@@ -61,7 +61,7 @@
             <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
           </div>
           <span class="user_value"><span class="value number"><span class="<?=($per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year_user?>"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('album' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
-          <span id="love" class="like_toggle"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="loveLoader"/><span class="like_msg"></span></span>
+          <span id="love" class="like_toggle"><div class="lds-facebook loader" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
           <span id="quick_add_listening" class="quick_add_listening">
             <span class="fa fa-plus-square"></span>
             <ul class="subnav">
@@ -91,7 +91,7 @@
     <?=anchor(array('shout', url_title($artist_name), url_title($album_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name), url_title($album_name)), 'Tags')?>
     <div class="float_right">
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="albumLoveLoader"/>
+      <div class="lds-facebook loader" id="albumLoveLoader"><div></div><div></div><div></div></div>
       <ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
@@ -123,14 +123,14 @@
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
+      <div class="lds-facebook loader" id="historyLoader"><div></div><div></div><div></div></div>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Discography
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="discographyLoader" />
+        <span class="lds-ring hidden" id="discographyLoader"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value artist_album_value" data-value="<?=$artist_album?>"><?=ORDER_TEXTS[$artist_album]?></div>
           <ul class="subnav" data-name="artist_album" data-callback="artistAlbum" data-loader="discographyLoader">
@@ -140,24 +140,24 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistAlbumLoader"/>
+      <div class="lds-facebook loader" id="artistAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="artistAlbum" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Similar</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="similarArtistLoader"/>
+      <div class="lds-facebook loader" id="similarArtistLoader"><div></div><div></div><div></div></div>
       <ul id="similarArtist" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Associated</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="associatedArtistLoader"/>
+      <div class="lds-facebook loader" id="associatedArtistLoader"><div></div><div></div><div></div></div>
       <ul id="associatedArtist" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Shoutbox <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="shoutLoader2" /><span id="shoutTotal"></span></h2>
+      <h2>Shoutbox <span class="lds-ring hidden" id="shoutLoader2"><div></div><div></div><div></div><div></div></span><span id="shoutTotal"></span></h2>
       <table class="shout_table">
         <?php
         if ($logged_in === 'true') {
@@ -177,7 +177,7 @@
         }
         ?>
       </table>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="shoutLoader"/>
+      <div class="lds-facebook loader" id="shoutLoader"><div></div><div></div><div></div></div>
       <table id="shout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
@@ -185,7 +185,7 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Top listeners</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
+      <div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('listener', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more listeners'))?>
@@ -194,7 +194,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Latest listenings</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
+      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more listenings'))?>
@@ -203,7 +203,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Listening formats</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListeningFormatTypesLoader"/>
+      <div class="lds-facebook loader" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('format', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more formats'))?>
@@ -212,7 +212,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Artist's comments</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="artistShoutLoader" />
+      <div class="lds-facebook loader" id="artistShoutLoader"><div></div><div></div><div></div></div>
       <table id="artistShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('shout', url_title($artist_name), url_title($album_name)), 'More', array('title' => 'Browse more shouts'))?>

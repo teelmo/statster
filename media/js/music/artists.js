@@ -109,7 +109,7 @@ $.extend(view, {
   },
   getTopArtistYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-      $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + year + 'Loader"/><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><h2 class="number">' + year + '</h2><div class="lds-facebook loader" id="sideTopArtist' + year + 'Loader"><div></div><div></div><div></div></div><table id="sideTopArtist' + year + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopArtist' + year,
         hide:{
@@ -141,7 +141,7 @@ $.extend(view, {
       var str = '' + month;
       var pad = '00';
       var pad_month = pad.substring(0, pad.length - str.length) + str;
-      $('<div class="container"><h2 class="number">' + month_str[month] + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + month + 'Loader"/><table id="sideTopArtist' + month + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
+      $('<div class="container"><h2 class="number">' + month_str[month] + '</h2><div class="lds-facebook loader" id="sideTopArtist' + month + 'Loader"><div></div><div></div><div></div></div><table id="sideTopArtist' + month + '" class="side_table"></table><div class="more"><a href="/artist/' + year + '/' + pad_month + '" title="Browse more">More</a></div></div><div class="container"><hr /></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopArtist' + month,
         hide:{
@@ -170,7 +170,7 @@ $.extend(view, {
     for (var day = 1; day <= new Date(year, month, 0).getDate(); day++) {
       var str = '' + day;
       var pad_day = pad.substring(0, pad.length - str.length) + str;
-      $('<div class="container"><div><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="sideTopArtist' + day + 'Loader"/><span id="sideTopArtist' + day + '" class="number"></span> listenings <div class="metainfo">' + weekday[new Date(year, month, day).getDay()] + ' – <span class="number">' + app.getGetOrdinal(day) + '</span></div></div><div class="more"><a href="/artist/' + year + '/' + pad_month + '/' + pad_day + '" title="Browse more">More <span class="number">' + day + '</span></a></div></div>').appendTo($('#sideTable'));
+      $('<div class="container"><div><div class="lds-facebook loader" id="sideTopArtist' + day + 'Loader"><div></div><div></div><div></div></div><span id="sideTopArtist' + day + '" class="number"></span> listenings <div class="metainfo">' + weekday[new Date(year, month, day).getDay()] + ' – <span class="number">' + app.getGetOrdinal(day) + '</span></div></div><div class="more"><a href="/artist/' + year + '/' + pad_month + '/' + pad_day + '" title="Browse more">More <span class="number">' + day + '</span></a></div></div>').appendTo($('#sideTable'));
       var vars = {
         container:'#sideTopArtist' + day,
         hide:{
@@ -217,7 +217,7 @@ $.extend(view, {
     });
   },
   getUsers: function (date, vars) {
-    $('<div class="container"><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/><table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table></div>').appendTo('#sideTable');
+    $('<div class="container"><div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div><table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table></div>').appendTo('#sideTable');
     $.ajax({
       data:{
         limit:14,

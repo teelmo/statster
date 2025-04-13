@@ -67,14 +67,14 @@
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%Y%m')">Montly</a>
       </div>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
+      <div class="lds-facebook loader" id="historyLoader"><div></div><div></div><div></div></div>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Top albums
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topAlbumLoader2" />
+        <span class="lds-ring hidden" id="topAlbumLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_album_tag]?></div>
           <ul class="subnav" data-name="top_album_tag_<?=$tag_type?>" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
@@ -87,7 +87,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader" />
+      <div class="lds-facebook loader" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbum" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
         <?=anchor(array(url_title($this->uri->segment(1)), url_title($tag_name), 'album'), 'More', array('title' => 'Browse more albums'))?>
@@ -96,7 +96,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Top artists
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topArtistLoader2" />
+        <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_artist_tag]?></div>
           <ul class="subnav" data-name="top_artist_tag_<?=$tag_type?>" data-callback="getTopArtists" data-loader="topArtistLoader2">
@@ -109,7 +109,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topArtistLoader" />
+      <div class="lds-facebook loader" id="topArtistLoader"><div></div><div></div><div></div></div>
       <ul id="topArtist" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
         <?=anchor(array(url_title($this->uri->segment(1)), url_title($tag_name), 'artist'), 'More', array('title' => 'Browse more artists'))?>
@@ -120,13 +120,13 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Top listeners</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader" />
+      <div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Latest listenings</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader" />
+      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

@@ -51,7 +51,7 @@ $.extend(view, {
   },
   getTopKeywordsYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-      $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeyword' + year + 'Loader"/><table id="topKeyword' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
+      $('<div class="container"><h2 class="number">' + year + '</h2><div class="lds-facebook loader" id="topKeyword' + year + 'Loader"><div></div><div></div><div></div></div><table id="topKeyword' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
       var vars = {
         container:'#topKeyword' + year,
         limit:3,

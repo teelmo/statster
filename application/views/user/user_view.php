@@ -9,7 +9,7 @@
   <div class="left_container">
     <div class="container">
       <h1>People</h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader noIndent" id="userMosaicLoader"/>
+      <div class="lds-facebook loader" id="userMosaicLoader"><div></div><div></div><div></div></div>
       <ul id="userMosaic" class="user_list user_list_150"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
@@ -17,7 +17,7 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Top listeners
-        <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topListenerLoader2" />
+        <span class="lds-ring hidden" id="topListenerLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_listener_user]?></div>
           <ul class="subnav" data-name="top_listener_user" data-callback="getTopListeners" data-loader="topListenerLoader2">
@@ -30,7 +30,7 @@
           </ul>
         </div>
       </h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader" />
+      <div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('listener'), 'More', array('title' => 'Browse more'))?>
@@ -39,7 +39,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Latest shouts</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="musicShoutLoader" />
+      <div class="lds-facebook loader" id="musicShoutLoader"><div></div><div></div><div></div></div>
       <table id="musicShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
       <table id="artistShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>

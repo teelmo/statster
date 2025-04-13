@@ -39,7 +39,7 @@
   <div class="left_container">
     <div class="container">
       <h1>Top keywords
-      <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topKeywordLoader2" />
+      <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_keyword_keyword]?></div>
           <ul class="subnav" data-name="top_keyword_keyword" data-callback="getTopKeywords" data-loader="topKeywordLoader2">
@@ -54,7 +54,7 @@
       </h1>
     </div>
     <div class="container">
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topKeywordLoader" />
+      <div class="lds-facebook loader" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

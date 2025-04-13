@@ -51,7 +51,7 @@
         <?php
         if (isset($top_album_album)) {
           ?>
-          <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topAlbum10Loader2" />
+          <span class="lds-ring hidden" id="topAlbum10Loader2"><div></div><div></div><div></div><div></div></span>
           <div class="func_container">
             <div class="value"><?=INTERVAL_TEXTS[$top_album_album]?></div>
             <ul class="subnav" data-name="top_album_album" data-callback="getTopAlbum10" data-loader="topAlbum10Loader2">
@@ -67,11 +67,11 @@
         }
         ?>
       </h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbum10Loader"/>
+      <div class="lds-facebook loader" id="topAlbum10Loader"><div></div><div></div><div></div></div>
       <ul id="topAlbum10" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container">
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumLoader"/>
+      <div class="lds-facebook loader" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <table id="topAlbum" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container">

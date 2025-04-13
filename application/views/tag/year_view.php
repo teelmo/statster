@@ -39,7 +39,7 @@
   <div class="left_container">
     <div class="container">
       <h1>Top years
-      <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topYearLoader2" />
+      <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_year_year]?></div>
           <ul class="subnav" data-name="top_year_year" data-callback="getYearsHistory" data-loader="topYearLoader2">
@@ -57,18 +57,18 @@
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getAgeHistory()">Age</a> | <a href="javascript:;" class="" onclick="view.getYearsHistory('<?=$top_year_year?>', '%Y');">Year</a>
       </div>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
+      <div class="lds-facebook loader" id="historyLoader"><div></div><div></div><div></div></div>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
     </div>
     <div class="container">
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topYearLoader"/>
+      <div class="lds-facebook loader" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Top albums yearly</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topAlbumYearlyLoader" />
+      <div class="lds-facebook loader" id="topAlbumYearlyLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumYearly" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

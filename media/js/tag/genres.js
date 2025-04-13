@@ -51,7 +51,7 @@ $.extend(view, {
   },
   getTopGenresYearly: function () {
     for (var year = <?=CUR_YEAR?>; year >= 2003; year--) {
-      $('<div class="container"><h2 class="number">' + year + '</h2><img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenre' + year + 'Loader"/><table id="topGenre' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
+      $('<div class="container"><h2 class="number">' + year + '</h2><div class="lds-facebook loader" id="topGenre' + year + 'Loader"><div></div><div></div><div></div></div><table id="topGenre' + year + '" class="side_table"></table></div><div class="container"><hr /></div>').appendTo($('#years'));
       var vars = {
         container:'#topGenre' + year,
         limit:3,

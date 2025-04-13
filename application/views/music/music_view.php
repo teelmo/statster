@@ -56,7 +56,7 @@
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="historyLoader"/>
+      <div class="lds-facebook loader" id="historyLoader"><div></div><div></div><div></div></div>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
     </div>
@@ -77,14 +77,14 @@
         </div>
         <div class="container">
           <h2>Browse</h2>
-          <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularGenreLoader" />
+          <div class="lds-facebook loader" id="popularGenreLoader"><div></div><div></div><div></div></div>
           <table id="popularGenre" class="genre_table"><!-- Content is loaded with AJAX --></table>
         </div>
       </div>
       <div class="left_container_outer">
         <div class="container">
           <h2>Popular albums
-            <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="popularAlbumLoader2" />
+            <span class="lds-ring hidden" id="popularAlbumLoader2"><div></div><div></div><div></div><div></div></span>
             <div class="func_container">
               <div class="value"><?=INTERVAL_TEXTS[$popular_album_music]?></div>
               <ul class="subnav" data-name="popular_album_music" data-callback="getPopularAlbums" data-loader="popularAlbumLoader2">
@@ -97,7 +97,7 @@
               </ul>
             </div>
           </h2>
-          <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="popularAlbumLoader" />
+          <div class="lds-facebook loader" id="popularAlbumLoader"><div></div><div></div><div></div></div>
           <table id="popularAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
         </div>
       </div>
@@ -178,17 +178,17 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h1>Suggestions</h1>
-      <h2>Second chance <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="secondChanceLoader2" /><span class="func_container"><i class="fa fa-sync-alt" id="refreshSecondChanceAlbums"></i></span></h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="secondChanceLoader" />
+      <h2>Second chance <span class="lds-ring hidden" id="secondChanceLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshSecondChanceAlbums"></i></span></h2>
+      <div class="lds-facebook loader" id="secondChanceLoader"><div></div><div></div><div></div></div>
       <table class="side_table" id="secondChance"><!-- Content is loaded with AJAX --></table>
-      <h2>From others <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="fromOthersLoader2" /><span class="func_container"><i class="fa fa-sync-alt" id="refreshFromOthersAlbums"></i></span></h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="fromOthersLoader" />
+      <h2>From others <span class="lds-ring hidden" id="fromOthersLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshFromOthersAlbums"></i></span></h2>
+      <div class="lds-facebook loader" id="fromOthersLoader"><div></div><div></div><div></div></div>
       <table class="side_table" id="fromOthers"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h1>Likes</h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyLikedLoader" />
+      <div class="lds-facebook loader" id="recentlyLikedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyFaned" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyLoved" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>

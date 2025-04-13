@@ -48,7 +48,7 @@
   <div class="left_container">
     <div class="container">
       <h1>Top listeners</h1>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topListenerLoader"/>
+      <div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
@@ -56,7 +56,7 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Latest listenings</h2>
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="recentlyListenedLoader"/>
+      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?php

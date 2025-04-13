@@ -1,7 +1,6 @@
 .lds-ring {
   /* change color here */
-  color: #000;
-  display: inline-block;
+  color: @color-black;
 }
 .lds-ring,
 .lds-ring div {
@@ -20,6 +19,8 @@
   width: 16px;
   height: 16px;
   margin: 3px;
+  top: 2px;
+  left: 5px;
   border: 3px solid currentColor;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -43,6 +44,11 @@
   }
 }
 
+.loader {
+  display: inline;
+  line-height: 1;
+  margin: 15px 0 0 5px;
+}
 .lds-facebook {
   color: #ccc;
 }

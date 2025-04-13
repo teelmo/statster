@@ -39,7 +39,7 @@
   <div class="left_container">
     <div class="container">
       <h1>Top genres
-      <img src="/media/img/ajax-loader-circle.gif" alt="" class="hidden" id="topGenreLoader2" />
+      <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_genre_genre]?></div>
           <ul class="subnav" data-name="top_genre_genre" data-callback="getTopGenres" data-loader="topGenreLoader2">
@@ -54,7 +54,7 @@
       </h1>
     </div>
     <div class="container">
-      <img src="/media/img/ajax-loader-bar.gif" alt="" class="loader" id="topGenreLoader" />
+      <div class="lds-facebook loader" id="topGenreLoader"><div></div><div></div><div></div></div>
       <table id="topGenre" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
