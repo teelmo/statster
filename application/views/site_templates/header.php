@@ -45,7 +45,8 @@ header('HTTP/1.1 200 OK');
           <div class="search_container">
             <form action="/search" method="get" accept-charset="utf-8" class="search_form">
               <button disabled="disabled" type="submit" class="search_submit" title="Search!"></button>
-              <input type="text" class="middle search_text" autocomplete="off" tabindex="20" placeholder="Search music…" name="q" />
+              <div class="autocomplete_container"><input type="text" class="middle search_text" autocomplete="off" tabindex="20" placeholder="Search…" name="q" /><span class="lds-ring hidden"><div></div><div></div><div></div><div></div></span></div>
+              
             </form>
           </div>
         </div>

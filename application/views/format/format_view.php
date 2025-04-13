@@ -37,11 +37,11 @@
         }
         ?>
       </h1>
-      <div class="lds-facebook loader" id="topAlbum10Loader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbum10Loader"><div></div><div></div><div></div></div>
       <ul id="topAlbum10" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container">
-      <div class="lds-facebook loader" id="topAlbumLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <table id="topAlbum" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
@@ -49,7 +49,7 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Listening formats</h2>
-      <div class="lds-facebook loader" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('format'), 'More', array('title' => 'Browse more formats'))?>

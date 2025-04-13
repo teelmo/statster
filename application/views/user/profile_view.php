@@ -105,7 +105,7 @@
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
-      <div class="lds-facebook loader" id="historyLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="historyLoader"><div></div><div></div><div></div></div>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
     </div>
@@ -135,7 +135,7 @@
     ?>
     <div class="container">
       <h2>Recently listened <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h2>
-      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('recent?u=' . $username, 'More listenings', array('title' => 'Browse more listenings'))?>
@@ -157,7 +157,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topAlbumLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbum" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
         <?=anchor('album?u=' . $username, 'More albums', array('title' => 'Browse more albums'))?>
@@ -179,7 +179,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topArtistLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topArtistLoader"><div></div><div></div><div></div></div>
       <ul id="topArtist" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more">
         <?=anchor('artist?u=' . $username, 'More artists', array('title' => 'Browse more artists'))?>
@@ -207,7 +207,7 @@
         }
         ?>
       </table>
-      <div class="lds-facebook loader" id="userShoutLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="userShoutLoader"><div></div><div></div><div></div></div>
       <table id="userShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
@@ -282,7 +282,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Shouts</h2>
-      <div class="lds-facebook loader" id="shoutLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="shoutLoader"><div></div><div></div><div></div></div>
       <table id="shout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
       <table id="artistShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
@@ -293,7 +293,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Likes</h2>
-      <div class="lds-facebook loader" id="recentlyLikedLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recentlyLikedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyFaned" class="likes hidden"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyLoved" class="likes hidden"><!-- Content is loaded with AJAX --></table>
@@ -317,7 +317,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topFormatLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topFormatLoader"><div></div><div></div><div></div></div>
       <table id="topFormat" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('format?u=' . $username, 'More', array('title' => 'Browse more formats'))?>
@@ -338,7 +338,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topGenreLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topGenreLoader"><div></div><div></div><div></div></div>
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('genre?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
@@ -360,7 +360,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topKeywordLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('keyword?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
@@ -382,7 +382,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topNationalityLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('nationality?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>
@@ -404,7 +404,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topYearLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('year?u=' . $username, 'More', array('title' => 'Browse more listenings'))?>

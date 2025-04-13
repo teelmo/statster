@@ -12,7 +12,7 @@
       </div>
       <div class="top_info artist_info">
         <h1><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h1>
-        <div class="lds-facebook loader" id="tagsLoader"><div></div><div></div><div></div></div>
+        <div class="lds-facebook inline" id="tagsLoader"><div></div><div></div><div></div></div>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
           <select data-placeholder="Add metadata" class="chosen-select" multiple>
@@ -51,7 +51,7 @@
             <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
           </div>
           <span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('artist' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
-          <span id="fan" class="like_toggle"><div class="lds-facebook loader" id="fanLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
+          <span id="fan" class="like_toggle"><div class="lds-facebook" id="fanLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
         </div>
       </div>
       <?php
@@ -68,14 +68,14 @@
     <?=anchor(array('shout', url_title($artist_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name)), 'Tags')?>
     <div class="float_right">
-      <div class="lds-facebook loader" id="artistFanLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="artistFanLoader"><div></div><div></div><div></div></div>
       <ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
   <div class="left_container">
     <div class="container">
       <h1>Fans</h1>
-      <div class="lds-facebook loader" id="recentlyFanedLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recentlyFanedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyFaned" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
@@ -83,7 +83,7 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Top listeners</h2>
-      <div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('listener', url_title($artist_name)), 'More', array('title' => 'Browse more listeners'))?>
@@ -92,7 +92,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Latest listenings</h2>
-      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('recent', url_title($artist_name)), 'More', array('title' => 'Browse more listenings'))?>

@@ -82,19 +82,19 @@
       <div class="float_right settings">
         <a href="javascript:;" class="" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" onclick="view.getListeningHistory('%Y%m')" class="unactive">Montly</a>
       </div>
-      <div class="lds-facebook loader" id="historyLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="historyLoader"><div></div><div></div><div></div></div>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
     </div>
     <div class="container">
       <h2>Top albums</h2>
-      <div class="lds-facebook loader" id="topAlbumLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbum" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Top artists</h2>
-      <div class="lds-facebook loader" id="topArtistLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topArtistLoader"><div></div><div></div><div></div></div>
       <ul id="topArtist" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container"><hr /></div>
@@ -105,39 +105,39 @@
     </div>
     <div class="container">
       <h2>Top listeners</h2>
-      <div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container">
       <h2>Top releases</h2>
-      <div class="lds-facebook loader" id="topReleasesLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topReleasesLoader"><div></div><div></div><div></div></div>
       <table id="topReleases" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container">
       <h2>Top formats</h2>
-      <div class="lds-facebook loader" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h1>Top tags</h1>
       <h2>Genres</h2>
-      <div class="lds-facebook loader" id="topGenreLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topGenreLoader"><div></div><div></div><div></div></div>
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container">
       <h2>Keywords</h2>
-      <div class="lds-facebook loader" id="topKeywordLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container">
       <h2>Nationalities</h2>
-      <div class="lds-facebook loader" id="topNationalityLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container">
       <h2>Years</h2>
-      <div class="lds-facebook loader" id="topYearLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

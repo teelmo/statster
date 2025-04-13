@@ -54,7 +54,7 @@
       </h1>
     </div>
     <div class="container">
-      <div class="lds-facebook loader" id="topKeywordLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

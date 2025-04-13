@@ -72,7 +72,7 @@
       ?>
       <h1>Listenings <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span>
       </h1>
-      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more"><?=anchor(array('mosaic'), 'Mosaic')?></div>
     </div>
@@ -81,7 +81,7 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Top listeners</h2>
-      <div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?php

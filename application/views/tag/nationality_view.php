@@ -54,13 +54,13 @@
       </h1>
     </div>
     <div class="container">
-      <div class="lds-facebook loader" id="topNationalityLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Top artist per Nationality</h2>
-      <div class="lds-facebook loader" id="topArtistNationalityLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topArtistNationalityLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistNationality" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

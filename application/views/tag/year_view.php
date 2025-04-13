@@ -57,18 +57,18 @@
       <div class="float_right settings">
         <a href="javascript:;" class="unactive" onclick="view.getAgeHistory()">Age</a> | <a href="javascript:;" class="" onclick="view.getYearsHistory('<?=$top_year_year?>', '%Y');">Year</a>
       </div>
-      <div class="lds-facebook loader" id="historyLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="historyLoader"><div></div><div></div><div></div></div>
       <table id="history"><!-- Content is loaded with AJAX --></table>
       <div class="music_bar"></div>
     </div>
     <div class="container">
-      <div class="lds-facebook loader" id="topYearLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Top albums yearly</h2>
-      <div class="lds-facebook loader" id="topAlbumYearlyLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumYearlyLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumYearly" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

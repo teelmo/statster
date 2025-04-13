@@ -64,31 +64,31 @@
   <div class="left_container">
     <div class="container clearfix">
       <h1 class="genre_heading"><span class="value not_available">Genres</span> <span class="lds-ring hidden" id="topGenreLoader3"><div></div><div></div><div></div><div></div></span></h1>
-      <div class="lds-facebook loader" id="topAlbumGenreLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumGenreLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumGenre" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
-      <div class="lds-facebook loader" id="topArtistGenreLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topArtistGenreLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistGenre" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more genre_link not_available">More</div>
     </div>
     <div class="container clearfix">
       <h1 class="keyword_heading"><span class="value not_available">Keywords</span> <span class="lds-ring hidden" id="topKeywordLoader3"><div></div><div></div><div></div><div></div></span></h1>
-      <div class="lds-facebook loader" id="topAlbumKeywordLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumKeywordLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumKeyword" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
-      <div class="lds-facebook loader" id="topArtistKeywordLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topArtistKeywordLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistKeyword" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more keyword_link not_available">More</div>
     </div>
     <div class="container clearfix">
       <h1 class="nationality_heading"><span class="value not_available">Nationalities</span> <span class="lds-ring hidden" id="topNationalityLoader3"><div></div><div></div><div></div><div></div></span></h1>
-      <div class="lds-facebook loader" id="topAlbumNationalityLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumNationalityLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumNationality" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
-      <div class="lds-facebook loader" id="topArtistNationalityLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topArtistNationalityLoader"><div></div><div></div><div></div></div>
       <ul id="topArtistNationality" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more nationality_link not_available">More</div>
     </div>
     <div class="container clearfix">
       <h1 class="year_heading"><span class="value not_available">Years</span> <span class="lds-ring hidden" id="topYearLoader3"><div></div><div></div><div></div><div></div></span></h1>
-      <div class="lds-facebook loader" id="topAlbumYearLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumYearLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbumYear" class="music_wall clearfix"><!-- Content is loaded with AJAX --></ul>
       <div class="more year_link not_available">More</div>
     </div>
@@ -111,7 +111,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topGenreLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topGenreLoader"><div></div><div></div><div></div></div>
       <table id="topGenre" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('genre'), 'More', array('title' => 'Browse more genres'))?>
@@ -134,7 +134,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topKeywordLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topKeywordLoader"><div></div><div></div><div></div></div>
       <table id="topKeyword" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('keyword'), 'More', array('title' => 'Browse more keywords'))?>
@@ -157,7 +157,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topNationalityLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topNationalityLoader"><div></div><div></div><div></div></div>
       <table id="topNationality" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('nationality'), 'More', array('title' => 'Browse more nationalities'))?>
@@ -180,7 +180,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topYearLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topYearLoader"><div></div><div></div><div></div></div>
       <table id="topYear" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('year'), 'More', array('title' => 'Browse more years'))?>

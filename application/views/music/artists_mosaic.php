@@ -67,7 +67,7 @@
         }
         ?>
       </h1>
-      <div class="lds-facebook loader" id="artistMosaicLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="artistMosaicLoader"><div></div><div></div><div></div></div>
       <ul id="artistMosaic" class="artist_list"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

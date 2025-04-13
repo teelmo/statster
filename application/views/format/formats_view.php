@@ -67,7 +67,7 @@
         }
         ?>
       </h1>
-      <div class="lds-facebook loader" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
@@ -75,7 +75,7 @@
     <div class="container">
       <h1>Statistics</h1>
       <h2>Latest listenings</h2>
-      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('recent'), 'More', array('title' => 'Browse more listenings'))?>

@@ -13,6 +13,29 @@ var app = {
     x = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return (x == '') ? 0 : x;
   },
+  substrWords: function (text, maxChar = 35, end = '…') {
+    if (text.length > maxChar || text === '') {
+      const words = text.split(/\s+/);
+      let output = '';
+      let i = 0;
+
+      while (true) {
+        const length = output.length + words[i].length;
+        if (length > maxChar) {
+          break;
+        } else {
+          output += (output ? ' ' : '') + words[i];
+          i++;
+          if (i >= words.length) break;
+        }
+      }
+
+      output += end;
+      return output;
+    } else {
+      return text;
+    }
+  },
   highlightPatch: function () {
     $.ui.autocomplete.prototype._renderItem = function (ul, item) {
       if (item.value === '') {

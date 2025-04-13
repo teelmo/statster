@@ -9,7 +9,7 @@
   <div class="left_container">
     <div class="container">
       <h1>People</h1>
-      <div class="lds-facebook loader" id="userMosaicLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="userMosaicLoader"><div></div><div></div><div></div></div>
       <ul id="userMosaic" class="user_list user_list_150"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
@@ -30,7 +30,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topListenerLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
       <table id="topListener" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor(array('listener'), 'More', array('title' => 'Browse more'))?>
@@ -39,7 +39,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Latest shouts</h2>
-      <div class="lds-facebook loader" id="musicShoutLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="musicShoutLoader"><div></div><div></div><div></div></div>
       <table id="musicShout" class="shout_table"><!-- Content is loaded with AJAX --></table>
       <table id="albumShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>
       <table id="artistShout" class="shouts hidden"><!-- Content is loaded with AJAX --></table>

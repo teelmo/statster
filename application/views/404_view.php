@@ -34,7 +34,7 @@
     </div>
     <div class="container">
       <h2>Recently listened</h2>
-      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

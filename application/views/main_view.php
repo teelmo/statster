@@ -20,7 +20,7 @@
       <br />
       <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
         <div id="addListeningDateContainer" class="listening_date">Listening date: <input name="date" title="Change date" id="addListeningDate" class="number" value="" /></div>
-        <div><input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="♪ ♪ ♪" name="addListeningText" /></div>
+        <div class="autocomplete_container"><input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="♪ ♪ ♪" name="addListeningText" /><span class="lds-ring hidden"><div></div><div></div><div></div><div></div></span></div>
         <div><input type="submit" name="addListeningSubmit" tabindex="10" id="addListeningSubmit" value="statster" /></div>
         <div>
           <?php
@@ -37,7 +37,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Recently listened <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h2>
-      <div class="lds-facebook loader" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
         <?=anchor('recent', 'More', array('title' => 'Browse more listenings'))?>
@@ -59,7 +59,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topAlbumLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <ul id="topAlbum" class="music_wall"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
@@ -83,7 +83,7 @@
           </ul>
         </div>
       </h2>
-      <div class="lds-facebook loader" id="topArtistLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topArtistLoader"><div></div><div></div><div></div></div>
       <table id="topArtist" class="column_table"><!-- Content is loaded with AJAX --></table>
     </div>
     <div class="container"><hr /></div>
@@ -148,10 +148,10 @@
         <?=anchor(array('music', date('Y', strtotime('first day of last month')), date('m', strtotime('first day of last month'))), 'More', array('title' => 'Browse more listenings'))?>
       </div>
       <h2>Hot albums <span class="lds-ring hidden" id="recommentedTopAlbumLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshHotAlbums"></i></span></h2>
-      <div class="lds-facebook loader" id="recommentedTopAlbumLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recommentedTopAlbumLoader"><div></div><div></div><div></div></div>
       <table id="recommentedTopAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
       <h2>New releases <span class="lds-ring hidden" id="recommentedNewAlbumLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="fa fa-sync-alt" id="refreshNewAlbums"></i></span></h2>
-      <div class="lds-facebook loader" id="recommentedNewAlbumLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="recommentedNewAlbumLoader"><div></div><div></div><div></div></div>
       <table id="recommentedNewAlbum" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

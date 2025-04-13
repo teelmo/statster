@@ -44,11 +44,6 @@
   }
 }
 
-.loader {
-  display: inline;
-  line-height: 1;
-  margin: 15px 0 0 5px;
-}
 .lds-facebook {
   color: #ccc;
 }
@@ -60,8 +55,13 @@
 .lds-facebook {
   display: inline-block;
   height: 20px;
+  line-height: 1;
+  margin: 15px 0 0 5px;
   position: relative;
   width: 100%;
+  &.inline {
+    display: inline;
+  }
 }
 .lds-facebook div {
   animation: lds-facebook 0.8s cubic-bezier(0, 0.5, 0.5, 1) infinite;

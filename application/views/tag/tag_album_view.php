@@ -60,11 +60,11 @@
           </ul>
         </div>
       </h1>
-      <div class="lds-facebook loader" id="topAlbum10Loader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbum10Loader"><div></div><div></div><div></div></div>
       <ul id="topAlbum10" class="music_list music_list_150 no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
     <div class="container">
-      <div class="lds-facebook loader" id="topAlbumLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="topAlbumLoader"><div></div><div></div><div></div></div>
       <table id="topAlbum" class="column_table full"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

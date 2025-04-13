@@ -34,12 +34,15 @@ class AutoComplete extends CI_Controller {
                       GROUP BY " . TBL_artists . ".`album_id`) AS " . TBL_artists . "
                 WHERE " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
                   AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-                  AND (" . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
+                  AND (" . TBL_artist . ".`artist_name` LIKE ?
                     AND " . TBL_album . ".`album_name` LIKE ?)
                 GROUP BY " . TBL_artists . ".`album_id`
-                ORDER BY `artist_relevance`,
-                         " . TBL_album . ".`year` DESC,
-                         `album_relevance`
+                ORDER BY 
+                  `artist_relevance` ASC,
+                  " . TBL_album . ".`year` DESC,
+                  `album_relevance` ASC,
+                  " . TBL_artist . ".`artist_name` ASC,
+                  " . TBL_album . ".`album_name` ASC
                 LIMIT 0, 20";
       }
       else {
@@ -59,12 +62,15 @@ class AutoComplete extends CI_Controller {
                       FROM " . TBL_artists . ") AS " . TBL_artists . "
                 WHERE " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
                   AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-                  AND (" . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
+                  AND (" . TBL_artist . ".`artist_name` LIKE ?
                     OR " . TBL_album . ".`album_name` LIKE ?)
                 GROUP BY " . TBL_artists . ".`album_id`
-                ORDER BY `artist_relevance`,
-                         " . TBL_album . ".`year` DESC,
-                         `album_relevance`
+                ORDER BY 
+                  `artist_relevance` ASC,
+                  " . TBL_album . ".`year` DESC,
+                  `album_relevance` ASC,
+                  " . TBL_artist . ".`artist_name` ASC,
+                  " . TBL_album . ".`album_name` ASC
                 LIMIT 0, 20";
       }
       $query = $this->db->query($sql, array($search_str_db_artist, $search_str_db_album, $search_str_db_artist_wc, $search_str_db_album_wc));
@@ -115,7 +121,6 @@ class AutoComplete extends CI_Controller {
     }
   }
 
-
   public function artist() {
     // Load helpers.
     $this->load->helper(array('img_helper'));
@@ -126,7 +131,7 @@ class AutoComplete extends CI_Controller {
       $sql = "SELECT " . TBL_artist . ".`id`,
                      " . TBL_artist . ".`artist_name`
               FROM " . TBL_artist . "
-              WHERE " . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
+              WHERE " . TBL_artist . ".`artist_name` LIKE ?
               ORDER BY " . TBL_artist . ".`artist_name`
               LIMIT 0, 20";
       $query = $this->db->query($sql, array($search_str));

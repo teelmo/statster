@@ -48,14 +48,14 @@
   <div class="left_container">
     <div class="container">
       <h1>User shouts</h1>
-      <div class="lds-facebook loader" id="shoutLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="shoutLoader"><div></div><div></div><div></div></div>
       <table id="shout" class="shout_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
   <div class="right_container">
     <div class="container">
       <h1>Shouters</h1>
-      <div class="lds-facebook loader" id="shoutersLoader"><div></div><div></div><div></div></div>
+      <div class="lds-facebook" id="shoutersLoader"><div></div><div></div><div></div></div>
       <table id="shouters" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>
