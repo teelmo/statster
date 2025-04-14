@@ -123,8 +123,8 @@ define('TBL_user_info', 'user_info');
 define('TBL_year_biography', 'year_biography');
 
 define('IMAGE_SIZES', [32, 64, 174, 300]);
-define('IMAGE_SERVER_PROTOCOL', 'http://');
-define('IMAGE_SERVER_IP', '77.37.18.167');
+define('IMAGE_SERVER_PROTOCOL', 'https://');
+define('IMAGE_SERVER_IP', 'img.statster.info');
 define('IMAGE_SERVER', IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . '/');
 
 define('INTERVAL_TEXTS', array(

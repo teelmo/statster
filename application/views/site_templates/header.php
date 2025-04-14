@@ -8,8 +8,8 @@ header('HTTP/1.1 200 OK');
     <meta charset="utf-8">
     <meta name="description" content="Reconcile with music" />
     <meta property="og:description" content="Reconcile with music" />
-    <meta property="og:url" content="http://statster.info<?=$_SERVER['REQUEST_URI']?>" />
-    <meta property="og:image" content="http://statster.info/media/img/og_image.jpg" />
+    <meta property="og:url" content="https://statster.info<?=$_SERVER['REQUEST_URI']?>" />
+    <meta property="og:image" content="https://statster.info/media/img/og_image.jpg" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Statster" />
     <meta property="og:site_name" content="Statster" />
@@ -32,7 +32,7 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/statster.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
     <?php
-    echo link_tag('media/css/themes/' . (($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light') . '/styles.css');
+    echo link_tag('/media/css/themes/' . (($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light') . '/styles.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>
