@@ -107,8 +107,8 @@ var app = {
   },
   initStatsterEvents: function () {
     $('.search_text').autocomplete({
-      html:true,
-      minLength:3,
+      html: true,
+      minLength: 3,
       response: function () {
         $(this).removeClass('working');
       },
@@ -120,7 +120,22 @@ var app = {
       search: function () {
         $(this).addClass('working');
       },
-      source:'/api/search/get/10/'
+      source: '/api/search/get/10/',
+      open: function () {
+        var self = $(this).data('ui-autocomplete');
+
+        // Only override if not already done
+        if (!self._originalClose) {
+          self._originalClose = self.close;
+          self.close = function (event) {
+            // Prevent closing when blur is triggered by virtual keyboard hiding
+            if (event && event.originalEvent && event.originalEvent.type === 'blur') {
+              return;
+            }
+            this._originalClose.call(this, event);
+          };
+        }
+      }
     });
     $('.search_text').keyup(function () {
       ($(this).val() !== '') ? $('.search_submit').prop('disabled', false) : $('.search_submit').prop('disabled', true);
