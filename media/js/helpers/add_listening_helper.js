@@ -1,15 +1,31 @@
 $.extend(view, {
   initAutocomplete: function () {
-    $('#addListeningText').focus();
-    $('#addListeningText').autocomplete({
-      html:true,
-      minLength:3,
+    var $input = $('#addListeningText');
+    $input.focus();
+    $input.autocomplete({
+      html: true,
+      minLength: 3,
       response: function () {
         $(this).removeClass('working');
       },
-      source:'/autoComplete/addListening',
+      source: '/autoComplete/addListening',
       search: function () {
         $(this).addClass('working');
+      },
+      open: function () {
+        var self = $(this).data('ui-autocomplete');
+
+        // Only override if not already done
+        if (!self._originalClose) {
+          self._originalClose = self.close;
+          self.close = function (event) {
+            // Prevent closing when blur is triggered by virtual keyboard hiding
+            if (event && event.originalEvent && event.originalEvent.type === 'blur') {
+              return;
+            }
+            this._originalClose.call(this, event);
+          };
+        }
       }
     });
   },
