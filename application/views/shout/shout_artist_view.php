@@ -11,7 +11,7 @@
         ?>
       </div>
       <div class="top_info artist_info">
-        <h2><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h2>
+        <h1><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h1>
         <div class="lds-facebook inline" id="tagsLoader"><div></div><div></div><div></div></div>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
@@ -67,8 +67,8 @@
     <?=anchor(array('recent', url_title($artist_name)), 'Listenings')?>
     <?=anchor(array('shout', url_title($artist_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name)), 'Tags')?>
-    <div class="float_right">
-      <div class="lds-facebook" id="artistFanLoader"><div></div><div></div><div></div></div>
+    <div class="artist_fan_container">
+      <div class="lds-facebook inline" id="artistFanLoader"><div></div><div></div><div></div></div>
       <ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

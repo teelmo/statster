@@ -10,6 +10,7 @@
   }
   .page_links {
     background-color: @color-bg-white;
+    display: flex;
     flex-basis: 100%;
     font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
     font-size: 18px;
@@ -26,7 +27,18 @@
         margin-right: 0;
       }
     }
+    .album_love_container,
+    .artist_fan_container {
+      flex-grow: 1;
+      text-align: right;
+    }
+    .lds-facebook {
+      left: -50px;
+      top: 15px;
+    }
     .music_date_selector {
+      flex-grow: 1;
+      text-align: right;
       .date_filter_clear,
       .date_filter_submit,
       .month_selector_container,

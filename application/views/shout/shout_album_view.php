@@ -13,8 +13,8 @@
         <span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span>
       </div>
       <div class="top_info album_info">
-        <h3><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name']);}, $artists))?></h3>
-        <h2><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $album_name)?></h2>
+        <h2><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name']);}, $artists))?></h2>
+        <h1><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $album_name)?></h1>
         <div class="lds-facebook inline" id="tagsLoader"><div></div><div></div><div></div></div>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
@@ -70,8 +70,8 @@
     <?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'Listenings')?>
     <?=anchor(array('shout', url_title($artist_name), url_title($album_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name), url_title($album_name)), 'Tags')?>
-    <div class="float_right">
-      <div class="lds-facebook" id="albumLoveLoader"><div></div><div></div><div></div></div>
+    <div class="album_love_container">
+      <div class="lds-facebook inline" id="albumLoveLoader"><div></div><div></div><div></div></div>
       <ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

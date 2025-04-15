@@ -131,6 +131,11 @@ strong {
   left: 9px;
   position: relative;
   top: 9px;
+  .lds-facebook {
+    display: inline;
+    left: 20px;
+    top: 3px;
+  }
   &.love_add {
     &:hover {
       color: @color-red;
@@ -1046,9 +1051,9 @@ table.shout_table {
         padding-left: 10px;
         width: 100%;
         textarea {
-          background-color: @color-white-alter;
+          background-color: @color-gray-soft;
           border-radius: 5px;
-          border: 1px solid @color-gray-soft;
+          border: 1px solid @color-gray-medium;
           box-sizing: border-box;
           color: @color-black-alter;
           font-size: 13px;
@@ -1056,6 +1061,9 @@ table.shout_table {
           padding: 8px 12px;
           resize: vertical;
           width: 100%;
+          &:focus {
+            background-color: @color-bg-footer
+          }
         }
         button {
           -moz-appearance: none;
@@ -1382,21 +1390,19 @@ ul {
     position: absolute;
     right: 0;
     top: 0;
-    h1,
-    a,
-    p {
-      color: @color-white;
-      text-shadow: 2px 0px 10px @color-black;
-    }
-    h1 {
+    h2 {
+      color: #fff;
       font-size: 30px;
       letter-spacing: 0.02em;
       margin: 0 0 20px 0;
     }
-    a,
-    p {
-      font-size: 17px;
-      letter-spacing: 0.02em;
+    h3 {
+      color: #fff;
+      text-shadow: 2px 0px 10px @color-black;
+      a {
+        color: #fff;
+        font-weight: 600;
+      } 
     }
   }
 }

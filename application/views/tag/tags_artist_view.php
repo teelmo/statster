@@ -67,8 +67,8 @@
     <?=anchor(array('recent', url_title($artist_name)), 'Listenings')?>
     <?=anchor(array('shout', url_title($artist_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name)), 'Tags')?>
-    <div class="float_right">
-      <div class="lds-facebook" id="artistFanLoader"><div></div><div></div><div></div></div>
+    <div class="artist_fan_container">
+      <div class="lds-facebook inline" id="artistFanLoader"><div></div><div></div><div></div></div>
       <ul id="artistFan" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>

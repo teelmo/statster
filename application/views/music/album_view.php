@@ -90,8 +90,8 @@
     <?=anchor(array('recent', url_title($artist_name), url_title($album_name)), 'Listenings')?>
     <?=anchor(array('shout', url_title($artist_name), url_title($album_name)), 'Shouts')?>
     <?=anchor(array('tag', url_title($artist_name), url_title($album_name)), 'Tags')?>
-    <div class="float_right">
-      <div class="lds-facebook" id="albumLoveLoader"><div></div><div></div><div></div></div>
+    <div class="album_love_container">
+      <div class="lds-facebook inline" id="albumLoveLoader"><div></div><div></div><div></div></div>
       <ul id="albumLove" class="like_list no_bullets"><!-- Content is loaded with AJAX --></ul>
     </div>
   </div>
