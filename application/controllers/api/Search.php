@@ -26,7 +26,8 @@ class Search extends CI_Controller {
                      (CASE WHEN " . TBL_artist . ".`artist_name` LIKE ? THEN 0 ELSE 1 END) AS `artist_relevance`
               FROM " . TBL_artist . "
               WHERE " . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
-              ORDER BY `artist_relevance`
+              ORDER BY `artist_relevance` ASC,
+                       " . TBL_artist . ".`artist_name`
               LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
@@ -57,8 +58,9 @@ class Search extends CI_Controller {
               FROM " . TBL_artist . ",
                    " . TBL_album . "
               WHERE " . TBL_artist . ".`id` = " . TBL_album . ".`artist_id`
-                AND " . TBL_album . ".`album_name` LIKE ?
-              ORDER BY `album_relevance`
+                AND " . TBL_album . ".`album_name` LIKE ? COLLATE utf8_swedish_ci
+              ORDER BY `album_relevance` ASC,
+                       " . TBL_album . ".`album_name`
               LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str, $search_str_wc));
       if ($query->num_rows() > 0) {
@@ -85,8 +87,8 @@ class Search extends CI_Controller {
       $sql = "SELECT " . TBL_genre . ".`id` as genre_id,
                      " . TBL_genre . ".`name`
               FROM " . TBL_genre . "
-              WHERE " . TBL_genre . ".`name` LIKE ?
-              ORDER BY " . TBL_genre . ".`name`
+              WHERE " . TBL_genre . ".`name` LIKE ? COLLATE utf8_swedish_ci
+              ORDER BY " . TBL_genre . ".`name` ASC
               LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
@@ -108,8 +110,8 @@ class Search extends CI_Controller {
       $sql = "SELECT " . TBL_keyword . ".`id` as keyword_id,
                      " . TBL_keyword . ".`name`
               FROM " . TBL_keyword . "
-              WHERE " . TBL_keyword . ".`name` LIKE ?
-              ORDER BY " . TBL_keyword . ".`name`
+              WHERE " . TBL_keyword . ".`name` LIKE ? COLLATE utf8_swedish_ci
+              ORDER BY " . TBL_keyword . ".`name` ASC
               LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
@@ -131,8 +133,8 @@ class Search extends CI_Controller {
       $sql = "SELECT " . TBL_nationality . ".`id` as nationality_id,
                      " . TBL_nationality . ".`country`
               FROM " . TBL_nationality . "
-              WHERE " . TBL_nationality . ".`country` LIKE ?
-              ORDER BY " . TBL_nationality . ".`country`
+              WHERE " . TBL_nationality . ".`country` LIKE ? COLLATE utf8_swedish_ci
+              ORDER BY " . TBL_nationality . ".`country` ASC
               LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
@@ -153,8 +155,8 @@ class Search extends CI_Controller {
       // Years search.
       $sql = "SELECT DISTINCT " . TBL_album . ".`year`
               FROM " . TBL_album . "
-              WHERE " . TBL_album . ".`year` LIKE ?
-              ORDER BY " . TBL_album . ".`year`
+              WHERE " . TBL_album . ".`year` LIKE ? COLLATE utf8_swedish_ci
+              ORDER BY " . TBL_album . ".`year` ASC
               LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {
@@ -177,7 +179,7 @@ class Search extends CI_Controller {
                      " . TBL_user . ".`id` as `user_id`
               FROM " . TBL_user . "
               WHERE " . TBL_user . ".`username` LIKE ?
-              ORDER BY " . TBL_user . ".`username`
+              ORDER BY " . TBL_user . ".`username` ASC
               LIMIT 0, " . $this->db->escape_str($limit);
       $query = $this->db->query($sql, array($search_str_wc));
       if ($query->num_rows() > 0) {

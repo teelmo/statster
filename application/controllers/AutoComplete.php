@@ -34,8 +34,8 @@ class AutoComplete extends CI_Controller {
                       GROUP BY " . TBL_artists . ".`album_id`) AS " . TBL_artists . "
                 WHERE " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
                   AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-                  AND (" . TBL_artist . ".`artist_name` LIKE ?
-                    AND " . TBL_album . ".`album_name` LIKE ?)
+                  AND (" . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
+                    AND " . TBL_album . ".`album_name` LIKE ? COLLATE utf8_swedish_ci)
                 GROUP BY " . TBL_artists . ".`album_id`
                 ORDER BY 
                   `artist_relevance` ASC,
@@ -62,8 +62,8 @@ class AutoComplete extends CI_Controller {
                       FROM " . TBL_artists . ") AS " . TBL_artists . "
                 WHERE " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
                   AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-                  AND (" . TBL_artist . ".`artist_name` LIKE ?
-                    OR " . TBL_album . ".`album_name` LIKE ?)
+                  AND (" . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
+                    OR " . TBL_album . ".`album_name` LIKE ? COLLATE utf8_swedish_ci)
                 GROUP BY " . TBL_artists . ".`album_id`
                 ORDER BY 
                   `artist_relevance` ASC,
@@ -131,8 +131,8 @@ class AutoComplete extends CI_Controller {
       $sql = "SELECT " . TBL_artist . ".`id`,
                      " . TBL_artist . ".`artist_name`
               FROM " . TBL_artist . "
-              WHERE " . TBL_artist . ".`artist_name` LIKE ?
-              ORDER BY " . TBL_artist . ".`artist_name`
+              WHERE " . TBL_artist . ".`artist_name` LIKE ? COLLATE utf8_swedish_ci
+              ORDER BY " . TBL_artist . ".`artist_name` ASC
               LIMIT 0, 20";
       $query = $this->db->query($sql, array($search_str));
       if ($query->num_rows() > 0) {
