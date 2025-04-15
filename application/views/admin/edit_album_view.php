@@ -1,7 +1,28 @@
-<div class="main_container no_heading">
+<div class="heading_container"> 
+  <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
+    <div class="info">
+      <div class="float_left cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')">
+        <?php
+        if ($spotify_id !== FALSE) {
+          ?>
+          <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container"></div></a>
+          <?php
+        }
+        ?>
+        <?=($most_listened_releaseyear !== false) ? '<span class="rank">#<span class="number">' . $most_listened_releaseyear . '</span></span>' : ''?>
+        <span class="album_year number"><?=anchor(array('year', $year), $year, array('class' => 'album_year'))?></span>
+      </div>
+      <div class="top_info album_info">
+        <h2><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name']);}, $artists))?></h2>
+        <h1><?=anchor(array('music', url_title($artist_name), url_title($album_name)), $album_name)?></h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main_container">
   <div class="left_container">
     <div class="container">
-      <h1>Edit Album</h1>
+      <h2>Edit Album</h2>
       <?=form_open('', array('class' => '', 'id' => 'editAlbumForm'), array('editAlbum' => 'form'))?>
         <input type="hidden" name="album_id" value="<?=$album_id?>" />
         <input type="hidden" name="parent_artist_name" value="<?=isset($_GET['artist']) ? $_GET['artist'] : ''?>" />

@@ -89,7 +89,7 @@ class Admin extends CI_Controller {
         }
       }
       else {
-        $this->load->helper(array('form', 'artist_helper'));
+        $this->load->helper(array('form', 'artist_helper', 'music_helper', 'year_helper', 'output_helper'));
 
         $data += getAlbumInfo(array('album_id' => $album_id));
 
@@ -101,6 +101,19 @@ class Admin extends CI_Controller {
 
         $data['all_artists'] = getArtistsUnique();
         $data['artists'] = $artists;
+        $rank = 0;
+        $data['most_listened_releaseyear'] = false;
+        $last_item_count = false;
+        foreach (json_decode(getMusicByYear(array('lower_limit' => '1970-00-00', 'limit' => 10, 'tag_id' => $data['year'], 'username' => (!empty($_GET['u']) ? $_GET['u'] : '')))) as $item) {
+          if ($item->count != $last_item_count) {
+            $rank++;
+          }
+          if ($item->album_id == $data['album_id']) {
+            $data['most_listened_releaseyear'] = $rank;
+            break;
+          }
+          $last_item_count = $item->count;
+        }
         $data['image_uri'] = getAlbumImg(array('album_id' => $album_id, 'size' => 32));
         $data['js_include'] = array('admin/edit_album');
 

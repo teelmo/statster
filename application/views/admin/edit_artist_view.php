@@ -1,7 +1,25 @@
-<div class="main_container no_heading">
+<div class="heading_container">
+  <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'artist_name' => $artist_name, 'size' => 300))?>')">
+    <div class="info">
+      <div class="float_left cover artist_img img174" style="background-image:url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 174))?>')">
+        <?php
+        if ($spotify_id !== FALSE) {
+          ?>
+          <a href="spotify:artist:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container artist_spotify_container"></div></a>
+          <?php
+        }
+        ?>
+      </div>
+      <div class="top_info artist_info">
+        <h1><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main_container">
   <div class="left_container">
     <div class="container">
-      <h1>Edit artist</h1>
+      <h2>Edit artist</h2>
       <?=form_open($_SERVER['REQUEST_URI'], array('class' => '', 'id' => 'editArtistForm'), array('editArtist' => 'form'))?>
         <input type="hidden" name="artist_id" value="<?=$artist_id?>" />
         <fieldset>
