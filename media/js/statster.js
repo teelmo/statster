@@ -254,29 +254,36 @@ $(document).ready(function () {
           var $searchInput = chosenInstance.search_field;
 
           $searchInput.on('keyup', function (e) {
-            // Ignore navigation keys: Enter (13), Escape (27), Up (38), Down (40), Left (37), Right (39)
+            // Ignore navigation keys
             if ([13, 27, 38, 40, 37, 39].includes(e.which)) return;
 
             var searchTerm = ($searchInput.val() || '').toLowerCase();
             var selectedValues = $select.val();
 
-            $select.find('optgroup').each(function () {
-              var $optgroup = $(this);
-              var options = $optgroup.find('option').get();
+            var $optgroups = $select.find('optgroup');
+
+            if ($optgroups.length) {
+              // Sort options inside each optgroup
+              $optgroups.each(function () {
+                var $optgroup = $(this);
+                var options = $optgroup.find('option').get();
+
+                options.sort(function (a, b) {
+                  return compareOptionTexts(a, b, searchTerm);
+                });
+
+                $optgroup.empty().append(options);
+              });
+            } else {
+              // No optgroups — sort all options
+              var options = $select.find('option').get();
 
               options.sort(function (a, b) {
-                var aText = $(a).text().toLowerCase();
-                var bText = $(b).text().toLowerCase();
-
-                var aStarts = aText.startsWith(searchTerm) ? 0 : (aText.includes(searchTerm) ? 1 : 2);
-                var bStarts = bText.startsWith(searchTerm) ? 0 : (bText.includes(searchTerm) ? 1 : 2);
-
-                if (aStarts !== bStarts) return aStarts - bStarts;
-                return aText.localeCompare(bText);
+                return compareOptionTexts(a, b, searchTerm);
               });
 
-              $optgroup.empty().append(options);
-            });
+              $select.empty().append(options);
+            }
 
             $select.val(selectedValues);
             $select.trigger('chosen:updated');
@@ -287,5 +294,17 @@ $(document).ready(function () {
         });
       });
     };
+
+    function compareOptionTexts(a, b, searchTerm) {
+      var aText = $(a).text().toLowerCase();
+      var bText = $(b).text().toLowerCase();
+
+      var aStarts = aText.startsWith(searchTerm) ? 0 : (aText.includes(searchTerm) ? 1 : 2);
+      var bStarts = bText.startsWith(searchTerm) ? 0 : (bText.includes(searchTerm) ? 1 : 2);
+
+      if (aStarts !== bStarts) return aStarts - bStarts;
+      return aText.localeCompare(bText);
+    }
+
   })(jQuery);
 });

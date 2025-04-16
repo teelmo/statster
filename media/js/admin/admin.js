@@ -191,7 +191,11 @@ $.extend(view, {
 $(document).ready(function () {
   view.initAdminEvents();
   $('#deleteArtist').chosen({search_contains:true});
+  $('#deleteArtist').prioritizedChosenSearch();
   $('#deleteAlbum').chosen({search_contains:true});
+  $('#deleteAlbum').prioritizedChosenSearch();
   $('#transferAlbumDataFrom').chosen({search_contains:true});
+  $('#transferAlbumDataFrom').prioritizedChosenSearch();
   $('#transferAlbumDataTo').chosen({search_contains:true});
+  $('#transferAlbumDataFrom').prioritizedChosenSearch();
 });

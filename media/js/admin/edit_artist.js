@@ -1,9 +1,9 @@
 $.extend(view, {
   // Init Edit album events.
   initEditArtistEvents: function () {
-    $('#associatedArtistAdd select').chosen({
-      search_contains: true
-    });
+    var $select = $('#associatedArtistAdd select');
+    $select.chosen({ search_contains: true });
+    $select.prioritizedChosenSearch();
     $('#associatedArtistAdd').show();
     $('.associated_artist_names').hide();
     $('.spotify_id').blur(function() {

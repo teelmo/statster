@@ -1,9 +1,9 @@
 $.extend(view, {
   // Init Edit album events.
   initEditAlbumEvents: function () {
-    $('#artistAdd select').chosen({
-      search_contains: true
-    });
+    var $select = $('#artistAdd select');
+    $select.chosen({ search_contains: true });
+    $select.prioritizedChosenSearch();
     $('#artistAdd').show();
     $('.artist_names').hide();
     $('.spotify_id').blur(function() {
