@@ -2,6 +2,7 @@
 #tagAdd {
   div.chosen-container {
     max-width: 450px !important;
+    height: 30px;
   }
 }
 #tagAdd {
@@ -26,6 +27,7 @@
     &.chosen-container-active {
       a.chosen-single,
       .chosen-choices {
+        height: 30px;
         background: @color-white-alter;
         color: @color-black;
       }
@@ -34,8 +36,9 @@
     .chosen-choices {
       background: @color-gray-soft;
       border-radius: 3px;
-      color: @color-black;
+      height: 30px;
       box-shadow: none;
+      color: @color-black;
       .chosen-choices {
         box-shadow: none;
       }
@@ -55,7 +58,6 @@ div.chosen-container {
   .chosen-single,
   .chosen-choices {
     .search-field {
-      padding: 5px 20px 6px 4px;
     }
   }
   .chosen-results {
@@ -91,7 +93,6 @@ div.chosen-container {
     .chosen-choices {
       border: 1px solid #ccc;
       .search-field {
-        padding: 5px 20px 6px 4px;
         input {
           color: @color-black !important;
         }
@@ -119,7 +120,7 @@ div.chosen-container {
       border: 0;
       box-shadow: none;
       color: #fff;
-      padding: 4px 20px 5px 4px;
+      margin-top: 5px;
       .search-choice-close {
         top: 5px;
       }
