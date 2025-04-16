@@ -60,32 +60,35 @@ div.chosen-container {
     .search-field {
     }
   }
-  .chosen-results {
-    li {
-      &.group-result {
-        text-transform: uppercase;
-      }
-      &.second {
-        padding-left: 12px;
-      }
-      &.group-option {
-        padding-left: 15px;
-      }
-      &.highlighted {
-        background: #f9f9f9;
-        border-left: 5px solid #000;
-        color: #000;
-        font-size: 13px;
-        padding-left: 7px;
+  .chosen-drop {
+    margin-top: 2px;
+    .chosen-results {
+      li {
+        &.group-result {
+          text-transform: uppercase;
+        }
+        &.second {
+          padding-left: 12px;
+        }
         &.group-option {
-          padding-left: 10px;
+          padding-left: 15px;
+        }
+        &.highlighted {
+          background: #f9f9f9;
+          border-left: 5px solid #000;
+          color: #000;
+          font-size: 13px;
+          padding-left: 7px;
+          &.group-option {
+            padding-left: 10px;
+          }
         }
       }
-    }
-    em {
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
+      em {
+        color: #000;
+        font-weight: bold;
+        text-decoration: none;
+      }
     }
   }
   &.chosen-container-active {

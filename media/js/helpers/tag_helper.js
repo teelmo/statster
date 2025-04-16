@@ -32,6 +32,27 @@ $.extend(view, {
   }
 });
 
+function prioritizeOptions($select, searchTerm) {
+  var startsWithMatches = [];
+  var containsMatches = [];
+
+  $select.find('option').each(function() {
+    var text = $(this).text().toLowerCase();
+    if (text.startsWith(searchTerm)) {
+      startsWithMatches.push(this);
+    } else if (text.indexOf(searchTerm) !== -1) {
+      containsMatches.push(this);
+    }
+  });
+
+  var sortedOptions = startsWithMatches.concat(containsMatches);
+
+  // Only if searchTerm is not empty, otherwise no need to reorder
+  if (searchTerm.length) {
+    $select.html('').append(sortedOptions);
+  }
+}
+
 $(document).ready(function () {
   view.initTagHelperEvents();
   $.when(
@@ -40,7 +61,11 @@ $(document).ready(function () {
     view.populateTagsMenu('nationality', 'country')
   ).done(function () {
     $(document).one('ajaxStop', function (event, request, settings) {
-      $('#tagAdd select').chosen();
+      var $select = $('#tagAdd select');
+      // Initialize Chosen first
+      $select.chosen({});
+      // Now attach the prioritized search functionality
+      $select.prioritizedChosenSearch();
     });
   });
 });

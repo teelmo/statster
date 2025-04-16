@@ -231,4 +231,61 @@ $(document).ready(function () {
   if ($('#headingCont').length === 0) {
     $('#topCont').addClass('scrolled');
   }
+
+  function waitForChosenThen($select, callback, maxAttempts = 20, attempt = 0) {
+    var chosenInstance = $select.data('chosen');
+    if (chosenInstance) {
+      callback($select, chosenInstance);
+    } else if (attempt < maxAttempts) {
+      setTimeout(function () {
+        waitForChosenThen($select, callback, maxAttempts, attempt + 1);
+      }, 100);
+    } else {
+      console.warn('Chosen was not initialized on the element in time.');
+    }
+  }
+
+  (function ($) {
+    $.fn.prioritizedChosenSearch = function () {
+      return this.each(function () {
+        var $select = $(this);
+
+        waitForChosenThen($select, function ($select, chosenInstance) {
+          var $searchInput = chosenInstance.search_field;
+
+          $searchInput.on('keyup', function (e) {
+            // Ignore navigation keys: Enter (13), Escape (27), Up (38), Down (40), Left (37), Right (39)
+            if ([13, 27, 38, 40, 37, 39].includes(e.which)) return;
+
+            var searchTerm = ($searchInput.val() || '').toLowerCase();
+            var selectedValues = $select.val();
+
+            $select.find('optgroup').each(function () {
+              var $optgroup = $(this);
+              var options = $optgroup.find('option').get();
+
+              options.sort(function (a, b) {
+                var aText = $(a).text().toLowerCase();
+                var bText = $(b).text().toLowerCase();
+
+                var aStarts = aText.startsWith(searchTerm) ? 0 : (aText.includes(searchTerm) ? 1 : 2);
+                var bStarts = bText.startsWith(searchTerm) ? 0 : (bText.includes(searchTerm) ? 1 : 2);
+
+                if (aStarts !== bStarts) return aStarts - bStarts;
+                return aText.localeCompare(bText);
+              });
+
+              $optgroup.empty().append(options);
+            });
+
+            $select.val(selectedValues);
+            $select.trigger('chosen:updated');
+
+            chosenInstance.search_field.val(searchTerm);
+            chosenInstance.winnow_results();
+          });
+        });
+      });
+    };
+  })(jQuery);
 });
