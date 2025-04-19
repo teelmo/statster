@@ -54,7 +54,7 @@
       </h2>
     </div>
     <div class="container">
-      <div class="float_right settings">
+      <div class="settings">
         <a href="javascript:;" class="unactive" onclick="view.getAgeHistory()">Age</a> | <a href="javascript:;" class="" onclick="view.getYearsHistory('<?=$top_year_year?>', '%Y');">Year</a>
       </div>
       <div class="lds-facebook" id="historyLoader"><div></div><div></div><div></div></div>

@@ -63,7 +63,7 @@
     ?>
     <div class="container">
       <h3>History <span class="line"></span></h3>
-      <div class="float_right settings">
+      <div class="settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d')">Day</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%m')">Month</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%Y')">Year</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%Y%m')">Montly</a>
       </div>
       <div class="lds-facebook" id="historyLoader"><div></div><div></div><div></div></div>

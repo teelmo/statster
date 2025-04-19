@@ -47,7 +47,7 @@
   <div class="left_container">
     <div class="container">
       <h3>History</h3>
-      <div class="float_right settings">
+      <div class="settings">
         <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%w', '<?=$lower_limit?>', '<?=$upper_limit?>')">Weekday</a> | <a href="javascript:;" class="unactive" onclick="view.getListeningHistory('%d', '<?=$lower_limit?>', '<?=$upper_limit?>')">Day</a> | <a href="javascript:;" class="" onclick="view.getListeningHistory('%m', '<?=$lower_limit?>', '<?=$upper_limit?>')">Month</a>
       </div>
       <div class="lds-facebook" id="historyLoader"><div></div><div></div><div></div></div>

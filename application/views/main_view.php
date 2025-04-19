@@ -20,7 +20,6 @@
       <br />
       <?=form_open('', array('class' => '', 'id' => 'addListeningForm'), array('addListeningType' => 'form'))?>
         <div id="addListeningDateContainer" class="listening_date">Listening date: <div class="listening_date_input"><input name="date" title="Change date" id="addListeningDate" class="number" value="" /><div class="calendar_container"></div></div></div>
-        
         <div class="autocomplete_container"><input type="text" autocomplete="off" tabindex="1" id="addListeningText" placeholder="♪ ♪ ♪" name="addListeningText" /><span class="lds-ring hidden"><div></div><div></div><div></div><div></div></span></div>
         <div><input type="submit" name="addListeningSubmit" tabindex="10" id="addListeningSubmit" value="statster" /></div>
         <div>
