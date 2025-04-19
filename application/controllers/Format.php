@@ -154,6 +154,8 @@ class Format extends CI_Controller {
       if ($this->session->userdata('logged_in') === TRUE) {
         $data['user_count'] = getListeningFormatCount(array('username' => $this->session->userdata('username')), TBL_listening_formats);
       }
+
+
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['js_include'] = array('format/formats', 'helpers/time_interval_helper');
 
@@ -177,6 +179,14 @@ class Format extends CI_Controller {
       $data['top_format_type'] = isset($intervals['top_format_type']) ? $intervals['top_format_type'] : 'overall';
       $data['lower_limit'] = $data['top_format_type'];
 
+      $opts = array(
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+
       $data['js_include'] = array('format/format_type', 'helpers/time_interval_helper');
       $this->load->view('site_templates/header');
       $this->load->view('format/format_type_view', $data);
@@ -188,6 +198,14 @@ class Format extends CI_Controller {
       $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['top_format'] = isset($intervals['top_format']) ? $intervals['top_format'] : 'overall';
       $data['lower_limit'] = $data['top_format'];
+
+      $opts = array(
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+      );
+      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
 
       $data['js_include'] = array('format/format', 'helpers/time_interval_helper');
       $this->load->view('site_templates/header');
