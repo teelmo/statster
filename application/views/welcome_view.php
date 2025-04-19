@@ -16,7 +16,7 @@
     <?=anchor(array('tag'), 'Tags')?>
   </div>
   <div class="left_container">
-    <div class="container welcome_container">
+    <div class="welcome_container">
       <div class="content">
         <h2>Statster &middot; &middot; &middot; Hi!</h2>
         <h3>Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm"><strong>register!</strong></a></h3>
