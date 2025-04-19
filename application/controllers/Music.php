@@ -181,7 +181,7 @@ class Music extends CI_Controller {
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/artist', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
+        $data['js_include'] = array('music/artist', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/artist_view', $data);
@@ -314,7 +314,7 @@ class Music extends CI_Controller {
         $data['artist_name'] = $artist_info['artist_name'];
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/album', 'music/lastfm', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
+        $data['js_include'] = array('music/album', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);
