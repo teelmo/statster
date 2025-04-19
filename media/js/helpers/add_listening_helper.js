@@ -43,15 +43,17 @@ $.extend(view, {
     $('#addListeningDate').val(curday('-'));
     $('#addListeningDate').dateRangePicker({
       autoClose:true,
+      container:'.calendar_container',
+      customArrowNextSymbol:'<i class="fa fa-angle-right"></i>',
+      customArrowPrevSymbol:'<i class="fa fa-angle-left"></i>',
       endDate:'<?=date('Y-m-d',strtotime(CUR_DATE . "+1 days"))?>',
       hoveringTooltip:false,
+      inline:true,
       showShortcuts:false,
       showTopbar:false,
       singleDate:true,
       singleMonth:true,
-      startOfWeek:'monday',
-      customArrowPrevSymbol:'<i class="fa fa-angle-left"></i>',
-      customArrowNextSymbol:'<i class="fa fa-angle-right"></i>'
+      startOfWeek:'monday'
     });
     $('#addListeningDate').change(function () {
       setTimeout(function () {

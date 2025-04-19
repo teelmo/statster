@@ -24,7 +24,6 @@ div.container {
   font-size: 13px;
 }
 .background_overlay {
-  animation: zoomPulse 20s ease-in-out infinite alternate;
   background-image: none;
   background-position: 50% 50%;
   background-repeat: no-repeat;
@@ -39,15 +38,6 @@ div.container {
   top: 0;
   width: 100vw;
   z-index: 0;
-}
-
-@keyframes zoomPulse {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.1);
-  }
 }
 /** 
   * Heading styles
@@ -109,6 +99,10 @@ h3 {
 }
 .listening_date {
   color: @color-gray-mid;
+  .listening_date_input {
+    display: inline-block;
+    position: relative;
+  }
 }
 .number {
   font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', 'Sans-serif';
@@ -1817,6 +1811,7 @@ h3 {
   box-shadow: 0 0 0 @transparent;
   margin: 5px 0 0 27px;
   padding: 0;
+  z-index: 3;
   &.no-shortcuts,
   &.no-topbar {
     padding: 0;
@@ -1897,6 +1892,11 @@ h3 {
   .footer {
     display: none;
   }
+}
+
+.calendar_container {
+  position: absolute;
+  z-index: 4
 }
 
 /** 

@@ -8,8 +8,8 @@
     margin: 39px auto auto auto;
   }
   .page_links {
-    background-color: @color-bg-white;
     display: flex;
+    position: relative;
     flex-basis: 100%;
     flex-wrap: wrap;
     font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
@@ -48,7 +48,7 @@
       .day_selector_container,
       .weekday_selector_container,
       .date_range_container {
-        background-color: @color-bg-white;
+        background-color: transparent;
         color: @color-gray-mid;
         cursor: pointer;
         font-size: 12px;
@@ -59,7 +59,7 @@
           color: @color-black;
         }
         select {
-          background-color: @color-bg-white;
+          background-color: transparent;
           border: 0;
           color: @color-gray-mid;
           cursor: pointer;
@@ -89,11 +89,9 @@
     border-right: 1px solid @color-gray-light;
     border-top: 1px solid @color-gray-light;
     flex: 0 0 640px;
-    float: left;
     mix-blend-mode: normal;
     padding-bottom: 30px;
     padding-left: 5px;
-    position: relative;
     z-index: 3;
     .container {
       box-sizing: border-box;
@@ -118,7 +116,6 @@
     border-top: 1px solid @color-gray-light;
     flex: 1 1 0;
     padding-bottom: 20px;
-    position: relative;
     z-index: 3;
     .container {
       margin: 7px 8px 15px 15px;

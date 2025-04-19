@@ -2,11 +2,15 @@ $.extend(view, {
   initDateRangePicker: function () {
     $('.date_range_picker').dateRangePicker({
       autoClose: true,
-      // endDate: '<?=CUR_DATE?>',
+      container:'.calendar_container',
+      customArrowNextSymbol:'<i class="fa fa-angle-right"></i>',
+      customArrowPrevSymbol:'<i class="fa fa-angle-left"></i>',
+      endDate:'<?=date('Y-m-d',strtotime(CUR_DATE . "+1 days"))?>',
       getValue: function() {
         return this.innerHTML;
       },
       hoveringTooltip: false,
+      inline:true,
       setValue: function(s) {
         this.innerHTML = s;
         $('.date_filter_clear').show();
