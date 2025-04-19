@@ -36,6 +36,9 @@ var app = {
       return text;
     }
   },
+  setOverlayBackground: function (image) {
+    document.querySelector('.background_overlay').style.backgroundImage = 'url(' + image + ')';
+  },
   highlightPatch: function () {
     $.ui.autocomplete.prototype._renderItem = function (ul, item) {
       if (item.value === '') {
@@ -228,6 +231,7 @@ $(document).ready(function () {
   app.initMouseTrap();
   app.initStatsterEvents();
   app.initToolTipster();
+
   if ($('#headingCont').length === 0) {
     $('#topCont').addClass('scrolled');
   }

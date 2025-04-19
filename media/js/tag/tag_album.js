@@ -112,6 +112,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
+  app.setOverlayBackground('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>');
   view.topAlbum10('<?=$top_album_tag_album?>');
   view.topAlbumYearly();
 });

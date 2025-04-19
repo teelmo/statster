@@ -262,6 +262,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
+  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
   if ('<?=$day?>' === '') {
     if ('<?=$month?>' !== '') {
       view.getTopAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');

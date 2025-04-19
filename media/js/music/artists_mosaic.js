@@ -46,5 +46,6 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  view.getTopArtist('<?=$lower_limit?>', '<?=$upper_limit?>');
+  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
+  view.getTopArtist('<?=$lower_limit?>');
 });

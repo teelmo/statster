@@ -168,4 +168,6 @@ $(document).ready(function () {
   view.getUserShouts(size);
   view.getTopListeners('<?=$top_listener_user?>');
   view.initUserEvents();
+
+  document.querySelector('.background_overlay').style.backgroundImage = "url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')";
 });

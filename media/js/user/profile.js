@@ -625,4 +625,6 @@ $(document).ready(function () {
   view.getTopNationalities('<?=$top_nationality_profile?>');
   view.getTopYears('<?=$top_year_profile?>');
   view.initProfileEvents();
+
+  document.querySelector('.background_overlay').style.backgroundImage = "url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')";
 });

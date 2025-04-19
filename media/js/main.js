@@ -244,6 +244,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
+  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
   view.getRecentListenings(function() {
     view.getTopAlbums('<?=$top_album_main?>');
   });

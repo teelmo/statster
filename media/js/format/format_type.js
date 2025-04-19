@@ -130,6 +130,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
+  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
   view.getTopAlbum10('<?=$lower_limit?>');
   view.getFormats();
 });

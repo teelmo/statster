@@ -1,6 +1,5 @@
 .main_container {
   .clearfix;
-  background-color: @color-bg-white-alter;
   display: flex;
   flex-wrap: wrap;
   margin: 20px auto auto auto;
@@ -12,6 +11,7 @@
     background-color: @color-bg-white;
     display: flex;
     flex-basis: 100%;
+    flex-wrap: wrap;
     font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
     font-size: 18px;
     padding: 0 0 0 2px;
@@ -19,6 +19,7 @@
       display: inline-block;
       font-weight: 400;
       margin: 5px 15px 2px 0;
+      z-index: 1;
       &:hover {
         color: @color-gray-mid;
         text-decoration: none;
@@ -31,10 +32,12 @@
     .artist_fan_container {
       flex-grow: 1;
       text-align: right;
+      z-index: 1;
     }
     .lds-facebook {
       left: -50px;
       top: 15px;
+      z-index: 1;
     }
     .music_date_selector {
       flex-grow: 1;
@@ -82,12 +85,16 @@
     }
   }
   .left_container {
-    background-color: @color-bg-white;
+    background-color: @color-bg-white-left-cont;
     border-right: 1px solid @color-gray-light;
     border-top: 1px solid @color-gray-light;
     flex: 0 0 640px;
     float: left;
+    mix-blend-mode: normal;
     padding-bottom: 30px;
+    padding-left: 5px;
+    position: relative;
+    z-index: 3;
     .container {
       box-sizing: border-box;
       margin: 15px 10px 15px 0;
@@ -107,9 +114,12 @@
     }
   }
   .right_container {
+    background-color: @color-bg-white-alter-right-cont;
     border-top: 1px solid @color-gray-light;
     flex: 1 1 0;
     padding-bottom: 20px;
+    position: relative;
+    z-index: 3;
     .container {
       margin: 7px 8px 15px 15px;
     }

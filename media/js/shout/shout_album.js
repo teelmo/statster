@@ -312,6 +312,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
+  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>');
   view.getLove(parseInt(<?=$this->session->userdata('user_id')?>));
   view.getLoves();
   view.getTags();

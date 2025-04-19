@@ -82,6 +82,11 @@
 
 /* Smart phone */
 @media all and (max-width: 480px) {
+  .main_container {
+    .page_links {
+      margin-left: 3px;
+    }
+  }
   ul.music_wall {
     li {
       float: left;
@@ -116,12 +121,14 @@
   .top_container .inner .mobile {
     display: block;
   }
-  div.left_container {
-    width: 100%;
-    .container {
-      box-sizing: border-box;
-      margin: 7px 0 15px 0;
-      padding: 0 5px;
+  .main_container {
+    div.left_container {
+      padding-left: 0;
+      .container {
+        box-sizing: border-box;
+        margin: 7px 0 15px 0;
+        padding: 0 5px;
+      }
     }
   }
   div.footer {

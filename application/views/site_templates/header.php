@@ -38,6 +38,7 @@ header('HTTP/1.1 200 OK');
     ?>
   </head>
   <body>
+    <div class="background_overlay"></div>
     <div class="top_container">
       <div class="inner">
         <div class="float_left">

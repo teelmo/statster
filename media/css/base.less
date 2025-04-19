@@ -18,11 +18,37 @@ body {
   font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
   font-size: 11px;
   line-height: 1.2;
+  position: relative;
 }
 div.container {
   font-size: 13px;
 }
+.background_overlay {
+  animation: zoomPulse 20s ease-in-out infinite alternate;
+  background-image: none;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(15px) brightness(0.7);
+  height: 100vh;
+  left: 0;
+  mix-blend-mode: overlay;
+  opacity: 0.8;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 0;
+}
 
+@keyframes zoomPulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
 /** 
   * Heading styles
   */
@@ -239,7 +265,7 @@ strong {
   * User profile similarity
   */
 .similarity_info {
-  background-color: @color-white;
+  background-color: transparent;
   padding-bottom: 30px;
   .simililarity_image {
     position: relative;
@@ -277,6 +303,8 @@ strong {
     }
   }
   .similarity_text {
+    color: #fff;
+    text-shadow: 0 0 1px #000;
     font-size: 14px;
     font-weight: 300;
     line-height: 20px;
@@ -481,7 +509,7 @@ form#addListeningForm {
       margin: 10px 0 15px 0;
     }
     &#addListeningDate {
-      background-color: @color-bg-white;
+      background-color: transparent;
       border: 0;
       color: @color-black;
       cursor: pointer;
@@ -1382,11 +1410,12 @@ ul {
 /** 
   * Icons / images
   */
-.main_container .left_container .container.welcome_container {
+.main_container .left_container .welcome_container {
   background-image: url('/media/img/og_image.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
   color: @color-white;
+  margin-left: -5px;
   position: relative;
   &:before {
     background-color: rgba(0, 0, 0, 0.5);

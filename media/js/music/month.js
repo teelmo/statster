@@ -395,6 +395,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
+  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
   view.initChart();
   view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>');
