@@ -149,5 +149,8 @@ class Main extends CI_Controller {
     $this->load->view('meta/terms_view', $data);
     $this->load->view('site_templates/footer');
   }
+  public function error_404() {
+    show_404();
+  }
 }
 ?>
