@@ -330,27 +330,34 @@ strong {
         font-size: 10px;
         margin-bottom: 2px;
         padding: 4px;
-        &:hover {
-          background-color: #000;
-        }
         &.hidden {
           display: none;
         }
       }
       &:hover {
         a {
+          background-color: #000;
           display: inline-block;
         }
       }
     }
     &.nationality {
+      background-color: @transparent;
       position: relative;
       top: 2px;
       > a {
         background-color: @transparent;
+        &:hover {
+          background-color: @transparent;
+        }
         &.remove {
           position: relative;
           top: -2px;
+        }
+      }
+      &:hover {
+        a {
+          background-color: @transparent;
         }
       }
     }
