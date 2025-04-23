@@ -2,7 +2,8 @@
   .clearfix;
   display: flex;
   flex-wrap: wrap;
-  margin: 20px auto auto auto;
+  margin: auto auto auto auto;
+  padding-top: 20px;
   max-width: 950px;
   &.no_heading {
     margin: 39px auto auto auto;
@@ -13,7 +14,7 @@
     flex-wrap: wrap;
     font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
     font-size: 18px;
-    padding: 0 0 0 2px;
+    padding: 0 0 0 5px;
     position: relative;
     z-index: 3;
     a {
@@ -91,8 +92,7 @@
     border-right: 1px solid @color-gray-light;
     border-top: 1px solid @color-gray-light;
     flex: 0 0 640px;
-    padding-bottom: 30px;
-    padding-left: 5px;
+    padding: 0 5px 30px 5px;
     z-index: 3;
     .container {
       box-sizing: border-box;
@@ -118,6 +118,7 @@
     flex: 1 1 0;
     padding-bottom: 20px;
     z-index: 3;
+    min-width: 0;
     .container {
       margin: 7px 8px 15px 15px;
     }
