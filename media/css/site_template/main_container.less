@@ -9,17 +9,18 @@
   }
   .page_links {
     display: flex;
-    position: relative;
     flex-basis: 100%;
     flex-wrap: wrap;
     font-family: 'Open Sans', 'Helvetica', 'Arial', 'Sans-serif';
     font-size: 18px;
     padding: 0 0 0 2px;
+    position: relative;
+    z-index: 3;
     a {
       display: inline-block;
       font-weight: 400;
       margin: 5px 15px 2px 0;
-      z-index: 1;
+      text-shadow: 0px 0px 3px @color-white;
       &:hover {
         color: @color-gray-mid;
         text-decoration: none;
