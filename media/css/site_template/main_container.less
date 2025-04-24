@@ -16,14 +16,15 @@
     font-size: 18px;
     padding: 0 0 0 5px;
     position: relative;
+    text-shadow: 0px 0px 3px #000;
     z-index: 3;
     a {
+      color: #fff;
       display: inline-block;
       font-weight: 400;
       margin: 5px 15px 2px 0;
-      text-shadow: 0px 0px 3px @color-white;
       &:hover {
-        color: @color-gray-mid;
+        color: #ccc;
         text-decoration: none;
       }
       &.date_filter_submit {
@@ -78,15 +79,12 @@
   }
   .full_container {
     background-color: @color-bg-white-left-cont;
-    border-top: 1px solid @color-gray-light;
     box-sizing: border-box;
     flex: 0 0 100%;
-    padding: 0 5px 30px 5px;
+    padding: 0 0 30px 0;
     z-index: 3;
     .container {
-      box-sizing: border-box;
-      margin: 15px 10px 15px 0;
-      padding: 0 0 0 2px;
+      margin: 15px 5px 15px 5px;
     }
   }
   .left_container {
@@ -95,12 +93,10 @@
     border-top: 1px solid @color-gray-light;
     box-sizing: border-box;
     flex: 0 0 640px;
-    padding: 0 5px 30px 5px;
+    padding: 0 0 30px 0;
     z-index: 3;
     .container {
-      box-sizing: border-box;
-      margin: 15px 10px 15px 0;
-      padding: 0 0 0 2px;
+      margin: 15px 5px 15px 5px;
     }
     .left_container_inner {
       float: left;
