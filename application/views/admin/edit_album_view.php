@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class="main_container">
-  <div class="left_container">
+  <div class="full_container">
     <div class="container">
       <h2>Edit Album</h2>
       <?=form_open('', array('class' => '', 'id' => 'editAlbumForm'), array('editAlbum' => 'form'))?>

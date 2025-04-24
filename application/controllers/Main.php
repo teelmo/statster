@@ -68,10 +68,11 @@ class Main extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
     $this->load->view('meta/about_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function career() {
@@ -87,10 +88,11 @@ class Main extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
     $this->load->view('meta/career_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function developers() {
@@ -106,10 +108,11 @@ class Main extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
     $this->load->view('meta/developers_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function privacy() {
@@ -125,10 +128,11 @@ class Main extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
     $this->load->view('meta/privacy_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
 
   public function terms() {
@@ -144,10 +148,11 @@ class Main extends CI_Controller {
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
     $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
     $this->load->view('meta/terms_view', $data);
-    $this->load->view('site_templates/footer');
+    $this->load->view('site_templates/footer', $data);
   }
   public function error_404() {
     show_404();

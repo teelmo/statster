@@ -17,7 +17,7 @@
   </div>
 </div>
 <div class="main_container">
-  <div class="left_container">
+  <div class="full_container">
     <div class="container">
       <h2>Edit artist</h2>
       <?=form_open($_SERVER['REQUEST_URI'], array('class' => '', 'id' => 'editArtistForm'), array('editArtist' => 'form'))?>
