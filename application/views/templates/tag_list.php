@@ -4,8 +4,7 @@ if (!empty($json_data)) {
     foreach ($json_data as $idx => $row) {
       $row['user_ids'] = explode(',', $row['user_ids']);
       switch ($row['type']) {
-
-        case 'nationality' {
+        case 'nationality':
           ?>
           <li class="tag <?=$row['type']?>">
             <?=anchor(array($row['type'], url_title($row['name'])), '<img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['name'] . '" />')?>

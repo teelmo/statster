@@ -85,7 +85,7 @@ if (!function_exists('getAllGenres')) {
                    " . TBL_genre . ".`id` AS `tag_id`
             FROM " . TBL_genre . "
             WHERE 1
-            ORDER BY " . TBL_genre . ".`name";
+            ORDER BY " . TBL_genre . ".`name`";
     $query = $ci->db->query($sql, array());
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
