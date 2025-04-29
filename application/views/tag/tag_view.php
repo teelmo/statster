@@ -4,6 +4,41 @@
       <div class="top_info tag_info">
         <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
         <h1><?=$tag_name?></h1>
+        <ul id="tags">
+          <li class="meta">Related</li>
+          <?php
+          foreach ($related as $key => $value) {
+            switch ($tag_type) {
+              case 'nationality':
+                ?>
+                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['name'])), '<img src="/media/img/flag_img/' . strtolower($value['country_code']) . '.png"/ alt="' . $value['name'] . '" />')?>
+                </li>
+                <?php
+                break;
+              case 'genre':
+                ?>
+                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['name'])), '<i class="fa fa-music"></i> ' . $value['name'])?>
+                </li>
+                <?php
+                break;
+              case 'keyword':
+                ?>
+                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['name'])), '<i class="fa fa-tag"></i> ' . $value['name'])?>
+                </li>
+                <?php
+                break;
+              case 'year':
+                ?>
+                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['year'])), '<i class="fa fa-hashtag"></i> ' . $value['year'])?>
+                </li>
+                <?php
+                break;
+              default:
+                break;
+            }
+          }
+          ?>
+        </ul>
       </div>
     </div>
   </div>

@@ -85,7 +85,7 @@ if (!function_exists('getAllGenres')) {
                    " . TBL_genre . ".`id` AS `tag_id`
             FROM " . TBL_genre . "
             WHERE 1
-            ORDER BY " . TBL_genre . ".`name`";
+            ORDER BY " . TBL_genre . ".`name";
     $query = $ci->db->query($sql, array());
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
@@ -318,7 +318,7 @@ if (!function_exists('getGenreListenings')) {
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $tag_id = empty($opts['tag_id']) ? '%' : $opts['tag_id'];
     $user_id = empty($opts['user_id']) ? '%' : $opts['user_id'];
-    $sql = "SELECT count(*) AS `" . $count_type . "`
+    $sql = "SELECT count(*) AS " . $count_type . "
             FROM " . TBL_album . ",
                  " . TBL_listening . ",
                  (SELECT " . TBL_genres . ".`genre_id`,
@@ -339,7 +339,7 @@ if (!function_exists('getGenreListenings')) {
   *
   * @param array $opts.
   *          'group_by'        => Group by argument
-  *          'no_content'  => Output format
+  *          'no_content'      => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -388,6 +388,57 @@ if (!function_exists('getMusicByGenre')) {
             ORDER BY " . $ci->db->escape_str($order_by) . " 
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
+
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
+  }
+}
+
+/**
+  * Returns top music for given genre.
+  *
+  * @param array $opts.
+  *          'limit'  => Limit
+  *          'tag_id' => Tag id
+  *
+  * @return string JSON encoded data containing genre information.
+  *
+  **/
+if (!function_exists('getRelatedGenres')) {
+  function getRelatedGenres($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 5;
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    
+    $sql = "WITH `albums_with_tag` AS (
+            SELECT " . TBL_genres . ".`album_id`
+            FROM " . TBL_genres . "
+            WHERE " . TBL_genres . ".`genre_id` = ?
+          ),
+          `album_listenings` AS (
+            SELECT " . TBL_listening . ".`album_id`, COUNT(*) AS `listening_count`
+            FROM " . TBL_listening . "
+            WHERE " . TBL_listening . ".`album_id` IN (SELECT `album_id` FROM `albums_with_tag`)
+            GROUP BY " . TBL_listening . ".`album_id`
+          ),
+          `related_genres` AS (
+            SELECT " . TBL_genres . ".`genre_id`,
+                  SUM(`album_listenings`.`listening_count`) AS `total_listenings`
+            FROM " . TBL_genres . "
+            JOIN `album_listenings` ON " . TBL_genres . ".`album_id` = `album_listenings`.`album_id`
+            WHERE " . TBL_genres . ".`genre_id` != ?
+            GROUP BY " . TBL_genres . ".`genre_id`
+          )
+          SELECT `related_genres`.`genre_id`,
+                 " . TBL_genre . ".`name`
+          FROM `related_genres`,
+               " . TBL_genre . "
+          WHERE `related_genres`.`genre_id` = " . TBL_genre . ".`id`
+          ORDER BY `related_genres`.`total_listenings` DESC
+          LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array($tag_id, $tag_id));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);

@@ -68,7 +68,7 @@ class Tag extends CI_Controller {
           }
           $last_item_count = $item->count;
         }
-        
+
         $data['listener_count'] = count(json_decode(getListeners($data) ?? '', true));
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
         $data['js_include'] = array('tag/tags_album', 'helpers/tag_helper');
@@ -235,6 +235,7 @@ class Tag extends CI_Controller {
           $data['top_album_tag'] = $data['top_album_tag_genre'];
           $data['top_artist_tag'] = $data['top_artist_tag_genre'];
           $data += getGenreListenings($data);
+          $data['related'] = json_decode(getRelatedGenres($data) ?? '', true);
           // Get biography.
           $data += getGenreBio($data);
           if (empty($data['bio_summary']) || empty($data['bio_content'])) {
@@ -353,6 +354,7 @@ class Tag extends CI_Controller {
           $data['top_album_tag'] = $data['top_album_tag_keyword'];
           $data['top_artist_tag'] = $data['top_artist_tag_keyword'];
           $data += getKeywordListenings($data);
+          $data['related'] = json_decode(getRelatedKeywords($data) ?? '', true);
           // Get biography.
           $data += getKeywordBio($data);
           if (empty($data['bio_summary']) || empty($data['bio_content'])) {
@@ -470,6 +472,7 @@ class Tag extends CI_Controller {
           $data['top_album_tag'] = $data['top_album_tag_nationality'];
           $data['top_artist_tag'] = $data['top_artist_tag_nationality'];
           $data += getNationalityListenings($data);
+          $data['related'] = json_decode(getRelatedNationalities($data) ?? '', true);
           // Get biography.
           $data += getNationalityBio($data);
           if (empty($data['bio_summary']) || empty($data['bio_content'])) {
@@ -589,6 +592,7 @@ class Tag extends CI_Controller {
           $data['top_album_tag'] = $data['top_album_tag_year'];
           $data['top_artist_tag'] = $data['top_artist_tag_year'];
           $data += getYearListenings($data);
+          $data['related'] = json_decode(getRelatedYears($data) ?? '', true);
           // Get biography.
           $data += getYearBio($data);
           if (empty($data['bio_summary']) || empty($data['bio_content'])) {

@@ -3,47 +3,52 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     foreach ($json_data as $idx => $row) {
       $row['user_ids'] = explode(',', $row['user_ids']);
-      if ($row['type'] === 'nationality') {
-        ?>
-        <li class="tag <?=$row['type']?>">
-          <?=anchor(array($row['type'], url_title($row['name'])), '<img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['name'] . '" />')?>
-          <?php
-          if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
-            ?>
-            <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
-            <?php
-          }
+      switch ($row['type']) {
+
+        case 'nationality' {
           ?>
-        </li>
-        <?php
-      }
-      else if ($row['type'] === 'genre') {
-        ?>
-        <li class="tag <?=$row['type']?> <?=(in_array($this->session->userdata('user_id'), $row['user_ids'])) ? 'active' : ''?>">
-          <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-music"></i> ' . $row['name'])?>
-          <?php
-          if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
-            ?>
-            <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
+          <li class="tag <?=$row['type']?>">
+            <?=anchor(array($row['type'], url_title($row['name'])), '<img src="/media/img/flag_img/' . strtolower($row['country_code']) . '.png"/ alt="' . $row['name'] . '" />')?>
             <?php
-          }
-          ?>
-        </li>
-        <?php
-      }
-      else if ($row['type'] === 'keyword') {
-        ?>
-        <li class="tag <?=$row['type']?>">
-          <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-tag"></i> ' . $row['name'])?>
-          <?php
-          if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
+            if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
+              ?>
+              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
+              <?php
+            }
             ?>
-            <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
-            <?php
-          }
+          </li>
+          <?php
+          break;
+        case 'genre':
           ?>
-        </li>
-        <?php
+          <li class="tag <?=$row['type']?> <?=(in_array($this->session->userdata('user_id'), $row['user_ids'])) ? 'active' : ''?>">
+            <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-music"></i> ' . $row['name'])?>
+            <?php
+            if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
+              ?>
+              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
+              <?php
+            }
+            ?>
+          </li>
+          <?php
+          break;
+        case 'keyword':
+          ?>
+          <li class="tag <?=$row['type']?>">
+            <?=anchor(array($row['type'], url_title($row['name'])), '<i class="fa fa-tag"></i> ' . $row['name'])?>
+            <?php
+            if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
+              ?>
+              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="fa fa-times"></i></a>
+              <?php
+            }
+            ?>
+          </li>
+          <?php
+          break;
+        default:
+          break;
       }
     }
     if ($logged_in === 'true' && empty($hide['add'])) {

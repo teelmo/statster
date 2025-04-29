@@ -272,7 +272,7 @@ if (!function_exists('addAlbumKeyword')) {
     }
     $data += $opts;
   
-    // Add genre data to DB.
+    // Add keyword data to DB.
     $sql = "SELECT " . TBL_keywords . ".`album_id`,
                    " . TBL_keywords . ".`keyword_id`,
                    " . TBL_keywords . ".`user_id`
@@ -388,6 +388,57 @@ if (!function_exists('getMusicByKeyword')) {
             ORDER BY " . $ci->db->escape_str($order_by) . " 
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
+
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
+  }
+}
+
+/**
+  * Returns top music for given keyword.
+  *
+  * @param array $opts.
+  *          'limit'  => Limit
+  *          'tag_id' => Tag id
+  *
+  * @return string JSON encoded data containing keyword information.
+  *
+  **/
+if (!function_exists('getRelatedKeywords')) {
+  function getRelatedKeywords($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 5;
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    
+    $sql = "WITH `albums_with_tag` AS (
+            SELECT " . TBL_keywords . ".`album_id`
+            FROM " . TBL_keywords . "
+            WHERE " . TBL_keywords . ".`keyword_id` = ?
+          ),
+          `album_listenings` AS (
+            SELECT " . TBL_listening . ".`album_id`, COUNT(*) AS `listening_count`
+            FROM " . TBL_listening . "
+            WHERE " . TBL_listening . ".`album_id` IN (SELECT `album_id` FROM `albums_with_tag`)
+            GROUP BY " . TBL_listening . ".`album_id`
+          ),
+          `related_keywords` AS (
+            SELECT " . TBL_keywords . ".`keyword_id`,
+                  SUM(`album_listenings`.`listening_count`) AS `total_listenings`
+            FROM " . TBL_keywords . "
+            JOIN `album_listenings` ON " . TBL_keywords . ".`album_id` = `album_listenings`.`album_id`
+            WHERE " . TBL_keywords . ".`keyword_id` != ?
+            GROUP BY " . TBL_keywords . ".`keyword_id`
+          )
+          SELECT `related_keywords`.`keyword_id`,
+                 " . TBL_keyword . ".`name`
+          FROM `related_keywords`,
+               " . TBL_keyword . "
+          WHERE `related_keywords`.`keyword_id` = ". TBL_keyword . ".`id`
+          ORDER BY `related_keywords`.`total_listenings` DESC
+          LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array($tag_id, $tag_id));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);

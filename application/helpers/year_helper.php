@@ -78,7 +78,7 @@ if (!function_exists('getAllYears')) {
                    " . TBL_album . ".`year`
             FROM " . TBL_album . "
             WHERE 1
-            ORDER BY " . TBL_album . ".`year`";
+            ORDER BY " . TBL_album . ".`year";
     $query = $ci->db->query($sql, array());
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
@@ -208,7 +208,7 @@ if (!function_exists('getYearListenings')) {
     $count_type = empty($opts['user_id']) ? 'total_count' : 'user_count';
     $tag_id = empty($opts['tag_id']) ? '%' : $opts['tag_id'];
     $user_id = empty($opts['user_id']) ? '%' : $opts['user_id'];
-    $sql = "SELECT count(*) AS `" . $count_type . "`
+    $sql = "SELECT count(*) AS " . $count_type . "
             FROM " . TBL_album . ",
                  " . TBL_listening . "
             WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
@@ -265,6 +265,61 @@ if (!function_exists('getMusicByYear')) {
             ORDER BY " . $ci->db->escape_str($order_by) . " 
             LIMIT " . $ci->db->escape_str($limit);
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $tag_id));
+
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
+  }
+}
+
+/**
+  * Returns top music for given genre.
+  *
+  * @param array $opts.
+  *          'limit'  => Limit
+  *          'tag_id' => Tag id
+  *
+  * @return string JSON encoded data containing genre information.
+  *
+  **/
+if (!function_exists('getRelatedYears')) {
+  function getRelatedYears($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 5;
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+
+    $sql = "WITH `listeners_of_selected_year` AS (
+              SELECT DISTINCT " . TBL_listening . ".`user_id`
+              FROM " . TBL_listening . "
+              WHERE " . TBL_listening . ".`album_id` IN (
+                SELECT " . TBL_album . ".`id`
+                FROM " . TBL_album . "
+                WHERE " . TBL_album . ".`year` = ?
+              )
+            ),
+            `listening_by_those_users` AS (
+              SELECT " . TBL_listening . ".`album_id`
+              FROM " . TBL_listening . "
+              JOIN `listeners_of_selected_year`
+                ON " . TBL_listening . ".`user_id` = `listeners_of_selected_year`.`user_id`
+            ),
+            `aggregated_years` AS (
+              SELECT " . TBL_album . ".`year`,
+                     COUNT(*) AS `total_listenings`
+              FROM " . TBL_album . "
+              JOIN `listening_by_those_users`
+                ON `listening_by_those_users`.`album_id` = " . TBL_album . ".`id`
+              WHERE " . TBL_album . ".`year` IS NOT NULL
+                AND " . TBL_album . ".`year` != 0
+                AND " . TBL_album . ".`year` != ?
+              GROUP BY " . TBL_album . ".`year`
+            )
+            SELECT `year`, `total_listenings`
+            FROM `aggregated_years`
+            ORDER BY `total_listenings` DESC
+            LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array($tag_id, $tag_id));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);

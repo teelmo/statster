@@ -121,9 +121,9 @@ h3 {
   text-transform: uppercase;
   white-space: nowrap;
   a {
-    color: @color-gray-mid;
+    color: @color-black;
     &:hover {
-      color: @color-black;
+      color: @color-gray-mid;
     }
     &:visited {
       color: @color-gray-mid;
@@ -316,6 +316,13 @@ strong {
 #artists,
 #tags {
   padding-bottom: 10px;
+  .meta {
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
   .tag {
     display: inline-block;
     font-size: 0;
@@ -324,6 +331,7 @@ strong {
     &.addtags,
     &.genre,
     &.nationality,
+    &.year,
     &.keyword {
       > a {
         background-color: #333;
@@ -727,7 +735,7 @@ table.music_table {
               font-size: 15px;
               margin-left: 5px;
               position: relative;
-              top: 3px;
+              top: 2px;
               &:hover {
                 .opacity(1);
                 color: @color-black;

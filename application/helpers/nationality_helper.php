@@ -361,6 +361,58 @@ if (!function_exists('getMusicByNationality')) {
 }
 
 /**
+  * Returns top music for given nationality.
+  *
+  * @param array $opts.
+  *          'limit'  => Limit
+  *          'tag_id' => Tag id
+  *
+  * @return string JSON encoded data containing nationality information.
+  *
+  **/
+if (!function_exists('getRelatedNationalities')) {
+  function getRelatedNationalities($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 5;
+    $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '';
+    
+    $sql = "WITH `albums_with_tag` AS (
+            SELECT " . TBL_nationalities . ".`album_id`
+            FROM " . TBL_nationalities . "
+            WHERE " . TBL_nationalities . ".`nationality_id` = ?
+          ),
+          `album_listenings` AS (
+            SELECT " . TBL_listening . ".`album_id`, COUNT(*) AS `listening_count`
+            FROM " . TBL_listening . "
+            WHERE " . TBL_listening . ".`album_id` IN (SELECT `album_id` FROM `albums_with_tag`)
+            GROUP BY " . TBL_listening . ".`album_id`
+          ),
+          `related_nationalities` AS (
+            SELECT " . TBL_nationalities . ".`nationality_id`,
+                  SUM(`album_listenings`.`listening_count`) AS `total_listenings`
+            FROM " . TBL_nationalities . "
+            JOIN `album_listenings` ON " . TBL_nationalities . ".`album_id` = `album_listenings`.`album_id`
+            WHERE " . TBL_nationalities . ".`nationality_id` != ?
+            GROUP BY " . TBL_nationalities . ".`nationality_id`
+          )
+          SELECT `related_nationalities`.`nationality_id`,
+                 " . TBL_nationality . ".`country` as `name`,
+                 " . TBL_nationality . ".`country_code`
+          FROM `related_nationalities`,
+               " . TBL_nationality . "
+          WHERE `related_nationalities`.`nationality_id` = " . TBL_nationality . ".`id`
+          ORDER BY `related_nationalities`.`total_listenings` DESC
+          LIMIT " . $ci->db->escape_str($limit);
+    $query = $ci->db->query($sql, array($tag_id, $tag_id));
+
+    $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
+    return _json_return_helper($query, $no_content);
+  }
+}
+
+/**
   * Delete album nationality data.
   *
   * @param array $opts.
