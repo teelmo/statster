@@ -1,8 +1,9 @@
 <?php
+if (!defined('BASEPATH')) exit ('No direct script access allowed');
+
 // application/core/MY_Exceptions.php
 class MY_Exceptions extends CI_Exceptions {
-  public function show_404($page = '', $log_error = true)
-  {
+  public function show_404($page = '', $log_error = false) {
     $ci =& get_instance();
     $ci->load->helper(array('img_helper', 'music_helper', 'output_helper'));
     $opts = array(
