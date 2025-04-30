@@ -122,6 +122,8 @@ define('TBL_user_shout', 'user_shout');
 define('TBL_user_info', 'user_info');
 define('TBL_year_biography', 'year_biography');
 
+define('CACHE_TTL', 3600); // 60 minutes
+
 define('IMAGE_SIZES', [32, 64, 174, 300]);
 define('IMAGE_SERVER_PROTOCOL', 'https://');
 define('IMAGE_SERVER_IP', 'img.statster.info');
