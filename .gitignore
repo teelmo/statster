@@ -2,3 +2,5 @@ media/img/artist_img
 media/img/album_img
 media/img/user_img
 user_guide
+application/cache
+application/logs
