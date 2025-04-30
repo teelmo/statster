@@ -1,4 +1,5 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Like extends CI_Controller {
 
   public function index($artist_name = '', $album_name = '') {

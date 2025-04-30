@@ -1,4 +1,5 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
  * This is the controller for the albums page, not for 
  * a single album which is found from the music controller
