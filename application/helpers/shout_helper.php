@@ -111,19 +111,30 @@ if (!function_exists('getShoutCountUser')) {
   */
 if (!function_exists('getAlbumShout')) {
   function getAlbumShout($opts = array()) {
-    $ci=& get_instance();
+    $ci = &get_instance();
     $ci->load->database();
+    $ci->load->helper(['id_helper']);
 
-    // Load helpers.
-    $ci->load->helper(array('id_helper'));
+    // Cache key based on options
+    $cache_key = 'get_album_shout_' . md5(json_encode($opts));
+
+    // Try cache
+    if ($cached = $ci->cache->file->get($cache_key)) {
+      return $cached;
+    }
 
     $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
     $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
-    $sub_group_by = (isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'album') ? "GROUP BY " . TBL_artists . ".`album_id`" : ((isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'artist') ? "GROUP BY " . TBL_artists . ".`artist_id`" : "GROUP BY " . TBL_artists . ".`id`");
+    $sub_group_by = (isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'album') 
+        ? "GROUP BY " . TBL_artists . ".`album_id`" 
+        : ((isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'artist') 
+          ? "GROUP BY " . TBL_artists . ".`artist_id`" 
+          : "GROUP BY " . TBL_artists . ".`id`");
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] . ' 00:00:00' : '1970-00-00 00:00:00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+
     $sql = "SELECT " . TBL_album_shout . ".`id` as `shout_id`,
                    " . TBL_album_shout . ".`album_id`,
                    " . TBL_album_shout . ".`created`,
@@ -143,21 +154,28 @@ if (!function_exists('getAlbumShout')) {
                  (SELECT " . TBL_artists . ".`artist_id`,
                          " . TBL_artists . ".`album_id`
                   FROM " . TBL_artists . "
-                  " . $sub_group_by . ") AS " . TBL_artists . ",
+                  " . $sub_group_by . ") AS `artist_album_group`,
                  " . TBL_user . "
-            WHERE " . TBL_album_shout . ".`album_id` = " . TBL_artists . ".`album_id`
+            WHERE " . TBL_album_shout . ".`album_id` = `artist_album_group`.`album_id`
               AND " . TBL_album_shout . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_artists . ".`artist_id` LIKE ?
-              AND " . TBL_artists . ".`album_id` LIKE ?
+              AND `artist_album_group`.`album_id` = " . TBL_album . ".`id`
+              AND `artist_album_group`.`artist_id` = " . TBL_artist . ".`id`
+              AND `artist_album_group`.`artist_id` LIKE ?
+              AND `artist_album_group`.`album_id` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
               AND " . TBL_album_shout . ".`created` BETWEEN ? AND ?
             ORDER BY " . TBL_album_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($album_id, $artist_id, $album_id, $username, $lower_limit, $upper_limit));
+
+    $query = $ci->db->query($sql, [$album_id, $artist_id, $album_id, $username, $lower_limit, $upper_limit]);
+
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
-    return _json_return_helper($query, $no_content);
+    $result = _json_return_helper($query, $no_content);
+
+    // Save to cache for 10 minutes
+    $ci->cache->file->save($cache_key, $result, CACHE_TTL);
+
+    return $result;
   }
 }
 

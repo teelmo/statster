@@ -21,15 +21,34 @@ if (!function_exists('getListenings')) {
 
     $ci->load->helper(array('id_helper'));
 
+    // Build cache key based on options
+    $cache_key = 'get_listenings_' . md5(json_encode($opts));
+
+    // Attempt to retrieve from cache
+    if ($cached = $ci->cache->file->get($cache_key)) {
+      return $cached;
+    }
+
     $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
     $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
-    $sub_group_by = (isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'album') ? "GROUP BY " . TBL_artists . ".`album_id`" : ((isset($opts['group_by']) && $opts['sub_group_by'] === 'artist') ? "GROUP BY " . TBL_artists . ".`artist_id`" : "GROUP BY " . TBL_artists . ".`id`");
+
+    $sub_group_by = "GROUP BY " . TBL_artists . ".`id`"; // default fallback
+    if (!empty($opts['sub_group_by'])) {
+      if ($opts['sub_group_by'] === 'album') {
+        $sub_group_by = "GROUP BY " . TBL_artists . ".`album_id`";
+      }
+      elseif ($opts['sub_group_by'] === 'artist') {
+        $sub_group_by = "GROUP BY " . TBL_artists . ".`artist_id`";
+      }
+    }
+
     $date = !empty($opts['date']) ? $opts['date'] : '%';
     $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
-    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
+    $limit = !empty($opts['limit']) ? (int)$opts['limit'] : 10;
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT " . TBL_listening . ".`id` as `listening_id`,
+
+    $sql = "SELECT " . TBL_listening . ".`id` AS `listening_id`,
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_album . ".`album_name`,
                    " . TBL_album . ".`year`,
@@ -37,23 +56,20 @@ if (!function_exists('getListenings')) {
                    " . TBL_user . ".`username`,
                    " . TBL_listening . ".`date`,
                    " . TBL_listening . ".`created`,
-                   " . TBL_artist . ".`id` as `artist_id`,
-                   " . TBL_album . ".`id` as `album_id`,
-                   " . TBL_user . ".`id` as `user_id`
-            FROM " . TBL_album . ",
-                 " . TBL_artist . ",
-                 (SELECT " . TBL_artists . ".`artist_id`,
-                         " . TBL_artists . ".`album_id`
-                  FROM " . TBL_artists . "
-                  " . $sub_group_by . ") AS " . TBL_artists . ",
-                 " . TBL_listening . ",
-                 " . TBL_user . "
-                 " . $ci->db->escape_str($from) . "
-            WHERE " . TBL_listening . ".`album_id` =  " . TBL_album . ".`id`
-              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_user . ".`username` LIKE ?
+                   " . TBL_artist . ".`id` AS `artist_id`,
+                   " . TBL_album . ".`id` AS `album_id`,
+                   " . TBL_user . ".`id` AS `user_id`
+            FROM (
+                SELECT " . TBL_artists . ".`artist_id`, " . TBL_artists . ".`album_id`
+                FROM " . TBL_artists . "
+                " . $ci->db->escape_str($sub_group_by) . "
+            ) AS `artist_album_group`
+            JOIN " . TBL_album . " ON `artist_album_group`.`album_id` = " . TBL_album . ".`id`
+            JOIN " . TBL_artist . " ON `artist_album_group`.`artist_id` = " . TBL_artist . ".`id`
+            JOIN " . TBL_listening . " ON " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+            JOIN " . TBL_user . " ON " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+            " . $ci->db->escape_str($from) . "
+            WHERE " . TBL_user . ".`username` LIKE ?
               AND " . TBL_artist . ".`id` LIKE ?
               AND " . TBL_album . ".`id` LIKE ?
               AND " . TBL_listening . ".`date` LIKE ?
@@ -61,10 +77,16 @@ if (!function_exists('getListenings')) {
             ORDER BY " . TBL_listening . ".`date` DESC,
                      " . TBL_listening . ".`id` DESC
             LIMIT " . $ci->db->escape_str($limit);
+
     $query = $ci->db->query($sql, array($username, $artist_id, $album_id, $date));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
-    return _json_return_helper($query, $no_content);
+    $result = _json_return_helper($query, $no_content);
+
+    // Save to cache for 10 minutes
+    $ci->cache->file->save($cache_key, $result, CACHE_TTL);
+
+    return $result;
   }
 }
 
@@ -133,6 +155,7 @@ if (!function_exists('addListening')) {
       $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date'], $data['created']));
       if ($ci->db->affected_rows() === 1) {
         $data['listening_id'] = $ci->db->insert_id();
+        $ci->cache->file->clean();
         // Add listening format data to DB.
         if (!empty($_POST['format'])) {
           list($data['format_name'], $data['format_type_name']) = explode(':', $_POST['format']);

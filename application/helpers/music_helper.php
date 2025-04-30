@@ -340,12 +340,21 @@ if (!function_exists('getListeningsCumulative')) {
   */
 if (!function_exists('getArtistAlbums')) {
   function getArtistAlbums($opts = array()) {
-    $ci=& get_instance();
+    $ci = &get_instance();
     $ci->load->database();
+
+    // Cache key based on options
+    $cache_key = 'get_artist_albums_' . md5(json_encode($opts));
+
+    // Return from cache if available
+    if ($cached = $ci->cache->file->get($cache_key)) {
+      return $cached;
+    }
 
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `albums`.`year` DESC';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+
     $sql = "SELECT " . TBL_artist . ".`artist_name`,
                    " . TBL_artist . ".`id` AS `artist_id`,
                    `albums`.`album_name`,
@@ -375,7 +384,12 @@ if (!function_exists('getArtistAlbums')) {
     $query = $ci->db->query($sql, array($username, $artist_name));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
-    return _json_return_helper($query, $no_content);
+    $result = _json_return_helper($query, $no_content);
+
+    // Save to cache for 10 minutes
+    $ci->cache->file->save($cache_key, $result, CACHE_TTL);
+
+    return $result;
   }
 }
 
