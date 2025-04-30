@@ -111,6 +111,16 @@ $autoload['language'] = array();
 
 $autoload['model'] = array();
 
+/*
+| -------------------------------------------------------------------
+|  Auto-load Drivers
+| -------------------------------------------------------------------
+| Automatically load the 'cache' driver.
+|
+*/
+
+$autoload['drivers'] = array('cache');
+
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */
