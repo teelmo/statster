@@ -22,12 +22,7 @@
 | a PHP script and you can easily do that on your own.
 |
 */
-if (ENVIRONMENT === 'development') {
-  $config['base_url'] = 'http://statster.local';
-}
-else {
-  $config['base_url'] = 'https://statster.info';
-}
+$config['base_url'] = (ENVIRONMENT === 'development') ? 'http://statster.local' : $config['base_url'] = 'https://statster.info';
 
 /*
 |--------------------------------------------------------------------------
