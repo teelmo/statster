@@ -107,7 +107,7 @@ if (!empty($json_data)) {
       </tr>
       <?php
       $rank++;
-      $prev_count = $row['count'];
+      $prev_count = isset($row['count']) ? $row['count'] : FALSE;
     }
   }
   elseif (is_object($json_data)) {
