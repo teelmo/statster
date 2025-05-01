@@ -113,12 +113,10 @@ if (!function_exists('getAlbumShout')) {
   function getAlbumShout($opts = array()) {
     $ci = &get_instance();
     $ci->load->database();
+    
     $ci->load->helper(['id_helper']);
 
-    // Cache key based on options
     $cache_key = 'get_album_shout_' . md5(json_encode($opts));
-
-    // Try cache
     if ($cached = $ci->cache->file->get($cache_key)) {
       return $cached;
     }
@@ -172,8 +170,7 @@ if (!function_exists('getAlbumShout')) {
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
 
-    // Save to cache for 10 minutes
-    $ci->cache->file->save($cache_key, $result, CACHE_TTL);
+    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
 
     return $result;
   }

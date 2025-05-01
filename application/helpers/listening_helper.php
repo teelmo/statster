@@ -8,7 +8,7 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'date'            => Listening date in yyyy-mm-dd format
-  *          'no_content'  => Output format
+  *          'no_content'      => Output format
   *          'limit'           => Limit
   *          'username'        => Username
   *
@@ -21,18 +21,19 @@ if (!function_exists('getListenings')) {
 
     $ci->load->helper(array('id_helper'));
 
-    // Build cache key based on options
-    $cache_key = 'get_listenings_' . md5(json_encode($opts));
+    $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
+    $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
 
-    // Attempt to retrieve from cache
+    $cache_key = ($artist_id !== '%') 
+      ? 'get_listenings-artist_' . md5($artist_id) . '_' . md5(json_encode($opts)) 
+      : (($album_id !== '%') 
+        ? 'get_listenings-album_' . md5($album_id) . '_' . md5(json_encode($opts)) 
+        : 'get_listenings_' . md5(json_encode($opts)));
     if ($cached = $ci->cache->file->get($cache_key)) {
       return $cached;
     }
 
-    $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
-    $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
-
-    $sub_group_by = "GROUP BY " . TBL_artists . ".`id`"; // default fallback
+    $sub_group_by = "GROUP BY " . TBL_artists . ".`id`";
     if (!empty($opts['sub_group_by'])) {
       if ($opts['sub_group_by'] === 'album') {
         $sub_group_by = "GROUP BY " . TBL_artists . ".`album_id`";
@@ -44,7 +45,7 @@ if (!function_exists('getListenings')) {
 
     $date = !empty($opts['date']) ? $opts['date'] : '%';
     $from = !empty($opts['from']) ? ', ' . $opts['from'] : '';
-    $limit = !empty($opts['limit']) ? (int)$opts['limit'] : 10;
+    $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
 
@@ -62,7 +63,7 @@ if (!function_exists('getListenings')) {
             FROM (
                 SELECT " . TBL_artists . ".`artist_id`, " . TBL_artists . ".`album_id`
                 FROM " . TBL_artists . "
-                " . $ci->db->escape_str($sub_group_by) . "
+                " . $sub_group_by . "
             ) AS `artist_album_group`
             JOIN " . TBL_album . " ON `artist_album_group`.`album_id` = " . TBL_album . ".`id`
             JOIN " . TBL_artist . " ON `artist_album_group`.`artist_id` = " . TBL_artist . ".`id`
@@ -83,7 +84,6 @@ if (!function_exists('getListenings')) {
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
 
-    // Save to cache for 10 minutes
     $ci->cache->file->save($cache_key, $result, CACHE_TTL);
 
     return $result;
@@ -149,13 +149,17 @@ if (!function_exists('addListening')) {
       $data['created'] = trim($opts['created']);
 
       // Add listening data to DB.
-      $sql = "INSERT
-                INTO " . TBL_listening . " (`user_id`, `album_id`, `date`, `created`)
-                VALUES (?, ?, ?, ?)";
+      $sql = "INSERT INTO " . TBL_listening . " (`user_id`, `album_id`, `date`, `created`)
+                      VALUES (?, ?, ?, ?)";
       $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date'], $data['created']));
       if ($ci->db->affected_rows() === 1) {
         $data['listening_id'] = $ci->db->insert_id();
-        $ci->cache->file->clean();
+
+        clear_cache_by_prefix(['get_listenings_', 'get_listenings-album_' . md5($data['album_id'])]);
+        foreach (getAlbumArtists($data) as $artist) {
+          clear_cache_by_prefix(['get_listenings-artist_' . md5($artist['id'])]);
+        } 
+
         // Add listening format data to DB.
         if (!empty($_POST['format'])) {
           list($data['format_name'], $data['format_type_name']) = explode(':', $_POST['format']);
@@ -285,7 +289,7 @@ if (!function_exists('addListeningFormat')) {
     $data['format_id'] = getFormatID($data);
     $data['format_type_id'] = getFormatTypeID($data);
     (!empty($data['format_id'])) ? addListeningFormats($data) : FALSE;
-    (!empty($data['format_type_id'])) ?  addListeningFormatTypes($data) : FALSE;
+    (!empty($data['format_type_id'])) ? addListeningFormatTypes($data) : FALSE;
 
     return TRUE;
   }
@@ -310,9 +314,8 @@ if (!function_exists('addListeningFormats')) {
     $listening_id = $opts['listening_id'];
     $user_id = $opts['user_id'];
 
-    $sql = "INSERT
-              INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`)
-              VALUES (?, ?, ?)";
+    $sql = "INSERT INTO " . TBL_listening_formats . " (`listening_id`, `listening_format_id`, `user_id`)
+                    VALUES (?, ?, ?)";
     $query = $ci->db->query($sql, array($listening_id, $format_id, $user_id));
     return ($ci->db->affected_rows() === 1) ? $ci->db->insert_id() : FALSE;
   }
@@ -336,9 +339,8 @@ if (!function_exists('addListeningFormatTypes')) {
     $format_type_id = !empty($opts['format_type_id']) ? $opts['format_type_id'] : '';
     $listening_id = $opts['listening_id'];
     $user_id = $opts['user_id'];
-    $sql = "INSERT
-              INTO " . TBL_listening_format_types . " (`listening_id`, `listening_format_type_id`, `user_id`)
-              VALUES (?, ?, ?)";
+    $sql = "INSERT INTO " . TBL_listening_format_types . " (`listening_id`, `listening_format_type_id`, `user_id`)
+                    VALUES (?, ?, ?)";
     $query = $ci->db->query($sql, array($listening_id, $format_type_id, $user_id));
     return ($ci->db->affected_rows() === 1) ? $ci->db->insert_id() : FALSE;
   }

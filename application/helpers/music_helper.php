@@ -117,7 +117,7 @@ if (!function_exists('getArtists')) {
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
   *          'having'          => Custom having argument
-  *          'no_content'  => Output format
+  *          'no_content'      => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -263,14 +263,20 @@ if (!function_exists('getListeners')) {
   * @param array $opts.
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
+  *          'no_content'      => Output format
   *          'username'        => Username
   *
   * @return string JSON encoded data containing album information.
   */
 if (!function_exists('getListeningsCumulative')) {
   function getListeningsCumulative($opts = array()) {
-    $ci=& get_instance();
+    $ci = &get_instance();
     $ci->load->database();
+
+    $cache_key = 'get_listenings_cumulative_' . md5(json_encode($opts));
+    if ($cached = $ci->cache->file->get($cache_key)) {
+      return $cached;
+    }
 
     $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
@@ -295,34 +301,36 @@ if (!function_exists('getListeningsCumulative')) {
               GROUP BY `line_date`
               ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql, array($username, $artist_name, $album_name));
-    }
-    else if ($username !== '%') {
+    } elseif ($username !== '%') {
       $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
-                   (SELECT COUNT(*)
-                    FROM " . TBL_listening . ",
-                         " . TBL_user . "
-                    WHERE " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-                      AND " . TBL_user . ".`username` = ?
-                      AND " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
-            FROM " . TBL_listening . " AS `a`
-            WHERE MONTH(`a`.`date`) <> 0
-            GROUP BY `line_date`
-            ORDER BY `line_date` ASC";
+                     (SELECT COUNT(*)
+                      FROM " . TBL_listening . ",
+                           " . TBL_user . "
+                      WHERE " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                        AND " . TBL_user . ".`username` = ?
+                        AND " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
+              FROM " . TBL_listening . " AS `a`
+              WHERE MONTH(`a`.`date`) <> 0
+              GROUP BY `line_date`
+              ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql, array($username));
-    }
-    else {
+    } else {
       $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
-                   (SELECT COUNT(*)
-                    FROM " . TBL_listening . "
-                    WHERE " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
-            FROM " . TBL_listening . " AS `a`
-            WHERE MONTH(`a`.`date`) <> 0
-            ORDER BY `line_date` ASC";
-      $query = $ci->db->query($sql, array());
+                     (SELECT COUNT(*)
+                      FROM " . TBL_listening . "
+                      WHERE " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
+              FROM " . TBL_listening . " AS `a`
+              WHERE MONTH(`a`.`date`) <> 0
+              ORDER BY `line_date` ASC";
+      $query = $ci->db->query($sql);
     }
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
-    return _json_return_helper($query, $no_content);
+    $result = _json_return_helper($query, $no_content);
+
+    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
+
+    return $result;
   }
 }
 
@@ -331,7 +339,7 @@ if (!function_exists('getListeningsCumulative')) {
   *
   * @param array $opts.
   *          'artist_name'     => Artist name
-  *          'no_content'  => Output format
+  *          'no_content'      => Output format
   *          'order_by'        => Order by argument
   *          'username'        => Username
   *
@@ -343,10 +351,7 @@ if (!function_exists('getArtistAlbums')) {
     $ci = &get_instance();
     $ci->load->database();
 
-    // Cache key based on options
     $cache_key = 'get_artist_albums_' . md5(json_encode($opts));
-
-    // Return from cache if available
     if ($cached = $ci->cache->file->get($cache_key)) {
       return $cached;
     }
@@ -386,8 +391,7 @@ if (!function_exists('getArtistAlbums')) {
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
 
-    // Save to cache for 10 minutes
-    $ci->cache->file->save($cache_key, $result, CACHE_TTL);
+    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
 
     return $result;
   }
@@ -398,35 +402,36 @@ if (!function_exists('getArtistAlbums')) {
   *
   * @param array $opts.
   *          'album_id'        => Album ID
-  *          'no_content'  => Output format
+  *          'no_content'      => Output format
   *
   * @return string JSON encoded data containing artists' information.
   *
   */
 if (!function_exists('getAlbumArtists')) {
   function getAlbumArtists($opts = array()) {
-    $ci=& get_instance();
+    $ci = &get_instance();
     $ci->load->database();
-    
-    $album_id = isset($opts['album_id']) ? $opts['album_id'] : FALSE;
-    if ($album_id !== FALSE) {
-      $sql = "SELECT " . TBL_artist . ".`id`,
-                     " . TBL_artist . ".`artist_name`,
-                     " . TBL_artist . ".`spotify_id`,
-                     " . TBL_artist . ".`created`,
-                     " . TBL_artist . ".`user_id`
-              FROM " . TBL_artist . ",
-                   " . TBL_artists . "
-              WHERE " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-                AND " . TBL_artists . ".`album_id` = ?
-              ORDER BY " . TBL_artist . ".`artist_name` ASC";
-      $query = $ci->db->query($sql, array($album_id));
 
-      return ($query->num_rows() > 0) ? $query->result_array() : FALSE;
-    }
-    else {
+    $album_id = isset($opts['album_id']) ? $opts['album_id'] : FALSE;
+    if ($album_id === FALSE) {
       return FALSE;
     }
+
+    $sql = "SELECT " . TBL_artist . ".`id`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`spotify_id`,
+                   " . TBL_artist . ".`created`,
+                   " . TBL_artist . ".`user_id`
+            FROM " . TBL_artist . ",
+                 " . TBL_artists . "
+            WHERE " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` = ?
+            ORDER BY " . TBL_artist . ".`artist_name` ASC";
+
+    $query = $ci->db->query($sql, array($album_id));
+    $result = ($query->num_rows() > 0) ? $query->result_array() : FALSE;
+
+    return $result;
   }
 }
 
