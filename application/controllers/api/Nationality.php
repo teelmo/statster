@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Nationality extends CI_Controller {
+class Nationality extends MY_Controller {
 
   public function index() {
     exit ('No direct script access allowed');

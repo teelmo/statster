@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class AssociatedArtist extends CI_Controller {
+class AssociatedArtist extends MY_Controller {
 
   public function index() {
     // Load helpers

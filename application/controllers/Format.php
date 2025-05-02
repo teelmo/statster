@@ -1,9 +1,8 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Format extends CI_Controller {
+class Format extends MY_Controller {
 
   public function index($artist_name = '', $album_name = '') {
-
     $data = array();
     if (!empty($album_name)) {
       // Load helpers.

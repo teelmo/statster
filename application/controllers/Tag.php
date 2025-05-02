@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Tag extends CI_Controller {
+class Tag extends MY_Controller {
 
   public function index($artist_name = '', $album_name = '') {
     $data = array();

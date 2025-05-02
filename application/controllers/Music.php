@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Music extends CI_Controller {
+class Music extends MY_Controller {
 
   public function index() {
     $data = array();

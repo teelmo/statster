@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Like extends CI_Controller {
+class Like extends MY_Controller {
 
   public function index($artist_name = '', $album_name = '') {
     if (!empty($album_name)) {

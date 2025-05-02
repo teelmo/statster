@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Inbox extends CI_Controller {
+class Inbox extends MY_Controller {
 
   public function index() {
     exit ('No direct script access allowed');

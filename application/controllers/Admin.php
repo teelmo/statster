@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  * This is the controller for the artists page, not for 
  * a single artist which is found from the music controller
  */
-class Admin extends CI_Controller {
+class Admin extends MY_Controller {
 
   public function index() {
     if (isset($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
