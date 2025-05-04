@@ -107,6 +107,8 @@ if (!function_exists('addListening')) {
       $ci=& get_instance();
       $ci->load->database();
 
+      $ci->load->helper(array('music_helper'));
+      
       $data = array();
       $data['album_id'] = $opts['album_id'];
       // Get user id from session.
@@ -120,7 +122,6 @@ if (!function_exists('addListening')) {
         if (empty($data_tmp['spotify_id'])) {
           getSpotifyResourceId($data_tmp[0]);
         }
-        $ci->load->helper(array('music_helper'));
         foreach (getAlbumArtists($data) as $artist) {
           $data_tmp = getArtistInfo(array('artist_id' => $artist['id']));
           if (empty($data_tmp['spotify_id'])) {
