@@ -18,14 +18,16 @@ class AutoComplete extends MY_Controller {
         list($data['artist'], $data['album']) = explode(DASH, $search_str);
         $search_str_db_artist = trim($data['artist']);
         $search_str_db_artist_wc = '%' . trim($data['artist']) . '%';
-        $search_str_db_album = trim($data['album']). '%';
+        $search_str_db_artist_hwc = trim($data['artist']) . '%';
+        $search_str_db_album = trim($data['album']) . '%';
         $search_str_db_album_wc = '%' . trim($data['album']) . '%';
         $sql = "SELECT " . TBL_artists . ".`artist_id`,
                        " . TBL_artists . ".`album_id`,
                        " . TBL_artist . ".`artist_name`,
                        " . TBL_album . ".`album_name`,
                        " . TBL_album . ".`year`,
-                       (CASE WHEN " . TBL_artist . ".`artist_name` LIKE ? THEN 0 ELSE 1 END) AS `artist_relevance`,
+                       (CASE WHEN " . TBL_artist . ".`artist_name` LIKE ? THEN 0 ELSE 1 END) AS `artist_relevance1`,
+                       (CASE WHEN " . TBL_artist . ".`artist_name` LIKE ? THEN 0 ELSE 1 END) AS `artist_relevance2`,
                        (CASE WHEN " . TBL_album . ".`album_name` LIKE ? THEN 0 ELSE 1 END) AS `album_relevance`
                 FROM " . TBL_album . ",
                      " . TBL_artist . ",
@@ -39,7 +41,8 @@ class AutoComplete extends MY_Controller {
                     AND " . TBL_album . ".`album_name` LIKE ? COLLATE utf8_swedish_ci)
                 GROUP BY " . TBL_artists . ".`album_id`
                 ORDER BY 
-                  `artist_relevance` ASC,
+                  `artist_relevance1` ASC,
+                  `artist_relevance2` ASC,
                   " . TBL_album . ".`year` DESC,
                   `album_relevance` ASC,
                   " . TBL_artist . ".`artist_name` ASC,
