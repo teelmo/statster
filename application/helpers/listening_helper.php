@@ -155,12 +155,10 @@ if (!function_exists('addListening')) {
       $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date'], $data['created']));
       if ($ci->db->affected_rows() === 1) {
         $data['listening_id'] = $ci->db->insert_id();
-
         clear_cache_by_prefix(['c_get_listenings_', 'c_get_listenings-album_' . md5($data['album_id'])]);
         foreach (getAlbumArtists($data) as $artist) {
           clear_cache_by_prefix(['c_get_listenings-artist_' . md5($artist['id'])]);
-        } 
-
+        }
         // Add listening format data to DB.
         if (!empty($_POST['format'])) {
           list($data['format_name'], $data['format_type_name']) = explode(':', $_POST['format']);
@@ -207,6 +205,7 @@ if (!function_exists('deleteListening')) {
     $query = $ci->db->query($sql, array($data['listening_id'], $data['user_id']));
 
     if ($ci->db->affected_rows() === 1) {
+      clear_cache_by_prefix(['c_get_listenings']);
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }

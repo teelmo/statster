@@ -26,6 +26,19 @@ class Ajax extends MY_Controller {
     }
   }
 
+
+  public function cache($type) {
+    switch ($type) {
+      case 'delete':
+        $this->cache->file->clean();
+        header('HTTP/1.1 200 OK');
+        break;
+      default:
+        header('HTTP/1.1 200 OK');
+        break;
+    }
+  }
+
   public function musicTable() {
     if (!empty($_POST)) {
       // Load helpers

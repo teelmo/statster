@@ -185,6 +185,18 @@ $.extend(view, {
       $('#transferAlbumDataTo').trigger('chosen:updated');
       return false;
     });
+    $('.clear_cache').click(function () {
+      $.ajax({
+        dataType:'json',
+        statusCode:{
+          200: function () { // 200 OK
+            location.reload();
+          }
+        },
+        type:'GET',
+        url:'/Ajax/cache/delete'
+      });
+    });
   }
 });
 

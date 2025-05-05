@@ -22,6 +22,11 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
+      <h3>Clear cache</h3>
+      <input type="submit" class="clear_cache" value="Clear cache" />
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
       <h3>Add artist</h3>
       <?=form_open('', array('class' => '', 'id' => 'addArtistForm'))?>
         <div><input type="text" autocomplete="off" tabindex="1" id="addArtistText" placeholder="New artist name" name="addArtistText" /></div>
