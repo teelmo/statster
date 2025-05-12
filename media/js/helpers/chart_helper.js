@@ -2,29 +2,58 @@ $.extend(view, {
   initChart: function () {
     app.chart = $('.music_bar').highcharts({
       chart:{
-        height:300,
         backgroundColor:'transparent',
+        height:300,
         zoomType:'x'
       },
       credits:{
         enabled:false
       },
+      legend:{
+        enabled:false,
+      },
+      plotOptions:{
+        column:{
+          borderWidth: 0,
+          color:(getComputedStyle(document.documentElement).getPropertyValue('--theme').trim() === 'dark') ? '#FFE082' : '#FFA000',
+          groupPadding:0.01,
+          maxPointWidth:100,
+          pointPadding:0.06
+        }
+      },
+      series: [{
+        data:[],
+        type:'column'
+      }],
       title:{
         text:null
       },
-      legend:{
-        enabled:false,
+      tooltip:{
+        backgroundColor:'#fff',
+        borderColor:'#ccc',
+        borderRadius:0,
+        borderWidth:1,
+        formatter: function () {
+          return app.formatNr(this.y);
+        },
+        shadow:false,
+        style:{
+          color:'#999',
+          fontFamily:'IBM Plex Mono',
+          fontSize:'14px',
+          fontWeight:'300'
+        }
       },
       xAxis:{
         allowDecimals:false,
         labels:{
-          y:14,
           style:{
             color:'#999',
             fontFamily:'IBM Plex Mono',
             fontSize:'12px',
             fontWeight:'300'
           },
+          y:14
         },
         lineWidth: 0,
         minorGridLineWidth: 0,
@@ -53,36 +82,7 @@ $.extend(view, {
         title:{
           enabled:false
         }
-      },
-      tooltip:{
-        backgroundColor:'#fff',
-        borderColor:'#ccc',
-        borderRadius:0,
-        borderWidth:1,
-        formatter: function () {
-          return app.formatNr(this.y);
-        },
-        shadow:false,
-        style:{
-          color:'#999',
-          fontFamily:'IBM Plex Mono',
-          fontSize:'14px',
-          fontWeight:'300'
-        }
-      },
-      plotOptions:{
-        column:{
-          borderWidth: 0,
-          color:(getComputedStyle(document.documentElement).getPropertyValue('--theme').trim() === 'dark') ? '#FFE082' : '#FFA000',
-          groupPadding:0.01,
-          maxPointWidth:100,
-          pointPadding:0.06
-        }
-      },
-      series: [{
-        data:[],
-        type:'column'
-      }]
+      }
     }).highcharts();
   },
   initGraph: function (data) {
