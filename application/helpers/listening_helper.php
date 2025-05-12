@@ -25,10 +25,10 @@ if (!function_exists('getListenings')) {
     $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
 
     $cache_key = ($artist_id !== '%') 
-      ? 'c_get_listenings-artist_' . md5($artist_id) . '_' . md5(json_encode($opts)) 
+      ? 'c_getListenings-artist_' . md5($artist_id) . '_' . md5(json_encode($opts)) 
       : (($album_id !== '%') 
-        ? 'c_get_listenings-album_' . md5($album_id) . '_' . md5(json_encode($opts)) 
-        : 'c_get_listenings_' . md5(json_encode($opts)));
+        ? 'c_getListenings-album_' . md5($album_id) . '_' . md5(json_encode($opts)) 
+        : 'c_getListenings_' . md5(json_encode($opts)));
     if ($cached = $ci->cache->file->get($cache_key)) {
       return $cached;
     }
@@ -155,9 +155,9 @@ if (!function_exists('addListening')) {
       $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date'], $data['created']));
       if ($ci->db->affected_rows() === 1) {
         $data['listening_id'] = $ci->db->insert_id();
-        clear_cache_by_prefix(['c_get_listenings_', 'c_get_listenings-album_' . md5($data['album_id'])]);
+        clear_cache_by_prefix(['c_getListenings_', 'c_getListenings-album_' . md5($data['album_id']), 'c_getListeningsCumulative_', 'c_getListeningsCumulative-album_' . md5($data['album_id'])]);
         foreach (getAlbumArtists($data) as $artist) {
-          clear_cache_by_prefix(['c_get_listenings-artist_' . md5($artist['id'])]);
+          clear_cache_by_prefix(['c_get_listenings-artist_' . md5($artist['id']), 'c_get_listenings_cumulative-artist_' . md5($artist['id'])]);
         }
         // Add listening format data to DB.
         if (!empty($_POST['format'])) {
@@ -205,7 +205,7 @@ if (!function_exists('deleteListening')) {
     $query = $ci->db->query($sql, array($data['listening_id'], $data['user_id']));
 
     if ($ci->db->affected_rows() === 1) {
-      clear_cache_by_prefix(['c_get_listenings']);
+      clear_cache_by_prefix(['c_getListenings']);
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }

@@ -273,47 +273,49 @@ if (!function_exists('getListeningsCumulative')) {
     $ci = &get_instance();
     $ci->load->database();
 
-    $cache_key = 'get_listenings_cumulative_' . md5(json_encode($opts));
+    $ci->load->helper(array('id_helper'));
+
+    $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
+    $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
+    $user_id = !empty($opts['username']) ? getUserID($opts) : '%';
+
+    $cache_key = ($artist_id !== '%') 
+      ? 'c_getListeningsCumulative-artist_' . md5($artist_id) . '_' . md5(json_encode($opts)) 
+      : (($album_id !== '%') 
+        ? 'c_getListeningsCumulative-album_' . md5($album_id) . '_' . md5(json_encode($opts)) 
+        : 'c_getListeningsCumulative_' . md5(json_encode($opts)));
     if ($cached = $ci->cache->file->get($cache_key)) {
       return $cached;
     }
 
-    $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
-    $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
-
-    if ($album_name !== '%' || $artist_name !== '%') {
+    if ($album_id !== '%' || $artist_id !== '%') {
       $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
                      (SELECT COUNT(*)
                       FROM " . TBL_listening . ",
-                           " . TBL_user . ",
                            " . TBL_album . ",
                            " . TBL_artist . "
                       WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-                        AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
                         AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-                        AND " . TBL_user . ".`username` LIKE ?
-                        AND " . TBL_artist . ".`artist_name` LIKE ?
-                        AND " . TBL_album . ".`album_name` LIKE ?
+                        AND " . TBL_listening . ".`album_id` LIKE ?
+                        AND " . TBL_artist . ".`id` LIKE ?
+                        AND " . TBL_listening . ".`user_id` LIKE ?
                         AND " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
               FROM " . TBL_listening . " AS `a`
               WHERE MONTH(`a`.`date`) <> 0
               GROUP BY `line_date`
               ORDER BY `line_date` ASC";
-      $query = $ci->db->query($sql, array($username, $artist_name, $album_name));
+      $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id));
     } elseif ($username !== '%') {
       $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
                      (SELECT COUNT(*)
-                      FROM " . TBL_listening . ",
-                           " . TBL_user . "
-                      WHERE " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-                        AND " . TBL_user . ".`username` = ?
+                      FROM " . TBL_listening . "
+                      WHERE " . TBL_listening . ".`user_id` = ?
                         AND " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
               FROM " . TBL_listening . " AS `a`
               WHERE MONTH(`a`.`date`) <> 0
               GROUP BY `line_date`
               ORDER BY `line_date` ASC";
-      $query = $ci->db->query($sql, array($username));
+      $query = $ci->db->query($sql, array($user_id));
     } else {
       $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
                      (SELECT COUNT(*)
@@ -328,7 +330,7 @@ if (!function_exists('getListeningsCumulative')) {
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
 
-    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
+    $ci->cache->file->save($cache_key, $result, CACHE_TTL);
 
     return $result;
   }
@@ -351,7 +353,7 @@ if (!function_exists('getArtistAlbums')) {
     $ci = &get_instance();
     $ci->load->database();
 
-    $cache_key = 'get_artist_albums_' . md5(json_encode($opts));
+    $cache_key = 'getArtistAlbums_' . md5(json_encode($opts));
     if ($cached = $ci->cache->file->get($cache_key)) {
       return $cached;
     }
