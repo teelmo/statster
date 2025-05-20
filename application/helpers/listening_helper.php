@@ -157,7 +157,7 @@ if (!function_exists('addListening')) {
         $data['listening_id'] = $ci->db->insert_id();
         clear_cache_by_prefix(['c_getListenings_', 'c_getListenings-album_' . md5($data['album_id']), 'c_getListeningsCumulative_', 'c_getListeningsCumulative-album_' . md5($data['album_id'])]);
         foreach (getAlbumArtists($data) as $artist) {
-          clear_cache_by_prefix(['c_get_listenings-artist_' . md5($artist['id']), 'c_get_listenings_cumulative-artist_' . md5($artist['id'])]);
+          clear_cache_by_prefix(['c_getListenings-artist_' . md5($artist['id']), 'c_getListeningsCumulative-artist_' . md5($artist['id'])]);
         }
         // Add listening format data to DB.
         if (!empty($_POST['format'])) {
