@@ -206,6 +206,7 @@ if (!function_exists('deleteListening')) {
 
     if ($ci->db->affected_rows() === 1) {
       clear_cache_by_prefix(['c_getListenings']);
+      clear_cache_by_prefix(['c_getListeningsCumulative']);
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }
