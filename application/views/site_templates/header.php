@@ -30,6 +30,7 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
     <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min.js"></script>
     <script type="text/javascript" src="/media/js/statster.js"></script>
+    <link rel="canonical" href="https://statster.info<?=$_SERVER['REQUEST_URI']?>" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
     <?php
     echo link_tag('/media/css/themes/' . (($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light') . '/styles.css');
