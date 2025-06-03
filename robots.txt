@@ -3,3 +3,7 @@ Disallow: /api/
 Disallow: /index.php/api/
 Disallow: /admin/
 Disallow: /index.php/admin/
+Disallow: /login/
+Disallow: /index.php/login/
+Disallow: /logout/
+Disallow: /index.php/logout/
