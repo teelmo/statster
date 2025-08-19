@@ -11,13 +11,16 @@ ul.ui-autocomplete {
   white-space: nowrap;
   z-index: 100000;
   &#ui-id-1 {
+    max-width: 350px !important;
+    min-width: 350px;
     position: fixed !important;
     top: 31px !important;
-    width: 350px !important;
+    width: calc(100% - 12px) !important;
   }
   &#ui-id-2 {
     max-width: 667px !important;
     min-width: 350px;
+    width: calc(100% - 12px) !important;
   }
   li.ui-menu-item {
     border-bottom: 1px dotted #ccc;
