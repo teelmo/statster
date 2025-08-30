@@ -116,6 +116,7 @@ $.extend(view, {
         url:'/api/artist/delete'
       });
       $('#deleteArtist option').removeAttr('selected');
+      $('#deleteArtist').val('');
       $('#deleteArtist').trigger('chosen:updated');
       return false;
     });
@@ -147,6 +148,7 @@ $.extend(view, {
         url:'/api/album/delete'
       });
       $('#deleteAlbum option').removeAttr('selected');
+      $('#deleteAlbum').val('');
       $('#deleteAlbum').trigger('chosen:updated');
       return false;
     });
@@ -181,6 +183,8 @@ $.extend(view, {
       });
       $('#transferAlbumDataFrom option').removeAttr('selected');
       $('#transferAlbumDataTo option').removeAttr('selected');
+      $('#transferAlbumDataFrom').val('');
+      $('#transferAlbumDataTo').val('');
       $('#transferAlbumDataFrom').trigger('chosen:updated');
       $('#transferAlbumDataTo').trigger('chosen:updated');
       return false;
