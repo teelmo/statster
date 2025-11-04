@@ -143,6 +143,8 @@
         </fieldset>
         <div class="submit_container">
           <input type="submit" name="submit" value="Save profile" />
+          &nbsp;
+          <?=anchor(array('user', url_title($username)), 'Cancel')?>
         </div>
       </form>
     </div>

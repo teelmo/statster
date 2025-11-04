@@ -66,6 +66,7 @@
         </fieldset>
         <div class="submit_container">
           <input type="submit" name="submit" value="Save album" />
+          &nbsp;
           <?=anchor(array('music', url_title(isset($_GET['artist']) ? $_GET['artist'] : $artist_name), url_title($album_name)), 'Cancel')?>
         </div>
       </form>

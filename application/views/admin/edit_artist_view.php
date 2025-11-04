@@ -53,6 +53,7 @@
         </fieldset>
         <div class="submit_container">
           <input type="submit" name="submit" value="Save artist" />
+          &nbsp;
           <?=anchor(array_map(function($item) { return url_title($item);}, explode('/', $_GET['redirect'])), 'Cancel')?>
         </div>
       </form>
