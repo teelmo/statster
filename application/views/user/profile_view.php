@@ -165,7 +165,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h3>Favorite artist
+      <h3>Favorite artists
         <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_artist_value" data-value="<?=$top_artist_profile?>"><?=INTERVAL_TEXTS[$top_artist_profile]?></div>
