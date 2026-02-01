@@ -11,7 +11,7 @@ $.extend(view, {
         200: function (data) { // 200 OK
           $.ajax({
             data:{
-              delete:true,
+              delete:false,
               json_data:data,
               logged_in:<?=$logged_in?>
             },
