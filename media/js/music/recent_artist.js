@@ -104,7 +104,7 @@ $.extend(view, {
       data:{
         artist_name:'<?=$artist_name?>',
         limit:100,
-        sub_group_by:'artist',
+        sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
       },
       dataType:'json',
