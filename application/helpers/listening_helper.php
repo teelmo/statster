@@ -84,7 +84,7 @@ if (!function_exists('getListenings')) {
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
 
-    $ci->cache->file->save($cache_key, $result, CACHE_TTL);
+    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
 
     return $result;
   }
