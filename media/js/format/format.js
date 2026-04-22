@@ -133,7 +133,7 @@ $.extend(view, {
     $.ajax({
       data:{
         from:from,
-        limit:10,
+        limit:15,
         sub_group_by:'album',
         username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
         where:where
