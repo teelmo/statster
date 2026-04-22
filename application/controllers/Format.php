@@ -173,9 +173,10 @@ class Format extends MY_Controller {
     
     if ($data['format_type_name']) {
       // Load helpers.
-      $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
+      $this->load->helper(array('music', 'id_helper', 'format_helper', 'img_helper', 'output_helper'));
 
       $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
+      $data['format_type_id'] = (isset($data['format_type_name'])) ? getFormatTypeID($data) : '%';
       $data['top_format_type'] = isset($intervals['top_format_type']) ? $intervals['top_format_type'] : 'overall';
       $data['lower_limit'] = $data['top_format_type'];
 
@@ -193,9 +194,10 @@ class Format extends MY_Controller {
       $this->load->view('site_templates/footer', $data);
     }
     else {
-      $this->load->helper(array('music', 'format_helper', 'img_helper', 'output_helper'));
+      $this->load->helper(array('music', 'id_helper', 'format_helper', 'img_helper', 'output_helper'));
 
       $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
+      $data['format_id'] = (isset($data['format_name'])) ? getFormatID($data) : '%';
       $data['top_format'] = isset($intervals['top_format']) ? $intervals['top_format'] : 'overall';
       $data['lower_limit'] = $data['top_format'];
 

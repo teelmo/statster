@@ -48,11 +48,14 @@
   <div class="right_container">
     <div class="container">
       <h2>Statistics</h2>
-      <h3>Listening formats</h3>
-      <div class="lds-facebook" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
-      <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
-      <div class="more">
-        <?=anchor(array('format'), 'More', array('title' => 'Browse more formats'))?>
-      </div>
+      <h3>Top listeners</h3>
+      <div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div>
+      <table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table>
+    </div>
+    <div class="container"><hr /></div>
+    <div class="container">
+      <h3>Latest listening</h3>
+      <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
+      <table id="recentlyListened" class="side_table"><!-- Content is loaded with AJAX --></table>
     </div>
   </div>

@@ -89,12 +89,57 @@ $.extend(view, {
       url:'/api/format/get'
     });
   },
-  getFormats: function () {
+  // Get format type listeners.
+  getUsers: function (from, where) {
     $.ajax({
       data:{
+        from:from,
         limit:10,
         sub_group_by:'album',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+        where:where
+      },
+      dataType:'json',
+      statusCode:{
+        200: function(data) { // 200 OK
+          $.ajax({
+            data:{
+              hide:{
+                calendar:true,
+                date:true
+              },
+              json_data:data,
+              size:32
+            },
+            success: function(data) {
+              $('#topListenerLoader').hide();
+              $('#topListener').html(data);
+            },
+            type:'POST',
+            url:'/ajax/userTable'
+          });
+        },
+        204: function () { // 204 No Content
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+        },
+        400: function () { // 400 Bad request
+          $('#topListenerLoader').hide();
+          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
+        }
+      },
+      type:'GET',
+      url:'/api/listener/get'
+    });
+  },
+  // Get format type listenings.
+  getListenings: function (from, where) {
+    $.ajax({
+      data:{
+        from:from,
+        limit:10,
+        sub_group_by:'album',
+        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
+        where:where
       },
       dataType:'json',
       statusCode:{
@@ -102,29 +147,33 @@ $.extend(view, {
           $.ajax({
             data:{
               hide:{
-                format_icon:true
+                artist:true,
+                count:true,
+                rank:true,
+                spotify:true
               },
-              json_data:data
+              json_data:data,
+              size:32
             },
-            success: function (data) {
-              $('#topListeningFormatTypesLoader').hide();
-              $('#topListeningFormatTypes').html(data);
+            success: function(data) {
+              $('#recentlyListenedLoader').hide();
+              $('#recentlyListened').html(data);
             },
             type:'POST',
-            url:'/ajax/columnTable'
+            url:'/ajax/sideTable'
           });
         },
         204: function () { // 204 No Content
-          $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html('<?=ERR_NO_RESULTS?>');
+          $('#recentlyListenedLoader').hide();
+          $('#recentlyListened').html('<?=ERR_NO_RESULTS?>');
         },
         400: function () { // 400 Bad request
-          $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html('<?=ERR_BAD_REQUEST?>');
+          $('#recentlyListenedLoader').hide();
+          $('#recentlyListened').html('<?=ERR_BAD_REQUEST?>');
         }
       },
       type:'GET',
-      url:'/api/format/get'
+      url:'/api/listening/get'
     });
   }
 });
@@ -132,5 +181,10 @@ $.extend(view, {
 $(document).ready(function () {
   app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
   view.getTopAlbum10('<?=$lower_limit?>');
-  view.getFormats();
+  view.getTopAlbum10('<?=$lower_limit?>');
+  var from  = '(SELECT listening_format_types.listening_id FROM listening_format_types WHERE listening_format_types.listening_format_type_id = <?=$format_type_id?>) AS listening_format_types';
+  var where = 'listening_format_types.listening_id = <?=TBL_listening?>.id';
+
+  view.getUsers(from, where);
+  view.getListenings(from, where);
 });
