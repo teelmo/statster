@@ -2,13 +2,13 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
-  * Returns top listening format types for the given user.
+  * Returns top listening format types for the album or artist.
   *
   * @param array $opts.
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
-  *          'no_content'  => Output format
+  *          'no_content'      => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument
@@ -78,13 +78,13 @@ if (!function_exists('getListeningFormat')) {
 }
 
 /**
-  * Returns recently listened albums for the given user.
+  * Returns recently listened albums for the given format.
   *
   * @param array $opts.
   *          'format_name'        => Artist name
   *          'date'               => Listening date in yyyy-mm-dd format
   *          'from'               => Extra from
-  *          'no_content'     => Output format
+  *          'no_content'         => Output format
   *          'limit'              => Limit
   *          'username'           => Username
   *
@@ -148,7 +148,7 @@ if (!function_exists('getFormatListenings')) {
 }
 
 /**
-  * Returns recently listened albums for the given user.
+  * Returns recently listened albums for the format type.
   *
   * @param array $opts.
   *          'format_name'        => Artist name
@@ -217,23 +217,25 @@ if (!function_exists('getFormatTypeListenings')) {
 }
 
 /**
-  * Returns listening count for given artist or album.
+  * Returns listening count for given format.
   *
   * @param array $opts.
-  *          'group_by'        => Group By
-  *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
-  *          'upper_limit'     => Upper date limit in yyyy-mm-dd format
-  *          'username'        => Username
-  *          'where'           => Where
+  *          'format_name'      => Format name
+  *          'lower_limit'      => Lower date limit in yyyy-mm-dd format
+  *          'upper_limit'      => Upper date limit in yyyy-mm-dd format
+  *          'username'         => Username
+  *          'where'            => Where
   *
-  * @return string JSON encoded data containing artist information.
+  * @return string JSON encoded data containing the information.
   */
 if (!function_exists('getListeningFormatCount')) {
-  function getListeningFormatCount($opts = array(), $type = '') {
+  function getListeningFormatCount($opts = array()) {
     $ci=& get_instance();
     $ci->load->database();
 
-    $group_by = !empty($opts['group_by']) ? $opts['group_by'] : $type . '.`id`';
+    $ci->load->helper(array('id_helper'));
+    $format_id = (isset($opts['format_name'])) ? getFormatID($opts) : '%';
+    $group_by = (isset($opts['group_by'])) ? $opts['group_by'] : TBL_listening_formats . ".`id`";
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
@@ -251,10 +253,58 @@ if (!function_exists('getListeningFormatCount')) {
               AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
               AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+              AND " . TBL_listening_formats . ".`listening_format_id` LIKE ?
               AND " . TBL_user . ".`username` LIKE ?
               " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by);
-    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
+            GROUP BY " . $ci->db->escape_str($group_by) . "";
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $format_id, $username));
+    return $query->num_rows();
+  }
+}
+
+/**
+  * Returns listening count for given format type.
+  *
+  * @param array $opts.
+  *          'format_type_name' => Format type name
+  *          'lower_limit'      => Lower date limit in yyyy-mm-dd format
+  *          'lower_limit'      => Lower date limit in yyyy-mm-dd format
+  *          'upper_limit'      => Upper date limit in yyyy-mm-dd format
+  *          'username'         => Username
+  *          'where'            => Where
+  *
+  * @return string JSON encoded data containing the information.
+  */
+if (!function_exists('getListeningFormatTypeCount')) {
+  function getListeningFormatTypeCount($opts = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $ci->load->helper(array('id_helper'));
+    $format_type_id = (isset($opts['format_type_name'])) ? getFormatTypeID($opts) : '%';
+    $group_by = (isset($opts['group_by'])) ? $opts['group_by'] : TBL_listening_format_types . ".`id`";
+    $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
+    $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
+    $username = !empty($opts['username']) ? $opts['username'] : '%';
+    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
+    $sql = "SELECT count(*) AS `count`
+            FROM " . TBL_album . ",
+                 " . TBL_artist . ",
+                 " . TBL_artists . ",
+                 " . TBL_listening . ",
+                 " . TBL_listening_format_types . ",
+                 " . TBL_user . "
+            WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              AND " . TBL_listening . ".`id` = " . TBL_listening_format_types . ".`listening_id`
+              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+              AND " . TBL_listening_format_types . ".`listening_format_type_id` LIKE ?
+              AND " . TBL_user . ".`username` LIKE ?
+              " . $ci->db->escape_str($where) . "
+            GROUP BY " . $ci->db->escape_str($group_by) . "";
+    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $format_type_id, $username));
     return $query->num_rows();
   }
 }

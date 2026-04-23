@@ -150,11 +150,10 @@ class Format extends MY_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
-      $data['total_count'] = getListeningFormatCount(array(), TBL_listening_formats);
+      $data['total_count'] = getListeningFormatCount(array());
       if ($this->session->userdata('logged_in') === TRUE) {
-        $data['user_count'] = getListeningFormatCount(array('username' => $this->session->userdata('username')), TBL_listening_formats);
+        $data['user_count'] = getListeningFormatCount(array('username' => $this->session->userdata('username')));
       }
-
 
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['js_include'] = array('format/formats', 'helpers/time_interval_helper');
@@ -187,6 +186,14 @@ class Format extends MY_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['total_count'] = getListeningFormatTypeCount(array('format_name' => $data['format_name'], 'format_type_name' => $data['format_type_name']));
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $data['user_count'] = getListeningFormatTypeCount(array('format_name' => $data['format_name'], 'format_type_name' => $data['format_type_name'], 'username' => $this->session->userdata('username')));
+      }
+      $data['group_by'] = TBL_user . ".`id`";
+      $data['listener_count'] = getListeningFormatTypeCount($data);
+
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
 
       $data['js_include'] = array('format/format_type', 'helpers/time_interval_helper');
       $this->load->view('site_templates/header');
@@ -208,13 +215,19 @@ class Format extends MY_Controller {
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
       $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['total_count'] = getListeningFormatCount(array('format_name' => $data['format_name']));
+      if ($this->session->userdata('logged_in') === TRUE) {
+        $data['user_count'] = getListeningFormatCount(array('format_name' => $data['format_name'], 'username' => $this->session->userdata('username')));
+      }
+      $data['group_by'] = TBL_user . ".`id`";
+      $data['listener_count'] = getListeningFormatCount($data);
 
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
       $data['js_include'] = array('format/format', 'helpers/time_interval_helper');
       $this->load->view('site_templates/header');
       $this->load->view('format/format_view', $data);
       $this->load->view('site_templates/footer', $data);
     }
-
   }
 }
 ?>

@@ -192,7 +192,7 @@ if (!function_exists('getAlbums')) {
   *          'album_name'      => Album name
   *          'artist_name'     => Artist name
   *          'group_by'        => Group by argument
-  *          'no_content'  => Output format
+  *          'no_content'      => Output format
   *          'limit'           => Limit
   *          'lower_limit'     => Lower date limit in yyyy-mm-dd format
   *          'order_by'        => Order by argument

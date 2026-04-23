@@ -176,7 +176,7 @@ $.extend(view, {
 });
 
 $(document).ready(function () {
-  app.setOverlayBackground('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>');
+  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
   view.getTopAlbum10('<?=$lower_limit?>');
   var from  = '(SELECT listening_formats.listening_id FROM listening_formats WHERE listening_formats.listening_format_id = <?=$format_id?>) AS listening_formats';
   var where = 'listening_formats.listening_id = <?=TBL_listening?>.id';
