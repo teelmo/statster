@@ -262,7 +262,7 @@ class Tag extends MY_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByGenre($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts.min', 'libs/peity.min', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -382,7 +382,7 @@ class Tag extends MY_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByKeyword($data) ?? '', true)[0] ?? array('artist_id' => 0);
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts.min', 'libs/peity.min', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -500,7 +500,7 @@ class Tag extends MY_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByNationality($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts.min', 'libs/peity.min', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -620,7 +620,7 @@ class Tag extends MY_Controller {
           $data['group_by'] = TBL_artist . '.`id`';
           $data['artist'] = json_decode(getMusicByYear($data) ?? '', true)[0];
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-          $data['js_include'] = array('tag/tag', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/time_interval_helper');
+          $data['js_include'] = array('tag/tag', 'libs/highcharts.min', 'libs/peity.min', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
           $this->load->view('tag/tag_view', $data);
         }
@@ -652,7 +652,7 @@ class Tag extends MY_Controller {
         $opts['username'] = $this->session->userdata('username');
         $data['user_count'] = count(json_decode(getYears($opts)));
       }
-      $data['js_include'] = array('tag/years', 'libs/highcharts', 'helpers/chart_helper', 'helpers/time_interval_helper');
+      $data['js_include'] = array('tag/years', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
       $this->load->view('tag/year_view', $data);
     }

@@ -72,7 +72,7 @@ class User extends MY_Controller {
       );
       $data += (json_decode(getArtists($opts), true)[0] !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0, 'artist_name' => 'Unknown');
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('user/profile', 'libs/highcharts', 'libs/peity', 'libs/jquery.daterangepicker', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/time_interval_helper', 'helpers/shout_helper', 'helpers/per_year_helper');
+      $data['js_include'] = array('user/profile', 'libs/highcharts.min', 'libs/peity.min', 'libs/jquery.daterangepicker.min', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/time_interval_helper', 'helpers/shout_helper', 'helpers/per_year_helper');
       if ($data['logged_in'] === 'true' && $this->session->userdata('username') === $data['username']) {
         $data['js_include'][] = 'helpers/add_listening_helper';
       }

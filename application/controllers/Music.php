@@ -38,7 +38,7 @@ class Music extends MY_Controller {
       $data['where'] = 'MONTH(`shouts`.`created`) LIKE ' .  $data['month'] . ' AND DAY(`shouts`.`created`) LIKE ' . $data['day'] . ' AND WEEKDAY(`shouts`.`created`) LIKE ' . $data['weekday'];
       $data['shout_count'] = getShoutCount($data);
       $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
-      $data['js_include'] = array('music/library', 'libs/jquery.daterangepicker', 'libs/highcharts', 'helpers/chart_helper', 'helpers/date_filter_helper');
+      $data['js_include'] = array('music/library', 'libs/jquery.daterangepicker.min', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/library_view', $data);
@@ -76,7 +76,7 @@ class Music extends MY_Controller {
       $data['top_nationality'] = (json_decode(getNationalities($opts) ?? '', true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
       $data['top_year'] = (json_decode(getYears($opts) ?? '', true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
       $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
-      $data['js_include'] = array('music/music', 'libs/jquery.daterangepicker', 'libs/highcharts', 'libs/peity', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
+      $data['js_include'] = array('music/music', 'libs/jquery.daterangepicker.min', 'libs/highcharts.min', 'libs/peity.min', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/music_view', $data);
@@ -110,7 +110,7 @@ class Music extends MY_Controller {
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
       $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
-      $data['js_include'] = array('music/year', 'libs/highcharts', 'helpers/chart_helper');
+      $data['js_include'] = array('music/year', 'libs/highcharts.min', 'helpers/chart_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/year_view', $data);
@@ -182,7 +182,7 @@ class Music extends MY_Controller {
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/artist', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
+        $data['js_include'] = array('music/artist', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts.min', 'libs/peity.min', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/artist_view', $data);
@@ -198,7 +198,7 @@ class Music extends MY_Controller {
     $data = array();
     if ((int) $value1 > 1900 && (int) $value1 <= CUR_YEAR && (int) $value2 > 0 && (int) $value2 <= 12) {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper', 'spotify_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'shout_helper', 'fan_helper', 'love_helper'/*, 'spotify_helper'*/, 'output_helper'));
       $data['year'] = $value1;
       $data['month'] = $value2;
       $data += array(
@@ -220,7 +220,7 @@ class Music extends MY_Controller {
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
-      $data['js_include'] = array('music/month', 'libs/highcharts', 'helpers/chart_helper');
+      $data['js_include'] = array('music/month', 'libs/highcharts.min', 'helpers/chart_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/month_view', $data);
@@ -228,7 +228,7 @@ class Music extends MY_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper', 'spotify_helper', 'artist_helper', 'album_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper'/*, 'spotify_helper'*/, 'artist_helper', 'album_helper', 'nationality_helper', 'year_helper', 'output_helper'));
 
       $data['artist_name'] = decode($value1);
       $data['album_name'] = decode($value2);
@@ -266,7 +266,8 @@ class Music extends MY_Controller {
         }
         $data['listener_count'] = (getListeners($data) !== NULL) ? count(json_decode(getListeners($data), true)) : 0;
         if (empty($data['spotify_id'])) {
-          $data['spotify_id'] = getSpotifyResourceId($data);
+          // Disabled because premium account is needed.
+          // $data['spotify_id'] = getSpotifyResourceId($data);
         }
 
         $rank = 0;
@@ -315,7 +316,7 @@ class Music extends MY_Controller {
         $data['artist_name'] = $artist_info['artist_name'];
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/album', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts', 'libs/peity', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
+        $data['js_include'] = array('music/album', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts.min', 'libs/peity.min', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);
@@ -480,7 +481,7 @@ class Music extends MY_Controller {
         $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
       }
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('music/recent', 'libs/jquery.daterangepicker', 'helpers/add_listening_helper');
+      $data['js_include'] = array('music/recent', 'libs/jquery.daterangepicker.min', 'helpers/add_listening_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/recent_view', $data);
@@ -506,7 +507,7 @@ class Music extends MY_Controller {
       $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
     }
     $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-    $data['js_include'] = array('music/mosaic', 'libs/jquery.daterangepicker', 'helpers/add_listening_helper');
+    $data['js_include'] = array('music/mosaic', 'libs/jquery.daterangepicker.min', 'helpers/add_listening_helper');
 
     $this->load->view('site_templates/header');
     $this->load->view('music/mosaic_view', $data);
