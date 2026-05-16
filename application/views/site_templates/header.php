@@ -1,8 +1,8 @@
 <?php
 header('HTTP/1.1 200 OK');
 ?>
-<?=doctype('html5')?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <title><?=TITLE?></title>
     <meta charset="utf-8">
