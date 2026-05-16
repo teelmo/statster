@@ -24,7 +24,7 @@ class Listening extends MY_Controller {
 
   public function add() {
     // Load helpers
-    $this->load->helper(array('listening_helper', 'spotify_helper', 'id_helper', 'album_helper', 'artist_helper', 'output_helper'));
+    $this->load->helper(array('listening_helper'/*, 'spotify_helper'*/, 'id_helper', 'album_helper', 'artist_helper', 'output_helper'));
 
     echo addListening($_POST);
   }

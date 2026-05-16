@@ -28,7 +28,7 @@ class Artist extends MY_Controller {
   public function add() {
     if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers
-      $this->load->helper(array('artist_helper', 'spotify_helper'));
+      $this->load->helper(array('artist_helper'/*, 'spotify_helper'*/));
       
       $_REQUEST['user_id'] = $this->session->userdata('user_id');
       echo addArtist($_REQUEST);

@@ -124,7 +124,8 @@ if (!function_exists('addAlbum')) {
           }
         }
         // Add Spotify resource.
-        getSpotifyResourceId($data);
+        // Disabled because needs premium account.
+        // getSpotifyResourceId($data);
         // Get album img and bio.
         fetchAlbumInfo($data, array('bio', 'image'));
         // Return album ID.

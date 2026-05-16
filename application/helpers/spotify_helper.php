@@ -19,14 +19,12 @@ if (!function_exists('getSpotifyResourceId')) {
     curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials' ); 
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(SPOTIFY_CLIENT_ID . ':' . SPOTIFY_CLIENT_SECRET)));
     $result = curl_exec($ch);
-    curl_close($ch);
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=' . $type . '&limit=1');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     @curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . json_decode($result)->access_token));
     $result = curl_exec($ch);
-    curl_close($ch);
 
     if (!empty($data['album_name'])) {
       $spotify_id = (json_decode($result)->albums->total !== 0) ? json_decode($result)->albums->items[0]->id : FALSE;
