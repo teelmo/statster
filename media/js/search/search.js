@@ -1,44 +1,44 @@
 $.extend(view, {
-  getSearchResults: function () {
+  getSearchResults: () => {
     $.ajax({
-      data:{
-        q:'<?=$q?>'
+      data: {
+        q: '<?=$q?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
+            data: {
+              json_data: data
             },
-            success: function (data) {
+            success: data => {
               $('#searchResultLoader').hide();
               $('#searchResult').html(data);
             },
-            type:'POST',
-            url:'/ajax/searchList'
+            type: 'POST',
+            url: '/ajax/searchList'
           });
         },
-        204: function () { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#searchResultLoader').hide();
           $('#searchResult').html('');
         },
-        400: function () {
+        400: () => {
           $('#searchResultLoader').hide();
-          alert('<?=ERR_BAD_REQUEST?>');
+          alert(`<?=ERR_BAD_REQUEST?>`);
         }
       },
-      type:'GET',
-      url:'/api/search/Get/100/'
+      type: 'GET',
+      url: '/api/search/Get/100/'
     });
   },
-  initSearchEvents: function () {
-    
-  }
+  initSearchEvents: () => {}
 });
 
-$(document).ready(function () {
-  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
+$(document).ready(() => {
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
   view.getSearchResults();
   view.initSearchEvents();
 });
