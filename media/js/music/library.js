@@ -1,409 +1,432 @@
 $.extend(view, {
-  getListeningHistory: function (type, lower_limit, upper_limit) {
+  getListeningHistory: (type, lower_limit, upper_limit) => {
+    var group_by;
+    var order_by;
+    var select;
     var where;
-    if (type == '%w') {
-      var where = 'WEEKDAY(<?=TBL_listening?>.`date`) IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, \'%d\') != \'00\'';
-      var group_by = 'WEEKDAY(<?=TBL_listening?>.`date`)';
-      var order_by = 'WEEKDAY(<?=TBL_listening?>.`date`) ASC';
-      var select = 'WEEKDAY(<?=TBL_listening?>.`date`) as `bar_date`';
-    }
-    else if (type == '%Y%m') {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'%m\') != \'00\'';
-      var group_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')';
-      var order_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC';
-      var select = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`';
-    }
-    else {
-      var where = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') != \'00\'';
-      var group_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\')';
-      var order_by = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') ASC';
-      var select = 'DATE_FORMAT(<?=TBL_listening?>.`date`, \'' + type + '\') as `bar_date`';
+    if (type === '%w') {
+      group_by = 'WEEKDAY(<?=TBL_listening?>.`date`)';
+      order_by = 'WEEKDAY(<?=TBL_listening?>.`date`) ASC';
+      select = 'WEEKDAY(<?=TBL_listening?>.`date`) as `bar_date`';
+      where = "WEEKDAY(<?=TBL_listening?>.`date`) IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, '%d') != '00'";
+    } else if (type === '%Y%m') {
+      group_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}')`;
+      order_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') ASC`;
+      select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
+      where = "DATE_FORMAT(<?=TBL_listening?>.`date`, '%m') != '00'";
+    } else {
+      group_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}')`;
+      order_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') ASC`;
+      select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
+      where = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') != '00'`;
     }
     where += ' AND MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>';
     $.ajax({
-      data:{
-        group_by:group_by,
-        limit:200,
-        lower_limit:lower_limit,
-        order_by:order_by,
-        select:select,
-        sub_group_by:'album',
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        sub_group_by:'album',
-        where:where
+      data: {
+        group_by: group_by,
+        limit: 200,
+        lower_limit: lower_limit,
+        order_by: order_by,
+        select: select,
+        sub_group_by: 'album',
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: where
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              type:type,
-              upper_limit:upper_limit
+            data: {
+              json_data: data,
+              type: type,
+              upper_limit: upper_limit
             },
-            success: function (data) {
+            success: data => {
               $('#historyLoader').hide();
               $('#history').html(data).hide();
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
             },
-            type:'POST',
-            url:'/ajax/musicBar'
+            type: 'POST',
+            url: '/ajax/musicBar'
           });
         },
-        204: function () { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#historyLoader').hide();
-          $('#history').html('<?=ERR_NO_RESULTS?>');
+          $('#history').html(`<?=ERR_NO_RESULTS?>`);
           $('.music_bar').hide();
         },
-        400: function () { // 400 Bad request
+        400: () => {
+          // 400 Bad request
           $('#historyLoader').hide();
-          alert('<?=ERR_BAD_REQUEST?>');
+          alert(`<?=ERR_BAD_REQUEST?>`);
           $('.music_bar').hide();
         }
       },
-      type:'GET',
-      url:'/api/listener/get'
+      type: 'GET',
+      url: '/api/listener/get'
     });
   },
-  topAlbum: function (lower_limit, upper_limit) {
+  topAlbum: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:17,
-        lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 17,
+        lower_limit: lower_limit,
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: 'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              type:'album'
+            data: {
+              json_data: data,
+              type: 'album'
             },
-            success: function (data) {
+            success: data => {
               $('#topAlbumLoader').hide();
               $('#topAlbum').html(data);
             },
-            type:'POST',
-            url:'/ajax/musicWall'
+            type: 'POST',
+            url: '/ajax/musicWall'
           });
         },
-        204: function (data) { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topAlbumLoader').hide();
-          $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
+          $('#topAlbum').html(`<?=ERR_NO_RESULTS?>`);
         }
       },
-      type:'GET',
-      url:'/api/album/get'
+      type: 'GET',
+      url: '/api/album/get'
     });
   },
-  topArtist: function (lower_limit, upper_limit) {
+  topArtist: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:17,
-        lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 17,
+        lower_limit: lower_limit,
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: 'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              type:'artist'
+            data: {
+              json_data: data,
+              type: 'artist'
             },
-            success: function (data) {
+            success: data => {
               $('#topArtistLoader').hide();
               $('#topArtist').html(data);
             },
-            type:'POST',
-            url:'/ajax/musicWall'
+            type: 'POST',
+            url: '/ajax/musicWall'
           });
         },
-        204: function (data) { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topArtistLoader').hide();
-          $('#topArtist').html('<?=ERR_NO_RESULTS?>');
+          $('#topArtist').html(`<?=ERR_NO_RESULTS?>`);
         }
       },
-      type:'GET',
-      url:'/api/artist/get'
+      type: 'GET',
+      url: '/api/artist/get'
     });
   },
-  topListeners: function (lower_limit, upper_limit) {
+  topListeners: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:5,
-        lower_limit:lower_limit,
-        sub_group_by:'album',
-        upper_limit:upper_limit,
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 5,
+        lower_limit: lower_limit,
+        sub_group_by: 'album',
+        upper_limit: upper_limit,
+        where: 'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              hide:{
-                calendar:true,
-                date:true,
-                rank:true
+            data: {
+              hide: {
+                calendar: true,
+                date: true,
+                rank: true
               },
-              json_data:data,
-              size:64
+              json_data: data,
+              size: 64
             },
-            success: function (data) {
+            success: data => {
               $('#topListenerLoader').hide();
               $('#topListener').html(data);
             },
-            type:'POST',
-            url:'/ajax/userTable'
+            type: 'POST',
+            url: '/ajax/userTable'
           });
         },
-        204: function () { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?=ERR_NO_RESULTS?>');
+          $('#topListener').html(`<?=ERR_NO_RESULTS?>`);
         },
-        400: function () { // 400 Bad request
+        400: () => {
+          // 400 Bad request
           $('#topListenerLoader').hide();
-          $('#topListener').html('<?=ERR_BAD_REQUEST?>');
+          $('#topListener').html(`<?=ERR_BAD_REQUEST?>`);
         }
       },
-      type:'GET',
-      url:'/api/listener/get'
+      type: 'GET',
+      url: '/api/listener/get'
     });
   },
-  topReleases: function (lower_limit, upper_limit) {
+  topReleases: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:5,
-        lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_album?>.`created`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_album?>.`created`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_album?>.`created`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 5,
+        lower_limit: lower_limit,
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: 'MONTH(<?=TBL_album?>.`created`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_album?>.`created`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_album?>.`created`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              hide:{
-                artist:true,
-                calendar:true,
-                date:true,
-                rank:true,
-                spotify:true
+            data: {
+              json_data: data,
+              hide: {
+                artist: true,
+                calendar: true,
+                date: true,
+                rank: true,
+                spotify: true
               },
-              size:64
+              size: 64
             },
-            success: function (data) {
+            success: data => {
               $('#topReleasesLoader').hide();
               $('#topReleases').html(data);
             },
-            type:'POST',
-            url:'/ajax/sideTable'
+            type: 'POST',
+            url: '/ajax/sideTable'
           });
         },
-        204: function (data) { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topReleasesLoader').hide();
-          $('#topReleases').html('<?=ERR_NO_RESULTS?>');
+          $('#topReleases').html(`<?=ERR_NO_RESULTS?>`);
         }
       },
-      type:'GET',
-      url:'/api/album/get'
+      type: 'GET',
+      url: '/api/album/get'
     });
   },
-  topFormats: function (lower_limit, upper_limit) {
+  topFormats: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:10,
-        lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 10,
+        lower_limit: lower_limit,
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: 'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
+            data: {
+              json_data: data
             },
-            success: function (data) {
+            success: data => {
               $('#topListeningFormatTypesLoader').hide();
               $('#topListeningFormatTypes').html(data);
             },
-            type:'POST',
-            url:'/ajax/columnTable'
+            type: 'POST',
+            url: '/ajax/columnTable'
           });
         },
-        204: function () { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html('<?=ERR_NO_RESULTS?>');
+          $('#topListeningFormatTypes').html(`<?=ERR_NO_RESULTS?>`);
         },
-        400: function () { // 400 Bad request
+        400: () => {
+          // 400 Bad request
           $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html('<?=ERR_BAD_REQUEST?>');
+          $('#topListeningFormatTypes').html(`<?=ERR_BAD_REQUEST?>`);
         }
       },
-      type:'GET',
-      url:'/api/format/get'
+      type: 'GET',
+      url: '/api/format/get'
     });
   },
-  topGenre: function (lower_limit, upper_limit) {
+  topGenre: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:5,
-        lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 5,
+        lower_limit: lower_limit,
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: 'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function(data) {
+      dataType: 'json',
+      statusCode: {
+        200: data => {
           $.ajax({
-            data:{
-              json_data:data
+            data: {
+              json_data: data
             },
-            success: function(data) {
+            success: data => {
               $('#topGenreLoader').hide();
               $('#topGenre').html(data);
             },
-            type:'POST',
-            url:'/ajax/columnTable'
+            type: 'POST',
+            url: '/ajax/columnTable'
           });
         },
-        204: function() { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topGenreLoader').hide();
-          $('#topGenre').html('<?=ERR_NO_RESULTS?>');
+          $('#topGenre').html(`<?=ERR_NO_RESULTS?>`);
         },
-        404: function() { // 404 Not found
+        404: () => {
+          // 404 Not found
           alert('404 Not Found');
         }
       },
-      type:'GET',
-      url:'/api/genre/get'
+      type: 'GET',
+      url: '/api/genre/get'
     });
   },
-  topKeyword: function (lower_limit, upper_limit) {
+  topKeyword: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:5,
-        lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 5,
+        lower_limit: lower_limit,
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: 'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function(data) {
+      dataType: 'json',
+      statusCode: {
+        200: data => {
           $.ajax({
-            data:{
-              json_data:data
+            data: {
+              json_data: data
             },
-            success: function(data) {
+            success: data => {
               $('#topKeywordLoader').hide();
               $('#topKeyword').html(data);
             },
-            type:'POST',
-            url:'/ajax/columnTable'
+            type: 'POST',
+            url: '/ajax/columnTable'
           });
         },
-        204: function() { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topKeywordLoader').hide();
-          $('#topKeyword').html('<?=ERR_NO_RESULTS?>');
+          $('#topKeyword').html(`<?=ERR_NO_RESULTS?>`);
         },
-        404: function() { // 404 Not found
+        404: () => {
+          // 404 Not found
           alert('404 Not Found');
         }
       },
-      type:'GET',
-      url:'/api/keyword/get'
+      type: 'GET',
+      url: '/api/keyword/get'
     });
   },
-  topNationality: function (lower_limit, upper_limit) {
+  topNationality: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:5,
-        lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 5,
+        lower_limit: lower_limit,
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: 'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function(data) {
+      dataType: 'json',
+      statusCode: {
+        200: data => {
           $.ajax({
-            data:{
-              json_data:data
+            data: {
+              json_data: data
             },
-            success: function(data) {
+            success: data => {
               $('#topNationalityLoader').hide();
               $('#topNationality').html(data);
             },
-            type:'POST',
-            url:'/ajax/columnTable'
+            type: 'POST',
+            url: '/ajax/columnTable'
           });
         },
-        204: function() { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topNationalityLoader').hide();
-          $('#topNationality').html('<?=ERR_NO_RESULTS?>');
+          $('#topNationality').html(`<?=ERR_NO_RESULTS?>`);
         },
-        404: function() { // 404 Not found
+        404: () => {
+          // 404 Not found
           alert('404 Not Found');
         }
       },
-      type:'GET',
-      url:'/api/nationality/get/listenings'
+      type: 'GET',
+      url: '/api/nationality/get/listenings'
     });
   },
-  topYear: function (lower_limit, upper_limit) {
+  topYear: (lower_limit, upper_limit) => {
     $.ajax({
-      data:{
-        limit:5,
-        lower_limit:lower_limit,
-        upper_limit:upper_limit,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>',
-        where:'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
+      data: {
+        limit: 5,
+        lower_limit: lower_limit,
+        upper_limit: upper_limit,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+        where: 'MONTH(<?=TBL_listening?>.`date`) LIKE <?=addslashes($month)?> AND DAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($day)?> AND WEEKDAY(<?=TBL_listening?>.`date`) LIKE <?=addslashes($weekday)?>'
       },
-      dataType:'json',
-      statusCode:{
-        200: function(data) {
+      dataType: 'json',
+      statusCode: {
+        200: data => {
           $.ajax({
-            data:{
-              json_data:data
+            data: {
+              json_data: data
             },
-            success: function(data) {
+            success: data => {
               $('#topYearLoader').hide();
               $('#topYear').html(data);
             },
-            type:'POST',
-            url:'/ajax/columnTable'
+            type: 'POST',
+            url: '/ajax/columnTable'
           });
         },
-        204: function() { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#topYearLoader').hide();
-          $('#topYear').html('<?=ERR_NO_RESULTS?>');
+          $('#topYear').html(`<?=ERR_NO_RESULTS?>`);
         },
-        404: function() { // 404 Not found
+        404: () => {
+          // 404 Not found
           alert('404 Not Found');
         }
       },
-      type:'GET',
-      url:'/api/year/get'
+      type: 'GET',
+      url: '/api/year/get'
     });
   }
 });
 
-$(document).ready(function () {
-  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
+$(document).ready(() => {
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
   view.initChart();
   view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>');
   view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>');

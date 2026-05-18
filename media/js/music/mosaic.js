@@ -1,56 +1,57 @@
 $.extend(view, {
-  getRecentListenings: function (isFirst) {
-    if (isFirst != true) {
+  getRecentListenings: isFirst => {
+    if (isFirst !== true) {
       $('#recentMosaicLoader2').show();
     }
     $.ajax({
-      data:{
-        limit:102,
-        sub_group_by:'album',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      data: {
+        limit: 102,
+        sub_group_by: 'album',
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) {
+      dataType: 'json',
+      statusCode: {
+        200: data => {
           var today = new Date();
           $.ajax({
-            data:{
-              json_data:data,
-              type:'recent'
+            data: {
+              json_data: data,
+              type: 'recent'
             },
-            success: function (data) {
+            success: data => {
               $('#recentMosaicLoader, #recentMosaicLoader2').hide();
               $('#recentMosaic').html(data);
               var hours = today.getHours();
               var minutes = today.getMinutes();
               if (minutes < 10) {
-                minutes = '0' + minutes;
+                minutes = `0${minutes}`;
               }
-              $('#recentlyUpdated').html('updated <span class="number">' + hours + '</span>:<span class="number">' + minutes + '</span>');
+              $('#recentlyUpdated').html(`updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`);
               $('#recentlyUpdated').attr('value', today.getTime());
             },
-            type:'POST',
-            url:'/ajax/mosaic'
+            type: 'POST',
+            url: '/ajax/mosaic'
           });
         },
-        204: function (data) { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#recentMosaicLoader').hide();
-          $('#recentMosaic').html('<?=ERR_NO_RESULTS?>');
+          $('#recentMosaic').html(`<?=ERR_NO_RESULTS?>`);
         }
       },
-      type:'GET',
-      url:'/api/listening/get'
+      type: 'GET',
+      url: '/api/listening/get'
     });
   },
-  initRecentEvents: function () {
-    $('#refreshRecentAlbums').click(function () {
+  initRecentEvents: () => {
+    $('#refreshRecentAlbums').click(() => {
       view.getRecentListenings();
     });
   }
 });
 
-$(document).ready(function () {
-  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
+$(document).ready(() => {
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
   view.getRecentListenings(true);
   view.initRecentEvents();
 });
