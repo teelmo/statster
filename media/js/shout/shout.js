@@ -1,126 +1,132 @@
 $.extend(view, {
-  getAlbumShouts: function (size) {
+  getAlbumShouts: size => {
     $.ajax({
-      data:{
-        limit:33,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      data: {
+        limit: 33,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              size:size
+            data: {
+              json_data: data,
+              size: size
             },
-            success: function (data) {
+            success: data => {
               $('#albumShout').html(data);
             },
-            type:'POST',
-            url:'/ajax/shoutTable'
+            type: 'POST',
+            url: '/ajax/shoutTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/shout/get/album'
+      type: 'GET',
+      url: '/api/shout/get/album'
     });
   },
-  getArtistShouts: function (size) {
+  getArtistShouts: size => {
     $.ajax({
-      data:{
-        limit:33,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      data: {
+        limit: 33,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              size:size
+            data: {
+              json_data: data,
+              size: size
             },
-            success: function (data) {
+            success: data => {
               $('#artistShout').html(data);
             },
-            type:'POST',
-            url:'/ajax/shoutTable'
+            type: 'POST',
+            url: '/ajax/shoutTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/shout/get/artist'
+      type: 'GET',
+      url: '/api/shout/get/artist'
     });
   },
-  getUserShouts: function (size) {
+  getUserShouts: size => {
     $.ajax({
-      data:{
-        limit:33,
-        type:'user',
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      data: {
+        limit: 33,
+        type: 'user',
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              size:size
+            data: {
+              json_data: data,
+              size: size
             },
-            success: function (data) {
+            success: data => {
               $('#userShout').html(data);
             },
-            type:'POST',
-            url:'/ajax/shoutTable'
+            type: 'POST',
+            url: '/ajax/shoutTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/shout/get/user'
+      type: 'GET',
+      url: '/api/shout/get/user'
     });
   },
-  getShoutUsers: function () {
+  getShoutUsers: () => {
     $.ajax({
-      data:{
-        limit:20
+      data: {
+        limit: 20
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              hide:{
-                calendar:true,
-                date:true
+            data: {
+              hide: {
+                calendar: true,
+                date: true
               },
-              json_data:data,
-              size:32,
-              term:'shouts'
+              json_data: data,
+              size: 32,
+              term: 'shouts'
             },
-            success: function (data) {
+            success: data => {
               $('#shoutersLoader').hide();
               $('#shouters').html(data);
             },
-            type:'POST',
-            url:'/ajax/userTable'
+            type: 'POST',
+            url: '/ajax/userTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/shout/get/users'
+      type: 'GET',
+      url: '/api/shout/get/users'
     });
   },
-  initShoutEvents: function () {
-    $(document).one('ajaxStop', function (event, request, settings) {
-      $('#shout').append($('.shouts tr').detach().sort(function (a, b) {
-        return app.compareStrings($(a).data('created'), $(b).data('created'));
-      }));
+  initShoutEvents: () => {
+    $(document).one('ajaxStop', (_event, _request, _settings) => {
+      $('#shout').append(
+        $('.shouts tr')
+          .detach()
+          .sort((a, b) => app.compareStrings($(a).data('created'), $(b).data('created')))
+      );
       $('#shoutLoader').hide();
     });
   }
 });
 
-$(document).ready(function () {
-  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
+$(document).ready(() => {
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
   var size = 32;
   view.getAlbumShouts(size);
   view.getArtistShouts(size);
