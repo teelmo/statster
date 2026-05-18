@@ -1,31 +1,30 @@
 $.extend(view, {
-  initLoginEvents: function () {
+  initLoginEvents: () => {
     $('#loginUsername').focus();
-    $('#loginSubmit').click(function () {
+    $('#loginSubmit').click(() => {
       $.ajax({
-        data:{
-          password:$('#loginPassword').val(),
-          submitType:$('input[name="submitType"]').val(),
-          username:$('#loginUsername').val()
+        data: {
+          password: $('#loginPassword').val(),
+          submitType: $('input[name="submitType"]').val(),
+          username: $('#loginUsername').val()
         },
-        success: function (data) {
+        success: data => {
           if (data.trim() === '1') {
-            window.location.href = encodeURI('<?=addslashes($redirect)?>').replace(/%20/g,'+');
-          }
-          else {
+            window.location.href = encodeURI('<?=addslashes($redirect)?>').replace(/%20/g, '+');
+          } else {
             alert('Wrong username or password. Please try again.');
           }
         },
-        type:'POST',
-        url:'/api/login'
+        type: 'POST',
+        url: '/api/login'
       });
+
       return false;
     });
   }
 });
 
-$(document).ready(function() {
-  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
+$(document).ready(() => {
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
   view.initLoginEvents();
 });
-
