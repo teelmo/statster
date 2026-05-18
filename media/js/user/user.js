@@ -1,166 +1,174 @@
 $.extend(view, {
   // Get users.
-  getUsers: function () {
+  getUsers: () => {
     $.ajax({
-      data:{},
-      dataType:'json',
-      statusCode:{
-        200: function (data) {
+      data: {},
+      dataType: 'json',
+      statusCode: {
+        200: data => {
           $.ajax({
-            data:{
-              json_data:data,
-              type:'user'
+            data: {
+              json_data: data,
+              type: 'user'
             },
-            success: function (data) {
+            success: data => {
               $('#userMosaicLoader').hide();
               $('#userMosaic').html(data);
             },
-            type:'POST',
-            url:'/ajax/mosaic'
+            type: 'POST',
+            url: '/ajax/mosaic'
           });
         },
-        204: function () { // 204 No Content
+        204: () => {
+          // 204 No Content
           $('#userMosaicLoader').hide();
-          $('#userMosaic').html('<?=ERR_NO_RESULTS?>');
+          $('#userMosaic').html(`<?=ERR_NO_RESULTS?>`);
         },
-        404: function () { // 404 Not found
+        404: () => {
+          // 404 Not found
           alert('404 Not Found');
         }
       },
-      type:'GET',
-      url:'/api/user/get'
+      type: 'GET',
+      url: '/api/user/get'
     });
   },
-  getTopListeners: function (interval) {
+  getTopListeners: interval => {
+    var lower_limit;
     if (interval === 'overall') {
-      var lower_limit = '1970-00-00';
-    }
-    else {
-      var date = new Date();
-      date.setDate(date.getDate() - parseInt(interval));
-      var lower_limit = date.toISOString().split('T')[0];
+      lower_limit = '1970-00-00';
+    } else {
+      date.setDate(new Date().getDate() - parseInt(interval, 10));
+      lower_limit = date.toISOString().split('T')[0];
     }
     $.ajax({
-      data:{
-        limit:10,
-        sub_group_by:'album',
-        lower_limit:lower_limit,
+      data: {
+        limit: 10,
+        sub_group_by: 'album',
+        lower_limit: lower_limit
       },
-      dataType:'json',
-      statusCode:{
-        200: function(data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              hide:{
-                calendar:true,
-                date:true
+            data: {
+              hide: {
+                calendar: true,
+                date: true
               },
-              json_data:data,
-              size:32,
-              type:'user'
+              json_data: data,
+              size: 32,
+              type: 'user'
             },
-            success: function(data) {
+            success: data => {
               $('#topListenerLoader, #topListenerLoader2').hide();
               $('#topListener').html(data);
             },
-            type:'POST',
-            url:'/ajax/columnTable'
+            type: 'POST',
+            url: '/ajax/columnTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/listener/get'
+      type: 'GET',
+      url: '/api/listener/get'
     });
   },
-  getAlbumShouts: function (size) {
+  getAlbumShouts: size => {
     $.ajax({
-      data:{
-        limit:3,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      data: {
+        limit: 3,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              size:size
+            data: {
+              json_data: data,
+              size: size
             },
-            success: function (data) {
+            success: data => {
               $('#albumShout').html(data);
             },
-            type:'POST',
-            url:'/ajax/shoutTable'
+            type: 'POST',
+            url: '/ajax/shoutTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/shout/get/album'
+      type: 'GET',
+      url: '/api/shout/get/album'
     });
   },
-  getArtistShouts: function (size) {
+  getArtistShouts: size => {
     $.ajax({
-      data:{
-        limit:3,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      data: {
+        limit: 3,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              size:size
+            data: {
+              json_data: data,
+              size: size
             },
-            success: function (data) {
+            success: data => {
               $('#artistShout').html(data);
             },
-            type:'POST',
-            url:'/ajax/shoutTable'
+            type: 'POST',
+            url: '/ajax/shoutTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/shout/get/artist'
+      type: 'GET',
+      url: '/api/shout/get/artist'
     });
   },
-  getUserShouts: function (size) {
+  getUserShouts: size => {
     $.ajax({
-      data:{
-        limit:3,
-        username:'<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>'
+      data: {
+        limit: 3,
+        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
       },
-      dataType:'json',
-      statusCode:{
-        200: function (data) { // 200 OK
+      dataType: 'json',
+      statusCode: {
+        200: data => {
+          // 200 OK
           $.ajax({
-            data:{
-              json_data:data,
-              size:size
+            data: {
+              json_data: data,
+              size: size
             },
-            success: function (data) {
+            success: data => {
               $('#userShout').html(data);
             },
-            type:'POST',
-            url:'/ajax/shoutTable'
+            type: 'POST',
+            url: '/ajax/shoutTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/shout/get/user'
+      type: 'GET',
+      url: '/api/shout/get/user'
     });
   },
-  initUserEvents: function () {
-    $(document).one('ajaxStop', function (event, request, settings) {
-      $('#musicShout').append($('.shouts tr').detach().sort(function (a, b) {
-        return app.compareStrings($(a).data('created'), $(b).data('created'));
-      }));
+  initUserEvents: () => {
+    $(document).one('ajaxStop', (_event, _request, _settings) => {
+      $('#musicShout').append(
+        $('.shouts tr')
+          .detach()
+          .sort((a, b) => app.compareStrings($(a).data('created'), $(b).data('created')))
+      );
       $('#musicShoutLoader').hide();
     });
   }
 });
 
-$(document).ready(function () {
+$(document).ready(() => {
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>`);
   view.getUsers();
   var size = 32;
   view.getAlbumShouts(size);
@@ -168,6 +176,4 @@ $(document).ready(function () {
   view.getUserShouts(size);
   view.getTopListeners('<?=$top_listener_user?>');
   view.initUserEvents();
-
-  document.querySelector('.background_overlay').style.backgroundImage = "url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')";
 });
