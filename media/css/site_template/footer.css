@@ -1,5 +1,5 @@
 .footer {
-  background-color: @color-bg-footer;
+  background-color: var(--color-bg-footer);
   box-sizing: border-box;
   clear: both;
   color: #fff;
@@ -7,32 +7,40 @@
   position: relative;
   width: 100%;
   z-index: 1;
-  div {
-    max-width: 950px;
-    margin: auto auto;
-    padding: 0 10px 0 10px;
-    &.social_media {
-      padding-right: 10px;
-      font-size: 14px;
-      a {
-        display: inline-block;
-        margin: 0 2px;
-      }
-    }
-  }
-  a {
+
+  & a {
     color: #ccc;
+
     &:visited {
       color: #ccc;
     }
   }
-  .links:hover a {
+
+  & .links:hover a {
     color: #999;
+
     &:hover {
       text-decoration: underline;
     }
+
     &:visited {
       color: #aaa;
+    }
+  }
+
+  & div {
+    max-width: 950px;
+    margin: auto;
+    padding: 0 10px;
+
+    &.social_media {
+      padding-right: 10px;
+      font-size: 14px;
+
+      & a {
+        display: inline-block;
+        margin: 0 2px;
+      }
     }
   }
 }

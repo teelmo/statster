@@ -32,6 +32,9 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/statster.js"></script>
     <link rel="canonical" href="https://statster.info<?=$_SERVER['REQUEST_URI']?>" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Open+Sans:wght@300;400;700&family=Poiret+One&display=swap" rel="stylesheet">
     <?php
     echo link_tag('/media/css/themes/' . (($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light') . '/styles.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');

@@ -1,0 +1,23 @@
+/* Dark theme */
+:root {
+  --transparent: transparent;
+  --color-white: #000;
+  --color-white-alter: #0f0f0f;
+  --color-bg: #2a2a2a;
+  --color-bg-footer: rgba(28, 28, 30, 0.9);
+  --color-bg-white: #2a2a2a;
+  --color-bg-white-left-cont: rgba(42, 42, 42, 0.8);
+  --color-bg-white-alter: #1c1c1e;
+  --color-bg-white-alter-right-cont: rgba(28, 28, 30, 0.9);
+  --color-black: #fff;
+  --color-black-alter: #f9f9f9;
+  --color-gray-dark: #eee;
+  --color-gray-mid: #999;
+  --color-gray-medium: #555;
+  --color-gray-light: #444;
+  --color-gray-soft: #333;
+  --color-red: #e74c3c;
+  --color-yellow: #ffd54f;
+  --color-yellow-dark: #ffe082;
+  --color-accent: #fff;
+}

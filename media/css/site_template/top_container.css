@@ -8,72 +8,84 @@
   transition: background 0s;
   width: 100%;
   z-index: 1000;
+
   &.scrolled {
-    background-color: @color-gray-dark;
+    background-color: var(--color-gray-dark);
     transition: background 0.5s;
   }
-  .inner {
+
+  & .inner {
     box-sizing: border-box;
-    color: @color-gray-soft;
+    color: var(--color-gray-soft);
     font-size: 13px;
     height: 36px;
     line-height: 36px;
-    margin: auto auto;
+    margin: auto;
     max-width: 950px;
     position: relative;
     vertical-align: middle;
     z-index: 2;
-    a {
+
+    & a {
       color: #fff;
+
       &:hover {
         text-decoration: none;
       }
+
       &:visited {
         color: #fff;
       }
     }
-    .mobile {
+
+    & .mobile {
       display: none;
     }
-    .float_left >.meta {
+
+    & .float_left > .meta {
       color: #ccc;
       font-family: 'Poiret One', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 16px;
       font-weight: normal;
       letter-spacing: 0.05em;
       padding-left: 2px;
+
       &.mobile {
         padding-left: 5px;
       }
     }
-    form, 
-    div {
+
+    & form,
+    & div {
       display: inline-block;
       line-height: 40px;
-      input {
-        & + .lds-ring {
-          color: #fff;
-        }
+
+      & input + .lds-ring {
+        color: #fff;
       }
     }
-    .top_links {
+
+    & .top_links {
       color: #fff;
       font-size: 18px;
       margin-right: 40px;
       margin-top: 1px;
       padding: 0;
       vertical-align: top;
-      a {
+
+      & a {
         display: inline-block;
-        margin: 0 10px 0px 10px;
+        margin: 0 10px;
+
         &:hover {
           color: #fff;
           text-decoration: none;
         }
       }
     }
-    .user_container {
-      .user-select(none);
+
+    & .user_container {
+      user-select: none;
       color: #fff;
       cursor: pointer;
       height: 40px;
@@ -81,17 +93,20 @@
       position: relative;
       vertical-align: top;
       white-space: nowrap;
+
       &:hover {
         color: #ccc;
       }
-      .profile_text {
+
+      & .profile_text {
         display: inline-block;
         height: 40px;
         line-height: 40px;
         margin-right: 70px;
         margin-top: 1px;
         vertical-align: top;
-        &:before {
+
+        &::before {
           content: '\f0d7';
           display: inline-block;
           font-family: 'Font Awesome 5 Free';
@@ -105,16 +120,14 @@
           vertical-align: top;
         }
       }
-      &.active {
-        .profile_text {
-          &:before {
-            content: '\f0d8';
-          }
-        }
+
+      &.active .profile_text::before {
+        content: '\f0d8';
       }
-      .profile_img {
-        .border-radius(32px);
-        .box-shadow(0 0 8px rgba(0, 0, 0, .8));
+
+      & .profile_img {
+        border-radius: 32px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
         background-repeat: no-repeat;
         display: inline-block;
         height: 64px;
@@ -123,8 +136,9 @@
         right: 0;
         width: 64px;
         z-index: 3;
-        &:after {
-          .border-radius(32px);
+
+        &::after {
+          border-radius: 32px;
           background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 100%);
           content: '';
           height: 64px;
@@ -132,37 +146,42 @@
           position: absolute;
           width: 64px;
         }
-        img {
-          .opacity(0);
+
+        & img {
+          opacity: 0;
         }
       }
-      ul.subnav {
+
+      & ul.subnav {
         background-color: #000;
         color: #fff;
         border: 1px solid #666;
         display: none;
         float: left;
         list-style: none;
-        margin: 0; 
+        margin: 0;
         padding: 0;
         position: absolute;
         right: -7px;
         top: 38px;
         width: 140px;
-        li {
+
+        & li {
           border-bottom: 1px solid #191919;
           border-top: 1px solid #252525;
           clear: both;
           line-height: 24px;
           margin: 0;
           padding: 0;
-          a {
+
+          & a {
             box-sizing: border-box;
             float: left;
             font-size: 12px;
             padding: 3px 0 3px 10px;
             text-decoration: none;
             width: 100%;
+
             &:hover {
               background-color: #222;
             }
@@ -171,13 +190,15 @@
       }
     }
   }
-  .selected_user {
-    color: @color-white;
+
+  & .selected_user {
+    color: var(--color-white);
     position: absolute;
     right: 0;
     top: 45px;
-    a {
-      color: @color-white;
+
+    & a {
+      color: var(--color-white);
       font-weight: bold;
     }
   }
