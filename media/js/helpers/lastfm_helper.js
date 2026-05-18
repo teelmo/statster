@@ -1,25 +1,25 @@
 $.extend(view, {
-  getSimilar: function () {
+  getSimilar: () => {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/lastfm/fetchSimilar',
-      data:{
-        artist_name:'<?=$artist_name?>',
-        limit:8
+      type: 'GET',
+      dataType: 'json',
+      url: '/api/lastfm/fetchSimilar',
+      data: {
+        artist_name: '<?=$artist_name?>',
+        limit: 8
       },
       statusCode: {
-        200: function (data) {
+        200: data => {
           $.ajax({
-            type:'POST',
-            url:'/ajax/artistList',
-            data:{
-              json_data:data,
-              hide:{
-                count:true
+            type: 'POST',
+            url: '/ajax/artistList',
+            data: {
+              json_data: data,
+              hide: {
+                count: true
               }
             },
-            success: function (data) {
+            success: data => {
               $('#similarArtistLoader').hide();
               $('#similarArtist').html(data);
             }
@@ -28,24 +28,24 @@ $.extend(view, {
       }
     });
   },
-  getEvents: function () {
+  getEvents: () => {
     $.ajax({
-      type:'GET',
-      dataType:'json',
-      url:'/api/lastfm/getEvents',
-      data:{
-        artist_name:'<?=$artist_name?>',
-        limit:15
+      type: 'GET',
+      dataType: 'json',
+      url: '/api/lastfm/getEvents',
+      data: {
+        artist_name: '<?=$artist_name?>',
+        limit: 15
       },
       statusCode: {
-        200: function (data) {
+        200: data => {
           $.ajax({
-            type:'POST',
-            url:'/ajax/eventTable',
-            data:{
-              json_data:data
+            type: 'POST',
+            url: '/ajax/eventTable',
+            data: {
+              json_data: data
             },
-            success: function (data) {
+            success: data => {
               $('#artistEventLoader').hide();
               $('#artistEvent').html(data);
             }
@@ -56,8 +56,7 @@ $.extend(view, {
   }
 });
 
-$(document).ready(function () {
+$(document).ready(() => {
   view.getSimilar();
   // view.getEvents();
 });
-

@@ -1,5 +1,5 @@
 $.extend(view, {
-  initAutocomplete: function () {
+  initAutocomplete: () => {
     var $input = $('#addListeningText');
     $input.focus();
     $input.autocomplete({
@@ -20,7 +20,7 @@ $.extend(view, {
           self._originalClose = self.close;
           self.close = function (event) {
             // Prevent closing when blur is triggered by virtual keyboard hiding
-            if (event && event.originalEvent && event.originalEvent.type === 'blur') {
+            if (event?.originalEvent && event.originalEvent.type === 'blur') {
               return;
             }
             this._originalClose.call(this, event);
@@ -29,45 +29,48 @@ $.extend(view, {
       }
     });
   },
-  initDatepicker: function () {
-    var curday = function (sp) {
+  initDatepicker: () => {
+    var curday = sp => {
       today = new Date();
       var dd = today.getDate();
       var mm = today.getMonth() + 1;
       var yyyy = today.getFullYear();
 
-      if (dd < 10) dd = '0' + dd;
-      if (mm < 10) mm = '0' + mm;
-      return (yyyy + sp + mm + sp + dd);
+      if (dd < 10) dd = `0${dd}`;
+      if (mm < 10) mm = `0${mm}`;
+      return yyyy + sp + mm + sp + dd;
     };
     $('#addListeningDate').val(curday('-'));
     $('#addListeningDate').dateRangePicker({
-      autoClose:true,
-      container:'.calendar_container',
-      customArrowNextSymbol:'<i class="fa fa-angle-right"></i>',
-      customArrowPrevSymbol:'<i class="fa fa-angle-left"></i>',
-      endDate:'<?=date('Y-m-d',strtotime(CUR_DATE . "+1 days"))?>',
-      hoveringTooltip:false,
-      inline:true,
-      showShortcuts:false,
-      showTopbar:false,
-      singleDate:true,
-      singleMonth:true,
-      startOfWeek:'monday'
+      autoClose: true,
+      container: '.calendar_container',
+      customArrowNextSymbol: '<i class="fa fa-angle-right"></i>',
+      customArrowPrevSymbol: '<i class="fa fa-angle-left"></i>',
+      endDate: `<?=date('Y-m-d',strtotime(CUR_DATE . "+1 days"))?>`,
+      hoveringTooltip: false,
+      inline: true,
+      showShortcuts: false,
+      showTopbar: false,
+      singleDate: true,
+      singleMonth: true,
+      startOfWeek: 'monday'
     });
-    $('#addListeningDate').change(function () {
-      setTimeout(function () {
-        $('#addListeningDate').val(curday('-'));
-      }, 60 * 2 * 1000); // 
+    $('#addListeningDate').change(() => {
+      setTimeout(
+        () => {
+          $('#addListeningDate').val(curday('-'));
+        },
+        60 * 2 * 1000
+      ); //
     });
   },
-  initKeystop: function () {
+  initKeystop: () => {
     var keyStop = {
-      8:':not(input:text,textarea,input:file,input:password)',
-      13:'input:text,input:password',
-      end:null
-    }
-    $(document).bind('keydown', function (event) {
+      8: ':not(input:text,textarea,input:file,input:password)',
+      13: 'input:text,input:password',
+      end: null
+    };
+    $(document).bind('keydown', event => {
       var selector = keyStop[event.which];
       if (selector !== undefined && $(event.target).is(selector)) {
         event.preventDefault();
@@ -75,17 +78,20 @@ $.extend(view, {
       return true;
     });
   },
-  initAddListeningHelperEvents: function () {
+  initAddListeningHelperEvents: () => {
     // Listening format click.
     $('.listening_format').click(function (event) {
       if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
-        $('#' + $(this).parent().attr('for')).prop('checked', false).trigger('change');
-      }
-      else {
+        $(`#${$(this).parent().attr('for')}`)
+          .prop('checked', false)
+          .trigger('change');
+      } else {
         $('.listening_format').removeClass('selected');
         $(this).addClass('selected');
-        $('#' + $(this).parent().attr('for')).prop('checked', true).trigger('change');
+        $(`#${$(this).parent().attr('for')}`)
+          .prop('checked', true)
+          .trigger('change');
       }
       event.preventDefault();
       event.stopPropagation();
@@ -93,47 +99,51 @@ $.extend(view, {
     });
     // Listening format keypress.
     $('.listening_format').keypress(function (event) {
-      var code = (event.keyCode ? event.keyCode : event.which);
+      var code = event.keyCode ? event.keyCode : event.which;
       if (code === 13) {
         if ($(this).hasClass('selected')) {
           $(this).removeClass('selected');
-          $('#' + $(this).parent().attr('for')).prop('checked', false).trigger('change');
-        }
-        else {
+          $(`#${$(this).parent().attr('for')}`)
+            .prop('checked', false)
+            .trigger('change');
+        } else {
           $('.listening_format').removeClass('selected');
           $(this).addClass('selected');
-          $('#' + $(this).parent().attr('for')).prop('checked', true).trigger('change');
+          $(`#${$(this).parent().attr('for')}`)
+            .prop('checked', true)
+            .trigger('change');
         }
       }
       event.preventDefault();
       event.stopPropagation();
       return false;
     });
-    $('#addListeningSubmit').click(function () {
+    $('#addListeningSubmit').click(() => {
       var text_value = $('#addListeningText').val();
       if (text_value === '') {
         return false;
       }
       var format_value = $('input[name="addListeningFormat"]:checked').val();
-      var album_id = ($('#addListeningText').data('ui-autocomplete').selectedItem) ? $('#addListeningText').data('ui-autocomplete').selectedItem.album_id : false ;
-      var artist_ids = ($('#addListeningText').data('ui-autocomplete').selectedItem) ? $('#addListeningText').data('ui-autocomplete').selectedItem.artist_ids : false ;
+      var album_id = $('#addListeningText').data('ui-autocomplete').selectedItem ? $('#addListeningText').data('ui-autocomplete').selectedItem.album_id : false;
+      var artist_ids = $('#addListeningText').data('ui-autocomplete').selectedItem ? $('#addListeningText').data('ui-autocomplete').selectedItem.artist_ids : false;
       $('#recentlyListenedLoader2').show();
       $('#addListeningText').val('');
       $('input[name="addListeningFormat"]').prop('checked', false);
       $('.listening_format').removeClass('selected');
       $.ajax({
-        data:{
-          album_id:album_id,
-          artist_ids:artist_ids,
-          created:new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace('T', ' '),
-          date:$('#addListeningDate').val(),
-          format:format_value,
-          submitType:$('input[name="submitType"]').val(),
-          text:text_value
+        data: {
+          album_id: album_id,
+          artist_ids: artist_ids,
+          created: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 19).replace('T', ' '),
+          date: $('#addListeningDate').val(),
+          format: format_value,
+          submitType: $('input[name="submitType"]').val(),
+          text: text_value
         },
-        dataType:'json',
-        statusCode:{
-          201: function (data) { // 201 Created
+        dataType: 'json',
+        statusCode: {
+          201: () => {
+            // 201 Created
             view.getRecentListenings();
             if (view.getTopArtists) {
               view.getTopArtists($('.top_artist_value').data('value'));
@@ -145,37 +155,40 @@ $.extend(view, {
               view.getUsers();
             }
             if ($('.tag_meta div.value').length > 0) {
-              $('.tag_meta div.value').data('value', parseInt($('.tag_meta div.value').data('value')) + 1);
-              $('.tag_meta div.value').html((parseInt($('.tag_meta div.value').data('value'))).toLocaleString());
+              $('.tag_meta div.value').data('value', parseInt($('.tag_meta div.value').data('value'), 10) + 1);
+              $('.tag_meta div.value').html(parseInt($('.tag_meta div.value').data('value'), 10).toLocaleString());
             }
             if ($('.tag_meta span.user_value').length > 0) {
-              $('.tag_meta span.user_value .value').data('value', parseInt($('.tag_meta span.user_value .value').data('value')) + 1);
-              $('.tag_meta span.user_value .value').html((parseInt($('.tag_meta span.user_value .value').data('value'))).toLocaleString());
+              $('.tag_meta span.user_value .value').data('value', parseInt($('.tag_meta span.user_value .value').data('value'), 10) + 1);
+              $('.tag_meta span.user_value .value').html(parseInt($('.tag_meta span.user_value .value').data('value'), 10).toLocaleString());
             }
             $('#addListeningText').focus();
           },
-          400: function () { // 400 Bad Request
+          400: () => {
+            // 400 Bad Request
             alert('400 Bad Request');
             $('#recentlyListenedLoader2').hide();
           },
-          401: function () { // 401 Unauthorized
+          401: () => {
+            // 401 Unauthorized
             alert('401 Unauthorized');
             $('#recentlyListenedLoader2').hide();
           },
-          404: function () { // 404 Not found
+          404: () => {
+            // 404 Not found
             alert('404 Not Found');
             $('#recentlyListenedLoader2').hide();
           }
         },
-        type:'POST',
-        url:'/api/listening/add'
+        type: 'POST',
+        url: '/api/listening/add'
       });
       return false;
     });
   }
 });
 
-$(document).ready(function() {
+$(document).ready(() => {
   view.initAutocomplete();
   view.initDatepicker();
   view.initKeystop();

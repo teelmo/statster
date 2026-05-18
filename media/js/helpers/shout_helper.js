@@ -1,5 +1,5 @@
 $.extend(view, {
-  shoutEvents: function () {
+  shoutEvents: () => {
     $('html body').on('click', 'span.delete', function () {
       $($(this).data('confirmation-container')).show();
     });
@@ -9,33 +9,36 @@ $.extend(view, {
     $('html body').on('click', 'a.confirm', function () {
       var row_id = $(this).data('row-id');
       $.ajax({
-        statusCode:{
-          200: function () { // 200 OK
-            $('#' + row_id).fadeOut('slow');
-            var shout_total = parseInt($('#shoutTotal .number').text());
+        statusCode: {
+          200: () => {
+            // 200 OK
+            $(`#${row_id}`).fadeOut('slow');
+            var shout_total = parseInt($('#shoutTotal .number').text(), 10);
             shout_total--;
             if (shout_total > 0) {
               $('#shoutTotal .number').text(shout_total);
-            }
-            else {
+            } else {
               $('#shoutTotal').fadeOut(500);
             }
           },
-          400: function () { // 400 Bad Request
+          400: () => {
+            // 400 Bad Request
             alert('400 Bad Request');
           },
-          401: function (data) { // 403 Forbidden
+          401: () => {
+            // 401 Unauthorized
             alert('401 Unauthorized');
           },
-          404: function () { // 404 Not found
+          404: () => {
+            // 404 Not found
             alert('404 Not Found');
           }
         },
-        type:'POST',
-        url:'/api/shout/delete/' + $(this).data('shout-type') + '/' + $(this).data('shout-id')
+        type: 'POST',
+        url: `/api/shout/delete/${$(this).data('shout-type')}/${$(this).data('shout-id')}`
       });
     });
-    $('#shoutSubmit').click(function () {
+    $('#shoutSubmit').click(() => {
       var text_value = $('#shoutText').val().trim();
       if (text_value === '') {
         return false;
@@ -43,37 +46,41 @@ $.extend(view, {
       $('#shoutLoader2').show();
       $('#shoutText').val('');
       $.ajax({
-        data:{
-          content_id:$('#contentID').val(),
-          text:text_value,
-          type:$('#contentType').val()
+        data: {
+          content_id: $('#contentID').val(),
+          text: text_value,
+          type: $('#contentType').val()
         },
-        dataType:'json',
-        statusCode:{
-          201: function (data) { // 201 Created
+        dataType: 'json',
+        statusCode: {
+          201: () => {
+            // 201 Created
             $('#shoutLoader2').hide();
             view.getShouts();
           },
-          400: function () { // 400 Bad Request
+          400: () => {
+            // 400 Bad Request
             alert('400 Bad Request');
             $('#shoutLoader2').hide();
           },
-          401: function () { // 401 Unauthorized
+          401: () => {
+            // 401 Unauthorized
             alert('401 Unauthorized');
             $('#shoutLoader2').hide();
           },
-          404: function () { // 404 Not found
+          404: () => {
+            // 404 Not found
             alert('404 Not Found');
             $('#shoutLoader2').hide();
           }
         },
-        type:'POST',
-        url:'/api/shout/add'
+        type: 'POST',
+        url: '/api/shout/add'
       });
     });
   }
 });
 
-$(document).ready(function() {
+$(document).ready(() => {
   view.shoutEvents();
 });
