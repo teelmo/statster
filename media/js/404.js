@@ -1,44 +1,42 @@
 $.extend(view, {
-  recentlyListened: function () {
+  recentlyListened: () => {
     $.ajax({
-      data:{
-        limit:10,
+      data: {
+        limit: 10
       },
-      dataType:'json',
-      statusCode:{
-        200: function(data) {
+      dataType: 'json',
+      statusCode: {
+        200: data => {
           $.ajax({
-            data:{
-              json_data:data,
-              size:32,
-              hide:{
-                artist:true,
-                calendar:true,
-                count:true,
-                rank:true,
-                spotify:true
-              },
+            data: {
+              json_data: data,
+              size: 32,
+              hide: {
+                artist: true,
+                calendar: true,
+                count: true,
+                rank: true,
+                spotify: true
+              }
             },
-            success: function(data) {
+            success: data => {
               $('#recentlyListenedLoader').hide();
               $('#recentlyListened').html(data);
             },
-            type:'POST',
-            url:'/ajax/sideTable'
+            type: 'POST',
+            url: '/ajax/sideTable'
           });
         }
       },
-      type:'GET',
-      url:'/api/listening/get'
+      type: 'GET',
+      url: '/api/listening/get'
     });
   },
-  init404Events: function () {
-
-  }
+  init404Events: () => {}
 });
 
-$(document).ready(function() {
-  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
+$(document).ready(() => {
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
   view.recentlyListened();
   view.init404Events();
 });

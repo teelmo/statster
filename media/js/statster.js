@@ -1,19 +1,19 @@
 var app = {
-  compareStrings: function (a, b) {
+  compareStrings: (a, b) => {
     if (a > b) return -1;
     else if (a < b) return 1;
     return 0;
   },
-  getGetOrdinal: function (n) {
-    var s = ['th','st','nd','rd'];
+  getGetOrdinal: n => {
+    var s = ['th', 'st', 'nd', 'rd'];
     var v = n % 100;
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
   },
-  formatNr: function (x) {
+  formatNr: x => {
     x = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return (x == '') ? 0 : x;
+    return x === '' ? 0 : x;
   },
-  substrWords: function (text, maxChar = 35, end = '…') {
+  substrWords: (text, maxChar = 35, end = '…') => {
     if (text.length > maxChar || text === '') {
       const words = text.split(/\s+/);
       let output = '';
@@ -36,57 +36,74 @@ var app = {
       return text;
     }
   },
-  setOverlayBackground: function (image) {
-    document.querySelector('.background_overlay').style.backgroundImage = 'url(' + image + ')';
+  setOverlayBackground: image => {
+    document.querySelector('.background_overlay').style.backgroundImage = `url(${image})`;
   },
-  highlightPatch: function () {
+  highlightPatch: () => {
     $.ui.autocomplete.prototype._renderItem = function (ul, item) {
+      var item_arr;
       if (item.value === '') {
         return $('<li></li>').addClass('header').data('item.autocomplete', item).append(item.label).appendTo(ul);
-      }
-      else if (item.value === 'search') {
-        return $('<li></li>').addClass('header').data('item.autocomplete', item).append('<a>' + item.label + '</a>').appendTo(ul);
-      }
-      else {
+      } else if (item.value === 'search') {
+        return $('<li></li>').addClass('header').data('item.autocomplete', item).append(`<a>${item.label}</a>`).appendTo(ul);
+      } else {
         if (this.term.indexOf('–') !== -1) {
-          var item_arr = this.term.split('–');
-          if (item_arr[1] != '') {
-            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-            item_arr[1] = item_arr[1].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-            if (item.label != item_arr[0] + ' – ') {
+          item_arr = this.term.split('–');
+          if (item_arr[1] !== '') {
+            item_arr[0] = item_arr[0].trim().replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
+            item_arr[1] = item_arr[1].trim().replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
+            if (item.label !== `${item_arr[0]} – `) {
               if (item.img) {
-                return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><div class="cover album_img img40" style="background-image: url(' + item.image_server_protocol + item.image_server_ip + '/' + item.img + ')"></div>' + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
+                return $(`<li title="${item.value}"></li>`)
+                  .data('item.autocomplete', item)
+                  .append(`<a><div class="cover album_img img40" style="background-image: url(${item.image_server_protocol}${item.image_server_ip}/${item.img})"></div>${String(item.label).replace(new RegExp(`${item_arr[0]}|${item_arr[1]}|–`, 'gi'), '<span class="highlight">$&</span>')}</a>`)
+                  .appendTo(ul);
+              } else {
+                return $(`<li title="${item.value}"></li>`)
+                  .data('item.autocomplete', item)
+                  .append(`<a><span class="no_img">${String(item.label).replace(new RegExp(`${item_arr[0]}|${item_arr[1]}|–`, 'gi'), '<span class="highlight">$&</span>')}</span></a>`)
+                  .appendTo(ul);
               }
-              else {
-                return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><span class="no_img">' + String(item.label).replace(new RegExp(item_arr[0] + '|' + item_arr[1] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</span></a>').appendTo(ul);
-              }
-            }
-            else {
-              $('#addListeningText').attr('data-placeholder', this.term + ' (yyyy)');
+            } else {
+              $('#addListeningText').attr('data-placeholder', `${this.term} (yyyy)`);
               return $('<li></li>');
             }
-          }
-          else {
-            item_arr[0] = item_arr[0].trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/<\/?[^>]+(>|$)/g, '');
+          } else {
+            item_arr[0] = item_arr[0]
+              .trim()
+              .replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')
+              .replace(/<\/?[^>]+(>|$)/g, '');
             if (item.img) {
-              return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><div class="cover album_img img40" style="background-image: url(' + item.image_server_protocol + item.image_server_ip + '/' + item.img + ')"></div>' + String(item.label).replace(new RegExp(item_arr[0] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
-            }
-            else {
-              return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><span class="no_img">' + String(item.label).replace(new RegExp(item_arr[0] + '|–', 'gi'), '<span class="highlight">$&</span>') + '</span></a>').appendTo(ul);
+              return $(`<li title="${item.value}"></li>`)
+                .data('item.autocomplete', item)
+                .append(`<a><div class="cover album_img img40" style="background-image: url(${item.image_server_protocol}${item.image_server_ip}/${item.img})"></div>${String(item.label).replace(new RegExp(`${item_arr[0]}|–`, 'gi'), '<span class="highlight">$&</span>')}</a>`)
+                .appendTo(ul);
+            } else {
+              return $(`<li title="${item.value}"></li>`)
+                .data('item.autocomplete', item)
+                .append(`<a><span class="no_img">${String(item.label).replace(new RegExp(`${item_arr[0]}|–`, 'gi'), '<span class="highlight">$&</span>')}</span></a>`)
+                .appendTo(ul);
             }
           }
-        }
-        else {
-          this.term = this.term.trim().replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/<\/?[^>]+(>|$)/g, '');
+        } else {
+          this.term = this.term
+            .trim()
+            .replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')
+            .replace(/<\/?[^>]+(>|$)/g, '');
           if (item.img) {
-            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><div class="cover album_img img40" style="background-image: url(' + item.image_server_protocol + item.image_server_ip + '/' + item.img + ')"></div>' + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</a>').appendTo(ul);
-          }
-          else {
-            return $('<li title="' + item.value + '"></li>').data('item.autocomplete', item).append('<a><span class="no_img">' + String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>') + '</span></a>').appendTo(ul);
+            return $(`<li title="${item.value}"></li>`)
+              .data('item.autocomplete', item)
+              .append(`<a><div class="cover album_img img40" style="background-image: url(${item.image_server_protocol}${item.image_server_ip}/${item.img})"></div>${String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>')}</a>`)
+              .appendTo(ul);
+          } else {
+            return $(`<li title="${item.value}"></li>`)
+              .data('item.autocomplete', item)
+              .append(`<a><span class="no_img">${String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>')}</span></a>`)
+              .appendTo(ul);
           }
         }
       }
-    }
+    };
   },
   // select: function (event, ui) {
   //   event.preventDefault();
@@ -94,28 +111,28 @@ var app = {
   //     return;
   //   }
   // },
-  initMouseTrap: function () {
-    Mousetrap.bind(['mod+k'], function (e) {
+  initMouseTrap: () => {
+    Mousetrap.bind(['mod+k'], _e => {
       window.location = '/';
     });
-    Mousetrap.bind(['mod+shift+s'], function (e) {
+    Mousetrap.bind(['mod+shift+s'], _e => {
       $('.search_text').focus();
     });
   },
-  initToolTipster: function () {
+  initToolTipster: () => {
     // http://iamceege.github.io/tooltipster/
     $('.tooltip').tooltipster({
-      theme:'tooltipster-shadow'
+      theme: 'tooltipster-shadow'
     });
   },
-  initStatsterEvents: function () {
+  initStatsterEvents: () => {
     $('.search_text').autocomplete({
       html: true,
       minLength: 3,
       response: function () {
         $(this).removeClass('working');
       },
-      select: function (event, ui) {
+      select: (_event, ui) => {
         if (ui.item.url !== undefined) {
           window.location = ui.item.url;
         }
@@ -132,7 +149,7 @@ var app = {
           self._originalClose = self.close;
           self.close = function (event) {
             // Prevent closing when blur is triggered by virtual keyboard hiding
-            if (event && event.originalEvent && event.originalEvent.type === 'blur') {
+            if (event?.originalEvent && event.originalEvent.type === 'blur') {
               return;
             }
             this._originalClose.call(this, event);
@@ -141,64 +158,72 @@ var app = {
       }
     });
     $('.search_text').keyup(function () {
-      ($(this).val() !== '') ? $('.search_submit').prop('disabled', false) : $('.search_submit').prop('disabled', true);
+      $(this).val() !== '' ? $('.search_submit').prop('disabled', false) : $('.search_submit').prop('disabled', true);
     });
     $('.settings a').click(function () {
       $(this).parent('.settings').find('a').addClass('unactive');
       $(this).removeClass('unactive');
     });
-    $('.user_container').click(function() {
-      var sub_nav = $(this).parent().find('ul.subnav');
-      if (sub_nav.is(':visible')) {
-        $(this).removeClass('active');
-        sub_nav.slideUp('fast');
-      }
-      else {
-        $(this).addClass('active');
-        sub_nav.slideDown('fast').show();
-        $(this).parent().hover(function() {
-        }, function() {
-          // sub_nav.slideUp('slow');
-        });
-      }
-    }).hover(function() {
-      $(this).addClass('subhover');
-    }, function() {
-      $(this).removeClass('subhover');
-    });
+    $('.user_container')
+      .click(function () {
+        var sub_nav = $(this).parent().find('ul.subnav');
+        if (sub_nav.is(':visible')) {
+          $(this).removeClass('active');
+          sub_nav.slideUp('fast');
+        } else {
+          $(this).addClass('active');
+          sub_nav.slideDown('fast').show();
+          $(this)
+            .parent()
+            .hover(
+              () => {},
+              () => {
+                // sub_nav.slideUp('slow');
+              }
+            );
+        }
+      })
+      .hover(
+        function () {
+          $(this).addClass('subhover');
+        },
+        function () {
+          $(this).removeClass('subhover');
+        }
+      );
     $('.toggle_username').click(function () {
       if ($(this).hasClass('active')) {
         $.ajax({
-          dataType:'json',
-          statusCode:{
-            200: function () { // 200 OK
+          dataType: 'json',
+          statusCode: {
+            200: () => {
+              // 200 OK
               location.reload();
             }
           },
-          type:'GET',
-          url:'/Ajax/selectYourself/delete'
+          type: 'GET',
+          url: '/Ajax/selectYourself/delete'
+        });
+      } else {
+        $.ajax({
+          dataType: 'json',
+          statusCode: {
+            200: () => {
+              // 200 OK
+              location.reload();
+            }
+          },
+          type: 'GET',
+          url: '/Ajax/selectYourself/add'
         });
       }
-      else {
-        $.ajax({
-          dataType:'json',
-          statusCode:{
-            200: function () { // 200 OK
-              location.reload();
-            }
-          },
-          type:'GET',
-          url:'/Ajax/selectYourself/add'
-        });
-      } 
     });
-    $(window).scroll(function () {
+    $(window).scroll(() => {
       if ($(window).scrollTop() > 5) {
         if ($('#headingCont').length !== 0) {
           $('#topCont').addClass('scrolled');
         }
-      }
-      else {
+      } else {
         if ($('#headingCont').length !== 0) {
           $('#topCont').removeClass('scrolled');
         }
@@ -212,21 +237,22 @@ var app = {
       $(this).removeClass('hover');
       event.stopPropagation();
     });
-    $('html').on('mouseover', '.music_wall li .meta, .music_list li .meta', function (event) {
+    $('html').on('mouseover', '.music_wall li .meta, .music_list li .meta', event => {
       event.stopPropagation();
     });
-    $('html').on('mouseout', '.music_wall li .meta, .music_list li .meta', function (event) {
+    $('html').on('mouseout', '.music_wall li .meta, .music_list li .meta', event => {
       event.stopPropagation();
     });
     $('html').on('click', '.some_link', function () {
-      var specs = 'top=' + ((screen.height / 2) - (420 / 2)) + ',left=' + ((screen.width / 2) - (550 / 2)) + ',toolbar=0,status=0,width=550,height=420';
+      var specs = `top=${screen.height / 2 - 420 / 2},left=${screen.width / 2 - 550 / 2},toolbar=0,status=0,width=550,height=420`;
       window.open($(this).data('url') + window.location.href, 'Share', specs);
     });
   }
-}
-var view = {}
+};
+var view = {};
 
-$(document).ready(function () {
+$(document).ready(() => {
+  $.extend(view, {});
   app.highlightPatch();
   app.initMouseTrap();
   app.initStatsterEvents();
@@ -241,7 +267,7 @@ $(document).ready(function () {
     if (chosenInstance) {
       callback($select, chosenInstance);
     } else if (attempt < maxAttempts) {
-      setTimeout(function () {
+      setTimeout(() => {
         waitForChosenThen($select, callback, maxAttempts, attempt + 1);
       }, 100);
     } else {
@@ -249,15 +275,15 @@ $(document).ready(function () {
     }
   }
 
-  (function ($) {
+  ($ => {
     $.fn.prioritizedChosenSearch = function () {
       return this.each(function () {
         var $select = $(this);
 
-        waitForChosenThen($select, function ($select, chosenInstance) {
+        waitForChosenThen($select, ($select, chosenInstance) => {
           var $searchInput = chosenInstance.search_field;
 
-          $searchInput.on('keyup', function (e) {
+          $searchInput.on('keyup', e => {
             // Ignore navigation keys
             if ([13, 27, 38, 40, 37, 39].includes(e.which)) return;
 
@@ -265,26 +291,22 @@ $(document).ready(function () {
             var selectedValues = $select.val();
 
             var $optgroups = $select.find('optgroup');
-
+            var options;
             if ($optgroups.length) {
               // Sort options inside each optgroup
               $optgroups.each(function () {
                 var $optgroup = $(this);
-                var options = $optgroup.find('option').get();
+                options = $optgroup.find('option').get();
 
-                options.sort(function (a, b) {
-                  return compareOptionTexts(a, b, searchTerm);
-                });
+                options.sort((a, b) => compareOptionTexts(a, b, searchTerm));
 
                 $optgroup.empty().append(options);
               });
             } else {
               // No optgroups — sort all options
-              var options = $select.find('option').get();
+              options = $select.find('option').get();
 
-              options.sort(function (a, b) {
-                return compareOptionTexts(a, b, searchTerm);
-              });
+              options.sort((a, b) => compareOptionTexts(a, b, searchTerm));
 
               $select.empty().append(options);
             }
@@ -303,12 +325,11 @@ $(document).ready(function () {
       var aText = $(a).text().toLowerCase();
       var bText = $(b).text().toLowerCase();
 
-      var aStarts = aText.startsWith(searchTerm) ? 0 : (aText.includes(searchTerm) ? 1 : 2);
-      var bStarts = bText.startsWith(searchTerm) ? 0 : (bText.includes(searchTerm) ? 1 : 2);
+      var aStarts = aText.startsWith(searchTerm) ? 0 : aText.includes(searchTerm) ? 1 : 2;
+      var bStarts = bText.startsWith(searchTerm) ? 0 : bText.includes(searchTerm) ? 1 : 2;
 
       if (aStarts !== bStarts) return aStarts - bStarts;
       return aText.localeCompare(bText);
     }
-
   })(jQuery);
 });
