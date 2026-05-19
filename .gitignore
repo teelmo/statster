@@ -3,4 +3,4 @@ media/img/album_img
 media/img/user_img
 user_guide
 application/cache/c_*
-application/logs
+application/logs/
