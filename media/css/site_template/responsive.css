@@ -86,9 +86,6 @@
   div.top_container .inner .search_container {
     display: none;
   }
-}
-
-@media all and (max-width: 600px) {
   .heading_container .meta_container {
     display: flex;
     justify-content: flex-start;

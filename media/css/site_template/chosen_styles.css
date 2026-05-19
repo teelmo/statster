@@ -102,33 +102,33 @@ div.chosen-container {
   }
 
   &.chosen-container-active {
-    & .chosen-single,
-    & .chosen-choices {
+    & ul.chosen-single,
+    & ul.chosen-choices {
       border: 1px solid #ccc;
 
-      & .search-field input {
+      & li.search-field input {
         color: var(--color-black) !important;
       }
     }
   }
 
   &.chosen-container {
-    & .chosen-single,
-    & .chosen-choices {
+    & ul.chosen-single,
+    & ul.chosen-choices {
       border: 1px solid var(--color-gray-medium);
 
-      & .search-field input {
+      & li.search-field input {
         width: 100% !important;
       }
     }
   }
 
-  & .chosen-choices {
+  & ul.chosen-choices {
     box-shadow: none;
 
-    & .search-choice {
-      background-image: none;
-      background: #2a2a2a;
+    & li.search-choice {
+      background-color: #2a2a2a !important;
+      background-image: none !important;
       border-radius: 0;
       border: 0;
       box-shadow: none;

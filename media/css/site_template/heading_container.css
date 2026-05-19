@@ -213,6 +213,7 @@
 
         & h4 {
           font-size: 16px;
+          font-weight: 400;
           margin-bottom: 10px;
 
           & .username {
@@ -256,9 +257,9 @@
 
   & .meta_container {
     box-sizing: border-box;
+    clear: right;
     color: #fff;
-    display: flex;
-    margin: 10px auto 0;
+    margin: 5px auto 0;
     max-width: 950px;
     padding-left: 5px;
     position: relative;

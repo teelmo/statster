@@ -1319,66 +1319,68 @@ table.shout_table tr {
 }
 
 /* Music wall */
-ul.music_wall li {
-  float: left;
-  height: auto;
-  max-height: 157px;
-  max-width: 157px;
-  position: relative;
-  width: 100%;
+ul.music_wall {
+  li {
+    float: left;
+    height: auto;
+    max-height: 157px;
+    max-width: 157px;
+    position: relative;
+    width: 100%;
 
-  &:first-child {
-    max-height: 314px;
-    max-width: 314px;
-  }
+    &:first-child {
+      max-height: 314px;
+      max-width: 314px;
+    }
 
-  &.hover .main a {
-    text-decoration: underline;
-  }
+    &.hover .main a {
+      text-decoration: underline;
+    }
 
-  & .cover {
-    border: 0;
-
-    &::after {
+    & .cover {
       border: 0;
-    }
 
-    &.img150,
-    &.img300 {
-      height: 100%;
-      padding-bottom: 100%;
-      width: 100%;
-    }
-  }
-
-  & .meta {
-    bottom: 10px;
-    color: #fff;
-    font-size: 12px;
-    left: 10px;
-    line-height: 18px;
-    margin: 0;
-    padding-right: 2px;
-    position: absolute;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-
-    & .title {
-      font-size: 11px;
-      line-height: 12px;
-
-      &.count {
-        color: #ccc;
+      &::after {
+        border: 0;
       }
 
-      &.main {
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 0.01em;
-        line-height: 16px;
+      &.img150,
+      &.img300 {
+        height: 100%;
+        padding-bottom: 100%;
+        width: 100%;
       }
+    }
 
-      & a {
-        color: #fff;
+    & .meta {
+      bottom: 10px;
+      color: #fff;
+      font-size: 12px;
+      left: 10px;
+      line-height: 18px;
+      margin: 0;
+      padding-right: 2px;
+      position: absolute;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+
+      & .title {
+        font-size: 11px;
+        line-height: 12px;
+
+        &.count {
+          color: #ccc;
+        }
+
+        &.main {
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.01em;
+          line-height: 16px;
+        }
+
+        & a {
+          color: #fff;
+        }
       }
     }
   }
@@ -2215,7 +2217,7 @@ hr {
 .clearfix {
   zoom: 1;
 
-  &::after {
+  &:after {
     clear: both;
     content: ' ';
     display: block;

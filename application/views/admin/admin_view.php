@@ -15,7 +15,7 @@
     <?=anchor(array('shout'), 'Shouts')?>
     <?=anchor(array('tag'), 'Tags')?>
   </div>
-  <div class="left_container">
+  <div class="full_container">
     <div class="container">
       <h2>Admin</h2>
       <p>Unauthorized access not allowed.</p>

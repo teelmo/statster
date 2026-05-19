@@ -227,7 +227,7 @@ $.extend(view, {
 });
 
 $(document).ready(() => {
-  app.setOverlayBackground(`<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>`);
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
   view.initAdminEvents();
   $('#deleteArtist').chosen({ search_contains: true });
   $('#deleteArtist').prioritizedChosenSearch();

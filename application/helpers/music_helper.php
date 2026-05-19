@@ -305,7 +305,7 @@ if (!function_exists('getListeningsCumulative')) {
               GROUP BY `line_date`
               ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id));
-    } elseif ($username !== '%') {
+    } elseif (isset($username) && $username !== '%') {
       $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
                      (SELECT COUNT(*)
                       FROM " . TBL_listening . "
