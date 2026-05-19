@@ -86,9 +86,6 @@ h3 {
 }
 
 .updated {
-  color: var(--color-gray-mid);
-  font-size: 11px;
-  font-weight: 300;
   text-align: right;
 }
 
@@ -126,11 +123,11 @@ h3 {
   & a {
     color: var(--color-black);
 
-    &:hover {
+    &:visited {
       color: var(--color-gray-mid);
     }
 
-    &:visited {
+    &:hover {
       color: var(--color-gray-mid);
     }
 
@@ -182,64 +179,6 @@ strong {
     top: 3px;
   }
 
-  &.love_add {
-    &:hover {
-      color: var(--color-red);
-
-      &::after {
-        content: '\f004';
-        font-weight: 900;
-      }
-    }
-
-    &::after {
-      content: '\f004';
-    }
-  }
-
-  &.love_del {
-    color: var(--color-red);
-
-    &:hover::after {
-      content: '\f004';
-      font-weight: 500;
-    }
-
-    &::after {
-      content: '\f004';
-      font-weight: 900;
-    }
-  }
-
-  &.fan_add {
-    &:hover {
-      color: var(--color-yellow);
-
-      &::after {
-        content: '\f005';
-        font-weight: 900;
-      }
-    }
-
-    &::after {
-      content: '\f005';
-    }
-  }
-
-  &.fan_del {
-    color: var(--color-yellow);
-
-    &:hover::after {
-      content: '\f005';
-      font-weight: 500;
-    }
-
-    &::after {
-      content: '\f005';
-      font-weight: 900;
-    }
-  }
-
   & .like_msg {
     color: var(--color-gray-dark);
     display: inline-block;
@@ -249,6 +188,60 @@ strong {
     position: absolute;
     top: 2px;
     width: 130px;
+  }
+
+  &.love_add {
+    &::after {
+      content: '\f004';
+    }
+
+    &:hover {
+      color: var(--color-red);
+
+      &::after {
+        font-weight: 900;
+      }
+    }
+  }
+
+  &.love_del {
+    color: var(--color-red);
+
+    &::after {
+      content: '\f004';
+      font-weight: 900;
+    }
+
+    &:hover::after {
+      font-weight: 500;
+    }
+  }
+
+  &.fan_add {
+    &::after {
+      content: '\f005';
+    }
+
+    &:hover {
+      color: var(--color-yellow);
+
+      &::after {
+        font-weight: 900;
+      }
+    }
+  }
+
+  &.fan_del {
+    color: var(--color-yellow);
+
+    &::after {
+      content: '\f005';
+      font-weight: 900;
+    }
+
+    &:hover::after {
+      font-weight: 500;
+    }
   }
 }
 
@@ -322,12 +315,12 @@ strong {
 
   & .similarity_text {
     color: #fff;
-    text-shadow: 0 0 1px #000;
     font-size: 14px;
     font-weight: 300;
     line-height: 20px;
     margin-left: 70px;
     padding-top: 4px;
+    text-shadow: 0 0 1px #000;
 
     & a,
     & .text {
@@ -360,6 +353,16 @@ strong {
     font-size: 0;
     letter-spacing: 0.01em;
     text-transform: uppercase;
+
+    & a,
+    & a:visited {
+      color: #fff;
+
+      &:hover {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
 
     &.addtags,
     &.genre,
@@ -406,16 +409,6 @@ strong {
         background-color: var(--transparent);
       }
     }
-
-    & a,
-    & a:visited {
-      color: #fff;
-
-      &:hover {
-        color: #fff;
-        text-decoration: none;
-      }
-    }
   }
 }
 
@@ -425,18 +418,14 @@ a {
   cursor: pointer;
   text-decoration: none;
 
-  &:hover {
-    color: var(--color-gray-dark);
-    text-decoration: underline;
-  }
-
   &:visited {
     color: var(--color-gray-dark);
     text-decoration: none;
+  }
 
-    &:hover {
-      color: var(--color-gray-dark);
-    }
+  &:hover {
+    color: var(--color-gray-dark);
+    text-decoration: underline;
   }
 }
 
@@ -461,14 +450,14 @@ textarea {
     padding: 6px 4px 6px 8px;
     width: 100%;
 
+    &:disabled {
+      color: var(--color-gray-mid);
+    }
+
     &:active,
     &:focus {
       background-color: var(--color-bg-white-alter);
       color: var(--color-gray-dark);
-    }
-
-    &:disabled {
-      color: var(--color-gray-mid);
     }
   }
 
@@ -563,15 +552,6 @@ fieldset {
 /* Add listening form */
 form#addListeningForm {
   & input {
-    &[type='text'] {
-      font-size: 20px;
-    }
-
-    &[type='submit'] {
-      float: right;
-      margin: 10px 0 15px;
-    }
-
     &#addListeningDate {
       background-color: transparent;
       border: 0;
@@ -583,6 +563,15 @@ form#addListeningForm {
       &:hover {
         text-decoration: underline;
       }
+    }
+
+    &[type='text'] {
+      font-size: 20px;
+    }
+
+    &[type='submit'] {
+      float: right;
+      margin: 10px 0 15px;
     }
   }
 }
@@ -651,6 +640,10 @@ form#loginForm input[type='text'] {
     height: 28px;
     width: 30px;
 
+    &:disabled {
+      cursor: default;
+    }
+
     &::before {
       color: var(--color-gray-light);
       content: '\f002';
@@ -661,20 +654,16 @@ form#loginForm input[type='text'] {
       position: relative;
       top: 2px;
     }
-
-    &:disabled {
-      cursor: default;
-    }
   }
 
   &.full {
     position: relative;
 
     & .search_form input {
-      border: 1px solid var(--color-gray-medium);
-      padding: 8px;
-      color: var(--color-gray-mid);
       background-color: var(--color-gray-soft);
+      border: 1px solid var(--color-gray-medium);
+      color: var(--color-gray-mid);
+      padding: 8px;
       width: 100% !important;
 
       &:focus {
@@ -749,6 +738,14 @@ table.music_table {
     border-top: 1px solid var(--color-gray-medium);
     height: 32px;
 
+    &:nth-child(2n) {
+      background-color: var(--color-bg-white-alter);
+    }
+
+    &:nth-child(2n + 1) {
+      background-color: var(--transparent);
+    }
+
     & td {
       vertical-align: middle;
 
@@ -774,6 +771,35 @@ table.music_table {
         padding: 0 5px;
         width: 100%;
 
+        & .album_year {
+          color: var(--color-gray-mid);
+          font-size: 11px;
+        }
+
+        & .confirmation {
+          font-size: 10px;
+          text-align: left;
+        }
+
+        & .confirmation,
+        & .delete {
+          display: none;
+
+          & .fa {
+            color: var(--color-gray-mid);
+            display: inline-block;
+            font-size: 15px;
+            margin-left: 5px;
+            position: relative;
+            top: 2px;
+
+            &:hover {
+              color: var(--color-black);
+              opacity: 1;
+            }
+          }
+        }
+
         & .spotify_link {
           display: none;
           text-decoration: none;
@@ -795,35 +821,6 @@ table.music_table {
               color: var(--color-black);
             }
           }
-        }
-
-        & .album_year {
-          color: var(--color-gray-mid);
-          font-size: 11px;
-        }
-
-        & .confirmation,
-        & .delete {
-          display: none;
-
-          & .fa {
-            color: var(--color-gray-mid);
-            display: inline-block;
-            font-size: 15px;
-            margin-left: 5px;
-            position: relative;
-            top: 2px;
-
-            &:hover {
-              opacity: 1;
-              color: var(--color-black);
-            }
-          }
-        }
-
-        & .confirmation {
-          font-size: 10px;
-          text-align: left;
         }
       }
 
@@ -850,22 +847,14 @@ table.music_table {
       }
     }
 
-    &:nth-child(2n) {
-      background-color: var(--color-bg-white-alter);
-    }
-
-    &:nth-child(2n + 1) {
-      background-color: var(--transparent);
-    }
-
     &:hover span.delete {
       display: inline;
       position: absolute;
 
       & img {
-        opacity: 0.3;
         height: 12px;
         margin-left: 5px;
+        opacity: 0.3;
         vertical-align: -10%;
         width: 12px;
 
@@ -877,20 +866,6 @@ table.music_table {
 
     &.just_added {
       background-color: var(--color-yellow);
-
-      & td.title {
-        color: #000;
-
-        & .spotify_link .spotify_container {
-          &::after {
-            color: #000;
-          }
-
-          &:hover::after {
-            color: var(--color-gray-light);
-          }
-        }
-      }
 
       & a {
         color: #000;
@@ -909,6 +884,20 @@ table.music_table {
       & td.album_img {
         width: 64px;
       }
+
+      & td.title {
+        color: #000;
+
+        & .spotify_link .spotify_container {
+          &::after {
+            color: #000;
+          }
+
+          &:hover::after {
+            color: var(--color-gray-light);
+          }
+        }
+      }
     }
 
     &.just_added_rest {
@@ -926,8 +915,8 @@ table.music_table {
       }
 
       & td.title {
-        position: relative;
         line-height: 14px;
+        position: relative;
 
         & span.title,
         & span.delete,
@@ -1024,6 +1013,16 @@ table.side_table {
       padding-left: 5px;
       width: 100%;
 
+      & .album_year {
+        color: var(--color-gray-mid);
+        font-size: 11px;
+      }
+
+      & .artist_name {
+        font-size: 11px;
+        line-height: 12px;
+      }
+
       & .spotify_link {
         display: none;
         margin-right: 3px;
@@ -1046,16 +1045,6 @@ table.side_table {
             color: var(--color-black);
           }
         }
-      }
-
-      & .album_year {
-        color: var(--color-gray-mid);
-        font-size: 11px;
-      }
-
-      & .artist_name {
-        font-size: 11px;
-        line-height: 12px;
       }
     }
 
@@ -1106,8 +1095,8 @@ table.side_table {
 
 table.year_table tr td {
   border-bottom: 1px solid var(--color-gray-soft);
-  padding-top: 5px;
   font-size: 14px;
+  padding-top: 5px;
 }
 
 /* Genre Table */
@@ -1197,6 +1186,23 @@ table.column_table {
 }
 
 table.shout_table tr {
+  &:hover span.delete {
+    display: inline;
+    position: absolute;
+
+    & img {
+      height: 12px;
+      margin-left: 5px;
+      opacity: 0.3;
+      vertical-align: -10%;
+      width: 12px;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
   & td {
     padding: 10px 0;
     vertical-align: middle;
@@ -1204,19 +1210,19 @@ table.shout_table tr {
     &.img {
       vertical-align: top;
 
-      & .img64 {
-        border-radius: 32px;
-
-        &::after {
-          border-radius: 32px;
-        }
-      }
-
       & .img32 {
         border-radius: 16px;
 
         &::after {
           border-radius: 16px;
+        }
+      }
+
+      & .img64 {
+        border-radius: 32px;
+
+        &::after {
+          border-radius: 32px;
         }
       }
     }
@@ -1271,11 +1277,9 @@ table.shout_table tr {
       vertical-align: top;
       width: 100%;
 
-      & .shout_text {
-        color: var(--color-gray-dark);
-        font-weight: 300;
-        overflow-wrap: break-word;
-        word-break: break-word;
+      & .confirmation {
+        font-size: 10px;
+        text-align: left;
       }
 
       & .confirmation,
@@ -1291,15 +1295,10 @@ table.shout_table tr {
           top: 1px;
 
           &:hover {
-            opacity: 1;
             color: var(--color-black);
+            opacity: 1;
           }
         }
-      }
-
-      & .confirmation {
-        font-size: 10px;
-        text-align: left;
       }
 
       & .metainfo {
@@ -1308,22 +1307,12 @@ table.shout_table tr {
         text-align: right;
         white-space: nowrap;
       }
-    }
-  }
 
-  &:hover span.delete {
-    display: inline;
-    position: absolute;
-
-    & img {
-      opacity: 0.3;
-      height: 12px;
-      margin-left: 5px;
-      vertical-align: -10%;
-      width: 12px;
-
-      &:hover {
-        opacity: 1;
+      & .shout_text {
+        color: var(--color-gray-dark);
+        font-weight: 300;
+        overflow-wrap: break-word;
+        word-break: break-word;
       }
     }
   }
@@ -1339,10 +1328,8 @@ ul.music_wall li {
   width: 100%;
 
   &:first-child {
-    height: auto;
     max-height: 314px;
     max-width: 314px;
-    width: 100%;
   }
 
   &.hover .main a {
@@ -1358,8 +1345,8 @@ ul.music_wall li {
 
     &.img150,
     &.img300 {
-      padding-bottom: 100%;
       height: 100%;
+      padding-bottom: 100%;
       width: 100%;
     }
   }
@@ -1411,6 +1398,11 @@ ul {
     overflow: hidden;
     width: 100%;
 
+    & .play_count {
+      display: inline-block;
+      margin-top: 3px;
+    }
+
     & li {
       position: relative;
 
@@ -1422,12 +1414,12 @@ ul {
         letter-spacing: 0.01em;
         padding-right: 5px;
         position: absolute;
-        z-index: 4;
         text-shadow:
           0 0 1px rgba(0, 0, 0, 1),
           0 0 1px rgba(0, 0, 0, 1),
           0 0 1px rgba(0, 0, 0, 1),
           0 0 1px rgba(0, 0, 0, 1);
+        z-index: 4;
 
         & a {
           color: #fff;
@@ -1450,13 +1442,12 @@ ul {
       }
     }
 
-    &.music_list_150 li {
-      box-sizing: border-box;
+    &.music_list_64 li {
       display: inline-block;
-      margin: 0 0 20px;
+      margin: 0 9px 0 0;
       overflow: visible;
       vertical-align: top;
-      width: 152px;
+      width: 70px;
     }
 
     &.music_list_124 li {
@@ -1467,21 +1458,13 @@ ul {
       width: 130px;
     }
 
-    &.music_list_64 li {
+    &.music_list_150 li {
+      box-sizing: border-box;
       display: inline-block;
-      margin: 0 9px 0 0;
+      margin: 0 0 20px;
       overflow: visible;
       vertical-align: top;
-      width: 70px;
-    }
-
-    & .play_count {
-      display: inline-block;
-      margin-top: 3px;
-    }
-
-    & li.hover .main a {
-      text-decoration: underline;
+      width: 152px;
     }
   }
 
@@ -1508,17 +1491,12 @@ ul {
       position: relative;
       vertical-align: top;
 
-      &.block {
-        margin-top: 20px;
-        display: block;
-
-        &:first-child {
-          margin-top: 0;
-        }
-
-        & h2 {
-          margin: 0;
-        }
+      & .icon {
+        height: 20px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        width: 20px;
       }
 
       & .meta {
@@ -1552,12 +1530,17 @@ ul {
         }
       }
 
-      & .icon {
-        height: 20px;
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        width: 20px;
+      &.block {
+        display: block;
+        margin-top: 20px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        & h2 {
+          margin: 0;
+        }
       }
     }
   }
@@ -1573,32 +1556,33 @@ ul {
   }
 
   &.search_list li {
-    &.title {
-      margin-top: 30px;
-    }
-
     &.even {
       background-color: var(--transparent);
+    }
+
+    &.no_img {
+      height: 35px;
+      line-height: 35px;
     }
 
     &.odd {
       background-color: var(--color-white-alter);
     }
 
-    &.no_img {
-      line-height: 35px;
-      height: 35px;
+    &.title {
+      margin-top: 30px;
+    }
+
+    & i {
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
     }
 
     & a {
       align-items: center;
       display: flex;
       overflow: hidden;
-
-      &:visited,
-      &:hover {
-        text-decoration: underline;
-      }
 
       & div {
         display: inline-block;
@@ -1612,12 +1596,11 @@ ul {
           width: 100%;
         }
       }
-    }
 
-    & i {
-      display: inline-block;
-      margin-right: 5px;
-      vertical-align: middle;
+      &:visited,
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -1669,11 +1652,6 @@ img {
   margin: 0;
   padding: 0;
 
-  &:active,
-  &.selected {
-    outline: none;
-  }
-
   &.icon {
     height: 16px;
     vertical-align: -16%;
@@ -1681,15 +1659,20 @@ img {
   }
 
   &.listening_format {
-    opacity: 0.3;
     cursor: pointer;
     height: 64px;
     margin: 8px;
+    opacity: 0.3;
     width: 64px;
 
     &.selected {
       opacity: 1;
     }
+  }
+
+  &:active,
+  &.selected {
+    outline: none;
   }
 }
 
@@ -1705,17 +1688,17 @@ div.cover {
   &.img150,
   &.img174,
   &.img300 {
-    box-shadow: 3px 3px 4px var(--color-gray-light);
     border: 1px solid var(--color-gray-medium);
+    box-shadow: 3px 3px 4px var(--color-gray-light);
     box-sizing: border-box;
 
     &.no_overlay {
-      box-shadow: none;
       border: 1px solid var(--color-gray-medium);
+      box-shadow: none;
 
       &:hover {
-        box-shadow: 3px 3px 4px var(--color-gray-light);
         border: 1px solid var(--color-gray-medium);
+        box-shadow: 3px 3px 4px var(--color-gray-light);
       }
     }
   }
@@ -1789,22 +1772,19 @@ div.cover {
     }
   }
 
+  &.album_img {
+    background-position: 50% 50%;
+    background-size: cover;
+  }
+
   &.artist_img {
     background-position: 50% 0%;
     background-size: cover;
   }
 
-  &.album_img {
-    background-size: cover;
-  }
-
-  &.user_img,
-  &.album_img {
-    background-position: 50% 50%;
-  }
-
   &.user_img {
     background-origin: padding-box;
+    background-position: 50% 50%;
   }
 
   &.img32,
@@ -1821,6 +1801,12 @@ div.cover {
       position: absolute;
       top: 0;
       width: 100%;
+    }
+  }
+
+  &.img124 {
+    &::after {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
     }
   }
 
@@ -1845,10 +1831,6 @@ div.cover {
     }
   }
 
-  &.img124::after {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
-  }
-
   &.img150,
   &.img174,
   &.img300 {
@@ -1858,9 +1840,9 @@ div.cover {
 
     &.hover,
     &:hover {
-      & .title,
+      & .album_year,
       & .rank,
-      & .album_year {
+      & .title {
         text-shadow:
           1px 1px 2px #000,
           0 0 1px #000,
@@ -1890,32 +1872,21 @@ div.cover {
     z-index: 3;
 
     & a {
-      user-select: none;
       color: #fff;
+      display: inline-block;
       font-size: 16px;
       font-weight: 400;
       height: auto;
-      display: inline-block;
       letter-spacing: 0.2em;
       padding: 4px 6px;
+      user-select: none;
       width: auto;
 
       &:hover {
-        text-decoration: none;
         color: #ccc;
+        text-decoration: none;
       }
     }
-  }
-
-  & .rank {
-    bottom: 20px;
-    color: #bbb;
-    display: block;
-    font-size: 14px;
-    padding: 4px 6px;
-    position: absolute;
-    right: 0;
-    z-index: 3;
   }
 
   & .meta {
@@ -1936,6 +1907,17 @@ div.cover {
     & .main {
       font-size: 14px;
     }
+  }
+
+  & .rank {
+    bottom: 20px;
+    color: #bbb;
+    display: block;
+    font-size: 14px;
+    padding: 4px 6px;
+    position: absolute;
+    right: 0;
+    z-index: 3;
   }
 }
 
@@ -1958,9 +1940,19 @@ div.cover_shadow {
 .user_listening,
 h2,
 h3 {
+  & svg {
+    bottom: -3px;
+    float: right;
+    position: relative;
+    vertical-align: bottom;
+
+    &.peity polyline {
+      stroke: var(--color-yellow-dark);
+    }
+  }
+
   & .quick_add_listening,
   & .func_container {
-    user-select: none;
     color: var(--color-gray-dark);
     cursor: pointer;
     float: right;
@@ -1968,20 +1960,13 @@ h3 {
     font-size: 13px;
     letter-spacing: 0;
     position: relative;
-
-    &:hover {
-      color: var(--color-gray-medium);
-    }
+    user-select: none;
 
     & .fa-refresh:hover {
       color: var(--color-black);
     }
 
     & .value {
-      &:hover {
-        color: var(--color-black);
-      }
-
       &::after {
         content: '\f0d7';
         display: inline-block;
@@ -1997,6 +1982,10 @@ h3 {
 
       &.active::after {
         content: '\f0d8';
+      }
+
+      &:hover {
+        color: var(--color-black);
       }
     }
 
@@ -2055,16 +2044,9 @@ h3 {
         }
       }
     }
-  }
 
-  & svg {
-    bottom: -3px;
-    float: right;
-    position: relative;
-    vertical-align: bottom;
-
-    &.peity polyline {
-      stroke: var(--color-yellow-dark);
+    &:hover {
+      color: var(--color-gray-medium);
     }
   }
 }
@@ -2098,6 +2080,10 @@ h3 {
     }
   }
 
+  & .footer {
+    display: none;
+  }
+
   & .month-wrapper {
     border-radius: 0;
     padding: 0;
@@ -2109,6 +2095,10 @@ h3 {
 
     & table {
       & thead {
+        & tr.week-name {
+          font-size: 9px;
+        }
+
         & .caption {
           background-color: #fff;
           height: 24px;
@@ -2125,10 +2115,6 @@ h3 {
             color: var(--color-black);
           }
         }
-
-        & tr.week-name {
-          font-size: 9px;
-        }
       }
 
       & tbody {
@@ -2136,30 +2122,9 @@ h3 {
         border-top: 0;
 
         & tr {
-          & .week-number {
-            font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
-            font-size: 9px;
-
-            &.week-number-selected {
-              color: var(--color-black);
-              font-weight: 700;
-            }
-          }
-
           & .day {
             font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
             padding: 4px 0;
-
-            &.real-today.toMonth {
-              background-color: #fff;
-              color: #000;
-              font-weight: 700;
-
-              &.hovering {
-                background-color: #ccc;
-                color: #fff;
-              }
-            }
 
             &.toMonth.hovering,
             &.checked {
@@ -2171,14 +2136,31 @@ h3 {
               background-color: #000 !important;
               color: #fff !important;
             }
+
+            &.real-today.toMonth {
+              background-color: #fff;
+              color: #000;
+              font-weight: 700;
+
+              &.hovering {
+                background-color: #ccc;
+                color: #fff;
+              }
+            }
+          }
+
+          & .week-number {
+            font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
+            font-size: 9px;
+
+            &.week-number-selected {
+              color: var(--color-black);
+              font-weight: 700;
+            }
           }
         }
       }
     }
-  }
-
-  & .footer {
-    display: none;
   }
 }
 
@@ -2189,11 +2171,11 @@ h3 {
 
 /* Other */
 hr {
-  opacity: 0.3;
-  border-bottom: 1px dotted var(--color-gray-medium);
   border: 0;
+  border-bottom: 1px dotted var(--color-gray-medium);
   color: var(--color-gray-medium);
   height: 1px;
+  opacity: 0.3;
   text-align: left;
   width: 100%;
 }

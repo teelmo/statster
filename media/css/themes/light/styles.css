@@ -1,1 +1,16 @@
-@import 'colors.css';@import '../../site_template/top_container.css';@import '../../site_template/heading_container.css';@import '../../site_template/main_container.css';@import '../../site_template/chosen_styles.css';@import '../../site_template/loaders.css';@import '../../base.css';@import '../../site_template/footer.css';@import '../../site_template/responsive.css';:root{--theme:light}/*# sourceMappingURL=styles.css.map */
+@import 'colors.css';
+
+@import '../../site_template/top_container.css';
+@import '../../site_template/heading_container.css';
+@import '../../site_template/main_container.css';
+@import '../../site_template/chosen_styles.css';
+@import '../../site_template/loaders.css';
+
+@import '../../base.css';
+
+@import '../../site_template/footer.css';
+@import '../../site_template/responsive.css';
+
+:root {
+  --theme: light;
+}
