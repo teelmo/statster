@@ -120,12 +120,12 @@ if (!function_exists('addListening')) {
         // Get Spotify information only if existing album.
         $data_tmp = getAlbumInfo($data);
         if (empty($data_tmp['spotify_id'])) {
-          getSpotifyResourceId($data_tmp[0]);
+          // getSpotifyResourceId($data_tmp[0]);
         }
         foreach (getAlbumArtists($data) as $artist) {
           $data_tmp = getArtistInfo(array('artist_id' => $artist['id']));
           if (empty($data_tmp['spotify_id'])) {
-            getSpotifyResourceId($data_tmp);
+            // getSpotifyResourceId($data_tmp);
           }
         }
       }
