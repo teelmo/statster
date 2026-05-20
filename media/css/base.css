@@ -121,10 +121,10 @@ h3 {
   white-space: nowrap;
 
   & a {
-    color: var(--color-black);
+    color: var(--color-gray-dark);
 
     &:visited {
-      color: var(--color-gray-mid);
+      color: var(--color-gray-dark);
     }
 
     &:hover {
