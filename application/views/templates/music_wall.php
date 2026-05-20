@@ -7,7 +7,7 @@ if (!empty($json_data)) {
         ?>
         <li>
           <?=anchor(array('music', url_title($first['artist_name']), url_title($first['album_name'])), '<span></span>', array('title' => 'Browse to album\'s page'))?>
-          <div class="cover album_img img300" style="background-image:url(<?=getAlbumImg(array('album_id' => $first['album_id'], 'size' => 300))?>)"><div class="meta"><div class="title main"><?=anchor(array('music', url_title($first['artist_name']), url_title($first['album_name'])), $first['album_name'], array('title' => 'Browse to album\'s page'))?></div><div class="title"><?=implode('<div class="artist_separator">, </div>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, getAlbumArtists($first)))?></div><div class="title count"><?=$first['count']?> '. $word?></div></div></div>
+          <div class="cover album_img img300" style="background-image:url(<?=getAlbumImg(array('album_id' => $first['album_id'], 'size' => 300))?>)"><div class="meta"><div class="title main"><?=anchor(array('music', url_title($first['artist_name']), url_title($first['album_name'])), $first['album_name'], array('title' => 'Browse to album\'s page'))?></div><div class="title"><?=implode('<div class="artist_separator">, </div>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, getAlbumArtists($first)))?></div><div class="title count"><?=$first['count']?> <?=$word?></div></div></div>
         </li>
         <?php
       }
