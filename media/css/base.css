@@ -1426,6 +1426,38 @@ ul {
 
     & li {
       position: relative;
+      &.album {
+        > a {
+          height: 152px;
+          width: 152px;
+        }
+      }
+      &.artist {
+        > a {
+          height: 110px;
+          width: 152px;
+        }
+      }
+      > a {
+        display: inline-block;
+        position: absolute;
+        z-index: 2;
+      }
+      .cover {
+        display: block;
+        width: 150px;
+        height: 150px;
+        span {
+          display: block;
+        }
+      }
+
+      &.hover {
+        .cover:after {
+          opacity: 0;
+          transition: opacity 0.5s;
+        }
+      }
 
       & .meta {
         color: #fff;
@@ -1519,7 +1551,6 @@ ul {
         top: 5px;
         width: 20px;
       }
-
       & .meta {
         bottom: 5px;
         color: #fff;
