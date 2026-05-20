@@ -129,15 +129,15 @@
         }
 
         & .spotify_link {
+          display: none;
           text-decoration: none;
-
           & .spotify_container {
             &::after {
               opacity: 0.5;
               border-radius: calc(34px / 2);
               color: var(--color-gray-mid);
               content: '\f144';
-              font-family: 'Font Awesome 5 Free';
+              font-family: 'Font Awesome 5 Free', sans-serif;
               font-size: 40px;
               font-weight: 900;
               left: 4px;

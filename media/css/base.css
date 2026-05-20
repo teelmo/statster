@@ -808,6 +808,7 @@ table.music_table {
             &:after {
               color: var(--color-gray-mid);
               content: '\f144';
+              display: none;
               font-family: 'Font Awesome 5 Free', sans-serif;
               font-size: 16px;
               font-weight: 900;
@@ -888,13 +889,16 @@ table.music_table {
       & td.title {
         color: #000;
 
-        & .spotify_link .spotify_container {
-          &:after {
-            color: #000;
-          }
+        & .spotify_link {
+          display: none;
+          .spotify_container {
+            &:after {
+              color: #000;
+            }
 
-          &:hover:after {
-            color: var(--color-gray-light);
+            &:hover:after {
+              color: var(--color-gray-light);
+            }
           }
         }
       }
@@ -924,6 +928,9 @@ table.music_table {
         & a.spotify_link {
           left: -32px;
           position: relative;
+        }
+        & a.spotify_link {
+          display: none;
         }
       }
 
