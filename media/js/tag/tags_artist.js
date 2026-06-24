@@ -14,7 +14,7 @@ $.extend(view, {
             data: {
               delete: false,
               json_data: data,
-              logged_in: `<?=$logged_in?>` === '1'
+              logged_in: `<?=$logged_in?>`
             },
             success: data => {
               $('#tagsLoader').hide();
