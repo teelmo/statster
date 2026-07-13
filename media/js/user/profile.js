@@ -153,7 +153,7 @@ $.extend(view, {
       lower_limit = '1970-00-00';
     } else {
       const today = new Date();
-      today.setDate(date.getDate() - parseInt(interval, 10));
+      today.setDate(today.getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
     $.ajax({
