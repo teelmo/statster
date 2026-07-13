@@ -11,7 +11,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          var today = new Date();
+          const today = new Date();
           $.ajax({
             data: {
               cur_date: `${today.getFullYear()}-${(`0${today.getMonth() + 1}`).slice(-2)}-${(`0${today.getDate()}`).slice(-2)}`,

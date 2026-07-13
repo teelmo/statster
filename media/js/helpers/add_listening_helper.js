@@ -31,7 +31,7 @@ $.extend(view, {
   },
   initDatepicker: () => {
     var curday = sp => {
-      today = new Date();
+      const today = new Date();
       var dd = today.getDate();
       var mm = today.getMonth() + 1;
       var yyyy = today.getFullYear();

@@ -16,7 +16,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          var today = new Date();
+          const today = new Date();
           $.ajax({
             data: {
               cur_date: `${today.getFullYear()}-${(`0${today.getMonth() + 1}`).slice(-2)}-${(`0${today.getDate()}`).slice(-2)}`,
@@ -62,6 +62,7 @@ $.extend(view, {
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
     } else {
+      const today = new Date();
       today.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }

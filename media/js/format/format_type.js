@@ -74,16 +74,16 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $(vars.container + 'Loader').hide();
+              $(`${vars.container}Loader`).hide();
               $(vars.container).html(data);
             },
             type: 'POST',
             url: vars.template
           });
         },
-        204: data => {
+        204: _data => {
           // 204 No Content
-          $(vars.container + 'Loader').hide();
+          $(`${vars.container}Loader`).hide();
           $(vars.container).html('');
         }
       },
@@ -187,7 +187,7 @@ $.extend(view, {
 });
 
 $(document).ready(() => {
-  app.setOverlayBackground('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');
+  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
   view.getTopAlbum10('<?=$lower_limit?>');
   view.getTopAlbum10('<?=$lower_limit?>');
   var from = '(SELECT listening_format_types.listening_id FROM listening_format_types WHERE listening_format_types.listening_format_type_id = <?=$format_type_id?>) AS listening_format_types';

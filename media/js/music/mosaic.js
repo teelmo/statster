@@ -12,7 +12,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          var today = new Date();
+          const today = new Date();
           $.ajax({
             data: {
               json_data: data,
