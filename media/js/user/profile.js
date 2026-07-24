@@ -1,8 +1,8 @@
 var cumulative_done = false;
-$.extend(view, {
+Object.assign(view, {
   getListeningCumulation: () => {
     cumulative_done = true;
-    $.ajax({
+    ajax({
       data: {
         username: `<?=(!empty($username)) ? $username: ''?>`
       },
@@ -14,11 +14,15 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('.line').hide();
+          document.querySelectorAll('.line').forEach(el => {
+            el.style.display = 'none';
+          });
         },
         400: () => {
           // 400 Bad request
-          $('.line').hide();
+          document.querySelectorAll('.line').forEach(el => {
+            el.style.display = 'none';
+          });
         }
       },
       type: 'GET',
@@ -26,7 +30,7 @@ $.extend(view, {
     });
   },
   // Get listening by year.
-  getListeningHistory: type => {
+  getListeningHistory: type => new Promise(resolve => {
     view.initChart();
     var group_by;
     var order_by;
@@ -48,7 +52,7 @@ $.extend(view, {
       select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
       where = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') != '00'`;
     }
-    $.ajax({
+    ajax({
       data: {
         group_by: group_by,
         limit: 200,
@@ -62,16 +66,19 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: type
             },
             success: data => {
-              $('#historyLoader').hide();
-              $('#history').html(data).hide();
+              document.querySelector('#historyLoader').style.display = 'none';
+              var history = document.querySelector('#history');
+              history.innerHTML = data;
+              history.style.display = 'none';
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
+              resolve();
             },
             type: 'POST',
             url: '/ajax/musicBar'
@@ -79,25 +86,33 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#historyLoader', '.music_bar').hide();
-          $('#history').html(`<?=ERR_NO_RESULTS?>`);
+          var historyLoaderInBar = document.querySelector('.music_bar #historyLoader');
+          if (historyLoaderInBar) {
+            historyLoaderInBar.style.display = 'none';
+          }
+          document.querySelector('#history').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#historyLoader', '.music_bar').hide();
+          var historyLoaderInBar = document.querySelector('.music_bar #historyLoader');
+          if (historyLoaderInBar) {
+            historyLoaderInBar.style.display = 'none';
+          }
           alert(`<?=ERR_BAD_REQUEST?>`);
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/listener/get'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   // Get recent listenings.
-  getRecentListenings: (isFirst, _callback) => {
+  getRecentListenings: (isFirst, _callback) => new Promise(resolve => {
     if (isFirst !== true) {
-      $('#recentlyListenedLoader2').show();
+      document.querySelector('#recentlyListenedLoader2').style.display = '';
     }
-    $.ajax({
+    ajax({
       data: {
         sub_group_by: 'album',
         limit: 12,
@@ -108,7 +123,7 @@ $.extend(view, {
         200: data => {
           // 200 OK
           const today = new Date();
-          $.ajax({
+          ajax({
             data: {
               cur_date: `${today.getFullYear()}-${(`0${today.getMonth() + 1}`).slice(-2)}-${(`0${today.getDate()}`).slice(-2)}`,
               hide: {
@@ -119,15 +134,18 @@ $.extend(view, {
               time: Math.floor((today.getTime() - today.getTimezoneOffset() * 60000) / 1000)
             },
             success: data => {
-              $('#recentlyListenedLoader, #recentlyListenedLoader2').hide();
-              $('#recentlyListened').html(data);
+              document.querySelectorAll('#recentlyListenedLoader, #recentlyListenedLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#recentlyListened').innerHTML = data;
               var hours = today.getHours();
               var minutes = today.getMinutes();
               if (minutes < 10) {
                 minutes = `0${minutes}`;
               }
-              $('#recentlyUpdated').html(`updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`);
-              $('#recentlyUpdated').attr('value', today.getTime());
+              document.querySelector('#recentlyUpdated').innerHTML = `updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`;
+              document.querySelector('#recentlyUpdated').setAttribute('value', today.getTime());
+              resolve();
             },
             type: 'POST',
             url: '/ajax/musicTable'
@@ -135,19 +153,23 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recentlyListenedLoader, #recentlyListenedLoader2').hide();
-          $('#recentlyListened').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#recentlyListenedLoader, #recentlyListenedLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           alert('400 Bad Request');
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/listening/get'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   // Get top albums.
-  getTopAlbums: interval => {
+  getTopAlbums: interval => new Promise(resolve => {
     var lower_limit;
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
@@ -156,7 +178,7 @@ $.extend(view, {
       today.setDate(today.getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 13,
         lower_limit: lower_limit,
@@ -165,14 +187,17 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'album'
             },
             success: data => {
-              $('#topAlbumLoader, #topAlbumLoader2').hide();
-              $('#topAlbum').html(data);
+              document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topAlbum').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -180,16 +205,19 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topAlbumLoader, #topAlbumLoader2').hide();
-          $('#topAlbum').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/album/get'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   // Get top artists.
-  getTopArtists: interval => {
+  getTopArtists: interval => new Promise(resolve => {
     var lower_limit;
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
@@ -198,7 +226,7 @@ $.extend(view, {
       today.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       type: 'GET',
       dataType: 'json',
       url: '/api/artist/get',
@@ -209,14 +237,17 @@ $.extend(view, {
       },
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'artist'
             },
             success: data => {
-              $('#topArtistLoader, #topArtistLoader2').hide();
-              $('#topArtist').html(data);
+              document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topArtist').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -224,14 +255,17 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topArtistLoader, #topArtistLoader2').hide();
-          $('#topArtist').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       }
-    });
-  },
-  getShouts: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getShouts: () => new Promise(resolve => {
+    ajax({
       data: {
         username: '<?=$username?>'
       },
@@ -239,12 +273,16 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
+          var shoutTotal = document.querySelector('#shoutTotal');
           if (data[0].count === 1) {
-            $('#shoutTotal').html(`<span class="number">${data[0].count}</span> shout`).fadeIn(500);
+            shoutTotal.innerHTML = `<span class="number">${data[0].count}</span> shout`;
           } else {
-            $('#shoutTotal').html(`<span class="number">${data[0].count}</span> shouts`).fadeIn(500);
+            shoutTotal.innerHTML = `<span class="number">${data[0].count}</span> shouts`;
           }
-          $.ajax({
+          // Note: jQuery's fadeIn() animated this over 500ms; plain display
+          // toggle drops the animation but keeps the same end state.
+          shoutTotal.style.display = '';
+          ajax({
             data: {
               hide: {
                 user: true
@@ -254,8 +292,9 @@ $.extend(view, {
               type: 'user'
             },
             success: data => {
-              $('#userShoutLoader').hide();
-              $('#userShout').html(data);
+              document.querySelector('#userShoutLoader').style.display = 'none';
+              document.querySelector('#userShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
@@ -263,16 +302,17 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#userShoutLoader').hide();
-          $('#shout').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#userShoutLoader').style.display = 'none';
+          document.querySelector('#shout').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/shout/get/user'
-    });
-  },
-  getAlbumShouts: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getAlbumShouts: () => new Promise(resolve => {
+    ajax({
       data: {
         limit: 5,
         username: '<?=$username?>'
@@ -282,7 +322,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 delete: true,
@@ -292,7 +332,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#albumShout').html(data);
+              document.querySelector('#albumShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
@@ -301,10 +342,10 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/shout/get/album'
-    });
-  },
-  getArtistShouts: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getArtistShouts: () => new Promise(resolve => {
+    ajax({
       data: {
         limit: 5,
         username: '<?=$username?>'
@@ -313,7 +354,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 delete: true,
@@ -323,7 +364,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#artistShout').html(data);
+              document.querySelector('#artistShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
@@ -332,10 +374,10 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/shout/get/artist'
-    });
-  },
-  recentlyFaned: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  recentlyFaned: () => new Promise(resolve => {
+    ajax({
       data: {
         limit: 5,
         username: `<?=(!empty($username)) ? $username: ''?>`
@@ -343,7 +385,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 rank: true,
@@ -352,7 +394,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#recentlyFaned').html(data);
+              document.querySelector('#recentlyFaned').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/likeTable'
@@ -361,10 +404,10 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/fan/get'
-    });
-  },
-  recentlyLoved: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  recentlyLoved: () => new Promise(resolve => {
+    ajax({
       data: {
         limit: 5,
         username: `<?=(!empty($username)) ? $username: ''?>`
@@ -372,7 +415,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 rank: true,
@@ -381,7 +424,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#recentlyLoved').html(data);
+              document.querySelector('#recentlyLoved').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/likeTable'
@@ -390,9 +434,9 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/love/get'
-    });
-  },
-  getTopFormats: interval => {
+    }).catch(() => resolve());
+  }),
+  getTopFormats: interval => new Promise(resolve => {
     var lower_limit;
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
@@ -401,7 +445,7 @@ $.extend(view, {
       today.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -411,7 +455,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 format_icon: true
@@ -419,8 +463,11 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#topFormatLoader, #topFormatLoader2').hide();
-              $('#topFormat').html(data);
+              document.querySelectorAll('#topFormatLoader, #topFormatLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topFormat').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -428,15 +475,18 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topFormatLoader, #topFormatLoader2').hide();
-          $('#topFormat').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topFormatLoader, #topFormatLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topFormat').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/format/get'
-    });
-  },
-  getTopGenres: interval => {
+    }).catch(() => resolve());
+  }),
+  getTopGenres: interval => new Promise(resolve => {
     var lower_limit;
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
@@ -445,7 +495,7 @@ $.extend(view, {
       today.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -454,13 +504,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topGenreLoader, #topGenreLoader2').hide();
-              $('#topGenre').html(data);
+              document.querySelectorAll('#topGenreLoader, #topGenreLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topGenre').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -468,15 +521,18 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topGenreLoader, #topGenreLoader2').hide();
-          $('#topGenre').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topGenreLoader, #topGenreLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topGenre').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/genre/get'
-    });
-  },
-  getTopKeywords: interval => {
+    }).catch(() => resolve());
+  }),
+  getTopKeywords: interval => new Promise(resolve => {
     var lower_limit;
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
@@ -485,7 +541,7 @@ $.extend(view, {
       today.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -494,13 +550,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topKeywordLoader, #topKeywordLoader2').hide();
-              $('#topKeyword').html(data);
+              document.querySelectorAll('#topKeywordLoader, #topKeywordLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topKeyword').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -508,15 +567,18 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topKeywordLoader, #topKeywordLoader2').hide();
-          $('#topKeyword').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topKeywordLoader, #topKeywordLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topKeyword').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/keyword/get'
-    });
-  },
-  getTopNationalities: interval => {
+    }).catch(() => resolve());
+  }),
+  getTopNationalities: interval => new Promise(resolve => {
     var lower_limit;
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
@@ -525,7 +587,7 @@ $.extend(view, {
       today.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -534,13 +596,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topNationalityLoader, #topNationalityLoader2').hide();
-              $('#topNationality').html(data);
+              document.querySelectorAll('#topNationalityLoader, #topNationalityLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topNationality').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -548,15 +613,18 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topNationalityLoader, #topNationalityLoader2').hide();
-          $('#topNationality').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topNationalityLoader, #topNationalityLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topNationality').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/nationality/get/listenings'
-    });
-  },
-  getTopYears: interval => {
+    }).catch(() => resolve());
+  }),
+  getTopYears: interval => new Promise(resolve => {
     var lower_limit;
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
@@ -565,7 +633,7 @@ $.extend(view, {
       today.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -574,13 +642,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topYearLoader, #topYearLoader2').hide();
-              $('#topYear').html(data);
+              document.querySelectorAll('#topYearLoader, #topYearLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topYear').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -588,60 +659,70 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topYearLoader, #topYearLoader2').hide();
-          $('#topYear').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topYearLoader, #topYearLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topYear').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/year/get'
-    });
-  },
+    }).catch(() => resolve());
+  }),
+  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
+  // request anywhere on the page finished; that's what this waited on. What
+  // it actually needs is every fetch kicked off below, so this waits on
+  // those specifically via Promise.all instead.
   initProfileEvents: () => {
-    $(document).one('ajaxStop', (_event, _request, _settings) => {
-      if ($('.shouts tr').length === 0) {
-        $('#shout').html(`<?=ERR_NO_RESULTS?>`);
+    Promise.all([
+      view.getListeningHistory('%Y'),
+      view.getRecentListenings(),
+      view.getTopAlbums('<?=$top_album_profile?>'),
+      view.getTopArtists('<?=$top_artist_profile?>'),
+      view.getShouts(),
+      view.getAlbumShouts(),
+      view.getArtistShouts(),
+      view.recentlyFaned(),
+      view.recentlyLoved(),
+      view.getTopFormats('<?=$top_listening_format_profile?>'),
+      view.getTopGenres('<?=$top_genre_profile?>'),
+      view.getTopKeywords('<?=$top_keyword_profile?>'),
+      view.getTopNationalities('<?=$top_nationality_profile?>'),
+      view.getTopYears('<?=$top_year_profile?>')
+    ]).then(() => {
+      var shoutRows = Array.from(document.querySelectorAll('.shouts tr'));
+      if (shoutRows.length === 0) {
+        document.querySelector('#shout').innerHTML = `<?=ERR_NO_RESULTS?>`;
       } else {
-        $('#shout').append(
-          $('.shouts tr')
-            .detach()
-            .sort((a, b) => app.compareStrings($(a).data('created'), $(b).data('created')))
-        );
+        shoutRows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
+        var shout = document.querySelector('#shout');
+        shoutRows.forEach(row => {
+          shout.appendChild(row);
+        });
       }
-      $('#shoutLoader').hide();
+      document.querySelector('#shoutLoader').style.display = 'none';
 
-      if ($('.likes tr').length === 0) {
-        $('#recentlyLiked').html(`<?=ERR_NO_RESULTS?>`);
+      var likeRows = Array.from(document.querySelectorAll('.likes tr'));
+      if (likeRows.length === 0) {
+        document.querySelector('#recentlyLiked').innerHTML = `<?=ERR_NO_RESULTS?>`;
       } else {
-        $('#recentlyLiked').append(
-          $('.likes tr')
-            .detach()
-            .sort((a, b) => app.compareStrings($(a).data('created'), $(b).data('created')))
-        );
+        likeRows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
+        var recentlyLiked = document.querySelector('#recentlyLiked');
+        likeRows.forEach(row => {
+          recentlyLiked.appendChild(row);
+        });
       }
-      $('#recentlyLikedLoader').hide();
+      document.querySelector('#recentlyLikedLoader').style.display = 'none';
       if (cumulative_done === false) {
         view.getListeningCumulation();
       }
     });
-    $('#refreshRecentAlbums').click(() => {
+    document.querySelector('#refreshRecentAlbums').addEventListener('click', () => {
       view.getRecentListenings();
     });
   }
 });
 
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-view.getListeningHistory('%Y');
-view.getRecentListenings();
-view.getTopAlbums('<?=$top_album_profile?>');
-view.getTopArtists('<?=$top_artist_profile?>');
-view.getShouts();
-view.getAlbumShouts();
-view.getArtistShouts();
-view.recentlyFaned();
-view.recentlyLoved();
-view.getTopFormats('<?=$top_listening_format_profile?>');
-view.getTopGenres('<?=$top_genre_profile?>');
-view.getTopKeywords('<?=$top_keyword_profile?>');
-view.getTopNationalities('<?=$top_nationality_profile?>');
-view.getTopYears('<?=$top_year_profile?>');
 view.initProfileEvents();

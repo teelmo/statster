@@ -1,19 +1,19 @@
-$.extend(view, {
+Object.assign(view, {
   // Get users.
   getUsers: () => {
-    $.ajax({
+    ajax({
       data: {},
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'user'
             },
             success: data => {
-              $('#userMosaicLoader').hide();
-              $('#userMosaic').html(data);
+              document.querySelector('#userMosaicLoader').style.display = 'none';
+              document.querySelector('#userMosaic').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/mosaic'
@@ -21,8 +21,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#userMosaicLoader').hide();
-          $('#userMosaic').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#userMosaicLoader').style.display = 'none';
+          document.querySelector('#userMosaic').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {
           // 404 Not found
@@ -41,7 +41,7 @@ $.extend(view, {
       date.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 10,
         sub_group_by: 'album',
@@ -51,7 +51,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -62,8 +62,10 @@ $.extend(view, {
               type: 'user'
             },
             success: data => {
-              $('#topListenerLoader, #topListenerLoader2').hide();
-              $('#topListener').html(data);
+              document.querySelectorAll('#topListenerLoader, #topListenerLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -74,8 +76,8 @@ $.extend(view, {
       url: '/api/listener/get'
     });
   },
-  getAlbumShouts: size => {
-    $.ajax({
+  getAlbumShouts: size => new Promise(resolve => {
+    ajax({
       data: {
         limit: 3,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -84,13 +86,14 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: size
             },
             success: data => {
-              $('#albumShout').html(data);
+              document.querySelector('#albumShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
@@ -99,10 +102,10 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/shout/get/album'
-    });
-  },
-  getArtistShouts: size => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getArtistShouts: size => new Promise(resolve => {
+    ajax({
       data: {
         limit: 3,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -111,13 +114,14 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: size
             },
             success: data => {
-              $('#artistShout').html(data);
+              document.querySelector('#artistShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
@@ -126,10 +130,10 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/shout/get/artist'
-    });
-  },
-  getUserShouts: size => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getUserShouts: size => new Promise(resolve => {
+    ajax({
       data: {
         limit: 3,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -138,13 +142,14 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: size
             },
             success: data => {
-              $('#userShout').html(data);
+              document.querySelector('#userShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
@@ -153,16 +158,25 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/shout/get/user'
-    });
-  },
-  initUserEvents: () => {
-    $(document).one('ajaxStop', (_event, _request, _settings) => {
-      $('#musicShout').append(
-        $('.shouts tr')
-          .detach()
-          .sort((a, b) => app.compareStrings($(a).data('created'), $(b).data('created')))
-      );
-      $('#musicShoutLoader').hide();
+    }).catch(() => resolve());
+  }),
+  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
+  // request anywhere on the page finished; this waits specifically for the
+  // three shout fetches that feed the merge below, which is what the
+  // original intent actually was.
+  initUserEvents: size => {
+    Promise.all([
+      view.getAlbumShouts(size),
+      view.getArtistShouts(size),
+      view.getUserShouts(size)
+    ]).then(() => {
+      var rows = Array.from(document.querySelectorAll('.shouts tr'));
+      rows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
+      var musicShout = document.querySelector('#musicShout');
+      rows.forEach(row => {
+        musicShout.appendChild(row);
+      });
+      document.querySelector('#musicShoutLoader').style.display = 'none';
     });
   }
 });
@@ -170,8 +184,5 @@ $.extend(view, {
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
 view.getUsers();
 var size = 32;
-view.getAlbumShouts(size);
-view.getArtistShouts(size);
-view.getUserShouts(size);
+view.initUserEvents(size);
 view.getTopListeners('<?=$top_listener_user?>');
-view.initUserEvents();
