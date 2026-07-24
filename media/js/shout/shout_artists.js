@@ -1,6 +1,6 @@
-$.extend(view, {
+Object.assign(view, {
   getArtistShouts: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 100,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -9,14 +9,14 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: 32
             },
             success: data => {
-              $('#shoutLoader').hide();
-              $('#shout').html(data);
+              document.querySelector('#shoutLoader').style.display = 'none';
+              document.querySelector('#shout').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/shoutTable'
@@ -28,7 +28,7 @@ $.extend(view, {
     });
   },
   getShoutUsers: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 20,
         type: 'artist'
@@ -37,7 +37,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -48,8 +48,8 @@ $.extend(view, {
               term: 'shouts'
             },
             success: data => {
-              $('#shoutersLoader').hide();
-              $('#shouters').html(data);
+              document.querySelector('#shoutersLoader').style.display = 'none';
+              document.querySelector('#shouters').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/userTable'

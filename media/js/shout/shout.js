@@ -1,6 +1,6 @@
-$.extend(view, {
-  getAlbumShouts: size => {
-    $.ajax({
+Object.assign(view, {
+  getAlbumShouts: size => new Promise(resolve => {
+    ajax({
       data: {
         limit: 33,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -9,25 +9,30 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: size
             },
             success: data => {
-              $('#albumShout').html(data);
+              document.querySelector('#albumShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
           });
+        },
+        204: () => {
+          // 204 No Content
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/shout/get/album'
     });
-  },
-  getArtistShouts: size => {
-    $.ajax({
+  }),
+  getArtistShouts: size => new Promise(resolve => {
+    ajax({
       data: {
         limit: 33,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -36,25 +41,30 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: size
             },
             success: data => {
-              $('#artistShout').html(data);
+              document.querySelector('#artistShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
           });
+        },
+        204: () => {
+          // 204 No Content
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/shout/get/artist'
     });
-  },
-  getUserShouts: size => {
-    $.ajax({
+  }),
+  getUserShouts: size => new Promise(resolve => {
+    ajax({
       data: {
         limit: 33,
         type: 'user',
@@ -64,25 +74,30 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: size
             },
             success: data => {
-              $('#userShout').html(data);
+              document.querySelector('#userShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
           });
+        },
+        204: () => {
+          // 204 No Content
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/shout/get/user'
     });
-  },
+  }),
   getShoutUsers: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 20
       },
@@ -90,7 +105,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -101,8 +116,8 @@ $.extend(view, {
               term: 'shouts'
             },
             success: data => {
-              $('#shoutersLoader').hide();
-              $('#shouters').html(data);
+              document.querySelector('#shoutersLoader').style.display = 'none';
+              document.querySelector('#shouters').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/userTable'
@@ -113,22 +128,28 @@ $.extend(view, {
       url: '/api/shout/get/users'
     });
   },
-  initShoutEvents: () => {
-    $(document).one('ajaxStop', (_event, _request, _settings) => {
-      $('#shout').append(
-        $('.shouts tr')
-          .detach()
-          .sort((a, b) => app.compareStrings($(a).data('created'), $(b).data('created')))
-      );
-      $('#shoutLoader').hide();
+  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
+  // request anywhere on the page finished; that's what this waited on. What
+  // it actually needs is the three shout fetches that feed the merge below,
+  // so this waits on those specifically via Promise.all instead.
+  initShoutEvents: size => {
+    Promise.all([
+      view.getAlbumShouts(size),
+      view.getArtistShouts(size),
+      view.getUserShouts(size)
+    ]).then(() => {
+      var rows = Array.from(document.querySelectorAll('.shouts tr'));
+      rows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
+      var shout = document.querySelector('#shout');
+      rows.forEach(row => {
+        shout.appendChild(row);
+      });
+      document.querySelector('#shoutLoader').style.display = 'none';
     });
   }
 });
 
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
 var size = 32;
-view.getAlbumShouts(size);
-view.getArtistShouts(size);
-view.getUserShouts(size);
+view.initShoutEvents(size);
 view.getShoutUsers(size);
-view.initShoutEvents();
