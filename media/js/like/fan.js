@@ -1,6 +1,6 @@
-$.extend(view, {
+Object.assign(view, {
   recentlyFaned: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 100,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -8,7 +8,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 rank: true
@@ -16,8 +16,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#recentlyFanedLoader').hide();
-              $('#recentlyFaned').html(data);
+              document.querySelector('#recentlyFanedLoader').style.display = 'none';
+              document.querySelector('#recentlyFaned').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/likeTable'
@@ -29,14 +29,14 @@ $.extend(view, {
     });
   },
   topFaned: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 9
       },
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               limit: 9,
@@ -44,8 +44,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#topFanedLoader').hide();
-              $('#topFaned').html(data);
+              document.querySelector('#topFanedLoader').style.display = 'none';
+              document.querySelector('#topFaned').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'

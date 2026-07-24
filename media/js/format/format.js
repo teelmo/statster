@@ -1,4 +1,4 @@
-$.extend(view, {
+Object.assign(view, {
   getTopAlbum10: (lower_limit, upper_limit = false) => {
     if (!upper_limit) {
       if (lower_limit === 'overall') {
@@ -10,7 +10,7 @@ $.extend(view, {
       }
       upper_limit = '<?=CUR_DATE?>';
     }
-    $.ajax({
+    ajax({
       data: {
         format_name: '<?=$format_name?>',
         hide: {},
@@ -22,13 +22,15 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topAlbum10Loader, #topAlbum10Loader2').hide();
-              $('#topAlbum10').html(data);
+              document.querySelectorAll('#topAlbum10Loader, #topAlbum10Loader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topAlbum10').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/albumList'
@@ -36,8 +38,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topAlbum10Loader, #topAlbum10Loader2').hide();
-          $('#topAlbum10').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topAlbum10Loader, #topAlbum10Loader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topAlbum10').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -51,7 +55,7 @@ $.extend(view, {
     view.getTopAlbum(lower_limit, upper_limit, vars);
   },
   getTopAlbum: (lower_limit, upper_limit, vars) => {
-    $.ajax({
+    ajax({
       data: {
         format_name: '<?=$format_name?>',
         limit: vars.limit,
@@ -63,7 +67,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: vars.hide,
               json_data: data,
@@ -71,8 +75,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $(`${vars.container}Loader`).hide();
-              $(vars.container).html(data);
+              document.querySelector(`${vars.container}Loader`).style.display = 'none';
+              document.querySelector(vars.container).innerHTML = data;
             },
             type: 'POST',
             url: vars.template
@@ -80,8 +84,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $(`${vars.container}Loader`).hide();
-          $(vars.container).html('');
+          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(vars.container).innerHTML = '';
         }
       },
       type: 'GET',
@@ -90,7 +94,7 @@ $.extend(view, {
   },
   // Get format listeners.
   getUsers: (from, where) => {
-    $.ajax({
+    ajax({
       data: {
         from: from,
         limit: 10,
@@ -101,7 +105,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -111,8 +115,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#topListenerLoader').hide();
-              $('#topListener').html(data);
+              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/userTable'
@@ -120,13 +124,13 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
       type: 'GET',
@@ -135,7 +139,7 @@ $.extend(view, {
   },
   // Get format listenings.
   getListenings: (from, where) => {
-    $.ajax({
+    ajax({
       data: {
         from: from,
         limit: 15,
@@ -147,7 +151,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 artist: true,
@@ -159,8 +163,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#recentlyListenedLoader').hide();
-              $('#recentlyListened').html(data);
+              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/sideTable'
@@ -168,13 +172,13 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
       type: 'GET',

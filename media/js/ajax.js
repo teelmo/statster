@@ -91,7 +91,10 @@ function ajaxAppend(params, value, prefix) {
     Object.keys(value).forEach(key => {
       ajaxAppend(params, value[key], prefix === null ? key : `${prefix}[${key}]`);
     });
-  } else if (value !== undefined && value !== null) {
-    params.append(prefix, value);
+  } else {
+    // jQuery.param() serializes null/undefined leaves as an empty string
+    // rather than omitting the key - PHP's parse_str() needs the key present
+    // (even empty) or the array loses that field entirely on the other end.
+    params.append(prefix, value === undefined || value === null ? '' : value);
   }
 }

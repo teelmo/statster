@@ -1,21 +1,21 @@
-$.extend(view, {
+Object.assign(view, {
   topLoved: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 9
       },
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'album',
               word: 'loves'
             },
             success: data => {
-              $('#topLovedLoader').hide();
-              $('#topLoved').html(data);
+              document.querySelector('#topLovedLoader').style.display = 'none';
+              document.querySelector('#topLoved').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -27,22 +27,22 @@ $.extend(view, {
     });
   },
   topFaned: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 9
       },
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'artist',
               word: 'fans'
             },
             success: data => {
-              $('#topFanedLoader').hide();
-              $('#topFaned').html(data);
+              document.querySelector('#topFanedLoader').style.display = 'none';
+              document.querySelector('#topFaned').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -54,7 +54,7 @@ $.extend(view, {
     });
   },
   recentlyLoved: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 10,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -62,7 +62,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 rank: true
@@ -70,8 +70,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#recentlyLovedLoader').hide();
-              $('#recentlyLoved').html(data);
+              document.querySelector('#recentlyLovedLoader').style.display = 'none';
+              document.querySelector('#recentlyLoved').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/likeTable'
@@ -83,7 +83,7 @@ $.extend(view, {
     });
   },
   recentlyFaned: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 10,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -91,7 +91,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 rank: true
@@ -99,8 +99,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#recentlyFanedLoader').hide();
-              $('#recentlyFaned').html(data);
+              document.querySelector('#recentlyFanedLoader').style.display = 'none';
+              document.querySelector('#recentlyFaned').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/likeTable'

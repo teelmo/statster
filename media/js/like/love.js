@@ -1,6 +1,6 @@
-$.extend(view, {
+Object.assign(view, {
   recentlyLoved: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 100,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -8,7 +8,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 rank: true
@@ -16,8 +16,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#recentlyLovedLoader').hide();
-              $('#recentlyLoved').html(data);
+              document.querySelector('#recentlyLovedLoader').style.display = 'none';
+              document.querySelector('#recentlyLoved').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/likeTable'
@@ -29,14 +29,14 @@ $.extend(view, {
     });
   },
   topLoved: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 9
       },
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               limit: 9,
@@ -44,8 +44,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#topLovedLoader').hide();
-              $('#topLoved').html(data);
+              document.querySelector('#topLovedLoader').style.display = 'none';
+              document.querySelector('#topLoved').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
