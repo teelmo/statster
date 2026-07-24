@@ -69,8 +69,6 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.getTopKeywords('<?=$top_keyword_keyword?>');
-  view.getTopKeywordsYearly();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.getTopKeywords('<?=$top_keyword_keyword?>');
+view.getTopKeywordsYearly();

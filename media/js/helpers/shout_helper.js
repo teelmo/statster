@@ -81,6 +81,4 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  view.shoutEvents();
-});
+view.shoutEvents();

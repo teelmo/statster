@@ -310,42 +310,40 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>`);
-  view.getListeningHistory('%Y');
-  view.getTopAlbums('<?=$top_album_tag?>');
-  view.getTopArtists('<?=$top_artist_tag?>');
-  var from;
-  var where;
-  switch ('<?=$tag_type?>') {
-    case 'genre': {
-      from = '(SELECT <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id` FROM <?=TBL_genres?> GROUP BY <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id`) as <?=TBL_genres?>';
-      where = '<?=TBL_genres?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_genres?>.`genre_id` = <?=$tag_id?>';
-      break;
-    }
-    case 'keyword':
-      from = '(SELECT <?=TBL_keywords?>.`keyword_id`, <?=TBL_keywords?>.`album_id` FROM <?=TBL_keywords?> GROUP BY <?=TBL_keywords?>.`keyword_id`, <?=TBL_keywords?>.`album_id`) as <?=TBL_keywords?>';
-      where = '<?=TBL_keywords?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_keywords?>.`keyword_id` = <?=$tag_id?>';
-      break;
-    case 'nationality':
-      from = '(SELECT <?=TBL_nationalities?>.`nationality_id`, <?=TBL_nationalities?>.`album_id` FROM <?=TBL_nationalities?> GROUP BY <?=TBL_nationalities?>.`nationality_id`, <?=TBL_nationalities?>.`album_id`) as <?=TBL_nationalities?>';
-      where = '<?=TBL_nationalities?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_nationalities?>.`nationality_id` = <?=$tag_id?>';
-      break;
-    case 'year':
-      from = '';
-      where = '<?=TBL_album?>.`year` = <?=$tag_id?>';
-      break;
-    default:
-      from = '';
-      where = '';
-      break;
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist['artist_id'], 'size' => 300))?>`);
+view.getListeningHistory('%Y');
+view.getTopAlbums('<?=$top_album_tag?>');
+view.getTopArtists('<?=$top_artist_tag?>');
+var from;
+var where;
+switch ('<?=$tag_type?>') {
+  case 'genre': {
+    from = '(SELECT <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id` FROM <?=TBL_genres?> GROUP BY <?=TBL_genres?>.`genre_id`, <?=TBL_genres?>.`album_id`) as <?=TBL_genres?>';
+    where = '<?=TBL_genres?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_genres?>.`genre_id` = <?=$tag_id?>';
+    break;
   }
-  view.getUsers(from, where);
-  view.getListenings(from, where);
-  view.initTagEvents();
+  case 'keyword':
+    from = '(SELECT <?=TBL_keywords?>.`keyword_id`, <?=TBL_keywords?>.`album_id` FROM <?=TBL_keywords?> GROUP BY <?=TBL_keywords?>.`keyword_id`, <?=TBL_keywords?>.`album_id`) as <?=TBL_keywords?>';
+    where = '<?=TBL_keywords?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_keywords?>.`keyword_id` = <?=$tag_id?>';
+    break;
+  case 'nationality':
+    from = '(SELECT <?=TBL_nationalities?>.`nationality_id`, <?=TBL_nationalities?>.`album_id` FROM <?=TBL_nationalities?> GROUP BY <?=TBL_nationalities?>.`nationality_id`, <?=TBL_nationalities?>.`album_id`) as <?=TBL_nationalities?>';
+    where = '<?=TBL_nationalities?>.`album_id` = <?=TBL_album?>.`id` AND <?=TBL_nationalities?>.`nationality_id` = <?=$tag_id?>';
+    break;
+  case 'year':
+    from = '';
+    where = '<?=TBL_album?>.`year` = <?=$tag_id?>';
+    break;
+  default:
+    from = '';
+    where = '';
+    break;
+}
+view.getUsers(from, where);
+view.getListenings(from, where);
+view.initTagEvents();
 
-  var update_bio = parseInt(`<?=($update_bio === true) ? 1 : 0?>`, 10);
-  if (update_bio === 1) {
-    view.updateBio();
-  }
-});
+var update_bio = parseInt(`<?=($update_bio === true) ? 1 : 0?>`, 10);
+if (update_bio === 1) {
+  view.updateBio();
+}

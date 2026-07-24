@@ -37,8 +37,6 @@ $.extend(view, {
   initSearchEvents: () => {}
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.getSearchResults();
-  view.initSearchEvents();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.getSearchResults();
+view.initSearchEvents();

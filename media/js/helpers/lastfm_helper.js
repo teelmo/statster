@@ -56,7 +56,5 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  view.getSimilar();
-  // view.getEvents();
-});
+view.getSimilar();
+// view.getEvents();

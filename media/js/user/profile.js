@@ -629,21 +629,19 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.getListeningHistory('%Y');
-  view.getRecentListenings();
-  view.getTopAlbums('<?=$top_album_profile?>');
-  view.getTopArtists('<?=$top_artist_profile?>');
-  view.getShouts();
-  view.getAlbumShouts();
-  view.getArtistShouts();
-  view.recentlyFaned();
-  view.recentlyLoved();
-  view.getTopFormats('<?=$top_listening_format_profile?>');
-  view.getTopGenres('<?=$top_genre_profile?>');
-  view.getTopKeywords('<?=$top_keyword_profile?>');
-  view.getTopNationalities('<?=$top_nationality_profile?>');
-  view.getTopYears('<?=$top_year_profile?>');
-  view.initProfileEvents();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.getListeningHistory('%Y');
+view.getRecentListenings();
+view.getTopAlbums('<?=$top_album_profile?>');
+view.getTopArtists('<?=$top_artist_profile?>');
+view.getShouts();
+view.getAlbumShouts();
+view.getArtistShouts();
+view.recentlyFaned();
+view.recentlyLoved();
+view.getTopFormats('<?=$top_listening_format_profile?>');
+view.getTopGenres('<?=$top_genre_profile?>');
+view.getTopKeywords('<?=$top_keyword_profile?>');
+view.getTopNationalities('<?=$top_nationality_profile?>');
+view.getTopYears('<?=$top_year_profile?>');
+view.initProfileEvents();

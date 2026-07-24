@@ -419,17 +419,15 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.initChart();
-  view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topReleases('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.getListeningHistory('%m', '<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topListeners('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topFormats('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topGenre('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topKeyword('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topNationality('<?=$lower_limit?>', '<?=$upper_limit?>');
-  view.topYear('<?=$lower_limit?>', '<?=$upper_limit?>');
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.initChart();
+view.topAlbum('<?=$lower_limit?>', '<?=$upper_limit?>');
+view.topArtist('<?=$lower_limit?>', '<?=$upper_limit?>');
+view.topReleases('<?=$lower_limit?>', '<?=$upper_limit?>');
+view.getListeningHistory('%m', '<?=$lower_limit?>', '<?=$upper_limit?>');
+view.topListeners('<?=$lower_limit?>', '<?=$upper_limit?>');
+view.topFormats('<?=$lower_limit?>', '<?=$upper_limit?>');
+view.topGenre('<?=$lower_limit?>', '<?=$upper_limit?>');
+view.topKeyword('<?=$lower_limit?>', '<?=$upper_limit?>');
+view.topNationality('<?=$lower_limit?>', '<?=$upper_limit?>');
+view.topYear('<?=$lower_limit?>', '<?=$upper_limit?>');

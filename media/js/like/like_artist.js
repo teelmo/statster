@@ -332,13 +332,11 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>`);
-  view.getFan(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
-  view.getFans();
-  view.getTags();
-  view.recentlyFaned();
-  view.getUsers();
-  view.getListenings();
-  view.initLikeArtistEvents();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>`);
+view.getFan(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
+view.getFans();
+view.getTags();
+view.recentlyFaned();
+view.getUsers();
+view.getListenings();
+view.initLikeArtistEvents();

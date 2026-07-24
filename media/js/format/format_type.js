@@ -186,13 +186,11 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.getTopAlbum10('<?=$lower_limit?>');
-  view.getTopAlbum10('<?=$lower_limit?>');
-  var from = '(SELECT listening_format_types.listening_id FROM listening_format_types WHERE listening_format_types.listening_format_type_id = <?=$format_type_id?>) AS listening_format_types';
-  var where = 'listening_format_types.listening_id = <?=TBL_listening?>.id';
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.getTopAlbum10('<?=$lower_limit?>');
+view.getTopAlbum10('<?=$lower_limit?>');
+var from = '(SELECT listening_format_types.listening_id FROM listening_format_types WHERE listening_format_types.listening_format_type_id = <?=$format_type_id?>) AS listening_format_types';
+var where = 'listening_format_types.listening_id = <?=TBL_listening?>.id';
 
-  view.getUsers(from, where);
-  view.getListenings(from, where);
-});
+view.getUsers(from, where);
+view.getListenings(from, where);

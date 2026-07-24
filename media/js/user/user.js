@@ -167,13 +167,11 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.getUsers();
-  var size = 32;
-  view.getAlbumShouts(size);
-  view.getArtistShouts(size);
-  view.getUserShouts(size);
-  view.getTopListeners('<?=$top_listener_user?>');
-  view.initUserEvents();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.getUsers();
+var size = 32;
+view.getAlbumShouts(size);
+view.getArtistShouts(size);
+view.getUserShouts(size);
+view.getTopListeners('<?=$top_listener_user?>');
+view.initUserEvents();

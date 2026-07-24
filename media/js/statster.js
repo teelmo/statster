@@ -251,85 +251,83 @@ var app = {
 };
 var view = {};
 
-$(document).ready(() => {
-  $.extend(view, {});
-  app.highlightPatch();
-  app.initMouseTrap();
-  app.initStatsterEvents();
-  app.initToolTipster();
+$.extend(view, {});
+app.highlightPatch();
+app.initMouseTrap();
+app.initStatsterEvents();
+app.initToolTipster();
 
-  if ($('#headingCont').length === 0) {
-    $('#topCont').addClass('scrolled');
+if ($('#headingCont').length === 0) {
+  $('#topCont').addClass('scrolled');
+}
+
+function waitForChosenThen($select, callback, maxAttempts = 20, attempt = 0) {
+  var chosenInstance = $select.data('chosen');
+  if (chosenInstance) {
+    callback($select, chosenInstance);
+  } else if (attempt < maxAttempts) {
+    setTimeout(() => {
+      waitForChosenThen($select, callback, maxAttempts, attempt + 1);
+    }, 100);
+  } else {
+    console.warn('Chosen was not initialized on the element in time.');
   }
+}
 
-  function waitForChosenThen($select, callback, maxAttempts = 20, attempt = 0) {
-    var chosenInstance = $select.data('chosen');
-    if (chosenInstance) {
-      callback($select, chosenInstance);
-    } else if (attempt < maxAttempts) {
-      setTimeout(() => {
-        waitForChosenThen($select, callback, maxAttempts, attempt + 1);
-      }, 100);
-    } else {
-      console.warn('Chosen was not initialized on the element in time.');
-    }
-  }
+($ => {
+  $.fn.prioritizedChosenSearch = function () {
+    return this.each(function () {
+      var $select = $(this);
 
-  ($ => {
-    $.fn.prioritizedChosenSearch = function () {
-      return this.each(function () {
-        var $select = $(this);
+      waitForChosenThen($select, ($select, chosenInstance) => {
+        var $searchInput = chosenInstance.search_field;
 
-        waitForChosenThen($select, ($select, chosenInstance) => {
-          var $searchInput = chosenInstance.search_field;
+        $searchInput.on('keyup', e => {
+          // Ignore navigation keys
+          if ([13, 27, 38, 40, 37, 39].includes(e.which)) return;
 
-          $searchInput.on('keyup', e => {
-            // Ignore navigation keys
-            if ([13, 27, 38, 40, 37, 39].includes(e.which)) return;
+          var searchTerm = ($searchInput.val() || '').toLowerCase();
+          var selectedValues = $select.val();
 
-            var searchTerm = ($searchInput.val() || '').toLowerCase();
-            var selectedValues = $select.val();
-
-            var $optgroups = $select.find('optgroup');
-            var options;
-            if ($optgroups.length) {
-              // Sort options inside each optgroup
-              $optgroups.each(function () {
-                var $optgroup = $(this);
-                options = $optgroup.find('option').get();
-
-                options.sort((a, b) => compareOptionTexts(a, b, searchTerm));
-
-                $optgroup.empty().append(options);
-              });
-            } else {
-              // No optgroups — sort all options
-              options = $select.find('option').get();
+          var $optgroups = $select.find('optgroup');
+          var options;
+          if ($optgroups.length) {
+            // Sort options inside each optgroup
+            $optgroups.each(function () {
+              var $optgroup = $(this);
+              options = $optgroup.find('option').get();
 
               options.sort((a, b) => compareOptionTexts(a, b, searchTerm));
 
-              $select.empty().append(options);
-            }
+              $optgroup.empty().append(options);
+            });
+          } else {
+            // No optgroups — sort all options
+            options = $select.find('option').get();
 
-            $select.val(selectedValues);
-            $select.trigger('chosen:updated');
+            options.sort((a, b) => compareOptionTexts(a, b, searchTerm));
 
-            chosenInstance.search_field.val(searchTerm);
-            chosenInstance.winnow_results();
-          });
+            $select.empty().append(options);
+          }
+
+          $select.val(selectedValues);
+          $select.trigger('chosen:updated');
+
+          chosenInstance.search_field.val(searchTerm);
+          chosenInstance.winnow_results();
         });
       });
-    };
+    });
+  };
 
-    function compareOptionTexts(a, b, searchTerm) {
-      var aText = $(a).text().toLowerCase();
-      var bText = $(b).text().toLowerCase();
+  function compareOptionTexts(a, b, searchTerm) {
+    var aText = $(a).text().toLowerCase();
+    var bText = $(b).text().toLowerCase();
 
-      var aStarts = aText.startsWith(searchTerm) ? 0 : aText.includes(searchTerm) ? 1 : 2;
-      var bStarts = bText.startsWith(searchTerm) ? 0 : bText.includes(searchTerm) ? 1 : 2;
+    var aStarts = aText.startsWith(searchTerm) ? 0 : aText.includes(searchTerm) ? 1 : 2;
+    var bStarts = bText.startsWith(searchTerm) ? 0 : bText.includes(searchTerm) ? 1 : 2;
 
-      if (aStarts !== bStarts) return aStarts - bStarts;
-      return aText.localeCompare(bText);
-    }
-  })(jQuery);
-});
+    if (aStarts !== bStarts) return aStarts - bStarts;
+    return aText.localeCompare(bText);
+  }
+})(jQuery);

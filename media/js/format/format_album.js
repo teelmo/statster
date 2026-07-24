@@ -334,13 +334,11 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>`);
-  view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
-  view.getLoves();
-  view.getTags();
-  view.getFormats();
-  view.getUsers();
-  view.getListenings();
-  view.initMetaAlbumEvents();
-});
+app.setOverlayBackground(`<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>`);
+view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
+view.getLoves();
+view.getTags();
+view.getFormats();
+view.getUsers();
+view.getListenings();
+view.initMetaAlbumEvents();

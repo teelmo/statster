@@ -335,13 +335,11 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>`);
-  view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
-  view.getLoves();
-  view.getTags();
-  view.getAlbumShouts();
-  view.getUsers();
-  view.getListenings();
-  view.initShoutAlbumEvents();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>`);
+view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
+view.getLoves();
+view.getTags();
+view.getAlbumShouts();
+view.getUsers();
+view.getListenings();
+view.initShoutAlbumEvents();

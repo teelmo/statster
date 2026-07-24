@@ -334,14 +334,12 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.getListeningHistory('%Y');
-  view.getPopularGenres();
-  view.getPopularAlbums('<?=$popular_album_music?>');
-  view.getSecondChance();
-  view.getFromOthers();
-  view.getRecentlyFaned();
-  view.getRecentlyLoved();
-  view.initMusicEvents();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.getListeningHistory('%Y');
+view.getPopularGenres();
+view.getPopularAlbums('<?=$popular_album_music?>');
+view.getSecondChance();
+view.getFromOthers();
+view.getRecentlyFaned();
+view.getRecentlyLoved();
+view.initMusicEvents();

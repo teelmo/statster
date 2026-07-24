@@ -86,8 +86,6 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  view.artistAlbum('<?=$artist_album?>');
-  view.associatedArtist();
-  view.artistAlbumEvents();
-});
+view.artistAlbum('<?=$artist_album?>');
+view.associatedArtist();
+view.artistAlbumEvents();

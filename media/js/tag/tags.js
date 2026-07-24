@@ -265,10 +265,8 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.topGenre('<?=$top_genre_tags?>');
-  view.topKeyword('<?=$top_keyword_tags?>');
-  view.topNationality('<?=$top_nationality_tags?>');
-  view.topYear('<?=$top_year_tags?>');
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.topGenre('<?=$top_genre_tags?>');
+view.topKeyword('<?=$top_keyword_tags?>');
+view.topNationality('<?=$top_nationality_tags?>');
+view.topYear('<?=$top_year_tags?>');

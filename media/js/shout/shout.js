@@ -125,12 +125,10 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  var size = 32;
-  view.getAlbumShouts(size);
-  view.getArtistShouts(size);
-  view.getUserShouts(size);
-  view.getShoutUsers(size);
-  view.initShoutEvents();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+var size = 32;
+view.getAlbumShouts(size);
+view.getArtistShouts(size);
+view.getUserShouts(size);
+view.getShoutUsers(size);
+view.initShoutEvents();

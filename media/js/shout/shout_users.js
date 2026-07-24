@@ -64,9 +64,7 @@ $.extend(view, {
   initShoutEvents: () => {}
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.getUserShouts();
-  view.getShoutUsers();
-  view.initShoutEvents();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.getUserShouts();
+view.getShoutUsers();
+view.initShoutEvents();

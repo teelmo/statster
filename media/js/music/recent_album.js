@@ -327,12 +327,10 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>`);
-  view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
-  view.getLoves();
-  view.getTags();
-  view.getRecentListenings();
-  view.getUsers();
-  view.initRecentAlbumEvents();
-});
+app.setOverlayBackground(`<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>`);
+view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
+view.getLoves();
+view.getTags();
+view.getRecentListenings();
+view.getUsers();
+view.initRecentAlbumEvents();

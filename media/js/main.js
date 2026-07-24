@@ -249,13 +249,11 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  view.getRecentListenings(() => {
-    view.getTopAlbums('<?=$top_album_main?>');
-  });
-  view.getTopArtists('<?=$top_artist_main?>');
-  view.getRecommentedTopAlbum();
-  view.getRecommentedNewAlbum();
-  view.initMainEvents();
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+view.getRecentListenings(() => {
+  view.getTopAlbums('<?=$top_album_main?>');
 });
+view.getTopArtists('<?=$top_artist_main?>');
+view.getRecommentedTopAlbum();
+view.getRecommentedNewAlbum();
+view.initMainEvents();

@@ -305,42 +305,40 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-  var day = `<?=$day?>`;
-  var month = `<?=$month?>`;
-  var year = `<?=$year?>`;
-  if (day === '') {
-    if (month !== '') {
-      view.getTopAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
-      view.getTopAlbumDaily('<?=$year?>', '<?=$month?>');
-    } else if (year !== '') {
-      view.getTopAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
-      view.getTopAlbumMonthly('<?=$year?>');
-    } else {
-      view.getTopAlbum10('<?=$lower_limit?>');
-      view.getTopAlbumYearly();
-    }
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
+var day = `<?=$day?>`;
+var month = `<?=$month?>`;
+var year = `<?=$year?>`;
+if (day === '') {
+  if (month !== '') {
+    view.getTopAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
+    view.getTopAlbumDaily('<?=$year?>', '<?=$month?>');
+  } else if (year !== '') {
+    view.getTopAlbum10('<?=$lower_limit?>', '<?=$upper_limit?>');
+    view.getTopAlbumMonthly('<?=$year?>');
   } else {
-    $('#topAlbum10, #topAlbum10Loader').hide();
-    $('#topAlbum').removeClass('column_table').addClass('music_table');
-    const vars = {
-      container: '#topAlbum',
-      hide: {
-        calendar: true,
-        count: true,
-        date: true,
-        rank: true,
-        spotify: true
-      },
-      template: '/ajax/musicTable'
-    };
-    let str = '' + '<?=$month?>';
-    const pad = '00';
-    const pad_month = pad.substring(0, pad.length - str.length) + str;
-    str = '' + '<?=$day?>';
-    const pad_day = pad.substring(0, pad.length - str.length) + str;
-    view.getListenings(`<?=$year?>-${pad_month}-${pad_day}`, vars);
-    view.getUsers(`<?=$year?>-${pad_month}-${pad_day}`, vars);
+    view.getTopAlbum10('<?=$lower_limit?>');
+    view.getTopAlbumYearly();
   }
-});
+} else {
+  $('#topAlbum10, #topAlbum10Loader').hide();
+  $('#topAlbum').removeClass('column_table').addClass('music_table');
+  const vars = {
+    container: '#topAlbum',
+    hide: {
+      calendar: true,
+      count: true,
+      date: true,
+      rank: true,
+      spotify: true
+    },
+    template: '/ajax/musicTable'
+  };
+  let str = '' + '<?=$month?>';
+  const pad = '00';
+  const pad_month = pad.substring(0, pad.length - str.length) + str;
+  str = '' + '<?=$day?>';
+  const pad_day = pad.substring(0, pad.length - str.length) + str;
+  view.getListenings(`<?=$year?>-${pad_month}-${pad_day}`, vars);
+  view.getUsers(`<?=$year?>-${pad_month}-${pad_day}`, vars);
+}

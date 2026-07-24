@@ -51,15 +51,13 @@ $.extend(view, {
 //   }
 // }
 
-$(document).ready(() => {
-  view.initTagHelperEvents();
-  $.when(view.populateTagsMenu('genre', 'name'), view.populateTagsMenu('keyword', 'name'), view.populateTagsMenu('nationality', 'country')).done(() => {
-    $(document).one('ajaxStop', (_event, _request, _settings) => {
-      var $select = $('#tagAdd select');
-      // Initialize Chosen first
-      $select.chosen({});
-      // Now attach the prioritized search functionality
-      $select.prioritizedChosenSearch();
-    });
+view.initTagHelperEvents();
+$.when(view.populateTagsMenu('genre', 'name'), view.populateTagsMenu('keyword', 'name'), view.populateTagsMenu('nationality', 'country')).done(() => {
+  $(document).one('ajaxStop', (_event, _request, _settings) => {
+    var $select = $('#tagAdd select');
+    // Initialize Chosen first
+    $select.chosen({});
+    // Now attach the prioritized search functionality
+    $select.prioritizedChosenSearch();
   });
 });

@@ -601,49 +601,47 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>`);
-  view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
-  view.getLoves();
-  view.getTags();
-  view.getListeningHistory('%Y');
-  view.getShouts();
-  view.getUsers();
-  view.getListenings();
-  view.getFormats();
-  view.getArtistShouts();
-  view.initAlbumEvents();
+app.setOverlayBackground(`<?=getAlbumImg(array('album_id' => $album_id, 'size' => 300))?>`);
+view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
+view.getLoves();
+view.getTags();
+view.getListeningHistory('%Y');
+view.getShouts();
+view.getUsers();
+view.getListenings();
+view.getFormats();
+view.getArtistShouts();
+view.initAlbumEvents();
 
-  var update_bio = parseInt(`<?=($update_bio === true) ? 1 : 0?>`, 10);
-  if (update_bio === 1) {
-    view.updateAlbumBio();
-  }
+var update_bio = parseInt(`<?=($update_bio === true) ? 1 : 0?>`, 10);
+if (update_bio === 1) {
+  view.updateAlbumBio();
+}
 
-  $('.quick_add_listening')
-    .click(function () {
-      var sub_nav = $(this).parent().find('ul.subnav');
-      if (sub_nav.is(':visible')) {
-        $(this).removeClass('active');
-        sub_nav.slideUp('fast');
-      } else {
-        $(this).addClass('active');
-        sub_nav.slideDown('fast').show();
-        $(this)
-          .parent()
-          .hover(
-            () => {},
-            () => {
-              // sub_nav.slideUp('slow');
-            }
-          );
-      }
-    })
-    .hover(
-      function () {
-        $(this).addClass('subhover');
-      },
-      function () {
-        $(this).removeClass('subhover');
-      }
-    );
-});
+$('.quick_add_listening')
+  .click(function () {
+    var sub_nav = $(this).parent().find('ul.subnav');
+    if (sub_nav.is(':visible')) {
+      $(this).removeClass('active');
+      sub_nav.slideUp('fast');
+    } else {
+      $(this).addClass('active');
+      sub_nav.slideDown('fast').show();
+      $(this)
+        .parent()
+        .hover(
+          () => {},
+          () => {
+            // sub_nav.slideUp('slow');
+          }
+        );
+    }
+  })
+  .hover(
+    function () {
+      $(this).addClass('subhover');
+    },
+    function () {
+      $(this).removeClass('subhover');
+    }
+  );

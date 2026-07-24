@@ -120,8 +120,6 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>`);
-  view.topArtist10('<?=$top_artist_tag_artist?>');
-  view.topArtistYearly();
-});
+app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>`);
+view.topArtist10('<?=$top_artist_tag_artist?>');
+view.topArtistYearly();

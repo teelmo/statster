@@ -188,9 +188,7 @@ $.extend(view, {
   }
 });
 
-$(document).ready(() => {
-  view.initAutocomplete();
-  view.initDatepicker();
-  view.initKeystop();
-  view.initAddListeningHelperEvents();
-});
+view.initAutocomplete();
+view.initDatepicker();
+view.initKeystop();
+view.initAddListeningHelperEvents();

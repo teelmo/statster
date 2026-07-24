@@ -110,11 +110,9 @@ $.extend(view, {
     });
   }
 });
-$(document).ready(() => {
-  view.populateMonthPicker();
-  view.populateDayPicker();
-  view.populateWeekdayPicker();
-  view.updateDayPicker(new Date(2000, `<?=(isset($month) ? $month : 'false')?>`, 0).getDate());
-  view.initDateRangePicker();
-  view.initDateFilterHelperEvents();
-});
+view.populateMonthPicker();
+view.populateDayPicker();
+view.populateWeekdayPicker();
+view.updateDayPicker(new Date(2000, `<?=(isset($month) ? $month : 'false')?>`, 0).getDate());
+view.initDateRangePicker();
+view.initDateFilterHelperEvents();
