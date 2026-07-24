@@ -14,7 +14,7 @@ class MY_Exceptions extends CI_Exceptions {
     );
     $data = array();
     $data['js_include'] = array('404');
-    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0, 'artist_name' => 'No data', 'count' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0, 'artist_name' => 'No data', 'count' => 0));
     $ci->load->view('site_templates/header');
     $ci->load->view('404_view', $data);
     $ci->load->view('site_templates/footer', $data);
