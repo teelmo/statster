@@ -1,4 +1,4 @@
-$.extend(view, {
+Object.assign(view, {
   getTopKeywords: (lower_limit, upper_limit = false, vars = false) => {
     if (!upper_limit) {
       if (lower_limit === 'overall') {
@@ -15,7 +15,7 @@ $.extend(view, {
       };
       upper_limit = '<?=CUR_DATE?>';
     }
-    $.ajax({
+    ajax({
       data: {
         limit: vars.limit,
         lower_limit: lower_limit,
@@ -26,15 +26,17 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: vars.hide,
               json_data: data,
               rank: 1
             },
             success: data => {
-              $(`${vars.container}Loader, ${vars.container}Loader2`).hide();
-              $(`${vars.container}`).html(data);
+              document.querySelectorAll(`${vars.container}Loader, ${vars.container}Loader2`).forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector(`${vars.container}`).innerHTML = data;
             },
             type: 'POST',
             url: vars.template
@@ -42,8 +44,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $(`${vars.container}Loader`).hide();
-          $(vars.container).html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(vars.container).innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -52,7 +54,7 @@ $.extend(view, {
   },
   getTopKeywordsYearly: () => {
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      $(`<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="topKeyword${year}Loader"><div></div><div></div><div></div></div><table id="topKeyword${year}" class="side_table"></table></div><div class="container"><hr /></div>`).appendTo($('#years'));
+      document.querySelector('#years').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="topKeyword${year}Loader"><div></div><div></div><div></div></div><table id="topKeyword${year}" class="side_table"></table></div><div class="container"><hr /></div>`);
       const vars = {
         container: `#topKeyword${year}`,
         limit: 3,

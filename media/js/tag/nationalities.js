@@ -1,4 +1,4 @@
-$.extend(view, {
+Object.assign(view, {
   getTopNationalities: (lower_limit, upper_limit = false, vars = false) => {
     if (!upper_limit) {
       if (lower_limit === 'overall') {
@@ -15,7 +15,7 @@ $.extend(view, {
       };
       upper_limit = '<?=CUR_DATE?>';
     }
-    $.ajax({
+    ajax({
       data: {
         limit: vars.limit,
         lower_limit: lower_limit,
@@ -26,15 +26,17 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: vars.hide,
               json_data: data,
               rank: 1
             },
             success: data => {
-              $(`${vars.container}Loader, ${vars.container}Loader2`).hide();
-              $(`${vars.container}`).html(data);
+              document.querySelectorAll(`${vars.container}Loader, ${vars.container}Loader2`).forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector(`${vars.container}`).innerHTML = data;
             },
             type: 'POST',
             url: vars.template
@@ -42,8 +44,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $(`${vars.container}Loader, ${vars.container}Loader2`).hide();
-          $(vars.container).html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll(`${vars.container}Loader, ${vars.container}Loader2`).forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector(vars.container).innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -54,7 +58,7 @@ $.extend(view, {
     }
   },
   getTopArtistPerNationality: (lower_limit, upper_limit, _vars) => {
-    $.ajax({
+    ajax({
       data: {
         lower_limit: lower_limit,
         upper_limit: upper_limit,
@@ -64,14 +68,14 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'artist'
             },
             success: data => {
-              $('#topArtistNationalityLoader').hide();
-              $('#topArtistNationality').html(data);
+              document.querySelector('#topArtistNationalityLoader').style.display = 'none';
+              document.querySelector('#topArtistNationality').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/artistList'
@@ -79,8 +83,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topArtistNationalityLoader').hide();
-          $('#topArtistNationality').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topArtistNationalityLoader').style.display = 'none';
+          document.querySelector('#topArtistNationality').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -89,7 +93,7 @@ $.extend(view, {
   },
   getTopNationalitiesYearly: () => {
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      $(`<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="topNationality${year}Loader"><div></div><div></div><div></div></div><table id="topNationality${year}" class="side_table"></table></div><div class="container"><hr /></div>`).appendTo($('#years'));
+      document.querySelector('#years').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="topNationality${year}Loader"><div></div><div></div><div></div></div><table id="topNationality${year}" class="side_table"></table></div><div class="container"><hr /></div>`);
       const vars = {
         container: `#topNationality${year}`,
         limit: 3,

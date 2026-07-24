@@ -1,4 +1,4 @@
-$.extend(view, {
+Object.assign(view, {
   topAlbum10: interval => {
     var lower_limit;
     if (interval === 'overall') {
@@ -8,7 +8,7 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(interval, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 8,
         lower_limit: lower_limit,
@@ -19,14 +19,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'album'
             },
             success: data => {
-              $('#topAlbum10Loader, #topAlbum10Loader2').hide();
-              $('#topAlbum10').html(data);
+              document.querySelectorAll('#topAlbum10Loader, #topAlbum10Loader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topAlbum10').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/albumList'
@@ -34,8 +36,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topAlbum10Loader, #topAlbum10Loader2').hide();
-          $('#topAlbum10').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topAlbum10Loader, #topAlbum10Loader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topAlbum10').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -56,7 +60,7 @@ $.extend(view, {
       }
       upper_limit = '<?=CUR_DATE?>';
     }
-    $.ajax({
+    ajax({
       data: {
         limit: vars.limit,
         lower_limit: lower_limit,
@@ -68,7 +72,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: vars.hide,
               json_data: data,
@@ -76,8 +80,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $(`${vars.container}Loader`).hide();
-              $(vars.container).html(data);
+              document.querySelector(`${vars.container}Loader`).style.display = 'none';
+              document.querySelector(vars.container).innerHTML = data;
             },
             type: 'POST',
             url: vars.template
@@ -85,8 +89,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $(`${vars.container}Loader`).hide();
-          $(vars.container).html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(vars.container).innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -96,9 +100,7 @@ $.extend(view, {
   topAlbumYearly: () => {
     var vars;
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      $(
-        `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="sideTopAlbum${year}Loader"><div></div><div></div><div></div></div><table id="sideTopAlbum${year}" class="side_table"></table><div class="more"><a href="/<?=$tag_type?>/${year}/<?=$type?>" title="Browse more">More <span class="number">${year}</span></</a></div></div><div class="container"><hr /></div>`
-      ).appendTo($('#sideTable'));
+      document.querySelector('#sideTable').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="sideTopAlbum${year}Loader"><div></div><div></div><div></div></div><table id="sideTopAlbum${year}" class="side_table"></table><div class="more"><a href="/<?=$tag_type?>/${year}/<?=$type?>" title="Browse more">More <span class="number">${year}</span></</a></div></div><div class="container"><hr /></div>`);
       vars = {
         container: `#sideTopAlbum${year}`,
         hide: {

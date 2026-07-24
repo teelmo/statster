@@ -1,7 +1,7 @@
-$.extend(view, {
+Object.assign(view, {
   // Get top albums.
   getTopAlbums: (tag_id, tag_type, element, lower_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 9,
         lower_limit: lower_limit,
@@ -12,14 +12,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'album'
             },
             success: data => {
-              $(`#topAlbum${element}Loader, #top${element}Loader3`).hide();
-              $(`#topAlbum${element}`).html(data);
+              document.querySelectorAll(`#topAlbum${element}Loader, #top${element}Loader3`).forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector(`#topAlbum${element}`).innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -27,8 +29,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topAlbumLoader').hide();
-          $('#topAlbum').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topAlbumLoader').style.display = 'none';
+          document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -37,7 +39,7 @@ $.extend(view, {
   },
   // Get top artists.
   getTopArtists: (tag_id, tag_type, element, lower_limit) => {
-    $.ajax({
+    ajax({
       data: {
         group_by: '`artist_id`',
         limit: 9,
@@ -50,14 +52,14 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'artist'
             },
             success: data => {
-              $(`#topArtist${element}Loader`).hide();
-              $(`#topArtist${element}`).html(data);
+              document.querySelector(`#topArtist${element}Loader`).style.display = 'none';
+              document.querySelector(`#topArtist${element}`).innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -65,8 +67,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topArtistLoader').hide();
-          $('#topArtist').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topArtistLoader').style.display = 'none';
+          document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -80,7 +82,7 @@ $.extend(view, {
       date.setDate(new Date().getDate() - parseInt(lower_limit, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 20,
         lower_limit: lower_limit,
@@ -89,21 +91,23 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $('.genre_heading .value')
-            .html(`<a href="/genre/${data[0].name.replace(/ /g, '+')}">${data[0].name}</a>`)
-            .removeClass('not_available');
-          $('.genre_link')
-            .html(`<a href="/genre/${data[0].name.replace(/ /g, '+')}">More</a>`)
-            .removeClass('not_available');
+          var heading = document.querySelector('.genre_heading .value');
+          heading.innerHTML = `<a href="/genre/${data[0].name.replace(/ /g, '+')}">${data[0].name}</a>`;
+          heading.classList.remove('not_available');
+          var link = document.querySelector('.genre_link');
+          link.innerHTML = `<a href="/genre/${data[0].name.replace(/ /g, '+')}">More</a>`;
+          link.classList.remove('not_available');
           view.getTopAlbums(data[0].tag_id, 'genre', 'Genre', lower_limit);
           view.getTopArtists(data[0].tag_id, 'genre', 'Genre', lower_limit);
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topGenreLoader, #topGenreLoader2').hide();
-              $('#topGenre').html(data);
+              document.querySelectorAll('#topGenreLoader, #topGenreLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topGenre').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -111,10 +115,16 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topGenreLoader, #topGenreLoader2, #topGenreLoader3, #topAlbumGenreLoader, #topArtistGenreLoader').hide();
-          $('#topGenre, #topAlbumGenre').html(`<?=ERR_NO_RESULTS?>`);
-          $('#topArtistGenre').html('');
-          $('.genre_heading .value').html('Genres').removeClass('not_available');
+          document.querySelectorAll('#topGenreLoader, #topGenreLoader2, #topGenreLoader3, #topAlbumGenreLoader, #topArtistGenreLoader').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelectorAll('#topGenre, #topAlbumGenre').forEach(el => {
+            el.innerHTML = `<?=ERR_NO_RESULTS?>`;
+          });
+          document.querySelector('#topArtistGenre').innerHTML = '';
+          var heading = document.querySelector('.genre_heading .value');
+          heading.innerHTML = 'Genres';
+          heading.classList.remove('not_available');
         }
       },
       type: 'GET',
@@ -128,7 +138,7 @@ $.extend(view, {
       date.setDate(new Date().getDate() - parseInt(lower_limit, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 20,
         lower_limit: lower_limit,
@@ -137,21 +147,23 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $('.keyword_heading .value')
-            .html(`<a href="/keyword/${data[0].name.replace(/ /g, '+')}">${data[0].name}</a>`)
-            .removeClass('not_available');
-          $('.keyword_link')
-            .html(`<a href="/keyword/${data[0].name.replace(/ /g, '+')}">More</a>`)
-            .removeClass('not_available');
+          var heading = document.querySelector('.keyword_heading .value');
+          heading.innerHTML = `<a href="/keyword/${data[0].name.replace(/ /g, '+')}">${data[0].name}</a>`;
+          heading.classList.remove('not_available');
+          var link = document.querySelector('.keyword_link');
+          link.innerHTML = `<a href="/keyword/${data[0].name.replace(/ /g, '+')}">More</a>`;
+          link.classList.remove('not_available');
           view.getTopAlbums(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
           view.getTopArtists(data[0].tag_id, 'keyword', 'Keyword', lower_limit);
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topKeywordLoader, #topKeywordLoader2').hide();
-              $('#topKeyword').html(data);
+              document.querySelectorAll('#topKeywordLoader, #topKeywordLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topKeyword').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -159,10 +171,16 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topKeywordLoader, #topKeywordLoader2, #topKeywordLoader3, #topAlbumKeywordLoader, #topArtistKeywordLoader').hide();
-          $('#topKeyword, #topAlbumKeyword').html(`<?=ERR_NO_RESULTS?>`);
-          $('#topArtistKeyword').html('');
-          $('.keyword_heading .value').html('Keywords').removeClass('not_available');
+          document.querySelectorAll('#topKeywordLoader, #topKeywordLoader2, #topKeywordLoader3, #topAlbumKeywordLoader, #topArtistKeywordLoader').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelectorAll('#topKeyword, #topAlbumKeyword').forEach(el => {
+            el.innerHTML = `<?=ERR_NO_RESULTS?>`;
+          });
+          document.querySelector('#topArtistKeyword').innerHTML = '';
+          var heading = document.querySelector('.keyword_heading .value');
+          heading.innerHTML = 'Keywords';
+          heading.classList.remove('not_available');
         }
       },
       type: 'GET',
@@ -176,7 +194,7 @@ $.extend(view, {
       date.setDate(new Date().getDate() - parseInt(lower_limit, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 20,
         lower_limit: lower_limit,
@@ -185,21 +203,23 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $('.nationality_heading .value')
-            .html(`<a href="/nationality/${data[0].name.replace(/ /g, '+')}">${data[0].name}</a>`)
-            .removeClass('not_available');
-          $('.nationality_link')
-            .html(`<a href="/nationality/${data[0].name.replace(/ /g, '+')}">More</a>`)
-            .removeClass('not_available');
+          var heading = document.querySelector('.nationality_heading .value');
+          heading.innerHTML = `<a href="/nationality/${data[0].name.replace(/ /g, '+')}">${data[0].name}</a>`;
+          heading.classList.remove('not_available');
+          var link = document.querySelector('.nationality_link');
+          link.innerHTML = `<a href="/nationality/${data[0].name.replace(/ /g, '+')}">More</a>`;
+          link.classList.remove('not_available');
           view.getTopAlbums(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
           view.getTopArtists(data[0].tag_id, 'nationality', 'Nationality', lower_limit);
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topNationalityLoader, #topNationalityLoader2').hide();
-              $('#topNationality').html(data);
+              document.querySelectorAll('#topNationalityLoader, #topNationalityLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topNationality').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -207,10 +227,16 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topNationalityLoader, #topNationalityLoader2, #topNationalityLoader3, #topAlbumNationalityLoader, #topArtistNationalityLoader').hide();
-          $('#topNationality, #topAlbumNationality').html(`<?=ERR_NO_RESULTS?>`);
-          $('#topArtistNationality').html('');
-          $('.nationality_heading .value').html('Nationalities').removeClass('not_available');
+          document.querySelectorAll('#topNationalityLoader, #topNationalityLoader2, #topNationalityLoader3, #topAlbumNationalityLoader, #topArtistNationalityLoader').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelectorAll('#topNationality, #topAlbumNationality').forEach(el => {
+            el.innerHTML = `<?=ERR_NO_RESULTS?>`;
+          });
+          document.querySelector('#topArtistNationality').innerHTML = '';
+          var heading = document.querySelector('.nationality_heading .value');
+          heading.innerHTML = 'Nationalities';
+          heading.classList.remove('not_available');
         }
       },
       type: 'GET',
@@ -224,7 +250,7 @@ $.extend(view, {
       date.setDate(new Date().getDate() - parseInt(lower_limit, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 20,
         lower_limit: lower_limit,
@@ -233,20 +259,22 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $('.year_heading .value')
-            .html(`<a href="/year/${data[0].name.replace(/ /g, '+')}">${data[0].name}</a>`)
-            .removeClass('not_available');
-          $('.year_link')
-            .html(`<a href="/year/${data[0].name.replace(/ /g, '+')}">More</a>`)
-            .removeClass('not_available');
+          var heading = document.querySelector('.year_heading .value');
+          heading.innerHTML = `<a href="/year/${data[0].name.replace(/ /g, '+')}">${data[0].name}</a>`;
+          heading.classList.remove('not_available');
+          var link = document.querySelector('.year_link');
+          link.innerHTML = `<a href="/year/${data[0].name.replace(/ /g, '+')}">More</a>`;
+          link.classList.remove('not_available');
           view.getTopAlbums(data[0].tag_id, 'year', 'Year', lower_limit);
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topYearLoader, #topYearLoader2').hide();
-              $('#topYear').html(data);
+              document.querySelectorAll('#topYearLoader, #topYearLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topYear').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -254,9 +282,15 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topYearLoader, #topYearLoader2, #topYearLoader3, #topAlbumYearLoader').hide();
-          $('#topYear, #topAlbumYear').html(`<?=ERR_NO_RESULTS?>`);
-          $('.year_heading .value').html('Years').removeClass('not_available');
+          document.querySelectorAll('#topYearLoader, #topYearLoader2, #topYearLoader3, #topAlbumYearLoader').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelectorAll('#topYear, #topAlbumYear').forEach(el => {
+            el.innerHTML = `<?=ERR_NO_RESULTS?>`;
+          });
+          var heading = document.querySelector('.year_heading .value');
+          heading.innerHTML = 'Years';
+          heading.classList.remove('not_available');
         }
       },
       type: 'GET',

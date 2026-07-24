@@ -1,4 +1,4 @@
-$.extend(view, {
+Object.assign(view, {
   topArtist10: interval => {
     var lower_limit;
     if (interval === 'overall') {
@@ -8,7 +8,7 @@ $.extend(view, {
       date.setDate(date.getDate() - parseInt(interval, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         group_by: '`artist_id`',
         limit: 8,
@@ -20,14 +20,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'artist'
             },
             success: data => {
-              $('#topArtist10Loader, #topArtist10Loader2').hide();
-              $('#topArtist10').html(data);
+              document.querySelectorAll('#topArtist10Loader, #topArtist10Loader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topArtist10').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/artistList'
@@ -35,8 +37,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topArtist10Loader, #topArtist10Loader2').hide();
-          $('#topArtist10').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#topArtist10Loader, #topArtist10Loader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topArtist10').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -60,7 +64,7 @@ $.extend(view, {
       }
       upper_limit = '<?=CUR_DATE?>';
     }
-    $.ajax({
+    ajax({
       data: {
         group_by: '`artist_id`',
         limit: vars.limit,
@@ -73,7 +77,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: vars.hide,
               json_data: data,
@@ -81,8 +85,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $(`${vars.container}Loader`).hide();
-              $(vars.container).html(data);
+              document.querySelector(`${vars.container}Loader`).style.display = 'none';
+              document.querySelector(vars.container).innerHTML = data;
             },
             type: 'POST',
             url: vars.template
@@ -90,8 +94,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $(`${vars.container}Loader`).hide();
-          $(vars.container).html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(vars.container).innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -100,9 +104,7 @@ $.extend(view, {
   },
   topArtistYearly: () => {
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      $(
-        `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="sideTopArtist${year}Loader"><div></div><div></div><div></div></div><table id="sideTopArtist${year}" class="side_table"></table><div class="more"><a href="/<?=$tag_type?>/${year}/<?=$type?>" title="Browse more">More <span class="number">${year}</span></</a></div></div><div class="container"><hr /></div>`
-      ).appendTo($('#sideTable'));
+      document.querySelector('#sideTable').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="sideTopArtist${year}Loader"><div></div><div></div><div></div></div><table id="sideTopArtist${year}" class="side_table"></table><div class="more"><a href="/<?=$tag_type?>/${year}/<?=$type?>" title="Browse more">More <span class="number">${year}</span></</a></div></div><div class="container"><hr /></div>`);
       const vars = {
         container: `#sideTopArtist${year}`,
         hide: {

@@ -671,25 +671,27 @@ Object.assign(view, {
     }).catch(() => resolve());
   }),
   // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
-  // request anywhere on the page finished; that's what this waited on. What
-  // it actually needs is every fetch kicked off below, so this waits on
-  // those specifically via Promise.all instead.
+  // request anywhere on the page finished, regardless of whether an
+  // individual success callback threw - $.active bookkeeping happens before
+  // user callbacks run. Promise.all doesn't have that resilience by default
+  // (one rejection fails the whole group), so each promise gets a .catch()
+  // below to match the original's fault tolerance.
   initProfileEvents: () => {
     Promise.all([
-      view.getListeningHistory('%Y'),
-      view.getRecentListenings(),
-      view.getTopAlbums('<?=$top_album_profile?>'),
-      view.getTopArtists('<?=$top_artist_profile?>'),
-      view.getShouts(),
-      view.getAlbumShouts(),
-      view.getArtistShouts(),
-      view.recentlyFaned(),
-      view.recentlyLoved(),
-      view.getTopFormats('<?=$top_listening_format_profile?>'),
-      view.getTopGenres('<?=$top_genre_profile?>'),
-      view.getTopKeywords('<?=$top_keyword_profile?>'),
-      view.getTopNationalities('<?=$top_nationality_profile?>'),
-      view.getTopYears('<?=$top_year_profile?>')
+      view.getListeningHistory('%Y').catch(() => {}),
+      view.getRecentListenings().catch(() => {}),
+      view.getTopAlbums('<?=$top_album_profile?>').catch(() => {}),
+      view.getTopArtists('<?=$top_artist_profile?>').catch(() => {}),
+      view.getShouts().catch(() => {}),
+      view.getAlbumShouts().catch(() => {}),
+      view.getArtistShouts().catch(() => {}),
+      view.recentlyFaned().catch(() => {}),
+      view.recentlyLoved().catch(() => {}),
+      view.getTopFormats('<?=$top_listening_format_profile?>').catch(() => {}),
+      view.getTopGenres('<?=$top_genre_profile?>').catch(() => {}),
+      view.getTopKeywords('<?=$top_keyword_profile?>').catch(() => {}),
+      view.getTopNationalities('<?=$top_nationality_profile?>').catch(() => {}),
+      view.getTopYears('<?=$top_year_profile?>').catch(() => {})
     ]).then(() => {
       var shoutRows = Array.from(document.querySelectorAll('.shouts tr'));
       if (shoutRows.length === 0) {

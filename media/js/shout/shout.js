@@ -129,14 +129,16 @@ Object.assign(view, {
     });
   },
   // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
-  // request anywhere on the page finished; that's what this waited on. What
-  // it actually needs is the three shout fetches that feed the merge below,
-  // so this waits on those specifically via Promise.all instead.
+  // request anywhere on the page finished, regardless of whether an
+  // individual success callback threw - $.active bookkeeping happens before
+  // user callbacks run. Promise.all doesn't have that resilience by default
+  // (one rejection fails the whole group), so each promise gets a .catch()
+  // here to match the original's fault tolerance.
   initShoutEvents: size => {
     Promise.all([
-      view.getAlbumShouts(size),
-      view.getArtistShouts(size),
-      view.getUserShouts(size)
+      view.getAlbumShouts(size).catch(() => {}),
+      view.getArtistShouts(size).catch(() => {}),
+      view.getUserShouts(size).catch(() => {})
     ]).then(() => {
       var rows = Array.from(document.querySelectorAll('.shouts tr'));
       rows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
