@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Lastfm extends MY_Controller {
+class Lastfm extends MY_ReadOnly_Controller {
 
   public function index() {
     exit ('No direct script access allowed');

@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Genre extends MY_Controller {
+class Genre extends MY_ReadOnly_Controller {
 
   public function index() {
     exit ('No direct script access allowed');

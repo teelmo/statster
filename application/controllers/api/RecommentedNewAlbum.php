@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class RecommentedNewAlbum extends MY_Controller {
+class RecommentedNewAlbum extends MY_ReadOnly_Controller {
 
   public function index() {
     // Load helpers

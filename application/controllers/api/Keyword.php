@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Keyword extends MY_Controller {
+class Keyword extends MY_ReadOnly_Controller {
 
   public function index() {
     exit ('No direct script access allowed');

@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class Ajax extends MY_Controller {
+class Ajax extends MY_ReadOnly_Controller {
 
   public function index() {
     exit ('No direct script access allowed');
@@ -13,10 +13,14 @@ class Ajax extends MY_Controller {
         header('HTTP/1.1 200 OK');
       case 'add':
       case 'update':
+        // Re-open: MY_ReadOnly_Controller already closed the session lock, but this case writes to it.
+        session_start();
         $_SESSION['get_username'] = $_SESSION['username'];
         header('HTTP/1.1 200 OK');
         break;
       case 'delete':
+        // Re-open: MY_ReadOnly_Controller already closed the session lock, but this case writes to it.
+        session_start();
         unset($_SESSION['get_username']);
         header('HTTP/1.1 200 OK');
         break;

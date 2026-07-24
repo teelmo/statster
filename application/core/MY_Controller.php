@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
-// application/core/MY_Exceptions.php
+// application/core/MY_Controller.php
 class MY_Controller extends CI_Controller {
   public function __construct() {
     parent::__construct();
@@ -10,3 +10,5 @@ class MY_Controller extends CI_Controller {
     }
   }
 }
+
+require_once APPPATH . 'core/MY_ReadOnly_Controller.php';

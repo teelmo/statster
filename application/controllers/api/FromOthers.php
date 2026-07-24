@@ -1,6 +1,6 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class FromOthers extends MY_Controller {
+class FromOthers extends MY_ReadOnly_Controller {
 
   public function index() {
     // Load helpers
