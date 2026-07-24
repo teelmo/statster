@@ -149,7 +149,7 @@ class Format extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $data['total_count'] = getListeningFormatCount(array());
       if ($this->session->userdata('logged_in') === TRUE) {
         $data['user_count'] = getListeningFormatCount(array('username' => $this->session->userdata('username')));
@@ -185,7 +185,7 @@ class Format extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $data['total_count'] = getListeningFormatTypeCount(array('format_name' => $data['format_name'], 'format_type_name' => $data['format_type_name']));
       if ($this->session->userdata('logged_in') === TRUE) {
         $data['user_count'] = getListeningFormatTypeCount(array('format_name' => $data['format_name'], 'format_type_name' => $data['format_type_name'], 'username' => $this->session->userdata('username')));
@@ -214,7 +214,7 @@ class Format extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $data['total_count'] = getListeningFormatCount(array('format_name' => $data['format_name']));
       if ($this->session->userdata('logged_in') === TRUE) {
         $data['user_count'] = getListeningFormatCount(array('format_name' => $data['format_name'], 'username' => $this->session->userdata('username')));

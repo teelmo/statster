@@ -91,15 +91,17 @@ class AutoComplete extends MY_Controller {
             'value' => $query->result()[0]->artist_name . ' ' . DASH . ' '
           );
         }
+        $album_artists = getAlbumsArtists(array_map(function($row) { return $row->album_id; }, $query->result()));
         foreach ($query->result() as $row) {
+          $artists = isset($album_artists[$row->album_id]) ? $album_artists[$row->album_id] : array();
           $results[] = array(
             'album_id' => $row->album_id,
-            'artist_ids' => implode(', ', array_map(function($artist) { return $artist['id'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')',
+            'artist_ids' => implode(', ', array_map(function($artist) { return $artist['id'];}, $artists)) . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')',
             'image_server_ip' => IMAGE_SERVER_IP,
             'image_server_protocol' => IMAGE_SERVER_PROTOCOL,
             'img' => str_replace(IMAGE_SERVER, '', getAlbumImg(array('album_id' => $row->album_id, 'size' => 64))),
-            'label' => implode(', ', array_map(function($artist) { return $artist['artist_name'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')',
-            'value' => implode(', ', array_map(function($artist) { return $artist['artist_name'];}, getAlbumArtists((array)$row))) . ' ' . DASH . ' ' . $row->album_name
+            'label' => implode(', ', array_map(function($artist) { return $artist['artist_name'];}, $artists)) . ' ' . DASH . ' ' . $row->album_name . ' (' . $row->year . ')',
+            'value' => implode(', ', array_map(function($artist) { return $artist['artist_name'];}, $artists)) . ' ' . DASH . ' ' . $row->album_name
           );
         }
       }

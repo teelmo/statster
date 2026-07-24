@@ -152,7 +152,7 @@ class Tag extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
       $data['js_include'] = array('tag/tags', 'helpers/time_interval_helper');
 
@@ -283,11 +283,11 @@ class Tag extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
-        'username' => (!empty($_GET['u'] && ($this->session->userdata('username') !== $_GET['u'])) ? $_GET['u'] : '')
+        'username' => (!empty($_GET['u']) && ($this->session->userdata('username') !== $_GET['u']) ? $_GET['u'] : '')
       );
       $data['total_count'] = count(json_decode(getGenres($opts)));
       if ($this->session->userdata('logged_in') === TRUE) {
@@ -402,11 +402,11 @@ class Tag extends MY_Controller {
         'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31'
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
-        'username' => (!empty($_GET['u'] && ($this->session->userdata('username') !== $_GET['u'])) ? $_GET['u'] : '')
+        'username' => (!empty($_GET['u']) && ($this->session->userdata('username') !== $_GET['u']) ? $_GET['u'] : '')
       );
       $data['total_count'] = count(json_decode(getKeywords($opts)));
       if ($this->session->userdata('logged_in') === TRUE) {
@@ -521,11 +521,11 @@ class Tag extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
-        'username' => (!empty($_GET['u'] && ($this->session->userdata('username') !== $_GET['u'])) ? $_GET['u'] : '')
+        'username' => (!empty($_GET['u']) && ($this->session->userdata('username') !== $_GET['u']) ? $_GET['u'] : '')
       );
       $data['total_count'] = count(json_decode(getNationalities($opts)));
       if ($this->session->userdata('logged_in') === TRUE) {
@@ -641,7 +641,7 @@ class Tag extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',

@@ -11,6 +11,7 @@ if (!empty($json_data)) {
     <tbody>
       <?php
       $justAdded = FALSE;
+      $album_artists = getAlbumsArtists(array_column($json_data, 'album_id'));
       foreach ($json_data as $idx => $row) {
         $class = '';
         $size = 32;
@@ -40,7 +41,7 @@ if (!empty($json_data)) {
             }
             ?>
             <span class="title">
-              <span class="artist"><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, getAlbumArtists($row)))?>
+              <span class="artist"><?=implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, isset($album_artists[$row['album_id']]) ? $album_artists[$row['album_id']] : array()))?>
                 <?=DASH?>
               </span>
               <span class="album"><?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], $strlenght), array('title' => 'Browse to album\'s page'))?></span>

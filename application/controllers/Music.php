@@ -24,8 +24,8 @@ class Music extends MY_Controller {
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
-      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array('artist_id' => 0);
-      $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($data), array('artist_id' => 0));
+      $data['top_album'] = decodeFirstOrDefault(getAlbums($data));
       $data['where'] .= ' AND ' . TBL_artist . '.`created` BETWEEN  \'' . $data['from'] . '\' AND \'' . $data['to'] . '\'';
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
       $data['where'] .= ' AND ' . TBL_album . '.`created` BETWEEN  \'' . $data['from'] . '\' AND \'' . $data['to'] . '\'';
@@ -37,7 +37,7 @@ class Music extends MY_Controller {
       $data['love_count'] = getLoveCount($data);
       $data['where'] = 'MONTH(`shouts`.`created`) LIKE ' .  $data['month'] . ' AND DAY(`shouts`.`created`) LIKE ' . $data['day'] . ' AND WEEKDAY(`shouts`.`created`) LIKE ' . $data['weekday'];
       $data['shout_count'] = getShoutCount($data);
-      $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
+      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
       $data['js_include'] = array('music/library', 'libs/jquery.daterangepicker.min', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
@@ -70,12 +70,12 @@ class Music extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_album'] = (json_decode(getAlbums($opts) ?? '', true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array();
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
-      $data['top_genre'] = (json_decode(getGenres($opts) ?? '', true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array();
-      $data['top_nationality'] = (json_decode(getNationalities($opts) ?? '', true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array();
-      $data['top_year'] = (json_decode(getYears($opts) ?? '', true) !== NULL) ? json_decode(getYears($opts), true)[0] : array();
-      $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
+      $data['top_album'] = decodeFirstOrDefault(getAlbums($opts));
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
+      $data['top_genre'] = decodeFirstOrDefault(getGenres($opts));
+      $data['top_nationality'] = decodeFirstOrDefault(getNationalities($opts));
+      $data['top_year'] = decodeFirstOrDefault(getYears($opts));
+      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
       $data['js_include'] = array('music/music', 'libs/jquery.daterangepicker.min', 'libs/highcharts.min', 'libs/peity.min', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
@@ -99,8 +99,8 @@ class Music extends MY_Controller {
       $data['artist_count'] = getListeningCount($data, TBL_artist);
       $data['album_count'] = getListeningCount($data, TBL_album);
       $data['listening_count'] = getListeningCount($data, TBL_listening);
-      $data['top_artist'] = (json_decode(getArtists($data), true) !== NULL) ? json_decode(getArtists($data), true)[0] : array('artist_id' => 0);
-      $data['top_album'] = (json_decode(getAlbums($data), true) !== NULL) ? json_decode(getAlbums($data), true)[0] : array();
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($data), array('artist_id' => 0));
+      $data['top_album'] = decodeFirstOrDefault(getAlbums($data));
       $data['where'] = TBL_artist . '.`created` LIKE \'' . $data['year'] . '%\'';
       $data['new_artist_count'] = getListeningCount($data, TBL_artist);
       $data['where'] = TBL_album . '.`created` LIKE \'' . $data['year'] . '%\'';
@@ -109,7 +109,7 @@ class Music extends MY_Controller {
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
-      $data['album_average_age'] = (json_decode(getAlbumAverageAge($data), true) !== NULL) ? json_decode(getAlbumAverageAge($data), true)[0] : array('album_average_age' => 0);
+      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
       $data['js_include'] = array('music/year', 'libs/highcharts.min', 'helpers/chart_helper');
 
       $this->load->view('site_templates/header');
@@ -145,7 +145,8 @@ class Music extends MY_Controller {
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getArtistListenings($data);
         }
-        $data['listener_count'] = (getListeners($data) !== NULL) ? count(json_decode(getListeners($data), true)) : 0;
+        $listeners = json_decode(getListeners($data) ?? '', true);
+        $data['listener_count'] = ($listeners !== NULL) ? count($listeners) : 0;
 
         if (empty($data['spotify_id'])) {
           $data['spotify_id'] = getSpotifyResourceId($data);
@@ -176,9 +177,9 @@ class Music extends MY_Controller {
           }
         }
         $data['sub_group_by'] = TBL_artists . '.`album_id`';
-        $data['per_year_user'] = (getListeningsPerYear($data) !== NULL) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+        $data['per_year_user'] = decodeFirstOrDefault(getListeningsPerYear($data), array('count' => 0))['count'];
         unset($data['user_id']);
-        $data['per_year'] = (getListeningsPerYear($data) !== NULL) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+        $data['per_year'] = decodeFirstOrDefault(getListeningsPerYear($data), array('count' => 0))['count'];
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
@@ -264,7 +265,8 @@ class Music extends MY_Controller {
         if ($data['user_id'] = $this->session->userdata('user_id')) {
           $data += getAlbumListenings($data);
         }
-        $data['listener_count'] = (getListeners($data) !== NULL) ? count(json_decode(getListeners($data), true)) : 0;
+        $listeners = json_decode(getListeners($data) ?? '', true);
+        $data['listener_count'] = ($listeners !== NULL) ? count($listeners) : 0;
         if (empty($data['spotify_id'])) {
           // Disabled because premium account is needed.
           // $data['spotify_id'] = getSpotifyResourceId($data);
@@ -308,9 +310,9 @@ class Music extends MY_Controller {
 
         $data['sub_group_by'] = TBL_artists . '.`album_id`';
         $data['group_by'] = TBL_album . '.`id`';
-        $data['per_year_user'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+        $data['per_year_user'] = ($data['year'] !== date('Y')) ? decodeFirstOrDefault(getListeningsPerYear($data), array('count' => 0))['count'] : 0;
         unset($data['user_id']);
-        $data['per_year'] = (getListeningsPerYear($data) !== NULL && $data['year'] !== date('Y')) ? json_decode(getListeningsPerYear($data), true)[0]['count'] : 0;
+        $data['per_year'] = ($data['year'] !== date('Y')) ? decodeFirstOrDefault(getListeningsPerYear($data), array('count' => 0))['count'] : 0;
         $artist_info = getArtistInfo(array('artist_name' => decode($value1)));
         $data['artist_id'] = $artist_info['artist_id'];
         $data['artist_name'] = $artist_info['artist_name'];
@@ -475,7 +477,7 @@ class Music extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $data['total_count'] = getListeningCount(array(), TBL_listening);
       if ($this->session->userdata('logged_in') === TRUE) {
         $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
@@ -501,7 +503,7 @@ class Music extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
     $data['total_count'] = getListeningCount(array(), TBL_listening);
     if ($this->session->userdata('logged_in') === TRUE) {
       $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
@@ -660,7 +662,7 @@ class Music extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $data['total_count'] = getListeningCount(array(), TBL_listening);
       if ($this->session->userdata('logged_in') === TRUE) {
         $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);

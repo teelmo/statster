@@ -172,7 +172,7 @@ class Like extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $opts = array(
         'limit' => '1000',
         'lower_limit' => '1970-00-00',
@@ -202,7 +202,7 @@ class Like extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
     $data['total_count'] = getLoveCount(array(), TBL_artist);
     if ($this->session->userdata('logged_in') === TRUE) {
       $data['user_count'] = getLoveCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);
@@ -225,7 +225,7 @@ class Like extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
     $data['total_count'] = getFanCount(array(), TBL_artist);
     if ($this->session->userdata('logged_in') === TRUE) {
       $data['user_count'] = getFanCount(array('user_id' => $this->session->userdata('user_id')), TBL_artist);

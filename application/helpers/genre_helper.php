@@ -109,26 +109,28 @@ if (!function_exists('getGenresCumulative')) {
 
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
-                   (SELECT COUNT(*) 
-                    FROM " . TBL_listening . ",
-                         " . TBL_user . ",
-                         " . TBL_album . ",
-                         " . TBL_genre . ",
-                         (SELECT " . TBL_genres . ".`genre_id`,
-                                 " . TBL_genres . ".`album_id`
-                          FROM " . TBL_genres . "
-                          GROUP BY " . TBL_genres . ".`genre_id`, " . TBL_genres . ".`album_id`) AS " . TBL_genres . "
-                   WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-                      AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-                      AND " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
-                      AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
-                      AND " . TBL_genres . ".`genre_id` LIKE ?
-                      AND " . TBL_user . ".`username` LIKE ?
-                      AND `date` <= MAX(a.`date`)) AS `cumulative_count`
-            FROM " . TBL_listening . " AS a
-            WHERE MONTH(a.`date`) <> 0
-            GROUP BY `line_date`
+    $sql = "SELECT `line_date`,
+                   SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+            FROM (
+              SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
+                     COUNT(*) AS `month_count`
+              FROM " . TBL_listening . ",
+                   " . TBL_user . ",
+                   " . TBL_album . ",
+                   " . TBL_genre . ",
+                   (SELECT " . TBL_genres . ".`genre_id`,
+                           " . TBL_genres . ".`album_id`
+                    FROM " . TBL_genres . "
+                    GROUP BY " . TBL_genres . ".`genre_id`, " . TBL_genres . ".`album_id`) AS " . TBL_genres . "
+              WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+                AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                AND " . TBL_album . ".`id` = " . TBL_genres . ".`album_id`
+                AND " . TBL_genre . ".`id` = " . TBL_genres . ".`genre_id`
+                AND " . TBL_genres . ".`genre_id` LIKE ?
+                AND " . TBL_user . ".`username` LIKE ?
+                AND MONTH(" . TBL_listening . ".`date`) <> 0
+              GROUP BY `line_date`
+            ) AS `monthly`
             ORDER BY `line_date` ASC";
     $query = $ci->db->query($sql, array($tag_id, $username));
 

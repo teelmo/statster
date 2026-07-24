@@ -280,40 +280,47 @@ if (!function_exists('getListeningsCumulative')) {
     $user_id = !empty($opts['username']) ? getUserID($opts) : '%';
 
     if ($album_id !== '%' || $artist_id !== '%') {
-      $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
-                     (SELECT COUNT(*)
-                      FROM " . TBL_listening . ",
-                           " . TBL_album . ",
-                           " . TBL_artist . "
-                      WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-                        AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-                        AND " . TBL_listening . ".`album_id` LIKE ?
-                        AND " . TBL_artist . ".`id` LIKE ?
-                        AND " . TBL_listening . ".`user_id` LIKE ?
-                        AND " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
-              FROM " . TBL_listening . " AS `a`
-              WHERE MONTH(`a`.`date`) <> 0
-              GROUP BY `line_date`
+      $sql = "SELECT `line_date`,
+                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+              FROM (
+                SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
+                       COUNT(*) AS `month_count`
+                FROM " . TBL_listening . ",
+                     " . TBL_album . ",
+                     " . TBL_artist . "
+                WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                  AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+                  AND " . TBL_listening . ".`album_id` LIKE ?
+                  AND " . TBL_artist . ".`id` LIKE ?
+                  AND " . TBL_listening . ".`user_id` LIKE ?
+                  AND MONTH(" . TBL_listening . ".`date`) <> 0
+                GROUP BY `line_date`
+              ) AS `monthly`
               ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id));
     } elseif (isset($username) && $username !== '%') {
-      $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
-                     (SELECT COUNT(*)
-                      FROM " . TBL_listening . "
-                      WHERE " . TBL_listening . ".`user_id` = ?
-                        AND " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
-              FROM " . TBL_listening . " AS `a`
-              WHERE MONTH(`a`.`date`) <> 0
-              GROUP BY `line_date`
+      $sql = "SELECT `line_date`,
+                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+              FROM (
+                SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
+                       COUNT(*) AS `month_count`
+                FROM " . TBL_listening . "
+                WHERE " . TBL_listening . ".`user_id` = ?
+                  AND MONTH(" . TBL_listening . ".`date`) <> 0
+                GROUP BY `line_date`
+              ) AS `monthly`
               ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql, array($user_id));
     } else {
-      $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
-                     (SELECT COUNT(*)
-                      FROM " . TBL_listening . "
-                      WHERE " . TBL_listening . ".`date` <= MAX(`a`.`date`)) AS `cumulative_count`
-              FROM " . TBL_listening . " AS `a`
-              WHERE MONTH(`a`.`date`) <> 0
+      $sql = "SELECT `line_date`,
+                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+              FROM (
+                SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
+                       COUNT(*) AS `month_count`
+                FROM " . TBL_listening . "
+                WHERE MONTH(" . TBL_listening . ".`date`) <> 0
+                GROUP BY `line_date`
+              ) AS `monthly`
               ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql);
     }
@@ -414,6 +421,49 @@ if (!function_exists('getAlbumArtists')) {
 
     $query = $ci->db->query($sql, array($album_id));
     $result = ($query->num_rows() > 0) ? $query->result_array() : FALSE;
+
+    return $result;
+  }
+}
+
+/**
+  * Get multiple albums' artists in a single query, instead of calling
+  * getAlbumArtists() once per album in a loop.
+  *
+  * @param array $album_ids Album IDs.
+  *
+  * @return array Map of album_id => array of artist rows (empty array for
+  *               an album with no matching rows).
+  */
+if (!function_exists('getAlbumsArtists')) {
+  function getAlbumsArtists($album_ids = array()) {
+    $ci = &get_instance();
+    $ci->load->database();
+
+    $album_ids = array_unique(array_filter($album_ids));
+    if (empty($album_ids)) {
+      return array();
+    }
+
+    $placeholders = implode(',', array_fill(0, count($album_ids), '?'));
+    $sql = "SELECT " . TBL_artists . ".`album_id`,
+                   " . TBL_artist . ".`id`,
+                   " . TBL_artist . ".`artist_name`,
+                   " . TBL_artist . ".`spotify_id`,
+                   " . TBL_artist . ".`created`,
+                   " . TBL_artist . ".`user_id`
+            FROM " . TBL_artist . ",
+                 " . TBL_artists . "
+            WHERE " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              AND " . TBL_artists . ".`album_id` IN (" . $placeholders . ")
+            ORDER BY " . TBL_artist . ".`artist_name` ASC";
+
+    $query = $ci->db->query($sql, array_values($album_ids));
+
+    $result = array();
+    foreach ($query->result_array() as $row) {
+      $result[$row['album_id']][] = $row;
+    }
 
     return $result;
   }

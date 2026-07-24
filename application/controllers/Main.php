@@ -18,11 +18,11 @@ class Main extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_album'] = (json_decode(getAlbums($opts) ?? '', true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array('album_id' => 0, 'album_name' => 'No data', 'count' => 0);
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0, 'artist_name' => 'No data', 'count' => 0);
-      $data['top_genre'] = (json_decode(getGenres($opts) ?? '', true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
-      $data['top_nationality'] = (json_decode(getNationalities($opts) ?? '', true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
-      $data['top_year'] = (json_decode(getYears($opts) ?? '', true) !== NULL) ? json_decode(getYears($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
+      $data['top_album'] = decodeFirstOrDefault(getAlbums($opts), array('album_id' => 0, 'album_name' => 'No data', 'count' => 0));
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0, 'artist_name' => 'No data', 'count' => 0));
+      $data['top_genre'] = decodeFirstOrDefault(getGenres($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
+      $data['top_nationality'] = decodeFirstOrDefault(getNationalities($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
+      $data['top_year'] = decodeFirstOrDefault(getYears($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
       $data['js_include'] = array('main', 'libs/jquery.daterangepicker.min', 'helpers/add_listening_helper', 'helpers/time_interval_helper');
 
       $this->load->view('site_templates/header');
@@ -40,11 +40,11 @@ class Main extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
       );
-      $data['top_album'] = (json_decode(getAlbums($opts) ?? '', true) !== NULL) ? json_decode(getAlbums($opts), true)[0] : array('album_id' => 0, 'album_name' => 'No data', 'count' => 0);
-      $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0, 'artist_name' => 'No data', 'count' => 0);
-      $data['top_genre'] = (json_decode(getGenres($opts) ?? '', true) !== NULL) ? json_decode(getGenres($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
-      $data['top_nationality'] = (json_decode(getNationalities($opts) ?? '', true) !== NULL) ? json_decode(getNationalities($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
-      $data['top_year'] = (json_decode(getYears($opts) ?? '', true) !== NULL) ? json_decode(getYears($opts), true)[0] : array('tag_id' => 0, 'name' => 'No data', 'count' => 0);
+      $data['top_album'] = decodeFirstOrDefault(getAlbums($opts), array('album_id' => 0, 'album_name' => 'No data', 'count' => 0));
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0, 'artist_name' => 'No data', 'count' => 0));
+      $data['top_genre'] = decodeFirstOrDefault(getGenres($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
+      $data['top_nationality'] = decodeFirstOrDefault(getNationalities($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
+      $data['top_year'] = decodeFirstOrDefault(getYears($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
       $data['js_include'] = array('welcome');
 
       $this->load->view('site_templates/header');
@@ -68,7 +68,7 @@ class Main extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('name' => 'No data', 'count' => 0));
     $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
@@ -88,7 +88,7 @@ class Main extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('name' => 'No data', 'count' => 0));
     $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
@@ -108,7 +108,7 @@ class Main extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('name' => 'No data', 'count' => 0));
     $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
@@ -128,7 +128,7 @@ class Main extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('name' => 'No data', 'count' => 0));
     $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');
@@ -148,7 +148,7 @@ class Main extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts), true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('name' => 'No data', 'count' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('name' => 'No data', 'count' => 0));
     $data['js_include'] = array('meta');
 
     $this->load->view('site_templates/header');

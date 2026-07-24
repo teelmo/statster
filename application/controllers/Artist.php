@@ -27,7 +27,7 @@ class Artist extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
     $data['js_include'] = array('music/artists', 'helpers/time_interval_helper');
 
     $data['total_count'] = getListeningCount(array(), TBL_artist);
@@ -66,7 +66,7 @@ class Artist extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
     $data['js_include'] = array('music/artists');
     
     $this->load->view('site_templates/header');
@@ -89,7 +89,7 @@ class Artist extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
     $data['js_include'] = array('music/artists_mosaic', 'helpers/time_interval_helper');
 
     $data['total_count'] = getListeningCount(array(), TBL_artist);

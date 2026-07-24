@@ -96,7 +96,7 @@ if (!function_exists('getAllNationalities')) {
   * Returns cumulative listeners for given nationality.
   *
   * @param array $opts.
-  *          'tag id'          => Tag ID
+  *          'tag_id'          => Tag ID
   *          'username'        => Username
   *
   * @return string JSON encoded data containing album information.
@@ -108,26 +108,28 @@ if (!function_exists('getNationalitiesCumulative')) {
 
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT DATE_FORMAT(`date`, '%Y%m') AS `line_date`,
-                   (SELECT COUNT(*) 
-                    FROM " . TBL_listening . ",
-                         " . TBL_user . ",
-                         " . TBL_album . ",
-                         " . TBL_nationality . ",
-                         (SELECT " . TBL_nationalities . ".`nationality_id`,
-                                 " . TBL_nationalities . ".`album_id`
-                          FROM " . TBL_nationalities . "
-                          GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) AS " . TBL_nationalities . "
-                   WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-                      AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-                      AND " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
-                      AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
-                      AND " . TBL_nationalities . ".`nationality_id` LIKE ?
-                      AND " . TBL_user . ".`username` LIKE ?
-                      AND `date` <= MAX(a.`date`)) AS `cumulative_count`
-            FROM " . TBL_listening . " AS a
-            WHERE MONTH(a.`date`) <> 0
-            GROUP BY `line_date`
+    $sql = "SELECT `line_date`,
+                   SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+            FROM (
+              SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
+                     COUNT(*) AS `month_count`
+              FROM " . TBL_listening . ",
+                   " . TBL_user . ",
+                   " . TBL_album . ",
+                   " . TBL_nationality . ",
+                   (SELECT " . TBL_nationalities . ".`nationality_id`,
+                           " . TBL_nationalities . ".`album_id`
+                    FROM " . TBL_nationalities . "
+                    GROUP BY " . TBL_nationalities . ".`nationality_id`, " . TBL_nationalities . ".`album_id`) AS " . TBL_nationalities . "
+              WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+                AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                AND " . TBL_album . ".`id` = " . TBL_nationalities . ".`album_id`
+                AND " . TBL_nationality . ".`id` = " . TBL_nationalities . ".`nationality_id`
+                AND " . TBL_nationalities . ".`nationality_id` LIKE ?
+                AND " . TBL_user . ".`username` LIKE ?
+                AND MONTH(" . TBL_listening . ".`date`) <> 0
+              GROUP BY `line_date`
+            ) AS `monthly`
             ORDER BY `line_date` ASC";
     $query = $ci->db->query($sql, array($tag_id, $username));
 

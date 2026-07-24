@@ -9,6 +9,7 @@ if (!empty($json_data)) {
     }
     $rank = 1;
     $prev_count = FALSE;
+    $album_artists = getAlbumsArtists(array_column($json_data, 'album_id'));
     foreach ($json_data as $idx => $row) {
       ?>
       <tr data-created="<?=(!empty($row['created'])) ? $row['created'] : ''?>">
@@ -80,7 +81,7 @@ if (!empty($json_data)) {
               }
               if (empty($hide['artist'])) {
                 if (isset($row['album_name']) && empty($hide['album'])) {
-                  echo '<div class="metainfo">' . implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, getAlbumArtists($row))) . '</div>';
+                  echo '<div class="metainfo">' . implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, isset($album_artists[$row['album_id']]) ? $album_artists[$row['album_id']] : array())) . '</div>';
                 }
                 else {
                   echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page')) . '';

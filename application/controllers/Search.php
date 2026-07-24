@@ -14,7 +14,7 @@ class Search extends MY_Controller {
       'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
       'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
     );
-    $data['top_artist'] = (json_decode(getArtists($opts) ?? '', true) !== NULL) ? json_decode(getArtists($opts), true)[0] : array('artist_id' => 0);
+    $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
     $data['js_include'] = array('search/search');
 
     $this->load->view('site_templates/header');
