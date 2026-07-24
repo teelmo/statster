@@ -1,17 +1,31 @@
 var html = '';
-$('.data_per_year').on('mouseenter', function () {
-  html = $('.data_per_year a').html();
-  $('.data_per_year a').html(Math.round($(this).data('per-year') * 10) / 10);
-});
-$('.data_per_year').on('mouseleave', () => {
-  $('.data_per_year a').html(html);
+document.querySelectorAll('.data_per_year').forEach(el => {
+  el.addEventListener('mouseenter', function () {
+    html = document.querySelector('.data_per_year a').innerHTML;
+    var value = Math.round(this.dataset.perYear * 10) / 10;
+    document.querySelectorAll('.data_per_year a').forEach(a => {
+      a.innerHTML = value;
+    });
+  });
+  el.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.data_per_year a').forEach(a => {
+      a.innerHTML = html;
+    });
+  });
 });
 
 var html_user = '';
-$('.data_per_year_user').on('mouseenter', function () {
-  html_user = $('.data_per_year_user a').html();
-  $('.data_per_year_user a').html(Math.round($(this).data('per-year') * 10) / 10);
-});
-$('.data_per_year_user').on('mouseleave', () => {
-  $('.data_per_year_user a').html(html_user);
+document.querySelectorAll('.data_per_year_user').forEach(el => {
+  el.addEventListener('mouseenter', function () {
+    html_user = document.querySelector('.data_per_year_user a').innerHTML;
+    var value = Math.round(this.dataset.perYear * 10) / 10;
+    document.querySelectorAll('.data_per_year_user a').forEach(a => {
+      a.innerHTML = value;
+    });
+  });
+  el.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.data_per_year_user a').forEach(a => {
+      a.innerHTML = html_user;
+    });
+  });
 });

@@ -1,77 +1,106 @@
-$.extend(view, {
+Object.assign(view, {
   shoutEvents: () => {
-    $('html body').on('click', 'span.delete', function () {
-      $($(this).data('confirmation-container')).show();
-    });
-    $('html body').on('click', 'a.cancel', function () {
-      $(this).closest('div').hide();
-    });
-    $('html body').on('click', 'a.confirm', function () {
-      var row_id = $(this).data('row-id');
-      $.ajax({
-        statusCode: {
-          200: () => {
-            // 200 OK
-            $(`#${row_id}`).fadeOut('slow');
-            var shout_total = parseInt($('#shoutTotal .number').text(), 10);
-            shout_total--;
-            if (shout_total > 0) {
-              $('#shoutTotal .number').text(shout_total);
-            } else {
-              $('#shoutTotal').fadeOut(500);
+    // Note: the original bound these same three delegated handlers on both
+    // 'html' and 'body' (a two-element jQuery selection), so each fired
+    // twice per matching click - preserved here via two separate roots
+    // rather than collapsing to one.
+    [document.querySelector('html'), document.querySelector('body')].forEach(root => {
+      root.addEventListener('click', event => {
+        var target = event.target.closest('span.delete');
+        if (!target) {
+          return;
+        }
+        var container = document.querySelector(target.dataset.confirmationContainer);
+        if (container) {
+          container.style.display = '';
+        }
+      });
+      root.addEventListener('click', event => {
+        var target = event.target.closest('a.cancel');
+        if (!target) {
+          return;
+        }
+        target.closest('div').style.display = 'none';
+      });
+      root.addEventListener('click', event => {
+        var target = event.target.closest('a.confirm');
+        if (!target) {
+          return;
+        }
+        var rowId = target.dataset.rowId;
+        ajax({
+          statusCode: {
+            200: () => {
+              // 200 OK
+              // Note: jQuery's fadeOut('slow') animated this; plain hide
+              // drops the animation but keeps the same end state.
+              var row = document.querySelector(`#${rowId}`);
+              if (row) {
+                row.style.display = 'none';
+              }
+              var shoutTotalNumber = document.querySelector('#shoutTotal .number');
+              var shout_total = parseInt(shoutTotalNumber.textContent, 10);
+              shout_total--;
+              if (shout_total > 0) {
+                shoutTotalNumber.textContent = shout_total;
+              } else {
+                // Note: jQuery's fadeOut(500) animated this; plain hide
+                // drops the animation but keeps the same end state.
+                document.querySelector('#shoutTotal').style.display = 'none';
+              }
+            },
+            400: () => {
+              // 400 Bad Request
+              alert('400 Bad Request');
+            },
+            401: () => {
+              // 401 Unauthorized
+              alert('401 Unauthorized');
+            },
+            404: () => {
+              // 404 Not found
+              alert('404 Not Found');
             }
           },
-          400: () => {
-            // 400 Bad Request
-            alert('400 Bad Request');
-          },
-          401: () => {
-            // 401 Unauthorized
-            alert('401 Unauthorized');
-          },
-          404: () => {
-            // 404 Not found
-            alert('404 Not Found');
-          }
-        },
-        type: 'POST',
-        url: `/api/shout/delete/${$(this).data('shout-type')}/${$(this).data('shout-id')}`
+          type: 'POST',
+          url: `/api/shout/delete/${target.dataset.shoutType}/${target.dataset.shoutId}`
+        });
       });
     });
-    $('#shoutSubmit').click(() => {
-      var text_value = $('#shoutText').val().trim();
+    document.querySelector('#shoutSubmit').addEventListener('click', () => {
+      var text_value = document.querySelector('#shoutText').value.trim();
       if (text_value === '') {
-        return false;
+        return;
       }
-      $('#shoutLoader2').show();
-      $('#shoutText').val('');
-      $.ajax({
+      document.querySelector('#shoutLoader2').style.display = '';
+      document.querySelector('#shoutText').value = '';
+      ajax({
         data: {
-          content_id: $('#contentID').val(),
+          content_id: document.querySelector('#contentID').value,
           text: text_value,
-          type: $('#contentType').val()
+          type: document.querySelector('#contentType').value
         },
         dataType: 'json',
         statusCode: {
           201: () => {
             // 201 Created
-            $('#shoutLoader2').hide();
+            document.querySelector('#shoutLoader2').style.display = 'none';
             view.getShouts();
           },
           400: () => {
             // 400 Bad Request
             alert('400 Bad Request');
-            $('#shoutLoader2').hide();
+            document.querySelector('#shoutLoader2').style.display = 'none';
           },
           401: () => {
             // 401 Unauthorized
             alert('401 Unauthorized');
-            $('#shoutLoader2').hide();
+            document.querySelector('#shoutLoader2').style.display = 'none';
           },
           404: () => {
             // 404 Not found
             alert('404 Not Found');
-            $('#shoutLoader2').hide();
+            document.querySelector('#shoutLoader2').style.display = 'none';
           }
         },
         type: 'POST',

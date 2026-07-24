@@ -1,12 +1,13 @@
-$.extend(view, {
+Object.assign(view, {
   // Init Edit album events.
   initAdminEvents: () => {
-    $('#addArtistSubmit').click(() => {
-      var name = $('#addArtistText').val();
+    document.querySelector('#addArtistSubmit').addEventListener('click', event => {
+      var name = document.querySelector('#addArtistText').value;
       if (name === '') {
-        return false;
+        event.preventDefault();
+        return;
       }
-      $.ajax({
+      ajax({
         data: {
           artist_name: name
         },
@@ -15,30 +16,31 @@ $.extend(view, {
           201: () => {
             // 201 Created
             alert(`Artist ${name} added!`);
-            $('#addArtistText').val('');
+            document.querySelector('#addArtistText').value = '';
           },
           400: () => {
             // 400 Bad Request
             alert('400 Bad Request');
-            $('#addArtistText').val('');
+            document.querySelector('#addArtistText').value = '';
           },
           401: () => {
             // 401 Unauthorized
             alert('401 Unauthorized');
-            $('#addArtistText').val('');
+            document.querySelector('#addArtistText').value = '';
           }
         },
         type: 'POST',
         url: '/api/artist/add'
       });
-      return false;
+      event.preventDefault();
     });
-    $('#addGenreSubmit').click(() => {
-      var name = $('#addGenreText').val();
+    document.querySelector('#addGenreSubmit').addEventListener('click', event => {
+      var name = document.querySelector('#addGenreText').value;
       if (name === '') {
-        return false;
+        event.preventDefault();
+        return;
       }
-      $.ajax({
+      ajax({
         data: {
           name: name
         },
@@ -47,30 +49,31 @@ $.extend(view, {
           201: () => {
             // 201 Created
             alert(`Genre ${name} added!`);
-            $('#addGenreText').val('');
+            document.querySelector('#addGenreText').value = '';
           },
           400: () => {
             // 400 Bad Request
             alert('400 Bad Request');
-            $('#addGenreText').val('');
+            document.querySelector('#addGenreText').value = '';
           },
           401: () => {
             // 401 Unauthorized
             alert('401 Unauthorized');
-            $('#addGenreText').val('');
+            document.querySelector('#addGenreText').value = '';
           }
         },
         type: 'POST',
         url: '/api/genre/add'
       });
-      return false;
+      event.preventDefault();
     });
-    $('#addKeywordSubmit').click(() => {
-      var name = $('#addKeywordText').val();
+    document.querySelector('#addKeywordSubmit').addEventListener('click', event => {
+      var name = document.querySelector('#addKeywordText').value;
       if (name === '') {
-        return false;
+        event.preventDefault();
+        return;
       }
-      $.ajax({
+      ajax({
         data: {
           name: name
         },
@@ -79,30 +82,31 @@ $.extend(view, {
           201: () => {
             // 201 Created
             alert(`Keyword ${name} added!`);
-            $('#addKeywordText').val('');
+            document.querySelector('#addKeywordText').value = '';
           },
           400: () => {
             // 400 Bad Request
             alert('400 Bad Request');
-            $('#addGenreText').val('');
+            document.querySelector('#addGenreText').value = '';
           },
           401: () => {
             // 401 Unauthorized
             alert('401 Unauthorized');
-            $('#addGenreText').val('');
+            document.querySelector('#addGenreText').value = '';
           }
         },
         type: 'POST',
         url: '/api/keyword/add'
       });
-      return false;
+      event.preventDefault();
     });
-    $('#deleteArtistSubmit').click(() => {
+    document.querySelector('#deleteArtistSubmit').addEventListener('click', event => {
       var artist_id = $('#deleteArtist').val();
       if (artist_id === '') {
-        return false;
+        event.preventDefault();
+        return;
       }
-      $.ajax({
+      ajax({
         data: {
           artist_id: artist_id
         },
@@ -131,14 +135,15 @@ $.extend(view, {
       $('#deleteArtist option').removeAttr('selected');
       $('#deleteArtist').val('');
       $('#deleteArtist').trigger('chosen:updated');
-      return false;
+      event.preventDefault();
     });
-    $('#deleteAlbumSubmit').click(() => {
+    document.querySelector('#deleteAlbumSubmit').addEventListener('click', event => {
       var album_id = $('#deleteAlbum').val();
       if (album_id === '') {
-        return false;
+        event.preventDefault();
+        return;
       }
-      $.ajax({
+      ajax({
         data: {
           album_id: album_id
         },
@@ -167,15 +172,16 @@ $.extend(view, {
       $('#deleteAlbum option').removeAttr('selected');
       $('#deleteAlbum').val('');
       $('#deleteAlbum').trigger('chosen:updated');
-      return false;
+      event.preventDefault();
     });
-    $('#transferAlbumDataSubmit').click(() => {
+    document.querySelector('#transferAlbumDataSubmit').addEventListener('click', event => {
       var album_id_from = $('#transferAlbumDataFrom').val();
       var album_id_to = $('#transferAlbumDataTo').val();
       if (album_id_from === '' || album_id_to === '') {
-        return false;
+        event.preventDefault();
+        return;
       }
-      $.ajax({
+      ajax({
         data: {
           album_id_from: album_id_from,
           album_id_to: album_id_to
@@ -208,10 +214,10 @@ $.extend(view, {
       $('#transferAlbumDataTo').val('');
       $('#transferAlbumDataFrom').trigger('chosen:updated');
       $('#transferAlbumDataTo').trigger('chosen:updated');
-      return false;
+      event.preventDefault();
     });
-    $('.clear_cache').click(() => {
-      $.ajax({
+    document.querySelector('.clear_cache').addEventListener('click', () => {
+      ajax({
         dataType: 'json',
         statusCode: {
           200: () => {

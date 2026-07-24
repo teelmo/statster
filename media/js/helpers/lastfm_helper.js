@@ -1,6 +1,6 @@
-$.extend(view, {
+Object.assign(view, {
   getSimilar: () => {
-    $.ajax({
+    ajax({
       type: 'GET',
       dataType: 'json',
       url: '/api/lastfm/fetchSimilar',
@@ -10,7 +10,7 @@ $.extend(view, {
       },
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             type: 'POST',
             url: '/ajax/artistList',
             data: {
@@ -20,8 +20,8 @@ $.extend(view, {
               }
             },
             success: data => {
-              $('#similarArtistLoader').hide();
-              $('#similarArtist').html(data);
+              document.querySelector('#similarArtistLoader').style.display = 'none';
+              document.querySelector('#similarArtist').innerHTML = data;
             }
           });
         }
@@ -29,7 +29,7 @@ $.extend(view, {
     });
   },
   getEvents: () => {
-    $.ajax({
+    ajax({
       type: 'GET',
       dataType: 'json',
       url: '/api/lastfm/getEvents',
@@ -39,15 +39,15 @@ $.extend(view, {
       },
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             type: 'POST',
             url: '/ajax/eventTable',
             data: {
               json_data: data
             },
             success: data => {
-              $('#artistEventLoader').hide();
-              $('#artistEvent').html(data);
+              document.querySelector('#artistEventLoader').style.display = 'none';
+              document.querySelector('#artistEvent').innerHTML = data;
             }
           });
         }

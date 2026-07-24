@@ -1,24 +1,19 @@
-$.extend(view, {
+Object.assign(view, {
   // Init Edit album events.
   initEditArtistEvents: () => {
     var $select = $('#associatedArtistAdd select');
     $select.chosen({ search_contains: true });
     $select.prioritizedChosenSearch();
-    $('#associatedArtistAdd').show();
-    $('.associated_artist_names').hide();
-    $('.spotify_id').blur(function () {
-      $(this).val(
-        $(this)
-          .val()
-          .replace(/(https:\/\/open\.spotify\.com\/artist\/)?([a-zA-Z0-9]{22})(.*)/, '$2')
-      );
+    document.querySelector('#associatedArtistAdd').style.display = '';
+    document.querySelectorAll('.associated_artist_names').forEach(el => {
+      el.style.display = 'none';
     });
-    $('.spotify_id').keyup(function () {
-      $(this).val(
-        $(this)
-          .val()
-          .replace(/(https:\/\/open\.spotify\.com\/artist\/)?([a-zA-Z0-9]{22})(.*)/, '$2')
-      );
+    document.querySelectorAll('.spotify_id').forEach(el => {
+      var clean = () => {
+        el.value = el.value.replace(/(https:\/\/open\.spotify\.com\/artist\/)?([a-zA-Z0-9]{22})(.*)/, '$2');
+      };
+      el.addEventListener('blur', clean);
+      el.addEventListener('keyup', clean);
     });
   }
 });
