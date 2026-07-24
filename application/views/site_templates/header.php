@@ -23,20 +23,32 @@ header('HTTP/1.1 200 OK');
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <script type="text/javascript" src="/media/js/libs/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="/media/js/libs/jquery-ui-1.13.2.custom.min.js"></script>
-    <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js"></script>
-    <script type="text/javascript" src="/media/js/libs/moment.min.js"></script>
-    <script type="text/javascript" src="/media/js/libs/mousetrap.min.js"></script>
-    <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min.js"></script>
-    <script type="text/javascript" src="/media/js/statster.js"></script>
+    <script type="text/javascript" src="/media/js/libs/jquery-1.12.4.min.js" defer></script>
+    <script type="text/javascript" src="/media/js/libs/jquery-ui-1.13.2.custom.min.js" defer></script>
+    <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js" defer></script>
+    <script type="text/javascript" src="/media/js/libs/moment.min.js" defer></script>
+    <script type="text/javascript" src="/media/js/libs/mousetrap.min.js" defer></script>
+    <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min.js" defer></script>
+    <script type="text/javascript" src="/media/js/statster.js" defer></script>
     <link rel="canonical" href="https://statster.info<?=$_SERVER['REQUEST_URI']?>" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Open+Sans:wght@300;400;700&family=Poiret+One&display=swap" rel="stylesheet">
     <?php
-    echo link_tag('/media/css/themes/' . (($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light') . '/styles.css');
+    // Individual <link> tags instead of styles.css's @import chain, so the browser
+    // can fetch them in parallel instead of discovering each import serially.
+    $theme = ($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light';
+    echo link_tag('/media/css/themes/' . $theme . '/colors.css');
+    echo link_tag('/media/css/site_template/top_container.css');
+    echo link_tag('/media/css/site_template/heading_container.css');
+    echo link_tag('/media/css/site_template/main_container.css');
+    echo link_tag('/media/css/site_template/chosen_styles.css');
+    echo link_tag('/media/css/site_template/loaders.css');
+    echo link_tag('/media/css/base.css');
+    echo link_tag('/media/css/site_template/footer.css');
+    echo link_tag('/media/css/site_template/responsive.css');
+    echo link_tag('/media/css/themes/' . $theme . '/styles.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>
