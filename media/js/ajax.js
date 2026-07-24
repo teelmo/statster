@@ -1,8 +1,9 @@
 // media/js/ajax.js
 // fetch()-based replacement for $.ajax(), shaped to match its call signature
-// (data/type/dataType/statusCode) so call sites need minimal changes. Static
-// file, no PHP interpolation - loaded as a real <script defer> in header.php
-// rather than spliced through footer.php like the page-specific JS files.
+// (data/type/dataType/statusCode/success/error/complete) so call sites need
+// minimal changes. Static file, no PHP interpolation - loaded as a real
+// <script defer> in header.php rather than spliced through footer.php like
+// the page-specific JS files.
 //
 // ajax.pending replaces $.active; there's no ajaxStop equivalent - callers
 // that used $(document).one('ajaxStop', fn) should use Promise.all([...])
@@ -43,9 +44,16 @@ function ajax(opts) {
             console.error('ajax: expected JSON, got unparseable response:', url, text);
           }
         }
-        var handler = statusCode[response.status];
-        if (handler) {
-          handler(payload, response);
+        var statusHandler = statusCode[response.status];
+        if (statusHandler) {
+          statusHandler(payload, response);
+        }
+        if (response.ok) {
+          if (opts.success) {
+            opts.success(payload, response);
+          }
+        } else if (opts.error) {
+          opts.error(response, payload);
         }
         return { payload: payload, response: response };
       });
@@ -56,20 +64,34 @@ function ajax(opts) {
     })
     .finally(() => {
       ajax.pending--;
+      if (opts.complete) {
+        opts.complete();
+      }
     });
 }
 ajax.pending = 0;
 
-// Mirrors jQuery.param()'s bracket-notation for array values (key[]=a&key[]=b).
+// Mirrors jQuery.param()'s bracket-notation for arrays (key[]=a&key[]=b) and
+// nested plain objects (key[sub]=a&key[other]=b), since PHP's $_GET/$_POST
+// parse that same bracket syntax into nested arrays on the other end (e.g.
+// hide: {artist: true} -> hide[artist]=true -> $data['hide']['artist']).
 function ajaxSerialize(data) {
   var params = new URLSearchParams();
-  Object.keys(data).forEach(key => {
-    var value = data[key];
-    if (Array.isArray(value)) {
-      value.forEach(v => params.append(`${key}[]`, v));
-    } else if (value !== undefined && value !== null) {
-      params.append(key, value);
-    }
-  });
+  ajaxAppend(params, data, null);
   return params.toString();
+}
+
+function ajaxAppend(params, value, prefix) {
+  if (Array.isArray(value)) {
+    // Explicit indices, not bare key[] - PHP splits key[][a]=1&key[][b]=2 into
+    // two SEPARATE elements ({a:1} and {b:2}) instead of one ({a:1,b:2}), since
+    // [] means "next new element" independently at each occurrence.
+    value.forEach((v, i) => ajaxAppend(params, v, `${prefix}[${i}]`));
+  } else if (value !== null && typeof value === 'object') {
+    Object.keys(value).forEach(key => {
+      ajaxAppend(params, value[key], prefix === null ? key : `${prefix}[${key}]`);
+    });
+  } else if (value !== undefined && value !== null) {
+    params.append(prefix, value);
+  }
 }

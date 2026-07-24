@@ -1,6 +1,6 @@
-$.extend(view, {
+Object.assign(view, {
   getSearchResults: () => {
-    $.ajax({
+    ajax({
       data: {
         q: '<?=$q?>'
       },
@@ -8,13 +8,13 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#searchResultLoader').hide();
-              $('#searchResult').html(data);
+              document.querySelector('#searchResultLoader').style.display = 'none';
+              document.querySelector('#searchResult').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/searchList'
@@ -22,11 +22,11 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#searchResultLoader').hide();
-          $('#searchResult').html('');
+          document.querySelector('#searchResultLoader').style.display = 'none';
+          document.querySelector('#searchResult').innerHTML = '';
         },
         400: () => {
-          $('#searchResultLoader').hide();
+          document.querySelector('#searchResultLoader').style.display = 'none';
           alert(`<?=ERR_BAD_REQUEST?>`);
         }
       },

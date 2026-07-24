@@ -1,12 +1,12 @@
-$.extend(view, {
+Object.assign(view, {
   getBulletins: () => {
     if (user_id === undefined) {
-      $('#bulletinLoader').hide();
+      document.querySelector('#bulletinLoader').style.display = 'none';
       return;
     }
-    $.ajax({
+    ajax({
       complete: () => {
-        $('#bulletinLoader').hide();
+        document.querySelector('#bulletinLoader').style.display = 'none';
       },
       data: {
         user_id: user_id
@@ -15,11 +15,11 @@ $.extend(view, {
       statusCode: {
         200: () => {
           // 200 OK
-          $('#love').addClass('love_del');
+          document.querySelector('#love').classList.add('love_del');
         },
         204: () => {
           // 204 No Content
-          $('#love').addClass('love_add');
+          document.querySelector('#love').classList.add('love_add');
         },
         400: () => {
           alert(`<?=ERR_BAD_REQUEST?>`);

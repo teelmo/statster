@@ -1,7 +1,7 @@
-$.extend(view, {
+Object.assign(view, {
   // Get recent listenings.
   getRecentListenings: callback => {
-    $.ajax({
+    ajax({
       complete: () => {
         if (callback !== undefined) {
           callback();
@@ -17,7 +17,7 @@ $.extend(view, {
         200: data => {
           // 200 OK
           const today = new Date();
-          $.ajax({
+          ajax({
             data: {
               cur_date: `${today.getFullYear()}-${(`0${today.getMonth() + 1}`).slice(-2)}-${(`0${today.getDate()}`).slice(-2)}`,
               hide: {
@@ -28,16 +28,16 @@ $.extend(view, {
               time: Math.floor((today.getTime() - today.getTimezoneOffset() * 60000) / 1000)
             },
             success: data => {
-              $('#recentlyListenedLoader2').hide();
-              $('#recentlyListenedLoader').hide();
-              $('#recentlyListened').html(data);
+              document.querySelector('#recentlyListenedLoader2').style.display = 'none';
+              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListened').innerHTML = data;
               var hours = today.getHours();
               var minutes = today.getMinutes();
               if (minutes < 10) {
                 minutes = `0${minutes}`;
               }
-              $('#recentlyUpdated').html(`updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`);
-              $('#recentlyUpdated').attr('value', today.getTime());
+              document.querySelector('#recentlyUpdated').innerHTML = `updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`;
+              document.querySelector('#recentlyUpdated').setAttribute('value', today.getTime());
             },
             type: 'POST',
             url: '/ajax/musicTable'
@@ -45,8 +45,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           alert('400 Bad Request');
@@ -66,7 +66,7 @@ $.extend(view, {
       today.setDate(new Date().getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 13,
         lower_limit: lower_limit,
@@ -75,14 +75,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'album'
             },
             success: data => {
-              $('#topAlbumLoader, #topAlbumLoader2').hide();
-              $('#topAlbum').html(data);
+              document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topAlbum').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -90,8 +92,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topAlbumLoader, #topAlbumLoader2').hide();
-          $('#topAlbum').html('<?=ERR_NO_RESULTS?>');
+          document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topAlbum').innerHTML = '<?=ERR_NO_RESULTS?>';
         }
       },
       type: 'GET',
@@ -108,7 +112,7 @@ $.extend(view, {
       today.setDate(today.getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 9,
         lower_limit: lower_limit,
@@ -117,13 +121,15 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topArtistLoader, #topArtistLoader2').hide();
-              $('#topArtist').html(data);
+              document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#topArtist').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -131,8 +137,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topArtistLoader, #topArtistLoader2').hide();
-          $('#topArtist').html('<?=ERR_NO_RESULTS?>');
+          document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#topArtist').innerHTML = '<?=ERR_NO_RESULTS?>';
         }
       },
       type: 'GET',
@@ -141,7 +149,7 @@ $.extend(view, {
   },
   // Get recommented top albums.
   getRecommentedTopAlbum: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 15,
         lower_limit: `<?=date('Y-m-d', time() - (90 * 24 * 60 * 60))?>`,
@@ -150,7 +158,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             complete: () => {
               // setdefault_interval(view.recommentedTopAlbum, 60 * 10 * 1000);
             },
@@ -165,8 +173,10 @@ $.extend(view, {
               limit: 4
             },
             success: data => {
-              $('#recommentedTopAlbumLoader, #recommentedTopAlbumLoader2').hide();
-              $('#recommentedTopAlbum').html(data);
+              document.querySelectorAll('#recommentedTopAlbumLoader, #recommentedTopAlbumLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#recommentedTopAlbum').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/sideTable'
@@ -174,8 +184,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recommentedTopAlbumLoader, #recommentedTopAlbumLoader2').hide();
-          $('#recommentedTopAlbum').html('<?=ERR_NO_RESULTS?>');
+          document.querySelectorAll('#recommentedTopAlbumLoader, #recommentedTopAlbumLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#recommentedTopAlbum').innerHTML = '<?=ERR_NO_RESULTS?>';
         }
       },
       type: 'GET',
@@ -184,7 +196,7 @@ $.extend(view, {
   },
   // Get recommented new albums.
   getRecommentedNewAlbum: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 15,
         order_by: 'album.year DESC, album.created DESC',
@@ -194,7 +206,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             complete: () => {
               // setdefault_interval(view.recommentedNewAlbum, 60 * 10 * 1000);
             },
@@ -209,8 +221,10 @@ $.extend(view, {
               limit: 4
             },
             success: data => {
-              $('#recommentedNewAlbumLoader, #recommentedNewAlbumLoader2').hide();
-              $('#recommentedNewAlbum').html(data);
+              document.querySelectorAll('#recommentedNewAlbumLoader, #recommentedNewAlbumLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#recommentedNewAlbum').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/sideTable'
@@ -218,8 +232,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recommentedNewAlbumLoader, #recommentedNewAlbumLoader2').hide();
-          $('#recommentedNewAlbum').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#recommentedNewAlbumLoader, #recommentedNewAlbumLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#recommentedNewAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -228,22 +244,24 @@ $.extend(view, {
   },
   initMainEvents: () => {
     // Recently listened hover keypress.
-    $('#recentlyListened').hover(() => {
+    var recentlyListenedHover = () => {
       var currentTime = new Date();
-      if (currentTime.getTime() - $('#recentlyUpdated').attr('value') > 60 * 2 * 1000 && $.active < 1) {
+      if (currentTime.getTime() - document.querySelector('#recentlyUpdated').getAttribute('value') > 60 * 2 * 1000 && ajax.pending < 1) {
         view.getRecentListenings();
       }
-    });
-    $('#refreshRecentAlbums').click(() => {
-      $('#recentlyListenedLoader2').show();
+    };
+    document.querySelector('#recentlyListened').addEventListener('mouseenter', recentlyListenedHover);
+    document.querySelector('#recentlyListened').addEventListener('mouseleave', recentlyListenedHover);
+    document.querySelector('#refreshRecentAlbums').addEventListener('click', () => {
+      document.querySelector('#recentlyListenedLoader2').style.display = '';
       view.getRecentListenings();
     });
-    $('#refreshHotAlbums').click(() => {
-      $('#recommentedTopAlbumLoader2').show();
+    document.querySelector('#refreshHotAlbums').addEventListener('click', () => {
+      document.querySelector('#recommentedTopAlbumLoader2').style.display = '';
       view.getRecommentedTopAlbum();
     });
-    $('#refreshNewAlbums').click(() => {
-      $('#recommentedNewAlbumLoader2').show();
+    document.querySelector('#refreshNewAlbums').addEventListener('click', () => {
+      document.querySelector('#recommentedNewAlbumLoader2').style.display = '';
       view.getRecommentedNewAlbum();
     });
   }

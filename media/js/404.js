@@ -1,13 +1,13 @@
-$.extend(view, {
+Object.assign(view, {
   recentlyListened: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 10
       },
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: 32,
@@ -20,8 +20,8 @@ $.extend(view, {
               }
             },
             success: data => {
-              $('#recentlyListenedLoader').hide();
-              $('#recentlyListened').html(data);
+              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/sideTable'

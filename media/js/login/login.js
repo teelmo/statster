@@ -1,12 +1,14 @@
-$.extend(view, {
+Object.assign(view, {
   initLoginEvents: () => {
-    $('#loginUsername').focus();
-    $('#loginSubmit').click(() => {
-      $.ajax({
+    document.querySelector('#loginUsername').focus();
+    document.querySelector('#loginSubmit').addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      ajax({
         data: {
-          password: $('#loginPassword').val(),
-          submitType: $('input[name="submitType"]').val(),
-          username: $('#loginUsername').val()
+          password: document.querySelector('#loginPassword').value,
+          submitType: document.querySelector('input[name="submitType"]').value,
+          username: document.querySelector('#loginUsername').value
         },
         success: data => {
           if (data.trim() === '1') {
@@ -18,8 +20,6 @@ $.extend(view, {
         type: 'POST',
         url: '/api/login'
       });
-
-      return false;
     });
   }
 });

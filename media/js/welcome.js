@@ -1,13 +1,13 @@
-$.extend(view, {
+Object.assign(view, {
   recentlyListened: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 5
       },
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               size: 32,
@@ -20,8 +20,8 @@ $.extend(view, {
               }
             },
             success: data => {
-              $('#recentlyListenedLoader').hide();
-              $('#recentlyListened').html(data);
+              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/sideTable'
@@ -33,7 +33,7 @@ $.extend(view, {
     });
   },
   topArtist: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: '1970-00-00'
@@ -41,13 +41,13 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topArtistLoader').hide();
-              $('#topArtist').html(data);
+              document.querySelector('#topArtistLoader').style.display = 'none';
+              document.querySelector('#topArtist').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -59,8 +59,10 @@ $.extend(view, {
     });
   },
   initWelcomeEvents: () => {
-    $('#toggleRegisterForm').click(() => {
-      $('#registerForm').slideToggle();
+    document.querySelector('#toggleRegisterForm').addEventListener('click', () => {
+      // Note: jQuery's slideToggle() animated this; plain class toggle drops
+      // the slide animation but keeps the same show/hide behavior.
+      document.querySelector('#registerForm').classList.toggle('hidden');
     });
   }
 });
