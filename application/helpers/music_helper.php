@@ -279,15 +279,6 @@ if (!function_exists('getListeningsCumulative')) {
     $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
     $user_id = !empty($opts['username']) ? getUserID($opts) : '%';
 
-    $cache_key = ($artist_id !== '%') 
-      ? 'c_getListeningsCumulative-artist_' . md5($artist_id) . '_' . md5(json_encode($opts)) 
-      : (($album_id !== '%') 
-        ? 'c_getListeningsCumulative-album_' . md5($album_id) . '_' . md5(json_encode($opts)) 
-        : 'c_getListeningsCumulative_' . md5(json_encode($opts)));
-    if ($cached = $ci->cache->file->get($cache_key)) {
-      return $cached;
-    }
-
     if ($album_id !== '%' || $artist_id !== '%') {
       $sql = "SELECT DATE_FORMAT(`a`.`date`, '%Y%m') AS `line_date`,
                      (SELECT COUNT(*)
@@ -330,8 +321,6 @@ if (!function_exists('getListeningsCumulative')) {
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
 
-    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
-
     return $result;
   }
 }
@@ -352,11 +341,6 @@ if (!function_exists('getArtistAlbums')) {
   function getArtistAlbums($opts = array()) {
     $ci = &get_instance();
     $ci->load->database();
-
-    $cache_key = 'getArtistAlbums_' . md5(json_encode($opts));
-    if ($cached = $ci->cache->file->get($cache_key)) {
-      return $cached;
-    }
 
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `albums`.`year` DESC';
@@ -392,8 +376,6 @@ if (!function_exists('getArtistAlbums')) {
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
-
-    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
 
     return $result;
   }

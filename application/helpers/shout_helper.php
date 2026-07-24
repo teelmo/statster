@@ -116,11 +116,6 @@ if (!function_exists('getAlbumShout')) {
     
     $ci->load->helper(['id_helper']);
 
-    $cache_key = 'get_album_shout_' . md5(json_encode($opts));
-    if ($cached = $ci->cache->file->get($cache_key)) {
-      return $cached;
-    }
-
     $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
     $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
     $sub_group_by = (isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'album') 
@@ -169,8 +164,6 @@ if (!function_exists('getAlbumShout')) {
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
-
-    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
 
     return $result;
   }

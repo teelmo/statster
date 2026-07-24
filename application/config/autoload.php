@@ -115,11 +115,10 @@ $autoload['model'] = array();
 | -------------------------------------------------------------------
 |  Auto-load Drivers
 | -------------------------------------------------------------------
-| Automatically load the 'cache' driver.
 |
 */
 
-$autoload['drivers'] = array('cache');
+$autoload['drivers'] = array();
 
 
 /* End of file autoload.php */

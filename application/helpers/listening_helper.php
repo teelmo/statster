@@ -24,15 +24,6 @@ if (!function_exists('getListenings')) {
     $album_id = isset($opts['album_name']) ? getAlbumID($opts) : '%';
     $artist_id = (isset($opts['artist_name']) && !isset($opts['album_name'])) ? getArtistID($opts) : '%';
 
-    $cache_key = ($artist_id !== '%') 
-      ? 'c_getListenings-artist_' . md5($artist_id) . '_' . md5(json_encode($opts)) 
-      : (($album_id !== '%') 
-        ? 'c_getListenings-album_' . md5($album_id) . '_' . md5(json_encode($opts)) 
-        : 'c_getListenings_' . md5(json_encode($opts)));
-    if ($cached = $ci->cache->file->get($cache_key)) {
-      return $cached;
-    }
-
     $sub_group_by = "GROUP BY " . TBL_artists . ".`id`";
     if (!empty($opts['sub_group_by'])) {
       if ($opts['sub_group_by'] === 'album') {
@@ -83,8 +74,6 @@ if (!function_exists('getListenings')) {
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
-
-    // $ci->cache->file->save($cache_key, $result, CACHE_TTL);
 
     return $result;
   }
@@ -155,10 +144,6 @@ if (!function_exists('addListening')) {
       $query = $ci->db->query($sql, array($data['user_id'], $data['album_id'], $data['date'], $data['created']));
       if ($ci->db->affected_rows() === 1) {
         $data['listening_id'] = $ci->db->insert_id();
-        clear_cache_by_prefix(['c_getListenings_', 'c_getListenings-album_' . md5($data['album_id']), 'c_getListeningsCumulative_', 'c_getListeningsCumulative-album_' . md5($data['album_id'])]);
-        foreach (getAlbumArtists($data) as $artist) {
-          clear_cache_by_prefix(['c_getListenings-artist_' . md5($artist['id']), 'c_getListeningsCumulative-artist_' . md5($artist['id'])]);
-        }
         // Add listening format data to DB.
         if (!empty($_POST['format'])) {
           list($data['format_name'], $data['format_type_name']) = explode(':', $_POST['format']);
@@ -205,8 +190,6 @@ if (!function_exists('deleteListening')) {
     $query = $ci->db->query($sql, array($data['listening_id'], $data['user_id']));
 
     if ($ci->db->affected_rows() === 1) {
-      clear_cache_by_prefix(['c_getListenings']);
-      clear_cache_by_prefix(['c_getListeningsCumulative']);
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }
