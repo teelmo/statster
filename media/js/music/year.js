@@ -1,4 +1,4 @@
-$.extend(view, {
+Object.assign(view, {
   getListeningHistory: (type, lower_limit, upper_limit) => {
     var group_by;
     var order_by;
@@ -20,7 +20,7 @@ $.extend(view, {
       select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
       where = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') != '00'`;
     }
-    $.ajax({
+    ajax({
       data: {
         group_by: group_by,
         limit: 200,
@@ -36,15 +36,17 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: type,
               upper_limit: upper_limit
             },
             success: data => {
-              $('#historyLoader').hide();
-              $('#history').html(data).hide();
+              document.querySelector('#historyLoader').style.display = 'none';
+              var history = document.querySelector('#history');
+              history.innerHTML = data;
+              history.style.display = 'none';
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
             },
@@ -54,15 +56,15 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#historyLoader').hide();
-          $('#history').html(`<?=ERR_NO_RESULTS?>`);
-          $('.music_bar').hide();
+          document.querySelector('#historyLoader').style.display = 'none';
+          document.querySelector('#history').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          document.querySelector('.music_bar').style.display = 'none';
         },
         400: () => {
           // 400 Bad request
-          $('#historyLoader').hide();
+          document.querySelector('#historyLoader').style.display = 'none';
           alert(`<?=ERR_BAD_REQUEST?>`);
-          $('.music_bar').hide();
+          document.querySelector('.music_bar').style.display = 'none';
         }
       },
       type: 'GET',
@@ -70,7 +72,7 @@ $.extend(view, {
     });
   },
   topAlbum: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 17,
         lower_limit: lower_limit,
@@ -81,14 +83,14 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'album'
             },
             success: data => {
-              $('#topAlbumLoader').hide();
-              $('#topAlbum').html(data);
+              document.querySelector('#topAlbumLoader').style.display = 'none';
+              document.querySelector('#topAlbum').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -96,8 +98,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topAlbumLoader').hide();
-          $('#topAlbum').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topAlbumLoader').style.display = 'none';
+          document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -105,7 +107,7 @@ $.extend(view, {
     });
   },
   topArtist: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 17,
         lower_limit: lower_limit,
@@ -116,14 +118,14 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'artist'
             },
             success: data => {
-              $('#topArtistLoader').hide();
-              $('#topArtist').html(data);
+              document.querySelector('#topArtistLoader').style.display = 'none';
+              document.querySelector('#topArtist').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/musicWall'
@@ -131,8 +133,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topArtistLoader').hide();
-          $('#topArtist').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topArtistLoader').style.display = 'none';
+          document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -140,7 +142,7 @@ $.extend(view, {
     });
   },
   topListeners: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -151,7 +153,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -162,8 +164,8 @@ $.extend(view, {
               size: 64
             },
             success: data => {
-              $('#topListenerLoader').hide();
-              $('#topListener').html(data);
+              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/userTable'
@@ -171,13 +173,13 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
       type: 'GET',
@@ -185,7 +187,7 @@ $.extend(view, {
     });
   },
   topReleases: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -197,7 +199,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               hide: {
@@ -210,8 +212,8 @@ $.extend(view, {
               size: 64
             },
             success: data => {
-              $('#topReleasesLoader').hide();
-              $('#topReleases').html(data);
+              document.querySelector('#topReleasesLoader').style.display = 'none';
+              document.querySelector('#topReleases').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/sideTable'
@@ -219,8 +221,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topReleasesLoader').hide();
-          $('#topReleases').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topReleasesLoader').style.display = 'none';
+          document.querySelector('#topReleases').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -228,7 +230,7 @@ $.extend(view, {
     });
   },
   topFormats: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 10,
         lower_limit: lower_limit,
@@ -239,7 +241,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 format_icon: true
@@ -247,8 +249,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#topListeningFormatTypesLoader').hide();
-              $('#topListeningFormatTypes').html(data);
+              document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+              document.querySelector('#topListeningFormatTypes').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -256,13 +258,13 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
       type: 'GET',
@@ -270,7 +272,7 @@ $.extend(view, {
     });
   },
   topGenre: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -280,13 +282,13 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topGenreLoader').hide();
-              $('#topGenre').html(data);
+              document.querySelector('#topGenreLoader').style.display = 'none';
+              document.querySelector('#topGenre').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -294,8 +296,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topGenreLoader').hide();
-          $('#topGenre').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topGenreLoader').style.display = 'none';
+          document.querySelector('#topGenre').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {
           // 404 Not found
@@ -307,7 +309,7 @@ $.extend(view, {
     });
   },
   topKeyword: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -317,13 +319,13 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topKeywordLoader').hide();
-              $('#topKeyword').html(data);
+              document.querySelector('#topKeywordLoader').style.display = 'none';
+              document.querySelector('#topKeyword').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -331,8 +333,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topKeywordLoader').hide();
-          $('#topKeyword').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topKeywordLoader').style.display = 'none';
+          document.querySelector('#topKeyword').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {
           // 404 Not found
@@ -344,7 +346,7 @@ $.extend(view, {
     });
   },
   topNationality: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -354,13 +356,13 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topNationalityLoader').hide();
-              $('#topNationality').html(data);
+              document.querySelector('#topNationalityLoader').style.display = 'none';
+              document.querySelector('#topNationality').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -368,8 +370,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topNationalityLoader').hide();
-          $('#topNationality').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topNationalityLoader').style.display = 'none';
+          document.querySelector('#topNationality').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {
           // 404 Not found
@@ -381,7 +383,7 @@ $.extend(view, {
     });
   },
   topYear: (lower_limit, upper_limit) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 5,
         lower_limit: lower_limit,
@@ -391,13 +393,13 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#topYearLoader').hide();
-              $('#topYear').html(data);
+              document.querySelector('#topYearLoader').style.display = 'none';
+              document.querySelector('#topYear').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -405,8 +407,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topYearLoader').hide();
-          $('#topYear').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topYearLoader').style.display = 'none';
+          document.querySelector('#topYear').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {
           // 404 Not found

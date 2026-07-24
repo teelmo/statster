@@ -1,9 +1,9 @@
-$.extend(view, {
+Object.assign(view, {
   getRecentListenings: isFirst => {
     if (isFirst !== true) {
-      $('#recentMosaicLoader2').show();
+      document.querySelector('#recentMosaicLoader2').style.display = '';
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 102,
         sub_group_by: 'album',
@@ -13,21 +13,23 @@ $.extend(view, {
       statusCode: {
         200: data => {
           const today = new Date();
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'recent'
             },
             success: data => {
-              $('#recentMosaicLoader, #recentMosaicLoader2').hide();
-              $('#recentMosaic').html(data);
+              document.querySelectorAll('#recentMosaicLoader, #recentMosaicLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#recentMosaic').innerHTML = data;
               var hours = today.getHours();
               var minutes = today.getMinutes();
               if (minutes < 10) {
                 minutes = `0${minutes}`;
               }
-              $('#recentlyUpdated').html(`updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`);
-              $('#recentlyUpdated').attr('value', today.getTime());
+              document.querySelector('#recentlyUpdated').innerHTML = `updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`;
+              document.querySelector('#recentlyUpdated').setAttribute('value', today.getTime());
             },
             type: 'POST',
             url: '/ajax/mosaic'
@@ -35,8 +37,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recentMosaicLoader').hide();
-          $('#recentMosaic').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#recentMosaicLoader').style.display = 'none';
+          document.querySelector('#recentMosaic').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -44,7 +46,7 @@ $.extend(view, {
     });
   },
   initRecentEvents: () => {
-    $('#refreshRecentAlbums').click(() => {
+    document.querySelector('#refreshRecentAlbums').addEventListener('click', () => {
       view.getRecentListenings();
     });
   }

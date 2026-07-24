@@ -1,8 +1,8 @@
 var cumulative_done = false;
-$.extend(view, {
+Object.assign(view, {
   getListeningCumulation: () => {
     cumulative_done = true;
-    $.ajax({
+    ajax({
       data: {
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
       },
@@ -14,18 +14,22 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('.line').hide();
+          document.querySelectorAll('.line').forEach(el => {
+            el.style.display = 'none';
+          });
         },
         400: () => {
           // 400 Bad request
-          $('.line').hide();
+          document.querySelectorAll('.line').forEach(el => {
+            el.style.display = 'none';
+          });
         }
       },
       type: 'GET',
       url: '/api/listening/get/cumulative'
     });
   },
-  getListeningHistory: type => {
+  getListeningHistory: type => new Promise(resolve => {
     view.initChart();
     var group_by;
     var order_by;
@@ -47,7 +51,7 @@ $.extend(view, {
       select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
       where = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') != '00'`;
     }
-    $.ajax({
+    ajax({
       data: {
         group_by: group_by,
         limit: 200,
@@ -61,16 +65,19 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: type
             },
             success: data => {
-              $('#historyLoader').hide();
-              $('#history').html(data).hide();
+              document.querySelector('#historyLoader').style.display = 'none';
+              var history = document.querySelector('#history');
+              history.innerHTML = data;
+              history.style.display = 'none';
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
+              resolve();
             },
             type: 'POST',
             url: '/ajax/musicBar'
@@ -78,21 +85,27 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#historyLoader, .music_bar').hide();
-          $('#history').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#historyLoader, .music_bar').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#history').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#historyLoader, .music_bar').hide();
+          document.querySelectorAll('#historyLoader, .music_bar').forEach(el => {
+            el.style.display = 'none';
+          });
           alert(`<?=ERR_BAD_REQUEST?>`);
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/listener/get'
-    });
-  },
-  getPopularGenres: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getPopularGenres: () => new Promise(resolve => {
+    ajax({
       data: {
         limit: 20,
         lower_limit: `<?=date('Y-m-d', time() - (365 * 24 * 60 * 60))?>`,
@@ -101,13 +114,14 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data
             },
             success: data => {
-              $('#popularGenreLoader').hide();
-              $('#popularGenre').html(data);
+              document.querySelector('#popularGenreLoader').style.display = 'none';
+              document.querySelector('#popularGenre').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/tagTable'
@@ -115,19 +129,21 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#popularGenreLoader').hide();
-          $('#popularGenre').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#popularGenreLoader').style.display = 'none';
+          document.querySelector('#popularGenre').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         404: () => {
           // 404 Not found
           alert('404 Not Found');
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/genre/get'
-    });
-  },
-  getPopularAlbums: interval => {
+    }).catch(() => resolve());
+  }),
+  getPopularAlbums: interval => new Promise(resolve => {
     var lower_limit;
     if (interval === 'overall') {
       lower_limit = '1970-00-00';
@@ -136,7 +152,7 @@ $.extend(view, {
       today.setDate(today.getDate() - parseInt(interval, 10));
       lower_limit = today.toISOString().split('T')[0];
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 20,
         lower_limit: lower_limit,
@@ -144,7 +160,7 @@ $.extend(view, {
       },
       dataType: 'json',
       success: data => {
-        $.ajax({
+        ajax({
           data: {
             json_data: data,
             hide: {
@@ -155,8 +171,11 @@ $.extend(view, {
             }
           },
           success: data => {
-            $('#popularAlbumLoader, #popularAlbumLoader2').hide();
-            $('#popularAlbum').html(data);
+            document.querySelectorAll('#popularAlbumLoader, #popularAlbumLoader2').forEach(el => {
+              el.style.display = 'none';
+            });
+            document.querySelector('#popularAlbum').innerHTML = data;
+            resolve();
           },
           type: 'POST',
           url: '/ajax/sideTable'
@@ -164,10 +183,10 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/album/get'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   getSecondChance: () => {
-    $.ajax({
+    ajax({
       data: {
         having: '`count` < 3',
         limit: 4,
@@ -179,7 +198,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             complete: () => {
               setTimeout(view.getSecondChance, 60 * 10 * 1000);
             },
@@ -194,8 +213,10 @@ $.extend(view, {
               limit: 4
             },
             success: data => {
-              $('#secondChanceLoader, #secondChanceLoader2').hide();
-              $('#secondChance').html(data);
+              document.querySelectorAll('#secondChanceLoader, #secondChanceLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#secondChance').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/sideTable'
@@ -203,8 +224,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#secondChanceLoader, #secondChanceLoader2').hide();
-          $('#secondChance').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#secondChanceLoader, #secondChanceLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#secondChance').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
@@ -212,7 +235,7 @@ $.extend(view, {
     });
   },
   getFromOthers: () => {
-    $.ajax({
+    ajax({
       data: {
         having: '`count` > 20',
         limit: 4,
@@ -223,7 +246,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             complete: () => {
               setTimeout(view.getFromOthers, 60 * 10 * 1000);
             },
@@ -238,8 +261,10 @@ $.extend(view, {
               limit: 4
             },
             success: data => {
-              $('#fromOthersLoader, #fromOthersLoader2').hide();
-              $('#fromOthers').html(data);
+              document.querySelectorAll('#fromOthersLoader, #fromOthersLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#fromOthers').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/sideTable'
@@ -247,16 +272,18 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#fromOthersLoader, #fromOthersLoader2').hide();
-          $('#fromOthers').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#fromOthersLoader, #fromOthersLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#fromOthers').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
       url: '/api/fromOthers'
     });
   },
-  getRecentlyFaned: () => {
-    $.ajax({
+  getRecentlyFaned: () => new Promise(resolve => {
+    ajax({
       data: {
         limit: 8,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -264,7 +291,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 rank: true
@@ -272,7 +299,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#recentlyFaned').html(data);
+              document.querySelector('#recentlyFaned').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/likeTable'
@@ -281,10 +309,10 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/fan/get'
-    });
-  },
-  getRecentlyLoved: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getRecentlyLoved: () => new Promise(resolve => {
+    ajax({
       data: {
         limit: 8,
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -292,7 +320,7 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 rank: true
@@ -300,7 +328,8 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#recentlyLoved').html(data);
+              document.querySelector('#recentlyLoved').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/likeTable'
@@ -309,37 +338,47 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/love/get'
-    });
-  },
+    }).catch(() => resolve());
+  }),
+  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
+  // request anywhere on the page finished, regardless of whether an
+  // individual success callback threw - $.active bookkeeping happens before
+  // user callbacks run. Promise.all doesn't have that resilience by default
+  // (one rejection fails the whole group), so each promise gets a .catch()
+  // here to match the original's fault tolerance. getSecondChance/
+  // getFromOthers self-refresh on a 10-minute timer and don't feed the
+  // merge below, so they're kicked off separately, not awaited here.
   initMusicEvents: () => {
-    $(document).one('ajaxStop', (_event, _request, _settings) => {
-      $('#recentlyLiked').append(
-        $('.recently_liked tr')
-          .detach()
-          .sort((a, b) => app.compareStrings($(a).data('created'), $(b).data('created')))
-      );
-      $('#recentlyLikedLoader').hide();
+    Promise.all([
+      view.getListeningHistory('%Y').catch(() => {}),
+      view.getPopularGenres().catch(() => {}),
+      view.getPopularAlbums('<?=$popular_album_music?>').catch(() => {}),
+      view.getRecentlyFaned().catch(() => {}),
+      view.getRecentlyLoved().catch(() => {})
+    ]).then(() => {
+      var rows = Array.from(document.querySelectorAll('.recently_liked tr'));
+      rows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
+      var recentlyLiked = document.querySelector('#recentlyLiked');
+      rows.forEach(row => {
+        recentlyLiked.appendChild(row);
+      });
+      document.querySelector('#recentlyLikedLoader').style.display = 'none';
       if (cumulative_done === false) {
         view.getListeningCumulation();
       }
     });
-    $('#refreshSecondChanceAlbums').click(() => {
-      $('#secondChanceLoader2').show();
+    document.querySelector('#refreshSecondChanceAlbums').addEventListener('click', () => {
+      document.querySelector('#secondChanceLoader2').style.display = '';
       view.getSecondChance();
     });
-    $('#refreshFromOthersAlbums').click(() => {
-      $('#fromOthersLoader2').show();
+    document.querySelector('#refreshFromOthersAlbums').addEventListener('click', () => {
+      document.querySelector('#fromOthersLoader2').style.display = '';
       view.getFromOthers();
     });
   }
 });
 
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-view.getListeningHistory('%Y');
-view.getPopularGenres();
-view.getPopularAlbums('<?=$popular_album_music?>');
 view.getSecondChance();
 view.getFromOthers();
-view.getRecentlyFaned();
-view.getRecentlyLoved();
 view.initMusicEvents();

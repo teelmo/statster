@@ -1,6 +1,6 @@
-$.extend(view, {
+Object.assign(view, {
   topListeners: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 100,
         sub_group_by: 'album'
@@ -9,7 +9,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -20,8 +20,8 @@ $.extend(view, {
               type: 'user'
             },
             success: data => {
-              $('#topListenerLoader').hide();
-              $('#topListener').html(data);
+              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -33,7 +33,7 @@ $.extend(view, {
     });
   },
   getListenings: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 10
       },
@@ -41,7 +41,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 artist: true,
@@ -54,8 +54,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#recentlyListenedLoader').hide();
-              $('#recentlyListened').html(data);
+              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
             url: `<?=(!empty($album_name)) ? '/ajax/userTable' : '/ajax/sideTable'?>`
@@ -63,13 +63,13 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
       type: 'GET',

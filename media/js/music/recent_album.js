@@ -1,7 +1,7 @@
-$.extend(view, {
+Object.assign(view, {
   // Get album tags.
   getTags: () => {
-    $.ajax({
+    ajax({
       data: {
         album_id: parseInt(`<?=$album_id?>`, 10),
         limit: 9
@@ -10,15 +10,15 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               delete: true,
               json_data: data,
               logged_in: `<?=$logged_in?>`
             },
             success: data => {
-              $('#tagsLoader').hide();
-              $('#tags').html(data);
+              document.querySelector('#tagsLoader').style.display = 'none';
+              document.querySelector('#tags').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/tagList'
@@ -26,13 +26,13 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#tagsLoader').hide();
-          $('#tags').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#tagsLoader').style.display = 'none';
+          document.querySelector('#tags').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          $('#tagsLoader').hide();
-          $('#tags').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#tagsLoader').style.display = 'none';
+          document.querySelector('#tags').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
       type: 'GET',
@@ -42,12 +42,12 @@ $.extend(view, {
   // Get album love.
   getLove: user_id => {
     if (user_id === undefined) {
-      $('#loveLoader').hide();
+      document.querySelector('#loveLoader').style.display = 'none';
       return;
     }
-    $.ajax({
+    ajax({
       complete: () => {
-        $('#loveLoader').hide();
+        document.querySelector('#loveLoader').style.display = 'none';
       },
       data: {
         user_id: user_id
@@ -56,11 +56,11 @@ $.extend(view, {
       statusCode: {
         200: () => {
           // 200 OK
-          $('#love').addClass('love_del');
+          document.querySelector('#love').classList.add('love_del');
         },
         204: () => {
           // 204 No Content
-          $('#love').addClass('love_add');
+          document.querySelector('#love').classList.add('love_add');
         },
         400: () => {
           alert(`<?=ERR_BAD_REQUEST?>`);
@@ -72,20 +72,20 @@ $.extend(view, {
   },
   // Get album loves.
   getLoves: () => {
-    $.ajax({
+    ajax({
       data: {},
       dataType: 'json',
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {},
               json_data: data
             },
             success: data => {
-              $('#albumLoveLoader').hide();
-              $('#albumLove').html(data);
+              document.querySelector('#albumLoveLoader').style.display = 'none';
+              document.querySelector('#albumLove').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/likeList'
@@ -93,12 +93,12 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#albumLoveLoader').hide();
-          $('#albumLove').html('');
+          document.querySelector('#albumLoveLoader').style.display = 'none';
+          document.querySelector('#albumLove').innerHTML = '';
         },
         400: () => {
           // 400 Bad request
-          $('#albumLoveLoader').hide();
+          document.querySelector('#albumLoveLoader').style.display = 'none';
           alert(`<?=ERR_BAD_REQUEST?>`);
         }
       },
@@ -108,7 +108,7 @@ $.extend(view, {
   },
   // Get recent listenings.
   getRecentListenings: (_isFirst, _callback) => {
-    $.ajax({
+    ajax({
       data: {
         album_name: '<?=$album_name?>',
         artist_name: '<?=$artist_name?>',
@@ -120,14 +120,14 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               strlenght: 50
             },
             success: data => {
-              $('#recentlyListenedLoader').hide();
-              $('#recentlyListened').html(data);
+              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/musicTable'
@@ -135,8 +135,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           alert('400 Bad Request');
@@ -147,7 +147,7 @@ $.extend(view, {
     });
   },
   getUsers: () => {
-    $.ajax({
+    ajax({
       data: {
         album_name: '<?=$album_name?>',
         artist_name: '<?=$artist_name?>',
@@ -158,7 +158,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -168,8 +168,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#topListenerLoader').hide();
-              $('#topListener').html(data);
+              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/userTable'
@@ -177,13 +177,13 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
       type: 'GET',
@@ -191,17 +191,32 @@ $.extend(view, {
     });
   },
   initRecentAlbumEvents: () => {
-    $('html').on('click', '#love', function () {
-      $('.like_msg').html('');
-      if ($(this).hasClass('love_add')) {
-        $.ajax({
+    document.querySelector('html').addEventListener('click', event => {
+      var target = event.target.closest('#love');
+      if (!target) {
+        return;
+      }
+      document.querySelectorAll('.like_msg').forEach(el => {
+        el.innerHTML = '';
+      });
+      if (target.classList.contains('love_add')) {
+        ajax({
           data: {},
           statusCode: {
             201: () => {
               // 201 Created
-              $('#love').removeClass('love_add').addClass('love_del').find('.like_msg').html("You're in love!").show();
+              var love = document.querySelector('#love');
+              love.classList.remove('love_add');
+              love.classList.add('love_del');
+              var msg = love.querySelector('.like_msg');
+              msg.innerHTML = "You're in love!";
+              msg.style.display = '';
               setTimeout(() => {
-                $('.like_msg').fadeOut(1000);
+                // Note: jQuery's fadeOut() animated this over 1s; plain hide
+                // drops the animation but keeps the same end state.
+                document.querySelectorAll('.like_msg').forEach(el => {
+                  el.style.display = 'none';
+                });
               }, `<?=MSG_FADEOUT?>`);
               view.getLoves();
             },
@@ -222,15 +237,24 @@ $.extend(view, {
           url: '/api/love/add/<?=$album_id?>'
         });
       }
-      if ($(this).hasClass('love_del')) {
-        $.ajax({
+      if (target.classList.contains('love_del')) {
+        ajax({
           data: {},
           statusCode: {
             204: () => {
               // 204 No Content
-              $('#love').removeClass('love_del').addClass('love_add').find('.like_msg').html('Unloved.').show();
+              var love = document.querySelector('#love');
+              love.classList.remove('love_del');
+              love.classList.add('love_add');
+              var msg = love.querySelector('.like_msg');
+              msg.innerHTML = 'Unloved.';
+              msg.style.display = '';
               setTimeout(() => {
-                $('.like_msg').fadeOut(1000);
+                // Note: jQuery's fadeOut() animated this over 1s; plain hide
+                // drops the animation but keeps the same end state.
+                document.querySelectorAll('.like_msg').forEach(el => {
+                  el.style.display = 'none';
+                });
               }, `<?=MSG_FADEOUT?>`);
               view.getLoves();
             },
@@ -252,76 +276,105 @@ $.extend(view, {
         });
       }
     });
-    $('html').on('click', '#submitTags', () => {
-      $.when(
-        $.each($('.chosen-select').val(), (_i, el) => {
-          var tag = el.split(':');
-          $.ajax({
-            data: {
-              album_id: parseInt(`<?=$album_id?>`, 10),
-              tag_id: tag[1],
-              type: 'album'
+    document.querySelector('html').addEventListener('click', event => {
+      var target = event.target.closest('#submitTags');
+      if (!target) {
+        return;
+      }
+      $('.chosen-select').val().forEach(el => {
+        var tag = el.split(':');
+        ajax({
+          data: {
+            album_id: parseInt(`<?=$album_id?>`, 10),
+            tag_id: tag[1],
+            type: 'album'
+          },
+          statusCode: {
+            201: () => {
+              // 201 Created
             },
-            statusCode: {
-              201: () => {
-                // 201 Created
-              },
-              400: () => {
-                // 400 Bad request
-                alert(`<?=ERR_BAD_REQUEST?>`);
-              },
-              401: () => {
-                // 401 Unauthorized
-                alert('401 Unauthorized');
-              },
-              404: () => {
-                // 404 Not Found
-                alert('404 Not Found');
+            400: () => {
+              // 400 Bad request
+              alert(`<?=ERR_BAD_REQUEST?>`);
+            },
+            401: () => {
+              // 401 Unauthorized
+              alert('401 Unauthorized');
+            },
+            404: () => {
+              // 404 Not Found
+              alert('404 Not Found');
+            }
+          },
+          type: 'POST',
+          url: `/api/tag/add/${tag[0]}`
+        });
+      });
+      $('.chosen-select option').removeAttr('selected');
+      $('#tagAdd select').trigger('chosen:updated');
+      view.getTags();
+      document.querySelector('#tagAdd').style.display = 'none';
+    });
+    // Note: the original bound these same three delegated handlers on both
+    // 'html' and 'body' (a two-element jQuery selection), so each fired
+    // twice per matching click - preserved here via two separate roots
+    // rather than collapsing to one.
+    [document.querySelector('html'), document.querySelector('body')].forEach(root => {
+      root.addEventListener('click', event => {
+        var target = event.target.closest('span.delete');
+        if (!target) {
+          return;
+        }
+        var container = document.querySelector(target.dataset.confirmationContainer);
+        if (container) {
+          container.style.display = '';
+        }
+      });
+      root.addEventListener('click', event => {
+        var target = event.target.closest('a.cancel');
+        if (!target) {
+          return;
+        }
+        target.closest('div').style.display = 'none';
+      });
+      root.addEventListener('click', event => {
+        var target = event.target.closest('a.confirm');
+        if (!target) {
+          return;
+        }
+        var rowId = target.dataset.rowId;
+        var row = document.querySelector(`#${rowId}`);
+        if (row && row.classList.contains('just_added')) {
+          document.querySelectorAll('tr').forEach(el => {
+            el.classList.remove('just_added_rest');
+          });
+        }
+        ajax({
+          statusCode: {
+            200: () => {
+              // 200 OK
+              // Note: jQuery's fadeOut('slow') animated this; plain hide
+              // drops the animation but keeps the same end state.
+              if (row) {
+                row.style.display = 'none';
               }
             },
-            type: 'POST',
-            url: `/api/tag/add/${tag[0]}`
-          });
-        })
-      ).done(() => {
-        $('.chosen-select option').removeAttr('selected');
-        $('#tagAdd select').trigger('chosen:updated');
-        view.getTags();
-      });
-      $('#tagAdd').hide();
-    });
-    $('html body').on('click', 'span.delete', function () {
-      $($(this).data('confirmation-container')).show();
-    });
-    $('html body').on('click', 'a.cancel', function () {
-      $(this).closest('div').hide();
-    });
-    $('html body').on('click', 'a.confirm', function () {
-      var row_id = $(this).data('row-id');
-      if ($(`#${row_id}`).hasClass('just_added')) {
-        $('tr').removeClass('just_added_rest');
-      }
-      $.ajax({
-        statusCode: {
-          200: () => {
-            // 200 OK
-            $(`#${row_id}`).fadeOut('slow');
+            400: () => {
+              // 400 Bad Request
+              alert('400 Bad Request');
+            },
+            401: () => {
+              // 401 Unauthorized
+              alert('401 Unauthorized');
+            },
+            404: () => {
+              // 404 Not found
+              alert('404 Not Found');
+            }
           },
-          400: () => {
-            // 400 Bad Request
-            alert('400 Bad Request');
-          },
-          401: () => {
-            // 401 Unauthorized
-            alert('401 Unauthorized');
-          },
-          404: () => {
-            // 404 Not found
-            alert('404 Not Found');
-          }
-        },
-        type: 'POST',
-        url: `/api/listening/delete/${$(this).data('listening-id')}`
+          type: 'POST',
+          url: `/api/listening/delete/${target.dataset.listeningId}`
+        });
       });
     });
   }

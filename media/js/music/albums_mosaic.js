@@ -1,4 +1,4 @@
-$.extend(view, {
+Object.assign(view, {
   getTopAlbum: (lower_limit, upper_limit = false) => {
     if (!upper_limit) {
       if (lower_limit === 'overall') {
@@ -9,7 +9,7 @@ $.extend(view, {
       }
       upper_limit = '<?=CUR_DATE?>';
     }
-    $.ajax({
+    ajax({
       data: {
         limit: 102,
         lower_limit: lower_limit,
@@ -19,14 +19,16 @@ $.extend(view, {
       dataType: 'json',
       statusCode: {
         200: data => {
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: 'album'
             },
             success: data => {
-              $('#albumMosaicLoader, #albumMosaicLoader2').hide();
-              $('#albumMosaic').html(data);
+              document.querySelectorAll('#albumMosaicLoader, #albumMosaicLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#albumMosaic').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/mosaic'
@@ -34,8 +36,10 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#albumMosaicLoader, #albumMosaicLoader2').hide();
-          $('#albumMosaic').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelectorAll('#albumMosaicLoader, #albumMosaicLoader2').forEach(el => {
+            el.style.display = 'none';
+          });
+          document.querySelector('#albumMosaic').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',

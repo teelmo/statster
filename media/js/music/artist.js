@@ -1,14 +1,16 @@
 var cumulative_done = false;
-$.extend(view, {
+Object.assign(view, {
   // Get artist fan.
-  getFan: user_id => {
+  getFan: user_id => new Promise(resolve => {
     if (user_id === undefined) {
-      $('#fanLoader').hide();
+      document.querySelector('#fanLoader').style.display = 'none';
+      resolve();
       return;
     }
-    $.ajax({
+    ajax({
       complete: () => {
-        $('#fanLoader').hide();
+        document.querySelector('#fanLoader').style.display = 'none';
+        resolve();
       },
       data: {
         user_id: user_id
@@ -17,11 +19,11 @@ $.extend(view, {
       statusCode: {
         200: () => {
           // 200 OK
-          $('#fan').addClass('fan_del');
+          document.querySelector('#fan').classList.add('fan_del');
         },
         204: () => {
           // 204 No Content
-          $('#fan').addClass('fan_add');
+          document.querySelector('#fan').classList.add('fan_add');
         },
         400: () => {
           // 400 Bad request
@@ -30,24 +32,25 @@ $.extend(view, {
       },
       type: 'GET',
       url: '/api/fan/get/<?=$artist_id?>'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   // Get artist fans.
-  getFans: () => {
-    $.ajax({
+  getFans: () => new Promise(resolve => {
+    ajax({
       data: {},
       dataType: 'json',
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {},
               json_data: data
             },
             success: data => {
-              $('#artistFanLoader').hide();
-              $('#artistFan').html(data);
+              document.querySelector('#artistFanLoader').style.display = 'none';
+              document.querySelector('#artistFan').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/likeList'
@@ -55,22 +58,24 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#artistFanLoader').hide();
-          $('#artistFan').html('');
+          document.querySelector('#artistFanLoader').style.display = 'none';
+          document.querySelector('#artistFan').innerHTML = '';
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#artistFanLoader').hide();
+          document.querySelector('#artistFanLoader').style.display = 'none';
           alert(`<?=ERR_BAD_REQUEST?>`);
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/fan/get/<?=$artist_id?>'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   // Get artist tags.
-  getTags: () => {
-    $.ajax({
+  getTags: () => new Promise(resolve => {
+    ajax({
       data: {
         artist_id: parseInt(`<?=$artist_id?>`, 10),
         limit: 9
@@ -79,15 +84,16 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               delete: false,
               json_data: data,
               logged_in: `<?=$logged_in?>`
             },
             success: data => {
-              $('#tagsLoader').hide();
-              $('#tags').html(data);
+              document.querySelector('#tagsLoader').style.display = 'none';
+              document.querySelector('#tags').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/tagList'
@@ -95,22 +101,24 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#tagsLoader').hide();
-          $('#tags').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#tagsLoader').style.display = 'none';
+          document.querySelector('#tags').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#tagsLoader').hide();
-          $('#tags').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#tagsLoader').style.display = 'none';
+          document.querySelector('#tags').innerHTML = `<?=ERR_BAD_REQUEST?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/tag/get/artist'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   getListeningCumulation: () => {
     cumulative_done = true;
-    $.ajax({
+    ajax({
       data: {
         artist_name: '<?=$artist_name?>',
         username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
@@ -123,18 +131,22 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('.line').hide();
+          document.querySelectorAll('.line').forEach(el => {
+            el.style.display = 'none';
+          });
         },
         400: () => {
           // 400 Bad request
-          $('.line').hide();
+          document.querySelectorAll('.line').forEach(el => {
+            el.style.display = 'none';
+          });
         }
       },
       type: 'GET',
       url: '/api/listening/get/cumulative'
     });
   },
-  getListeningHistory: type => {
+  getListeningHistory: type => new Promise(resolve => {
     view.initChart();
     var group_by;
     var order_by;
@@ -156,7 +168,7 @@ $.extend(view, {
       select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
       where = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') != '00'`;
     }
-    $.ajax({
+    ajax({
       data: {
         artist_name: '<?=$artist_name?>',
         group_by: group_by,
@@ -171,16 +183,19 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               json_data: data,
               type: type
             },
             success: data => {
-              $('#historyLoader').hide();
-              $('#history').html(data).hide();
+              document.querySelector('#historyLoader').style.display = 'none';
+              var history = document.querySelector('#history');
+              history.innerHTML = data;
+              history.style.display = 'none';
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
+              resolve();
             },
             type: 'POST',
             url: '/ajax/musicBar'
@@ -188,21 +203,23 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#historyLoader').hide();
-          $('#history').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#historyLoader').style.display = 'none';
+          document.querySelector('#history').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#historyLoader').hide();
+          document.querySelector('#historyLoader').style.display = 'none';
           alert(`<?=ERR_BAD_REQUEST?>`);
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/listener/get'
-    });
-  },
-  getShouts: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getShouts: () => new Promise(resolve => {
+    ajax({
       data: {
         artist_name: '<?=$artist_name?>'
       },
@@ -210,12 +227,16 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
+          var shoutTotal = document.querySelector('#shoutTotal');
           if (data[0].count === 1) {
-            $('#shoutTotal').html(`<span class="number">${data[0].count}</span> shout`).fadeIn(500);
+            shoutTotal.innerHTML = `<span class="number">${data[0].count}</span> shout`;
           } else {
-            $('#shoutTotal').html(`<span class="number">${data[0].count}</span> shouts`).fadeIn(500);
+            shoutTotal.innerHTML = `<span class="number">${data[0].count}</span> shouts`;
           }
-          $.ajax({
+          // Note: jQuery's fadeIn() animated this over 500ms; plain display
+          // toggle drops the animation but keeps the same end state.
+          shoutTotal.style.display = '';
+          ajax({
             data: {
               hide: {
                 user: true
@@ -225,8 +246,9 @@ $.extend(view, {
               type: 'user'
             },
             success: data => {
-              $('#shoutLoader').hide();
-              $('#shout').html(data);
+              document.querySelector('#shoutLoader').style.display = 'none';
+              document.querySelector('#shout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
@@ -234,22 +256,24 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#shoutLoader').hide();
-          $('#shout').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#shoutLoader').style.display = 'none';
+          document.querySelector('#shout').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#shoutLoader').hide();
+          document.querySelector('#shoutLoader').style.display = 'none';
           alert(`<?=ERR_BAD_REQUEST?>`);
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/shout/get/artist'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   // Get artist listeners.
-  getUsers: () => {
-    $.ajax({
+  getUsers: () => new Promise(resolve => {
+    ajax({
       data: {
         artist_name: '<?=$artist_name?>',
         sub_group_by: '',
@@ -259,7 +283,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -269,8 +293,9 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#topListenerLoader').hide();
-              $('#topListener').html(data);
+              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListener').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/userTable'
@@ -278,22 +303,24 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/listener/get'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   // Get artist listenings.
-  getListenings: () => {
-    $.ajax({
+  getListenings: () => new Promise(resolve => {
+    ajax({
       data: {
         artist_name: '<?=$artist_name?>',
         limit: 6,
@@ -303,7 +330,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 artist: true,
@@ -316,8 +343,9 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#recentlyListenedLoader').hide();
-              $('#recentlyListened').html(data);
+              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListened').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/sideTable'
@@ -325,21 +353,23 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_BAD_REQUEST?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/listening/get'
-    });
-  },
-  getFormats: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getFormats: () => new Promise(resolve => {
+    ajax({
       data: {
         artist_name: '<?=$artist_name?>',
         limit: 5,
@@ -349,7 +379,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 format_icon: true
@@ -357,8 +387,9 @@ $.extend(view, {
               json_data: data
             },
             success: data => {
-              $('#topListeningFormatTypesLoader').hide();
-              $('#topListeningFormatTypes').html(data);
+              document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+              document.querySelector('#topListeningFormatTypes').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/columnTable'
@@ -366,21 +397,23 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         },
         400: () => {
           // 400 Bad request
-          $('#topListeningFormatTypesLoader').hide();
-          $('#topListeningFormatTypes').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_BAD_REQUEST?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/format/get'
-    });
-  },
-  getAlbumShouts: () => {
-    $.ajax({
+    }).catch(() => resolve());
+  }),
+  getAlbumShouts: () => new Promise(resolve => {
+    ajax({
       data: {
         artist_name: '<?=$artist_name?>',
         limit: 5
@@ -389,7 +422,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 user: true
@@ -398,24 +431,26 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#albumShoutLoader').hide();
-              $('#albumShout').html(data);
+              document.querySelector('#albumShoutLoader').style.display = 'none';
+              document.querySelector('#albumShout').innerHTML = data;
+              resolve();
             },
             type: 'POST',
             url: '/ajax/shoutTable'
           });
         },
         204: () => {
-          $('#albumShoutLoader').hide();
-          $('#albumShout').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#albumShoutLoader').style.display = 'none';
+          document.querySelector('#albumShout').innerHTML = `<?=ERR_NO_RESULTS?>`;
+          resolve();
         }
       },
       type: 'GET',
       url: '/api/shout/get/album'
-    });
-  },
+    }).catch(() => resolve());
+  }),
   updateArtistBio: () => {
-    $.ajax({
+    ajax({
       data: {
         artist_id: parseInt(`<?=$artist_id?>`, 10),
         artist_name: '<?=$artist_name?>'
@@ -425,23 +460,54 @@ $.extend(view, {
       url: '/api/artist/update/biography'
     });
   },
+  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
+  // request anywhere on the page finished, regardless of whether an
+  // individual success callback threw - $.active bookkeeping happens before
+  // user callbacks run. Promise.all doesn't have that resilience by default
+  // (one rejection fails the whole group), so each promise gets a .catch()
+  // here to match the original's fault tolerance.
   initArtistEvents: () => {
-    $(document).one('ajaxStop', (_event, _request, _settings) => {
+    Promise.all([
+      view.getFan(parseInt(`<?=$this->session->userdata('user_id')?>`, 10)).catch(() => {}),
+      view.getFans().catch(() => {}),
+      view.getTags().catch(() => {}),
+      view.getListeningHistory('%Y').catch(() => {}),
+      view.getShouts().catch(() => {}),
+      view.getUsers().catch(() => {}),
+      view.getListenings().catch(() => {}),
+      view.getFormats().catch(() => {}),
+      view.getAlbumShouts().catch(() => {})
+    ]).then(() => {
       if (cumulative_done === false) {
         view.getListeningCumulation();
       }
     });
-    $('html').on('click', '#fan', function () {
-      $('.like_msg').html('');
-      if ($(this).hasClass('fan_add')) {
-        $.ajax({
+    document.querySelector('html').addEventListener('click', event => {
+      var target = event.target.closest('#fan');
+      if (!target) {
+        return;
+      }
+      document.querySelectorAll('.like_msg').forEach(el => {
+        el.innerHTML = '';
+      });
+      if (target.classList.contains('fan_add')) {
+        ajax({
           data: {},
           statusCode: {
             201: () => {
               // 201 Created
-              $('#fan').removeClass('fan_add').addClass('fan_del').find('.like_msg').html("You're a fan!").show();
+              var fan = document.querySelector('#fan');
+              fan.classList.remove('fan_add');
+              fan.classList.add('fan_del');
+              var msg = fan.querySelector('.like_msg');
+              msg.innerHTML = "You're a fan!";
+              msg.style.display = '';
               setTimeout(() => {
-                $('.like_msg').fadeOut(1000);
+                // Note: jQuery's fadeOut() animated this over 1s; plain hide
+                // drops the animation but keeps the same end state.
+                document.querySelectorAll('.like_msg').forEach(el => {
+                  el.style.display = 'none';
+                });
               }, `<?=MSG_FADEOUT?>`);
               view.getFans();
             },
@@ -460,15 +526,24 @@ $.extend(view, {
           url: `/api/fan/add/${parseInt(`<?=$artist_id?>`, 10)}`
         });
       }
-      if ($(this).hasClass('fan_del')) {
-        $.ajax({
+      if (target.classList.contains('fan_del')) {
+        ajax({
           data: {},
           statusCode: {
             204: () => {
               // 204 No Content
-              $('#fan').removeClass('fan_del').addClass('fan_add').find('.like_msg').html('Unfaned.').show();
+              var fan = document.querySelector('#fan');
+              fan.classList.remove('fan_del');
+              fan.classList.add('fan_add');
+              var msg = fan.querySelector('.like_msg');
+              msg.innerHTML = 'Unfaned.';
+              msg.style.display = '';
               setTimeout(() => {
-                $('.like_msg').fadeOut(1000);
+                // Note: jQuery's fadeOut() animated this over 1s; plain hide
+                // drops the animation but keeps the same end state.
+                document.querySelectorAll('.like_msg').forEach(el => {
+                  el.style.display = 'none';
+                });
               }, `<?=MSG_FADEOUT?>`);
               view.getFans();
             },
@@ -488,10 +563,14 @@ $.extend(view, {
         });
       }
     });
-    $('html').on('click', '#submitTags', () => {
-      $.each($('.chosen-select').val(), (_i, el) => {
+    document.querySelector('html').addEventListener('click', event => {
+      var target = event.target.closest('#submitTags');
+      if (!target) {
+        return;
+      }
+      $('.chosen-select').val().forEach(el => {
         var tag = el.split(':');
-        $.ajax({
+        ajax({
           async: false,
           data: {
             artist_id: parseInt(`<?=$artist_id?>`, 10),
@@ -520,21 +599,12 @@ $.extend(view, {
       $('.chosen-select option').removeAttr('selected');
       $('#tagAdd select').trigger('chosen:updated');
       view.getTags();
-      $('#tagAdd').hide();
+      document.querySelector('#tagAdd').style.display = 'none';
     });
   }
 });
 
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>`);
-view.getFan(parseInt(`<?=$this->session->userdata('user_id')?>`, 10));
-view.getFans();
-view.getTags();
-view.getListeningHistory('%Y');
-view.getShouts();
-view.getUsers();
-view.getListenings();
-view.getFormats();
-view.getAlbumShouts();
 view.initArtistEvents();
 
 var update_bio = parseInt(`<?=($update_bio === true) ? 1 : 0?>`, 10);

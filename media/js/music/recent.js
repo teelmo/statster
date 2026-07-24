@@ -1,7 +1,7 @@
-$.extend(view, {
+Object.assign(view, {
   // Get recent listenings.
   getRecentListenings: (_isFirst, _callback) => {
-    $.ajax({
+    ajax({
       data: {
         limit: 100,
         sub_group_by: 'album',
@@ -12,7 +12,7 @@ $.extend(view, {
         200: data => {
           // 200 OK
           const today = new Date();
-          $.ajax({
+          ajax({
             data: {
               cur_date: `${today.getFullYear()}-${(`0${today.getMonth() + 1}`).slice(-2)}-${(`0${today.getDate()}`).slice(-2)}`,
               json_data: data,
@@ -20,15 +20,17 @@ $.extend(view, {
               time: Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 1000)
             },
             success: data => {
-              $('#recentlyListenedLoader, #recentlyListenedLoader2').hide();
-              $('#recentlyListened').html(data);
+              document.querySelectorAll('#recentlyListenedLoader, #recentlyListenedLoader2').forEach(el => {
+                el.style.display = 'none';
+              });
+              document.querySelector('#recentlyListened').innerHTML = data;
               var hours = today.getHours();
               var minutes = today.getMinutes();
               if (minutes < 10) {
                 minutes = `0${minutes}`;
               }
-              $('#recentlyUpdated').html(`updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`);
-              $('#recentlyUpdated').attr('value', today.getTime());
+              document.querySelector('#recentlyUpdated').innerHTML = `updated <span class="number">${hours}</span>:<span class="number">${minutes}</span>`;
+              document.querySelector('#recentlyUpdated').setAttribute('value', today.getTime());
             },
             type: 'POST',
             url: '/ajax/musicTable'
@@ -36,8 +38,8 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#recentlyListenedLoader').hide();
-          $('#recentlyListened').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           alert('400 Bad Request');
@@ -48,7 +50,7 @@ $.extend(view, {
     });
   },
   getUsers: () => {
-    $.ajax({
+    ajax({
       data: {
         limit: 14,
         sub_group_by: 'album'
@@ -57,7 +59,7 @@ $.extend(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          $.ajax({
+          ajax({
             data: {
               hide: {
                 calendar: true,
@@ -67,8 +69,8 @@ $.extend(view, {
               size: 32
             },
             success: data => {
-              $('#topListenerLoader').hide();
-              $('#topListener').html(data);
+              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
             url: '/ajax/userTable'
@@ -76,13 +78,13 @@ $.extend(view, {
         },
         204: () => {
           // 204 No Content
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_NO_RESULTS?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          $('#topListenerLoader').hide();
-          $('#topListener').html(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
       type: 'GET',
@@ -90,44 +92,70 @@ $.extend(view, {
     });
   },
   initRecentEvents: () => {
-    $('#refreshRecentAlbums').click(() => {
-      $('#recentlyListenedLoader2').show();
+    document.querySelector('#refreshRecentAlbums').addEventListener('click', () => {
+      document.querySelector('#recentlyListenedLoader2').style.display = '';
       view.getRecentListenings();
     });
-    $('html body').on('click', 'span.delete', function () {
-      $($(this).data('confirmation-container')).show();
-    });
-    $('html body').on('click', 'a.cancel', function () {
-      $(this).closest('div').hide();
-    });
-    $('html body').on('click', 'a.confirm', function () {
-      var row_id = $(this).data('row-id');
-      $.ajax({
-        statusCode: {
-          200: () => {
-            // 200 OK
-            $(`#${row_id}`).fadeOut('slow', () => {
-              if ($(`#${row_id}`).hasClass('just_added')) {
-                $('tr').removeClass('just_added_rest');
+    // Note: the original bound these same three delegated handlers on both
+    // 'html' and 'body' (a two-element jQuery selection), so each fired
+    // twice per matching click - preserved here via two separate roots
+    // rather than collapsing to one.
+    [document.querySelector('html'), document.querySelector('body')].forEach(root => {
+      root.addEventListener('click', event => {
+        var target = event.target.closest('span.delete');
+        if (!target) {
+          return;
+        }
+        var container = document.querySelector(target.dataset.confirmationContainer);
+        if (container) {
+          container.style.display = '';
+        }
+      });
+      root.addEventListener('click', event => {
+        var target = event.target.closest('a.cancel');
+        if (!target) {
+          return;
+        }
+        target.closest('div').style.display = 'none';
+      });
+      root.addEventListener('click', event => {
+        var target = event.target.closest('a.confirm');
+        if (!target) {
+          return;
+        }
+        var rowId = target.dataset.rowId;
+        ajax({
+          statusCode: {
+            200: () => {
+              // 200 OK
+              // Note: jQuery's fadeOut('slow') animated this; plain remove
+              // drops the animation but keeps the same end state.
+              var row = document.querySelector(`#${rowId}`);
+              if (row) {
+                if (row.classList.contains('just_added')) {
+                  document.querySelectorAll('tr').forEach(el => {
+                    el.classList.remove('just_added_rest');
+                  });
+                }
+                row.remove();
               }
-              $(`#${row_id}`).remove();
-            });
+            },
+            400: () => {
+              // 400 Bad Request
+              alert('400 Bad Request');
+            },
+            401: () => {
+              // 401 Unauthorized
+              alert('401 Unauthorized');
+            },
+            404: () => {
+              // 404 Not found
+              alert('404 Not Found');
+            }
           },
-          400: () => {
-            // 400 Bad Request
-            alert('400 Bad Request');
-          },
-          401: () => {
-            // 401 Unauthorized
-            alert('401 Unauthorized');
-          },
-          404: () => {
-            // 404 Not found
-            alert('404 Not Found');
-          }
-        },
-        type: 'POST',
-        url: `/api/listening/delete/${$(this).data('listening-id')}`
+          type: 'POST',
+          url: `/api/listening/delete/${target.dataset.listeningId}`
+        });
       });
     });
   }
