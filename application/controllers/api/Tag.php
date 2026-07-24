@@ -13,7 +13,7 @@ class Tag extends MY_ReadOnly_Controller {
 
     switch ($tag_type) {
       case 'genre':
-        $this->load->helper(array('genre_helper'));
+        $this->load->helper(array('tag_helper'));
         if ($type === 'cumulative') {
           echo getGenresCumulative($_REQUEST);
         }
@@ -22,7 +22,7 @@ class Tag extends MY_ReadOnly_Controller {
         }
         break;
       case 'keyword':
-        $this->load->helper(array('keyword_helper'));
+        $this->load->helper(array('tag_helper'));
         if ($type === 'cumulative') {
           echo getKeywordsCumulative($_REQUEST);
         }
@@ -31,7 +31,7 @@ class Tag extends MY_ReadOnly_Controller {
         }
         break;
       case 'nationality':
-        $this->load->helper(array('nationality_helper'));
+        $this->load->helper(array('tag_helper'));
         if ($type === 'cumulative') {
           echo getNationalitiesCumulative($_REQUEST);
         }
@@ -58,15 +58,15 @@ class Tag extends MY_ReadOnly_Controller {
         break;
       default:
         if ($_GET['tag_type'] == 'genre') {
-          $this->load->helper(array('genre_helper'));
+          $this->load->helper(array('tag_helper'));
           echo getMusicByGenre($_REQUEST);
         }
         else if ($_GET['tag_type'] == 'keyword') {
-          $this->load->helper(array('keyword_helper'));
+          $this->load->helper(array('tag_helper'));
           echo getMusicByKeyword($_REQUEST);
         }
         else if ($_GET['tag_type'] == 'nationality') {
-          $this->load->helper(array('nationality_helper'));
+          $this->load->helper(array('tag_helper'));
           echo getMusicByNationality($_REQUEST);
         }
         else if ($_GET['tag_type'] == 'year') {
@@ -93,15 +93,15 @@ class Tag extends MY_ReadOnly_Controller {
       $_REQUEST['album_id'] = $album->album_id;
       switch ($tag_type) {
         case 'genre':
-          $this->load->helper(array('genre_helper'));
+          $this->load->helper(array('tag_helper'));
           echo addAlbumGenre($_REQUEST);
           break;
         case 'keyword':
-          $this->load->helper(array('keyword_helper'));
+          $this->load->helper(array('tag_helper'));
           echo addAlbumKeyword($_REQUEST);
           break;
         case 'nationality':
-          $this->load->helper(array('nationality_helper'));
+          $this->load->helper(array('tag_helper'));
           echo addAlbumNationality($_REQUEST);
           break;
         default:

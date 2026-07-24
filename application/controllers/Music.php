@@ -46,7 +46,7 @@ class Music extends MY_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper', 'genre_helper', 'shout_helper', 'fan_helper', 'love_helper', 'nationality_helper', 'year_helper', 'id_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'tag_helper', 'shout_helper', 'fan_helper', 'love_helper', 'year_helper', 'id_helper', 'output_helper'));
 
       $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['popular_album_music'] = isset($intervals['popular_album_music']) ? $intervals['popular_album_music'] : 90;
@@ -229,7 +229,7 @@ class Music extends MY_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper'/*, 'spotify_helper'*/, 'artist_helper', 'album_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper'/*, 'spotify_helper'*/, 'artist_helper', 'album_helper', 'tag_helper', 'year_helper', 'output_helper'));
 
       $data['artist_name'] = decode($value1);
       $data['album_name'] = decode($value2);

@@ -25,7 +25,7 @@ class User extends MY_Controller {
   }
 
   public function profile($username) {
-    $this->load->helper(array('form', 'user_helper', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper', 'fan_helper', 'love_helper', 'shout_helper'));
+    $this->load->helper(array('form', 'user_helper', 'img_helper', 'music_helper', 'tag_helper', 'year_helper', 'output_helper', 'fan_helper', 'love_helper', 'shout_helper'));
 
     $data['username'] = $username;
     if ($data = getUser($data)) {

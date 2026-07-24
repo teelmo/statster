@@ -6,7 +6,7 @@ class Main extends MY_Controller {
     $data = array();
     if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers.
-      $this->load->helper(array('form', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('form', 'img_helper', 'music_helper', 'tag_helper', 'year_helper', 'output_helper'));
 
       $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
       $data['top_album_main'] = isset($intervals['top_album_main']) ? $intervals['top_album_main'] : 30;
@@ -32,7 +32,7 @@ class Main extends MY_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('form', 'img_helper', 'music_helper', 'genre_helper', 'nationality_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('form', 'img_helper', 'music_helper', 'tag_helper', 'year_helper', 'output_helper'));
 
       $opts = array(
         'limit' => '1',

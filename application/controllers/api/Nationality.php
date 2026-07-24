@@ -9,7 +9,7 @@ class Nationality extends MY_ReadOnly_Controller {
   /* List nationalities */
   public function get($type = '') {
     // Load helpers
-    $this->load->helper(array('nationality_helper', 'output_helper'));
+    $this->load->helper(array('tag_helper', 'output_helper'));
     
     switch ($type) {
       case 'all':
@@ -36,7 +36,7 @@ class Nationality extends MY_ReadOnly_Controller {
       switch ($type) {
         case 'biography':
           // Load helpers
-          $this->load->helper(array('nationality_helper', 'metadata_helper'));
+          $this->load->helper(array('tag_helper', 'metadata_helper'));
 
           $_REQUEST += fetchTagBio($_REQUEST);
           echo addNationalityBio($_REQUEST);
@@ -54,7 +54,7 @@ class Nationality extends MY_ReadOnly_Controller {
   public function delete() {
     if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers
-      $this->load->helper(array('nationality_helper'));
+      $this->load->helper(array('tag_helper'));
 
       echo deleteAlbumNationality($_REQUEST);
     }

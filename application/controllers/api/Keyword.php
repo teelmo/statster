@@ -9,7 +9,7 @@ class Keyword extends MY_ReadOnly_Controller {
   /* List keywords */
   public function get($type = '') {
     // Load helpers
-    $this->load->helper(array('keyword_helper', 'output_helper'));
+    $this->load->helper(array('tag_helper', 'output_helper'));
     
     if ($type === 'all') {
       echo getAllKeywords($_REQUEST);
@@ -22,7 +22,7 @@ class Keyword extends MY_ReadOnly_Controller {
   /* Add a keyword */
   public function add() {
     // Load helpers
-    $this->load->helper(array('keyword_helper', 'output_helper'));
+    $this->load->helper(array('tag_helper', 'output_helper'));
     
     echo addKeyword($_REQUEST);
   }
@@ -33,7 +33,7 @@ class Keyword extends MY_ReadOnly_Controller {
       switch ($type) {
         case 'biography':
           // Load helpers
-          $this->load->helper(array('keyword_helper', 'metadata_helper'));
+          $this->load->helper(array('tag_helper', 'metadata_helper'));
 
           $_REQUEST += fetchTagBio($_REQUEST);
           echo addKeywordBio($_REQUEST);
@@ -51,7 +51,7 @@ class Keyword extends MY_ReadOnly_Controller {
   public function delete() {
     if ($this->session->userdata('logged_in') === TRUE) {
       // Load helpers
-      $this->load->helper(array('keyword_helper'));
+      $this->load->helper(array('tag_helper'));
 
       echo deleteAlbumKeyword($_REQUEST);
     }
