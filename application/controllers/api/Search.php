@@ -7,6 +7,8 @@ class Search extends MY_ReadOnly_Controller {
   }
 
   public function get($limit) {
+    $limit = (int) $limit;
+
     // Load helpers.
     $this->load->helper(array('img_helper'));
     

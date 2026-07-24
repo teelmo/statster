@@ -11,9 +11,9 @@ class Music extends MY_Controller {
       $data['to'] = isset($_GET['to']) ? $_GET['to'] : CUR_DATE;
       $data['from_array'] = explode('-', $data['from']);
       $data['to_array'] = explode('-', $data['to']);
-      $data['month'] = isset($_GET['month']) ? $_GET['month'] : '\'%\'' ;
-      $data['day'] = isset($_GET['day']) ? $_GET['day'] : '\'%\'' ;
-      $data['weekday'] = isset($_GET['weekday']) ? $_GET['weekday'] - 1 : '\'%\'' ;
+      $data['month'] = isset($_GET['month']) ? (int) $_GET['month'] : '\'%\'' ;
+      $data['day'] = isset($_GET['day']) ? (int) $_GET['day'] : '\'%\'' ;
+      $data['weekday'] = isset($_GET['weekday']) ? (int) $_GET['weekday'] - 1 : '\'%\'' ;
       $data += array(
         'limit' => '1',
         'lower_limit' => $data['from'],
