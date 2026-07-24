@@ -18,7 +18,7 @@
     }
     ?>
     <script type="text/javascript">
-      $(document).ready(function() {
+      document.addEventListener('DOMContentLoaded', function() {
         <?php
         if (!empty($artist_name)) {
           $artist_name = addslashes($artist_name);
@@ -27,8 +27,13 @@
           $album_name = addslashes($album_name);
         }
         if (isset($js_include)) {
-          foreach ($js_include as $file) {
-            if (strpos($file, 'libs/') !== 0 && file_exists('./media/js/' . $file . '.js')) {
+          // helpers/* extend the shared `view`/`app` objects that page-specific
+          // files call into as soon as they run, so they must load first
+          // regardless of where they appear in $js_include.
+          $non_lib_includes = array_filter($js_include, function($file) { return strpos($file, 'libs/') !== 0; });
+          usort($non_lib_includes, function($a, $b) { return (strpos($b, 'helpers/') === 0) - (strpos($a, 'helpers/') === 0); });
+          foreach ($non_lib_includes as $file) {
+            if (file_exists('./media/js/' . $file . '.js')) {
               include('./media/js/' . $file . '.js');
             }
           }
