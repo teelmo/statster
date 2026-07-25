@@ -2312,7 +2312,6 @@ h3 {
             font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
             text-align: left;
             text-transform: capitalize;
-            width: auto;
           }
 
           & .prev:hover,
