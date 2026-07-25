@@ -84,6 +84,12 @@ function initSearchableSelect(selectEl) {
     return getOptions()
       .filter(o => !o.selected && (!lower || o.textContent.toLowerCase().includes(lower)))
       .sort((a, b) => {
+        // Only rank within a group - cross-group pairs return 0, so the
+        // stable sort leaves groups in their original (optgroup) order
+        // instead of interleaving them alphabetically.
+        if (optionGroupLabel(a) !== optionGroupLabel(b)) {
+          return 0;
+        }
         var aText = a.textContent.toLowerCase();
         var bText = b.textContent.toLowerCase();
         var aRank = aText.startsWith(lower) ? 0 : aText.includes(lower) ? 1 : 2;
@@ -100,9 +106,9 @@ function initSearchableSelect(selectEl) {
     if (!multiple) {
       return;
     }
-    getOptions()
-      .filter(o => o.selected)
-      .forEach(option => {
+    var selected = getOptions().filter(o => o.selected);
+    input.placeholder = selected.length ? '' : placeholder;
+    selected.forEach(option => {
         var chip = document.createElement('span');
         chip.className = 'searchable_select_chip';
         var label = document.createElement('span');
@@ -126,11 +132,6 @@ function initSearchableSelect(selectEl) {
   function renderDropdown() {
     var term = input.value.trim();
     var ranked = rankOptions(term);
-    var truncated = false;
-    if (!term && ranked.length > UNFILTERED_RESULT_CAP) {
-      ranked = ranked.slice(0, UNFILTERED_RESULT_CAP);
-      truncated = true;
-    }
     if (ranked.length === 0) {
       dropdown.classList.add('hidden');
       dropdown.innerHTML = '';
@@ -146,6 +147,15 @@ function initSearchableSelect(selectEl) {
         groups.push(groupMap[key]);
       }
       groupMap[key].options.push(option);
+    });
+    // Cap per group rather than the flat list, so a single oversized group
+    // (e.g. Genres) can't crowd the others out of the unfiltered view.
+    var truncated = false;
+    groups.forEach(group => {
+      if (!term && group.options.length > UNFILTERED_RESULT_CAP) {
+        group.options = group.options.slice(0, UNFILTERED_RESULT_CAP);
+        truncated = true;
+      }
     });
     dropdown.innerHTML =
       groups

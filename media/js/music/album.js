@@ -609,7 +609,7 @@ Object.assign(view, {
       });
       document.querySelector('#tagAdd select').searchableSelectReset();
       view.getTags();
-      document.querySelector('#tagAdd').style.display = 'none';
+      document.querySelector('#tagAdd').classList.add('hidden');
     });
     document.querySelector('html').addEventListener('mouseover', event => {
       var target = event.target.closest('.tag');

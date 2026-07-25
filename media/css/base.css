@@ -343,6 +343,13 @@ strong {
     }
   }
 }
+#tagAdd {
+  max-width: 450px;
+  position: relative;
+  &.hidden {
+    display: none;
+  }
+}
 /* Anchor styles */
 a {
   color: var(--color-gray-dark);
@@ -1570,6 +1577,7 @@ img {
   & .searchable_select_result {
     color: var(--color-black);
     cursor: pointer;
+    font-size: 14px;
     padding: 6px 10px;
     & strong {
       font-weight: 700;

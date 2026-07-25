@@ -312,7 +312,7 @@ Object.assign(view, {
       });
       document.querySelector('#tagAdd select').searchableSelectReset();
       view.getTags();
-      document.querySelector('#tagAdd').style.display = 'none';
+      document.querySelector('#tagAdd').classList.add('hidden');
     });
     // Note: the original bound these same three delegated handlers on both
     // 'html' and 'body' (a two-element jQuery selection), so each fired

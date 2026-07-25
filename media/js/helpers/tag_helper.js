@@ -30,13 +30,9 @@ Object.assign(view, {
         return;
       }
       var tagAdd = document.querySelector('#tagAdd');
-      if (tagAdd.style.display === 'inline') {
-        tagAdd.style.display = 'none';
-      } else {
-        tagAdd.style.display = 'inline';
-      }
+      tagAdd.classList.toggle('hidden');
       var searchInput = document.querySelector('#tagAdd .searchable_select_input');
-      if (searchInput) {
+      if (!tagAdd.classList.contains('hidden') && searchInput) {
         searchInput.focus();
       }
     });
