@@ -81,7 +81,7 @@ Object.assign(view, {
           <thead>
             <tr class="caption">
               <th>${showPrev ? '<span class="prev"><i class="fa fa-angle-left"></i></span>' : ''}</th>
-              <th class="month-name"><div class="month-element">${monthName}</div></th>
+              <th class="month-name" colspan="6"><div class="month-element">${monthName}</div></th>
               <th>${showNext ? '<span class="next"><i class="fa fa-angle-right"></i></span>' : ''}</th>
             </tr>
             <tr class="week-name">

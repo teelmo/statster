@@ -1931,6 +1931,14 @@ h3 {
       }
     }
   }
+  &.two-months {
+    & tbody td {
+      width: calc(100% / 8);
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
   & .footer {
     display: none;
   }
