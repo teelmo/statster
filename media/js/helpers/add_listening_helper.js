@@ -8,10 +8,14 @@ Object.assign(view, {
       source: '/autoComplete/addListening'
     });
   },
-  // Native <input type="date"> replaces the inline daterangepicker
-  // (singleDate: true) widget - the browser's own date picker covers the
-  // same "pick one date" need without a library, and the min/max bound
-  // (today, up to tomorrow) maps directly to the input's max attribute.
+  // Hand-rolled single-month calendar, reusing the same structural CSS
+  // classes/markup shape as initDateRangePicker (date_filter_helper.js) -
+  // see media/css/libs/daterangepicker.min.css - but with its own black/
+  // white selected-day style (.day.selected in base.css) instead of that
+  // file's blue .checked/.first-date-selected, no topbar/Clear/Today, and
+  // month navigation bounded to Jan 2000..tomorrow. Opens on clicking the
+  // date text itself, matching the original inline daterangepicker
+  // (singleDate: true) widget this replaces.
   initDatepicker: () => {
     var curday = sp => {
       const today = new Date();
@@ -24,16 +28,150 @@ Object.assign(view, {
       return yyyy + sp + mm + sp + dd;
     };
     var dateInput = document.querySelector('#addListeningDate');
-    dateInput.type = 'date';
-    dateInput.max = `<?=date('Y-m-d', strtotime(CUR_DATE . "+1 days"))?>`;
+    var container = document.querySelector('#addListeningDateContainer .calendar_container');
+    dateInput.type = 'text';
+    dateInput.readOnly = true;
     dateInput.value = curday('-');
-    dateInput.addEventListener('change', () => {
-      setTimeout(
-        () => {
-          dateInput.value = curday('-');
-        },
-        60 * 2 * 1000
-      ); //
+
+    // Pages without a .calendar_container (e.g. the mosaic view) keep the
+    // plain prefilled text field - no picker to wire up.
+    if (!container) {
+      return;
+    }
+
+    var pad = n => String(n).padStart(2, '0');
+    var toISO = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    var atMidnight = d => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+    var parseISO = s => {
+      var parts = s.split('-').map(Number);
+      return new Date(parts[0], parts[1] - 1, parts[2]);
+    };
+
+    var maxDate = parseISO(`<?=date('Y-m-d', strtotime(CUR_DATE . "+1 days"))?>`);
+    var minDate = new Date(2000, 0, 1);
+    var selected = parseISO(dateInput.value);
+    var viewMonth = new Date(selected.getFullYear(), selected.getMonth(), 1);
+    var resetTimer = null;
+
+    var scheduleResetToToday = () => {
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        selected = parseISO(curday('-'));
+        dateInput.value = toISO(selected);
+      }, 60 * 2 * 1000);
+    };
+
+    var buildMonthTable = monthDate => {
+      var year = monthDate.getFullYear();
+      var month = monthDate.getMonth();
+      var firstOfMonth = new Date(year, month, 1);
+      var startOffset = (firstOfMonth.getDay() + 6) % 7;
+      var gridStart = new Date(year, month, 1 - startOffset);
+      var daysInMonth = new Date(year, month + 1, 0).getDate();
+      var totalWeeks = Math.ceil((startOffset + daysInMonth) / 7);
+
+      var rows = '';
+      for (var w = 0; w < totalWeeks; w++) {
+        var cells = '';
+        for (var i = 0; i < 7; i++) {
+          var cellDate = new Date(gridStart);
+          cellDate.setDate(gridStart.getDate() + w * 7 + i);
+          var inMonth = cellDate.getMonth() === month;
+          var t = atMidnight(cellDate);
+          var isValid = inMonth && t >= atMidnight(minDate) && t <= atMidnight(maxDate);
+          var monthClass = inMonth ? 'toMonth' : cellDate < firstOfMonth ? 'lastMonth' : 'nextMonth';
+          var classes = ['day', monthClass, isValid ? 'valid' : 'invalid'];
+          if (t === atMidnight(selected)) {
+            // Reuses the range picker's own selected-day class (and its
+            // matching base.css override) rather than inventing a new one.
+            classes.push('checked', 'first-date-selected');
+          }
+          if (t === atMidnight(new Date())) {
+            classes.push('real-today');
+          }
+          cells += `<td><div class="${classes.join(' ')}" data-date="${toISO(cellDate)}">${cellDate.getDate()}</div></td>`;
+        }
+        rows += `<tr>${cells}</tr>`;
+      }
+
+      var monthName = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(monthDate).toLowerCase();
+      var canGoPrev = new Date(year, month - 1, 1) >= new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+      var canGoNext = new Date(year, month + 1, 1) <= new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+      return `
+        <table class="month1">
+          <thead>
+            <tr class="caption">
+              <th>${canGoPrev ? '<span class="prev"><i class="fa fa-angle-left"></i></span>' : ''}</th>
+              <th class="month-name"><div class="month-element">${monthName}</div></th>
+              <th>${canGoNext ? '<span class="next"><i class="fa fa-angle-right"></i></span>' : ''}</th>
+            </tr>
+            <tr class="week-name">
+              <th>mo</th><th>tu</th><th>we</th><th>th</th><th>fr</th><th>sa</th><th>su</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    };
+
+    var render = () => {
+      container.innerHTML = `
+        <div class="date-picker-wrapper single-date no-shortcuts no-topbar inline-wrapper no-gap">
+          <div class="month-wrapper">
+            ${buildMonthTable(viewMonth)}
+            <div class="dp-clearfix"></div>
+          </div>
+        </div>
+      `;
+    };
+
+    var onOutsideClick = event => {
+      if (!container.contains(event.target) && event.target !== dateInput) {
+        close();
+      }
+    };
+
+    var close = () => {
+      container.innerHTML = '';
+      document.removeEventListener('click', onOutsideClick, true);
+    };
+
+    var open = () => {
+      viewMonth = new Date(selected.getFullYear(), selected.getMonth(), 1);
+      render();
+      setTimeout(() => {
+        document.addEventListener('click', onOutsideClick, true);
+      }, 0);
+    };
+
+    dateInput.addEventListener('click', event => {
+      event.stopPropagation();
+      if (container.innerHTML) {
+        close();
+      } else {
+        open();
+      }
+    });
+
+    container.addEventListener('click', event => {
+      if (event.target.closest('.prev')) {
+        viewMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1);
+        render();
+        return;
+      }
+      if (event.target.closest('.next')) {
+        viewMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1);
+        render();
+        return;
+      }
+      var day = event.target.closest('.day.valid');
+      if (!day) {
+        return;
+      }
+      selected = parseISO(day.dataset.date);
+      dateInput.value = toISO(selected);
+      scheduleResetToToday();
+      close();
     });
   },
   initKeystop: () => {
