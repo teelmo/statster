@@ -10,7 +10,9 @@ Object.assign(view, {
     }
     ajax({
       data: {
-        limit: 200,
+        // 200 truncated the cumulative monthly-bucket view for long histories (>16y of
+        // months); 1200 covers 100 years, comfortably above any real account.
+        limit: 1200,
         lower_limit: lower_limit,
         order_by: '<?=TBL_album?>.`year` ASC',
         select: '<?=TBL_album?>.`year` as bar_date',
