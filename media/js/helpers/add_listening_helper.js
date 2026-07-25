@@ -257,26 +257,46 @@ Object.assign(view, {
         statusCode: {
           201: () => {
             // 201 Created
+            // Each getTopXxx() already hides its own "#topXxxLoader2" spinner
+            // once its refresh completes (via inline style.display = 'none')
+            // - normally time_interval_helper.js shows it first, before
+            // calling the same function. This call path bypasses that, so
+            // show it here instead, clearing both the inline style a prior
+            // hide left behind and the "hidden" utility class.
+            var showLoader = id => {
+              var el = document.querySelector(id);
+              if (el) {
+                el.style.display = '';
+                el.classList.remove('hidden');
+              }
+            };
             view.getRecentListenings();
             if (view.getTopArtists) {
+              showLoader('#topArtistLoader2');
               view.getTopArtists(document.querySelector('.top_artist_value').dataset.value);
             }
             if (view.getTopAlbums) {
+              showLoader('#topAlbumLoader2');
               view.getTopAlbums(document.querySelector('.top_album_value').dataset.value);
             }
             if (view.getTopFormats) {
+              showLoader('#topFormatLoader2');
               view.getTopFormats(document.querySelector('.top_format_value').dataset.value);
             }
             if (view.getTopGenres) {
+              showLoader('#topGenreLoader2');
               view.getTopGenres(document.querySelector('.top_genre_value').dataset.value);
             }
             if (view.getTopKeywords) {
+              showLoader('#topKeywordLoader2');
               view.getTopKeywords(document.querySelector('.top_keyword_value').dataset.value);
             }
             if (view.getTopNationalities) {
+              showLoader('#topNationalityLoader2');
               view.getTopNationalities(document.querySelector('.top_nationality_value').dataset.value);
             }
             if (view.getTopYears) {
+              showLoader('#topYearLoader2');
               view.getTopYears(document.querySelector('.top_year_value').dataset.value);
             }
             if (view.getUsers) {
