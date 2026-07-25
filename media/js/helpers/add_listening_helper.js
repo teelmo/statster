@@ -102,8 +102,7 @@ Object.assign(view, {
           <thead>
             <tr class="caption">
               <th>${canGoPrev ? '<span class="prev"><i class="fa fa-angle-left"></i></span>' : ''}</th>
-              <th class="month-name"><div class="month-element">${monthName}</div></th>
-              <th>${canGoNext ? '<span class="next"><i class="fa fa-angle-right"></i></span>' : ''}</th>
+              <th class="month-name" colspan="6"><div class="month-element">${monthName}</div>${canGoNext ? '<span class="next"><i class="fa fa-angle-right"></i></span>' : ''}</th>
             </tr>
             <tr class="week-name">
               <th>mo</th><th>tu</th><th>we</th><th>th</th><th>fr</th><th>sa</th><th>su</th>

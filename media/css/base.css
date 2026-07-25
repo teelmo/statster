@@ -2278,6 +2278,10 @@ h3 {
     & .week-name {
       display: none;
     }
+
+    & tbody td {
+      width: calc(100% / 7);
+    }
   }
 
   & .footer {
@@ -2306,7 +2310,9 @@ h3 {
           & .month-name {
             color: #000;
             font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
+            text-align: left;
             text-transform: capitalize;
+            width: auto;
           }
 
           & .prev:hover,
