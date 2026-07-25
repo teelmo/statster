@@ -14,13 +14,16 @@ function initSearchableSelect(selectEl) {
   selectEl.dataset.searchableSelectInit = 'true';
 
   var multiple = selectEl.multiple;
-  var placeholder = selectEl.dataset.placeholder || '';
   // A single-select's first option with no `value` attribute (e.g.
   // "Select artist to delete") is a Chosen-style placeholder, not a real
   // choice - excluded from results, and the select starts deselected
   // (selectedIndex -1) rather than defaulting to it like a native select.
+  // Chosen displayed this option's own text as its placeholder (since a
+  // native select auto-selects it), so it takes priority over data-placeholder
+  // - which only fires here for multi-selects, which have no such option.
   var firstOption = selectEl.querySelector('option');
   var placeholderOption = !multiple && firstOption && firstOption.getAttribute('value') === null ? firstOption : null;
+  var placeholder = placeholderOption ? placeholderOption.textContent : selectEl.dataset.placeholder || '';
   if (placeholderOption) {
     selectEl.selectedIndex = -1;
   }
@@ -30,7 +33,7 @@ function initSearchableSelect(selectEl) {
   selectEl.style.display = 'none';
 
   var wrapper = document.createElement('div');
-  wrapper.className = 'searchable_select';
+  wrapper.className = multiple ? 'searchable_select searchable_select_multiple' : 'searchable_select searchable_select_single';
 
   var control = document.createElement('div');
   control.className = 'searchable_select_control';
