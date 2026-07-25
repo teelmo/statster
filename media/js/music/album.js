@@ -730,7 +730,11 @@ document.querySelectorAll('.quick_add_listening').forEach(el => {
       subNav.style.display = 'none';
     } else {
       this.classList.add('active');
-      subNav.style.display = '';
+      // ul.subnav's own CSS class sets display: none (no separate "hidden"
+      // utility class involved), so clearing to '' can't override it - an
+      // explicit display value is required, same as jQuery's .show() would
+      // have computed for this <ul>.
+      subNav.style.display = 'block';
     }
   });
   el.addEventListener('mouseenter', function () {

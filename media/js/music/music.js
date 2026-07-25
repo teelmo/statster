@@ -368,11 +368,15 @@ Object.assign(view, {
       }
     });
     document.querySelector('#refreshSecondChanceAlbums').addEventListener('click', () => {
-      document.querySelector('#secondChanceLoader2').style.display = '';
+      var loader = document.querySelector('#secondChanceLoader2');
+      loader.style.display = '';
+      loader.classList.remove('hidden');
       view.getSecondChance();
     });
     document.querySelector('#refreshFromOthersAlbums').addEventListener('click', () => {
-      document.querySelector('#fromOthersLoader2').style.display = '';
+      var loader = document.querySelector('#fromOthersLoader2');
+      loader.style.display = '';
+      loader.classList.remove('hidden');
       view.getFromOthers();
     });
   }

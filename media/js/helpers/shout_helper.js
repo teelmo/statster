@@ -12,7 +12,11 @@ Object.assign(view, {
         }
         var container = document.querySelector(target.dataset.confirmationContainer);
         if (container) {
-          container.style.display = '';
+          // .confirmation's own CSS class sets display: none (no separate
+          // "hidden" utility class involved), so clearing to '' can't
+          // override it - an explicit display value is required, same as
+          // jQuery's .show() would have computed for this <div>.
+          container.style.display = 'block';
         }
       });
       root.addEventListener('click', event => {
@@ -72,7 +76,9 @@ Object.assign(view, {
       if (text_value === '') {
         return;
       }
-      document.querySelector('#shoutLoader2').style.display = '';
+      var shoutLoader = document.querySelector('#shoutLoader2');
+      shoutLoader.style.display = '';
+      shoutLoader.classList.remove('hidden');
       document.querySelector('#shoutText').value = '';
       ajax({
         data: {

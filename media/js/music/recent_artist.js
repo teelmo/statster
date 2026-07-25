@@ -324,7 +324,11 @@ Object.assign(view, {
         }
         var container = document.querySelector(target.dataset.confirmationContainer);
         if (container) {
-          container.style.display = '';
+          // .confirmation's own CSS class sets display: none (no separate
+          // "hidden" utility class involved), so clearing to '' can't
+          // override it - an explicit display value is required, same as
+          // jQuery's .show() would have computed for this <div>.
+          container.style.display = 'block';
         }
       });
       root.addEventListener('click', event => {

@@ -253,15 +253,21 @@ Object.assign(view, {
     document.querySelector('#recentlyListened').addEventListener('mouseenter', recentlyListenedHover);
     document.querySelector('#recentlyListened').addEventListener('mouseleave', recentlyListenedHover);
     document.querySelector('#refreshRecentAlbums').addEventListener('click', () => {
-      document.querySelector('#recentlyListenedLoader2').style.display = '';
+      var loader = document.querySelector('#recentlyListenedLoader2');
+      loader.style.display = '';
+      loader.classList.remove('hidden');
       view.getRecentListenings();
     });
     document.querySelector('#refreshHotAlbums').addEventListener('click', () => {
-      document.querySelector('#recommentedTopAlbumLoader2').style.display = '';
+      var loader = document.querySelector('#recommentedTopAlbumLoader2');
+      loader.style.display = '';
+      loader.classList.remove('hidden');
       view.getRecommentedTopAlbum();
     });
     document.querySelector('#refreshNewAlbums').addEventListener('click', () => {
-      document.querySelector('#recommentedNewAlbumLoader2').style.display = '';
+      var loader = document.querySelector('#recommentedNewAlbumLoader2');
+      loader.style.display = '';
+      loader.classList.remove('hidden');
       view.getRecommentedNewAlbum();
     });
   }

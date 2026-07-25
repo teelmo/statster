@@ -160,11 +160,13 @@ Object.assign(view, {
         rangeStart = clicked;
         trigger.textContent = `${toISO(rangeStart)} to ${toISO(rangeEnd)}`;
         document.querySelector('.date_filter_clear').style.display = '';
+        document.querySelector('.date_filter_clear').classList.remove('hidden');
         close();
       } else {
         rangeEnd = clicked;
         trigger.textContent = `${toISO(rangeStart)} to ${toISO(rangeEnd)}`;
         document.querySelector('.date_filter_clear').style.display = '';
+        document.querySelector('.date_filter_clear').classList.remove('hidden');
         close();
       }
     });
@@ -249,6 +251,7 @@ Object.assign(view, {
       if (this.value !== '') {
         view.updateDayPicker(new Date(2000, this.value, 0).getDate());
         document.querySelector('.date_filter_clear').style.display = '';
+        document.querySelector('.date_filter_clear').classList.remove('hidden');
       } else if (checkIfFilterActive()) {
         document.querySelector('.date_filter_clear').style.display = 'none';
       }
@@ -256,6 +259,7 @@ Object.assign(view, {
     document.querySelector('.day_selector').addEventListener('change', function () {
       if (this.value !== '') {
         document.querySelector('.date_filter_clear').style.display = '';
+        document.querySelector('.date_filter_clear').classList.remove('hidden');
       } else if (checkIfFilterActive()) {
         document.querySelector('.date_filter_clear').style.display = 'none';
       }
@@ -263,6 +267,7 @@ Object.assign(view, {
     document.querySelector('.weekday_selector').addEventListener('change', function () {
       if (this.value !== '') {
         document.querySelector('.date_filter_clear').style.display = '';
+        document.querySelector('.date_filter_clear').classList.remove('hidden');
       } else if (checkIfFilterActive()) {
         document.querySelector('.date_filter_clear').style.display = 'none';
       }

@@ -74,11 +74,14 @@ Object.assign(view, {
       document.querySelectorAll('.summary').forEach(el => {
         el.style.display = 'none';
       });
-      document.querySelector('#biographyLess').style.display = '';
+      var biographyLess = document.querySelector('#biographyLess');
+      biographyLess.style.display = '';
+      biographyLess.classList.remove('hidden');
       // Note: jQuery's fadeIn() animated this; plain display toggle drops
       // the animation but keeps the same end state.
       document.querySelectorAll('.content').forEach(el => {
         el.style.display = '';
+        el.classList.remove('hidden');
       });
       event.preventDefault();
     });

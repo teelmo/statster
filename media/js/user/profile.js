@@ -110,7 +110,9 @@ Object.assign(view, {
   // Get recent listenings.
   getRecentListenings: (isFirst, _callback) => new Promise(resolve => {
     if (isFirst !== true) {
-      document.querySelector('#recentlyListenedLoader2').style.display = '';
+      var loader = document.querySelector('#recentlyListenedLoader2');
+      loader.style.display = '';
+      loader.classList.remove('hidden');
     }
     ajax({
       data: {

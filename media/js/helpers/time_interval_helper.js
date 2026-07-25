@@ -17,7 +17,11 @@ document.querySelectorAll('.func_container .value').forEach(el => {
         v.classList.remove('active');
       });
       this.classList.add('active');
-      subNav.style.display = '';
+      // ul.subnav's own CSS class sets display: none (no separate "hidden"
+      // utility class involved), so clearing to '' can't override it - an
+      // explicit display value is required, same as jQuery's .show() would
+      // have computed for this <ul>.
+      subNav.style.display = 'block';
     }
   });
   el.addEventListener('mouseenter', function () {
@@ -39,6 +43,7 @@ document.querySelectorAll('.func_container .subnav li').forEach(li => {
     var loader = document.querySelector(`#${parentUl.dataset.loader}`);
     if (loader) {
       loader.style.display = '';
+      loader.classList.remove('hidden');
     }
     var name = parentUl.dataset.name;
     var callback = parentUl.dataset.callback;

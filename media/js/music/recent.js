@@ -93,7 +93,9 @@ Object.assign(view, {
   },
   initRecentEvents: () => {
     document.querySelector('#refreshRecentAlbums').addEventListener('click', () => {
-      document.querySelector('#recentlyListenedLoader2').style.display = '';
+      var loader = document.querySelector('#recentlyListenedLoader2');
+      loader.style.display = '';
+      loader.classList.remove('hidden');
       view.getRecentListenings();
     });
     // Note: the original bound these same three delegated handlers on both
@@ -108,7 +110,11 @@ Object.assign(view, {
         }
         var container = document.querySelector(target.dataset.confirmationContainer);
         if (container) {
-          container.style.display = '';
+          // .confirmation's own CSS class sets display: none (no separate
+          // "hidden" utility class involved), so clearing to '' can't
+          // override it - an explicit display value is required, same as
+          // jQuery's .show() would have computed for this <div>.
+          container.style.display = 'block';
         }
       });
       root.addEventListener('click', event => {
