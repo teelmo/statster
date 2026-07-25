@@ -69,33 +69,38 @@ Object.assign(view, {
     });
   },
   artistAlbumEvents: () => {
-    document.querySelector('#biographyMore').addEventListener('click', event => {
-      document.querySelector('#biographyMore').style.display = 'none';
-      document.querySelectorAll('.summary').forEach(el => {
-        el.style.display = 'none';
+    // #biographyMore/#biographyLess only render when the artist/album has a
+    // bio_summary - absent on pages with no biography text.
+    var biographyMore = document.querySelector('#biographyMore');
+    if (biographyMore) {
+      biographyMore.addEventListener('click', event => {
+        biographyMore.style.display = 'none';
+        document.querySelectorAll('.summary').forEach(el => {
+          el.style.display = 'none';
+        });
+        var biographyLess = document.querySelector('#biographyLess');
+        biographyLess.style.display = '';
+        biographyLess.classList.remove('hidden');
+        // Note: jQuery's fadeIn() animated this; plain display toggle drops
+        // the animation but keeps the same end state.
+        document.querySelectorAll('.content').forEach(el => {
+          el.style.display = '';
+          el.classList.remove('hidden');
+        });
+        event.preventDefault();
       });
-      var biographyLess = document.querySelector('#biographyLess');
-      biographyLess.style.display = '';
-      biographyLess.classList.remove('hidden');
-      // Note: jQuery's fadeIn() animated this; plain display toggle drops
-      // the animation but keeps the same end state.
-      document.querySelectorAll('.content').forEach(el => {
-        el.style.display = '';
-        el.classList.remove('hidden');
+      document.querySelector('#biographyLess').addEventListener('click', event => {
+        document.querySelector('#biographyLess').style.display = 'none';
+        document.querySelectorAll('.content').forEach(el => {
+          el.style.display = 'none';
+        });
+        biographyMore.style.display = '';
+        document.querySelectorAll('.summary').forEach(el => {
+          el.style.display = '';
+        });
+        event.preventDefault();
       });
-      event.preventDefault();
-    });
-    document.querySelector('#biographyLess').addEventListener('click', event => {
-      document.querySelector('#biographyLess').style.display = 'none';
-      document.querySelectorAll('.content').forEach(el => {
-        el.style.display = 'none';
-      });
-      document.querySelector('#biographyMore').style.display = '';
-      document.querySelectorAll('.summary').forEach(el => {
-        el.style.display = '';
-      });
-      event.preventDefault();
-    });
+    }
   }
 });
 
