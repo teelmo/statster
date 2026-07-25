@@ -217,11 +217,17 @@ Object.assign(view, {
         event.stopPropagation();
       });
     });
-    document.querySelector('#addListeningSubmit').addEventListener('click', () => {
+    document.querySelector('#addListeningSubmit').addEventListener('click', event => {
+      // #addListeningSubmit is an <input type="submit"> inside a real
+      // <form>; jQuery's .click(handler) treated a `return false` as an
+      // implicit preventDefault(), but a plain addEventListener listener
+      // does not - without this, the native form submission fires
+      // alongside the ajax() call below and reloads the page.
+      event.preventDefault();
       var addListeningText = document.querySelector('#addListeningText');
       var text_value = addListeningText.value;
       if (text_value === '') {
-        return false;
+        return;
       }
       var checkedFormat = document.querySelector('input[name="addListeningFormat"]:checked');
       var format_value = checkedFormat ? checkedFormat.value : undefined;
@@ -256,6 +262,21 @@ Object.assign(view, {
             }
             if (view.getTopAlbums) {
               view.getTopAlbums(document.querySelector('.top_album_value').dataset.value);
+            }
+            if (view.getTopFormats) {
+              view.getTopFormats(document.querySelector('.top_format_value').dataset.value);
+            }
+            if (view.getTopGenres) {
+              view.getTopGenres(document.querySelector('.top_genre_value').dataset.value);
+            }
+            if (view.getTopKeywords) {
+              view.getTopKeywords(document.querySelector('.top_keyword_value').dataset.value);
+            }
+            if (view.getTopNationalities) {
+              view.getTopNationalities(document.querySelector('.top_nationality_value').dataset.value);
+            }
+            if (view.getTopYears) {
+              view.getTopYears(document.querySelector('.top_year_value').dataset.value);
             }
             if (view.getUsers) {
               view.getUsers();
@@ -293,7 +314,6 @@ Object.assign(view, {
         type: 'POST',
         url: '/api/listening/add'
       });
-      return false;
     });
   }
 });

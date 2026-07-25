@@ -49,7 +49,9 @@ document.querySelectorAll('.func_container .subnav li').forEach(li => {
     var callback = parentUl.dataset.callback;
     var value = this.dataset.value;
     var funcContainer = parentUl.parentElement;
-    funcContainer.querySelector('.value').textContent = this.textContent;
+    var valueEl = funcContainer.querySelector('.value');
+    valueEl.textContent = this.textContent;
+    valueEl.dataset.value = value;
     ajax({
       data: {
         name: name,
