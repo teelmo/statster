@@ -556,7 +556,7 @@ form#loginForm input[type='text'] {
       border: 1px solid var(--color-gray-medium);
       color: var(--color-gray-mid);
       padding: 8px;
-      width: 100% !important;
+      width: 100%;
       &:focus {
         background-color: var(--color-bg-white-alter);
         color: var(--color-black);
@@ -1733,9 +1733,9 @@ div.cover {
     }
   }
   &.no_cover {
-    border: 0 !important;
+    border: 0;
     &:after {
-      background-image: none !important;
+      background-image: none;
     }
   }
   & .album_year {
@@ -1984,7 +1984,7 @@ h3 {
             padding: 4px 0;
             &.toMonth.hovering,
             &.checked {
-              background-color: #ccc;
+              background-color: #eee;
             }
             &.first-date-selected,
             &.last-date-selected {
