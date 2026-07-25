@@ -26,7 +26,6 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/libs/jquery-1.12.4.min.js" defer></script>
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.13.2.custom.min.js" defer></script>
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js" defer></script>
-    <script type="text/javascript" src="/media/js/libs/moment.min.js" defer></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js" defer></script>
     <script type="text/javascript" src="/media/js/ajax.js" defer></script>
     <script type="text/javascript" src="/media/js/statster.js" defer></script>

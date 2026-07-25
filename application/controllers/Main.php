@@ -23,7 +23,7 @@ class Main extends MY_Controller {
       $data['top_genre'] = decodeFirstOrDefault(getGenres($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
       $data['top_nationality'] = decodeFirstOrDefault(getNationalities($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
       $data['top_year'] = decodeFirstOrDefault(getYears($opts), array('tag_id' => 0, 'name' => 'No data', 'count' => 0));
-      $data['js_include'] = array('main', 'libs/jquery.daterangepicker.min', 'helpers/add_listening_helper', 'helpers/time_interval_helper');
+      $data['js_include'] = array('main', 'helpers/add_listening_helper', 'helpers/time_interval_helper');
 
       $this->load->view('site_templates/header');
         

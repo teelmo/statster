@@ -29,6 +29,10 @@ $.extend(view, {
       }
     });
   },
+  // Native <input type="date"> replaces the inline daterangepicker
+  // (singleDate: true) widget - the browser's own date picker covers the
+  // same "pick one date" need without a library, and the min/max bound
+  // (today, up to tomorrow) maps directly to the input's max attribute.
   initDatepicker: () => {
     var curday = sp => {
       const today = new Date();
@@ -40,25 +44,14 @@ $.extend(view, {
       if (mm < 10) mm = `0${mm}`;
       return yyyy + sp + mm + sp + dd;
     };
-    $('#addListeningDate').val(curday('-'));
-    $('#addListeningDate').dateRangePicker({
-      autoClose: true,
-      container: '.calendar_container',
-      customArrowNextSymbol: '<i class="fa fa-angle-right"></i>',
-      customArrowPrevSymbol: '<i class="fa fa-angle-left"></i>',
-      endDate: `<?=date('Y-m-d',strtotime(CUR_DATE . "+1 days"))?>`,
-      hoveringTooltip: false,
-      inline: true,
-      showShortcuts: false,
-      showTopbar: false,
-      singleDate: true,
-      singleMonth: true,
-      startOfWeek: 'monday'
-    });
-    $('#addListeningDate').change(() => {
+    var dateInput = document.querySelector('#addListeningDate');
+    dateInput.type = 'date';
+    dateInput.max = `<?=date('Y-m-d', strtotime(CUR_DATE . "+1 days"))?>`;
+    dateInput.value = curday('-');
+    dateInput.addEventListener('change', () => {
       setTimeout(
         () => {
-          $('#addListeningDate').val(curday('-'));
+          dateInput.value = curday('-');
         },
         60 * 2 * 1000
       ); //

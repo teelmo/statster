@@ -38,7 +38,7 @@ class Music extends MY_Controller {
       $data['where'] = 'MONTH(`shouts`.`created`) LIKE ' .  $data['month'] . ' AND DAY(`shouts`.`created`) LIKE ' . $data['day'] . ' AND WEEKDAY(`shouts`.`created`) LIKE ' . $data['weekday'];
       $data['shout_count'] = getShoutCount($data);
       $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
-      $data['js_include'] = array('music/library', 'libs/jquery.daterangepicker.min', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/date_filter_helper');
+      $data['js_include'] = array('music/library', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/library_view', $data);
@@ -76,7 +76,7 @@ class Music extends MY_Controller {
       $data['top_nationality'] = decodeFirstOrDefault(getNationalities($opts));
       $data['top_year'] = decodeFirstOrDefault(getYears($opts));
       $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
-      $data['js_include'] = array('music/music', 'libs/jquery.daterangepicker.min', 'libs/highcharts.min', 'libs/peity.min', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
+      $data['js_include'] = array('music/music', 'libs/highcharts.min', 'libs/peity.min', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/music_view', $data);
@@ -483,7 +483,7 @@ class Music extends MY_Controller {
         $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
       }
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('music/recent', 'libs/jquery.daterangepicker.min', 'helpers/add_listening_helper');
+      $data['js_include'] = array('music/recent', 'helpers/add_listening_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/recent_view', $data);
@@ -509,7 +509,7 @@ class Music extends MY_Controller {
       $data['user_count'] = getListeningCount(array('username' => $this->session->userdata('username')), TBL_listening);
     }
     $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-    $data['js_include'] = array('music/mosaic', 'libs/jquery.daterangepicker.min', 'helpers/add_listening_helper');
+    $data['js_include'] = array('music/mosaic', 'helpers/add_listening_helper');
 
     $this->load->view('site_templates/header');
     $this->load->view('music/mosaic_view', $data);
