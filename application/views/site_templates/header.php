@@ -25,9 +25,9 @@ header('HTTP/1.1 200 OK');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script type="text/javascript" src="/media/js/libs/jquery-1.12.4.min.js" defer></script>
     <script type="text/javascript" src="/media/js/libs/jquery-ui-1.13.2.custom.min.js" defer></script>
-    <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js" defer></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js" defer></script>
     <script type="text/javascript" src="/media/js/ajax.js" defer></script>
+    <script type="text/javascript" src="/media/js/searchable_select.js" defer></script>
     <script type="text/javascript" src="/media/js/statster.js" defer></script>
     <link rel="canonical" href="https://statster.info<?=$_SERVER['REQUEST_URI']?>" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
@@ -42,7 +42,6 @@ header('HTTP/1.1 200 OK');
     echo link_tag('/media/css/site_template/top_container.css');
     echo link_tag('/media/css/site_template/heading_container.css');
     echo link_tag('/media/css/site_template/main_container.css');
-    echo link_tag('/media/css/site_template/chosen_styles.css');
     echo link_tag('/media/css/site_template/loaders.css');
     echo link_tag('/media/css/base.css');
     echo link_tag('/media/css/site_template/footer.css');

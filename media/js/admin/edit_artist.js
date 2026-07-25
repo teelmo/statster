@@ -1,10 +1,8 @@
 Object.assign(view, {
   // Init Edit album events.
   initEditArtistEvents: () => {
-    var $select = $('#associatedArtistAdd select');
-    $select.chosen({ search_contains: true });
-    $select.prioritizedChosenSearch();
-    document.querySelector('#associatedArtistAdd').style.display = '';
+    initSearchableSelect(document.querySelector('#associatedArtistAdd select'));
+    document.querySelector('#associatedArtistAdd').classList.remove('hidden');
     document.querySelectorAll('.associated_artist_names').forEach(el => {
       el.style.display = 'none';
     });

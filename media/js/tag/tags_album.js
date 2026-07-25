@@ -324,7 +324,7 @@ Object.assign(view, {
       if (!target) {
         return;
       }
-      $('.chosen-select').val().forEach(el => {
+      Array.from(document.querySelector('#tagAdd select').selectedOptions).map(o => o.value).forEach(el => {
         var tag = el.split(':');
         ajax({
           data: {
@@ -351,8 +351,7 @@ Object.assign(view, {
           url: `/api/tag/add/${tag[0]}`
         });
       });
-      $('.chosen-select option').removeAttr('selected');
-      $('#tagAdd select').trigger('chosen:updated');
+      document.querySelector('#tagAdd select').searchableSelectReset();
       view.getTags();
       document.querySelector('#tagAdd').style.display = 'none';
     });

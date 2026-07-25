@@ -101,7 +101,8 @@ Object.assign(view, {
       event.preventDefault();
     });
     document.querySelector('#deleteArtistSubmit').addEventListener('click', event => {
-      var artist_id = $('#deleteArtist').val();
+      var deleteArtist = document.querySelector('#deleteArtist');
+      var artist_id = deleteArtist.value;
       if (artist_id === '') {
         event.preventDefault();
         return;
@@ -132,13 +133,12 @@ Object.assign(view, {
         type: 'POST',
         url: '/api/artist/delete'
       });
-      $('#deleteArtist option').removeAttr('selected');
-      $('#deleteArtist').val('');
-      $('#deleteArtist').trigger('chosen:updated');
+      deleteArtist.searchableSelectReset();
       event.preventDefault();
     });
     document.querySelector('#deleteAlbumSubmit').addEventListener('click', event => {
-      var album_id = $('#deleteAlbum').val();
+      var deleteAlbum = document.querySelector('#deleteAlbum');
+      var album_id = deleteAlbum.value;
       if (album_id === '') {
         event.preventDefault();
         return;
@@ -169,14 +169,14 @@ Object.assign(view, {
         type: 'POST',
         url: '/api/album/delete'
       });
-      $('#deleteAlbum option').removeAttr('selected');
-      $('#deleteAlbum').val('');
-      $('#deleteAlbum').trigger('chosen:updated');
+      deleteAlbum.searchableSelectReset();
       event.preventDefault();
     });
     document.querySelector('#transferAlbumDataSubmit').addEventListener('click', event => {
-      var album_id_from = $('#transferAlbumDataFrom').val();
-      var album_id_to = $('#transferAlbumDataTo').val();
+      var transferAlbumDataFrom = document.querySelector('#transferAlbumDataFrom');
+      var transferAlbumDataTo = document.querySelector('#transferAlbumDataTo');
+      var album_id_from = transferAlbumDataFrom.value;
+      var album_id_to = transferAlbumDataTo.value;
       if (album_id_from === '' || album_id_to === '') {
         event.preventDefault();
         return;
@@ -208,12 +208,8 @@ Object.assign(view, {
         type: 'POST',
         url: '/api/album/transfer'
       });
-      $('#transferAlbumDataFrom option').removeAttr('selected');
-      $('#transferAlbumDataTo option').removeAttr('selected');
-      $('#transferAlbumDataFrom').val('');
-      $('#transferAlbumDataTo').val('');
-      $('#transferAlbumDataFrom').trigger('chosen:updated');
-      $('#transferAlbumDataTo').trigger('chosen:updated');
+      transferAlbumDataFrom.searchableSelectReset();
+      transferAlbumDataTo.searchableSelectReset();
       event.preventDefault();
     });
     document.querySelector('.clear_cache').addEventListener('click', () => {
@@ -234,11 +230,7 @@ Object.assign(view, {
 
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
 view.initAdminEvents();
-$('#deleteArtist').chosen({ search_contains: true });
-$('#deleteArtist').prioritizedChosenSearch();
-$('#deleteAlbum').chosen({ search_contains: true });
-$('#deleteAlbum').prioritizedChosenSearch();
-$('#transferAlbumDataFrom').chosen({ search_contains: true });
-$('#transferAlbumDataFrom').prioritizedChosenSearch();
-$('#transferAlbumDataTo').chosen({ search_contains: true });
-$('#transferAlbumDataFrom').prioritizedChosenSearch();
+initSearchableSelect(document.querySelector('#deleteArtist'));
+initSearchableSelect(document.querySelector('#deleteAlbum'));
+initSearchableSelect(document.querySelector('#transferAlbumDataFrom'));
+initSearchableSelect(document.querySelector('#transferAlbumDataTo'));
