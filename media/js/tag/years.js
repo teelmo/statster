@@ -29,7 +29,7 @@ Object.assign(view, {
             success: data => {
               document.querySelector('#historyLoader').style.display = 'none';
               var history = document.querySelector('#history');
-              history.innerHTML = data;
+              ajaxSetHtml(history, data);
               history.style.display = 'none';
               document.querySelector('.music_bar').style.display = '';
               app.chart.xAxis[0].setCategories(view.categories, false);
@@ -73,7 +73,7 @@ Object.assign(view, {
             success: data => {
               document.querySelector('#historyLoader').style.display = 'none';
               var history = document.querySelector('#history');
-              history.innerHTML = data;
+              ajaxSetHtml(history, data);
               history.style.display = 'none';
               document.querySelector('.music_bar').style.display = '';
               app.chart.xAxis[0].setCategories(view.categories, false);

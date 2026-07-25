@@ -45,7 +45,7 @@ Object.assign(view, {
             success: data => {
               document.querySelector('#historyLoader').style.display = 'none';
               var history = document.querySelector('#history');
-              history.innerHTML = data;
+              ajaxSetHtml(history, data);
               history.style.display = 'none';
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);

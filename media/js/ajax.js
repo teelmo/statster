@@ -98,3 +98,21 @@ function ajaxAppend(params, value, prefix) {
     params.append(prefix, value === undefined || value === null ? '' : value);
   }
 }
+
+// jQuery's .html(str) parses str and, if it contains <script> tags, evals
+// them (jQuery.buildFragment / globalEval). Plain `el.innerHTML = str` parses
+// the tags but never runs them - they're inert once inserted that way. Only
+// one AJAX response (templates/music_bar.php) depends on this to set
+// view.categories/view.chart_data via an embedded <script>, so call sites
+// injecting that response use this instead of a bare innerHTML assignment.
+function ajaxSetHtml(el, html) {
+  el.innerHTML = html;
+  el.querySelectorAll('script').forEach(oldScript => {
+    var newScript = document.createElement('script');
+    Array.from(oldScript.attributes).forEach(attr => {
+      newScript.setAttribute(attr.name, attr.value);
+    });
+    newScript.textContent = oldScript.textContent;
+    oldScript.replaceWith(newScript);
+  });
+}
