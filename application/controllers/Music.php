@@ -76,7 +76,7 @@ class Music extends MY_Controller {
       $data['top_nationality'] = decodeFirstOrDefault(getNationalities($opts));
       $data['top_year'] = decodeFirstOrDefault(getYears($opts));
       $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
-      $data['js_include'] = array('music/music', 'libs/highcharts.min', 'libs/peity.min', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
+      $data['js_include'] = array('music/music', 'libs/highcharts.min', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
       $this->load->view('music/music_view', $data);
@@ -183,7 +183,7 @@ class Music extends MY_Controller {
 
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/artist', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts.min', 'libs/peity.min', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
+        $data['js_include'] = array('music/artist', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/artist_view', $data);
@@ -318,7 +318,7 @@ class Music extends MY_Controller {
         $data['artist_name'] = $artist_info['artist_name'];
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/album', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts.min', 'libs/peity.min', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
+        $data['js_include'] = array('music/album', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);

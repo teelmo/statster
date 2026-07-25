@@ -23,8 +23,6 @@ header('HTTP/1.1 200 OK');
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <script type="text/javascript" src="/media/js/libs/jquery-1.12.4.min.js" defer></script>
-    <script type="text/javascript" src="/media/js/libs/jquery-ui-1.13.2.custom.min.js" defer></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js" defer></script>
     <script type="text/javascript" src="/media/js/ajax.js" defer></script>
     <script type="text/javascript" src="/media/js/searchable_select.js" defer></script>

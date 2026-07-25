@@ -1,9 +1,5 @@
 Object.assign(view, {
   initChart: () => {
-    // The bundled Highcharts (4.1.9) predates the Highcharts.chart(el, opts)
-    // convenience factory (added in 4.2.5), so this uses the constructor
-    // form with chart.renderTo instead - still Highcharts' own native API,
-    // not a jQuery dependency.
     app.chart = new Highcharts.Chart({
       chart: {
         backgroundColor: 'transparent',
