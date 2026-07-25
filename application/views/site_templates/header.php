@@ -28,7 +28,6 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/libs/chosen.jquery.min.js" defer></script>
     <script type="text/javascript" src="/media/js/libs/moment.min.js" defer></script>
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js" defer></script>
-    <script type="text/javascript" src="/media/js/libs/tooltipster.bundle.min.js" defer></script>
     <script type="text/javascript" src="/media/js/ajax.js" defer></script>
     <script type="text/javascript" src="/media/js/statster.js" defer></script>
     <link rel="canonical" href="https://statster.info<?=$_SERVER['REQUEST_URI']?>" />

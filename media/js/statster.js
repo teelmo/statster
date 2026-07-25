@@ -119,10 +119,18 @@ var app = {
       $('.search_text').focus();
     });
   },
-  initToolTipster: () => {
-    // http://iamceege.github.io/tooltipster/
-    $('.tooltip').tooltipster({
-      theme: 'tooltipster-shadow'
+  initTooltips: () => {
+    // The .tooltip elements are all <img>, a replaced element that can't
+    // render ::after generated content per the CSS spec, so the bubble is
+    // triggered from the wrapping <label> instead. title moves there too
+    // (off the img entirely) so the browser's native title tooltip doesn't
+    // also fire alongside the CSS one.
+    document.querySelectorAll('.tooltip[title]').forEach(el => {
+      var wrapper = el.closest('label') || el.parentElement;
+      wrapper.classList.add('tooltip');
+      wrapper.dataset.tooltip = el.getAttribute('title');
+      el.removeAttribute('title');
+      el.classList.remove('tooltip');
     });
   },
   initStatsterEvents: () => {
@@ -255,7 +263,7 @@ $.extend(view, {});
 app.highlightPatch();
 app.initMouseTrap();
 app.initStatsterEvents();
-app.initToolTipster();
+app.initTooltips();
 
 if ($('#headingCont').length === 0) {
   $('#topCont').addClass('scrolled');

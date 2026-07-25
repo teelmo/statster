@@ -1,8 +1,6 @@
 @import './libs/reset.css';
 @import './libs/jquery-ui-1.13.2.custom.min.css';
 @import './libs/chosen.min.css';
-@import './libs/tooltipster.bundle.min.css';
-@import './libs/tooltipster-sideTip-shadow.min.css';
 @import './libs/jquery.autocomplete.css';
 @import './libs/daterangepicker.min.css';
 
@@ -1724,6 +1722,39 @@ img {
   &:active,
   &.selected {
     outline: none;
+  }
+}
+
+.tooltip {
+  position: relative;
+
+  &::after {
+    background-color: var(--color-white);
+    border-radius: 5px;
+    box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.1);
+    color: var(--color-gray-mid);
+    content: attr(data-tooltip);
+    left: 50%;
+    opacity: 0;
+    padding: 6px 14px;
+    pointer-events: none;
+    position: absolute;
+    top: 100%;
+    transform: translateX(-50%);
+    transition: opacity 0.15s;
+    white-space: nowrap;
+    z-index: 100;
+  }
+
+  &:hover::after,
+  &:focus::after {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transition: none;
+    }
   }
 }
 
