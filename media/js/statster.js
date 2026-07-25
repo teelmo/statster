@@ -39,84 +39,12 @@ var app = {
   setOverlayBackground: image => {
     document.querySelector('.background_overlay').style.backgroundImage = `url(${image})`;
   },
-  highlightPatch: () => {
-    $.ui.autocomplete.prototype._renderItem = function (ul, item) {
-      var item_arr;
-      if (item.value === '') {
-        return $('<li></li>').addClass('header').data('item.autocomplete', item).append(item.label).appendTo(ul);
-      } else if (item.value === 'search') {
-        return $('<li></li>').addClass('header').data('item.autocomplete', item).append(`<a>${item.label}</a>`).appendTo(ul);
-      } else {
-        if (this.term.indexOf('–') !== -1) {
-          item_arr = this.term.split('–');
-          if (item_arr[1] !== '') {
-            item_arr[0] = item_arr[0].trim().replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
-            item_arr[1] = item_arr[1].trim().replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
-            if (item.label !== `${item_arr[0]} – `) {
-              if (item.img) {
-                return $(`<li title="${item.value}"></li>`)
-                  .data('item.autocomplete', item)
-                  .append(`<a><div class="cover album_img img40" style="background-image: url(${item.image_server_protocol}${item.image_server_ip}/${item.img})"></div>${String(item.label).replace(new RegExp(`${item_arr[0]}|${item_arr[1]}|–`, 'gi'), '<span class="highlight">$&</span>')}</a>`)
-                  .appendTo(ul);
-              } else {
-                return $(`<li title="${item.value}"></li>`)
-                  .data('item.autocomplete', item)
-                  .append(`<a><span class="no_img">${String(item.label).replace(new RegExp(`${item_arr[0]}|${item_arr[1]}|–`, 'gi'), '<span class="highlight">$&</span>')}</span></a>`)
-                  .appendTo(ul);
-              }
-            } else {
-              $('#addListeningText').attr('data-placeholder', `${this.term} (yyyy)`);
-              return $('<li></li>');
-            }
-          } else {
-            item_arr[0] = item_arr[0]
-              .trim()
-              .replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')
-              .replace(/<\/?[^>]+(>|$)/g, '');
-            if (item.img) {
-              return $(`<li title="${item.value}"></li>`)
-                .data('item.autocomplete', item)
-                .append(`<a><div class="cover album_img img40" style="background-image: url(${item.image_server_protocol}${item.image_server_ip}/${item.img})"></div>${String(item.label).replace(new RegExp(`${item_arr[0]}|–`, 'gi'), '<span class="highlight">$&</span>')}</a>`)
-                .appendTo(ul);
-            } else {
-              return $(`<li title="${item.value}"></li>`)
-                .data('item.autocomplete', item)
-                .append(`<a><span class="no_img">${String(item.label).replace(new RegExp(`${item_arr[0]}|–`, 'gi'), '<span class="highlight">$&</span>')}</span></a>`)
-                .appendTo(ul);
-            }
-          }
-        } else {
-          this.term = this.term
-            .trim()
-            .replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')
-            .replace(/<\/?[^>]+(>|$)/g, '');
-          if (item.img) {
-            return $(`<li title="${item.value}"></li>`)
-              .data('item.autocomplete', item)
-              .append(`<a><div class="cover album_img img40" style="background-image: url(${item.image_server_protocol}${item.image_server_ip}/${item.img})"></div>${String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>')}</a>`)
-              .appendTo(ul);
-          } else {
-            return $(`<li title="${item.value}"></li>`)
-              .data('item.autocomplete', item)
-              .append(`<a><span class="no_img">${String(item.label).replace(new RegExp(this.term, 'gi'), '<span class="highlight">$&</span>')}</span></a>`)
-              .appendTo(ul);
-          }
-        }
-      }
-    };
-  },
-  // select: function (event, ui) {
-  //   event.preventDefault();
-  //   if (ui.item.value != 'label') {
-  //     return;
-  //   }
-  // },
   initMouseTrap: () => {
     Mousetrap.bind(['mod+k'], _e => {
       window.location = '/';
     });
     Mousetrap.bind(['mod+shift+s'], _e => {
-      $('.search_text').focus();
+      document.querySelector('.search_text').focus();
     });
   },
   initTooltips: () => {
@@ -134,74 +62,45 @@ var app = {
     });
   },
   initStatsterEvents: () => {
-    $('.search_text').autocomplete({
-      html: true,
-      minLength: 3,
-      response: function () {
-        $(this).removeClass('working');
-      },
-      select: (_event, ui) => {
-        if (ui.item.url !== undefined) {
-          window.location = ui.item.url;
+    document.querySelectorAll('.search_text').forEach(el => {
+      initAutocomplete(el, {
+        dropdownId: 'ui-id-1',
+        minLength: 3,
+        source: '/api/search/get/10/',
+        onSelect: item => {
+          if (item.url !== undefined) {
+            window.location = item.url;
+          }
         }
-      },
-      search: function () {
-        $(this).addClass('working');
-      },
-      source: '/api/search/get/10/',
-      open: function () {
-        var self = $(this).data('ui-autocomplete');
-
-        // Only override if not already done
-        if (!self._originalClose) {
-          self._originalClose = self.close;
-          self.close = function (event) {
-            // Prevent closing when blur is triggered by virtual keyboard hiding
-            if (event?.originalEvent && event.originalEvent.type === 'blur') {
-              return;
-            }
-            this._originalClose.call(this, event);
-          };
-        }
-      }
+      });
+      el.addEventListener('keyup', () => {
+        document.querySelectorAll('.search_submit').forEach(btn => {
+          btn.disabled = el.value === '';
+        });
+      });
     });
-    $('.search_text').keyup(function () {
-      $(this).val() !== '' ? $('.search_submit').prop('disabled', false) : $('.search_submit').prop('disabled', true);
+    document.querySelectorAll('.settings a').forEach(el => {
+      el.addEventListener('click', function () {
+        this.parentElement.querySelectorAll('a').forEach(sibling => {
+          sibling.classList.add('unactive');
+        });
+        this.classList.remove('unactive');
+      });
     });
-    $('.settings a').click(function () {
-      $(this).parent('.settings').find('a').addClass('unactive');
-      $(this).removeClass('unactive');
+    document.querySelectorAll('.user_container').forEach(el => {
+      el.addEventListener('click', function () {
+        var subNav = this.parentElement.querySelector('ul.subnav');
+        if (!subNav) {
+          return;
+        }
+        var isOpen = subNav.style.display !== 'none';
+        this.classList.toggle('active', !isOpen);
+        subNav.style.display = isOpen ? 'none' : 'block';
+      });
     });
-    $('.user_container')
-      .click(function () {
-        var sub_nav = $(this).parent().find('ul.subnav');
-        if (sub_nav.is(':visible')) {
-          $(this).removeClass('active');
-          sub_nav.slideUp('fast');
-        } else {
-          $(this).addClass('active');
-          sub_nav.slideDown('fast').show();
-          $(this)
-            .parent()
-            .hover(
-              () => {},
-              () => {
-                // sub_nav.slideUp('slow');
-              }
-            );
-        }
-      })
-      .hover(
-        function () {
-          $(this).addClass('subhover');
-        },
-        function () {
-          $(this).removeClass('subhover');
-        }
-      );
-    $('.toggle_username').click(function () {
-      if ($(this).hasClass('active')) {
-        $.ajax({
+    document.querySelectorAll('.toggle_username').forEach(el => {
+      el.addEventListener('click', function () {
+        ajax({
           dataType: 'json',
           statusCode: {
             200: () => {
@@ -210,61 +109,60 @@ var app = {
             }
           },
           type: 'GET',
-          url: '/Ajax/selectYourself/delete'
+          url: this.classList.contains('active') ? '/Ajax/selectYourself/delete' : '/Ajax/selectYourself/add'
         });
-      } else {
-        $.ajax({
-          dataType: 'json',
-          statusCode: {
-            200: () => {
-              // 200 OK
-              location.reload();
-            }
-          },
-          type: 'GET',
-          url: '/Ajax/selectYourself/add'
-        });
+      });
+    });
+    window.addEventListener('scroll', () => {
+      var topCont = document.querySelector('#topCont');
+      if (!document.querySelector('#headingCont') || !topCont) {
+        return;
+      }
+      topCont.classList.toggle('scrolled', window.scrollY > 5);
+    });
+    document.querySelector('html').addEventListener('mouseover', event => {
+      var meta = event.target.closest('.music_wall li .meta, .music_list li .meta');
+      if (meta) {
+        event.stopPropagation();
+        return;
+      }
+      var li = event.target.closest('.music_wall li, .music_list li');
+      if (li) {
+        li.classList.add('hover');
+        event.stopPropagation();
       }
     });
-    $(window).scroll(() => {
-      if ($(window).scrollTop() > 5) {
-        if ($('#headingCont').length !== 0) {
-          $('#topCont').addClass('scrolled');
-        }
-      } else {
-        if ($('#headingCont').length !== 0) {
-          $('#topCont').removeClass('scrolled');
-        }
+    document.querySelector('html').addEventListener('mouseout', event => {
+      var meta = event.target.closest('.music_wall li .meta, .music_list li .meta');
+      if (meta) {
+        event.stopPropagation();
+        return;
+      }
+      var li = event.target.closest('.music_wall li, .music_list li');
+      if (li) {
+        li.classList.remove('hover');
+        event.stopPropagation();
       }
     });
-    $('html').on('mouseover', '.music_wall li, .music_list li', function (event) {
-      $(this).addClass('hover');
-      event.stopPropagation();
-    });
-    $('html').on('mouseout', '.music_wall li, .music_list li', function (event) {
-      $(this).removeClass('hover');
-      event.stopPropagation();
-    });
-    $('html').on('mouseover', '.music_wall li .meta, .music_list li .meta', event => {
-      event.stopPropagation();
-    });
-    $('html').on('mouseout', '.music_wall li .meta, .music_list li .meta', event => {
-      event.stopPropagation();
-    });
-    $('html').on('click', '.some_link', function () {
+    document.querySelector('html').addEventListener('click', event => {
+      var target = event.target.closest('.some_link');
+      if (!target) {
+        return;
+      }
       var specs = `top=${screen.height / 2 - 420 / 2},left=${screen.width / 2 - 550 / 2},toolbar=0,status=0,width=550,height=420`;
-      window.open($(this).data('url') + window.location.href, 'Share', specs);
+      window.open(target.dataset.url + window.location.href, 'Share', specs);
     });
   }
 };
 var view = {};
 
-$.extend(view, {});
-app.highlightPatch();
 app.initMouseTrap();
 app.initStatsterEvents();
 app.initTooltips();
 
-if ($('#headingCont').length === 0) {
-  $('#topCont').addClass('scrolled');
+if (document.querySelector('#headingCont') === null) {
+  var topCont = document.querySelector('#topCont');
+  if (topCont) {
+    topCont.classList.add('scrolled');
+  }
 }

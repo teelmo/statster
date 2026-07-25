@@ -1,32 +1,11 @@
-$.extend(view, {
+Object.assign(view, {
   initAutocomplete: () => {
-    var $input = $('#addListeningText');
-    $input.focus();
-    $input.autocomplete({
-      html: true,
+    var input = document.querySelector('#addListeningText');
+    input.focus();
+    view.addListeningAutocomplete = initAutocomplete(input, {
+      dropdownId: 'ui-id-2',
       minLength: 3,
-      response: function () {
-        $(this).removeClass('working');
-      },
-      source: '/autoComplete/addListening',
-      search: function () {
-        $(this).addClass('working');
-      },
-      open: function () {
-        var self = $(this).data('ui-autocomplete');
-
-        // Only override if not already done
-        if (!self._originalClose) {
-          self._originalClose = self.close;
-          self.close = function (event) {
-            // Prevent closing when blur is triggered by virtual keyboard hiding
-            if (event?.originalEvent && event.originalEvent.type === 'blur') {
-              return;
-            }
-            this._originalClose.call(this, event);
-          };
-        }
-      }
+      source: '/autoComplete/addListening'
     });
   },
   // Native <input type="date"> replaces the inline daterangepicker
@@ -58,79 +37,76 @@ $.extend(view, {
     });
   },
   initKeystop: () => {
-    var keyStop = {
-      8: ':not(input:text,textarea,input:file,input:password)',
-      13: 'input:text,input:password',
-      end: null
-    };
-    $(document).bind('keydown', event => {
-      var selector = keyStop[event.which];
-      if (selector !== undefined && $(event.target).is(selector)) {
+    // Backspace navigates the browser back unless focus is in an editable
+    // field; Enter inside a text/password field is swallowed so it can't
+    // accidentally submit some other form on the page.
+    var editableSelector = 'input:not([type]), input[type="text"], input[type="password"], input[type="file"], textarea';
+    var textSelector = 'input:not([type]), input[type="text"], input[type="password"]';
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Backspace' && !event.target.matches(editableSelector)) {
+        event.preventDefault();
+      } else if (event.key === 'Enter' && event.target.matches(textSelector)) {
         event.preventDefault();
       }
-      return true;
     });
   },
   initAddListeningHelperEvents: () => {
-    // Listening format click.
-    $('.listening_format').click(function (event) {
-      if ($(this).hasClass('selected')) {
-        $(this).removeClass('selected');
-        $(`#${$(this).parent().attr('for')}`)
-          .prop('checked', false)
-          .trigger('change');
+    var toggleFormat = el => {
+      var checkbox = document.querySelector(`#${el.parentElement.getAttribute('for')}`);
+      if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+        checkbox.checked = false;
       } else {
-        $('.listening_format').removeClass('selected');
-        $(this).addClass('selected');
-        $(`#${$(this).parent().attr('for')}`)
-          .prop('checked', true)
-          .trigger('change');
+        document.querySelectorAll('.listening_format').forEach(format => {
+          format.classList.remove('selected');
+        });
+        el.classList.add('selected');
+        checkbox.checked = true;
       }
-      event.preventDefault();
-      event.stopPropagation();
-      return false;
-    });
-    // Listening format keypress.
-    $('.listening_format').keypress(function (event) {
-      var code = event.keyCode ? event.keyCode : event.which;
-      if (code === 13) {
-        if ($(this).hasClass('selected')) {
-          $(this).removeClass('selected');
-          $(`#${$(this).parent().attr('for')}`)
-            .prop('checked', false)
-            .trigger('change');
-        } else {
-          $('.listening_format').removeClass('selected');
-          $(this).addClass('selected');
-          $(`#${$(this).parent().attr('for')}`)
-            .prop('checked', true)
-            .trigger('change');
+      checkbox.dispatchEvent(new Event('change'));
+    };
+    document.querySelectorAll('.listening_format').forEach(el => {
+      el.addEventListener('click', event => {
+        toggleFormat(el);
+        event.preventDefault();
+        event.stopPropagation();
+      });
+      el.addEventListener('keypress', event => {
+        var code = event.keyCode || event.which;
+        if (code === 13) {
+          toggleFormat(el);
         }
-      }
-      event.preventDefault();
-      event.stopPropagation();
-      return false;
+        event.preventDefault();
+        event.stopPropagation();
+      });
     });
-    $('#addListeningSubmit').click(() => {
-      var text_value = $('#addListeningText').val();
+    document.querySelector('#addListeningSubmit').addEventListener('click', () => {
+      var addListeningText = document.querySelector('#addListeningText');
+      var text_value = addListeningText.value;
       if (text_value === '') {
         return false;
       }
-      var format_value = $('input[name="addListeningFormat"]:checked').val();
-      var album_id = $('#addListeningText').data('ui-autocomplete').selectedItem ? $('#addListeningText').data('ui-autocomplete').selectedItem.album_id : false;
-      var artist_ids = $('#addListeningText').data('ui-autocomplete').selectedItem ? $('#addListeningText').data('ui-autocomplete').selectedItem.artist_ids : false;
-      $('#recentlyListenedLoader2').show();
-      $('#addListeningText').val('');
-      $('input[name="addListeningFormat"]').prop('checked', false);
-      $('.listening_format').removeClass('selected');
-      $.ajax({
+      var checkedFormat = document.querySelector('input[name="addListeningFormat"]:checked');
+      var format_value = checkedFormat ? checkedFormat.value : undefined;
+      var selectedItem = view.addListeningAutocomplete.getSelectedItem();
+      var album_id = selectedItem ? selectedItem.album_id : false;
+      var artist_ids = selectedItem ? selectedItem.artist_ids : false;
+      document.querySelector('#recentlyListenedLoader2').classList.remove('hidden');
+      addListeningText.value = '';
+      document.querySelectorAll('input[name="addListeningFormat"]').forEach(el => {
+        el.checked = false;
+      });
+      document.querySelectorAll('.listening_format').forEach(el => {
+        el.classList.remove('selected');
+      });
+      ajax({
         data: {
           album_id: album_id,
           artist_ids: artist_ids,
           created: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 19).replace('T', ' '),
-          date: $('#addListeningDate').val(),
+          date: document.querySelector('#addListeningDate').value,
           format: format_value,
-          submitType: $('input[name="submitType"]').val(),
+          submitType: document.querySelector('input[name="submitType"]')?.value,
           text: text_value
         },
         dataType: 'json',
@@ -139,38 +115,42 @@ $.extend(view, {
             // 201 Created
             view.getRecentListenings();
             if (view.getTopArtists) {
-              view.getTopArtists($('.top_artist_value').data('value'));
+              view.getTopArtists(document.querySelector('.top_artist_value').dataset.value);
             }
             if (view.getTopAlbums) {
-              view.getTopAlbums($('.top_album_value').data('value'));
+              view.getTopAlbums(document.querySelector('.top_album_value').dataset.value);
             }
             if (view.getUsers) {
               view.getUsers();
             }
-            if ($('.tag_meta div.value').length > 0) {
-              $('.tag_meta div.value').data('value', parseInt($('.tag_meta div.value').data('value'), 10) + 1);
-              $('.tag_meta div.value').html(parseInt($('.tag_meta div.value').data('value'), 10).toLocaleString());
+            var tagMetaValue = document.querySelector('.tag_meta div.value');
+            if (tagMetaValue) {
+              var nextValue = parseInt(tagMetaValue.dataset.value, 10) + 1;
+              tagMetaValue.dataset.value = nextValue;
+              tagMetaValue.innerHTML = nextValue.toLocaleString();
             }
-            if ($('.tag_meta span.user_value').length > 0) {
-              $('.tag_meta span.user_value .value').data('value', parseInt($('.tag_meta span.user_value .value').data('value'), 10) + 1);
-              $('.tag_meta span.user_value .value').html(parseInt($('.tag_meta span.user_value .value').data('value'), 10).toLocaleString());
+            var tagMetaUserValue = document.querySelector('.tag_meta span.user_value .value');
+            if (tagMetaUserValue) {
+              var nextUserValue = parseInt(tagMetaUserValue.dataset.value, 10) + 1;
+              tagMetaUserValue.dataset.value = nextUserValue;
+              tagMetaUserValue.innerHTML = nextUserValue.toLocaleString();
             }
-            $('#addListeningText').focus();
+            addListeningText.focus();
           },
           400: () => {
             // 400 Bad Request
             alert('400 Bad Request');
-            $('#recentlyListenedLoader2').hide();
+            document.querySelector('#recentlyListenedLoader2').classList.add('hidden');
           },
           401: () => {
             // 401 Unauthorized
             alert('401 Unauthorized');
-            $('#recentlyListenedLoader2').hide();
+            document.querySelector('#recentlyListenedLoader2').classList.add('hidden');
           },
           404: () => {
             // 404 Not found
             alert('404 Not Found');
-            $('#recentlyListenedLoader2').hide();
+            document.querySelector('#recentlyListenedLoader2').classList.add('hidden');
           }
         },
         type: 'POST',

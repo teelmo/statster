@@ -28,6 +28,7 @@ header('HTTP/1.1 200 OK');
     <script type="text/javascript" src="/media/js/libs/mousetrap.min.js" defer></script>
     <script type="text/javascript" src="/media/js/ajax.js" defer></script>
     <script type="text/javascript" src="/media/js/searchable_select.js" defer></script>
+    <script type="text/javascript" src="/media/js/autocomplete.js" defer></script>
     <script type="text/javascript" src="/media/js/statster.js" defer></script>
     <link rel="canonical" href="https://statster.info<?=$_SERVER['REQUEST_URI']?>" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
