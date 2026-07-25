@@ -344,8 +344,10 @@ strong {
   }
 }
 #tagAdd {
+  display: inline-block;
   max-width: 450px;
   position: relative;
+  width: 100%;
   &.hidden {
     display: none;
   }
@@ -1499,9 +1501,8 @@ img {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    padding: 6px 10px;
     &:focus-within {
-      border-color: var(--color-accent);
+      border-color: var(--color-gray-medium);
     }
   }
   /* Matches the dropdown-affordance chevron used elsewhere on the site
@@ -1582,8 +1583,11 @@ img {
     & strong {
       font-weight: 700;
     }
-    &:hover {
+    &:hover,
+    &.active {
       background-color: var(--color-gray-soft);
+      border-left: 5px solid var(--color-black);
+      padding-left: 1px;
     }
   }
   & .searchable_select_hint {

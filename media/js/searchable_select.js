@@ -29,6 +29,7 @@ function initSearchableSelect(selectEl) {
   }
 
   var UNFILTERED_RESULT_CAP = 100;
+  var activeIndex = -1;
 
   selectEl.style.display = 'none';
 
@@ -129,7 +130,27 @@ function initSearchableSelect(selectEl) {
       });
   }
 
+  function getResultEls() {
+    return Array.from(dropdown.querySelectorAll('.searchable_select_result'));
+  }
+
+  function moveActive(delta) {
+    var results = getResultEls();
+    if (results.length === 0) {
+      return;
+    }
+    if (activeIndex === -1) {
+      activeIndex = delta > 0 ? 0 : results.length - 1;
+    } else {
+      activeIndex = (activeIndex + delta + results.length) % results.length;
+    }
+    results.forEach(el => el.classList.remove('active'));
+    results[activeIndex].classList.add('active');
+    results[activeIndex].scrollIntoView({ block: 'nearest' });
+  }
+
   function renderDropdown() {
+    activeIndex = -1;
     var term = input.value.trim();
     var ranked = rankOptions(term);
     if (ranked.length === 0) {
@@ -210,6 +231,24 @@ function initSearchableSelect(selectEl) {
     if (event.key === 'Escape') {
       dropdown.classList.add('hidden');
       input.blur();
+      return;
+    }
+    if (dropdown.classList.contains('hidden')) {
+      return;
+    }
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      moveActive(1);
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      moveActive(-1);
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      var results = getResultEls();
+      if (activeIndex >= 0 && results[activeIndex]) {
+        selectByValue(results[activeIndex].dataset.value);
+        input.focus();
+      }
     }
   });
 
