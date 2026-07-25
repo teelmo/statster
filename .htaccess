@@ -16,3 +16,17 @@ RewriteRule ^(.*)$ /index.php/$1 [L]
   ExpiresByType image/svg+xml "access plus 1 month"
   ExpiresByType image/x-icon "access plus 1 month"
 </IfModule>
+
+# mod_expires above never actually applies on either statster.local or
+# statster.info - neither server has that module loaded, so ExpiresActive
+# is silently a no-op and no cache headers were ever sent. mod_headers is
+# loaded on both, so set the same durations explicitly via Cache-Control
+# as a fallback that actually works.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "max-age=604800, public"
+  </FilesMatch>
+  <FilesMatch "\.(jpe?g|png|svg|ico)$">
+    Header set Cache-Control "max-age=2592000, public"
+  </FilesMatch>
+</IfModule>
