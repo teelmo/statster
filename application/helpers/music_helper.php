@@ -573,6 +573,7 @@ if (!function_exists('getAlbumAverageAge')) {
               AND " . TBL_listening . ".`date` BETWEEN ? AND ?
               AND " . TBL_user . ".`username` LIKE ?
             $group_by
+            HAVING `average_year` IS NOT NULL
             ORDER BY YEAR(" . TBL_listening . ".`date`) ASC";
     $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username));
 

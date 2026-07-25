@@ -37,7 +37,7 @@ class Music extends MY_Controller {
       $data['love_count'] = getLoveCount($data);
       $data['where'] = 'MONTH(`shouts`.`created`) LIKE ' .  $data['month'] . ' AND DAY(`shouts`.`created`) LIKE ' . $data['day'] . ' AND WEEKDAY(`shouts`.`created`) LIKE ' . $data['weekday'];
       $data['shout_count'] = getShoutCount($data);
-      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
+      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array());
       $data['js_include'] = array('music/library', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
@@ -75,7 +75,7 @@ class Music extends MY_Controller {
       $data['top_genre'] = decodeFirstOrDefault(getGenres($opts));
       $data['top_nationality'] = decodeFirstOrDefault(getNationalities($opts));
       $data['top_year'] = decodeFirstOrDefault(getYears($opts));
-      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
+      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array());
       $data['js_include'] = array('music/music', 'libs/highcharts.min', 'helpers/time_interval_helper', 'helpers/chart_helper', 'helpers/date_filter_helper');
 
       $this->load->view('site_templates/header');
@@ -109,7 +109,7 @@ class Music extends MY_Controller {
       $data['fan_count'] = getFanCount($data);
       $data['love_count'] = getLoveCount($data);
       $data['shout_count'] = getShoutCount($data);
-      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array('album_average_age' => 0));
+      $data['album_average_age'] = decodeFirstOrDefault(getAlbumAverageAge($data), array());
       $data['js_include'] = array('music/year', 'libs/highcharts.min', 'helpers/chart_helper');
 
       $this->load->view('site_templates/header');
