@@ -2,7 +2,6 @@
 @import './libs/jquery-ui-1.13.2.custom.min.css';
 @import './libs/jquery.autocomplete.css';
 @import './libs/daterangepicker.min.css';
-
 /* Template styles */
 body {
   background-color: var(--color-bg);
@@ -12,11 +11,9 @@ body {
   line-height: 1.2;
   position: relative;
 }
-
 div.container {
   font-size: 13px;
 }
-
 .background_overlay {
   background-image: none;
   background-position: 50% 50%;
@@ -33,7 +30,6 @@ div.container {
   width: 100vw;
   z-index: 0;
 }
-
 /* Heading styles */
 h2 {
   color: var(--color-gray-dark);
@@ -44,12 +40,10 @@ h2 {
   font-weight: 500;
   line-height: 28px;
   margin: 20px 0;
-
   & div.desc {
     font-size: 14px;
   }
 }
-
 h3 {
   color: var(--color-gray-dark);
   font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
@@ -60,7 +54,6 @@ h3 {
   letter-spacing: -0.05em;
   line-height: 24px;
   margin: 15px 0;
-
   &.album_love,
   &.artist_fan {
     color: var(--color-gray-dark);
@@ -69,7 +62,6 @@ h3 {
     width: 100%;
   }
 }
-
 /* Text styles */
 .updated,
 .count,
@@ -81,32 +73,26 @@ h3 {
   font-weight: 300;
   letter-spacing: 0.02em;
 }
-
 .updated {
   text-align: right;
 }
-
 .not_available {
   color: var(--transparent);
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
 .listening_date {
   color: var(--color-gray-mid);
-
   & .listening_date_input {
     display: inline-block;
     position: relative;
   }
 }
-
 .number {
   font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
   font-weight: 400;
   letter-spacing: 0.05em;
   word-spacing: -0.4em;
 }
-
 .settings,
 .more {
   font-size: 10px;
@@ -116,38 +102,30 @@ h3 {
   text-align: right;
   text-transform: uppercase;
   white-space: nowrap;
-
   & a {
     color: var(--color-gray-dark);
-
     &:visited {
       color: var(--color-gray-dark);
     }
-
     &:hover {
       color: var(--color-gray-mid);
     }
-
     &.unactive {
       font-weight: 300;
     }
   }
 }
-
 .empty_data_container {
   color: var(--color-black);
   font-size: 13px;
   font-weight: 300;
 }
-
 .settings {
   font-weight: 600;
-
   & a {
     font-weight: 700;
   }
 }
-
 p {
   color: var(--color-black);
   font-size: 14px;
@@ -155,11 +133,9 @@ p {
   line-height: 20px;
   margin-bottom: 20px;
 }
-
 strong {
   font-weight: 600;
 }
-
 /* Artist album and user page infos */
 .like_toggle {
   cursor: pointer;
@@ -169,13 +145,11 @@ strong {
   left: 9px;
   position: relative;
   top: 9px;
-
   & .lds-facebook {
     display: inline;
     left: 20px;
     top: 3px;
   }
-
   & .like_msg {
     color: var(--color-gray-dark);
     display: inline-block;
@@ -186,71 +160,56 @@ strong {
     top: 2px;
     width: 130px;
   }
-
   &.love_add {
     &:after {
       content: '\f004';
     }
-
     &:hover {
       color: var(--color-red);
-
       &:after {
         font-weight: 900;
       }
     }
   }
-
   &.love_del {
     color: var(--color-red);
-
     &:after {
       content: '\f004';
       font-weight: 900;
     }
-
     &:hover:after {
       font-weight: 500;
     }
   }
-
   &.fan_add {
     &:after {
       content: '\f005';
     }
-
     &:hover {
       color: var(--color-yellow);
-
       &:after {
         font-weight: 900;
       }
     }
   }
-
   &.fan_del {
     color: var(--color-yellow);
-
     &:after {
       content: '\f005';
       font-weight: 900;
     }
-
     &:hover:after {
       font-weight: 500;
     }
   }
 }
-
 .quick_add_listening {
   & ul {
     text-transform: none;
-
     & li .icon {
       margin-right: 5px;
     }
   }
-
   & span {
     color: #fff;
     cursor: pointer;
@@ -264,36 +223,29 @@ strong {
     top: 9px;
   }
 }
-
 #artistBio p.content {
   display: none;
 }
-
 /* User profile similarity */
 .similarity_info {
   background-color: transparent;
   padding-bottom: 30px;
-
   & .simililarity_image {
     position: relative;
-
     & svg {
       height: 54px;
       left: 0;
       position: absolute;
       top: 0;
       width: 54px;
-
       & path {
         stroke: rgba(182, 192, 191, 0.5);
       }
-
       & .similarity_path {
         animation: progress 3s ease-out forwards;
         stroke: var(--color-accent);
       }
     }
-
     & .user_similarity_img {
       border-radius: 20px;
       background-color: var(--color-white);
@@ -303,13 +255,11 @@ strong {
       left: 5px;
       position: relative;
       top: 5px;
-
       &:after {
         border-radius: 20px;
       }
     }
   }
-
   & .similarity_text {
     color: #fff;
     font-size: 14px;
@@ -318,25 +268,21 @@ strong {
     margin-left: 70px;
     padding-top: 4px;
     text-shadow: 0 0 1px #000;
-
     & a,
     & .text {
       font-weight: 400;
     }
   }
 }
-
 @keyframes progress {
   0% {
     stroke-dasharray: 0 100;
   }
 }
-
 /* Tag styles */
 #artists,
 #tags {
   padding-bottom: 10px;
-
   & .meta {
     color: #fff;
     display: inline-block;
@@ -344,23 +290,19 @@ strong {
     margin-right: 5px;
     vertical-align: middle;
   }
-
   & .tag {
     display: inline-block;
     font-size: 0;
     letter-spacing: 0.01em;
     text-transform: uppercase;
-
     & a,
     & a:visited {
       color: #fff;
-
       &:hover {
         color: #fff;
         text-decoration: none;
       }
     }
-
     &.addtags,
     &.genre,
     &.nationality,
@@ -372,69 +314,56 @@ strong {
         font-size: 10px;
         margin-bottom: 2px;
         padding: 4px;
-
         &.hidden {
           display: none;
         }
       }
-
       &:hover a {
         background-color: #000;
         display: inline-block;
       }
     }
-
     &.nationality {
       background-color: var(--transparent);
       position: relative;
       top: 2px;
-
       & > a {
         background-color: var(--transparent);
-
         &:hover {
           background-color: var(--transparent);
         }
-
         &.remove {
           position: relative;
           top: -2px;
         }
       }
-
       &:hover a {
         background-color: var(--transparent);
       }
     }
   }
 }
-
 /* Anchor styles */
 a {
   color: var(--color-gray-dark);
   cursor: pointer;
   text-decoration: none;
-
   &:visited {
     color: var(--color-gray-dark);
     text-decoration: none;
   }
-
   &:hover {
     color: var(--color-gray-dark);
     text-decoration: underline;
   }
 }
-
 /* Form styles */
 .autocomplete_container {
   position: relative;
 }
-
 input,
 textarea {
   box-sizing: border-box;
-
   &.text,
   &[type='password'],
   &[type='text'] {
@@ -446,22 +375,18 @@ textarea {
     margin: 0;
     padding: 6px 4px 6px 8px;
     width: 100%;
-
     &:disabled {
       color: var(--color-gray-mid);
     }
-
     &:active,
     &:focus {
       background-color: var(--color-bg-white-alter);
       color: var(--color-gray-dark);
     }
   }
-
   &.text {
     height: 120px;
   }
-
   &[type='submit'] {
     appearance: none;
     background-color: #000;
@@ -473,14 +398,12 @@ textarea {
     letter-spacing: 0.1em;
     padding: 6px 14px;
     text-align: center;
-
     &:focus,
     &:hover {
       background-color: #666;
       color: #fff;
     }
   }
-
   & + .lds-ring {
     color: var(--color-black);
     display: none;
@@ -490,31 +413,25 @@ textarea {
     top: 50%;
     transform: translateY(-50%);
     width: 16px;
-
     & div {
       left: -5px;
       top: -2px;
     }
   }
-
   &.working {
     padding-right: 30px;
-
     & + .lds-ring {
       display: inline-block;
     }
   }
 }
-
 input,
 textarea,
 button {
   outline: none;
 }
-
 fieldset {
   margin-bottom: 20px;
-
   & legend {
     color: var(--color-black);
     font-size: 18px;
@@ -524,28 +441,23 @@ fieldset {
     margin: 15px 0 0;
   }
 }
-
 .input_container {
   margin: 10px 0 5px;
-
   & .label {
     color: var(--color-black);
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 2px;
   }
-
   & label {
     color: var(--color-black);
     cursor: pointer;
   }
-
   & .checkbox_container {
     cursor: pointer;
     line-height: 20px;
   }
 }
-
 /* Add listening form */
 form#addListeningForm {
   & input {
@@ -556,35 +468,29 @@ form#addListeningForm {
       cursor: pointer;
       font-size: 14px;
       padding: 0;
-
       &:hover {
         text-decoration: underline;
       }
     }
-
     &[type='text'] {
       font-size: 20px;
     }
-
     &[type='submit'] {
       float: right;
       margin: 10px 0 15px;
     }
   }
 }
-
 /* Register form */
 form#registerForm {
   position: absolute;
   width: 300px;
-
   & input {
     box-sizing: border-box;
     margin: 5px 0;
     width: 100%;
   }
 }
-
 /* Login form */
 form#loginForm input[type='password'],
 form#loginForm input[type='text'] {
@@ -595,21 +501,17 @@ form#loginForm input[type='text'] {
   padding: 4px;
   width: 70%;
 }
-
 /* Search form */
 .search_container {
   vertical-align: top;
-
   &::placeholder {
     color: rgba(255, 255, 255, 0.3);
     font-weight: 300;
   }
-
   &:hover::placeholder {
     color: rgba(255, 255, 255, 1);
     transition-duration: 0.3s;
   }
-
   & .search_form input {
     background-color: var(--transparent);
     border: 0;
@@ -618,29 +520,24 @@ form#loginForm input[type='text'] {
     font-weight: 300;
     padding: 4px 0;
     width: 250px;
-
     &:focus {
       background-color: var(--transparent);
       color: #fff;
-
       &::placeholder {
         color: rgba(255, 255, 255, 1);
         font-weight: 300;
       }
     }
   }
-
   & .search_submit {
     background-color: var(--transparent);
     border: 0;
     cursor: pointer;
     height: 28px;
     width: 30px;
-
     &:disabled {
       cursor: default;
     }
-
     &::before {
       color: var(--color-gray-light);
       content: '\f002';
@@ -652,47 +549,39 @@ form#loginForm input[type='text'] {
       top: 2px;
     }
   }
-
   &.full {
     position: relative;
-
     & .search_form input {
       background-color: var(--color-gray-soft);
       border: 1px solid var(--color-gray-medium);
       color: var(--color-gray-mid);
       padding: 8px;
       width: 100% !important;
-
       &:focus {
         background-color: var(--color-bg-white-alter);
         color: var(--color-black);
       }
-
       & + .lds-ring {
         right: 45px;
         top: 15px;
       }
     }
-
     & .search_submit {
       height: 30px;
       position: absolute;
       right: 5px;
       top: 1px;
       width: 35px;
-
       &::before {
         color: var(--color-gray-mid);
         font-size: 20px;
       }
-
       &:hover::before {
         color: var(--color-black);
       }
     }
   }
 }
-
 /* Admin forms */
 form#transferAlbumDataForm,
 form#deleteArtistForm,
@@ -705,7 +594,6 @@ form#addKeywordForm {
     margin: 10px 0 15px;
   }
 }
-
 /* Table styles */
 table {
   border-collapse: collapse;
@@ -715,73 +603,58 @@ table {
   font-weight: normal;
   width: 100%;
 }
-
 td {
   margin: 0;
   padding: 0;
 }
-
 th {
   text-align: left;
 }
-
 /* Music Table */
 table.music_table {
   border-collapse: collapse;
   border: 0;
-
   & tbody tr {
     border-bottom: 1px solid var(--color-gray-medium);
     border-top: 1px solid var(--color-gray-medium);
     height: 32px;
-
     &:nth-child(2n) {
       background-color: var(--color-bg-white-alter);
     }
-
     &:nth-child(2n + 1) {
       background-color: var(--transparent);
     }
-
     & td {
       vertical-align: middle;
-
       & div.cover {
         border-width: 0 1px;
       }
-
       &.icon {
         padding: 0 5px;
         text-align: center;
         width: 26px;
       }
-
       &.datetime {
         padding: 0 5px;
         text-align: right;
         white-space: nowrap;
         width: 100%;
       }
-
       &.title {
         color: var(--color-black);
         padding: 0 5px;
         width: 100%;
-
         & .album_year {
           color: var(--color-gray-mid);
           font-size: 11px;
         }
-
         & .confirmation {
           font-size: 10px;
           text-align: left;
         }
-
         & .confirmation,
         & .delete {
           display: none;
-
           & .fa {
             color: var(--color-gray-mid);
             display: inline-block;
@@ -789,18 +662,15 @@ table.music_table {
             margin-left: 5px;
             position: relative;
             top: 2px;
-
             &:hover {
               color: var(--color-black);
               opacity: 1;
             }
           }
         }
-
         & .spotify_link {
           display: none;
           text-decoration: none;
-
           & .spotify_container {
             &:after {
               color: var(--color-gray-mid);
@@ -814,85 +684,69 @@ table.music_table {
               top: 1px;
               z-index: 5;
             }
-
             &:hover:after {
               color: var(--color-black);
             }
           }
         }
       }
-
       &.user_img .user_img {
         float: right;
       }
-
       & .now_playing {
         background-image: url('/media/img/icons/eq_icon.gif');
         background-position: left center;
         background-repeat: no-repeat;
         padding-left: 17px;
       }
-
       & .love_icon {
         color: var(--color-red);
         font-family: 'Font Awesome 5 Free', sans-serif;
         font-size: 14px;
-
         &:after {
           content: '\f004';
           font-weight: 900;
         }
       }
     }
-
     &:hover span.delete {
       display: inline;
       position: absolute;
-
       & img {
         height: 12px;
         margin-left: 5px;
         opacity: 0.3;
         vertical-align: -10%;
         width: 12px;
-
         &:hover {
           opacity: 1;
         }
       }
     }
-
     &.just_added {
       background-color: var(--color-yellow);
-
       & a {
         color: #000;
-
         & .album_year {
           color: #333;
           font-size: 11px;
         }
       }
-
       & .datetime {
         color: #000;
       }
-
       & td.user_img,
       & td.album_img {
         width: 64px;
       }
-
       & td.title {
         color: #000;
-
         & .spotify_link {
           display: none;
           .spotify_container {
             &:after {
               color: #000;
             }
-
             &:hover:after {
               color: var(--color-gray-light);
             }
@@ -900,25 +754,20 @@ table.music_table {
         }
       }
     }
-
     &.just_added_rest {
       & a {
         color: var(--color-black);
-
         &:visited {
           color: var(--color-black);
         }
       }
-
       & td.user_img,
       & td.album_img {
         width: 32px;
       }
-
       & td.title {
         line-height: 14px;
         position: relative;
-
         & span.title,
         & span.delete,
         & div.confirmation,
@@ -930,7 +779,6 @@ table.music_table {
           display: none;
         }
       }
-
       & td.datetime > span {
         position: relative;
         right: -32px;
@@ -938,62 +786,50 @@ table.music_table {
     }
   }
 }
-
 /* Side Table */
 table.side_table {
   & tr td {
     padding: 2px 0;
     vertical-align: middle;
-
     &.img32 {
       width: 32px;
-
       & .album_img,
       & .user_img {
         width: 32px;
       }
-
       & .artist_img,
       & .user_img {
         border-radius: 16px;
-
         &:after {
           border-radius: 16px;
         }
       }
-
       &.tag_img {
         color: var(--color-accent);
         font-size: 24px;
         text-align: center;
       }
     }
-
     &.img64 {
       width: 64px;
-
       &.tag_img {
         color: var(--color-accent);
         font-size: 38px;
         text-align: center;
       }
-
       & .artist_img,
       & .user_img {
         border-radius: 32px;
-
         &:after {
           border-radius: 32px;
         }
       }
     }
-
     &.rank,
     &.type {
       padding-right: 5px;
       text-align: center;
       vertical-align: middle;
-
       & .rank {
         background-color: var(--color-black-alter);
         border-radius: 10px;
@@ -1008,30 +844,24 @@ table.side_table {
         width: 20px;
       }
     }
-
     &.type {
       font-size: 14px;
     }
-
     &.title {
       padding-left: 5px;
       width: 100%;
-
       & .album_year {
         color: var(--color-gray-mid);
         font-size: 11px;
       }
-
       & .artist_name {
         font-size: 11px;
         line-height: 12px;
       }
-
       & .spotify_link {
         display: none;
         margin-right: 3px;
         text-decoration: none;
-
         & .spotify_container {
           &:after {
             color: var(--color-gray-mid);
@@ -1044,19 +874,16 @@ table.side_table {
             top: 1px;
             z-index: 5;
           }
-
           &:hover:after {
             color: var(--color-black);
           }
         }
       }
     }
-
     &.calendar {
       font-size: 11px;
       padding-right: 2px;
       width: 30px;
-
       & .month {
         background-color: #000;
         border: 1px solid var(--color-gray-light);
@@ -1068,7 +895,6 @@ table.side_table {
         text-align: center;
         width: 25px;
       }
-
       & .day {
         background-color: #fff;
         border: 1px solid var(--color-gray-light);
@@ -1082,44 +908,36 @@ table.side_table {
     }
   }
 }
-
 .left_container table.side_table tr {
   & td.rank {
     padding-left: 5px;
   }
-
   &:nth-child(2n) {
     background-color: var(--color-bg-white-alter);
   }
-
   &:nth-child(2n + 1) {
     background-color: var(--transparent);
   }
 }
-
 table.year_table tr td {
   border-bottom: 1px solid var(--color-gray-soft);
   font-size: 14px;
   padding-top: 5px;
 }
-
 /* Genre Table */
 table.genre_table tr td {
   border-bottom: 1px solid var(--color-gray-soft);
   padding-top: 3px;
   vertical-align: bottom;
 }
-
 /* Bar Table */
 table.column_table {
   & tr td {
     padding: 1px 0;
-
     &.rank {
       padding-right: 4px;
       text-align: right;
       width: 2%;
-
       & .rank {
         background-color: var(--color-black-alter);
         border-radius: 10px;
@@ -1134,107 +952,86 @@ table.column_table {
         width: 20px;
       }
     }
-
     &.name {
       padding: 0 2px 0 5px;
       vertical-align: middle;
       width: 58%;
-
       & .listening_format_type {
         margin-right: 3px;
       }
     }
-
     &.bar {
       background-color: var(--transparent);
       padding-right: 1px;
       vertical-align: middle;
       width: 42%;
-
       & div {
         background-color: var(--color-yellow-dark);
         color: #000;
         padding: 2px 0 2px 3px;
-
         &.number {
           font-size: 11px;
         }
       }
     }
   }
-
   &.full {
     margin-top: 20px;
-
     & tr:nth-child(2n) td.name {
       background-color: var(--color-bg-white-alter);
     }
   }
 }
-
 /* Shout Table */
 #shoutTotal {
   color: var(--color-gray-medium);
   float: right;
   font-size: 14px;
 }
-
 .left_container table.shout_table tr {
   &:nth-child(2n) {
     background-color: var(--color-bg-white-alter);
   }
-
   &:nth-child(2n + 1) {
     background-color: var(--transparent);
   }
 }
-
 table.shout_table tr {
   &:hover span.delete {
     display: inline;
     position: absolute;
-
     & img {
       height: 12px;
       margin-left: 5px;
       opacity: 0.3;
       vertical-align: -10%;
       width: 12px;
-
       &:hover {
         opacity: 1;
       }
     }
   }
-
   & td {
     padding: 10px 0;
     vertical-align: middle;
-
     &.img {
       vertical-align: top;
-
       & .img32 {
         border-radius: 16px;
-
         &:after {
           border-radius: 16px;
         }
       }
-
       & .img64 {
         border-radius: 32px;
-
         &:after {
           border-radius: 32px;
         }
       }
     }
-
     &.textarea {
       padding-left: 10px;
       width: 100%;
-
       & textarea {
         background-color: var(--color-gray-soft);
         border-radius: 5px;
@@ -1246,12 +1043,10 @@ table.shout_table tr {
         padding: 8px 12px;
         resize: vertical;
         width: 100%;
-
         &:focus {
           background-color: var(--color-bg-footer);
         }
       }
-
       & button {
         appearance: none;
         background-color: #000;
@@ -1265,7 +1060,6 @@ table.shout_table tr {
         margin-top: 10px;
         padding: 6px 14px;
         text-align: center;
-
         &:focus,
         &:hover {
           background-color: var(--color-gray-dark);
@@ -1274,22 +1068,18 @@ table.shout_table tr {
         }
       }
     }
-
     &.text {
       color: var(--color-black);
       padding-left: 10px;
       vertical-align: top;
       width: 100%;
-
       & .confirmation {
         font-size: 10px;
         text-align: left;
       }
-
       & .confirmation,
       & .delete {
         display: none;
-
         & .fa {
           color: var(--color-gray-medium);
           display: inline-block;
@@ -1297,21 +1087,18 @@ table.shout_table tr {
           margin-left: 5px;
           position: relative;
           top: 1px;
-
           &:hover {
             color: var(--color-black);
             opacity: 1;
           }
         }
       }
-
       & .metainfo {
         float: right;
         padding: 0 5px;
         text-align: right;
         white-space: nowrap;
       }
-
       & .shout_text {
         color: var(--color-gray-dark);
         font-weight: 300;
@@ -1321,7 +1108,6 @@ table.shout_table tr {
     }
   }
 }
-
 /* Music wall */
 ul.music_wall {
   li {
@@ -1331,7 +1117,6 @@ ul.music_wall {
     max-width: 157px;
     position: relative;
     width: 100%;
-
     &:first-child {
       max-height: 314px;
       max-width: 314px;
@@ -1352,14 +1137,11 @@ ul.music_wall {
         transition: opacity 0.5s;
       }
     }
-
     & .cover {
       border: 0;
-
       &:after {
         border: 0;
       }
-
       &.img150,
       &.img300 {
         height: 100%;
@@ -1367,7 +1149,6 @@ ul.music_wall {
         width: 100%;
       }
     }
-
     & .meta {
       bottom: 10px;
       color: #fff;
@@ -1378,22 +1159,18 @@ ul.music_wall {
       padding-right: 2px;
       position: absolute;
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-
       & .title {
         font-size: 11px;
         line-height: 12px;
-
         &.count {
           color: #ccc;
         }
-
         &.main {
           font-size: 14px;
           font-weight: 600;
           letter-spacing: 0.01em;
           line-height: 16px;
         }
-
         & a {
           color: #fff;
         }
@@ -1401,7 +1178,6 @@ ul.music_wall {
     }
   }
 }
-
 /* List styles */
 ul {
   &.no_bullets {
@@ -1409,18 +1185,15 @@ ul {
     margin: 0;
     padding: 0;
   }
-
   &.music_list {
     color: var(--color-black-alter);
     display: block;
     overflow: hidden;
     width: 100%;
-
     & .play_count {
       display: inline-block;
       margin-top: 3px;
     }
-
     & li {
       position: relative;
       &.album {
@@ -1447,14 +1220,12 @@ ul {
           display: block;
         }
       }
-
       &.hover {
         .cover:after {
           opacity: 0;
           transition: opacity 0.5s;
         }
       }
-
       & .meta {
         color: #fff;
         font-size: 11px;
@@ -1469,28 +1240,23 @@ ul {
           0 0 1px rgba(0, 0, 0, 1),
           0 0 1px rgba(0, 0, 0, 1);
         z-index: 4;
-
         & a {
           color: #fff;
         }
-
         & .main {
           font-size: 14px;
         }
       }
-
       &.album,
       &.artist {
         & .meta {
           bottom: 5px;
         }
       }
-
       &.hover .main a {
         text-decoration: underline;
       }
     }
-
     &.music_list_64 li {
       display: inline-block;
       margin: 0 9px 0 0;
@@ -1498,7 +1264,6 @@ ul {
       vertical-align: top;
       width: 70px;
     }
-
     &.music_list_124 li {
       display: inline-block;
       margin: 0 0 20px;
@@ -1506,7 +1271,6 @@ ul {
       vertical-align: top;
       width: 130px;
     }
-
     &.music_list_150 li {
       box-sizing: border-box;
       display: inline-block;
@@ -1516,7 +1280,6 @@ ul {
       width: 152px;
     }
   }
-
   &.user_list.user_list_150 li {
     box-sizing: border-box;
     display: inline-block;
@@ -1525,12 +1288,10 @@ ul {
     vertical-align: top;
     width: 150px;
   }
-
   &.album_list,
   &.artist_list {
     font-size: 0;
     margin: 0 0 20px;
-
     & li {
       box-sizing: border-box;
       color: var(--color-black);
@@ -1539,7 +1300,6 @@ ul {
       overflow: visible;
       position: relative;
       vertical-align: top;
-
       & .icon {
         height: 20px;
         position: absolute;
@@ -1560,91 +1320,73 @@ ul {
           0 0 1px rgba(0, 0, 0, 1),
           0 0 1px rgba(0, 0, 0, 1),
           0 0 1px rgba(0, 0, 0, 1);
-
         & .title {
           font-size: 11px;
           line-height: 12px;
-
           &.main {
             font-size: 14px;
             font-weight: 600;
             letter-spacing: 0.01em;
             line-height: 16px;
           }
-
           & a {
             color: #fff;
           }
         }
       }
-
       &.block {
         display: block;
         margin-top: 20px;
-
         &:first-child {
           margin-top: 0;
         }
-
         & h2 {
           margin: 0;
         }
       }
     }
   }
-
   &.like_list {
     display: inline-block;
     margin-top: 7px;
-
     & li {
       display: inline-block;
       margin: 0;
     }
   }
-
   &.search_list li {
     &.even {
       background-color: var(--transparent);
     }
-
     &.no_img {
       height: 35px;
       line-height: 35px;
     }
-
     &.odd {
       background-color: var(--color-white-alter);
     }
-
     &.title {
       margin-top: 30px;
     }
-
     & i {
       display: inline-block;
       margin-right: 5px;
       vertical-align: middle;
     }
-
     & a {
       align-items: center;
       display: flex;
       overflow: hidden;
-
       & div {
         display: inline-block;
-
         &.cover {
           flex-shrink: 0;
           margin-right: 5px;
         }
-
         &.title {
           width: 100%;
         }
       }
-
       &:visited,
       &:hover {
         text-decoration: underline;
@@ -1652,7 +1394,6 @@ ul {
     }
   }
 }
-
 /* Icons / images */
 .main_container .left_container .welcome_container {
   background-image: url('/media/img/og_image.jpg');
@@ -1660,7 +1401,6 @@ ul {
   background-size: 100%;
   color: var(--color-white);
   position: relative;
-
   &::before {
     background-color: rgba(0, 0, 0, 0.5);
     content: '';
@@ -1668,7 +1408,6 @@ ul {
     padding-top: 66.67%;
     width: 100%;
   }
-
   & .content {
     bottom: 0;
     left: 0;
@@ -1676,18 +1415,15 @@ ul {
     position: absolute;
     right: 0;
     top: 0;
-
     & h2 {
       color: #fff;
       font-size: 30px;
       letter-spacing: 0.02em;
       margin: 0 0 20px;
     }
-
     & h3 {
       color: #fff;
       text-shadow: 2px 0 10px var(--color-black);
-
       & a {
         color: #fff;
         font-weight: 600;
@@ -1695,38 +1431,31 @@ ul {
     }
   }
 }
-
 img {
   margin: 0;
   padding: 0;
-
   &.icon {
     height: 16px;
     vertical-align: -16%;
     width: 16px;
   }
-
   &.listening_format {
     cursor: pointer;
     height: 64px;
     margin: 8px;
     opacity: 0.3;
     width: 64px;
-
     &.selected {
       opacity: 1;
     }
   }
-
   &:active,
   &.selected {
     outline: none;
   }
 }
-
 .tooltip {
   position: relative;
-
   &::after {
     background-color: var(--color-white);
     border-radius: 5px;
@@ -1744,22 +1473,18 @@ img {
     white-space: nowrap;
     z-index: 100;
   }
-
   &:hover::after,
   &:focus::after {
     opacity: 1;
   }
-
   @media (prefers-reduced-motion: reduce) {
     &::after {
       transition: none;
     }
   }
 }
-
 .searchable_select {
   position: relative;
-
   & .searchable_select_control {
     align-items: center;
     background-color: var(--color-bg);
@@ -1768,18 +1493,15 @@ img {
     flex-wrap: wrap;
     gap: 4px;
     padding: 6px 10px;
-
     &:focus-within {
       border-color: var(--color-accent);
     }
   }
-
   /* Matches the dropdown-affordance chevron used elsewhere on the site
      (e.g. .func_container .value) - single-selects only, since Chosen's
      multi-select style relied on the chip/input row itself, not an arrow. */
   &.searchable_select_single .searchable_select_control {
     padding-right: 24px;
-
     &::after {
       color: var(--color-gray-dark);
       content: '\f0d7';
@@ -1793,11 +1515,9 @@ img {
       transform: translateY(-50%);
     }
   }
-
   & .searchable_select_chips {
     display: contents;
   }
-
   & .searchable_select_chip {
     align-items: center;
     background-color: var(--color-gray-soft);
@@ -1806,18 +1526,15 @@ img {
     display: inline-flex;
     gap: 4px;
     padding: 2px 6px;
-
     & .searchable_select_chip_remove {
       color: var(--color-gray-dark);
       cursor: pointer;
       text-decoration: none;
-
       &:hover {
         color: var(--color-black-alter);
       }
     }
   }
-
   & .searchable_select_input {
     background: none;
     border: 0;
@@ -1825,12 +1542,10 @@ img {
     flex: 1 1 80px;
     min-width: 80px;
     outline: none;
-
     &::placeholder {
       color: var(--color-gray-mid);
     }
   }
-
   & .searchable_select_dropdown {
     background-color: var(--color-white);
     border: 1px solid var(--color-gray-medium);
@@ -1841,12 +1556,10 @@ img {
     right: 0;
     top: 100%;
     z-index: 100;
-
     &.hidden {
       display: none;
     }
   }
-
   & .searchable_select_group_label {
     color: var(--color-gray-mid);
     font-size: 11px;
@@ -1854,36 +1567,29 @@ img {
     padding: 6px 10px 2px;
     text-transform: uppercase;
   }
-
   & .searchable_select_result {
     color: var(--color-black);
     cursor: pointer;
     padding: 6px 10px;
-
     & strong {
       font-weight: 700;
     }
-
     &:hover {
       background-color: var(--color-gray-soft);
     }
   }
-
   & .searchable_select_hint {
     color: var(--color-gray-mid);
     font-size: 11px;
     padding: 6px 10px;
   }
 }
-
 div.cover {
   background-size: 100%;
-
   &.img32,
   &.img64 {
     border: 1px solid var(--color-gray-light);
   }
-
   &.img124,
   &.img150,
   &.img174,
@@ -1891,102 +1597,81 @@ div.cover {
     border: 1px solid var(--color-gray-medium);
     box-shadow: 3px 3px 4px var(--color-gray-light);
     box-sizing: border-box;
-
     &.no_overlay {
       border: 1px solid var(--color-gray-medium);
       box-shadow: none;
-
       &:hover {
         border: 1px solid var(--color-gray-medium);
         box-shadow: 3px 3px 4px var(--color-gray-light);
       }
     }
   }
-
   &.img32 {
     height: 32px;
     width: 32px;
   }
-
   &.img40 {
     height: 40px;
     width: 40px;
   }
-
   &.img64 {
     height: 64px;
     width: 64px;
   }
-
   &.img124 {
     width: 124px;
-
     &.album_img {
       height: 124px;
     }
-
     &.artist_img {
       background-size: cover;
       height: 90px;
     }
-
     &.user_img {
       background-size: cover;
       height: 124px;
     }
   }
-
   &.img150 {
     width: 150px;
-
     &.album_img {
       height: 150px;
     }
-
     &.artist_img {
       background-size: cover;
       height: 110px;
     }
-
     &.user_img {
       background-size: cover;
       height: 150px;
     }
   }
-
   &.img174 {
     height: 174px;
     width: 174px;
   }
-
   &.img300 {
     width: 300px;
-
     &.album_img {
       height: 300px;
     }
-
     &.user_img,
     &.artist_img {
       height: 200px;
     }
   }
-
   &.album_img {
     background-position: 50% 50%;
     background-size: cover;
   }
-
   &.artist_img {
     background-position: 50% 0%;
     background-size: cover;
   }
-
   &.user_img {
     background-origin: padding-box;
     background-position: 50% 50%;
   }
-
   &.img32,
   &.img64,
   &.img124,
@@ -1994,7 +1679,6 @@ div.cover {
   &.img174,
   &.img300 {
     position: relative;
-
     &:after {
       content: '';
       height: 100%;
@@ -2003,13 +1687,11 @@ div.cover {
       width: 100%;
     }
   }
-
   &.img124 {
     &:after {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
     }
   }
-
   &.img32,
   &.img64,
   &.img150,
@@ -2018,26 +1700,22 @@ div.cover {
     &:after {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.8) 100%);
     }
-
     &.no_overlay {
       &:after {
         background-image: none;
       }
-
       &:hover:after {
         background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.8) 100%);
         opacity: 1;
       }
     }
   }
-
   &.img150,
   &.img174,
   &.img300 {
     &:after {
       transition: all 1s;
     }
-
     &.hover,
     &:hover {
       & .album_year,
@@ -2048,29 +1726,24 @@ div.cover {
           0 0 1px #000,
           0 0 1px #000;
       }
-
       &:after {
         opacity: 0;
         transition: opacity 0.5s;
       }
     }
   }
-
   &.no_cover {
     border: 0 !important;
-
     &:after {
       background-image: none !important;
     }
   }
-
   & .album_year {
     bottom: 0;
     display: block;
     position: absolute;
     right: 0;
     z-index: 3;
-
     & a {
       color: #fff;
       display: inline-block;
@@ -2081,14 +1754,12 @@ div.cover {
       padding: 4px 6px;
       user-select: none;
       width: auto;
-
       &:hover {
         color: #ccc;
         text-decoration: none;
       }
     }
   }
-
   & .meta {
     bottom: 5px;
     color: #fff;
@@ -2099,16 +1770,13 @@ div.cover {
     padding-right: 5px;
     position: absolute;
     z-index: 4;
-
     & a {
       color: #fff;
     }
-
     & .main {
       font-size: 14px;
     }
   }
-
   & .rank {
     bottom: 20px;
     color: #bbb;
@@ -2120,7 +1788,6 @@ div.cover {
     z-index: 3;
   }
 }
-
 span.divider {
   border-left: 1px solid var(--color-gray-dark);
   border-right: 1px solid var(--color-gray-mid);
@@ -2128,14 +1795,12 @@ span.divider {
   padding-bottom: 5px;
   padding-top: 2px;
 }
-
 div.cover_shadow {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.95) 100%);
   height: 300px;
   position: absolute;
   width: 300px;
 }
-
 /* FA styles */
 .user_listening,
 h2,
@@ -2145,12 +1810,10 @@ h3 {
     float: right;
     position: relative;
     vertical-align: bottom;
-
     &.peity polyline {
       stroke: var(--color-yellow-dark);
     }
   }
-
   & .quick_add_listening,
   & .func_container {
     color: var(--color-gray-dark);
@@ -2161,11 +1824,9 @@ h3 {
     letter-spacing: 0;
     position: relative;
     user-select: none;
-
     & .fa-refresh:hover {
       color: var(--color-black);
     }
-
     & .value {
       &:after {
         content: '\f0d7';
@@ -2179,16 +1840,13 @@ h3 {
         top: -1px;
         vertical-align: middle;
       }
-
       &.active:after {
         content: '\f0d8';
       }
-
       &:hover {
         color: var(--color-black);
       }
     }
-
     & ul.subnav {
       background-color: #fff;
       border-radius: 5px;
@@ -2204,7 +1862,6 @@ h3 {
       top: 38px;
       width: auto;
       z-index: 100;
-
       &::before {
         background-image: url('/media/img/dropdown_arrow.png');
         background-position: 0 0;
@@ -2217,7 +1874,6 @@ h3 {
         top: -18px;
         width: 36px;
       }
-
       & li {
         box-sizing: border-box;
         clear: both;
@@ -2229,36 +1885,29 @@ h3 {
         text-decoration: none;
         white-space: nowrap;
         width: 100%;
-
         &:first-child {
           margin-top: 4px;
         }
-
         &:last-child {
           margin-bottom: 4px;
         }
-
         &:hover {
           background-color: #eee;
           color: #000;
         }
       }
     }
-
     &:hover {
       color: var(--color-gray-medium);
     }
   }
 }
-
 .fa-star {
   color: var(--color-yellow);
 }
-
 .fa-heart {
   color: var(--color-red);
 }
-
 /* Date picker overrides */
 .date-picker-wrapper {
   border: 0;
@@ -2266,54 +1915,51 @@ h3 {
   margin: 5px 0 0 27px;
   padding: 0;
   z-index: 3;
-
   &.no-shortcuts,
   &.no-topbar {
     padding: 0;
   }
-
   &.single-date {
     margin: 5px 0 0;
-
     & .week-name {
       display: none;
     }
-
     & tbody td {
       width: calc(100% / 7);
+      &:hover {
+        background-color: #ddd;
+      }
     }
   }
-
   & .footer {
     display: none;
   }
-
   & .month-wrapper {
     border-radius: 0;
     padding: 0;
-
     & .gap {
       margin: 0 10px;
       top: 0;
     }
-
     & table {
       & thead {
         & tr.week-name {
           font-size: 9px;
         }
-
         & .caption {
           background-color: #fff;
           height: 24px;
-
           & .month-name {
             color: #000;
             font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
-            text-align: left;
+            text-align: center;
             text-transform: capitalize;
           }
-
+          & .prev,
+          & .next {
+            position: relative;
+            top: 2px;
+          }
           & .prev:hover,
           & .next:hover {
             background-color: var(--color-white-alter);
@@ -2321,43 +1967,35 @@ h3 {
           }
         }
       }
-
       & tbody {
         border-bottom: 0;
         border-top: 0;
-
         & tr {
           & .day {
             font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
             padding: 4px 0;
-
             &.toMonth.hovering,
             &.checked {
               background-color: #ccc;
             }
-
             &.first-date-selected,
             &.last-date-selected {
               background-color: #000 !important;
               color: #fff !important;
             }
-
             &.real-today.toMonth {
               background-color: #fff;
               color: #000;
               font-weight: 700;
-
               &.hovering {
                 background-color: #ccc;
                 color: #fff;
               }
             }
           }
-
           & .week-number {
             font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
             font-size: 9px;
-
             &.week-number-selected {
               color: var(--color-black);
               font-weight: 700;
@@ -2368,12 +2006,10 @@ h3 {
     }
   }
 }
-
 .calendar_container {
   position: absolute;
   z-index: 4;
 }
-
 /* Other */
 hr {
   border: 0;
@@ -2384,42 +2020,32 @@ hr {
   text-align: left;
   width: 100%;
 }
-
 .hidden {
   display: none;
 }
-
 .middle {
   vertical-align: middle;
 }
-
 .text_left {
   text-align: left;
 }
-
 .text_right {
   text-align: right;
 }
-
 .float_left {
   float: left;
 }
-
 .float_right {
   float: right;
 }
-
 .nowrap {
   white-space: nowrap;
 }
-
 .clear {
   clear: both;
 }
-
 .clearfix {
   zoom: 1;
-
   &:after {
     clear: both;
     content: ' ';
