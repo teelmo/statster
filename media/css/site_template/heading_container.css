@@ -162,14 +162,12 @@
 
       & .top_info {
         padding-bottom: 20px;
-
         & h1,
         & h2,
         & h3 {
           & .artist_separator {
             color: #fff;
           }
-
           & a {
             color: #fff;
 
@@ -179,7 +177,6 @@
             }
           }
         }
-
         & h1 {
           color: #fff;
           font-size: 36px;
@@ -188,15 +185,12 @@
           line-height: 34px;
           margin: 0;
           padding-bottom: 15px;
-
           & .fa-edit {
             font-size: 14px;
           }
-
           & ul {
             display: inline;
           }
-
           & a span {
             vertical-align: middle;
             font-size: 20px;
@@ -204,7 +198,6 @@
             margin-left: 10px;
           }
         }
-
         & h2 {
           font-size: 20px;
           font-weight: 300;
@@ -234,8 +227,8 @@
           border: 0;
           height: 18px;
           position: absolute;
-          right: 10px;
-          top: -2px;
+          right: 9px;
+          top: calc(50% - 12px);
           width: 20px;
 
           &::before {

@@ -1,28 +1,27 @@
 .lds-ring {
   color: var(--color-black);
   display: inline-block;
-  position: relative;
-  width: 16px;
   height: 16px;
-
+  position: relative;
+  vertical-align: top;
+  width: 16px;
   &,
   & div {
     box-sizing: border-box;
   }
-
   & div {
-    display: block;
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    margin: 3px;
-    top: 2px;
-    left: 5px;
-    border: 3px solid currentColor;
-    border-radius: 50%;
-    border-color: currentColor transparent transparent transparent;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-
+    border-color: currentColor transparent transparent transparent;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 3px;
+    display: block;
+    height: 16px;
+    left: 5px;
+    margin: 3px;
+    position: absolute;
+    top: 2px;
+    width: 16px;
     &:nth-child(1) {
       animation-delay: -0.45s;
     }
@@ -34,7 +33,6 @@
     }
   }
 }
-
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);
@@ -43,7 +41,6 @@
     transform: rotate(360deg);
   }
 }
-
 .lds-facebook {
   color: #ccc;
   display: inline-block;
@@ -51,24 +48,20 @@
   margin: 15px 0 15px 5px;
   position: relative;
   width: 100%;
-
   &,
   & div {
     box-sizing: border-box;
     border-radius: 3px;
   }
-
   &.inline {
     display: inline;
   }
-
   & div {
     animation: lds-facebook 0.8s cubic-bezier(0, 0.5, 0.5, 1) infinite;
     background: currentColor;
     display: inline-block;
     position: absolute;
     width: 10px;
-
     &:nth-child(1) {
       animation-delay: -0.24s;
       left: 0;
@@ -83,7 +76,6 @@
     }
   }
 }
-
 @keyframes lds-facebook {
   0% {
     color: #ccc;

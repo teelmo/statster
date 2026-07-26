@@ -1500,7 +1500,6 @@ img {
     border: 1px solid var(--color-gray-medium);
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
     &:focus-within {
       border-color: var(--color-gray-medium);
     }
@@ -1524,22 +1523,34 @@ img {
     }
   }
   & .searchable_select_chips {
-    display: contents;
-  }
-  & .searchable_select_chip {
-    align-items: center;
-    background-color: var(--color-gray-soft);
-    border-radius: 3px;
-    color: var(--color-black-alter);
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
     gap: 4px;
-    padding: 2px 6px;
-    & .searchable_select_chip_remove {
-      color: var(--color-gray-dark);
-      cursor: pointer;
-      text-decoration: none;
-      &:hover {
-        color: var(--color-black-alter);
+    margin: 0;
+    padding: 2px 30px 2px 2px;
+    width: 100%;
+    & .searchable_select_chip {
+      align-items: center;
+      background-color: var(--color-gray-soft);
+      border-radius: 3px;
+      color: var(--color-black-alter);
+      display: inline-flex;
+      gap: 4px;
+      margin: 0;
+      padding: 2px 6px;
+      &:last-child {
+        margin-right: 8px;
+      }
+      span {
+        font-size: 12px;
+      }
+      & .searchable_select_chip_remove {
+        color: var(--color-gray-dark);
+        cursor: pointer;
+        text-decoration: none;
+        &:hover {
+          color: var(--color-black-alter);
+        }
       }
     }
   }
@@ -1586,8 +1597,8 @@ img {
     &:hover,
     &.active {
       background-color: var(--color-gray-soft);
-      border-left: 5px solid var(--color-black);
-      padding-left: 1px;
+      border-left: 4px solid var(--color-black);
+      padding-left: 6px;
     }
   }
   & .searchable_select_hint {
