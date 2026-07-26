@@ -26,10 +26,6 @@
   -webkit-mask-image: url('/media/img/icons/chevron-down-solid.svg');
   mask-image: url('/media/img/icons/chevron-down-solid.svg');
 }
-.mask-icon-chevron-up {
-  -webkit-mask-image: url('/media/img/icons/chevron-up-solid.svg');
-  mask-image: url('/media/img/icons/chevron-up-solid.svg');
-}
 .mask-icon-flag {
   -webkit-mask-image: url('/media/img/icons/flag-solid.svg');
   mask-image: url('/media/img/icons/flag-solid.svg');
@@ -1684,7 +1680,7 @@ img {
       background-color: var(--color-gray-dark);
       content: '';
       display: inline-block;
-      height: 14px;
+      height: 15px;
       -webkit-mask-image: url('/media/img/icons/chevron-down-solid.svg');
       mask-image: url('/media/img/icons/chevron-down-solid.svg');
       -webkit-mask-position: center;
@@ -1698,7 +1694,7 @@ img {
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      width: 14px;
+      width: 15px;
     }
   }
   & .searchable_select_chips {
@@ -2041,7 +2037,7 @@ h3 {
         background-color: currentColor;
         content: '';
         display: inline-block;
-        height: 20px;
+        height: 15px;
         line-height: inherit;
         -webkit-mask-image: url('/media/img/icons/chevron-down-solid.svg');
         mask-image: url('/media/img/icons/chevron-down-solid.svg');
@@ -2051,18 +2047,22 @@ h3 {
         mask-repeat: no-repeat;
         -webkit-mask-size: contain;
         mask-size: contain;
-        padding-left: 5px;
+        padding-left: 10px;
         position: relative;
-        top: -1px;
+        transition: transform 0.2s;
         vertical-align: middle;
-        width: 20px;
+        width: 15px;
       }
       &.active:after {
-        -webkit-mask-image: url('/media/img/icons/chevron-up-solid.svg');
-        mask-image: url('/media/img/icons/chevron-up-solid.svg');
+        transform: rotate(180deg);
       }
       &:hover {
         color: var(--color-black);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        &:after {
+          transition: none;
+        }
       }
     }
     & ul.subnav {

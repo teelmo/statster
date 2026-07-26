@@ -5,11 +5,9 @@
   margin: auto;
   max-width: 950px;
   padding-top: 20px;
-
   &.no_heading {
     margin-top: 39px;
   }
-
   & .page_links {
     display: flex;
     flex-basis: 100%;
@@ -19,41 +17,34 @@
     padding: 0 0 0 5px;
     position: relative;
     z-index: 4;
-
     & a {
       color: #fff;
       display: inline-block;
       font-weight: 400;
       margin: 5px 15px 2px 0;
       text-shadow: 0 0 3px #000;
-
       &:hover {
         color: #ccc;
         text-decoration: none;
       }
-
       &.date_filter_submit {
         margin-right: 0;
       }
     }
-
     & .album_love_container,
     & .artist_fan_container {
       flex-grow: 1;
       text-align: right;
       z-index: 1;
     }
-
     & .lds-facebook {
       left: -50px;
       top: 15px;
       z-index: 1;
     }
-
     & .music_date_selector {
       flex-grow: 1;
       text-align: right;
-
       & .date_filter_clear,
       & .date_filter_submit,
       & .month_selector_container,
@@ -68,11 +59,9 @@
         text-shadow: 0 0 3px #000;
         user-select: none;
         vertical-align: sub;
-
         &:hover {
           color: #ccc;
         }
-
         & select {
           background-color: transparent;
           border: 0;
@@ -83,7 +72,6 @@
           font-weight: 300;
           outline: none;
           text-shadow: 0 0 3px #000;
-
           &:hover {
             color: #ccc;
           }
@@ -91,19 +79,16 @@
       }
     }
   }
-
   & .full_container {
     background-color: var(--color-bg-white-left-cont);
     box-sizing: border-box;
     flex: 0 0 100%;
     padding: 0 0 30px 0;
     z-index: 3;
-
     & .container {
       margin: 15px 5px;
     }
   }
-
   & .left_container {
     background-color: var(--color-bg-white-left-cont);
     border-bottom: 1px solid var(--color-gray-light);
@@ -113,17 +98,14 @@
     flex: 0 0 640px;
     padding: 0 0 30px 0;
     z-index: 3;
-
     & .container {
       margin: 15px 5px;
     }
-
     & .left_container_inner {
       float: left;
       margin-top: -15px;
       width: 150px;
     }
-
     & .left_container_outer {
       color: var(--color-gray-dark);
       font-size: 22px;
@@ -132,7 +114,6 @@
       margin-left: 150px;
     }
   }
-
   & .right_container {
     background-color: var(--color-bg-white-alter-right-cont);
     border-top: 1px solid var(--color-gray-light);
@@ -141,7 +122,6 @@
     min-width: 0;
     padding-bottom: 20px;
     z-index: 3;
-
     & .container {
       margin: 7px 8px 15px 15px;
     }

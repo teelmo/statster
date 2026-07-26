@@ -8,12 +8,10 @@
   transition: background 0s;
   width: 100%;
   z-index: 1000;
-
   &.scrolled {
     background-color: var(--color-gray-dark);
     transition: background 0.5s;
   }
-
   & .inner {
     box-sizing: border-box;
     color: var(--color-gray-soft);
@@ -25,23 +23,18 @@
     position: relative;
     vertical-align: middle;
     z-index: 2;
-
     & a {
       color: #fff;
-
       &:hover {
         text-decoration: none;
       }
-
       &:visited {
         color: #fff;
       }
     }
-
     & .mobile {
       display: none;
     }
-
     & .float_left > .meta {
       color: #ccc;
       font-family: 'Poiret One', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -49,22 +42,18 @@
       font-weight: normal;
       letter-spacing: 0.05em;
       padding-left: 2px;
-
       &.mobile {
         padding-left: 5px;
       }
     }
-
     & form,
     & div {
       display: inline-block;
       line-height: 40px;
-
       & input + .lds-ring {
         color: #fff;
       }
     }
-
     & .top_links {
       color: #fff;
       font-size: 18px;
@@ -72,18 +61,15 @@
       margin-top: 1px;
       padding: 0;
       vertical-align: top;
-
       & a {
         display: inline-block;
         margin: 0 10px;
-
         &:hover {
           color: #fff;
           text-decoration: none;
         }
       }
     }
-
     & .user_container {
       user-select: none;
       color: #fff;
@@ -93,11 +79,9 @@
       position: relative;
       vertical-align: top;
       white-space: nowrap;
-
       &:hover {
         color: #ccc;
       }
-
       & .profile_text {
         display: inline-block;
         height: 40px;
@@ -105,12 +89,11 @@
         margin-right: 70px;
         margin-top: 1px;
         vertical-align: top;
-
         &::before {
           background-color: currentColor;
           content: '';
           display: inline-block;
-          height: 40px;
+          height: 15px;
           left: -5px;
           line-height: 40px;
           -webkit-mask-image: url('/media/img/icons/chevron-down-solid.svg');
@@ -122,17 +105,19 @@
           -webkit-mask-size: contain;
           mask-size: contain;
           position: relative;
-          top: 1px;
-          vertical-align: top;
-          width: 20px;
+          transition: transform 0.2s;
+          vertical-align: middle;
+          width: 15px;
         }
       }
-
       &.active .profile_text::before {
-        -webkit-mask-image: url('/media/img/icons/chevron-up-solid.svg');
-        mask-image: url('/media/img/icons/chevron-up-solid.svg');
+        transform: rotate(180deg);
       }
-
+      @media (prefers-reduced-motion: reduce) {
+        & .profile_text::before {
+          transition: none;
+        }
+      }
       & .profile_img {
         border-radius: 32px;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
@@ -144,7 +129,6 @@
         right: 0;
         width: 64px;
         z-index: 3;
-
         &::after {
           border-radius: 32px;
           background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 100%);
@@ -154,12 +138,10 @@
           position: absolute;
           width: 64px;
         }
-
         & img {
           opacity: 0;
         }
       }
-
       & ul.subnav {
         background-color: #000;
         color: #fff;
@@ -173,7 +155,6 @@
         right: -7px;
         top: 38px;
         width: 140px;
-
         & li {
           border-bottom: 1px solid #191919;
           border-top: 1px solid #252525;
@@ -181,7 +162,6 @@
           line-height: 24px;
           margin: 0;
           padding: 0;
-
           & a {
             box-sizing: border-box;
             float: left;
@@ -189,7 +169,6 @@
             padding: 3px 0 3px 10px;
             text-decoration: none;
             width: 100%;
-
             &:hover {
               background-color: #222;
             }
@@ -198,13 +177,11 @@
       }
     }
   }
-
   & .selected_user {
     color: var(--color-white);
     position: absolute;
     right: 0;
     top: 45px;
-
     & a {
       color: var(--color-white);
       font-weight: bold;

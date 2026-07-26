@@ -7,36 +7,28 @@
   position: relative;
   width: 100%;
   z-index: 1;
-
   & a {
     color: #ccc;
-
     &:visited {
       color: #ccc;
     }
   }
-
   & .links:hover a {
     color: #999;
-
     &:hover {
       text-decoration: underline;
     }
-
     &:visited {
       color: #aaa;
     }
   }
-
   & div {
     max-width: 950px;
     margin: auto;
     padding: 0 10px;
-
     &.social_media {
       padding-right: 10px;
       font-size: 14px;
-
       & a {
         display: inline-block;
         margin: 0 2px;
