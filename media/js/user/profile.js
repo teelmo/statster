@@ -681,22 +681,17 @@ Object.assign(view, {
   // (one rejection fails the whole group), so each promise gets a .catch()
   // below to match the original's fault tolerance.
   initProfileEvents: () => {
-    Promise.all([
-      view.getListeningHistory('%Y').catch(() => {}),
-      view.getRecentListenings().catch(() => {}),
-      view.getTopAlbums('<?=$top_album_profile?>').catch(() => {}),
-      view.getTopArtists('<?=$top_artist_profile?>').catch(() => {}),
+    var shoutPromises = [
       view.getShouts().catch(() => {}),
       view.getAlbumShouts().catch(() => {}),
-      view.getArtistShouts().catch(() => {}),
+      view.getArtistShouts().catch(() => {})
+    ];
+    var likePromises = [
       view.recentlyFaned().catch(() => {}),
-      view.recentlyLoved().catch(() => {}),
-      view.getTopFormats('<?=$top_listening_format_profile?>').catch(() => {}),
-      view.getTopGenres('<?=$top_genre_profile?>').catch(() => {}),
-      view.getTopKeywords('<?=$top_keyword_profile?>').catch(() => {}),
-      view.getTopNationalities('<?=$top_nationality_profile?>').catch(() => {}),
-      view.getTopYears('<?=$top_year_profile?>').catch(() => {})
-    ]).then(() => {
+      view.recentlyLoved().catch(() => {})
+    ];
+
+    Promise.all(shoutPromises).then(() => {
       var shoutRows = Array.from(document.querySelectorAll('.shouts tr'));
       if (shoutRows.length === 0) {
         document.querySelector('#shout').innerHTML = `<?=ERR_NO_RESULTS?>`;
@@ -708,7 +703,9 @@ Object.assign(view, {
         });
       }
       document.querySelector('#shoutLoader').style.display = 'none';
+    });
 
+    Promise.all(likePromises).then(() => {
       var likeRows = Array.from(document.querySelectorAll('.likes tr'));
       if (likeRows.length === 0) {
         document.querySelector('#recentlyLiked').innerHTML = `<?=ERR_NO_RESULTS?>`;
@@ -720,6 +717,21 @@ Object.assign(view, {
         });
       }
       document.querySelector('#recentlyLikedLoader').style.display = 'none';
+    });
+
+    Promise.all([
+      view.getListeningHistory('%Y').catch(() => {}),
+      view.getRecentListenings().catch(() => {}),
+      view.getTopAlbums('<?=$top_album_profile?>').catch(() => {}),
+      view.getTopArtists('<?=$top_artist_profile?>').catch(() => {}),
+      ...shoutPromises,
+      ...likePromises,
+      view.getTopFormats('<?=$top_listening_format_profile?>').catch(() => {}),
+      view.getTopGenres('<?=$top_genre_profile?>').catch(() => {}),
+      view.getTopKeywords('<?=$top_keyword_profile?>').catch(() => {}),
+      view.getTopNationalities('<?=$top_nationality_profile?>').catch(() => {}),
+      view.getTopYears('<?=$top_year_profile?>').catch(() => {})
+    ]).then(() => {
       if (cumulative_done === false) {
         view.getListeningCumulation();
       }

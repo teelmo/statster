@@ -2,6 +2,13 @@
 if (!empty($json_data)) {
   $size = isset($size) ? $size : 32;
   if (is_array($json_data)) {
+    $image_requests = array();
+    foreach ($json_data as $idx => $row) {
+      $image_requests[] = isset($row['album_name'])
+        ? array('type' => 'album', 'size' => $size, 'id' => $row['album_id'])
+        : array('type' => 'artist', 'size' => $size, 'id' => $row['artist_id']);
+    }
+    prefetchImagePaths($image_requests);
     foreach ($json_data as $idx => $row) {
       ?>
       <tr data-created="<?=$row['created']?>">
