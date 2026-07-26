@@ -40,7 +40,7 @@ function ajax(opts) {
         if (isJson && text) {
           try {
             payload = JSON.parse(text);
-          } catch (err) {
+          } catch {
             console.error('ajax: expected JSON, got unparseable response:', url, text);
           }
         }
@@ -86,7 +86,9 @@ function ajaxAppend(params, value, prefix) {
     // Explicit indices, not bare key[] - PHP splits key[][a]=1&key[][b]=2 into
     // two SEPARATE elements ({a:1} and {b:2}) instead of one ({a:1,b:2}), since
     // [] means "next new element" independently at each occurrence.
-    value.forEach((v, i) => ajaxAppend(params, v, `${prefix}[${i}]`));
+    value.forEach((v, i) => {
+      ajaxAppend(params, v, `${prefix}[${i}]`);
+    });
   } else if (value !== null && typeof value === 'object') {
     Object.keys(value).forEach(key => {
       ajaxAppend(params, value[key], prefix === null ? key : `${prefix}[${key}]`);

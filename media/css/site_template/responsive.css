@@ -13,7 +13,6 @@
     }
   }
   .main_container {
-    background-color: var(--color-bg-white);
     background-color: var(--color-bg-footer);
     & .page_links {
       box-sizing: border-box;
@@ -133,24 +132,25 @@
   div.footer {
     font-size: 10px;
   }
-  .profile_img,
   .statster_year,
-  .album_year,
   .artist,
   .format,
   .love,
   .external_link,
   .social_media {
-    display: none !important;
+    display: none;
   }
-  .profile_text {
-    margin-right: 5px !important;
+  div.cover .album_year {
+    display: none;
+  }
+  .top_container .inner .user_container .profile_text {
+    margin-right: 5px;
   }
   div.left_container div.left_containerInner {
     display: none;
   }
   div.left_container div.left_containerOuter {
-    margin-left: 0 !important;
+    margin-left: 0;
   }
   div.container {
     margin: 7px 5px 15px;

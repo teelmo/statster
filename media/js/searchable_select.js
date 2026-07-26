@@ -104,7 +104,9 @@ function initSearchableSelect(selectEl) {
   }
 
   function renderChips() {
-    chipsContainer.querySelectorAll('.searchable_select_chip').forEach(el => el.remove());
+    chipsContainer.querySelectorAll('.searchable_select_chip').forEach(el => {
+      el.remove();
+    });
     if (!multiple) {
       return;
     }
@@ -145,7 +147,9 @@ function initSearchableSelect(selectEl) {
     } else {
       activeIndex = (activeIndex + delta + results.length) % results.length;
     }
-    results.forEach(el => el.classList.remove('active'));
+    results.forEach(el => {
+      el.classList.remove('active');
+    });
     results[activeIndex].classList.add('active');
     results[activeIndex].scrollIntoView({ block: 'nearest' });
   }

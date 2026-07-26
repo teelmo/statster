@@ -2206,7 +2206,9 @@ h3 {
             }
             &.first-date-selected,
             &.last-date-selected {
+              /* biome-ignore lint/complexity/noImportantStyles: daterangepicker.min.css sets these same two properties !important on this exact selector - no specificity can beat a vendor !important, only another !important can */
               background-color: #000 !important;
+              /* biome-ignore lint/complexity/noImportantStyles: see above */
               color: #fff !important;
             }
             &.real-today.toMonth {

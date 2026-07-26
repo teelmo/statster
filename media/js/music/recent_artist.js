@@ -346,7 +346,7 @@ Object.assign(view, {
         }
         var rowId = target.dataset.rowId;
         var row = document.querySelector(`#${rowId}`);
-        if (row && row.classList.contains('just_added')) {
+        if (row?.classList.contains('just_added')) {
           document.querySelectorAll('tr').forEach(el => {
             el.classList.remove('just_added_rest');
           });

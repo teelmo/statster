@@ -128,7 +128,7 @@ function initAutocomplete(inputEl, options) {
     activeIndex = index;
     if (index >= 0) {
       var li = dropdown.querySelector(`li[data-index="${index}"]`);
-      var a = li && li.querySelector('a');
+      var a = li?.querySelector('a');
       if (a) {
         a.classList.add('ui-state-active');
         li.scrollIntoView({ block: 'nearest' });
