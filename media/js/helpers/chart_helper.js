@@ -113,7 +113,6 @@ Object.assign(view, {
     svg.setAttribute('class', 'peity');
     svg.setAttribute('width', width);
     svg.setAttribute('height', height);
-    svg.style.display = 'none';
 
     var polyline = document.createElementNS(svgNS, 'polyline');
     polyline.setAttribute('points', points);
@@ -123,9 +122,15 @@ Object.assign(view, {
 
     el.style.display = 'none';
     el.insertAdjacentElement('afterend', svg);
-    // Note: jQuery's fadeIn(1000) animated this; plain display toggle drops
-    // the animation but keeps the same end state.
-    svg.style.display = '';
+    // Mirrors the old peity's jQuery fadeIn(1000): the "visible" class carries
+    // the CSS opacity transition (base.css), added on the next tick so the
+    // browser has painted the initial opacity:0 state before it starts.
+    // setTimeout, not requestAnimationFrame - rAF is paused entirely for
+    // backgrounded/hidden tabs, which would leave the sparkline invisible
+    // for as long as the tab stays unfocused.
+    setTimeout(() => {
+      svg.classList.add('visible');
+    }, 0);
   },
   initGraph: data => {
     if (data[data.length - 1].cumulative_count !== '1') {

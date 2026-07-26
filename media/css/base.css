@@ -1822,8 +1822,18 @@ h3 {
     float: right;
     position: relative;
     vertical-align: bottom;
-    &.peity polyline {
-      stroke: var(--color-yellow-dark);
+    &.peity {
+      opacity: 0;
+      transition: opacity 1s;
+      &.visible {
+        opacity: 1;
+      }
+      & polyline {
+        stroke: var(--color-yellow-dark);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
     }
   }
   & .quick_add_listening,
