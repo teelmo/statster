@@ -226,6 +226,21 @@ function initAutocomplete(inputEl, options) {
     }
   });
 
+  // mousemove (not mouseenter/mouseover) so a stationary mouse never fights
+  // a keyboard-driven setActive() - the hovered row only takes over active
+  // state again once the pointer actually moves, matching jQuery UI's
+  // original combined mouse/keyboard focus behavior.
+  dropdown.addEventListener('mousemove', event => {
+    var li = event.target.closest('li[data-index]');
+    if (!li) {
+      return;
+    }
+    var index = parseInt(li.dataset.index, 10);
+    if (index !== activeIndex) {
+      setActive(index);
+    }
+  });
+
   // mousedown (not click) fires before the input's blur, so a selection is
   // registered before any blur-driven cleanup runs.
   dropdown.addEventListener('mousedown', event => {
