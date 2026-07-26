@@ -1,6 +1,6 @@
-@import './libs/reset.css';
-@import './libs/jquery.autocomplete.css';
-@import './libs/daterangepicker.min.css';
+@import '/media/css/libs/reset.css';
+@import '/media/css/libs/jquery.autocomplete.css';
+@import '/media/css/libs/daterangepicker.min.css';
 /* Icon styles */
 .mask-icon {
   background-color: currentColor;
