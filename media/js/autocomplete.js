@@ -99,15 +99,6 @@ function initAutocomplete(inputEl, options) {
     activeIndex = -1;
   }
 
-  function positionDropdown() {
-    if (dropdownId === 'ui-id-1') {
-      dropdown.style.left = `${inputEl.getBoundingClientRect().left}px`;
-    } else {
-      dropdown.style.top = '100%';
-      dropdown.style.left = '0';
-    }
-  }
-
   function setActive(index) {
     var lis = dropdown.querySelectorAll('li[data-index]');
     lis.forEach(li => {
@@ -149,7 +140,6 @@ function initAutocomplete(inputEl, options) {
       return;
     }
     dropdown.classList.toggle('hidden');
-    positionDropdown();
   }
 
   function fetchResults() {

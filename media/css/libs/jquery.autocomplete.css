@@ -8,12 +8,12 @@ ul.ui-autocomplete {
   max-height: 450px;
   overflow-x: hidden;
   padding: 0;
+  position: absolute;
   white-space: nowrap;
   z-index: 100000;
   &#ui-id-1 {
     max-width: 350px;
     min-width: 350px;
-    position: fixed;
     top: 40px;
     width: calc(100%);
   }

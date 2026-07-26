@@ -98,65 +98,63 @@ Object.assign(view, {
       view.getRecentListenings();
     });
     // Note: the original bound these same three delegated handlers on both
-    // 'html' and 'body' (a two-element jQuery selection), so each fired
-    // twice per matching click - preserved here via two separate roots
-    // rather than collapsing to one.
-    [document.querySelector('html'), document.querySelector('body')].forEach(root => {
-      root.addEventListener('click', event => {
-        var target = event.target.closest('span.delete');
-        if (!target) {
-          return;
-        }
-        var container = document.querySelector(target.dataset.confirmationContainer);
-        if (container) {
-          container.classList.remove('hidden');
-        }
-      });
-      root.addEventListener('click', event => {
-        var target = event.target.closest('a.cancel');
-        if (!target) {
-          return;
-        }
-        target.closest('div').classList.add('hidden');
-      });
-      root.addEventListener('click', event => {
-        var target = event.target.closest('a.confirm');
-        if (!target) {
-          return;
-        }
-        var rowId = target.dataset.rowId;
-        ajax({
-          statusCode: {
-            200: () => {
-              // 200 OK
-              // Note: jQuery's fadeOut('slow') animated this; plain remove
-              // drops the animation but keeps the same end state.
-              var row = document.querySelector(`#${rowId}`);
-              if (row) {
-                if (row.classList.contains('just_added')) {
-                  document.querySelectorAll('tr').forEach(el => {
-                    el.classList.remove('just_added_rest');
-                  });
-                }
-                row.remove();
+    // 'html' and 'body' (a two-element jQuery selection) - since a click
+    // bubbles through both, each handler fired twice per click, double-
+    // submitting the confirm delete request. Bound once on document instead.
+    document.addEventListener('click', event => {
+      var target = event.target.closest('span.delete');
+      if (!target) {
+        return;
+      }
+      var container = document.querySelector(target.dataset.confirmationContainer);
+      if (container) {
+        container.classList.remove('hidden');
+      }
+    });
+    document.addEventListener('click', event => {
+      var target = event.target.closest('a.cancel');
+      if (!target) {
+        return;
+      }
+      target.closest('div').classList.add('hidden');
+    });
+    document.addEventListener('click', event => {
+      var target = event.target.closest('a.confirm');
+      if (!target) {
+        return;
+      }
+      var rowId = target.dataset.rowId;
+      ajax({
+        statusCode: {
+          200: () => {
+            // 200 OK
+            // Note: jQuery's fadeOut('slow') animated this; plain remove
+            // drops the animation but keeps the same end state.
+            var row = document.querySelector(`#${rowId}`);
+            if (row) {
+              if (row.classList.contains('just_added')) {
+                document.querySelectorAll('tr').forEach(el => {
+                  el.classList.remove('just_added_rest');
+                });
               }
-            },
-            400: () => {
-              // 400 Bad Request
-              alert('400 Bad Request');
-            },
-            401: () => {
-              // 401 Unauthorized
-              alert('401 Unauthorized');
-            },
-            404: () => {
-              // 404 Not found
-              alert('404 Not Found');
+              row.remove();
             }
           },
-          type: 'POST',
-          url: `/api/listening/delete/${target.dataset.listeningId}`
-        });
+          400: () => {
+            // 400 Bad Request
+            alert('400 Bad Request');
+          },
+          401: () => {
+            // 401 Unauthorized
+            alert('401 Unauthorized');
+          },
+          404: () => {
+            // 404 Not found
+            alert('404 Not Found');
+          }
+        },
+        type: 'POST',
+        url: `/api/listening/delete/${target.dataset.listeningId}`
       });
     });
   }
