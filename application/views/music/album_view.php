@@ -18,7 +18,7 @@
           <?php
           echo $album_name;
           if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
-            echo anchor(array('admin', 'album', $album_id . '?artist=' . $artist_name), '<span class="fa fa-pen-square"></span>');
+            echo anchor(array('admin', 'album', $album_id . '?artist=' . $artist_name), '<span class="mask-icon mask-icon-pen-square"></span>');
           }
           ?>
         </h1>
@@ -63,7 +63,7 @@
           <span class="user_value"><span class="value number"><span class="<?=($per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year_user?>"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('album' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
           <span id="love" class="like_toggle"><div class="lds-facebook" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
           <span id="quick_add_listening" class="quick_add_listening">
-            <span class="fa fa-plus-square"></span>
+            <span class="mask-icon mask-icon-plus-square"></span>
             <ul class="subnav">
               <?php
               foreach(unserialize($this->session->formats) as $key => $format) {

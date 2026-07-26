@@ -64,7 +64,7 @@ if (!empty($json_data)) {
             if (empty($hide['del'])) {
               if ($this->session->userdata('user_id') === $row['user_id']) {
                 ?>
-                <span class="delete" data-confirmation-container=".confirmation_<?=$idx?>"><a href="javascript:;"><i class="fa fa-times"></i></a></span>
+                <span class="delete" data-confirmation-container=".confirmation_<?=$idx?>"><a href="javascript:;"><i class="mask-icon mask-icon-times"></i></a></span>
                 <div class="confirmation confirmation_<?=$idx?>">Are you sure: <a href="javascript:;" class="confirm" data-listening-id="<?=$row['listening_id']?>" data-row-id="musicTable<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
                 <?php
               }

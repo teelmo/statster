@@ -45,7 +45,7 @@ if (!empty($json_data)) {
           ?>
         </td>
         <td class="type">
-          <i class="fa fa-<?=$row['type']?>"></i>
+          <i class="mask-icon mask-icon-<?=($row['type'] === 'artist') ? 'microphone' : 'music'?>"></i>
         </td>
       </tr>
       <?php

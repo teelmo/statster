@@ -17,19 +17,19 @@
                 break;
               case 'genre':
                 ?>
-                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['name'])), '<i class="fa fa-music"></i> ' . $value['name'])?>
+                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['name'])), '<i class="mask-icon mask-icon-music"></i> ' . $value['name'])?>
                 </li>
                 <?php
                 break;
               case 'keyword':
                 ?>
-                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['name'])), '<i class="fa fa-tag"></i> ' . $value['name'])?>
+                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['name'])), '<i class="mask-icon mask-icon-tag"></i> ' . $value['name'])?>
                 </li>
                 <?php
                 break;
               case 'year':
                 ?>
-                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['year'])), '<i class="fa fa-hashtag"></i> ' . $value['year'])?>
+                <li class="tag <?=$tag_type?>"><?=anchor(array($tag_type, url_title($value['year'])), '<i class="mask-icon mask-icon-hashtag"></i> ' . $value['year'])?>
                 </li>
                 <?php
                 break;

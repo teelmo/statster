@@ -107,22 +107,30 @@
         vertical-align: top;
 
         &::before {
-          content: '\f0d7';
+          background-color: currentColor;
+          content: '';
           display: inline-block;
-          font-family: 'Font Awesome 5 Free';
-          font-size: 20px;
-          font-weight: 900;
           height: 40px;
           left: -5px;
           line-height: 40px;
+          -webkit-mask-image: url('/media/img/icons/chevron-down-solid.svg');
+          mask-image: url('/media/img/icons/chevron-down-solid.svg');
+          -webkit-mask-position: center;
+          mask-position: center;
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: contain;
+          mask-size: contain;
           position: relative;
           top: 1px;
           vertical-align: top;
+          width: 20px;
         }
       }
 
       &.active .profile_text::before {
-        content: '\f0d8';
+        -webkit-mask-image: url('/media/img/icons/chevron-up-solid.svg');
+        mask-image: url('/media/img/icons/chevron-up-solid.svg');
       }
 
       & .profile_img {

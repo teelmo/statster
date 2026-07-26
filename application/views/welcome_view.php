@@ -47,7 +47,7 @@
         </tr>
         <tr>
           <td class="img32 tag_img">
-            <?=($top_genre['count'] !== 0) ? '<i class="fa fa-music"></i>' : ''?>
+            <?=($top_genre['count'] !== 0) ? '<i class="mask-icon mask-icon-music"></i>' : ''?>
           </td>
           <td class="title">
             <?=($top_genre['count'] !== 0) ? anchor(array('genre', url_title($top_genre['name'])), $top_genre['name']) : ''?>
@@ -56,7 +56,7 @@
         </tr>
         <tr>
           <td class="img32 tag_img">
-            <?=($top_nationality['count'] !== 0) ? '<i class="fa fa-flag"></i>' : ''?>
+            <?=($top_nationality['count'] !== 0) ? '<i class="mask-icon mask-icon-flag"></i>' : ''?>
           </td>
           <td class="title">
             <?=($top_nationality['count'] !== 0) ? anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name']) : ''?>
@@ -65,7 +65,7 @@
         </tr>
         <tr>
           <td class="img32 tag_img">
-            <?=($top_year['count'] !== 0) ? '<i class="fa fa-hashtag"></i>' : ''?>
+            <?=($top_year['count'] !== 0) ? '<i class="mask-icon mask-icon-hashtag"></i>' : ''?>
           </td>
           <td class="title">
             <?=($top_year['count'] !== 0) ? anchor(array('year', url_title($top_year['year'])), $top_year['year']) : ''?>

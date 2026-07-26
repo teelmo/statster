@@ -72,8 +72,8 @@
       <span class="day_selector_container"><select class="day_selector"><option value="">Day</option><option value="" disabled="disabled">-----</option></select></span>
       <span class="weekday_selector_container"><select class="weekday_selector"><option value="">Weekday</option><option value="" disabled="disabled">-----</option></select></span>
       <span class="date_range_container"><span class="date_range_picker"><?=($from !== '1970-00-00') ? $from . ' to ' . $to : 'All time'?></span></span>
-      <a class="date_filter_submit" href="javascript:;"><span class="fa fa-calendar-alt"></span></a>
-      <span class="date_filter_clear"><span class="fa fa-times"></span></span>
+      <a class="date_filter_submit" href="javascript:;"><span class="mask-icon mask-icon-calendar-alt"></span></a>
+      <span class="date_filter_clear"><span class="mask-icon mask-icon-times"></span></span>
       <div class="calendar_container"></div>
     </div>
   </div>
