@@ -311,7 +311,11 @@ if (!function_exists('getImagePath')) {
         // background-image: url(...) containing a raw newline is silently
         // rejected by the browser, so the image never even loads instead of
         // just looking odd.
-        $cache[$key] = trim((string) @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']));
+        // A stream timeout matches prefetchImagePaths()'s curl timeout - with
+        // none set here, an unresponsive IMAGE_SERVER would hang this request
+        // for PHP's default_socket_timeout (60s) instead of failing fast.
+        $context = stream_context_create(array('http' => array('timeout' => 3)));
+        $cache[$key] = trim((string) @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id'], FALSE, $context));
       }
       return $cache[$key];
     }
@@ -374,7 +378,7 @@ if (!function_exists('prefetchImagePaths')) {
         $url = IMAGE_SERVER . 'getImage.php?size=' . $request['size'] . '&type=' . $request['type'] . '&id=' . $request['id'];
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
         curl_multi_add_handle($multi, $ch);
         $handles[$key] = $ch;
       }
