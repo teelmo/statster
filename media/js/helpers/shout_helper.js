@@ -71,7 +71,11 @@ Object.assign(view, {
         });
       });
     });
-    document.querySelector('#shoutSubmit').addEventListener('click', () => {
+    var shoutSubmit = document.querySelector('#shoutSubmit');
+    if (!shoutSubmit) {
+      return;
+    }
+    shoutSubmit.addEventListener('click', () => {
       var text_value = document.querySelector('#shoutText').value.trim();
       if (text_value === '') {
         return;
