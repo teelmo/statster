@@ -1,0 +1,190 @@
+/* Artist album and user page infos */
+.like_toggle {
+  cursor: pointer;
+  float: right;
+  left: 9px;
+  position: relative;
+  top: 9px;
+  & .lds-facebook {
+    display: inline;
+    left: 20px;
+    top: 3px;
+  }
+  & .like_msg {
+    color: var(--color-gray-dark);
+    display: inline-block;
+    font-size: 10px;
+    opacity: 0.7;
+    padding-left: 26px;
+    position: absolute;
+    top: 2px;
+    width: 130px;
+  }
+  &.love_add {
+    &:after {
+      background-color: currentColor;
+      content: '';
+      display: inline-block;
+      height: 16px;
+      -webkit-mask-image: url('/media/img/icons/heart-regular.svg');
+      mask-image: url('/media/img/icons/heart-regular.svg');
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      width: 16px;
+    }
+    &:hover {
+      color: var(--color-red);
+      &:after {
+        -webkit-mask-image: url('/media/img/icons/heart-solid.svg');
+        mask-image: url('/media/img/icons/heart-solid.svg');
+      }
+    }
+  }
+  &.love_del {
+    color: var(--color-red);
+    &:after {
+      background-color: currentColor;
+      content: '';
+      display: inline-block;
+      height: 16px;
+      -webkit-mask-image: url('/media/img/icons/heart-solid.svg');
+      mask-image: url('/media/img/icons/heart-solid.svg');
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      width: 16px;
+    }
+    &:hover:after {
+      -webkit-mask-image: url('/media/img/icons/heart-regular.svg');
+      mask-image: url('/media/img/icons/heart-regular.svg');
+    }
+  }
+  &.fan_add {
+    &:after {
+      background-color: currentColor;
+      content: '';
+      display: inline-block;
+      height: 16px;
+      -webkit-mask-image: url('/media/img/icons/star-regular.svg');
+      mask-image: url('/media/img/icons/star-regular.svg');
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      width: 16px;
+    }
+    &:hover {
+      color: var(--color-yellow);
+      &:after {
+        -webkit-mask-image: url('/media/img/icons/star-solid.svg');
+        mask-image: url('/media/img/icons/star-solid.svg');
+      }
+    }
+  }
+  &.fan_del {
+    color: var(--color-yellow);
+    &:after {
+      background-color: currentColor;
+      content: '';
+      display: inline-block;
+      height: 16px;
+      -webkit-mask-image: url('/media/img/icons/star-solid.svg');
+      mask-image: url('/media/img/icons/star-solid.svg');
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      width: 16px;
+    }
+    &:hover:after {
+      -webkit-mask-image: url('/media/img/icons/star-regular.svg');
+      mask-image: url('/media/img/icons/star-regular.svg');
+    }
+  }
+}
+.quick_add_listening {
+  & ul {
+    text-transform: none;
+    & li .icon {
+      margin-right: 5px;
+    }
+  }
+  & span {
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    font-size: 16px;
+    left: 9px;
+    margin-right: 5px;
+    position: relative;
+    text-transform: none;
+    top: 9px;
+  }
+}
+#artistBio p.content {
+  display: none;
+}
+/* User profile similarity */
+.similarity_info {
+  background-color: transparent;
+  padding-bottom: 30px;
+  & .simililarity_image {
+    position: relative;
+    & svg {
+      height: 54px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 54px;
+      & path {
+        stroke: rgba(182, 192, 191, 0.5);
+      }
+      & .similarity_path {
+        animation: progress 3s ease-out forwards;
+        stroke: var(--color-accent);
+      }
+    }
+    & .user_similarity_img {
+      border-radius: 20px;
+      background-color: var(--color-white);
+      border: 2px solid var(--color-white);
+      display: inline-block;
+      float: left;
+      left: 5px;
+      position: relative;
+      top: 5px;
+      &:after {
+        border-radius: 20px;
+      }
+    }
+  }
+  & .similarity_text {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    margin-left: 70px;
+    padding-top: 4px;
+    text-shadow: 0 0 1px #000;
+    & a,
+    & .text {
+      font-weight: 400;
+    }
+  }
+}
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+}

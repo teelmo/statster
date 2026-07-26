@@ -110,13 +110,13 @@
           width: 15px;
         }
       }
-      &.active .profile_text::before {
-        transform: scaleY(-1);
-      }
       @media (prefers-reduced-motion: reduce) {
         & .profile_text::before {
           transition: none;
         }
+      }
+      &.active .profile_text::before {
+        transform: scaleY(-1);
       }
       & .profile_img {
         border-radius: 32px;

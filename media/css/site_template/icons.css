@@ -1,0 +1,92 @@
+@import './libs/reset.css';
+@import './libs/jquery.autocomplete.css';
+@import './libs/daterangepicker.min.css';
+/* Icon styles */
+.mask-icon {
+  background-color: currentColor;
+  display: inline-block;
+  height: 1em;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  width: 1em;
+}
+.mask-icon-bars {
+  -webkit-mask-image: url('/media/img/icons/bars-solid.svg');
+  mask-image: url('/media/img/icons/bars-solid.svg');
+}
+.mask-icon-calendar-alt {
+  -webkit-mask-image: url('/media/img/icons/calendar-alt-solid.svg');
+  mask-image: url('/media/img/icons/calendar-alt-solid.svg');
+}
+.mask-icon-chevron-down {
+  -webkit-mask-image: url('/media/img/icons/chevron-down-solid.svg');
+  mask-image: url('/media/img/icons/chevron-down-solid.svg');
+}
+.mask-icon-flag {
+  -webkit-mask-image: url('/media/img/icons/flag-solid.svg');
+  mask-image: url('/media/img/icons/flag-solid.svg');
+}
+.mask-icon-hashtag {
+  -webkit-mask-image: url('/media/img/icons/hashtag-solid.svg');
+  mask-image: url('/media/img/icons/hashtag-solid.svg');
+}
+.mask-icon-heart-regular {
+  -webkit-mask-image: url('/media/img/icons/heart-regular.svg');
+  mask-image: url('/media/img/icons/heart-regular.svg');
+}
+.mask-icon-heart-solid {
+  -webkit-mask-image: url('/media/img/icons/heart-solid.svg');
+  mask-image: url('/media/img/icons/heart-solid.svg');
+}
+.mask-icon-microphone {
+  -webkit-mask-image: url('/media/img/icons/microphone-solid.svg');
+  mask-image: url('/media/img/icons/microphone-solid.svg');
+}
+.mask-icon-music {
+  -webkit-mask-image: url('/media/img/icons/music-solid.svg');
+  mask-image: url('/media/img/icons/music-solid.svg');
+}
+.mask-icon-pen-square {
+  -webkit-mask-image: url('/media/img/icons/pen-square-solid.svg');
+  mask-image: url('/media/img/icons/pen-square-solid.svg');
+}
+.mask-icon-play-circle {
+  -webkit-mask-image: url('/media/img/icons/play-circle-solid.svg');
+  mask-image: url('/media/img/icons/play-circle-solid.svg');
+}
+.mask-icon-plus-circle {
+  -webkit-mask-image: url('/media/img/icons/plus-circle-solid.svg');
+  mask-image: url('/media/img/icons/plus-circle-solid.svg');
+}
+.mask-icon-plus-square {
+  -webkit-mask-image: url('/media/img/icons/plus-square-solid.svg');
+  mask-image: url('/media/img/icons/plus-square-solid.svg');
+}
+.mask-icon-search {
+  -webkit-mask-image: url('/media/img/icons/search-solid.svg');
+  mask-image: url('/media/img/icons/search-solid.svg');
+}
+.mask-icon-star-regular {
+  -webkit-mask-image: url('/media/img/icons/star-regular.svg');
+  mask-image: url('/media/img/icons/star-regular.svg');
+}
+.mask-icon-star-solid {
+  -webkit-mask-image: url('/media/img/icons/star-solid.svg');
+  mask-image: url('/media/img/icons/star-solid.svg');
+}
+.mask-icon-sync-alt {
+  -webkit-mask-image: url('/media/img/icons/sync-alt-solid.svg');
+  mask-image: url('/media/img/icons/sync-alt-solid.svg');
+}
+.mask-icon-tag {
+  -webkit-mask-image: url('/media/img/icons/tag-solid.svg');
+  mask-image: url('/media/img/icons/tag-solid.svg');
+}
+.mask-icon-times {
+  -webkit-mask-image: url('/media/img/icons/times-solid.svg');
+  mask-image: url('/media/img/icons/times-solid.svg');
+}

@@ -1,0 +1,44 @@
+/* Other */
+hr {
+  border: 0;
+  border-bottom: 1px dotted var(--color-gray-medium);
+  color: var(--color-gray-medium);
+  height: 1px;
+  opacity: 0.3;
+  text-align: left;
+  width: 100%;
+}
+.hidden {
+  display: none;
+}
+.middle {
+  vertical-align: middle;
+}
+.text_left {
+  text-align: left;
+}
+.text_right {
+  text-align: right;
+}
+.float_left {
+  float: left;
+}
+.float_right {
+  float: right;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.clear {
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+  &:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+}

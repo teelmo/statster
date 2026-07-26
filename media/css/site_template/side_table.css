@@ -1,0 +1,146 @@
+/* Side Table */
+table.side_table {
+  & tr td {
+    padding: 2px 0;
+    vertical-align: middle;
+    &.img32 {
+      width: 32px;
+      & .album_img,
+      & .user_img {
+        width: 32px;
+      }
+      & .artist_img,
+      & .user_img {
+        border-radius: 16px;
+        &:after {
+          border-radius: 16px;
+        }
+      }
+      &.tag_img {
+        color: var(--color-accent);
+        font-size: 24px;
+        text-align: center;
+      }
+    }
+    &.img64 {
+      width: 64px;
+      &.tag_img {
+        color: var(--color-accent);
+        font-size: 38px;
+        text-align: center;
+      }
+      & .artist_img,
+      & .user_img {
+        border-radius: 32px;
+        &:after {
+          border-radius: 32px;
+        }
+      }
+    }
+    &.rank,
+    &.type {
+      padding-right: 5px;
+      text-align: center;
+      vertical-align: middle;
+      & .rank {
+        background-color: var(--color-black-alter);
+        border-radius: 10px;
+        color: var(--color-white);
+        display: inline-block;
+        font-size: 12px;
+        height: 20px;
+        line-height: 20px;
+        margin-top: 2px;
+        text-align: center;
+        vertical-align: middle;
+        width: 20px;
+      }
+    }
+    &.type {
+      font-size: 14px;
+    }
+    &.title {
+      padding-left: 5px;
+      width: 100%;
+      & .album_year {
+        color: var(--color-gray-mid);
+        font-size: 11px;
+      }
+      & .artist_name {
+        font-size: 11px;
+        line-height: 12px;
+      }
+      & .spotify_link {
+        display: none;
+        margin-right: 3px;
+        text-decoration: none;
+        & .spotify_container {
+          &:after {
+            background-color: var(--color-gray-mid);
+            content: '';
+            display: inline-block;
+            height: 16px;
+            margin-top: 1px;
+            -webkit-mask-image: url('/media/img/icons/play-circle-solid.svg');
+            mask-image: url('/media/img/icons/play-circle-solid.svg');
+            -webkit-mask-position: center;
+            mask-position: center;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            position: relative;
+            top: 1px;
+            width: 16px;
+            z-index: 5;
+          }
+          &:hover:after {
+            background-color: var(--color-black);
+          }
+        }
+      }
+    }
+    &.calendar {
+      font-size: 11px;
+      padding-right: 2px;
+      width: 30px;
+      & .month {
+        background-color: #000;
+        border: 1px solid var(--color-gray-light);
+        border-bottom: 0;
+        color: #fff;
+        display: inline-block;
+        margin-top: 2px;
+        padding-bottom: 1px;
+        text-align: center;
+        width: 25px;
+      }
+      & .day {
+        background-color: #fff;
+        border: 1px solid var(--color-gray-light);
+        color: #000;
+        display: inline-block;
+        line-height: 1.1em;
+        padding: 0;
+        text-align: center;
+        width: 25px;
+      }
+    }
+  }
+}
+.left_container table.side_table tr {
+  & td.rank {
+    padding-left: 5px;
+  }
+  &:nth-child(2n) {
+    background-color: var(--color-bg-white-alter);
+  }
+  &:nth-child(2n + 1) {
+    background-color: var(--transparent);
+  }
+}
+table.year_table tr td {
+  border-bottom: 1px solid var(--color-gray-soft);
+  font-size: 14px;
+  padding-top: 5px;
+}

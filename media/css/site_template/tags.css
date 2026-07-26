@@ -1,0 +1,67 @@
+/* Tag styles */
+#artists,
+#tags {
+  padding-bottom: 10px;
+  & .meta {
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  & .tag {
+    display: inline-block;
+    font-size: 0;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    & a,
+    & a:visited {
+      color: #fff;
+      &:hover {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+    &.addtags,
+    &.genre,
+    &.nationality,
+    &.year,
+    &.keyword {
+      & > a {
+        background-color: #333;
+        display: inline-block;
+        font-size: 10px;
+        margin-bottom: 2px;
+        padding: 4px;
+      }
+      &:hover a {
+        background-color: #000;
+        display: inline-block;
+      }
+    }
+    &.nationality {
+      background-color: var(--transparent);
+      position: relative;
+      top: 2px;
+      & > a {
+        background-color: var(--transparent);
+        &:hover {
+          background-color: var(--transparent);
+        }
+        &.remove {
+          position: relative;
+          top: -2px;
+        }
+      }
+      &:hover a {
+        background-color: var(--transparent);
+      }
+    }
+  }
+}
+#tagAdd {
+  display: inline-block;
+  max-width: 450px;
+  position: relative;
+  width: 100%;
+}

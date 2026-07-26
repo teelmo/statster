@@ -1,0 +1,216 @@
+/* List styles */
+ul {
+  &.no_bullets {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  &.music_list {
+    color: var(--color-black-alter);
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    & .play_count {
+      display: inline-block;
+      margin-top: 3px;
+    }
+    & li {
+      position: relative;
+      &.album {
+        > a {
+          height: 152px;
+          width: 152px;
+        }
+      }
+      &.artist {
+        > a {
+          height: 110px;
+          width: 152px;
+        }
+      }
+      > a {
+        display: inline-block;
+        position: absolute;
+        z-index: 2;
+      }
+      .cover {
+        display: block;
+        width: 150px;
+        span {
+          display: block;
+        }
+      }
+      &.hover {
+        .cover:after {
+          opacity: 0;
+          transition: opacity 0.5s;
+        }
+      }
+      & .meta {
+        color: #fff;
+        font-size: 11px;
+        font-weight: 400;
+        left: 7px;
+        letter-spacing: 0.01em;
+        padding-right: 5px;
+        position: absolute;
+        text-shadow:
+          0 0 1px rgba(0, 0, 0, 1),
+          0 0 1px rgba(0, 0, 0, 1),
+          0 0 1px rgba(0, 0, 0, 1),
+          0 0 1px rgba(0, 0, 0, 1);
+        z-index: 4;
+        & a {
+          color: #fff;
+        }
+        & .main {
+          font-size: 14px;
+        }
+      }
+      &.album,
+      &.artist {
+        & .meta {
+          bottom: 5px;
+        }
+      }
+      &.hover .main a {
+        text-decoration: underline;
+      }
+    }
+    &.music_list_64 li {
+      display: inline-block;
+      margin: 0 9px 0 0;
+      overflow: visible;
+      vertical-align: top;
+      width: 70px;
+    }
+    &.music_list_124 li {
+      display: inline-block;
+      margin: 0 0 20px;
+      overflow: visible;
+      vertical-align: top;
+      width: 130px;
+    }
+    &.music_list_150 li {
+      box-sizing: border-box;
+      display: inline-block;
+      margin: 0 0 20px;
+      overflow: visible;
+      vertical-align: top;
+      width: 152px;
+    }
+  }
+  &.user_list.user_list_150 li {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0 0 3px;
+    overflow: visible;
+    vertical-align: top;
+    width: 150px;
+  }
+  &.album_list,
+  &.artist_list {
+    font-size: 0;
+    margin: 0 0 20px;
+    & li {
+      box-sizing: border-box;
+      color: var(--color-black);
+      display: inline-block;
+      margin: 0;
+      overflow: visible;
+      position: relative;
+      vertical-align: top;
+      & .icon {
+        height: 20px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        width: 20px;
+      }
+      & .meta {
+        bottom: 5px;
+        color: #fff;
+        font-size: 12px;
+        left: 5px;
+        line-height: 18px;
+        margin: 0;
+        position: absolute;
+        text-shadow:
+          0 0 1px rgba(0, 0, 0, 1),
+          0 0 1px rgba(0, 0, 0, 1),
+          0 0 1px rgba(0, 0, 0, 1),
+          0 0 1px rgba(0, 0, 0, 1);
+        & .title {
+          font-size: 11px;
+          line-height: 12px;
+          &.main {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            line-height: 16px;
+          }
+          & a {
+            color: #fff;
+          }
+        }
+      }
+      &.block {
+        display: block;
+        margin-top: 20px;
+        &:first-child {
+          margin-top: 0;
+        }
+        & h2 {
+          margin: 0;
+        }
+      }
+    }
+  }
+  &.like_list {
+    display: inline-block;
+    margin-top: 7px;
+    & li {
+      display: inline-block;
+      margin: 0;
+    }
+  }
+  &.search_list li {
+    &.even {
+      background-color: var(--transparent);
+    }
+    &.no_img {
+      height: 35px;
+      line-height: 35px;
+    }
+    &.odd {
+      background-color: var(--color-white-alter);
+    }
+    &.title {
+      margin-top: 30px;
+    }
+    & i {
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+    & a {
+      align-items: center;
+      display: flex;
+      overflow: hidden;
+      & div {
+        display: inline-block;
+        &.cover {
+          flex-shrink: 0;
+          margin-right: 5px;
+        }
+        &.title {
+          width: 100%;
+        }
+      }
+      &:visited,
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

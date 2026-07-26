@@ -1,0 +1,112 @@
+/* Date picker overrides */
+.date-picker-wrapper {
+  border: 0;
+  box-shadow: none;
+  margin: 5px 0 0 27px;
+  padding: 0;
+  z-index: 3;
+  &.no-shortcuts,
+  &.no-topbar {
+    padding: 0;
+  }
+  &.single-date {
+    margin: 5px 0 0;
+    & .week-name {
+      display: none;
+    }
+    & tbody td {
+      width: calc(100% / 7);
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+  &.two-months {
+    & tbody td {
+      width: calc(100% / 8);
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+  & .footer {
+    display: none;
+  }
+  & .month-wrapper {
+    border-radius: 0;
+    padding: 0;
+    & .gap {
+      margin: 0 10px;
+      top: 0;
+    }
+    & table {
+      & thead {
+        & tr.week-name {
+          font-size: 9px;
+        }
+        & .caption {
+          background-color: #fff;
+          height: 24px;
+          & .month-name {
+            color: #000;
+            font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
+            text-align: center;
+            text-transform: capitalize;
+          }
+          & .prev,
+          & .next {
+            position: relative;
+            top: 2px;
+          }
+          & .prev:hover,
+          & .next:hover {
+            background-color: var(--color-white-alter);
+            color: var(--color-black);
+          }
+        }
+      }
+      & tbody {
+        border-bottom: 0;
+        border-top: 0;
+        & tr {
+          & .day {
+            font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
+            padding: 4px 0;
+            &.toMonth.hovering,
+            &.checked {
+              background-color: #eee;
+            }
+            &.first-date-selected,
+            &.last-date-selected {
+              /* biome-ignore lint/complexity/noImportantStyles: daterangepicker.min.css sets these same two properties !important on this exact selector - no specificity can beat a vendor !important, only another !important can */
+              background-color: #000 !important;
+              /* biome-ignore lint/complexity/noImportantStyles: see above */
+              color: #fff !important;
+            }
+            &.real-today.toMonth {
+              background-color: #fff;
+              color: #000;
+              font-weight: 700;
+              &.hovering {
+                background-color: #ccc;
+                color: #fff;
+              }
+            }
+          }
+          & .week-number {
+            font-family: 'IBM Plex Mono', 'Helvetica', 'Arial', sans-serif;
+            font-size: 9px;
+            &.week-number-selected {
+              color: var(--color-black);
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.calendar_container {
+  position: absolute;
+  z-index: 4;
+}

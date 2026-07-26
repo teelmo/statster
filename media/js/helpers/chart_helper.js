@@ -91,7 +91,7 @@ Object.assign(view, {
   // Renders a minimal sparkline (line only, no fill) as an inline SVG, mirroring
   // the one peity('line', {...}) call this replaces. The generated <svg> keeps
   // peity's own "peity" class so the existing `svg.peity polyline` CSS rule
-  // (base.css) still colors the stroke - no styling lost by dropping the library.
+  // (widget_controls.css) still colors the stroke - no styling lost by dropping the library.
   renderSparkline: (el, values, opts) => {
     var width = opts.width;
     var height = opts.height;
@@ -123,7 +123,7 @@ Object.assign(view, {
     el.style.display = 'none';
     el.insertAdjacentElement('afterend', svg);
     // Mirrors the old peity's jQuery fadeIn(1000): the "visible" class carries
-    // the CSS opacity transition (base.css), added on the next tick so the
+    // the CSS opacity transition (widget_controls.css), added on the next tick so the
     // browser has painted the initial opacity:0 state before it starts.
     // setTimeout, not requestAnimationFrame - rAF is paused entirely for
     // backgrounded/hidden tabs, which would leave the sparkline invisible

@@ -1,0 +1,22 @@
+/* Table styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  width: 100%;
+}
+td {
+  margin: 0;
+  padding: 0;
+}
+th {
+  text-align: left;
+}
+/* Genre Table */
+table.genre_table tr td {
+  border-bottom: 1px solid var(--color-gray-soft);
+  padding-top: 3px;
+  vertical-align: bottom;
+}

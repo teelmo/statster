@@ -11,7 +11,7 @@ Object.assign(view, {
   // Hand-rolled single-month calendar, reusing the same structural CSS
   // classes/markup shape as initDateRangePicker (date_filter_helper.js) -
   // see media/css/libs/daterangepicker.min.css - but with its own black/
-  // white selected-day style (.day.selected in base.css) instead of that
+  // white selected-day style (.day.selected in date_picker.css) instead of that
   // file's blue .checked/.first-date-selected, no topbar/Clear/Today, and
   // month navigation bounded to Jan 2000..tomorrow. Opens on clicking the
   // date text itself, matching the original inline daterangepicker
@@ -86,7 +86,7 @@ Object.assign(view, {
           const classes = ['day', monthClass, isValid ? 'valid' : 'invalid'];
           if (t === atMidnight(selected)) {
             // Reuses the range picker's own selected-day class (and its
-            // matching base.css override) rather than inventing a new one.
+            // matching date_picker.css override) rather than inventing a new one.
             classes.push('checked', 'first-date-selected');
           }
           if (t === atMidnight(new Date())) {

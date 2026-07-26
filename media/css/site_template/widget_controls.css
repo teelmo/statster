@@ -1,0 +1,127 @@
+/* Widget controls (progress ring, quick-add/func_container dropdowns) */
+.user_listening,
+h2,
+h3 {
+  & svg {
+    bottom: -3px;
+    float: right;
+    position: relative;
+    vertical-align: bottom;
+    &.peity {
+      opacity: 0;
+      transition: opacity 1s;
+      &.visible {
+        opacity: 1;
+      }
+      & polyline {
+        stroke: var(--color-yellow-dark);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+    }
+  }
+  & .quick_add_listening,
+  & .func_container {
+    color: var(--color-gray-dark);
+    cursor: pointer;
+    float: right;
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0;
+    position: relative;
+    user-select: none;
+    & .value {
+      &:after {
+        background-color: currentColor;
+        content: '';
+        display: inline-block;
+        height: 15px;
+        line-height: inherit;
+        -webkit-mask-image: url('/media/img/icons/chevron-down-solid.svg');
+        mask-image: url('/media/img/icons/chevron-down-solid.svg');
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        padding-left: 10px;
+        position: relative;
+        transition: transform 0.2s;
+        vertical-align: middle;
+        width: 15px;
+      }
+      &.active:after {
+        transform: scaleY(-1);
+      }
+      &:hover {
+        color: var(--color-black);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        &:after {
+          transition: none;
+        }
+      }
+    }
+    & ul.subnav {
+      background-color: #fff;
+      border-radius: 5px;
+      border: 1px solid #333;
+      color: #000;
+      display: none;
+      float: left;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      right: -7px;
+      top: 38px;
+      width: auto;
+      z-index: 100;
+      &::before {
+        background-image: url('/media/img/dropdown_arrow.png');
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: 36px 18px;
+        content: '';
+        height: 18px;
+        position: absolute;
+        right: 0;
+        top: -18px;
+        width: 36px;
+      }
+      & li {
+        box-sizing: border-box;
+        clear: both;
+        float: left;
+        font-size: 12px;
+        line-height: 24px;
+        margin: 0;
+        padding: 3px 13px;
+        text-decoration: none;
+        white-space: nowrap;
+        width: 100%;
+        &:first-child {
+          margin-top: 4px;
+        }
+        &:last-child {
+          margin-bottom: 4px;
+        }
+        &:hover {
+          background-color: #eee;
+          color: #000;
+        }
+      }
+    }
+    &:hover {
+      color: var(--color-gray-medium);
+    }
+  }
+}
+.fa-star {
+  color: var(--color-yellow);
+}
+.fa-heart {
+  color: var(--color-red);
+}

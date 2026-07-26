@@ -1,0 +1,246 @@
+/* Form styles */
+.autocomplete_container {
+  position: relative;
+}
+input,
+textarea {
+  box-sizing: border-box;
+  &.text,
+  &[type='password'],
+  &[type='text'] {
+    background-color: var(--color-gray-soft);
+    border-radius: 3px;
+    border: 1px solid var(--color-gray-medium);
+    color: var(--color-black-alter);
+    font-size: 14px;
+    margin: 0;
+    padding: 6px 4px 6px 8px;
+    width: 100%;
+    &:disabled {
+      color: var(--color-gray-mid);
+    }
+    &:active,
+    &:focus {
+      background-color: var(--color-bg-white-alter);
+      color: var(--color-gray-dark);
+    }
+  }
+  &.text {
+    height: 120px;
+  }
+  &[type='submit'] {
+    appearance: none;
+    background-color: #000;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    padding: 6px 14px;
+    text-align: center;
+    &:focus,
+    &:hover {
+      background-color: #666;
+      color: #fff;
+    }
+  }
+  & + .lds-ring {
+    color: var(--color-black);
+    display: none;
+    height: 16px;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    & div {
+      left: -5px;
+      top: -2px;
+    }
+  }
+  &.working {
+    padding-right: 30px;
+    & + .lds-ring {
+      display: inline-block;
+    }
+  }
+}
+input,
+textarea,
+button {
+  outline: none;
+}
+fieldset {
+  margin-bottom: 20px;
+  & legend {
+    color: var(--color-black);
+    font-size: 18px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    margin: 15px 0 0;
+  }
+}
+.input_container {
+  margin: 10px 0 5px;
+  & .label {
+    color: var(--color-black);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  & label {
+    color: var(--color-black);
+    cursor: pointer;
+  }
+  & .checkbox_container {
+    cursor: pointer;
+    line-height: 20px;
+  }
+}
+/* Add listening form */
+form#addListeningForm {
+  & input {
+    &#addListeningDate {
+      background-color: transparent;
+      border: 0;
+      color: var(--color-black);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &[type='text'] {
+      font-size: 20px;
+    }
+    &[type='submit'] {
+      float: right;
+      margin: 10px 0 15px;
+    }
+  }
+}
+/* Register form */
+form#registerForm {
+  position: absolute;
+  width: 300px;
+  & input {
+    box-sizing: border-box;
+    margin: 5px 0;
+    width: 100%;
+  }
+}
+/* Login form */
+form#loginForm input[type='password'],
+form#loginForm input[type='text'] {
+  background-color: var(--color-white);
+  border-radius: 2px;
+  color: var(--color-black);
+  font-size: 14px;
+  padding: 4px;
+  width: 70%;
+}
+/* Search form */
+.search_container {
+  vertical-align: top;
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 300;
+  }
+  &:hover::placeholder {
+    color: rgba(255, 255, 255, 1);
+    transition-duration: 0.3s;
+  }
+  & .search_form input {
+    background-color: var(--transparent);
+    border: 0;
+    color: var(--color-black-alter);
+    font-size: 16px;
+    font-weight: 300;
+    padding: 4px 0;
+    width: 250px;
+    &:focus {
+      background-color: var(--transparent);
+      color: #fff;
+      &::placeholder {
+        color: rgba(255, 255, 255, 1);
+        font-weight: 300;
+      }
+    }
+  }
+  & .search_submit {
+    background-color: var(--transparent);
+    border: 0;
+    cursor: pointer;
+    height: 28px;
+    width: 30px;
+    &:disabled {
+      cursor: default;
+    }
+    &::before {
+      background-color: var(--color-gray-light);
+      content: '';
+      display: inline-block;
+      height: 16px;
+      left: 0;
+      -webkit-mask-image: url('/media/img/icons/search-solid.svg');
+      mask-image: url('/media/img/icons/search-solid.svg');
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      position: relative;
+      top: calc(50% - 8px);
+      width: 16px;
+    }
+  }
+  &.full {
+    position: relative;
+    & .search_form input {
+      background-color: var(--color-gray-soft);
+      border: 1px solid var(--color-gray-medium);
+      color: var(--color-gray-mid);
+      padding: 8px;
+      width: 100%;
+      &:focus {
+        background-color: var(--color-bg-white-alter);
+        color: var(--color-black);
+      }
+      & + .lds-ring {
+        right: 45px;
+        top: 15px;
+      }
+    }
+    & .search_submit {
+      height: 30px;
+      position: absolute;
+      right: 5px;
+      top: 1px;
+      width: 35px;
+      &::before {
+        background-color: var(--color-gray-mid);
+        height: 20px;
+        width: 20px;
+      }
+      &:hover::before {
+        background-color: var(--color-black);
+      }
+    }
+  }
+}
+/* Admin forms */
+form#transferAlbumDataForm,
+form#deleteArtistForm,
+form#deleteAlbumForm,
+form#addArtistForm,
+form#addGenreForm,
+form#addKeywordForm {
+  & input[type='submit'] {
+    float: right;
+    margin: 10px 0 15px;
+  }
+}

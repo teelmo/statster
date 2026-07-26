@@ -1,0 +1,192 @@
+/* Music Table */
+table.music_table {
+  border-collapse: collapse;
+  border: 0;
+  & tbody tr {
+    border-bottom: 1px solid var(--color-gray-medium);
+    border-top: 1px solid var(--color-gray-medium);
+    height: 32px;
+    &:nth-child(2n) {
+      background-color: var(--color-bg-white-alter);
+    }
+    &:nth-child(2n + 1) {
+      background-color: var(--transparent);
+    }
+    & td {
+      vertical-align: middle;
+      & div.cover {
+        border-width: 0 1px;
+      }
+      &.icon {
+        padding: 0 5px;
+        text-align: center;
+        width: 26px;
+      }
+      &.datetime {
+        padding: 0 5px;
+        text-align: right;
+        white-space: nowrap;
+        width: 100%;
+      }
+      &.title {
+        color: var(--color-black);
+        padding: 0 5px;
+        width: 100%;
+        & .album_year {
+          color: var(--color-gray-mid);
+          font-size: 11px;
+        }
+        & .confirmation {
+          font-size: 10px;
+          text-align: left;
+        }
+        & .confirmation,
+        & .delete {
+          display: none;
+          & .mask-icon {
+            color: var(--color-gray-mid);
+            font-size: 15px;
+            margin-left: 5px;
+            position: relative;
+            top: 2px;
+            &:hover {
+              color: var(--color-black);
+              opacity: 1;
+            }
+          }
+        }
+        & .spotify_link {
+          display: none;
+          text-decoration: none;
+          & .spotify_container {
+            &:after {
+              background-color: var(--color-gray-mid);
+              content: '';
+              display: none;
+              height: 16px;
+              margin-top: 1px;
+              -webkit-mask-image: url('/media/img/icons/play-circle-solid.svg');
+              mask-image: url('/media/img/icons/play-circle-solid.svg');
+              -webkit-mask-position: center;
+              mask-position: center;
+              -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+              -webkit-mask-size: contain;
+              mask-size: contain;
+              position: relative;
+              top: 1px;
+              width: 16px;
+              z-index: 5;
+            }
+            &:hover:after {
+              background-color: var(--color-black);
+            }
+          }
+        }
+      }
+      &.user_img .user_img {
+        float: right;
+      }
+      & .now_playing {
+        background-image: url('/media/img/icons/eq_icon.gif');
+        background-position: left center;
+        background-repeat: no-repeat;
+        padding-left: 17px;
+      }
+      & .love_icon {
+        color: var(--color-red);
+        font-size: 14px;
+        &:after {
+          background-color: currentColor;
+          content: '';
+          display: inline-block;
+          height: 1em;
+          -webkit-mask-image: url('/media/img/icons/heart-solid.svg');
+          mask-image: url('/media/img/icons/heart-solid.svg');
+          -webkit-mask-position: center;
+          mask-position: center;
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: contain;
+          mask-size: contain;
+          width: 1em;
+        }
+      }
+    }
+    &:hover span.delete {
+      display: inline;
+      position: absolute;
+      & img {
+        height: 12px;
+        margin-left: 5px;
+        opacity: 0.3;
+        vertical-align: -10%;
+        width: 12px;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+    &.just_added {
+      background-color: var(--color-yellow);
+      & a {
+        color: #000;
+        & .album_year {
+          color: #333;
+          font-size: 11px;
+        }
+      }
+      & .datetime {
+        color: #000;
+      }
+      & td.user_img,
+      & td.album_img {
+        width: 64px;
+      }
+      & td.title {
+        color: #000;
+        & .spotify_link {
+          display: none;
+          .spotify_container {
+            &:after {
+              background-color: #000;
+            }
+            &:hover:after {
+              background-color: var(--color-gray-light);
+            }
+          }
+        }
+      }
+    }
+    &.just_added_rest {
+      & a {
+        color: var(--color-black);
+        &:visited {
+          color: var(--color-black);
+        }
+      }
+      & td.user_img,
+      & td.album_img {
+        width: 32px;
+      }
+      & td.title {
+        line-height: 14px;
+        position: relative;
+        & span.title,
+        & span.delete,
+        & div.confirmation,
+        & a.spotify_link {
+          left: -32px;
+          position: relative;
+        }
+        & a.spotify_link {
+          display: none;
+        }
+      }
+      & td.datetime > span {
+        position: relative;
+        right: -32px;
+      }
+    }
+  }
+}

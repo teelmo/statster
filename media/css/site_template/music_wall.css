@@ -1,0 +1,70 @@
+/* Music wall */
+ul.music_wall {
+  li {
+    float: left;
+    height: auto;
+    max-height: 157px;
+    max-width: 157px;
+    position: relative;
+    width: 100%;
+    &:first-child {
+      max-height: 314px;
+      max-width: 314px;
+    }
+    > a {
+      height: 100%;
+      display: inline-block;
+      position: absolute;
+      width: 100%;
+      z-index: 2;
+    }
+    &.hover .main a {
+      text-decoration: underline;
+    }
+    &.hover {
+      .cover:after {
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+    }
+    & .cover {
+      border: 0;
+      &:after {
+        border: 0;
+      }
+      &.img150,
+      &.img300 {
+        height: 100%;
+        padding-bottom: 100%;
+        width: 100%;
+      }
+    }
+    & .meta {
+      bottom: 10px;
+      color: #fff;
+      font-size: 12px;
+      left: 10px;
+      line-height: 18px;
+      margin: 0;
+      padding-right: 2px;
+      position: absolute;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+      & .title {
+        font-size: 11px;
+        line-height: 12px;
+        &.count {
+          color: #ccc;
+        }
+        &.main {
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.01em;
+          line-height: 16px;
+        }
+        & a {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
