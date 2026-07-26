@@ -18,7 +18,7 @@ if ($data['type'] === FALSE or $data['id'] === FALSE or in_array($data['size'], 
 if (!function_exists('getImgPath')) {
   function getImgPath($opts = array()) {
     $filename = $opts['type'] . '_img/' . $opts['size'] . '/' . $opts['id'] . '.jpg';
-    if (read_file('./' . $filename)) {
+    if (file_exists('./' . $filename)) {
       header('HTTP/1.1 200 Ok');
       return site_url() . $filename;
     }

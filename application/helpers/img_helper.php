@@ -195,7 +195,7 @@ if (!function_exists('getListeningFormatImg')) {
       $result = $query->result();
       $ci->load->helper('file');
       $filename = 'media/img/format_img/format_icons/' . $result[0]->img . '.png';
-      return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
+      return (file_exists('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
     }
     else {
       return FALSE;
@@ -227,7 +227,7 @@ if (!function_exists('getListeningFormatTypeImg')) {
       $result = $query->result();
       $ci->load->helper('file');
       $filename = 'media/img/format_img/format_icons/' . $result[0]->img . '.png';
-      return (read_file('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
+      return (file_exists('./' . $filename)) ? array('filename' => site_url() . $filename, 'name' => $result[0]->name, 'empty' => FALSE) : FALSE;
     }
     else {
       return FALSE;
@@ -306,7 +306,12 @@ if (!function_exists('getImagePath')) {
       $cache = &_imagePathCache();
       $key = $type . ':' . $opts['size'] . ':' . $opts['id'];
       if (!array_key_exists($key, $cache)) {
-        $cache[$key] = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']);
+        // trim() guards against IMAGE_SERVER leaking stray whitespace (e.g. a
+        // trailing newline after its closing PHP tag) into the URL - a
+        // background-image: url(...) containing a raw newline is silently
+        // rejected by the browser, so the image never even loads instead of
+        // just looking odd.
+        $cache[$key] = trim((string) @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']));
       }
       return $cache[$key];
     }
@@ -315,7 +320,7 @@ if (!function_exists('getImagePath')) {
       $ci=& get_instance();
       $ci->load->helper('file');
       $filename = 'media/img/' . $type . '_img/' . $opts['size'] . '/' . $opts['id'] . '.jpg';
-      if (read_file('./' . $filename)) {
+      if (file_exists('./' . $filename)) {
         return site_url() . $filename;
       }
       else {
@@ -381,7 +386,7 @@ if (!function_exists('prefetchImagePaths')) {
       } while ($running > 0);
 
       foreach ($handles as $key => $ch) {
-        $cache[$key] = curl_multi_getcontent($ch);
+        $cache[$key] = trim((string) curl_multi_getcontent($ch));
         curl_multi_remove_handle($multi, $ch);
       }
       curl_multi_close($multi);
