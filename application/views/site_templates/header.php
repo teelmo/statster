@@ -33,32 +33,42 @@ header('HTTP/1.1 200 OK');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Open+Sans:wght@300;400;700&family=Poiret+One&display=swap" rel="stylesheet">
     <?php
-    // Individual <link> tags instead of styles.css's @import chain, so the browser
-    // can fetch them in parallel instead of discovering each import serially.
+    // In production, one pre-built minified bundle (npm run build-css, see
+    // scripts/build-css.js) replaces the individual <link> tags below - both
+    // statster.local and statster.info serve plain HTTP/1.1 with no request
+    // multiplexing, so cutting ~22 requests down to 1 is a real win there.
+    // Development keeps individual tags so any file can be edited without
+    // re-running the build, and so the browser fetches them in parallel
+    // rather than discovering an @import chain serially.
     $theme = ($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light';
     echo link_tag('/media/css/themes/' . $theme . '/colors.css');
-    echo link_tag('/media/css/site_template/top_container.css');
-    echo link_tag('/media/css/site_template/heading_container.css');
-    echo link_tag('/media/css/site_template/main_container.css');
-    echo link_tag('/media/css/site_template/loaders.css');
-    echo link_tag('/media/css/site_template/icons.css');
-    echo link_tag('/media/css/site_template/foundation.css');
-    echo link_tag('/media/css/site_template/artist_album_user.css');
-    echo link_tag('/media/css/site_template/tags.css');
-    echo link_tag('/media/css/site_template/forms.css');
-    echo link_tag('/media/css/site_template/table_misc.css');
-    echo link_tag('/media/css/site_template/music_table.css');
-    echo link_tag('/media/css/site_template/side_table.css');
-    echo link_tag('/media/css/site_template/bar_table.css');
-    echo link_tag('/media/css/site_template/shout_table.css');
-    echo link_tag('/media/css/site_template/music_wall.css');
-    echo link_tag('/media/css/site_template/lists.css');
-    echo link_tag('/media/css/site_template/images.css');
-    echo link_tag('/media/css/site_template/widget_controls.css');
-    echo link_tag('/media/css/site_template/date_picker.css');
-    echo link_tag('/media/css/site_template/utilities.css');
-    echo link_tag('/media/css/site_template/footer.css');
-    echo link_tag('/media/css/site_template/responsive.css');
+    if (ENVIRONMENT === 'development') {
+      echo link_tag('/media/css/site_template/top_container.css');
+      echo link_tag('/media/css/site_template/heading_container.css');
+      echo link_tag('/media/css/site_template/main_container.css');
+      echo link_tag('/media/css/site_template/loaders.css');
+      echo link_tag('/media/css/site_template/icons.css');
+      echo link_tag('/media/css/site_template/foundation.css');
+      echo link_tag('/media/css/site_template/artist_album_user.css');
+      echo link_tag('/media/css/site_template/tags.css');
+      echo link_tag('/media/css/site_template/forms.css');
+      echo link_tag('/media/css/site_template/table_misc.css');
+      echo link_tag('/media/css/site_template/music_table.css');
+      echo link_tag('/media/css/site_template/side_table.css');
+      echo link_tag('/media/css/site_template/bar_table.css');
+      echo link_tag('/media/css/site_template/shout_table.css');
+      echo link_tag('/media/css/site_template/music_wall.css');
+      echo link_tag('/media/css/site_template/lists.css');
+      echo link_tag('/media/css/site_template/images.css');
+      echo link_tag('/media/css/site_template/widget_controls.css');
+      echo link_tag('/media/css/site_template/date_picker.css');
+      echo link_tag('/media/css/site_template/utilities.css');
+      echo link_tag('/media/css/site_template/footer.css');
+      echo link_tag('/media/css/site_template/responsive.css');
+    }
+    else {
+      echo link_tag('/media/css/dist/bundle.min.css');
+    }
     echo link_tag('/media/css/themes/' . $theme . '/styles.css');
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');

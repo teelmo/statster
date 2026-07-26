@@ -6,6 +6,7 @@
   "scripts": {
     "format": "biome format --write .",
     "lint:fix": "biome check --write .",
+    "build-css": "node scripts/build-css.js",
     "sync-prod": "ssh teelmo@saksa2 git -C /home/teelmo/Sites/statster.info pull",
     "push": "git push && git push github master",
     "start-services": "sudo apachectl restart && brew services restart mariadb && open http://statster.local/",
@@ -19,5 +20,9 @@
   },
   "author": "Teemo Tebest, teemo.tebest@gmail.com",
   "license": "",
-  "homepage": "http://statster.info"
+  "homepage": "http://statster.info",
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.4",
+    "lightningcss": "^1.33.0"
+  }
 }
