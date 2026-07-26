@@ -98,6 +98,16 @@ var app = {
         subNav.style.display = isOpen ? 'none' : 'block';
       });
     });
+    document.addEventListener('click', event => {
+      document.querySelectorAll('.user_container').forEach(el => {
+        var subNav = el.querySelector('ul.subnav');
+        if (!subNav || subNav.style.display === 'none' || el.contains(event.target)) {
+          return;
+        }
+        el.classList.remove('active');
+        subNav.style.display = 'none';
+      });
+    });
     document.querySelectorAll('.toggle_username').forEach(el => {
       el.addEventListener('click', function () {
         ajax({
