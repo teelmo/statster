@@ -4,3 +4,4 @@ media/img/user_img
 user_guide
 application/cache/c_*
 application/logs/
+scripts/*.log
