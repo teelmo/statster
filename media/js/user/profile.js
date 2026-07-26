@@ -112,7 +112,7 @@ Object.assign(view, {
   // Get recent listenings.
   getRecentListenings: (isFirst, _callback) => new Promise(resolve => {
     if (isFirst !== true) {
-      var loader = document.querySelector('#recentlyListenedLoader2');
+      const loader = document.querySelector('#recentlyListenedLoader2');
       loader.style.display = '';
       loader.classList.remove('hidden');
     }
@@ -697,7 +697,7 @@ Object.assign(view, {
         document.querySelector('#shout').innerHTML = `<?=ERR_NO_RESULTS?>`;
       } else {
         shoutRows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
-        var shout = document.querySelector('#shout');
+        const shout = document.querySelector('#shout');
         shoutRows.forEach(row => {
           shout.appendChild(row);
         });
@@ -711,7 +711,7 @@ Object.assign(view, {
         document.querySelector('#recentlyLiked').innerHTML = `<?=ERR_NO_RESULTS?>`;
       } else {
         likeRows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
-        var recentlyLiked = document.querySelector('#recentlyLiked');
+        const recentlyLiked = document.querySelector('#recentlyLiked');
         likeRows.forEach(row => {
           recentlyLiked.appendChild(row);
         });

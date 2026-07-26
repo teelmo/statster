@@ -171,7 +171,7 @@ app.initStatsterEvents();
 app.initTooltips();
 
 if (document.querySelector('#headingCont') === null) {
-  var topCont = document.querySelector('#topCont');
+  const topCont = document.querySelector('#topCont');
   if (topCont) {
     topCont.classList.add('scrolled');
   }

@@ -41,12 +41,12 @@ function autocompleteRenderItem(item, term, inputEl) {
     return { html: `<li class="header"><a>${item.label}</a></li>`, selectable: false };
   }
   if (term.indexOf('–') !== -1) {
-    var item_arr = term.split('–');
+    const item_arr = term.split('–');
     if (item_arr[1] !== '') {
-      var artistTerm = autocompleteEscapeRegExp(item_arr[0].trim());
-      var albumTerm = autocompleteEscapeRegExp(item_arr[1].trim());
+      const artistTerm = autocompleteEscapeRegExp(item_arr[0].trim());
+      const albumTerm = autocompleteEscapeRegExp(item_arr[1].trim());
       if (item.label !== `${item_arr[0]} – `) {
-        var label = autocompleteItemMarkup(item, String(item.label).replace(new RegExp(`${artistTerm}|${albumTerm}|–`, 'gi'), '<span class="highlight">$&</span>'));
+        const label = autocompleteItemMarkup(item, String(item.label).replace(new RegExp(`${artistTerm}|${albumTerm}|–`, 'gi'), '<span class="highlight">$&</span>'));
         return { html: `<li class="ui-menu-item" title="${item.value}">${label}</li>`, selectable: true };
       }
       if (inputEl) {
@@ -54,20 +54,20 @@ function autocompleteRenderItem(item, term, inputEl) {
       }
       return null;
     }
-    var artistOnlyTerm = autocompleteEscapeRegExp(
+    const artistOnlyTerm = autocompleteEscapeRegExp(
       item_arr[0]
         .trim()
         .replace(/<\/?[^>]+(>|$)/g, '')
     );
-    var label2 = autocompleteItemMarkup(item, autocompleteHighlight(item.label, `${artistOnlyTerm}|–`));
+    const label2 = autocompleteItemMarkup(item, autocompleteHighlight(item.label, `${artistOnlyTerm}|–`));
     return { html: `<li class="ui-menu-item" title="${item.value}">${label2}</li>`, selectable: true };
   }
-  var cleanTerm = autocompleteEscapeRegExp(
+  const cleanTerm = autocompleteEscapeRegExp(
     term
       .trim()
       .replace(/<\/?[^>]+(>|$)/g, '')
   );
-  var label3 = autocompleteItemMarkup(item, autocompleteHighlight(item.label, cleanTerm));
+  const label3 = autocompleteItemMarkup(item, autocompleteHighlight(item.label, cleanTerm));
   return { html: `<li class="ui-menu-item" title="${item.value}">${label3}</li>`, selectable: true };
 }
 
@@ -127,8 +127,8 @@ function initAutocomplete(inputEl, options) {
     });
     activeIndex = index;
     if (index >= 0) {
-      var li = dropdown.querySelector(`li[data-index="${index}"]`);
-      var a = li?.querySelector('a');
+      const li = dropdown.querySelector(`li[data-index="${index}"]`);
+      const a = li?.querySelector('a');
       if (a) {
         a.classList.add('ui-state-active');
         li.scrollIntoView({ block: 'nearest' });
@@ -146,7 +146,7 @@ function initAutocomplete(inputEl, options) {
         return;
       }
       if (rendered.selectable) {
-        var index = rows.length;
+        const index = rows.length;
         rows.push(item);
         html += rendered.html.replace('<li ', `<li data-index="${index}" `);
       } else {
@@ -210,11 +210,11 @@ function initAutocomplete(inputEl, options) {
     }
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      var next = activeIndex + 1 >= rows.length ? 0 : activeIndex + 1;
+      const next = activeIndex + 1 >= rows.length ? 0 : activeIndex + 1;
       setActive(next);
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      var prev = activeIndex - 1 < 0 ? rows.length - 1 : activeIndex - 1;
+      const prev = activeIndex - 1 < 0 ? rows.length - 1 : activeIndex - 1;
       setActive(prev);
     } else if (event.key === 'Enter') {
       if (activeIndex >= 0) {

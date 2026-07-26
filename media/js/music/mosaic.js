@@ -1,7 +1,7 @@
 Object.assign(view, {
   getRecentListenings: isFirst => {
     if (isFirst !== true) {
-      var loader = document.querySelector('#recentMosaicLoader2');
+      const loader = document.querySelector('#recentMosaicLoader2');
       loader.style.display = '';
       loader.classList.remove('hidden');
     }

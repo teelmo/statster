@@ -41,24 +41,24 @@ Object.assign(view, {
       var totalWeeks = Math.ceil((startOffset + daysInMonth) / 7);
 
       var rows = '';
-      for (var w = 0; w < totalWeeks; w++) {
-        var weekStart = new Date(gridStart);
+      for (let w = 0; w < totalWeeks; w++) {
+        const weekStart = new Date(gridStart);
         weekStart.setDate(gridStart.getDate() + w * 7);
-        var cells = `<td><div class="week-number">${isoWeekNumber(weekStart)}</div></td>`;
-        for (var i = 0; i < 7; i++) {
-          var cellDate = new Date(gridStart);
+        let cells = `<td><div class="week-number">${isoWeekNumber(weekStart)}</div></td>`;
+        for (let i = 0; i < 7; i++) {
+          const cellDate = new Date(gridStart);
           cellDate.setDate(gridStart.getDate() + w * 7 + i);
-          var monthClass = cellDate.getMonth() === month ? 'toMonth' : cellDate < firstOfMonth ? 'lastMonth' : 'nextMonth';
-          var isValid = atMidnight(cellDate) <= atMidnight(endBound);
-          var classes = ['day', monthClass, isValid ? 'valid' : 'invalid'];
+          const monthClass = cellDate.getMonth() === month ? 'toMonth' : cellDate < firstOfMonth ? 'lastMonth' : 'nextMonth';
+          const isValid = atMidnight(cellDate) <= atMidnight(endBound);
+          const classes = ['day', monthClass, isValid ? 'valid' : 'invalid'];
           if (isValid) {
             if (atMidnight(cellDate) === atMidnight(new Date())) {
               classes.push('real-today');
             }
             if (rangeStart && rangeEnd) {
-              var lo = Math.min(atMidnight(rangeStart), atMidnight(rangeEnd));
-              var hi = Math.max(atMidnight(rangeStart), atMidnight(rangeEnd));
-              var t = atMidnight(cellDate);
+              const lo = Math.min(atMidnight(rangeStart), atMidnight(rangeEnd));
+              const hi = Math.max(atMidnight(rangeStart), atMidnight(rangeEnd));
+              const t = atMidnight(cellDate);
               if (t === lo) {
                 classes.push('checked', 'first-date-selected');
               } else if (t === hi) {
@@ -180,8 +180,8 @@ Object.assign(view, {
   },
   populateMonthPicker: () => {
     var monthSelector = document.querySelector('.month_selector');
-    for (i = 0; i < 12; i++) {
-      var option = document.createElement('option');
+    for (let i = 0; i < 12; i++) {
+      const option = document.createElement('option');
       option.value = i + 1;
       option.textContent = view.getMonthShort(i);
       if (parseInt(`<?=(isset($month) ? $month : 'false')?>`, 10) === i + 1) {
@@ -197,8 +197,8 @@ Object.assign(view, {
       return n + (s[(v - 20) % 10] || s[v] || s[0]);
     }
     var daySelector = document.querySelector('.day_selector');
-    for (i = 0; i < 31; i++) {
-      var option = document.createElement('option');
+    for (let i = 0; i < 31; i++) {
+      const option = document.createElement('option');
       option.className = 'day_option';
       option.value = i + 1;
       option.textContent = ordinal(i + 1);
@@ -212,8 +212,8 @@ Object.assign(view, {
     // 2000-01-03 was a Monday (UTC), so Date.UTC(2000, 0, 3 + i) walks
     // Monday..Sunday for i = 0..6, matching startOfWeek: monday.
     var weekdaySelector = document.querySelector('.weekday_selector');
-    for (i = 0; i < 7; i++) {
-      var option = document.createElement('option');
+    for (let i = 0; i < 7; i++) {
+      const option = document.createElement('option');
       option.value = i + 1;
       option.textContent = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(2000, 0, 3 + i)));
       if (parseInt(`<?=(isset($weekday) ? $weekday : 'false')?>`, 10) === i) {

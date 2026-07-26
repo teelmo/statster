@@ -328,7 +328,7 @@ if (day === '') {
   document.querySelectorAll('#topAlbum10, #topAlbum10Loader').forEach(el => {
     el.style.display = 'none';
   });
-  var topAlbum = document.querySelector('#topAlbum');
+  const topAlbum = document.querySelector('#topAlbum');
   topAlbum.classList.remove('column_table');
   topAlbum.classList.add('music_table');
   const vars = {

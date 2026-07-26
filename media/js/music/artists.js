@@ -325,7 +325,7 @@ if (day === '') {
   document.querySelectorAll('#topArtist10, #topArtist10Loader').forEach(el => {
     el.style.display = 'none';
   });
-  var topArtist = document.querySelector('#topArtist');
+  const topArtist = document.querySelector('#topArtist');
   topArtist.classList.remove('column_table');
   topArtist.classList.add('music_table');
   const vars = {

@@ -249,7 +249,7 @@ function initSearchableSelect(selectEl) {
       moveActive(-1);
     } else if (event.key === 'Enter') {
       event.preventDefault();
-      var results = getResultEls();
+      const results = getResultEls();
       if (activeIndex >= 0 && results[activeIndex]) {
         selectByValue(results[activeIndex].dataset.value);
         input.focus();
@@ -263,7 +263,7 @@ function initSearchableSelect(selectEl) {
     }
     dropdown.classList.add('hidden');
     if (!multiple) {
-      var selected = getOptions().find(o => o.selected);
+      const selected = getOptions().find(o => o.selected);
       input.value = selected ? selected.textContent : '';
     }
   });
@@ -284,7 +284,7 @@ function initSearchableSelect(selectEl) {
 
   renderChips();
   if (!multiple) {
-    var initiallySelected = getOptions().find(o => o.selected);
+    const initiallySelected = getOptions().find(o => o.selected);
     input.value = initiallySelected ? initiallySelected.textContent : '';
   }
 }
