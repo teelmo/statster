@@ -4,6 +4,8 @@
   "description": "Statster",
   "main": "index.js",
   "scripts": {
+    "format": "biome format --write src",
+    "lint:fix": "biome check --write src",
     "sync-prod":"ssh teelmo@saksa2 git -C /home/teelmo/Sites/statster.info pull",
     "push": "git push && git push github master",
     "start-services":"sudo apachectl restart && brew services restart mariadb && open http://statster.local/",
