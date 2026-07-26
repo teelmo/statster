@@ -235,7 +235,16 @@ Object.assign(view, {
       var selectedItem = view.addListeningAutocomplete.getSelectedItem();
       var album_id = selectedItem ? selectedItem.album_id : false;
       var artist_ids = selectedItem ? selectedItem.artist_ids : false;
-      document.querySelector('#recentlyListenedLoader2').classList.remove('hidden');
+      // #recentlyListenedLoader2 doesn't exist on every page this helper
+      // runs on (e.g. mosaic_view.php names its loader #recentMosaicLoader2
+      // instead), so guard it the same way showLoader() below does.
+      var toggleRecentlyListenedLoader = hidden => {
+        var el = document.querySelector('#recentlyListenedLoader2');
+        if (el) {
+          el.classList.toggle('hidden', hidden);
+        }
+      };
+      toggleRecentlyListenedLoader(false);
       addListeningText.value = '';
       document.querySelectorAll('input[name="addListeningFormat"]').forEach(el => {
         el.checked = false;
@@ -319,17 +328,17 @@ Object.assign(view, {
           400: () => {
             // 400 Bad Request
             alert('400 Bad Request');
-            document.querySelector('#recentlyListenedLoader2').classList.add('hidden');
+            toggleRecentlyListenedLoader(true);
           },
           401: () => {
             // 401 Unauthorized
             alert('401 Unauthorized');
-            document.querySelector('#recentlyListenedLoader2').classList.add('hidden');
+            toggleRecentlyListenedLoader(true);
           },
           404: () => {
             // 404 Not found
             alert('404 Not Found');
-            document.querySelector('#recentlyListenedLoader2').classList.add('hidden');
+            toggleRecentlyListenedLoader(true);
           }
         },
         type: 'POST',

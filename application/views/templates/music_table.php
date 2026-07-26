@@ -14,6 +14,15 @@ if (!empty($json_data)) {
       $album_artists = getAlbumsArtists(array_column($json_data, 'album_id'));
       $loved_pairs = getLovedPairs(array_column($json_data, 'user_id'), array_column($json_data, 'album_id'));
       $listening_imgs = getListeningImgsForListenings(array_column($json_data, 'listening_id'));
+      $image_requests = array();
+      foreach ($json_data as $idx => $row) {
+        $img_size = ($idx == 0 && isset($time) && ($time - strtotime($row['created'] . ' UTC')) < JUST_LISTENED_INTERVAL && $row['date'] == gmdate('Y-m-d', $time)) ? 64 : 32;
+        $image_requests[] = array('type' => 'album', 'size' => $img_size, 'id' => $row['album_id']);
+        if (empty($hide['user'])) {
+          $image_requests[] = array('type' => 'user', 'size' => $img_size, 'id' => $row['user_id']);
+        }
+      }
+      prefetchImagePaths($image_requests);
       foreach ($json_data as $idx => $row) {
         $class = '';
         $size = 32;

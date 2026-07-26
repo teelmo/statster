@@ -3,6 +3,7 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     switch ($type) {
       case 'album':
+        prefetchImagePaths(array_map(function($row) { return array('type' => 'album', 'size' => 174, 'id' => $row['album_id']); }, $json_data));
         foreach ($json_data as $idx => $row) {
           ?>
           <li>
@@ -12,6 +13,7 @@ if (!empty($json_data)) {
         }
         break;
       case 'artist':
+        prefetchImagePaths(array_map(function($row) { return array('type' => 'artist', 'size' => 174, 'id' => $row['artist_id']); }, $json_data));
         foreach ($json_data as $idx => $row) {
           ?>
           <li>
@@ -24,6 +26,7 @@ if (!empty($json_data)) {
         $prev_date = '';
         $album_artists = getAlbumsArtists(array_column($json_data, 'album_id'));
         $listening_imgs = getListeningImgsForListenings(array_column($json_data, 'listening_id'));
+        prefetchImagePaths(array_map(function($row) { return array('type' => 'album', 'size' => 174, 'id' => $row['album_id']); }, $json_data));
         foreach ($json_data as $idx => $row) {
           if (strip_tags(timeAgo($row['date'], CUR_DATE)) != $prev_date) {
             ?>
@@ -42,6 +45,7 @@ if (!empty($json_data)) {
         }
         break;
       case 'user':
+        prefetchImagePaths(array_map(function($row) { return array('type' => 'user', 'size' => 174, 'id' => $row['user_id']); }, $json_data));
         foreach ($json_data as $idx => $row) {
           ?>
           <li>

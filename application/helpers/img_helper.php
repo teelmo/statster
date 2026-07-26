@@ -281,6 +281,18 @@ if (!function_exists('getFormatTypeImg')) {
   }
 }
 
+/**
+  * Shared cache backing getImagePath()/prefetchImagePaths(), keyed by
+  * "type:size:id". A plain function-static array can't be shared across
+  * two different functions, so both reach it through this reference.
+  */
+if (!function_exists('_imagePathCache')) {
+  function &_imagePathCache() {
+    static $cache = array();
+    return $cache;
+  }
+}
+
 if (!function_exists('getImagePath')) {
   function getImagePath($opts, $type) {
     if (ENVIRONMENT === 'production' or ENVIRONMENT === 'development') {
@@ -288,8 +300,10 @@ if (!function_exists('getImagePath')) {
       // (e.g. one user's avatar on every row of their own listening
       // history, or a replayed album's cover on every re-listen) - each
       // lookup is a real network round-trip to IMAGE_SERVER, so memoize
-      // per request rather than refetching an identical URL.
-      static $cache = array();
+      // per request rather than refetching an identical URL. Rows that
+      // don't repeat still benefit if prefetchImagePaths() warmed this
+      // same cache with a parallel batch beforehand.
+      $cache = &_imagePathCache();
       $key = $type . ':' . $opts['size'] . ':' . $opts['id'];
       if (!array_key_exists($key, $cache)) {
         $cache[$key] = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']);
@@ -308,6 +322,63 @@ if (!function_exists('getImagePath')) {
         return site_url() . 'media/img/' . $type . '_img/' . $opts['size'] . '/0.jpg';
       }
     }
+  }
+}
+
+/**
+  * Warms getImagePath()'s cache for a batch of images in parallel, instead
+  * of leaving each getAlbumImg()/getArtistImg()/getUserImg() call in a
+  * rendering loop to block on its own sequential IMAGE_SERVER round-trip.
+  * Memoization alone (getImagePath's cache) only helps when the same image
+  * repeats within a request - a listing spanning many different users/
+  * albums has few repeats, so most lookups still need a real fetch; doing
+  * those concurrently is what actually cuts the wall-clock time down.
+  *
+  * @param array $requests. Each item: array('type' => .., 'size' => .., 'id' => ..).
+  */
+if (!function_exists('prefetchImagePaths')) {
+  function prefetchImagePaths($requests = array()) {
+    if (!(ENVIRONMENT === 'production' or ENVIRONMENT === 'development')) {
+      return;
+    }
+
+    $cache = &_imagePathCache();
+    $unique = array();
+    foreach ($requests as $request) {
+      if (empty($request['type']) || empty($request['size']) || !isset($request['id'])) {
+        continue;
+      }
+      $key = $request['type'] . ':' . $request['size'] . ':' . $request['id'];
+      if (!array_key_exists($key, $cache)) {
+        $unique[$key] = $request;
+      }
+    }
+    if (empty($unique)) {
+      return;
+    }
+
+    $multi = curl_multi_init();
+    $handles = array();
+    foreach ($unique as $key => $request) {
+      $url = IMAGE_SERVER . 'getImage.php?size=' . $request['size'] . '&type=' . $request['type'] . '&id=' . $request['id'];
+      $ch = curl_init($url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+      curl_multi_add_handle($multi, $ch);
+      $handles[$key] = $ch;
+    }
+
+    $running = NULL;
+    do {
+      curl_multi_exec($multi, $running);
+      curl_multi_select($multi);
+    } while ($running > 0);
+
+    foreach ($handles as $key => $ch) {
+      $cache[$key] = curl_multi_getcontent($ch);
+      curl_multi_remove_handle($multi, $ch);
+    }
+    curl_multi_close($multi);
   }
 }
 
