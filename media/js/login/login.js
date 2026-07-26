@@ -7,7 +7,7 @@ Object.assign(view, {
       ajax({
         data: {
           password: document.querySelector('#loginPassword').value,
-          submitType: document.querySelector('input[name="submitType"]').value,
+          submitType: document.querySelector('input[name="loginSubmit"]').value,
           username: document.querySelector('#loginUsername').value
         },
         success: data => {
