@@ -3,11 +3,11 @@
 # consolidation/speed pass (see the plan discussed in-session): request concurrency
 # (session-lock serialization), page weight/timing, and the cumulative-listening query.
 #
-# Usage: scripts/benchmark.sh
+# Usage: scripts/benchmark.sh [base_url]
 
 set -u
 
-BASE_URL="http://statster.local"
+BASE_URL="${1:-http://statster.local}"
 BENCH_PAGE="$BASE_URL/user/teelmo"
 COOKIE_JAR="$(mktemp)"
 trap 'rm -f "$COOKIE_JAR"' EXIT
