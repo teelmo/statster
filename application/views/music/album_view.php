@@ -5,7 +5,7 @@
         <?php
         if ($spotify_id !== FALSE) {
           ?>
-          <a href="spotify:album:<?=$spotify_id?>" class="spotify_link"><div class="spotify_container album_spotify_container"></div></a>
+          <a href="spotify:album:<?=$spotify_id?>" class="spotify_link" aria-label="Open in Spotify"><div class="spotify_container album_spotify_container"></div></a>
           <?php
         }
         ?>
@@ -18,7 +18,7 @@
           <?php
           echo $album_name;
           if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
-            echo anchor(array('admin', 'album', $album_id . '?artist=' . $artist_name), '<span class="mask-icon mask-icon-pen-square"></span>');
+            echo anchor(array('admin', 'album', $album_id . '?artist=' . $artist_name), '<span class="mask-icon mask-icon-pen-square" aria-hidden="true"></span>', array('aria-label' => 'Edit album'));
           }
           ?>
         </h1>
@@ -30,7 +30,7 @@
             <optgroup label="Keywords" id="keyword"></optgroup>
             <optgroup label="Nationality" id="nationality"></optgroup>
           </select>
-          <button type="submit" id="submitTags" class="submit" title="Add"></button>
+          <button type="submit" id="submitTags" class="submit" title="Add" aria-label="Add tags"></button>
         </div>
       </div>
     </div>
@@ -61,9 +61,9 @@
             <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
           </div>
           <span class="user_value"><span class="value number"><span class="<?=($per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year_user?>"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('album' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
-          <span id="love" class="like_toggle"><div class="lds-facebook" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
+          <span id="love" class="like_toggle" aria-label="Love this album"><div class="lds-facebook" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
           <span id="quick_add_listening" class="quick_add_listening">
-            <span class="mask-icon mask-icon-plus-square"></span>
+            <span class="mask-icon mask-icon-plus-square" aria-label="Add listening"></span>
             <ul class="subnav">
               <?php
               foreach(unserialize($this->session->formats) as $key => $format) {

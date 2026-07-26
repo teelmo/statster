@@ -47,7 +47,7 @@ if (!empty($json_data)) {
             <?php
             if (empty($hide['spotify']) && $row['spotify_id']) {
               ?>
-              <a href="spotify:album:<?=$row['spotify_id']?>" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>
+              <a href="spotify:album:<?=$row['spotify_id']?>" class="spotify_link" aria-label="Open in Spotify"><span class="spotify_container album_spotify_container"></span></a>
               <?php
             }
             ?>
@@ -64,7 +64,7 @@ if (!empty($json_data)) {
             if (empty($hide['del'])) {
               if ($this->session->userdata('user_id') === $row['user_id']) {
                 ?>
-                <span class="delete" data-confirmation-container=".confirmation_<?=$idx?>"><a href="javascript:;"><i class="mask-icon mask-icon-times"></i></a></span>
+                <span class="delete" data-confirmation-container=".confirmation_<?=$idx?>"><a href="javascript:;" aria-label="Delete"><i class="mask-icon mask-icon-times" aria-hidden="true"></i></a></span>
                 <div class="confirmation confirmation_<?=$idx?>">Are you sure: <a href="javascript:;" class="confirm" data-listening-id="<?=$row['listening_id']?>" data-row-id="musicTable<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
                 <?php
               }

@@ -22,16 +22,16 @@ if (!empty($json_data)) {
           echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('music', url_title($row['artist_name'])), '<div class="cover artist_img img64" style="background-image:url(' . getArtistImg(array('artist_id' => $row['artist_id'], 'size' => 64)) . ')"></div><div class="title">' . $row['artist_name'] . '</div>', array('title' => 'Browse to artist\'s page')) . '</li>';
         }
         else if ($row['type'] === 'genre') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-music"></i>' . anchor(array('genre', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to genre\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-music" aria-hidden="true"></i>' . anchor(array('genre', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to genre\'s page')) . '</li>';
         }
         else if ($row['type'] === 'keyword') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-tag"></i>' . anchor(array('keyword', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to keyword\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-tag" aria-hidden="true"></i>' . anchor(array('keyword', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to keyword\'s page')) . '</li>';
         }
         else if ($row['type'] === 'nationality') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-flag"></i>' . anchor(array('nationality', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to nationality\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-flag" aria-hidden="true"></i>' . anchor(array('nationality', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to nationality\'s page')) . '</li>';
         }
         else if ($row['type'] === 'year') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-hashtag"></i>' . anchor(array('year', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to year\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-hashtag" aria-hidden="true"></i>' . anchor(array('year', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to year\'s page')) . '</li>';
         }
         else if ($row['type'] === 'user') {
           echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('user', url_title($row['value'])), '<div class="cover artist_img img64" style="background-image:url(' . $row['img'] . ')"></div><div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to user\'s page')) . '</li>';

@@ -11,7 +11,7 @@ if (!empty($json_data)) {
             <?php
             if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
               ?>
-              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="mask-icon mask-icon-times"></i></a>
+              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>" aria-label="Remove tag"><i class="mask-icon mask-icon-times" aria-hidden="true"></i></a>
               <?php
             }
             ?>
@@ -21,11 +21,11 @@ if (!empty($json_data)) {
         case 'genre':
           ?>
           <li class="tag <?=$row['type']?> <?=(in_array($this->session->userdata('user_id'), $row['user_ids'])) ? 'active' : ''?>">
-            <?=anchor(array($row['type'], url_title($row['name'])), '<i class="mask-icon mask-icon-music"></i> ' . $row['name'])?>
+            <?=anchor(array($row['type'], url_title($row['name'])), '<i class="mask-icon mask-icon-music" aria-hidden="true"></i> ' . $row['name'])?>
             <?php
             if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
               ?>
-              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="mask-icon mask-icon-times"></i></a>
+              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>" aria-label="Remove tag"><i class="mask-icon mask-icon-times" aria-hidden="true"></i></a>
               <?php
             }
             ?>
@@ -35,11 +35,11 @@ if (!empty($json_data)) {
         case 'keyword':
           ?>
           <li class="tag <?=$row['type']?>">
-            <?=anchor(array($row['type'], url_title($row['name'])), '<i class="mask-icon mask-icon-tag"></i> ' . $row['name'])?>
+            <?=anchor(array($row['type'], url_title($row['name'])), '<i class="mask-icon mask-icon-tag" aria-hidden="true"></i> ' . $row['name'])?>
             <?php
             if ($this->session->userdata('logged_in') === TRUE && (in_array($this->session->userdata('user_id'), $row['user_ids']) || in_array($this->session->userdata['user_id'], ADMIN_USERS)) && $delete == 'true') {
               ?>
-              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>"><i class="mask-icon mask-icon-times"></i></a>
+              <a href="javascript:;" class="hidden remove" data-tag-id="<?=$row['tag_id']?>" data-tag-type="<?=$row['type']?>" aria-label="Remove tag"><i class="mask-icon mask-icon-times" aria-hidden="true"></i></a>
               <?php
             }
             ?>
@@ -52,7 +52,7 @@ if (!empty($json_data)) {
     }
     if ($logged_in === 'true' && empty($hide['add'])) {
       ?>
-      <li class="tag addtags" id="addtags"><a href="javascript:;"><i class="mask-icon mask-icon-bars"></i></a></li>
+      <li class="tag addtags" id="addtags"><a href="javascript:;" aria-label="Add tags"><i class="mask-icon mask-icon-bars" aria-hidden="true"></i></a></li>
       <?php
     }
   }
@@ -69,7 +69,7 @@ else {
   <?php
   if ($logged_in === 'true' && empty($hide['add'])) {
     ?>
-    <li class="tag addtags" id="addtags"><a href="javascript:;"><i class="mask-icon mask-icon-bars"></i></a></li>
+    <li class="tag addtags" id="addtags"><a href="javascript:;" aria-label="Add tags"><i class="mask-icon mask-icon-bars" aria-hidden="true"></i></a></li>
     <?php
   }
 }

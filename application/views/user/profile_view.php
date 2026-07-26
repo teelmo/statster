@@ -12,7 +12,7 @@
             <?php
             foreach ($tags as $tag) {
               ?>
-              <li class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name']) . '?u=teelmo'), '<i class="mask-icon mask-icon-music"></i> ' . $tag['name'] . '</i>')?></li>
+              <li class="tag <?=$tag['type']?>"><?=anchor(array($tag['type'], url_title($tag['name']) . '?u=teelmo'), '<i class="mask-icon mask-icon-music" aria-hidden="true"></i> ' . $tag['name'] . '</i>')?></li>
               <?php
             }
             ?>
@@ -134,7 +134,7 @@
     }
     ?>
     <div class="container">
-      <h3>Recently listened<span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="mask-icon mask-icon-sync-alt" id="refreshRecentAlbums"></i></span></h3>
+      <h3>Recently listened<span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="mask-icon mask-icon-sync-alt" id="refreshRecentAlbums" aria-label="Refresh recently listened"></i></span></h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -243,7 +243,7 @@
         if ($top_genre) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-music"></i></td>
+            <td class="img64 tag_img"><i class="mask-icon mask-icon-music" aria-hidden="true"></i></td>
             <td class="title">
               <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'])?>
               <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
@@ -254,7 +254,7 @@
         if ($top_nationality) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-flag"></i></td>
+            <td class="img64 tag_img"><i class="mask-icon mask-icon-flag" aria-hidden="true"></i></td>
             <td class="title">
               <?=anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name'])?>
               <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
@@ -265,7 +265,7 @@
         if ($top_year) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-hashtag"></i></td>
+            <td class="img64 tag_img"><i class="mask-icon mask-icon-hashtag" aria-hidden="true"></i></td>
             <td class="title">
               <?=anchor(array('year', url_title($top_year['year'])), $top_year['year'])?>
               <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>

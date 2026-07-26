@@ -20,7 +20,7 @@
        <div class="search_container full">
         <form action="/search" method="get" accept-charset="utf-8" class="search_form">
           <div class="autocomplete_container"><input type="text" class="middle search_text" autocomplete="off" tabindex="20" placeholder="Search music…" name="q" value="<?=urldecode(urldecode($q))?>" /><span class="lds-ring hidden"><div></div><div></div><div></div><div></div></span></div>
-          <button disabled="disabled" type="submit" class="search_submit" title="Search!"></button>
+          <button disabled="disabled" type="submit" class="search_submit" title="Search!" aria-label="Search"></button>
         </form>
       </div>
     </div>

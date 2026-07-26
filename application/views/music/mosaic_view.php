@@ -70,7 +70,7 @@
         <?php
       }
       ?>
-      <h2>Listenings<span class="lds-ring hidden" id="recentMosaicLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="mask-icon mask-icon-sync-alt" id="refreshRecentAlbums"></i></span>
+      <h2>Listenings<span class="lds-ring hidden" id="recentMosaicLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="mask-icon mask-icon-sync-alt" id="refreshRecentAlbums" aria-label="Refresh recently listened"></i></span>
       </h2>
       <div class="lds-facebook" id="recentMosaicLoader"><div></div><div></div><div></div></div>
       <div id="recentlyUpdated" class="updated"></div>

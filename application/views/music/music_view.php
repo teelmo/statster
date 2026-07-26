@@ -45,8 +45,8 @@
       <span class="day_selector_container"><select class="day_selector"><option value="">Day</option><option value="" disabled="disabled">-----</option></select></span>
       <span class="weekday_selector_container"><select class="weekday_selector"><option value="">Weekday</option><option value="" disabled="disabled">-----</option></select></span>
       <span class="date_range_container"><span class="date_range_picker">All time</span></span>
-      <a class="date_filter_submit" href="javascript:;"><span class="mask-icon mask-icon-calendar-alt"></span></a>
-      <span class="date_filter_clear hidden"><span class="mask-icon mask-icon-times"></span></span>
+      <a class="date_filter_submit" href="javascript:;" aria-label="Filter by date"><span class="mask-icon mask-icon-calendar-alt" aria-hidden="true"></span></a>
+      <span class="date_filter_clear hidden" aria-label="Clear date filter"><span class="mask-icon mask-icon-times" aria-hidden="true"></span></span>
       <div class="calendar_container"></div>
     </div>
   </div>
@@ -138,7 +138,7 @@
         if ($top_genre) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-music"></i></td>
+            <td class="img64 tag_img"><i class="mask-icon mask-icon-music" aria-hidden="true"></i></td>
             <td class="title">
               <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'])?>
               <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
@@ -149,7 +149,7 @@
         if ($top_nationality) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-flag"></i></td>
+            <td class="img64 tag_img"><i class="mask-icon mask-icon-flag" aria-hidden="true"></i></td>
             <td class="title">
               <?=anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name'])?>
               <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
@@ -160,7 +160,7 @@
         if ($top_year) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-hashtag"></i></td>
+            <td class="img64 tag_img"><i class="mask-icon mask-icon-hashtag" aria-hidden="true"></i></td>
             <td class="title">
               <?=anchor(array('year', url_title($top_year['year'])), $top_year['year'])?>
               <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>
@@ -179,10 +179,10 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h2>Suggestions</h2>
-      <h3>Second chance <span class="lds-ring hidden" id="secondChanceLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="mask-icon mask-icon-sync-alt" id="refreshSecondChanceAlbums"></i></span></h3>
+      <h3>Second chance <span class="lds-ring hidden" id="secondChanceLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="mask-icon mask-icon-sync-alt" id="refreshSecondChanceAlbums" aria-label="Refresh second chance albums"></i></span></h3>
       <div class="lds-facebook" id="secondChanceLoader"><div></div><div></div><div></div></div>
       <table class="side_table" id="secondChance"><!-- Content is loaded with AJAX --></table>
-      <h3>From others <span class="lds-ring hidden" id="fromOthersLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="mask-icon mask-icon-sync-alt" id="refreshFromOthersAlbums"></i></span></h3>
+      <h3>From others <span class="lds-ring hidden" id="fromOthersLoader2"><div></div><div></div><div></div><div></div></span><span class="func_container"><i class="mask-icon mask-icon-sync-alt" id="refreshFromOthersAlbums" aria-label="Refresh from others"></i></span></h3>
       <div class="lds-facebook" id="fromOthersLoader"><div></div><div></div><div></div></div>
       <table class="side_table" id="fromOthers"><!-- Content is loaded with AJAX --></table>
     </div>

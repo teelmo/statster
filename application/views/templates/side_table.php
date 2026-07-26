@@ -85,7 +85,7 @@ if (!empty($json_data)) {
             else {
               if (isset($row['album_name']) && empty($hide['album'])) {
                 if (empty($hide['spotify']) && $row['spotify_id']) {
-                  echo '<a href="spotify:album:' . $row['spotify_id'] . '" class="spotify_link"><span class="spotify_container album_spotify_container"></span></a>';
+                  echo '<a href="spotify:album:' . $row['spotify_id'] . '" class="spotify_link" aria-label="Open in Spotify"><span class="spotify_container album_spotify_container"></span></a>';
                 }
                 echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], $strlenght), array('title' => 'Browse to album\'s page'));
                 echo ' ';

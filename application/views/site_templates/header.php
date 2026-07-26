@@ -57,7 +57,7 @@ header('HTTP/1.1 200 OK');
           <div class="mobile meta">Reconcile with music</div>
           <div class="search_container">
             <form action="/search" method="get" accept-charset="utf-8" class="search_form">
-              <button disabled="disabled" type="submit" class="search_submit" title="Search!"></button>
+              <button disabled="disabled" type="submit" class="search_submit" title="Search!" aria-label="Search"></button>
               <div class="autocomplete_container"><input type="text" class="middle search_text" autocomplete="off" tabindex="20" placeholder="Search…" name="q" /><span class="lds-ring hidden"><div></div><div></div><div></div><div></div></span></div>
               
             </form>

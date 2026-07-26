@@ -4,7 +4,7 @@ if (!empty($json_data)) {
     foreach ($json_data as $idx => $row) {
       ?>
       <li data-created="<?=$row['created']?>">
-        <i class="mask-icon mask-icon-<?=($row['type'] === 'star') ? 'star-solid' : 'heart-solid'?>"></i>
+        <i class="mask-icon mask-icon-<?=($row['type'] === 'star') ? 'star-solid' : 'heart-solid'?>" aria-label="<?=($row['type'] === 'star') ? 'Fan' : 'Loved'?>"></i>
       </li>
       <?php
     }
