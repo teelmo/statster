@@ -40,6 +40,22 @@ if (!function_exists('getListenings')) {
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
 
+    // Narrow the artist/album group down before the GROUP BY when possible,
+    // instead of grouping the whole artists table and filtering afterwards -
+    // the outer artist.id/album.id LIKE checks below still run as a safety
+    // net, but on a handful of rows instead of every artist/album pairing.
+    $sub_where = array();
+    $sub_params = array();
+    if ($artist_id !== '%') {
+      $sub_where[] = TBL_artists . '.`artist_id` = ?';
+      $sub_params[] = $artist_id;
+    }
+    if ($album_id !== '%') {
+      $sub_where[] = TBL_artists . '.`album_id` = ?';
+      $sub_params[] = $album_id;
+    }
+    $sub_where_sql = !empty($sub_where) ? 'WHERE ' . implode(' AND ', $sub_where) : '';
+
     $sql = "SELECT " . TBL_listening . ".`id` AS `listening_id`,
                    " . TBL_artist . ".`artist_name`,
                    " . TBL_album . ".`album_name`,
@@ -54,6 +70,7 @@ if (!function_exists('getListenings')) {
             FROM (
                 SELECT " . TBL_artists . ".`artist_id`, " . TBL_artists . ".`album_id`
                 FROM " . TBL_artists . "
+                " . $sub_where_sql . "
                 " . $sub_group_by . "
             ) AS `artist_album_group`
             JOIN " . TBL_album . " ON `artist_album_group`.`album_id` = " . TBL_album . ".`id`
@@ -70,7 +87,7 @@ if (!function_exists('getListenings')) {
                      " . TBL_listening . ".`id` DESC
             LIMIT " . $ci->db->escape_str($limit);
 
-    $query = $ci->db->query($sql, array($username, $artist_id, $album_id, $date));
+    $query = $ci->db->query($sql, array_merge($sub_params, array($username, $artist_id, $album_id, $date)));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
