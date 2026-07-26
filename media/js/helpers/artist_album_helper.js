@@ -18,8 +18,8 @@ Object.assign(view, {
               }
             },
             success: data => {
-              document.querySelector('#artistAlbumLoader').style.display = 'none';
-              document.querySelector('#discographyLoader').style.display = 'none';
+              document.querySelector('#artistAlbumLoader').classList.add('hidden');
+              document.querySelector('#discographyLoader').classList.add('hidden');
               document.querySelector('#artistAlbum').innerHTML = data;
             },
             type: 'POST',
@@ -27,7 +27,7 @@ Object.assign(view, {
           });
         },
         204: () => {
-          document.querySelector('#artistAlbumLoader').style.display = 'none';
+          document.querySelector('#artistAlbumLoader').classList.add('hidden');
           document.querySelector('#artistAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -52,7 +52,7 @@ Object.assign(view, {
               }
             },
             success: data => {
-              document.querySelector('#associatedArtistLoader').style.display = 'none';
+              document.querySelector('#associatedArtistLoader').classList.add('hidden');
               document.querySelector('#associatedArtist').innerHTML = data;
             },
             type: 'POST',
@@ -60,7 +60,7 @@ Object.assign(view, {
           });
         },
         204: () => {
-          document.querySelector('#associatedArtistLoader').style.display = 'none';
+          document.querySelector('#associatedArtistLoader').classList.add('hidden');
           document.querySelector('#associatedArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -74,29 +74,25 @@ Object.assign(view, {
     var biographyMore = document.querySelector('#biographyMore');
     if (biographyMore) {
       biographyMore.addEventListener('click', event => {
-        biographyMore.style.display = 'none';
+        biographyMore.classList.add('hidden');
         document.querySelectorAll('.summary').forEach(el => {
-          el.style.display = 'none';
+          el.classList.add('hidden');
         });
         var biographyLess = document.querySelector('#biographyLess');
-        biographyLess.style.display = '';
         biographyLess.classList.remove('hidden');
-        // Note: jQuery's fadeIn() animated this; plain display toggle drops
-        // the animation but keeps the same end state.
         document.querySelectorAll('.content').forEach(el => {
-          el.style.display = '';
           el.classList.remove('hidden');
         });
         event.preventDefault();
       });
       document.querySelector('#biographyLess').addEventListener('click', event => {
-        document.querySelector('#biographyLess').style.display = 'none';
+        document.querySelector('#biographyLess').classList.add('hidden');
         document.querySelectorAll('.content').forEach(el => {
-          el.style.display = 'none';
+          el.classList.add('hidden');
         });
-        biographyMore.style.display = '';
+        biographyMore.classList.remove('hidden');
         document.querySelectorAll('.summary').forEach(el => {
-          el.style.display = '';
+          el.classList.remove('hidden');
         });
         event.preventDefault();
       });

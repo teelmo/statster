@@ -39,7 +39,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#recentMosaicLoader').style.display = 'none';
+          document.querySelector('#recentMosaicLoader').classList.add('hidden');
           document.querySelector('#recentMosaic').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },

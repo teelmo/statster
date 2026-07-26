@@ -58,7 +58,7 @@
             <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
           </div>
           <span class="user_value"><span class="value number"><span class="<?=($per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year_user?>"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('artist' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
-          <span id="fan" class="like_toggle" aria-label="Fan this artist"><div class="lds-facebook" id="fanLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
+          <span id="fan" class="like_toggle" aria-label="Fan this artist"><div class="lds-facebook inline" id="fanLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
         </div>
       </div>
       <?php
@@ -112,7 +112,7 @@
         <span class="lds-ring hidden" id="discographyLoader"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value artist_album_value" data-value="<?=$artist_album?>"><?=ORDER_TEXTS[$artist_album]?></div>
-          <ul class="subnav" data-name="artist_album" data-callback="artistAlbum" data-loader="discographyLoader">
+          <ul class="subnav hidden" data-name="artist_album" data-callback="artistAlbum" data-loader="discographyLoader">
             <li data-value="`count` DESC, `albums`.`year` DESC">Count</li>
             <li data-value="`albums`.`album_name` ASC">Name</li>
             <li data-value="`albums`.`year` DESC, `count` DESC">Year</li>

@@ -38,12 +38,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypesLoader').classList.add('hidden');
           document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypesLoader').classList.add('hidden');
           document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -75,7 +75,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListenedLoader').classList.add('hidden');
               document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
@@ -84,12 +84,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListenedLoader').classList.add('hidden');
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListenedLoader').classList.add('hidden');
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },

@@ -31,6 +31,7 @@ Object.assign(view, {
       }
       var tagAdd = document.querySelector('#tagAdd');
       tagAdd.classList.toggle('hidden');
+      tagAdd.classList.toggle('active');
       var searchInput = document.querySelector('#tagAdd .searchable_select_input');
       if (!tagAdd.classList.contains('hidden') && searchInput) {
         searchInput.focus();

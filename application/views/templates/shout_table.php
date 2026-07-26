@@ -76,8 +76,8 @@ if (!empty($json_data)) {
             }
             if ($this->session->userdata('user_id') === $row['user_id'] && empty($hide['delete'])) {
               ?>
-              <span class="delete" data-confirmation-container=".confirmation_<?=$row['type']?>_<?=$idx?>"><a href="javascript:;" aria-label="Delete"><i class="mask-icon mask-icon-times" aria-hidden="true"></i></a></span>
-              <div class="confirmation confirmation_<?=$row['type']?>_<?=$idx?>">Are you sure: <a href="javascript:;" class="confirm" data-shout-id="<?=$row['shout_id']?>" data-shout-type="<?=$row['type']?>" data-row-id="shout<?=ucfirst($row['type'])?>Table<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
+              <span class="delete hidden" data-confirmation-container=".confirmation_<?=$row['type']?>_<?=$idx?>"><a href="javascript:;" aria-label="Delete"><i class="mask-icon mask-icon-times" aria-hidden="true"></i></a></span>
+              <div class="confirmation confirmation_<?=$row['type']?>_<?=$idx?> hidden">Are you sure: <a href="javascript:;" class="confirm" data-shout-id="<?=$row['shout_id']?>" data-shout-type="<?=$row['type']?>" data-row-id="shout<?=ucfirst($row['type'])?>Table<?=$idx?>">Ok</a> / <a href="javascript:;" class="cancel">Cancel</a></div>
               <?php
             }
             ?>

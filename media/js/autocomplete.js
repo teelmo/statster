@@ -12,7 +12,7 @@
 // header.php, same as ajax.js and searchable_select.js.
 
 function autocompleteEscapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 }
 
 function autocompleteEscapeRegExp(s) {
@@ -54,19 +54,11 @@ function autocompleteRenderItem(item, term, inputEl) {
       }
       return null;
     }
-    const artistOnlyTerm = autocompleteEscapeRegExp(
-      item_arr[0]
-        .trim()
-        .replace(/<\/?[^>]+(>|$)/g, '')
-    );
+    const artistOnlyTerm = autocompleteEscapeRegExp(item_arr[0].trim().replace(/<\/?[^>]+(>|$)/g, ''));
     const label2 = autocompleteItemMarkup(item, autocompleteHighlight(item.label, `${artistOnlyTerm}|–`));
     return { html: `<li class="ui-menu-item" title="${item.value}">${label2}</li>`, selectable: true };
   }
-  const cleanTerm = autocompleteEscapeRegExp(
-    term
-      .trim()
-      .replace(/<\/?[^>]+(>|$)/g, '')
-  );
+  const cleanTerm = autocompleteEscapeRegExp(term.trim().replace(/<\/?[^>]+(>|$)/g, ''));
   const label3 = autocompleteItemMarkup(item, autocompleteHighlight(item.label, cleanTerm));
   return { html: `<li class="ui-menu-item" title="${item.value}">${label3}</li>`, selectable: true };
 }
@@ -90,9 +82,8 @@ function initAutocomplete(inputEl, options) {
   container.style.position = container.style.position || 'relative';
 
   var dropdown = document.createElement('ul');
-  dropdown.className = 'ui-autocomplete ui-menu ui-front';
+  dropdown.className = 'ui-autocomplete ui-menu ui-front hidden';
   dropdown.id = dropdownId;
-  dropdown.style.display = 'none';
   container.append(dropdown);
 
   var rows = [];
@@ -102,7 +93,7 @@ function initAutocomplete(inputEl, options) {
   var selectedItem = null;
 
   function closeDropdown() {
-    dropdown.style.display = 'none';
+    dropdown.classList.add('hidden');
     dropdown.innerHTML = '';
     rows = [];
     activeIndex = -1;
@@ -110,8 +101,6 @@ function initAutocomplete(inputEl, options) {
 
   function positionDropdown() {
     if (dropdownId === 'ui-id-1') {
-      // #ui-id-1 in jquery.autocomplete.css forces position: fixed; top:
-      // 31px !important - only the horizontal offset is ours to set.
       dropdown.style.left = `${inputEl.getBoundingClientRect().left}px`;
     } else {
       dropdown.style.top = '100%';
@@ -159,7 +148,7 @@ function initAutocomplete(inputEl, options) {
       closeDropdown();
       return;
     }
-    dropdown.style.display = 'block';
+    dropdown.classList.toggle('hidden');
     positionDropdown();
   }
 
@@ -205,7 +194,7 @@ function initAutocomplete(inputEl, options) {
   });
 
   inputEl.addEventListener('keydown', event => {
-    if (dropdown.style.display === 'none') {
+    if (dropdown.classList.contains('hidden')) {
       return;
     }
     if (event.key === 'ArrowDown') {

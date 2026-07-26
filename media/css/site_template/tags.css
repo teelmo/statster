@@ -60,8 +60,10 @@
   }
 }
 #tagAdd {
-  display: inline-block;
   max-width: 450px;
   position: relative;
   width: 100%;
+  &.active {
+    display: inline-block;
+  }
 }

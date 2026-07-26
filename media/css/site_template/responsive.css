@@ -109,10 +109,7 @@
       width: 100%;
     }
   }
-  .heading_container .heading_cont.main_heading_cont .info h1 .top_music,
-  .heading_container .heading_cont.main_heading_cont .info h1 .meta {
-    display: none;
-  }
+
   .top_container .inner .top_links {
     display: none;
   }
@@ -143,7 +140,7 @@
   div.cover .album_year {
     display: none;
   }
-  .top_container .inner .user_container .profile_text {
+  div.top_container .inner .user_container .profile_text {
     margin-right: 5px;
   }
   div.left_container div.left_containerInner {
@@ -177,5 +174,9 @@
         }
       }
     }
+  }
+  .heading_container .heading_cont.main_heading_cont .info h1 .top_music,
+  .heading_container .heading_cont.main_heading_cont .info h1 .meta {
+    display: none;
   }
 }

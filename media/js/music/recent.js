@@ -38,7 +38,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListenedLoader').classList.add('hidden');
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
@@ -69,7 +69,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListenerLoader').classList.add('hidden');
               document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
@@ -78,12 +78,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -94,7 +94,6 @@ Object.assign(view, {
   initRecentEvents: () => {
     document.querySelector('#refreshRecentAlbums').addEventListener('click', () => {
       var loader = document.querySelector('#recentlyListenedLoader2');
-      loader.style.display = '';
       loader.classList.remove('hidden');
       view.getRecentListenings();
     });
@@ -110,11 +109,7 @@ Object.assign(view, {
         }
         var container = document.querySelector(target.dataset.confirmationContainer);
         if (container) {
-          // .confirmation's own CSS class sets display: none (no separate
-          // "hidden" utility class involved), so clearing to '' can't
-          // override it - an explicit display value is required, same as
-          // jQuery's .show() would have computed for this <div>.
-          container.style.display = 'block';
+          container.classList.remove('hidden');
         }
       });
       root.addEventListener('click', event => {
@@ -122,7 +117,7 @@ Object.assign(view, {
         if (!target) {
           return;
         }
-        target.closest('div').style.display = 'none';
+        target.closest('div').classList.add('hidden');
       });
       root.addEventListener('click', event => {
         var target = event.target.closest('a.confirm');

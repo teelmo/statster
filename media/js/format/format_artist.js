@@ -17,7 +17,7 @@ Object.assign(view, {
               logged_in: `<?=$logged_in?>`
             },
             success: data => {
-              document.querySelector('#tagsLoader').style.display = 'none';
+              document.querySelector('#tagsLoader').classList.add('hidden');
               document.querySelector('#tags').innerHTML = data;
             },
             type: 'POST',
@@ -26,12 +26,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#tagsLoader').style.display = 'none';
+          document.querySelector('#tagsLoader').classList.add('hidden');
           document.querySelector('#tags').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#tagsLoader').style.display = 'none';
+          document.querySelector('#tagsLoader').classList.add('hidden');
           document.querySelector('#tags').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -42,12 +42,12 @@ Object.assign(view, {
   // Get artist fan.
   getFan: user_id => {
     if (user_id === undefined) {
-      document.querySelector('#fanLoader').style.display = 'none';
+      document.querySelector('#fanLoader').classList.add('hidden');
       return;
     }
     ajax({
       complete: () => {
-        document.querySelector('#fanLoader').style.display = 'none';
+        document.querySelector('#fanLoader').classList.add('hidden');
       },
       data: {
         user_id: user_id
@@ -85,7 +85,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#artistFanLoader').style.display = 'none';
+              document.querySelector('#artistFanLoader').classList.add('hidden');
               document.querySelector('#artistFan').innerHTML = data;
             },
             type: 'POST',
@@ -94,12 +94,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#artistFanLoader').style.display = 'none';
+          document.querySelector('#artistFanLoader').classList.add('hidden');
           document.querySelector('#artistFan').innerHTML = '';
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#artistFanLoader').style.display = 'none';
+          document.querySelector('#artistFanLoader').classList.add('hidden');
           alert(`<?=ERR_BAD_REQUEST?>`);
         }
       },
@@ -123,7 +123,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+              document.querySelector('#topListeningFormatTypesLoader').classList.add('hidden');
               document.querySelector('#topListeningFormatTypes').innerHTML = data;
             },
             type: 'POST',
@@ -132,12 +132,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypesLoader').classList.add('hidden');
           document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypesLoader').classList.add('hidden');
           document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -167,7 +167,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListenerLoader').classList.add('hidden');
               document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
@@ -176,12 +176,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -211,7 +211,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListenedLoader').classList.add('hidden');
               document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
@@ -220,12 +220,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListenedLoader').classList.add('hidden');
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListenedLoader').classList.add('hidden');
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -253,12 +253,12 @@ Object.assign(view, {
               fan.classList.add('fan_del');
               var msg = fan.querySelector('.like_msg');
               msg.innerHTML = "You're a fan!";
-              msg.style.display = '';
+              msg.classList.remove('hidden');
               setTimeout(() => {
                 // Note: jQuery's fadeOut() animated this over 1s; plain hide
                 // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
-                  el.style.display = 'none';
+                  el.classList.add('hidden');
                 });
               }, `<?=MSG_FADEOUT?>`);
               view.getFans();
@@ -289,12 +289,12 @@ Object.assign(view, {
               fan.classList.add('fan_add');
               var msg = fan.querySelector('.like_msg');
               msg.innerHTML = 'Unfaned.';
-              msg.style.display = '';
+              msg.classList.remove('hidden');
               setTimeout(() => {
                 // Note: jQuery's fadeOut() animated this over 1s; plain hide
                 // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
-                  el.style.display = 'none';
+                  el.classList.add('hidden');
                 });
               }, `<?=MSG_FADEOUT?>`);
               view.getFans();
@@ -320,33 +320,35 @@ Object.assign(view, {
       if (!target) {
         return;
       }
-      Array.from(document.querySelector('#tagAdd select').selectedOptions).map(o => o.value).forEach(el => {
-        var tag = el.split(':');
-        ajax({
-          data: {
-            artist_id: parseInt(`<?=$artist_id?>`, 10),
-            tag_id: tag[1],
-            type: 'artist'
-          },
-          statusCode: {
-            201: () => {
-              // 201 Created
+      Array.from(document.querySelector('#tagAdd select').selectedOptions)
+        .map(o => o.value)
+        .forEach(el => {
+          var tag = el.split(':');
+          ajax({
+            data: {
+              artist_id: parseInt(`<?=$artist_id?>`, 10),
+              tag_id: tag[1],
+              type: 'artist'
             },
-            400: () => {
-              // 400 Bad request
-              alert(`<?=ERR_BAD_REQUEST?>`);
+            statusCode: {
+              201: () => {
+                // 201 Created
+              },
+              400: () => {
+                // 400 Bad request
+                alert(`<?=ERR_BAD_REQUEST?>`);
+              },
+              401: () => {
+                alert('401 Unauthorized');
+              },
+              404: () => {
+                alert('404 Not Found');
+              }
             },
-            401: () => {
-              alert('401 Unauthorized');
-            },
-            404: () => {
-              alert('404 Not Found');
-            }
-          },
-          type: 'POST',
-          url: `/api/tag/add/${tag[0]}`
+            type: 'POST',
+            url: `/api/tag/add/${tag[0]}`
+          });
         });
-      });
       document.querySelector('#tagAdd select').searchableSelectReset();
       view.getTags();
       document.querySelector('#tagAdd').classList.add('hidden');

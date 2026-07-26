@@ -7,7 +7,7 @@
           <span class="lds-ring hidden" id="topListeningFormatTypesLoader2"><div></div><div></div><div></div><div></div></span>
           <div class="func_container">
             <div class="value"><?=INTERVAL_TEXTS[$top_formats]?></div>
-            <ul class="subnav" data-name="top_formats" data-callback="getFormats" data-loader="topListeningFormatTypesLoader2">
+            <ul class="subnav hidden" data-name="top_formats" data-callback="getFormats" data-loader="topListeningFormatTypesLoader2">
               <li data-value="7">Last 7 days</li>
               <li data-value="30">Last 30 days</li>
               <li data-value="90">Last 90 days</li>

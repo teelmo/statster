@@ -32,7 +32,7 @@
         <span class="lds-ring hidden" id="topAlbumLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_album_value" data-value="<?=$top_album_main?>"><?=INTERVAL_TEXTS[$top_album_main]?></div>
-          <ul class="subnav" data-name="top_album_main" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
+          <ul class="subnav hidden" data-name="top_album_main" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -56,7 +56,7 @@
         <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_artist_value" data-value="<?=$top_artist_main?>"><?=INTERVAL_TEXTS[$top_artist_main]?></div>
-          <ul class="subnav" data-name="top_artist_main" data-callback="getTopArtists" data-loader="topArtistLoader2">
+          <ul class="subnav hidden" data-name="top_artist_main" data-callback="getTopArtists" data-loader="topArtistLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>

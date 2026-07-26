@@ -20,7 +20,7 @@ Object.assign(view, {
               }
             },
             success: data => {
-              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListenedLoader').classList.add('hidden');
               document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
@@ -46,7 +46,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#topArtistLoader').style.display = 'none';
+              document.querySelector('#topArtistLoader').classList.add('hidden');
               document.querySelector('#topArtist').innerHTML = data;
             },
             type: 'POST',

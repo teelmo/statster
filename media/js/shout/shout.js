@@ -1,101 +1,104 @@
 Object.assign(view, {
-  getAlbumShouts: size => new Promise(resolve => {
-    ajax({
-      data: {
-        limit: 33,
-        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
-      },
-      dataType: 'json',
-      statusCode: {
-        200: data => {
-          // 200 OK
-          ajax({
-            data: {
-              json_data: data,
-              size: size
-            },
-            success: data => {
-              document.querySelector('#albumShout').innerHTML = data;
-              resolve();
-            },
-            type: 'POST',
-            url: '/ajax/shoutTable'
-          });
+  getAlbumShouts: size =>
+    new Promise(resolve => {
+      ajax({
+        data: {
+          limit: 33,
+          username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
         },
-        204: () => {
-          // 204 No Content
-          resolve();
-        }
-      },
-      type: 'GET',
-      url: '/api/shout/get/album'
-    });
-  }),
-  getArtistShouts: size => new Promise(resolve => {
-    ajax({
-      data: {
-        limit: 33,
-        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
-      },
-      dataType: 'json',
-      statusCode: {
-        200: data => {
-          // 200 OK
-          ajax({
-            data: {
-              json_data: data,
-              size: size
-            },
-            success: data => {
-              document.querySelector('#artistShout').innerHTML = data;
-              resolve();
-            },
-            type: 'POST',
-            url: '/ajax/shoutTable'
-          });
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            // 200 OK
+            ajax({
+              data: {
+                json_data: data,
+                size: size
+              },
+              success: data => {
+                document.querySelector('#albumShout').innerHTML = data;
+                resolve();
+              },
+              type: 'POST',
+              url: '/ajax/shoutTable'
+            });
+          },
+          204: () => {
+            // 204 No Content
+            resolve();
+          }
         },
-        204: () => {
-          // 204 No Content
-          resolve();
-        }
-      },
-      type: 'GET',
-      url: '/api/shout/get/artist'
-    });
-  }),
-  getUserShouts: size => new Promise(resolve => {
-    ajax({
-      data: {
-        limit: 33,
-        type: 'user',
-        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
-      },
-      dataType: 'json',
-      statusCode: {
-        200: data => {
-          // 200 OK
-          ajax({
-            data: {
-              json_data: data,
-              size: size
-            },
-            success: data => {
-              document.querySelector('#userShout').innerHTML = data;
-              resolve();
-            },
-            type: 'POST',
-            url: '/ajax/shoutTable'
-          });
+        type: 'GET',
+        url: '/api/shout/get/album'
+      });
+    }),
+  getArtistShouts: size =>
+    new Promise(resolve => {
+      ajax({
+        data: {
+          limit: 33,
+          username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
         },
-        204: () => {
-          // 204 No Content
-          resolve();
-        }
-      },
-      type: 'GET',
-      url: '/api/shout/get/user'
-    });
-  }),
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            // 200 OK
+            ajax({
+              data: {
+                json_data: data,
+                size: size
+              },
+              success: data => {
+                document.querySelector('#artistShout').innerHTML = data;
+                resolve();
+              },
+              type: 'POST',
+              url: '/ajax/shoutTable'
+            });
+          },
+          204: () => {
+            // 204 No Content
+            resolve();
+          }
+        },
+        type: 'GET',
+        url: '/api/shout/get/artist'
+      });
+    }),
+  getUserShouts: size =>
+    new Promise(resolve => {
+      ajax({
+        data: {
+          limit: 33,
+          type: 'user',
+          username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
+        },
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            // 200 OK
+            ajax({
+              data: {
+                json_data: data,
+                size: size
+              },
+              success: data => {
+                document.querySelector('#userShout').innerHTML = data;
+                resolve();
+              },
+              type: 'POST',
+              url: '/ajax/shoutTable'
+            });
+          },
+          204: () => {
+            // 204 No Content
+            resolve();
+          }
+        },
+        type: 'GET',
+        url: '/api/shout/get/user'
+      });
+    }),
   getShoutUsers: () => {
     ajax({
       data: {
@@ -116,7 +119,7 @@ Object.assign(view, {
               term: 'shouts'
             },
             success: data => {
-              document.querySelector('#shoutersLoader').style.display = 'none';
+              document.querySelector('#shoutersLoader').classList.add('hidden');
               document.querySelector('#shouters').innerHTML = data;
             },
             type: 'POST',
@@ -135,18 +138,14 @@ Object.assign(view, {
   // (one rejection fails the whole group), so each promise gets a .catch()
   // here to match the original's fault tolerance.
   initShoutEvents: size => {
-    Promise.all([
-      view.getAlbumShouts(size).catch(() => {}),
-      view.getArtistShouts(size).catch(() => {}),
-      view.getUserShouts(size).catch(() => {})
-    ]).then(() => {
+    Promise.all([view.getAlbumShouts(size).catch(() => {}), view.getArtistShouts(size).catch(() => {}), view.getUserShouts(size).catch(() => {})]).then(() => {
       var rows = Array.from(document.querySelectorAll('.shouts tr'));
       rows.sort((a, b) => app.compareStrings(a.dataset.created, b.dataset.created));
       var shout = document.querySelector('#shout');
       rows.forEach(row => {
         shout.appendChild(row);
       });
-      document.querySelector('#shoutLoader').style.display = 'none';
+      document.querySelector('#shoutLoader').classList.add('hidden');
     });
   }
 });

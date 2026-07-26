@@ -4,24 +4,18 @@ document.querySelectorAll('.func_container .value').forEach(el => {
     if (!subNav) {
       return;
     }
-    // Note: jQuery's slideUp()/slideDown() aren't used here (just show()/
-    // hide()), so this is a direct display-toggle port, no animation lost.
     if (subNav.offsetParent !== null) {
       this.classList.remove('active');
-      subNav.style.display = 'none';
+      subNav.classList.add('hidden');
     } else {
       document.querySelectorAll('.func_container .subnav').forEach(sn => {
-        sn.style.display = 'none';
+        sn.classList.add('hidden');
       });
       document.querySelectorAll('.func_container .value').forEach(v => {
         v.classList.remove('active');
       });
       this.classList.add('active');
-      // ul.subnav's own CSS class sets display: none (no separate "hidden"
-      // utility class involved), so clearing to '' can't override it - an
-      // explicit display value is required, same as jQuery's .show() would
-      // have computed for this <ul>.
-      subNav.style.display = 'block';
+      subNav.classList.toggle('hidden');
     }
   });
   el.addEventListener('mouseenter', function () {
@@ -34,7 +28,7 @@ document.querySelectorAll('.func_container .value').forEach(el => {
 document.querySelectorAll('.func_container .subnav li').forEach(li => {
   li.addEventListener('click', function () {
     document.querySelectorAll('.func_container .subnav').forEach(sn => {
-      sn.style.display = 'none';
+      sn.classList.add('hidden');
     });
     document.querySelectorAll('.func_container .value').forEach(v => {
       v.classList.remove('active');
@@ -42,7 +36,6 @@ document.querySelectorAll('.func_container .subnav li').forEach(li => {
     var parentUl = this.parentElement;
     var loader = document.querySelector(`#${parentUl.dataset.loader}`);
     if (loader) {
-      loader.style.display = '';
       loader.classList.remove('hidden');
     }
     var name = parentUl.dataset.name;

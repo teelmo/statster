@@ -37,7 +37,7 @@
         margin: auto;
         position: relative;
         z-index: 3;
-        & a {
+        & .statster {
           outline: none;
           &:hover {
             text-decoration: none;
@@ -58,7 +58,7 @@
           display: inline-block;
           width: 40px;
         }
-        & .meta {
+        & .slogan {
           color: #ccc;
           font-size: 16px;
           line-height: 16px;
@@ -197,7 +197,7 @@
           & .username {
             color: #fff;
           }
-          & .meta {
+          & .related {
             color: #999;
           }
         }
@@ -246,12 +246,9 @@
     position: relative;
     text-shadow: 0 0 3px #000;
     z-index: 3;
-    & a {
-      color: #fff;
-      &:hover {
-        color: var(--color-gray-mid);
-        text-decoration: none;
-      }
+    & a:hover {
+      color: var(--color-gray-mid);
+      text-decoration: none;
     }
     & .meta {
       float: left;

@@ -16,13 +16,13 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('.line').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
         },
         400: () => {
           // 400 Bad request
           document.querySelectorAll('.line').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
         }
       },
@@ -30,281 +30,286 @@ Object.assign(view, {
       url: '/api/tag/get/<?=strtolower($tag_type)?>/cumulative'
     });
   },
-  getListeningHistory: type => new Promise(resolve => {
-    view.initChart();
-    var group_by;
-    var order_by;
-    var select;
-    var where;
-    if (type === '%w') {
-      group_by = 'WEEKDAY(<?=TBL_listening?>.`date`)';
-      order_by = 'WEEKDAY(<?=TBL_listening?>.`date`) ASC';
-      select = 'WEEKDAY(<?=TBL_listening?>.`date`) as `bar_date`';
-      where = "WEEKDAY(<?=TBL_listening?>.`date`) IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, '%d') != '00'";
-    } else if (type === '%Y%m') {
-      group_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}')`;
-      order_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') ASC`;
-      select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
-      where = "DATE_FORMAT(<?=TBL_listening?>.`date`, '%m') != '00'";
-    } else {
-      group_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}')`;
-      order_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') ASC`;
-      select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
-      where = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') != '00'`;
-    }
-    ajax({
-      data: {
-        group_by: group_by,
-        // 200 truncated the cumulative monthly-bucket view for long histories (>16y of
-        // months); 1200 covers 100 years, comfortably above any real account.
-        limit: 1200,
-        lower_limit: '1970-00-00',
-        order_by: order_by,
-        select: select,
-        tag_id: '<?=$tag_id?>',
-        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
-        where: where
-      },
-      dataType: 'json',
-      statusCode: {
-        200: data => {
-          // 200 OK
-          ajax({
-            data: {
-              json_data: data,
-              type: type
-            },
-            success: data => {
-              document.querySelector('#historyLoader').style.display = 'none';
-              var history = document.querySelector('#history');
-              ajaxSetHtml(history, data);
-              history.style.display = 'none';
-              app.chart.xAxis[0].setCategories(view.categories, false);
-              app.chart.series[0].setData(view.chart_data, true);
-              resolve();
-            },
-            type: 'POST',
-            url: '/ajax/musicBar'
-          });
+  getListeningHistory: type =>
+    new Promise(resolve => {
+      view.initChart();
+      var group_by;
+      var order_by;
+      var select;
+      var where;
+      if (type === '%w') {
+        group_by = 'WEEKDAY(<?=TBL_listening?>.`date`)';
+        order_by = 'WEEKDAY(<?=TBL_listening?>.`date`) ASC';
+        select = 'WEEKDAY(<?=TBL_listening?>.`date`) as `bar_date`';
+        where = "WEEKDAY(<?=TBL_listening?>.`date`) IS NOT NULL AND DATE_FORMAT(<?=TBL_listening?>.`date`, '%d') != '00'";
+      } else if (type === '%Y%m') {
+        group_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}')`;
+        order_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') ASC`;
+        select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
+        where = "DATE_FORMAT(<?=TBL_listening?>.`date`, '%m') != '00'";
+      } else {
+        group_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}')`;
+        order_by = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') ASC`;
+        select = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') as \`bar_date\``;
+        where = `DATE_FORMAT(<?=TBL_listening?>.\`date\`, '${type}') != '00'`;
+      }
+      ajax({
+        data: {
+          group_by: group_by,
+          // 200 truncated the cumulative monthly-bucket view for long histories (>16y of
+          // months); 1200 covers 100 years, comfortably above any real account.
+          limit: 1200,
+          lower_limit: '1970-00-00',
+          order_by: order_by,
+          select: select,
+          tag_id: '<?=$tag_id?>',
+          username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+          where: where
         },
-        204: () => {
-          // 204 No Content
-          document.querySelector('#historyLoader').style.display = 'none';
-          document.querySelector('#history').innerHTML = `<?=ERR_NO_RESULTS?>`;
-          document.querySelector('.music_bar').style.display = 'none';
-          resolve();
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            // 200 OK
+            ajax({
+              data: {
+                json_data: data,
+                type: type
+              },
+              success: data => {
+                document.querySelector('#historyLoader').classList.add('hidden');
+                var history = document.querySelector('#history');
+                ajaxSetHtml(history, data);
+                history.classList.add('hidden');
+                app.chart.xAxis[0].setCategories(view.categories, false);
+                app.chart.series[0].setData(view.chart_data, true);
+                resolve();
+              },
+              type: 'POST',
+              url: '/ajax/musicBar'
+            });
+          },
+          204: () => {
+            // 204 No Content
+            document.querySelector('#historyLoader').classList.add('hidden');
+            document.querySelector('#history').innerHTML = `<?=ERR_NO_RESULTS?>`;
+            document.querySelector('.music_bar').classList.add('hidden');
+            resolve();
+          },
+          400: () => {
+            // 400 Bad request
+            document.querySelector('#historyLoader').classList.add('hidden');
+            alert(`<?=ERR_BAD_REQUEST?>`);
+            document.querySelector('.music_bar').classList.add('hidden');
+            resolve();
+          }
         },
-        400: () => {
-          // 400 Bad request
-          document.querySelector('#historyLoader').style.display = 'none';
-          alert(`<?=ERR_BAD_REQUEST?>`);
-          document.querySelector('.music_bar').style.display = 'none';
-          resolve();
-        }
-      },
-      type: 'GET',
-      url: '/api/tag/get/<?=strtolower($tag_type)?>'
-    }).catch(() => resolve());
-  }),
+        type: 'GET',
+        url: '/api/tag/get/<?=strtolower($tag_type)?>'
+      }).catch(() => resolve());
+    }),
   // Get top albums.
-  getTopAlbums: interval => new Promise(resolve => {
-    var lower_limit;
-    if (interval === 'overall') {
-      lower_limit = '1970-00-00';
-    } else {
-      date.setDate(new Date().getDate() - parseInt(interval, 10));
-      lower_limit = date.toISOString().split('T')[0];
-    }
-    ajax({
-      data: {
-        limit: 13,
-        lower_limit: lower_limit,
-        tag_id: '<?=$tag_id?>',
-        tag_type: '<?=$tag_type?>',
-        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
-      },
-      dataType: 'json',
-      statusCode: {
-        200: data => {
-          ajax({
-            data: {
-              json_data: data,
-              type: 'album'
-            },
-            success: data => {
-              document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
-                el.classList.add('hidden');
-              });
-              document.querySelector('#topAlbum').innerHTML = data;
-              resolve();
-            },
-            type: 'POST',
-            url: '/ajax/musicWall'
-          });
+  getTopAlbums: interval =>
+    new Promise(resolve => {
+      var lower_limit;
+      if (interval === 'overall') {
+        lower_limit = '1970-00-00';
+      } else {
+        date.setDate(new Date().getDate() - parseInt(interval, 10));
+        lower_limit = date.toISOString().split('T')[0];
+      }
+      ajax({
+        data: {
+          limit: 13,
+          lower_limit: lower_limit,
+          tag_id: '<?=$tag_id?>',
+          tag_type: '<?=$tag_type?>',
+          username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
         },
-        204: () => {
-          // 204 No Content
-          document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
-            el.classList.add('hidden');
-          });
-          document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
-          resolve();
-        }
-      },
-      type: 'GET',
-      url: '/api/tag/get'
-    }).catch(() => resolve());
-  }),
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            ajax({
+              data: {
+                json_data: data,
+                type: 'album'
+              },
+              success: data => {
+                document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
+                  el.classList.add('hidden');
+                });
+                document.querySelector('#topAlbum').innerHTML = data;
+                resolve();
+              },
+              type: 'POST',
+              url: '/ajax/musicWall'
+            });
+          },
+          204: () => {
+            // 204 No Content
+            document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
+              el.classList.add('hidden');
+            });
+            document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
+            resolve();
+          }
+        },
+        type: 'GET',
+        url: '/api/tag/get'
+      }).catch(() => resolve());
+    }),
   // Get top artists.
-  getTopArtists: interval => new Promise(resolve => {
-    var lower_limit;
-    if (interval === 'overall') {
-      lower_limit = '1970-00-00';
-    } else {
-      date.setDate(new Date().getDate() - parseInt(interval, 10));
-      lower_limit = date.toISOString().split('T')[0];
-    }
-    ajax({
-      data: {
-        group_by: '`artist_id`',
-        limit: 13,
-        lower_limit: lower_limit,
-        order_by: '`count` DESC, <?=TBL_artist?>.`artist_name` ASC',
-        tag_id: '<?=$tag_id?>',
-        tag_type: '<?=$tag_type?>',
-        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
-      },
-      dataType: 'json',
-      statusCode: {
-        200: data => {
-          ajax({
-            data: {
-              json_data: data,
-              type: 'artist'
-            },
-            success: data => {
-              document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
-                el.classList.add('hidden');
-              });
-              document.querySelector('#topArtist').innerHTML = data;
-              resolve();
-            },
-            type: 'POST',
-            url: '/ajax/musicWall'
-          });
+  getTopArtists: interval =>
+    new Promise(resolve => {
+      var lower_limit;
+      if (interval === 'overall') {
+        lower_limit = '1970-00-00';
+      } else {
+        date.setDate(new Date().getDate() - parseInt(interval, 10));
+        lower_limit = date.toISOString().split('T')[0];
+      }
+      ajax({
+        data: {
+          group_by: '`artist_id`',
+          limit: 13,
+          lower_limit: lower_limit,
+          order_by: '`count` DESC, <?=TBL_artist?>.`artist_name` ASC',
+          tag_id: '<?=$tag_id?>',
+          tag_type: '<?=$tag_type?>',
+          username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`
         },
-        204: () => {
-          // 204 No Content
-          document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
-            el.classList.add('hidden');
-          });
-          document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
-          resolve();
-        }
-      },
-      type: 'GET',
-      url: '/api/tag/get'
-    }).catch(() => resolve());
-  }),
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            ajax({
+              data: {
+                json_data: data,
+                type: 'artist'
+              },
+              success: data => {
+                document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
+                  el.classList.add('hidden');
+                });
+                document.querySelector('#topArtist').innerHTML = data;
+                resolve();
+              },
+              type: 'POST',
+              url: '/ajax/musicWall'
+            });
+          },
+          204: () => {
+            // 204 No Content
+            document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
+              el.classList.add('hidden');
+            });
+            document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
+            resolve();
+          }
+        },
+        type: 'GET',
+        url: '/api/tag/get'
+      }).catch(() => resolve());
+    }),
   // Get tag listeners.
-  getUsers: (from, where) => new Promise(resolve => {
-    ajax({
-      data: {
-        from: from,
-        limit: 10,
-        sub_group_by: 'album',
-        where: where
-      },
-      dataType: 'json',
-      statusCode: {
-        200: data => {
-          // 200 OK
-          ajax({
-            data: {
-              hide: {
-                calendar: true,
-                date: true
+  getUsers: (from, where) =>
+    new Promise(resolve => {
+      ajax({
+        data: {
+          from: from,
+          limit: 10,
+          sub_group_by: 'album',
+          where: where
+        },
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            // 200 OK
+            ajax({
+              data: {
+                hide: {
+                  calendar: true,
+                  date: true
+                },
+                json_data: data,
+                size: 32
               },
-              json_data: data,
-              size: 32
-            },
-            success: data => {
-              document.querySelector('#topListenerLoader').style.display = 'none';
-              document.querySelector('#topListener').innerHTML = data;
-              resolve();
-            },
-            type: 'POST',
-            url: '/ajax/userTable'
-          });
+              success: data => {
+                document.querySelector('#topListenerLoader').classList.add('hidden');
+                document.querySelector('#topListener').innerHTML = data;
+                resolve();
+              },
+              type: 'POST',
+              url: '/ajax/userTable'
+            });
+          },
+          204: () => {
+            // 204 No Content
+            document.querySelector('#topListenerLoader').classList.add('hidden');
+            document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
+            resolve();
+          },
+          400: () => {
+            // 400 Bad request
+            document.querySelector('#topListenerLoader').classList.add('hidden');
+            document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
+            resolve();
+          }
         },
-        204: () => {
-          // 204 No Content
-          document.querySelector('#topListenerLoader').style.display = 'none';
-          document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
-          resolve();
-        },
-        400: () => {
-          // 400 Bad request
-          document.querySelector('#topListenerLoader').style.display = 'none';
-          document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
-          resolve();
-        }
-      },
-      type: 'GET',
-      url: '/api/listener/get'
-    }).catch(() => resolve());
-  }),
+        type: 'GET',
+        url: '/api/listener/get'
+      }).catch(() => resolve());
+    }),
   // Get tag listenings.
-  getListenings: (from, where) => new Promise(resolve => {
-    ajax({
-      data: {
-        from: from,
-        limit: 10,
-        sub_group_by: 'album',
-        username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
-        where: where
-      },
-      dataType: 'json',
-      statusCode: {
-        200: data => {
-          // 200 OK
-          ajax({
-            data: {
-              hide: {
-                artist: true,
-                count: true,
-                rank: true,
-                spotify: true
+  getListenings: (from, where) =>
+    new Promise(resolve => {
+      ajax({
+        data: {
+          from: from,
+          limit: 10,
+          sub_group_by: 'album',
+          username: `<?=(!empty($_GET['u'])) ? $_GET['u'] : ''?>`,
+          where: where
+        },
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            // 200 OK
+            ajax({
+              data: {
+                hide: {
+                  artist: true,
+                  count: true,
+                  rank: true,
+                  spotify: true
+                },
+                json_data: data,
+                size: 32
               },
-              json_data: data,
-              size: 32
-            },
-            success: data => {
-              document.querySelector('#recentlyListenedLoader').style.display = 'none';
-              document.querySelector('#recentlyListened').innerHTML = data;
-              resolve();
-            },
-            type: 'POST',
-            url: '/ajax/sideTable'
-          });
+              success: data => {
+                document.querySelector('#recentlyListenedLoader').classList.add('hidden');
+                document.querySelector('#recentlyListened').innerHTML = data;
+                resolve();
+              },
+              type: 'POST',
+              url: '/ajax/sideTable'
+            });
+          },
+          204: () => {
+            // 204 No Content
+            document.querySelector('#recentlyListenedLoader').classList.add('hidden');
+            document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
+            resolve();
+          },
+          400: () => {
+            // 400 Bad request
+            document.querySelector('#recentlyListenedLoader').classList.add('hidden');
+            document.querySelector('#recentlyListened').innerHTML = `<?=ERR_BAD_REQUEST?>`;
+            resolve();
+          }
         },
-        204: () => {
-          // 204 No Content
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
-          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
-          resolve();
-        },
-        400: () => {
-          // 400 Bad request
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
-          document.querySelector('#recentlyListened').innerHTML = `<?=ERR_BAD_REQUEST?>`;
-          resolve();
-        }
-      },
-      type: 'GET',
-      url: '/api/listening/get'
-    }).catch(() => resolve());
-  }),
+        type: 'GET',
+        url: '/api/listening/get'
+      }).catch(() => resolve());
+    }),
   updateBio: () => {
     ajax({
       data: {
@@ -323,13 +328,7 @@ Object.assign(view, {
   // (one rejection fails the whole group), so each promise gets a .catch()
   // here to match the original's fault tolerance.
   initTagEvents: (from, where) => {
-    Promise.all([
-      view.getListeningHistory('%Y').catch(() => {}),
-      view.getTopAlbums('<?=$top_album_tag?>').catch(() => {}),
-      view.getTopArtists('<?=$top_artist_tag?>').catch(() => {}),
-      view.getUsers(from, where).catch(() => {}),
-      view.getListenings(from, where).catch(() => {})
-    ]).then(() => {
+    Promise.all([view.getListeningHistory('%Y').catch(() => {}), view.getTopAlbums('<?=$top_album_tag?>').catch(() => {}), view.getTopArtists('<?=$top_artist_tag?>').catch(() => {}), view.getUsers(from, where).catch(() => {}), view.getListenings(from, where).catch(() => {})]).then(() => {
       if (cumulative_done === false) {
         view.getListeningCumulation();
       }
@@ -339,9 +338,9 @@ Object.assign(view, {
     var biographyMore = document.querySelector('#biographyMore');
     if (biographyMore) {
       biographyMore.addEventListener('click', event => {
-        biographyMore.style.display = 'none';
+        biographyMore.classList.add('hidden');
         document.querySelectorAll('.summary').forEach(el => {
-          el.style.display = 'none';
+          el.classList.add('hidden');
         });
         var biographyLess = document.querySelector('#biographyLess');
         biographyLess.style.display = '';
@@ -353,9 +352,9 @@ Object.assign(view, {
         event.preventDefault();
       });
       document.querySelector('#biographyLess').addEventListener('click', event => {
-        document.querySelector('#biographyLess').style.display = 'none';
+        document.querySelector('#biographyLess').classList.add('hidden');
         document.querySelectorAll('.content').forEach(el => {
-          el.style.display = 'none';
+          el.classList.add('hidden');
         });
         biographyMore.style.display = '';
         document.querySelectorAll('.summary').forEach(el => {

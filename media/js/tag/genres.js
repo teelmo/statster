@@ -44,7 +44,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(`${vars.container}Loader`).classList.add('hidden');
           document.querySelector(vars.container).innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -54,7 +54,9 @@ Object.assign(view, {
   },
   getTopGenresYearly: () => {
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      document.querySelector('#years').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="topGenre${year}Loader"><div></div><div></div><div></div></div><table id="topGenre${year}" class="side_table"></table></div><div class="container"><hr /></div>`);
+      document
+        .querySelector('#years')
+        .insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook inline" id="topGenre${year}Loader"><div></div><div></div><div></div></div><table id="topGenre${year}" class="side_table"></table></div><div class="container"><hr /></div>`);
       const vars = {
         container: `#topGenre${year}`,
         limit: 3,

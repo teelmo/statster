@@ -13,7 +13,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#searchResultLoader').style.display = 'none';
+              document.querySelector('#searchResultLoader').classList.add('hidden');
               document.querySelector('#searchResult').innerHTML = data;
             },
             type: 'POST',
@@ -22,11 +22,11 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#searchResultLoader').style.display = 'none';
+          document.querySelector('#searchResultLoader').classList.add('hidden');
           document.querySelector('#searchResult').innerHTML = '';
         },
         400: () => {
-          document.querySelector('#searchResultLoader').style.display = 'none';
+          document.querySelector('#searchResultLoader').classList.add('hidden');
           alert(`<?=ERR_BAD_REQUEST?>`);
         }
       },

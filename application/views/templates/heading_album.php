@@ -54,7 +54,7 @@
             <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
           </div>
           <span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('album' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
-          <span id="love" class="like_toggle" aria-label="Love this album"><div class="lds-facebook" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
+          <span id="love" class="like_toggle" aria-label="Love this album"><div class="lds-facebook inline" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
         </div>
       </div>
       <?php

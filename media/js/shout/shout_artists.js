@@ -15,7 +15,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#shoutLoader').style.display = 'none';
+              document.querySelector('#shoutLoader').classList.add('hidden');
               document.querySelector('#shout').innerHTML = data;
             },
             type: 'POST',
@@ -48,7 +48,7 @@ Object.assign(view, {
               term: 'shouts'
             },
             success: data => {
-              document.querySelector('#shoutersLoader').style.display = 'none';
+              document.querySelector('#shoutersLoader').classList.add('hidden');
               document.querySelector('#shouters').innerHTML = data;
             },
             type: 'POST',

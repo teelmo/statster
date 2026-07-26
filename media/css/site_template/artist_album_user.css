@@ -6,9 +6,11 @@
   position: relative;
   top: 9px;
   & .lds-facebook {
-    display: inline;
     left: 20px;
-    top: 3px;
+    top: 5px;
+    &.hidden {
+      display: none;
+    }
   }
   & .like_msg {
     color: var(--color-gray-dark);
@@ -19,6 +21,9 @@
     position: absolute;
     top: 2px;
     width: 130px;
+    &.hidden {
+      display: none;
+    }
   }
   &.love_add {
     &:after {

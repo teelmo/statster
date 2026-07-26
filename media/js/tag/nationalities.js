@@ -74,7 +74,7 @@ Object.assign(view, {
               type: 'artist'
             },
             success: data => {
-              document.querySelector('#topArtistNationalityLoader').style.display = 'none';
+              document.querySelector('#topArtistNationalityLoader').classList.add('hidden');
               document.querySelector('#topArtistNationality').innerHTML = data;
             },
             type: 'POST',
@@ -83,7 +83,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topArtistNationalityLoader').style.display = 'none';
+          document.querySelector('#topArtistNationalityLoader').classList.add('hidden');
           document.querySelector('#topArtistNationality').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -93,7 +93,9 @@ Object.assign(view, {
   },
   getTopNationalitiesYearly: () => {
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      document.querySelector('#years').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="topNationality${year}Loader"><div></div><div></div><div></div></div><table id="topNationality${year}" class="side_table"></table></div><div class="container"><hr /></div>`);
+      document
+        .querySelector('#years')
+        .insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook inline" id="topNationality${year}Loader"><div></div><div></div><div></div></div><table id="topNationality${year}" class="side_table"></table></div><div class="container"><hr /></div>`);
       const vars = {
         container: `#topNationality${year}`,
         limit: 3,

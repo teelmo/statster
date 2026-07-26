@@ -1,7 +1,7 @@
 <div class="heading_container">
   <div class="heading_cont main_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>');">
     <div class="info">
-      <h1><a href="/" class="statster"><span class="stats">stats</span><span class="ter">ter</span></a><span class="separator"></span><span class="meta">reconcile with music</span><div class="top_music"><?=anchor(array('music', date('Y', strtotime('last month')), date('m', strtotime('last month'))), 'Top in ' . date('F', strtotime('last month')))?></div></h1>
+      <h1><a href="/" class="statster"><span class="stats">stats</span><span class="ter">ter</span></a><span class="separator"></span><span class="meta slogan">reconcile with music</span><div class="top_music"><?=anchor(array('music', date('Y', strtotime('last month')), date('m', strtotime('last month'))), 'Top in ' . date('F', strtotime('last month')))?></div></h1>
     </div>
   </div>
   <div class="meta_container">
@@ -101,7 +101,7 @@
         <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_genre_value" data-value="<?=$top_genre_tags?>"><?=INTERVAL_TEXTS[$top_genre_tags]?></div>
-          <ul class="subnav" data-name="top_genre_tags" data-callback="topGenre" data-loader="topGenreLoader2, #topGenreLoader3">
+          <ul class="subnav hidden" data-name="top_genre_tags" data-callback="topGenre" data-loader="topGenreLoader2, #topGenreLoader3">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -124,7 +124,7 @@
         <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_keyword_value" data-value="<?=$top_keyword_tags?>"><?=INTERVAL_TEXTS[$top_keyword_tags]?></div>
-          <ul class="subnav" data-name="top_keyword_tags" data-callback="topKeyword" data-loader="topKeywordLoader2, #topKeywordLoader3">
+          <ul class="subnav hidden" data-name="top_keyword_tags" data-callback="topKeyword" data-loader="topKeywordLoader2, #topKeywordLoader3">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -147,7 +147,7 @@
         <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_nationality_value" data-value="<?=$top_nationality_tags?>"><?=INTERVAL_TEXTS[$top_nationality_tags]?></div>
-          <ul class="subnav" data-name="top_nationality_tags" data-callback="topNationality" data-loader="topNationalityLoader2, #topNationalityLoader3">
+          <ul class="subnav hidden" data-name="top_nationality_tags" data-callback="topNationality" data-loader="topNationalityLoader2, #topNationalityLoader3">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -170,7 +170,7 @@
         <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_year_value" data-value="<?=$top_year_tags?>"><?=INTERVAL_TEXTS[$top_year_tags]?></div>
-          <ul class="subnav" data-name="top_year_tags" data-callback="topYear" data-loader="topYearLoader2, #topYearLoader3">
+          <ul class="subnav hidden" data-name="top_year_tags" data-callback="topYear" data-loader="topYearLoader2, #topYearLoader3">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>

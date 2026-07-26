@@ -100,7 +100,7 @@ header('HTTP/1.1 200 OK');
             <div class="user_container">
               <div class="profile_text"><?=$this->session->userdata('username')?></div>
               <div class="profile_img" style="background-image: url('<?=$this->session->userdata('user_image')?>');"><img src="<?=$this->session->userdata('user_image')?>" alt="" /></div>
-              <ul class="subnav" style="display: none;">
+              <ul class="subnav hidden">
                 <li class="mobile"><?=anchor(array(''), 'Overview')?></li>
                 <li class="mobile"><?=anchor(array('music'), 'Music')?></li>
                 <li class="mobile"><?=anchor(array('users'), 'Users')?></li>

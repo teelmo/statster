@@ -120,7 +120,7 @@ Object.assign(view, {
     polyline.setAttribute('stroke-width', strokeWidth);
     svg.appendChild(polyline);
 
-    el.style.display = 'none';
+    el.classList.add('hidden');
     el.insertAdjacentElement('afterend', svg);
     // Mirrors the old peity's jQuery fadeIn(1000): the "visible" class carries
     // the CSS opacity transition (widget_controls.css), added on the next tick so the

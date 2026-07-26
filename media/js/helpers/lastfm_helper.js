@@ -20,7 +20,7 @@ Object.assign(view, {
               }
             },
             success: data => {
-              document.querySelector('#similarArtistLoader').style.display = 'none';
+              document.querySelector('#similarArtistLoader').classList.add('hidden');
               document.querySelector('#similarArtist').innerHTML = data;
             }
           });
@@ -46,7 +46,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#artistEventLoader').style.display = 'none';
+              document.querySelector('#artistEventLoader').classList.add('hidden');
               document.querySelector('#artistEvent').innerHTML = data;
             }
           });

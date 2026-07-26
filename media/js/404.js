@@ -20,7 +20,7 @@ Object.assign(view, {
               }
             },
             success: data => {
-              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListenedLoader').classList.add('hidden');
               document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',

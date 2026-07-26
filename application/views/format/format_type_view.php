@@ -7,7 +7,7 @@
           <span class="lds-ring hidden" id="topAlbum10Loader2"><div></div><div></div><div></div><div></div></span>
           <div class="func_container">
             <div class="value"><?=INTERVAL_TEXTS[$top_format_type]?></div>
-            <ul class="subnav" data-name="top_format_type" data-callback="getTopAlbum10" data-loader="topAlbum10Loader2">
+            <ul class="subnav hidden" data-name="top_format_type" data-callback="getTopAlbum10" data-loader="topAlbum10Loader2">
               <li data-value="7">Last 7 days</li>
               <li data-value="30">Last 30 days</li>
               <li data-value="90">Last 90 days</li>

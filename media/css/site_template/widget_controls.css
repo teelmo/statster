@@ -69,7 +69,6 @@ h3 {
       border-radius: 5px;
       border: 1px solid #333;
       color: #000;
-      display: none;
       float: left;
       list-style: none;
       margin: 0;
@@ -114,9 +113,9 @@ h3 {
         }
       }
     }
-    &:hover {
-      color: var(--color-gray-medium);
-    }
+  }
+  & .func_container:hover {
+    color: var(--color-gray-medium);
   }
 }
 .fa-star {

@@ -5,7 +5,7 @@
         <h2><?=anchor(array(url_title($this->uri->segment(1))), ucfirst($tag_type), array('title' => $tag_type))?></h2>
         <h1><?=$tag_name?></h1>
         <ul id="tags">
-          <li class="meta">Related</li>
+          <li class="meta related">Related</li>
           <?php
           foreach ($related as $key => $value) {
             switch ($tag_type) {
@@ -111,7 +111,7 @@
         <span class="lds-ring hidden" id="topAlbumLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_album_tag]?></div>
-          <ul class="subnav" data-name="top_album_tag_<?=$tag_type?>" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
+          <ul class="subnav hidden" data-name="top_album_tag_<?=$tag_type?>" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -133,7 +133,7 @@
         <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_artist_tag]?></div>
-          <ul class="subnav" data-name="top_artist_tag_<?=$tag_type?>" data-callback="getTopArtists" data-loader="topArtistLoader2">
+          <ul class="subnav hidden" data-name="top_artist_tag_<?=$tag_type?>" data-callback="getTopArtists" data-loader="topArtistLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>

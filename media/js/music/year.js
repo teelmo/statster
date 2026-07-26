@@ -45,10 +45,10 @@ Object.assign(view, {
               upper_limit: upper_limit
             },
             success: data => {
-              document.querySelector('#historyLoader').style.display = 'none';
+              document.querySelector('#historyLoader').classList.add('hidden');
               var history = document.querySelector('#history');
               ajaxSetHtml(history, data);
-              history.style.display = 'none';
+              history.classList.add('hidden');
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
             },
@@ -58,15 +58,15 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#historyLoader').style.display = 'none';
+          document.querySelector('#historyLoader').classList.add('hidden');
           document.querySelector('#history').innerHTML = `<?=ERR_NO_RESULTS?>`;
-          document.querySelector('.music_bar').style.display = 'none';
+          document.querySelector('.music_bar').classList.add('hidden');
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#historyLoader').style.display = 'none';
+          document.querySelector('#historyLoader').classList.add('hidden');
           alert(`<?=ERR_BAD_REQUEST?>`);
-          document.querySelector('.music_bar').style.display = 'none';
+          document.querySelector('.music_bar').classList.add('hidden');
         }
       },
       type: 'GET',
@@ -91,7 +91,7 @@ Object.assign(view, {
               type: 'album'
             },
             success: data => {
-              document.querySelector('#topAlbumLoader').style.display = 'none';
+              document.querySelector('#topAlbumLoader').classList.add('hidden');
               document.querySelector('#topAlbum').innerHTML = data;
             },
             type: 'POST',
@@ -100,7 +100,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topAlbumLoader').style.display = 'none';
+          document.querySelector('#topAlbumLoader').classList.add('hidden');
           document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -126,7 +126,7 @@ Object.assign(view, {
               type: 'artist'
             },
             success: data => {
-              document.querySelector('#topArtistLoader').style.display = 'none';
+              document.querySelector('#topArtistLoader').classList.add('hidden');
               document.querySelector('#topArtist').innerHTML = data;
             },
             type: 'POST',
@@ -135,7 +135,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topArtistLoader').style.display = 'none';
+          document.querySelector('#topArtistLoader').classList.add('hidden');
           document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -166,7 +166,7 @@ Object.assign(view, {
               size: 64
             },
             success: data => {
-              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListenerLoader').classList.add('hidden');
               document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
@@ -175,12 +175,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -214,7 +214,7 @@ Object.assign(view, {
               size: 64
             },
             success: data => {
-              document.querySelector('#topReleasesLoader').style.display = 'none';
+              document.querySelector('#topReleasesLoader').classList.add('hidden');
               document.querySelector('#topReleases').innerHTML = data;
             },
             type: 'POST',
@@ -223,7 +223,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topReleasesLoader').style.display = 'none';
+          document.querySelector('#topReleasesLoader').classList.add('hidden');
           document.querySelector('#topReleases').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -251,7 +251,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+              document.querySelector('#topListeningFormatTypesLoader').classList.add('hidden');
               document.querySelector('#topListeningFormatTypes').innerHTML = data;
             },
             type: 'POST',
@@ -260,12 +260,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypesLoader').classList.add('hidden');
           document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#topListeningFormatTypesLoader').style.display = 'none';
+          document.querySelector('#topListeningFormatTypesLoader').classList.add('hidden');
           document.querySelector('#topListeningFormatTypes').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -289,7 +289,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#topGenreLoader').style.display = 'none';
+              document.querySelector('#topGenreLoader').classList.add('hidden');
               document.querySelector('#topGenre').innerHTML = data;
             },
             type: 'POST',
@@ -298,7 +298,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topGenreLoader').style.display = 'none';
+          document.querySelector('#topGenreLoader').classList.add('hidden');
           document.querySelector('#topGenre').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {
@@ -326,7 +326,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#topKeywordLoader').style.display = 'none';
+              document.querySelector('#topKeywordLoader').classList.add('hidden');
               document.querySelector('#topKeyword').innerHTML = data;
             },
             type: 'POST',
@@ -335,7 +335,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topKeywordLoader').style.display = 'none';
+          document.querySelector('#topKeywordLoader').classList.add('hidden');
           document.querySelector('#topKeyword').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {
@@ -363,7 +363,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#topNationalityLoader').style.display = 'none';
+              document.querySelector('#topNationalityLoader').classList.add('hidden');
               document.querySelector('#topNationality').innerHTML = data;
             },
             type: 'POST',
@@ -372,7 +372,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topNationalityLoader').style.display = 'none';
+          document.querySelector('#topNationalityLoader').classList.add('hidden');
           document.querySelector('#topNationality').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {
@@ -400,7 +400,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#topYearLoader').style.display = 'none';
+              document.querySelector('#topYearLoader').classList.add('hidden');
               document.querySelector('#topYear').innerHTML = data;
             },
             type: 'POST',
@@ -409,7 +409,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topYearLoader').style.display = 'none';
+          document.querySelector('#topYearLoader').classList.add('hidden');
           document.querySelector('#topYear').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         404: () => {

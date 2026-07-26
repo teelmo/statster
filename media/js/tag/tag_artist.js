@@ -85,7 +85,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector(`${vars.container}Loader`).style.display = 'none';
+              document.querySelector(`${vars.container}Loader`).classList.add('hidden');
               document.querySelector(vars.container).innerHTML = data;
             },
             type: 'POST',
@@ -94,7 +94,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(`${vars.container}Loader`).classList.add('hidden');
           document.querySelector(vars.container).innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -104,7 +104,12 @@ Object.assign(view, {
   },
   topArtistYearly: () => {
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      document.querySelector('#sideTable').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="sideTopArtist${year}Loader"><div></div><div></div><div></div></div><table id="sideTopArtist${year}" class="side_table"></table><div class="more"><a href="/<?=$tag_type?>/${year}/<?=$type?>" title="Browse more">More <span class="number">${year}</span></</a></div></div><div class="container"><hr /></div>`);
+      document
+        .querySelector('#sideTable')
+        .insertAdjacentHTML(
+          'beforeend',
+          `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook inline" id="sideTopArtist${year}Loader"><div></div><div></div><div></div></div><table id="sideTopArtist${year}" class="side_table"></table><div class="more"><a href="/<?=$tag_type?>/${year}/<?=$type?>" title="Browse more">More <span class="number">${year}</span></</a></div></div><div class="container"><hr /></div>`
+        );
       const vars = {
         container: `#sideTopArtist${year}`,
         hide: {

@@ -20,8 +20,8 @@
 // before committing/deploying - there's no CI here, deploy is a plain
 // `git pull`, so the built bundle has to be committed like any other file.
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 const { transform } = require('lightningcss');
 
 // Must match header.php's development-mode <link> order exactly (minus the
@@ -65,7 +65,7 @@ const withoutImports = rawSource.replace(/^@import\s+[^;]+;\s*$/gm, match => {
   importLines.push(match);
   return '';
 });
-const source = importLines.join('\n') + '\n' + withoutImports;
+const source = `${importLines.join('\n')}\n${withoutImports}`;
 
 const { code, warnings } = transform({
   filename: 'bundle.css',

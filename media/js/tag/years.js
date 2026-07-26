@@ -29,10 +29,10 @@ Object.assign(view, {
               type: type
             },
             success: data => {
-              document.querySelector('#historyLoader').style.display = 'none';
+              document.querySelector('#historyLoader').classList.add('hidden');
               var history = document.querySelector('#history');
               ajaxSetHtml(history, data);
-              history.style.display = 'none';
+              history.classList.add('hidden');
               document.querySelector('.music_bar').style.display = '';
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
@@ -49,7 +49,7 @@ Object.assign(view, {
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#historyLoader').style.display = 'none';
+          document.querySelector('#historyLoader').classList.add('hidden');
           alert(`<?=ERR_BAD_REQUEST?>`);
         }
       },
@@ -73,10 +73,10 @@ Object.assign(view, {
               type: '%Y'
             },
             success: data => {
-              document.querySelector('#historyLoader').style.display = 'none';
+              document.querySelector('#historyLoader').classList.add('hidden');
               var history = document.querySelector('#history');
               ajaxSetHtml(history, data);
-              history.style.display = 'none';
+              history.classList.add('hidden');
               document.querySelector('.music_bar').style.display = '';
               app.chart.xAxis[0].setCategories(view.categories, false);
               app.chart.series[0].setData(view.chart_data, true);
@@ -93,7 +93,7 @@ Object.assign(view, {
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#historyLoader').style.display = 'none';
+          document.querySelector('#historyLoader').classList.add('hidden');
           alert(`<?=ERR_BAD_REQUEST?>`);
         }
       },
@@ -161,7 +161,9 @@ Object.assign(view, {
   getTopYearsYearly: () => {
     var vars;
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      document.querySelector('#years').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="topYear${year}Loader"><div></div><div></div><div></div></div><table id="topYear${year}" class="side_table"></table></div><div class="container"><hr /></div>`);
+      document
+        .querySelector('#years')
+        .insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook inline" id="topYear${year}Loader"><div></div><div></div><div></div></div><table id="topYear${year}" class="side_table"></table></div><div class="container"><hr /></div>`);
       vars = {
         container: `#topYear${year}`,
         limit: 3,
@@ -193,7 +195,7 @@ Object.assign(view, {
               type: 'album'
             },
             success: data => {
-              document.querySelector('#topAlbumYearlyLoader').style.display = 'none';
+              document.querySelector('#topAlbumYearlyLoader').classList.add('hidden');
               document.querySelector('#topAlbumYearly').innerHTML = data;
             },
             type: 'POST',
@@ -202,7 +204,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topAlbumYearlyLoader').style.display = 'none';
+          document.querySelector('#topAlbumYearlyLoader').classList.add('hidden');
           document.querySelector('#topAlbumYearly').innerHTML = '<?=ERR_NO_RESULTS?>';
         }
       },

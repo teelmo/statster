@@ -31,7 +31,7 @@ function initSearchableSelect(selectEl) {
   var UNFILTERED_RESULT_CAP = 100;
   var activeIndex = -1;
 
-  selectEl.style.display = 'none';
+  selectEl.classList.add('hidden');
 
   var wrapper = document.createElement('div');
   wrapper.className = multiple ? 'searchable_select searchable_select_multiple' : 'searchable_select searchable_select_single';
@@ -67,7 +67,7 @@ function initSearchableSelect(selectEl) {
   }
 
   function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   }
 
   function highlight(text, term) {
@@ -113,24 +113,24 @@ function initSearchableSelect(selectEl) {
     var selected = getOptions().filter(o => o.selected);
     input.placeholder = selected.length ? '' : placeholder;
     selected.forEach(option => {
-        var chip = document.createElement('span');
-        chip.className = 'searchable_select_chip';
-        var label = document.createElement('span');
-        label.textContent = option.textContent;
-        var remove = document.createElement('a');
-        remove.href = 'javascript:;';
-        remove.className = 'searchable_select_chip_remove';
-        remove.innerHTML = '&times;';
-        remove.addEventListener('click', event => {
-          event.stopPropagation();
-          option.selected = false;
-          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
-          renderChips();
-          renderDropdown();
-        });
-        chip.append(label, remove);
-        chipsContainer.insertBefore(chip, input);
+      var chip = document.createElement('span');
+      chip.className = 'searchable_select_chip';
+      var label = document.createElement('span');
+      label.textContent = option.textContent;
+      var remove = document.createElement('a');
+      remove.href = 'javascript:;';
+      remove.className = 'searchable_select_chip_remove';
+      remove.innerHTML = '&times;';
+      remove.addEventListener('click', event => {
+        event.stopPropagation();
+        option.selected = false;
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        renderChips();
+        renderDropdown();
       });
+      chip.append(label, remove);
+      chipsContainer.insertBefore(chip, input);
+    });
   }
 
   function getResultEls() {
@@ -184,13 +184,8 @@ function initSearchableSelect(selectEl) {
       }
     });
     dropdown.innerHTML =
-      groups
-        .map(
-          group =>
-            (group.label ? `<div class="searchable_select_group_label">${escapeHtml(group.label)}</div>` : '') +
-            group.options.map(option => `<div class="searchable_select_result" data-value="${escapeHtml(option.value)}">${highlight(option.textContent, term)}</div>`).join('')
-        )
-        .join('') + (truncated ? '<div class="searchable_select_hint">Type to narrow down more results&hellip;</div>' : '');
+      groups.map(group => (group.label ? `<div class="searchable_select_group_label">${escapeHtml(group.label)}</div>` : '') + group.options.map(option => `<div class="searchable_select_result" data-value="${escapeHtml(option.value)}">${highlight(option.textContent, term)}</div>`).join('')).join('') +
+      (truncated ? '<div class="searchable_select_hint">Type to narrow down more results&hellip;</div>' : '');
     dropdown.classList.remove('hidden');
   }
 

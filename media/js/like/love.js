@@ -16,7 +16,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#recentlyLovedLoader').style.display = 'none';
+              document.querySelector('#recentlyLovedLoader').classList.add('hidden');
               document.querySelector('#recentlyLoved').innerHTML = data;
             },
             type: 'POST',
@@ -44,7 +44,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#topLovedLoader').style.display = 'none';
+              document.querySelector('#topLovedLoader').classList.add('hidden');
               document.querySelector('#topLoved').innerHTML = data;
             },
             type: 'POST',

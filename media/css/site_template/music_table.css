@@ -42,7 +42,6 @@ table.music_table {
         }
         & .confirmation,
         & .delete {
-          display: none;
           & .mask-icon {
             color: var(--color-gray-mid);
             font-size: 15px;
@@ -96,21 +95,21 @@ table.music_table {
       & .love_icon {
         color: var(--color-red);
         font-size: 14px;
-        &:after {
-          background-color: currentColor;
-          content: '';
-          display: inline-block;
-          height: 1em;
-          -webkit-mask-image: url('/media/img/icons/heart-solid.svg');
-          mask-image: url('/media/img/icons/heart-solid.svg');
-          -webkit-mask-position: center;
-          mask-position: center;
-          -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-          -webkit-mask-size: contain;
-          mask-size: contain;
-          width: 1em;
-        }
+      }
+      & .love_icon:after {
+        background-color: currentColor;
+        content: '';
+        display: inline-block;
+        height: 1em;
+        -webkit-mask-image: url('/media/img/icons/heart-solid.svg');
+        mask-image: url('/media/img/icons/heart-solid.svg');
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        width: 1em;
       }
     }
     &:hover span.delete {
@@ -122,9 +121,9 @@ table.music_table {
         opacity: 0.3;
         vertical-align: -10%;
         width: 12px;
-        &:hover {
-          opacity: 1;
-        }
+      }
+      & img:hover {
+        opacity: 1;
       }
     }
     &.just_added {

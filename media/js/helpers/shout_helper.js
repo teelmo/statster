@@ -12,11 +12,7 @@ Object.assign(view, {
         }
         var container = document.querySelector(target.dataset.confirmationContainer);
         if (container) {
-          // .confirmation's own CSS class sets display: none (no separate
-          // "hidden" utility class involved), so clearing to '' can't
-          // override it - an explicit display value is required, same as
-          // jQuery's .show() would have computed for this <div>.
-          container.style.display = 'block';
+          container.classList.remove('hidden');
         }
       });
       root.addEventListener('click', event => {
@@ -24,7 +20,7 @@ Object.assign(view, {
         if (!target) {
           return;
         }
-        target.closest('div').style.display = 'none';
+        target.closest('div').classList.add('hidden');
       });
       root.addEventListener('click', event => {
         var target = event.target.closest('a.confirm');
@@ -40,7 +36,7 @@ Object.assign(view, {
               // drops the animation but keeps the same end state.
               var row = document.querySelector(`#${rowId}`);
               if (row) {
-                row.style.display = 'none';
+                row.classList.add('hidden');
               }
               var shoutTotalNumber = document.querySelector('#shoutTotal .number');
               var shout_total = parseInt(shoutTotalNumber.textContent, 10);
@@ -50,7 +46,7 @@ Object.assign(view, {
               } else {
                 // Note: jQuery's fadeOut(500) animated this; plain hide
                 // drops the animation but keeps the same end state.
-                document.querySelector('#shoutTotal').style.display = 'none';
+                document.querySelector('#shoutTotal').classList.add('hidden');
               }
             },
             400: () => {
@@ -81,7 +77,6 @@ Object.assign(view, {
         return;
       }
       var shoutLoader = document.querySelector('#shoutLoader2');
-      shoutLoader.style.display = '';
       shoutLoader.classList.remove('hidden');
       document.querySelector('#shoutText').value = '';
       ajax({

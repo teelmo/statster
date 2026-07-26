@@ -73,7 +73,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector(`${vars.container}Loader`).style.display = 'none';
+              document.querySelector(`${vars.container}Loader`).classList.add('hidden');
               document.querySelector(vars.container).innerHTML = data;
             },
             type: 'POST',
@@ -82,7 +82,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(`${vars.container}Loader`).classList.add('hidden');
           document.querySelector(vars.container).innerHTML = '';
         }
       },
@@ -102,12 +102,12 @@ Object.assign(view, {
       statusCode: {
         200: data => {
           // 200 OK
-          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(`${vars.container}Loader`).classList.add('hidden');
           document.querySelector(vars.container).innerHTML = data;
         },
         204: () => {
           // 204 No Content
-          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(`${vars.container}Loader`).classList.add('hidden');
           document.querySelector(vars.container).innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -118,7 +118,12 @@ Object.assign(view, {
   getTopAlbumYearly: () => {
     var vars;
     for (year = parseInt(`<?=CUR_YEAR?>`, 10); year >= 2003; year--) {
-      document.querySelector('#sideTable').insertAdjacentHTML('beforeend', `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook" id="sideTopAlbum${year}Loader"><div></div><div></div><div></div></div><table id="sideTopAlbum${year}" class="side_table"></table><div class="more"><a href="/album/${year}" title="Browse more">More <span class="number">${year}</span></</a></div></div><div class="container"><hr /></div>`);
+      document
+        .querySelector('#sideTable')
+        .insertAdjacentHTML(
+          'beforeend',
+          `<div class="container"><h2 class="number">${year}</h3><div class="lds-facebook inline" id="sideTopAlbum${year}Loader"><div></div><div></div><div></div></div><table id="sideTopAlbum${year}" class="side_table"></table><div class="more"><a href="/album/${year}" title="Browse more">More <span class="number">${year}</span></</a></div></div><div class="container"><hr /></div>`
+        );
       vars = {
         container: `#sideTopAlbum${year}`,
         hide: {
@@ -154,20 +159,22 @@ Object.assign(view, {
       str = `${month}`;
       pad = '00';
       pad_month = pad.substring(0, pad.length - str.length) + str;
-      document.querySelector('#sideTable').insertAdjacentHTML(
-        'beforeend',
-        '<div class="container"><h2 class="number">' +
-          month_str[month] +
-          '</h3><div class="lds-facebook" id="sideTopAlbum' +
-          month +
-          'Loader"><div></div><div></div><div></div></div><table id="sideTopAlbum' +
-          month +
-          '" class="side_table"></table><div class="more"><a href="/album/' +
-          year +
-          '/' +
-          pad_month +
-          '" title="Browse more">More</a></div></div><div class="container"><hr /></div>'
-      );
+      document
+        .querySelector('#sideTable')
+        .insertAdjacentHTML(
+          'beforeend',
+          '<div class="container"><h2 class="number">' +
+            month_str[month] +
+            '</h3><div class="lds-facebook inline" id="sideTopAlbum' +
+            month +
+            'Loader"><div></div><div></div><div></div></div><table id="sideTopAlbum' +
+            month +
+            '" class="side_table"></table><div class="more"><a href="/album/' +
+            year +
+            '/' +
+            pad_month +
+            '" title="Browse more">More</a></div></div><div class="container"><hr /></div>'
+        );
       const vars = {
         container: `#sideTopAlbum${month}`,
         hide: {
@@ -197,24 +204,26 @@ Object.assign(view, {
     for (day = 1; day <= new Date(year, month, 0).getDate(); day++) {
       str = `${day}`;
       const pad_day = pad.substring(0, pad.length - str.length) + str;
-      document.querySelector('#sideTable').insertAdjacentHTML(
-        'beforeend',
-        '<div class="container"><div><div class="lds-facebook" id="sideTopAlbum' +
-          day +
-          'Loader"><div></div><div></div><div></div></div><span id="sideTopAlbum' +
-          day +
-          '" class="number"></span> listenings <div class="metainfo">' +
-          weekday[new Date(year, month, day).getDay()] +
-          ' – <span class="number">' +
-          app.getGetOrdinal(day) +
-          '</span></div></div><div class="more"><a href="/album/' +
-          year +
-          '/' +
-          pad_month +
-          '/' +
-          pad_day +
-          '" title="Browse more">More</a></div></div>'
-      );
+      document
+        .querySelector('#sideTable')
+        .insertAdjacentHTML(
+          'beforeend',
+          '<div class="container"><div><div class="lds-facebook inline" id="sideTopAlbum' +
+            day +
+            'Loader"><div></div><div></div><div></div></div><span id="sideTopAlbum' +
+            day +
+            '" class="number"></span> listenings <div class="metainfo">' +
+            weekday[new Date(year, month, day).getDay()] +
+            ' – <span class="number">' +
+            app.getGetOrdinal(day) +
+            '</span></div></div><div class="more"><a href="/album/' +
+            year +
+            '/' +
+            pad_month +
+            '/' +
+            pad_day +
+            '" title="Browse more">More</a></div></div>'
+        );
       const vars = {
         container: `#sideTopAlbum${day}`,
         limit: 100
@@ -240,7 +249,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector(`${vars.container}Loader`).style.display = 'none';
+              document.querySelector(`${vars.container}Loader`).classList.add('hidden');
               document.querySelector(vars.container).innerHTML = data;
             },
             type: 'POST',
@@ -249,12 +258,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(`${vars.container}Loader`).classList.add('hidden');
           document.querySelector(vars.container).innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(`${vars.container}Loader`).classList.add('hidden');
           document.querySelector(vars.container).innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -263,7 +272,7 @@ Object.assign(view, {
     });
   },
   getUsers: (date, _vars) => {
-    document.querySelector('#sideTable').insertAdjacentHTML('beforeend', '<div class="container"><div class="lds-facebook" id="topListenerLoader"><div></div><div></div><div></div></div><table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table></div>');
+    document.querySelector('#sideTable').insertAdjacentHTML('beforeend', '<div class="container"><div class="lds-facebook inline" id="topListenerLoader"><div></div><div></div><div></div></div><table id="topListener" class="side_table"><!-- Content is loaded with AJAX --></table></div>');
     ajax({
       data: {
         limit: 14,
@@ -285,7 +294,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListenerLoader').classList.add('hidden');
               document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
@@ -294,12 +303,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -326,7 +335,7 @@ if (day === '') {
   }
 } else {
   document.querySelectorAll('#topAlbum10, #topAlbum10Loader').forEach(el => {
-    el.style.display = 'none';
+    el.classList.add('hidden');
   });
   const topAlbum = document.querySelector('#topAlbum');
   topAlbum.classList.remove('column_table');

@@ -4,7 +4,7 @@ Object.assign(view, {
     initSearchableSelect(document.querySelector('#artistAdd select'));
     document.querySelector('#artistAdd').classList.remove('hidden');
     document.querySelectorAll('.artist_names').forEach(el => {
-      el.style.display = 'none';
+      el.classList.add('hidden');
     });
     document.querySelectorAll('.spotify_id').forEach(el => {
       var clean = () => {

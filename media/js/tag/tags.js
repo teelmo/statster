@@ -29,7 +29,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topAlbumLoader').style.display = 'none';
+          document.querySelector('#topAlbumLoader').classList.add('hidden');
           document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
@@ -58,7 +58,7 @@ Object.assign(view, {
               type: 'artist'
             },
             success: data => {
-              document.querySelector(`#topArtist${element}Loader`).style.display = 'none';
+              document.querySelector(`#topArtist${element}Loader`).classList.add('hidden');
               document.querySelector(`#topArtist${element}`).innerHTML = data;
             },
             type: 'POST',
@@ -67,7 +67,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topArtistLoader').style.display = 'none';
+          document.querySelector('#topArtistLoader').classList.add('hidden');
           document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },

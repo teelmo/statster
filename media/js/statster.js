@@ -93,19 +93,18 @@ var app = {
         if (!subNav) {
           return;
         }
-        var isOpen = subNav.style.display !== 'none';
-        this.classList.toggle('active', !isOpen);
-        subNav.style.display = isOpen ? 'none' : 'block';
+        this.classList.toggle('active');
+        subNav.classList.toggle('hidden');
       });
     });
     document.addEventListener('click', event => {
       document.querySelectorAll('.user_container').forEach(el => {
         var subNav = el.querySelector('ul.subnav');
-        if (!subNav || subNav.style.display === 'none' || el.contains(event.target)) {
+        if (!subNav || subNav.classList.contains('hidden') || el.contains(event.target)) {
           return;
         }
         el.classList.remove('active');
-        subNav.style.display = 'none';
+        subNav.classList.toggle('hidden');
       });
     });
     document.querySelectorAll('.toggle_username').forEach(el => {

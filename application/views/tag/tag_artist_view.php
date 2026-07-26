@@ -4,7 +4,7 @@
         <span class="lds-ring hidden" id="topArtist10Loader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value"><?=INTERVAL_TEXTS[$top_artist_tag_artist]?></div>
-          <ul class="subnav" data-name="top_artist_<?=$type?>_artist" data-callback="topArtist10" data-loader="topArtist10Loader2">
+          <ul class="subnav hidden" data-name="top_artist_<?=$type?>_artist" data-callback="topArtist10" data-loader="topArtist10Loader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>

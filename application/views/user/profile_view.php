@@ -147,7 +147,7 @@
         <span class="lds-ring hidden" id="topAlbumLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_album_value" data-value="<?=$top_album_profile?>"><?=INTERVAL_TEXTS[$top_album_profile]?></div>
-          <ul class="subnav" data-name="top_album_profile" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
+          <ul class="subnav hidden" data-name="top_album_profile" data-callback="getTopAlbums" data-loader="topAlbumLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -169,7 +169,7 @@
         <span class="lds-ring hidden" id="topArtistLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_artist_value" data-value="<?=$top_artist_profile?>"><?=INTERVAL_TEXTS[$top_artist_profile]?></div>
-          <ul class="subnav" data-name="top_artist_profile" data-callback="getTopArtists" data-loader="topArtistLoader2">
+          <ul class="subnav hidden" data-name="top_artist_profile" data-callback="getTopArtists" data-loader="topArtistLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -307,7 +307,7 @@
         <span class="lds-ring hidden" id="topFormatLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_format_value" data-value="<?=$top_listening_format_profile?>"><?=INTERVAL_TEXTS[$top_listening_format_profile]?></div>
-          <ul class="subnav" data-name="top_listening_format_profile" data-callback="getTopFormats" data-loader="topFormatLoader2">
+          <ul class="subnav hidden" data-name="top_listening_format_profile" data-callback="getTopFormats" data-loader="topFormatLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -328,7 +328,7 @@
         <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_genre_value" data-value="<?=$top_genre_profile?>"><?=INTERVAL_TEXTS[$top_genre_profile]?></div>
-          <ul class="subnav" data-name="top_genre_profile" data-callback="getTopGenres" data-loader="topGenreLoader2">
+          <ul class="subnav hidden" data-name="top_genre_profile" data-callback="getTopGenres" data-loader="topGenreLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -350,7 +350,7 @@
         <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_keyword_value" data-value="<?=$top_keyword_profile?>"><?=INTERVAL_TEXTS[$top_keyword_profile]?></div>
-          <ul class="subnav" data-name="top_keyword_profile" data-callback="getTopKeywords" data-loader="topKeywordLoader2">
+          <ul class="subnav hidden" data-name="top_keyword_profile" data-callback="getTopKeywords" data-loader="topKeywordLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -372,7 +372,7 @@
         <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_nationality_value" data-value="<?=$top_nationality_profile?>"><?=INTERVAL_TEXTS[$top_nationality_profile]?></div>
-          <ul class="subnav" data-name="top_nationality_profile" data-callback="getTopNationalities" data-loader="topNationalityLoader2">
+          <ul class="subnav hidden" data-name="top_nationality_profile" data-callback="getTopNationalities" data-loader="topNationalityLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>
@@ -394,7 +394,7 @@
         <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_year_value" data-value="<?=$top_year_profile?>"><?=INTERVAL_TEXTS[$top_year_profile]?></div>
-          <ul class="subnav" data-name="top_year_profile" data-callback="getTopYears" data-loader="topYearLoader2">
+          <ul class="subnav hidden" data-name="top_year_profile" data-callback="getTopYears" data-loader="topYearLoader2">
             <li data-value="7">Last 7 days</li>
             <li data-value="30">Last 30 days</li>
             <li data-value="90">Last 90 days</li>

@@ -16,6 +16,11 @@ ul {
     }
     & li {
       position: relative;
+      > a {
+        display: inline-block;
+        position: absolute;
+        z-index: 2;
+      }
       &.album {
         > a {
           height: 152px;
@@ -27,11 +32,6 @@ ul {
           height: 110px;
           width: 152px;
         }
-      }
-      > a {
-        display: inline-block;
-        position: absolute;
-        z-index: 2;
       }
       .cover {
         display: block;
@@ -108,6 +108,45 @@ ul {
     vertical-align: top;
     width: 150px;
   }
+  &.search_list li {
+    &.even {
+      background-color: var(--transparent);
+    }
+    &.no_img {
+      height: 35px;
+      line-height: 35px;
+    }
+    &.odd {
+      background-color: var(--color-white-alter);
+    }
+    &.title {
+      margin-top: 30px;
+    }
+    & i {
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+    & a {
+      align-items: center;
+      display: flex;
+      overflow: hidden;
+      & div {
+        display: inline-block;
+        &.cover {
+          flex-shrink: 0;
+          margin-right: 5px;
+        }
+        &.title {
+          width: 100%;
+        }
+      }
+      &:visited,
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
   &.album_list,
   &.artist_list {
     font-size: 0;
@@ -172,45 +211,6 @@ ul {
     & li {
       display: inline-block;
       margin: 0;
-    }
-  }
-  &.search_list li {
-    &.even {
-      background-color: var(--transparent);
-    }
-    &.no_img {
-      height: 35px;
-      line-height: 35px;
-    }
-    &.odd {
-      background-color: var(--color-white-alter);
-    }
-    &.title {
-      margin-top: 30px;
-    }
-    & i {
-      display: inline-block;
-      margin-right: 5px;
-      vertical-align: middle;
-    }
-    & a {
-      align-items: center;
-      display: flex;
-      overflow: hidden;
-      & div {
-        display: inline-block;
-        &.cover {
-          flex-shrink: 0;
-          margin-right: 5px;
-        }
-        &.title {
-          width: 100%;
-        }
-      }
-      &:visited,
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 }

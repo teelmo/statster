@@ -45,7 +45,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListenedLoader').classList.add('hidden');
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
@@ -254,19 +254,16 @@ Object.assign(view, {
     document.querySelector('#recentlyListened').addEventListener('mouseleave', recentlyListenedHover);
     document.querySelector('#refreshRecentAlbums').addEventListener('click', () => {
       var loader = document.querySelector('#recentlyListenedLoader2');
-      loader.style.display = '';
       loader.classList.remove('hidden');
       view.getRecentListenings();
     });
     document.querySelector('#refreshHotAlbums').addEventListener('click', () => {
       var loader = document.querySelector('#recommentedTopAlbumLoader2');
-      loader.style.display = '';
       loader.classList.remove('hidden');
       view.getRecommentedTopAlbum();
     });
     document.querySelector('#refreshNewAlbums').addEventListener('click', () => {
       var loader = document.querySelector('#recommentedNewAlbumLoader2');
-      loader.style.display = '';
       loader.classList.remove('hidden');
       view.getRecommentedNewAlbum();
     });

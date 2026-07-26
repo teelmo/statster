@@ -14,7 +14,7 @@ Object.assign(view, {
               word: 'loves'
             },
             success: data => {
-              document.querySelector('#topLovedLoader').style.display = 'none';
+              document.querySelector('#topLovedLoader').classList.add('hidden');
               document.querySelector('#topLoved').innerHTML = data;
             },
             type: 'POST',
@@ -41,7 +41,7 @@ Object.assign(view, {
               word: 'fans'
             },
             success: data => {
-              document.querySelector('#topFanedLoader').style.display = 'none';
+              document.querySelector('#topFanedLoader').classList.add('hidden');
               document.querySelector('#topFaned').innerHTML = data;
             },
             type: 'POST',
@@ -70,7 +70,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#recentlyLovedLoader').style.display = 'none';
+              document.querySelector('#recentlyLovedLoader').classList.add('hidden');
               document.querySelector('#recentlyLoved').innerHTML = data;
             },
             type: 'POST',
@@ -99,7 +99,7 @@ Object.assign(view, {
               json_data: data
             },
             success: data => {
-              document.querySelector('#recentlyFanedLoader').style.display = 'none';
+              document.querySelector('#recentlyFanedLoader').classList.add('hidden');
               document.querySelector('#recentlyFaned').innerHTML = data;
             },
             type: 'POST',

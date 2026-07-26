@@ -64,7 +64,7 @@
           <span id="love" class="like_toggle" aria-label="Love this album"><div class="lds-facebook" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
           <span id="quick_add_listening" class="quick_add_listening">
             <span class="mask-icon mask-icon-plus-square" aria-label="Add listening"></span>
-            <ul class="subnav">
+            <ul class="subnav hidden">
               <?php
               foreach(unserialize($this->session->formats) as $key => $format) {
                 list($format, $format_type) = array_pad(explode(':', $format), 2, false);
@@ -133,7 +133,7 @@
         <span class="lds-ring hidden" id="discographyLoader"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value artist_album_value" data-value="<?=$artist_album?>"><?=ORDER_TEXTS[$artist_album]?></div>
-          <ul class="subnav" data-name="artist_album" data-callback="artistAlbum" data-loader="discographyLoader">
+          <ul class="subnav hidden" data-name="artist_album" data-callback="artistAlbum" data-loader="discographyLoader">
             <li data-value="`count` DESC, `albums`.`year` DESC">Count</li>
             <li data-value="`albums`.`album_name` ASC">Name</li>
             <li data-value="`albums`.`year` DESC, `count` DESC">Year</li>

@@ -75,7 +75,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector(`${vars.container}Loader`).style.display = 'none';
+              document.querySelector(`${vars.container}Loader`).classList.add('hidden');
               document.querySelector(vars.container).innerHTML = data;
             },
             type: 'POST',
@@ -84,7 +84,7 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector(`${vars.container}Loader`).style.display = 'none';
+          document.querySelector(`${vars.container}Loader`).classList.add('hidden');
           document.querySelector(vars.container).innerHTML = '';
         }
       },
@@ -115,7 +115,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#topListenerLoader').style.display = 'none';
+              document.querySelector('#topListenerLoader').classList.add('hidden');
               document.querySelector('#topListener').innerHTML = data;
             },
             type: 'POST',
@@ -124,12 +124,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#topListenerLoader').style.display = 'none';
+          document.querySelector('#topListenerLoader').classList.add('hidden');
           document.querySelector('#topListener').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },
@@ -163,7 +163,7 @@ Object.assign(view, {
               size: 32
             },
             success: data => {
-              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListenedLoader').classList.add('hidden');
               document.querySelector('#recentlyListened').innerHTML = data;
             },
             type: 'POST',
@@ -172,12 +172,12 @@ Object.assign(view, {
         },
         204: () => {
           // 204 No Content
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListenedLoader').classList.add('hidden');
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
         },
         400: () => {
           // 400 Bad request
-          document.querySelector('#recentlyListenedLoader').style.display = 'none';
+          document.querySelector('#recentlyListenedLoader').classList.add('hidden');
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_BAD_REQUEST?>`;
         }
       },

@@ -1,12 +1,12 @@
 Object.assign(view, {
   getBulletins: () => {
     if (user_id === undefined) {
-      document.querySelector('#bulletinLoader').style.display = 'none';
+      document.querySelector('#bulletinLoader').classList.add('hidden');
       return;
     }
     ajax({
       complete: () => {
-        document.querySelector('#bulletinLoader').style.display = 'none';
+        document.querySelector('#bulletinLoader').classList.add('hidden');
       },
       data: {
         user_id: user_id

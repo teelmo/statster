@@ -270,7 +270,7 @@ Object.assign(view, {
           201: () => {
             // 201 Created
             // Each getTopXxx() already hides its own "#topXxxLoader2" spinner
-            // once its refresh completes (via inline style.display = 'none')
+            // once its refresh completes (via class hidden)
             // - normally time_interval_helper.js shows it first, before
             // calling the same function. This call path bypasses that, so
             // show it here instead, clearing both the inline style a prior
@@ -278,7 +278,6 @@ Object.assign(view, {
             var showLoader = id => {
               var el = document.querySelector(id);
               if (el) {
-                el.style.display = '';
                 el.classList.remove('hidden');
               }
             };
