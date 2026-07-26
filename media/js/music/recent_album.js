@@ -123,7 +123,8 @@ Object.assign(view, {
           ajax({
             data: {
               json_data: data,
-              strlenght: 50
+              strlenght: 50,
+              time: Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 1000)
             },
             success: data => {
               document.querySelector('#recentlyListenedLoader').style.display = 'none';

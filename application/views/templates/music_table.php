@@ -16,7 +16,7 @@ if (!empty($json_data)) {
         $class = '';
         $size = 32;
         $datetime = '';
-        if ($idx == 0) {
+        if ($idx == 0 && isset($time)) {
           if (($time - strtotime($row['created'] . ' UTC')) < JUST_LISTENED_INTERVAL && $row['date'] == gmdate('Y-m-d', $time)) {
             $class = 'just_added';
             $size = 64;
