@@ -48,7 +48,8 @@ function initSearchableSelect(selectEl) {
   input.className = 'searchable_select_input';
   input.placeholder = placeholder;
 
-  control.append(chipsContainer, input);
+  chipsContainer.append(input);
+  control.append(chipsContainer);
   wrapper.append(control);
 
   var dropdown = document.createElement('div');
@@ -103,7 +104,7 @@ function initSearchableSelect(selectEl) {
   }
 
   function renderChips() {
-    chipsContainer.innerHTML = '';
+    chipsContainer.querySelectorAll('.searchable_select_chip').forEach(el => el.remove());
     if (!multiple) {
       return;
     }
@@ -126,7 +127,7 @@ function initSearchableSelect(selectEl) {
           renderDropdown();
         });
         chip.append(label, remove);
-        chipsContainer.append(chip);
+        chipsContainer.insertBefore(chip, input);
       });
   }
 
