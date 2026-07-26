@@ -63,7 +63,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topListenerLoader, #topListenerLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topListener').innerHTML = data;
             },

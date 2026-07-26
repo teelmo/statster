@@ -55,10 +55,13 @@ Object.assign(view, {
 
     var scheduleResetToToday = () => {
       clearTimeout(resetTimer);
-      resetTimer = setTimeout(() => {
-        selected = parseISO(curday('-'));
-        dateInput.value = toISO(selected);
-      }, 60 * 2 * 1000);
+      resetTimer = setTimeout(
+        () => {
+          selected = parseISO(curday('-'));
+          dateInput.value = toISO(selected);
+        },
+        60 * 2 * 1000
+      );
     };
 
     var buildMonthTable = monthDate => {
@@ -71,16 +74,16 @@ Object.assign(view, {
       var totalWeeks = Math.ceil((startOffset + daysInMonth) / 7);
 
       var rows = '';
-      for (var w = 0; w < totalWeeks; w++) {
-        var cells = '';
-        for (var i = 0; i < 7; i++) {
-          var cellDate = new Date(gridStart);
+      for (let w = 0; w < totalWeeks; w++) {
+        let cells = '';
+        for (let i = 0; i < 7; i++) {
+          const cellDate = new Date(gridStart);
           cellDate.setDate(gridStart.getDate() + w * 7 + i);
-          var inMonth = cellDate.getMonth() === month;
-          var t = atMidnight(cellDate);
-          var isValid = inMonth && t >= atMidnight(minDate) && t <= atMidnight(maxDate);
-          var monthClass = inMonth ? 'toMonth' : cellDate < firstOfMonth ? 'lastMonth' : 'nextMonth';
-          var classes = ['day', monthClass, isValid ? 'valid' : 'invalid'];
+          const inMonth = cellDate.getMonth() === month;
+          const t = atMidnight(cellDate);
+          const isValid = inMonth && t >= atMidnight(minDate) && t <= atMidnight(maxDate);
+          const monthClass = inMonth ? 'toMonth' : cellDate < firstOfMonth ? 'lastMonth' : 'nextMonth';
+          const classes = ['day', monthClass, isValid ? 'valid' : 'invalid'];
           if (t === atMidnight(selected)) {
             // Reuses the range picker's own selected-day class (and its
             // matching base.css override) rather than inventing a new one.
@@ -313,13 +316,13 @@ Object.assign(view, {
             }
             var tagMetaValue = document.querySelector('.tag_meta div.value');
             if (tagMetaValue) {
-              var nextValue = parseInt(tagMetaValue.dataset.value, 10) + 1;
+              const nextValue = parseInt(tagMetaValue.dataset.value, 10) + 1;
               tagMetaValue.dataset.value = nextValue;
               tagMetaValue.innerHTML = nextValue.toLocaleString();
             }
             var tagMetaUserValue = document.querySelector('.tag_meta span.user_value .value');
             if (tagMetaUserValue) {
-              var nextUserValue = parseInt(tagMetaUserValue.dataset.value, 10) + 1;
+              const nextUserValue = parseInt(tagMetaUserValue.dataset.value, 10) + 1;
               tagMetaUserValue.dataset.value = nextUserValue;
               tagMetaUserValue.innerHTML = nextUserValue.toLocaleString();
             }

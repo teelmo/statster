@@ -21,7 +21,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#recentlyListenedLoader, #recentlyListenedLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#recentlyListened').innerHTML = data;
               var hours = today.getHours();

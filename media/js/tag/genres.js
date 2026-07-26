@@ -34,7 +34,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll(`${vars.container}Loader, ${vars.container}Loader2`).forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector(`${vars.container}`).innerHTML = data;
             },

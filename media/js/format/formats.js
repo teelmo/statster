@@ -28,7 +28,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topListeningFormatTypesLoader, #topListeningFormatTypesLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topListeningFormatTypes').innerHTML = data;
             },

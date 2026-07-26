@@ -174,7 +174,7 @@ Object.assign(view, {
           },
           success: data => {
             document.querySelectorAll('#popularAlbumLoader, #popularAlbumLoader2').forEach(el => {
-              el.style.display = 'none';
+              el.classList.add('hidden');
             });
             document.querySelector('#popularAlbum').innerHTML = data;
             resolve();
@@ -216,7 +216,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#secondChanceLoader, #secondChanceLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#secondChance').innerHTML = data;
             },
@@ -227,7 +227,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#secondChanceLoader, #secondChanceLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#secondChance').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
@@ -264,7 +264,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#fromOthersLoader, #fromOthersLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#fromOthers').innerHTML = data;
             },
@@ -275,7 +275,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#fromOthersLoader, #fromOthersLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#fromOthers').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }

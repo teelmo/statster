@@ -22,7 +22,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#recentMosaicLoader, #recentMosaicLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#recentMosaic').innerHTML = data;
               var hours = today.getHours();

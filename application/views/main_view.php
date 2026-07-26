@@ -19,7 +19,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h3>Recently listened <span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h3>
+      <h3>Recently listened<span class="lds-ring hidden" id="recentlyListenedLoader2"><div></div><div></div><div></div><div></div></span> <span class="func_container"><i class="fa fa-sync-alt" id="refreshRecentAlbums"></i></span></h3>
       <div class="lds-facebook" id="recentlyListenedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyListened" class="music_table" style="margin-top: -12px;"><!-- Content is loaded with AJAX --></table>
       <div class="more">

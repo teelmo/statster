@@ -27,7 +27,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topArtist10Loader, #topArtist10Loader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topArtist10').innerHTML = data;
             },
@@ -38,7 +38,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topArtist10Loader, #topArtist10Loader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topArtist10').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }

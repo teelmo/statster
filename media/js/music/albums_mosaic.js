@@ -26,7 +26,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#albumMosaicLoader, #albumMosaicLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#albumMosaic').innerHTML = data;
             },
@@ -37,7 +37,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#albumMosaicLoader, #albumMosaicLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#albumMosaic').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }

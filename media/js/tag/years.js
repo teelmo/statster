@@ -44,7 +44,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#historyLoader, .music_bar, #topYearLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
         },
         400: () => {
@@ -88,7 +88,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#historyLoader, .music_bar, #topYearLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
         },
         400: () => {
@@ -135,7 +135,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll(`${vars.container}Loader, ${vars.container}Loader2`).forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector(`${vars.container}`).innerHTML = data;
             },
@@ -146,7 +146,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll(`${vars.container}Loader, ${vars.container}Loader2`).forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector(vars.container).innerHTML = '<?=ERR_NO_RESULTS?>';
         }

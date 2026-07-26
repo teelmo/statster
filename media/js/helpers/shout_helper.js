@@ -90,23 +90,23 @@ Object.assign(view, {
         statusCode: {
           201: () => {
             // 201 Created
-            document.querySelector('#shoutLoader2').style.display = 'none';
+            document.querySelector('#shoutLoader2').classList.add('hidden');
             view.getShouts();
           },
           400: () => {
             // 400 Bad Request
             alert('400 Bad Request');
-            document.querySelector('#shoutLoader2').style.display = 'none';
+            document.querySelector('#shoutLoader2').classList.add('hidden');
           },
           401: () => {
             // 401 Unauthorized
             alert('401 Unauthorized');
-            document.querySelector('#shoutLoader2').style.display = 'none';
+            document.querySelector('#shoutLoader2').classList.add('hidden');
           },
           404: () => {
             // 404 Not found
             alert('404 Not Found');
-            document.querySelector('#shoutLoader2').style.display = 'none';
+            document.querySelector('#shoutLoader2').classList.add('hidden');
           }
         },
         type: 'POST',

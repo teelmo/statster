@@ -133,7 +133,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topAlbum').innerHTML = data;
               resolve();
@@ -145,7 +145,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();
@@ -184,7 +184,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topArtist').innerHTML = data;
               resolve();
@@ -196,7 +196,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();

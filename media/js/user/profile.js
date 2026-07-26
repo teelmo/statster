@@ -139,7 +139,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#recentlyListenedLoader, #recentlyListenedLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#recentlyListened').innerHTML = data;
               var hours = today.getHours();
@@ -158,7 +158,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#recentlyListenedLoader, #recentlyListenedLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#recentlyListened').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();
@@ -198,7 +198,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topAlbum').innerHTML = data;
               resolve();
@@ -210,7 +210,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();
@@ -248,7 +248,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topArtist').innerHTML = data;
               resolve();
@@ -260,7 +260,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topArtist').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();
@@ -468,7 +468,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topFormatLoader, #topFormatLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topFormat').innerHTML = data;
               resolve();
@@ -480,7 +480,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topFormatLoader, #topFormatLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topFormat').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();
@@ -514,7 +514,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topGenreLoader, #topGenreLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topGenre').innerHTML = data;
               resolve();
@@ -526,7 +526,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topGenreLoader, #topGenreLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topGenre').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();
@@ -560,7 +560,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topKeywordLoader, #topKeywordLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topKeyword').innerHTML = data;
               resolve();
@@ -572,7 +572,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topKeywordLoader, #topKeywordLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topKeyword').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();
@@ -606,7 +606,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topNationalityLoader, #topNationalityLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topNationality').innerHTML = data;
               resolve();
@@ -618,7 +618,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topNationalityLoader, #topNationalityLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topNationality').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();
@@ -652,7 +652,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topYearLoader, #topYearLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topYear').innerHTML = data;
               resolve();
@@ -664,7 +664,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topYearLoader, #topYearLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topYear').innerHTML = `<?=ERR_NO_RESULTS?>`;
           resolve();

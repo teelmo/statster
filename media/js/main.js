@@ -28,8 +28,8 @@ Object.assign(view, {
               time: Math.floor((today.getTime() - today.getTimezoneOffset() * 60000) / 1000)
             },
             success: data => {
-              document.querySelector('#recentlyListenedLoader2').style.display = 'none';
-              document.querySelector('#recentlyListenedLoader').style.display = 'none';
+              document.querySelector('#recentlyListenedLoader2').classList.add('hidden');
+              document.querySelector('#recentlyListenedLoader').classList.add('hidden');
               document.querySelector('#recentlyListened').innerHTML = data;
               var hours = today.getHours();
               var minutes = today.getMinutes();
@@ -82,7 +82,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topAlbum').innerHTML = data;
             },
@@ -93,7 +93,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topAlbum').innerHTML = '<?=ERR_NO_RESULTS?>';
         }
@@ -127,7 +127,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#topArtist').innerHTML = data;
             },
@@ -138,7 +138,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#topArtistLoader, #topArtistLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#topArtist').innerHTML = '<?=ERR_NO_RESULTS?>';
         }
@@ -174,7 +174,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#recommentedTopAlbumLoader, #recommentedTopAlbumLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#recommentedTopAlbum').innerHTML = data;
             },
@@ -185,7 +185,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#recommentedTopAlbumLoader, #recommentedTopAlbumLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#recommentedTopAlbum').innerHTML = '<?=ERR_NO_RESULTS?>';
         }
@@ -222,7 +222,7 @@ Object.assign(view, {
             },
             success: data => {
               document.querySelectorAll('#recommentedNewAlbumLoader, #recommentedNewAlbumLoader2').forEach(el => {
-                el.style.display = 'none';
+                el.classList.add('hidden');
               });
               document.querySelector('#recommentedNewAlbum').innerHTML = data;
             },
@@ -233,7 +233,7 @@ Object.assign(view, {
         204: () => {
           // 204 No Content
           document.querySelectorAll('#recommentedNewAlbumLoader, #recommentedNewAlbumLoader2').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('hidden');
           });
           document.querySelector('#recommentedNewAlbum').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
