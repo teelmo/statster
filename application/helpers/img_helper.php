@@ -105,6 +105,73 @@ if (!function_exists('getListeningImg')) {
 }
 
 /**
+  * Batch version of getListeningImg() for rendering a list of listenings -
+  * two queries total instead of up to four (format + format type) per row.
+  *
+  * @param array $listening_ids.
+  *
+  * @return array Map of listening_id => array('filename' => .., 'name' => ..).
+  */
+if (!function_exists('getListeningImgsForListenings')) {
+  function getListeningImgsForListenings($listening_ids = array()) {
+    $ci = &get_instance();
+    $ci->load->database();
+
+    $listening_ids = array_unique(array_filter($listening_ids));
+    if (empty($listening_ids)) {
+      return array();
+    }
+
+    $placeholders = implode(',', array_fill(0, count($listening_ids), '?'));
+
+    $format_sql = "SELECT " . TBL_listening_formats . ".`listening_id`,
+                          " . TBL_listening_format . ".`img`,
+                          " . TBL_listening_format . ".`name`
+                   FROM " . TBL_listening_format . ",
+                        " . TBL_listening_formats . "
+                   WHERE " . TBL_listening_format . ".`id` = " . TBL_listening_formats . ".`listening_format_id`
+                     AND " . TBL_listening_formats . ".`listening_id` IN (" . $placeholders . ")";
+    $format_query = $ci->db->query($format_sql, array_values($listening_ids));
+
+    $format_type_sql = "SELECT " . TBL_listening_format_types . ".`listening_id`,
+                                " . TBL_listening_format_type . ".`img`,
+                                " . TBL_listening_format_type . ".`name`
+                         FROM " . TBL_listening_format_type . ",
+                              " . TBL_listening_format_types . "
+                         WHERE " . TBL_listening_format_type . ".`id` = " . TBL_listening_format_types . ".`listening_format_type_id`
+                           AND " . TBL_listening_format_types . ".`listening_id` IN (" . $placeholders . ")";
+    $format_type_query = $ci->db->query($format_type_sql, array_values($listening_ids));
+
+    $ci->load->helper('file');
+    $icon_exists = array();
+    $resolve_icon = function($img, $name) use (&$icon_exists) {
+      if (!array_key_exists($img, $icon_exists)) {
+        $icon_exists[$img] = file_exists('./media/img/format_img/format_icons/' . $img . '.png');
+      }
+      return $icon_exists[$img] ? array('filename' => site_url() . 'media/img/format_img/format_icons/' . $img . '.png', 'name' => $name) : FALSE;
+    };
+
+    $result = array();
+    // Format first, then let format type overwrite - format type takes
+    // priority, matching getListeningImg()'s precedence.
+    foreach ($format_query->result_array() as $row) {
+      $icon = $resolve_icon($row['img'], $row['name']);
+      if ($icon !== FALSE) {
+        $result[$row['listening_id']] = $icon;
+      }
+    }
+    foreach ($format_type_query->result_array() as $row) {
+      $icon = $resolve_icon($row['img'], $row['name']);
+      if ($icon !== FALSE) {
+        $result[$row['listening_id']] = $icon;
+      }
+    }
+
+    return $result;
+  }
+}
+
+/**
   * Get listening's format image.
   *
   * @param array $opts.
@@ -217,7 +284,17 @@ if (!function_exists('getFormatTypeImg')) {
 if (!function_exists('getImagePath')) {
   function getImagePath($opts, $type) {
     if (ENVIRONMENT === 'production' or ENVIRONMENT === 'development') {
-      return @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']);
+      // Same (type, size, id) is looked up repeatedly rendering a listing
+      // (e.g. one user's avatar on every row of their own listening
+      // history, or a replayed album's cover on every re-listen) - each
+      // lookup is a real network round-trip to IMAGE_SERVER, so memoize
+      // per request rather than refetching an identical URL.
+      static $cache = array();
+      $key = $type . ':' . $opts['size'] . ':' . $opts['id'];
+      if (!array_key_exists($key, $cache)) {
+        $cache[$key] = @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id']);
+      }
+      return $cache[$key];
     }
     else {
       // If you want to use local files.

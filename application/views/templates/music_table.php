@@ -12,6 +12,8 @@ if (!empty($json_data)) {
       <?php
       $justAdded = FALSE;
       $album_artists = getAlbumsArtists(array_column($json_data, 'album_id'));
+      $loved_pairs = getLovedPairs(array_column($json_data, 'user_id'), array_column($json_data, 'album_id'));
+      $listening_imgs = getListeningImgsForListenings(array_column($json_data, 'listening_id'));
       foreach ($json_data as $idx => $row) {
         $class = '';
         $size = 32;
@@ -62,11 +64,7 @@ if (!empty($json_data)) {
           </td>
           <td class="love icon">
             <?php
-            $love_data = getLove(array(
-              'user_id' => $row['user_id'], 
-              'album_id' => $row['album_id'],
-            ));
-            if (!empty($love_data)) {
+            if (!empty($loved_pairs[$row['user_id'] . ':' . $row['album_id']])) {
               ?>
               <span class="love_icon" title="Loved"></span>
               <?php
@@ -75,7 +73,7 @@ if (!empty($json_data)) {
           </td>
           <td class="format icon">
             <?php
-            $listeningsFormatImg = getListeningImg(array('listening_id' => $row['listening_id']));
+            $listeningsFormatImg = isset($listening_imgs[$row['listening_id']]) ? $listening_imgs[$row['listening_id']] : array('filename' => site_url() . '/media/img/format_img/format_icons/empty.png', 'name' => '');
             ?>
             <img src="<?=$listeningsFormatImg['filename']?>" alt="" title="<?=$listeningsFormatImg['name']?>" class="middle icon listeningFormatType"/>
           </td>

@@ -2,6 +2,43 @@
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
+  * Batch-checks which (user_id, album_id) pairs are loved, for rendering a
+  * list of rows (each possibly by a different user) without one getLove()
+  * query per row.
+  *
+  * @param array $user_ids.
+  * @param array $album_ids.
+  *
+  * @return array Set of "user_id:album_id" keys that are loved.
+  */
+if (!function_exists('getLovedPairs')) {
+  function getLovedPairs($user_ids = array(), $album_ids = array()) {
+    $ci=& get_instance();
+    $ci->load->database();
+
+    $user_ids = array_unique(array_filter($user_ids));
+    $album_ids = array_unique(array_filter($album_ids));
+    if (empty($user_ids) || empty($album_ids)) {
+      return array();
+    }
+
+    $user_placeholders = implode(',', array_fill(0, count($user_ids), '?'));
+    $album_placeholders = implode(',', array_fill(0, count($album_ids), '?'));
+    $sql = "SELECT `user_id`, `album_id`
+            FROM " . TBL_love . "
+            WHERE `user_id` IN (" . $user_placeholders . ")
+              AND `album_id` IN (" . $album_placeholders . ")";
+    $query = $ci->db->query($sql, array_merge(array_values($user_ids), array_values($album_ids)));
+
+    $result = array();
+    foreach ($query->result_array() as $row) {
+      $result[$row['user_id'] . ':' . $row['album_id']] = TRUE;
+    }
+    return $result;
+  }
+}
+
+/**
   * Tells if the given album is loved by the given user.
   *
   * @param array $opts.
