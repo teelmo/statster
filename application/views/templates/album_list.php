@@ -2,6 +2,7 @@
 if (!empty($json_data)) {
   if (is_array($json_data)) {
     $album_artists = getAlbumsArtists(array_column($json_data, 'album_id'));
+    prefetchImagePaths(array_map(function($row) { return array('type' => 'album', 'size' => 174, 'id' => $row['album_id']); }, $json_data));
     foreach ($json_data as $idx => $row) {
       ?>
       <li class="album">

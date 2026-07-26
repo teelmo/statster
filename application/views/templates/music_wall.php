@@ -3,6 +3,15 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     $word = (isset($word)) ? $word : 'plays';
     $album_artists = ($type == 'album') ? getAlbumsArtists(array_column($json_data, 'album_id')) : array();
+    $image_requests = array();
+    foreach (array_values($json_data) as $idx => $row) {
+      $image_requests[] = array(
+        'type' => $type,
+        'size' => $idx === 0 ? 300 : 174,
+        'id' => ($type == 'album') ? $row['album_id'] : $row['artist_id']
+      );
+    }
+    prefetchImagePaths($image_requests);
     if ($first = array_shift($json_data)) {
       if ($type == 'album') {
         ?>

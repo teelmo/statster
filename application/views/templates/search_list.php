@@ -2,6 +2,16 @@
 if (!empty($json_data)) {
   if (is_array($json_data)) {
     $result_id = 0;
+    $image_requests = array();
+    foreach ($json_data as $row) {
+      if (isset($row['type']) && $row['type'] === 'album') {
+        $image_requests[] = array('type' => 'album', 'size' => 64, 'id' => $row['album_id']);
+      }
+      elseif (isset($row['type']) && $row['type'] === 'artist') {
+        $image_requests[] = array('type' => 'artist', 'size' => 64, 'id' => $row['artist_id']);
+      }
+    }
+    prefetchImagePaths($image_requests);
     foreach ($json_data as $idx => $row) {
       if (isset($row['type'])) {
         $result_id++;

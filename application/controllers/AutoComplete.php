@@ -91,7 +91,9 @@ class AutoComplete extends MY_Controller {
             'value' => $query->result()[0]->artist_name . ' ' . DASH . ' '
           );
         }
-        $album_artists = getAlbumsArtists(array_map(function($row) { return $row->album_id; }, $query->result()));
+        $album_ids = array_map(function($row) { return $row->album_id; }, $query->result());
+        $album_artists = getAlbumsArtists($album_ids);
+        prefetchImagePaths(array_map(function($album_id) { return array('type' => 'album', 'size' => 64, 'id' => $album_id); }, $album_ids));
         foreach ($query->result() as $row) {
           $artists = isset($album_artists[$row->album_id]) ? $album_artists[$row->album_id] : array();
           $results[] = array(
@@ -145,6 +147,7 @@ class AutoComplete extends MY_Controller {
               LIMIT 0, 20";
       $query = $this->db->query($sql, array($search_str));
       if ($query->num_rows() > 0) {
+        prefetchImagePaths(array_map(function($row) { return array('type' => 'artist', 'size' => 64, 'id' => $row->id); }, $query->result()));
         foreach ($query->result() as $row) {
           $results[] = array(
             'id' => $row->id,

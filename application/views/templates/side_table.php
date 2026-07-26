@@ -10,6 +10,18 @@ if (!empty($json_data)) {
     $rank = 1;
     $prev_count = FALSE;
     $album_artists = getAlbumsArtists(array_column($json_data, 'album_id'));
+    $image_requests = array();
+    foreach ($json_data as $row) {
+      if (empty($row['type'])) {
+        if (isset($row['album_name']) && empty($hide['album'])) {
+          $image_requests[] = array('type' => 'album', 'size' => $size, 'id' => $row['album_id']);
+        }
+        else {
+          $image_requests[] = array('type' => 'artist', 'size' => $size, 'id' => $row['artist_id']);
+        }
+      }
+    }
+    prefetchImagePaths($image_requests);
     foreach ($json_data as $idx => $row) {
       ?>
       <tr data-created="<?=(!empty($row['created'])) ? $row['created'] : ''?>">

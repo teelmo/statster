@@ -1,6 +1,7 @@
 <?php
 if (!empty($json_data)) {
   if (empty($json_data['error'])) {
+    prefetchImagePaths(array_map(function($row) { return array('type' => 'artist', 'size' => 174, 'id' => $row['artist_id']); }, $json_data));
     foreach ($json_data as $idx => $row) {
       ?>
       <li class="artist">

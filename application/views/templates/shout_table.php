@@ -2,6 +2,22 @@
 if (!empty($json_data)) {
   $size = isset($size) ? $size : 64;
   if (is_array($json_data)) {
+    $image_requests = array();
+    foreach ($json_data as $row) {
+      if (isset($type)) {
+        $image_requests[] = array('type' => $type, 'size' => $size, 'id' => $row[$type . '_id']);
+      }
+      elseif ($row['type'] === 'user') {
+        $image_requests[] = array('type' => 'user', 'size' => $size, 'id' => $row['profile_id']);
+      }
+      elseif ($row['type'] === 'artist') {
+        $image_requests[] = array('type' => 'artist', 'size' => $size, 'id' => $row['artist_id']);
+      }
+      elseif ($row['type'] === 'album') {
+        $image_requests[] = array('type' => 'album', 'size' => $size, 'id' => $row['album_id']);
+      }
+    }
+    prefetchImagePaths($image_requests);
     foreach ($json_data as $idx => $row) {
       ?>
       <tr id="shout<?=ucfirst($row['type'])?>Table<?=$idx?>" data-created="<?=$row['created']?>" class="shout">

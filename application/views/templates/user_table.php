@@ -8,6 +8,7 @@ if (!empty($json_data)) {
     }
     $rank = 1;
     $prev_count = FALSE;
+    prefetchImagePaths(array_map(function($row) use ($size) { return array('type' => 'user', 'size' => $size, 'id' => $row['user_id']); }, $json_data));
     foreach ($json_data as $idx => $row) {
       ?>
       <tr id="userTable<?=$idx?>">

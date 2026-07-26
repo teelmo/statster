@@ -42,6 +42,7 @@ class Search extends MY_ReadOnly_Controller {
           'label' => 'Artists',
           'value' => ''
         );
+        prefetchImagePaths(array_map(function($row) { return array('type' => 'artist', 'size' => 64, 'id' => $row->artist_id); }, $query->result()));
         foreach ($query->result() as $row) {
           $results[] = array(
             'artist_id' => $row->artist_id,
@@ -78,6 +79,7 @@ class Search extends MY_ReadOnly_Controller {
           'label' => 'Albums',
           'value' => '',
         );
+        prefetchImagePaths(array_map(function($row) { return array('type' => 'album', 'size' => 64, 'id' => $row->album_id); }, $query->result()));
         foreach ($query->result() as $row) {
           $results[] = array(
             'album_id' => $row->album_id,
@@ -206,6 +208,7 @@ class Search extends MY_ReadOnly_Controller {
           'label' => 'Users',
           'value' => '',
         );
+        prefetchImagePaths(array_map(function($row) { return array('type' => 'user', 'size' => 64, 'id' => $row->user_id); }, $query->result()));
         foreach ($query->result() as $row) {
           $results[] = array(
             'img' => getUserImg(array('user_id' => $row->user_id, 'size' => 64)),

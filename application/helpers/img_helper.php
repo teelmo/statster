@@ -357,28 +357,35 @@ if (!function_exists('prefetchImagePaths')) {
       return;
     }
 
-    $multi = curl_multi_init();
-    $handles = array();
-    foreach ($unique as $key => $request) {
-      $url = IMAGE_SERVER . 'getImage.php?size=' . $request['size'] . '&type=' . $request['type'] . '&id=' . $request['id'];
-      $ch = curl_init($url);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-      curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-      curl_multi_add_handle($multi, $ch);
-      $handles[$key] = $ch;
-    }
+    // IMAGE_SERVER appears to rate-limit bursts above ~10 simultaneous
+    // connections from one IP (observed: batches of 12+ intermittently
+    // jump from ~0.1s to 1-3s, batches of 10 or fewer stay fast) - cap
+    // concurrency per chunk instead of firing every request at once.
+    $chunk_size = 8;
+    foreach (array_chunk($unique, $chunk_size, TRUE) as $chunk) {
+      $multi = curl_multi_init();
+      $handles = array();
+      foreach ($chunk as $key => $request) {
+        $url = IMAGE_SERVER . 'getImage.php?size=' . $request['size'] . '&type=' . $request['type'] . '&id=' . $request['id'];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_multi_add_handle($multi, $ch);
+        $handles[$key] = $ch;
+      }
 
-    $running = NULL;
-    do {
-      curl_multi_exec($multi, $running);
-      curl_multi_select($multi);
-    } while ($running > 0);
+      $running = NULL;
+      do {
+        curl_multi_exec($multi, $running);
+        curl_multi_select($multi);
+      } while ($running > 0);
 
-    foreach ($handles as $key => $ch) {
-      $cache[$key] = curl_multi_getcontent($ch);
-      curl_multi_remove_handle($multi, $ch);
+      foreach ($handles as $key => $ch) {
+        $cache[$key] = curl_multi_getcontent($ch);
+        curl_multi_remove_handle($multi, $ch);
+      }
+      curl_multi_close($multi);
     }
-    curl_multi_close($multi);
   }
 }
 
