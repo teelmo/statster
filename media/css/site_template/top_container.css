@@ -111,7 +111,7 @@
         }
       }
       &.active .profile_text::before {
-        transform: rotate(180deg);
+        transform: scaleY(-1);
       }
       @media (prefers-reduced-motion: reduce) {
         & .profile_text::before {
