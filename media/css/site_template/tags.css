@@ -33,6 +33,9 @@
         font-size: 10px;
         margin-bottom: 2px;
         padding: 4px;
+        &.hidden {
+          display: none;
+        }
       }
       &:hover a {
         background-color: #000;

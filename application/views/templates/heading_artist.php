@@ -15,7 +15,7 @@
         <div class="lds-facebook inline" id="tagsLoader"><div></div><div></div><div></div></div>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
-          <select data-placeholder="Add metadata" class="chosen-select" multiple>
+          <select data-placeholder="Add metadata" class="chosen-select" name="add_metadata" multiple>
             <optgroup label="Genres" id="genre"></optgroup>
             <optgroup label="Keywords" id="keyword"></optgroup>
             <optgroup label="Nationality" id="nationality"></optgroup>
