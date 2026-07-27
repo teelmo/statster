@@ -139,7 +139,7 @@ function initAutocomplete(inputEl, options) {
       closeDropdown();
       return;
     }
-    dropdown.classList.toggle('hidden');
+    dropdown.classList.remove('hidden');
   }
 
   function fetchResults() {
