@@ -67,7 +67,7 @@ function autocompleteRenderItem(item, term, inputEl) {
 //   source: URL to fetch (term appended as ?term=...)
 //   minLength: minimum chars before searching (default 3)
 //   delay: debounce ms (default 300)
-//   dropdownId: DOM id for the <ul> (matches jquery.autocomplete.css's
+//   dropdownId: DOM id for the <ul> (matches autocomplete.css's
 //     #ui-id-1 / #ui-id-2 rules so existing styling still applies)
 //   onSelect(item): called when an item is chosen
 // Returns { getSelectedItem() } - mirrors the old $(el).data('ui-autocomplete').selectedItem read.
