@@ -327,11 +327,11 @@ Object.assign(view, {
       if (!target) {
         return;
       }
-      Array.from(document.querySelector('#tagAdd select').selectedOptions)
+      var tagPromises = Array.from(document.querySelector('#tagAdd select').selectedOptions)
         .map(o => o.value)
-        .forEach(el => {
+        .map(el => {
           var tag = el.split(':');
-          ajax({
+          return ajax({
             data: {
               artist_id: `<?=$artist_id?>`,
               tag_id: tag[1],
@@ -357,8 +357,11 @@ Object.assign(view, {
           });
         });
       document.querySelector('#tagAdd select').searchableSelectReset();
-      view.getTags();
+      document.querySelector('#tagAdd').classList.remove('active');
       document.querySelector('#tagAdd').classList.add('hidden');
+      Promise.all(tagPromises).then(() => {
+        view.getTags();
+      });
     });
   }
 });
