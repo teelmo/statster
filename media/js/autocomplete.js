@@ -191,10 +191,12 @@ function initAutocomplete(inputEl, options) {
       event.preventDefault();
       const next = activeIndex + 1 >= rows.length ? 0 : activeIndex + 1;
       setActive(next);
+      inputEl.value = rows[next].value;
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
       const prev = activeIndex - 1 < 0 ? rows.length - 1 : activeIndex - 1;
       setActive(prev);
+      inputEl.value = rows[prev].value;
     } else if (event.key === 'Enter') {
       if (activeIndex >= 0) {
         event.preventDefault();
