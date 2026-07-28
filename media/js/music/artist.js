@@ -240,8 +240,6 @@ Object.assign(view, {
             } else {
               shoutTotal.innerHTML = `<span class="number">${data[0].count}</span> shouts`;
             }
-            // Note: jQuery's fadeIn() animated this over 500ms; plain display
-            // toggle drops the animation but keeps the same end state.
             shoutTotal.style.display = '';
             ajax({
               data: {
@@ -471,12 +469,6 @@ Object.assign(view, {
       url: '/api/artist/update/biography'
     });
   },
-  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
-  // request anywhere on the page finished, regardless of whether an
-  // individual success callback threw - $.active bookkeeping happens before
-  // user callbacks run. Promise.all doesn't have that resilience by default
-  // (one rejection fails the whole group), so each promise gets a .catch()
-  // here to match the original's fault tolerance.
   initArtistEvents: () => {
     Promise.all([
       view.getFan(parseInt(`<?=$this->session->userdata('user_id')?>`, 10)).catch(() => {}),
@@ -514,8 +506,6 @@ Object.assign(view, {
               msg.innerHTML = "You're a fan!";
               msg.style.display = '';
               setTimeout(() => {
-                // Note: jQuery's fadeOut() animated this over 1s; plain hide
-                // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
                   el.classList.add('hidden');
                 });
@@ -550,8 +540,6 @@ Object.assign(view, {
               msg.innerHTML = 'Unfaned.';
               msg.style.display = '';
               setTimeout(() => {
-                // Note: jQuery's fadeOut() animated this over 1s; plain hide
-                // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
                   el.classList.add('hidden');
                 });

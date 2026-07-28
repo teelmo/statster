@@ -163,12 +163,6 @@ Object.assign(view, {
         url: '/api/shout/get/user'
       }).catch(() => resolve());
     }),
-  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
-  // request anywhere on the page finished, regardless of whether an
-  // individual success callback threw - $.active bookkeeping happens before
-  // user callbacks run. Promise.all doesn't have that resilience by default
-  // (one rejection fails the whole group), so each promise gets a .catch()
-  // here to match the original's fault tolerance.
   initUserEvents: size => {
     Promise.all([view.getAlbumShouts(size).catch(() => {}), view.getArtistShouts(size).catch(() => {}), view.getUserShouts(size).catch(() => {})]).then(() => {
       var rows = Array.from(document.querySelectorAll('.shouts tr'));

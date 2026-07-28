@@ -288,8 +288,6 @@ Object.assign(view, {
             } else {
               shoutTotal.innerHTML = `<span class="number">${data[0].count}</span> shouts`;
             }
-            // Note: jQuery's fadeIn() animated this over 500ms; plain display
-            // toggle drops the animation but keeps the same end state.
             shoutTotal.style.display = '';
             ajax({
               data: {
@@ -688,12 +686,6 @@ Object.assign(view, {
         url: '/api/year/get'
       }).catch(() => resolve());
     }),
-  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
-  // request anywhere on the page finished, regardless of whether an
-  // individual success callback threw - $.active bookkeeping happens before
-  // user callbacks run. Promise.all doesn't have that resilience by default
-  // (one rejection fails the whole group), so each promise gets a .catch()
-  // below to match the original's fault tolerance.
   initProfileEvents: () => {
     var shoutPromises = [view.getShouts().catch(() => {}), view.getAlbumShouts().catch(() => {}), view.getArtistShouts().catch(() => {})];
     var likePromises = [view.recentlyFaned().catch(() => {}), view.recentlyLoved().catch(() => {})];

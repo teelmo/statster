@@ -321,12 +321,6 @@ Object.assign(view, {
       url: '/api/<?=strtolower($tag_type)?>/update/biography'
     });
   },
-  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
-  // request anywhere on the page finished, regardless of whether an
-  // individual success callback threw - $.active bookkeeping happens before
-  // user callbacks run. Promise.all doesn't have that resilience by default
-  // (one rejection fails the whole group), so each promise gets a .catch()
-  // here to match the original's fault tolerance.
   initTagEvents: (from, where) => {
     Promise.all([view.getListeningHistory('%Y').catch(() => {}), view.getTopAlbums('<?=$top_album_tag?>').catch(() => {}), view.getTopArtists('<?=$top_artist_tag?>').catch(() => {}), view.getUsers(from, where).catch(() => {}), view.getListenings(from, where).catch(() => {})]).then(() => {
       if (cumulative_done === false) {

@@ -255,8 +255,6 @@ Object.assign(view, {
               msg.innerHTML = "You're a fan!";
               msg.style.display = '';
               setTimeout(() => {
-                // Note: jQuery's fadeOut() animated this over 1s; plain hide
-                // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
                   el.classList.add('hidden');
                 });
@@ -291,8 +289,6 @@ Object.assign(view, {
               msg.innerHTML = 'Unfaned.';
               msg.style.display = '';
               setTimeout(() => {
-                // Note: jQuery's fadeOut() animated this over 1s; plain hide
-                // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
                   el.classList.add('hidden');
                 });

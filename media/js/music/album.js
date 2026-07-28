@@ -243,8 +243,6 @@ Object.assign(view, {
             } else {
               shoutTotal.innerHTML = `<span class="number">${data[0].count}</span> shouts`;
             }
-            // Note: jQuery's fadeIn() animated this over 500ms; plain display
-            // toggle drops the animation but keeps the same end state.
             shoutTotal.classList.remove('hidden');
             ajax({
               data: {
@@ -480,12 +478,6 @@ Object.assign(view, {
       url: '/api/album/update/biography'
     });
   },
-  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
-  // request anywhere on the page finished, regardless of whether an
-  // individual success callback threw - $.active bookkeeping happens before
-  // user callbacks run. Promise.all doesn't have that resilience by default
-  // (one rejection fails the whole group), so each promise gets a .catch()
-  // here to match the original's fault tolerance.
   initAlbumEvents: () => {
     Promise.all([
       view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10)).catch(() => {}),
@@ -523,8 +515,6 @@ Object.assign(view, {
               msg.innerHTML = "You're in love!";
               msg.classList.remove('hidden');
               setTimeout(() => {
-                // Note: jQuery's fadeOut() animated this over 1s; plain hide
-                // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
                   el.classList.add('hidden');
                 });
@@ -559,8 +549,6 @@ Object.assign(view, {
               msg.innerHTML = 'Unloved.';
               msg.classList.remove('hidden');
               setTimeout(() => {
-                // Note: jQuery's fadeOut() animated this over 1s; plain hide
-                // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
                   el.classList.add('hidden');
                 });
@@ -691,8 +679,6 @@ Object.assign(view, {
               msg.innerHTML = 'New listening!';
               msg.style.display = '';
               setTimeout(() => {
-                // Note: jQuery's fadeOut() animated this over 1s; plain hide
-                // drops the animation but keeps the same end state.
                 document.querySelectorAll('.like_msg').forEach(el => {
                   el.classList.add('hidden');
                 });
@@ -738,8 +724,6 @@ document.querySelectorAll('.quick_add_listening').forEach(el => {
     if (!subNav) {
       return;
     }
-    // Note: jQuery's slideUp()/slideDown() animated this; plain display
-    // toggle drops the animation but keeps the same show/hide behavior.
     if (subNav.offsetParent !== null) {
       this.classList.remove('active');
       subNav.classList.add('hidden');

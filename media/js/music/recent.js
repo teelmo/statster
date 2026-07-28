@@ -97,10 +97,6 @@ Object.assign(view, {
       loader.classList.remove('hidden');
       view.getRecentListenings();
     });
-    // Note: the original bound these same three delegated handlers on both
-    // 'html' and 'body' (a two-element jQuery selection) - since a click
-    // bubbles through both, each handler fired twice per click, double-
-    // submitting the confirm delete request. Bound once on document instead.
     document.addEventListener('click', event => {
       var target = event.target.closest('span.delete');
       if (!target) {
@@ -128,8 +124,6 @@ Object.assign(view, {
         statusCode: {
           200: () => {
             // 200 OK
-            // Note: jQuery's fadeOut('slow') animated this; plain remove
-            // drops the animation but keeps the same end state.
             var row = document.querySelector(`#${rowId}`);
             if (row) {
               if (row.classList.contains('just_added')) {

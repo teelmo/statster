@@ -60,8 +60,6 @@ Object.assign(view, {
   },
   initWelcomeEvents: () => {
     document.querySelector('#toggleRegisterForm').addEventListener('click', () => {
-      // Note: jQuery's slideToggle() animated this; plain class toggle drops
-      // the slide animation but keeps the same show/hide behavior.
       document.querySelector('#registerForm').classList.toggle('hidden');
     });
   }

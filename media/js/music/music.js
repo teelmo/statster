@@ -347,14 +347,6 @@ Object.assign(view, {
         url: '/api/love/get'
       }).catch(() => resolve());
     }),
-  // Note: jQuery's $(document).one('ajaxStop', fn) fired once ANY in-flight
-  // request anywhere on the page finished, regardless of whether an
-  // individual success callback threw - $.active bookkeeping happens before
-  // user callbacks run. Promise.all doesn't have that resilience by default
-  // (one rejection fails the whole group), so each promise gets a .catch()
-  // here to match the original's fault tolerance. getSecondChance/
-  // getFromOthers self-refresh on a 10-minute timer and don't feed the
-  // merge below, so they're kicked off separately, not awaited here.
   initMusicEvents: () => {
     Promise.all([view.getListeningHistory('%Y').catch(() => {}), view.getPopularGenres().catch(() => {}), view.getPopularAlbums('<?=$popular_album_music?>').catch(() => {}), view.getRecentlyFaned().catch(() => {}), view.getRecentlyLoved().catch(() => {})]).then(() => {
       var rows = Array.from(document.querySelectorAll('.recently_liked tr'));
