@@ -224,13 +224,22 @@ function initSearchableSelect(selectEl) {
     if (!multiple) {
       input.value = '';
     }
-    renderDropdown();
   });
   input.addEventListener('input', renderDropdown);
   input.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       dropdown.classList.add('hidden');
       input.blur();
+      return;
+    }
+    if (event.key === 'Backspace' && multiple && input.value === '') {
+      const selected = getOptions().filter(o => o.selected);
+      const last = selected[selected.length - 1];
+      if (last) {
+        last.selected = false;
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+        renderChips();
+      }
       return;
     }
     if (dropdown.classList.contains('hidden')) {
