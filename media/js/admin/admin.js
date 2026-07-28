@@ -125,9 +125,9 @@ Object.assign(view, {
             // 401 Unauthorized
             alert('401 Unauthorized');
           },
-          403: () => {
-            // 403 Forbidden
-            alert('403 Forbidden');
+          404: () => {
+            // 404 Not Found
+            alert('404 Not Found');
           }
         },
         type: 'POST',
@@ -161,9 +161,9 @@ Object.assign(view, {
             // 401 Unauthorized
             alert('401 Unauthorized');
           },
-          403: () => {
-            // 403 Forbidden
-            alert('403 Forbidden');
+          404: () => {
+            // 404 Not Found
+            alert('404 Not Found');
           }
         },
         type: 'POST',
@@ -200,9 +200,9 @@ Object.assign(view, {
             // 401 Unauthorized
             alert('401 Unauthorized');
           },
-          403: () => {
-            // 403 Forbidden
-            alert('403 Forbidden');
+          500: () => {
+            // 500 Internal Server Error
+            alert('Transfer failed, rolled back');
           }
         },
         type: 'POST',

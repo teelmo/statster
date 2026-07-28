@@ -170,7 +170,7 @@ if (!function_exists('deleteAlbum')) {
         return json_encode(array());
       }
       else {
-        header('HTTP/1.1 401 Unauthorized');
+        header('HTTP/1.1 404 Not Found');
         return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
       }
     }
@@ -203,26 +203,36 @@ if (!function_exists('transferAlbumData')) {
       return json_encode(array('error' => array('msg' => $data)));
     }
     if (in_array($ci->session->userdata['user_id'], ADMIN_USERS)) {
+      // Wrapped in a transaction so a failure partway through (e.g. a DB
+      // error) rolls everything back instead of leaving the album with
+      // only some of its data transferred.
+      $ci->db->trans_start();
       // Transfer keywords.
       $sql = "UPDATE IGNORE " . TBL_keywords . "
                 SET " . TBL_keywords . ".album_id = ?
               WHERE " . TBL_keywords . ".album_id = ?";
-      $query = $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
+      $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
       // Transfer genres.
       $sql = "UPDATE IGNORE " . TBL_genres . "
                 SET " . TBL_genres . ".album_id = ?
               WHERE " . TBL_genres . ".album_id = ?";
-      $query = $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
+      $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
       // Transfer nationalities.
       $sql = "UPDATE IGNORE " . TBL_nationalities . "
                 SET " . TBL_nationalities . ".album_id = ?
               WHERE " . TBL_nationalities . ".album_id = ?";
-      $query = $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
+      $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
       // Transfer listenings.
       $sql = "UPDATE " . TBL_listening . "
                 SET " . TBL_listening . ".album_id = ?
               WHERE " . TBL_listening . ".album_id = ?";
-      $query = $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
+      $ci->db->query($sql, array($data['album_id_to'], $data['album_id_from']));
+      $ci->db->trans_complete();
+
+      if ($ci->db->trans_status() === FALSE) {
+        header('HTTP/1.1 500 Internal Server Error');
+        return json_encode(array('error' => array('msg' => 'Transfer failed, rolled back')));
+      }
       header('HTTP/1.1 200 OK');
       return json_encode(array());
     }

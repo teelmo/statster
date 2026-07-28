@@ -113,7 +113,7 @@ if (!function_exists('deleteArtist')) {
         return json_encode(array());
       }
       else {
-        header('HTTP/1.1 401 Unauthorized');
+        header('HTTP/1.1 404 Not Found');
         return json_encode(array('error' => array('msg' => $data, 'affected' => $ci->db->affected_rows())));
       }
     }
