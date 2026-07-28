@@ -217,7 +217,12 @@ function initSearchableSelect(selectEl) {
       return;
     }
     selectByValue(result.dataset.value);
-    input.focus();
+    // Refocusing a single-select would re-trigger the focus listener's
+    // clear-to-search-again behavior, wiping the selection text just set
+    // above - only multi-select wants focus back, to keep adding chips.
+    if (multiple) {
+      input.focus();
+    }
   });
 
   input.addEventListener('focus', () => {
