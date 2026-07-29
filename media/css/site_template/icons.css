@@ -12,6 +12,7 @@
   mask-repeat: no-repeat;
   -webkit-mask-size: contain;
   mask-size: contain;
+  vertical-align: middle;
   width: 1em;
 }
 .mask-icon-bars {

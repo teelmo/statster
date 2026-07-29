@@ -2,6 +2,9 @@
 .autocomplete_container {
   position: relative;
 }
+select {
+  width: 100%;
+}
 input,
 textarea {
   box-sizing: border-box;
