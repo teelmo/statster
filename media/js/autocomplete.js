@@ -233,9 +233,13 @@ function initAutocomplete(inputEl, options) {
     select(parseInt(li.dataset.index, 10));
   });
 
-  // The original overrode jQuery UI's close() to ignore blur events
-  // entirely (worked around virtual-keyboard-hide blur on mobile) - so this
-  // widget never closes on blur either, only via outside click/Escape/select.
+  // mousedown+preventDefault above keeps focus on inputEl during a result
+  // click, so this only fires for a real loss of focus (Tab, clicking
+  // elsewhere, etc.) - not for the selection click itself.
+  inputEl.addEventListener('blur', () => {
+    closeDropdown();
+  });
+
   document.addEventListener('click', event => {
     if (!container.contains(event.target) && !dropdown.contains(event.target)) {
       closeDropdown();
