@@ -36,15 +36,7 @@
   </div>
 </div>
 <div class="main_container">
-  <div class="page_links">
-    <?=anchor(array('album'), 'Albums')?>
-    <?=anchor(array('artist'), 'Artists')?>
-    <?=anchor(array('format'), 'Formats')?>
-    <?=anchor(array('like'), 'Likes')?>
-    <?=anchor(array('listener'), 'Listeners')?>
-    <?=anchor(array('shout'), 'Shouts')?>
-    <?=anchor(array('tag'), 'Tags')?>
-  </div>
+<?php $this->load->view('templates/page_links_main'); ?>
   <div class="left_container">
     <div class="container">
       <h2>Shouts</h2>

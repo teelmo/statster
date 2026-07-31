@@ -47,15 +47,7 @@
   </div>
 </div>
 <div class="main_container">
-  <div class="page_links">
-    <?=anchor(array('album'), 'Albums')?>
-    <?=anchor(array('artist'), 'Artists')?>
-    <?=anchor(array('format'), 'Formats')?>
-    <?=anchor(array('listener'), 'Listeners')?>
-    <?=anchor(array('like'), 'Likes')?>
-    <?=anchor(array('shout'), 'Shouts')?>
-    <?=anchor(array('tag'), 'Tags')?>
-  </div>
+<?php $this->load->view('templates/page_links_main'); ?>
   <div class="left_container">
     <div class="container clearfix">
       <h2 class="genre_heading"><span class="value not_available">Genres</span> <span class="lds-ring hidden" id="topGenreLoader3"><div></div><div></div><div></div><div></div></span></h2>

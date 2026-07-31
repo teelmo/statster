@@ -1,15 +1,7 @@
 <?php $this->load->view('templates/heading_shell_main'); ?>
 </div>
 <div class="main_container">
-  <div class="page_links">
-    <?=anchor(array('album'), 'Albums')?>
-    <?=anchor(array('artist'), 'Artists')?>
-    <?=anchor(array('format'), 'Formats')?>
-    <?=anchor(array('listener'), 'Listeners')?>
-    <?=anchor(array('like'), 'Likes')?>
-    <?=anchor(array('shout'), 'Shouts')?>
-    <?=anchor(array('tag'), 'Tags')?>
-  </div>
+<?php $this->load->view('templates/page_links_main'); ?>
   <div class="left_container">
     <div class="container">
        <div class="search_container full">
