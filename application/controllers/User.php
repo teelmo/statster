@@ -110,6 +110,13 @@ class User extends MY_Controller {
 
       $data = getUser(array('username' => $this->session->userdata('username')));
       $data['theme'] = (empty($data['theme'])) ? 'light' : $data['theme'];
+      $top_artist_opts = array(
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => (!empty($_GET['u']) ? $_GET['u'] : '')
+      );
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($top_artist_opts), array('artist_id' => 0));
       $opts = array(
         'limit' => '1',
         'lower_limit' => '1970-00-00',
