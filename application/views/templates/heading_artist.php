@@ -11,7 +11,19 @@
         ?>
       </div>
       <div class="top_info artist_info">
-        <h1><?=anchor(array('music', url_title($artist_name)), $artist_name)?></h1>
+        <h1>
+          <?php
+          if (!empty($is_current_page)) {
+            echo $artist_name;
+            if (!empty($this->session->userdata['user_id']) && in_array($this->session->userdata['user_id'], ADMIN_USERS)) {
+              echo anchor(array('admin', 'artist', $artist_id . '?redirect=' . $_SERVER['REQUEST_URI']), '<span class="mask-icon mask-icon-pen-square" aria-hidden="true"></span>', array('aria-label' => 'Edit artist'));
+            }
+          }
+          else {
+            echo anchor(array('music', url_title($artist_name)), $artist_name);
+          }
+          ?>
+        </h1>
         <div class="lds-facebook inline" id="tagsLoader"><div></div><div></div><div></div></div>
         <ul id="tags"><!-- Content is loaded with AJAX --></ul>
         <div id="tagAdd" class="hidden">
@@ -28,7 +40,7 @@
   <div class="meta_container">
     <div class="meta">
       <div class="label">Listenings</div>
-      <div class="value number"><?=anchor(array('recent', url_title($artist_name)), number_format($total_count))?><?=($most_listened_alltime !== false) ? ', ' . anchor(array('artist'), '<span class="rank">#<span class="number">' . $most_listened_alltime . '</span></span>') : ''?></div>
+      <div class="value number"><span class="<?=(!isset($per_year) || $per_year === NULL) ? '' : 'data_per_year'?>" data-per-year="<?=isset($per_year) ? $per_year : ''?>"><?=anchor(array('recent', url_title($artist_name)), number_format($total_count))?></span><?=($most_listened_alltime !== false) ? ', ' . anchor(array('artist'), '<span class="rank">#<span class="number">' . $most_listened_alltime . '</span></span>') : ''?></div>
     </div>
     <div class="meta">
       <div class="label">Listeners</div>
@@ -39,7 +51,7 @@
       <div class="value number"><?=anchor(array('year', $created), $created)?></div>
     </div>
     <?php
-    if ($this->session->userdata('logged_in') === TRUE) {
+    if ($this->session->userdata('logged_in') === TRUE && $total_count > 0) {
       ?>
       <div class="meta">
         <div class="label user_listening">
@@ -50,8 +62,8 @@
             </svg>
             <div class="user_listenings_img cover img32" style="background-image: url('<?=getUserImg(array('user_id' => $this->session->userdata('user_id'), 'size' => 32))?>');"></div>
           </div>
-          <span class="user_value"><span class="value number"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('artist' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
-          <span id="fan" class="like_toggle" aria-label="Fan this artist"><div class="lds-facebook" id="fanLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
+          <span class="user_value"><span class="value number"><span class="<?=(!isset($per_year_user) || $per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=isset($per_year_user) ? $per_year_user : ''?>"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('artist' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
+          <span id="fan" class="like_toggle" aria-label="Fan this artist"><div class="lds-facebook inline" id="fanLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
         </div>
       </div>
       <?php
