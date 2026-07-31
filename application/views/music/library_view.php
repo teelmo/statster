@@ -1,6 +1,4 @@
-<div class="heading_container">
-  <div class="heading_cont tag_heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>')">
-    <div class="info">
+<?php $this->load->view('templates/heading_shell_tag_type'); ?>
       <div class="top_info year_info">
         <h2><?=anchor(array('music'), 'Music')?></h2>
         <?php
