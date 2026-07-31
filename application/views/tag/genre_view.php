@@ -25,12 +25,7 @@
   </div>
 </div>
 <div class="main_container">
-  <div class="page_links">
-    <?=anchor(array('genre'), 'Genres')?>
-    <?=anchor(array('keyword'), 'Keywords')?>
-    <?=anchor(array('nationality'), 'Nationalities')?>
-    <?=anchor(array('year'), 'Years')?>
-  </div>
+<?php $this->load->view('templates/page_links_tag_type'); ?>
   <div class="left_container">
     <div class="container">
       <h2>Top genres
