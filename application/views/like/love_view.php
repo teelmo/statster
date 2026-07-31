@@ -31,11 +31,7 @@
   ?>
 </div>
 <div class="main_container">
-  <div class="page_links">
-    <?=anchor(array('like'), 'Likes')?>
-    <?=anchor(array('fan'), 'Fans')?>
-    <?=anchor(array('love'), 'Loves')?>
-  </div>
+<?php $this->load->view('templates/page_links_like'); ?>
   <div class="left_container">
     <div class="container">
       <h2>Recently Loved</h2>
