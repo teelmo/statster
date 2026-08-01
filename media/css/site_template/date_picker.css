@@ -16,15 +16,22 @@
     }
     & tbody td {
       width: calc(100% / 7);
-      &:hover {
+      & .day.toMonth:hover {
         background-color: #ddd;
       }
     }
   }
   &.two-months {
+    & .month-wrapper {
+      /* the two 190px month tables, ignoring the hidden .gap decoration
+         between them - it still occupies float layout space via its
+         margin even though invisible, which would otherwise inflate
+         this shrink-wrapped width past the tables' actual content */
+      width: 380px;
+    }
     & tbody td {
       width: calc(100% / 8);
-      &:hover {
+      & .day.toMonth:hover {
         background-color: #ddd;
       }
     }
@@ -34,6 +41,7 @@
   }
   & .month-wrapper {
     border-radius: 0;
+    overflow: hidden;
     padding: 0;
     & .gap {
       margin: 0 10px;
