@@ -77,7 +77,7 @@
                 foreach(unserialize($this->session->formats) as $key => $format) {
                   list($format, $format_type) = array_pad(explode(':', $format), 2, false);
                   ?>
-                    <li data-value="<?=(empty($format_type) ? $format : $format . ':' . $format_type)?>"><img src="/media/img/format_img/format_icons/<?=(empty($format_type) ? getFormatImg(array('format' => $format)) : getFormatTypeImg(array('format_type' => $format_type)))?>.png" tabindex="<?=($key + 2)?>" class="middle icon listening_format_type" title="<?=(empty($format_type) ? $format : $format_type)?>" alt="" /> <?=$format_type?></li>
+                    <li data-value="<?=(empty($format_type) ? $format : $format . ':' . $format_type)?>"><img src="/media/img/format_img/format_icons/<?=(empty($format_type) ? getFormatImg(array('format' => $format)) : getFormatTypeImg(array('format_type' => $format_type)))?>.png" tabindex="<?=($key + 2)?>" class="middle icon listening_format_type" title="<?=(empty($format_type) ? $format : $format_type)?>" alt="" /> <?=(empty($format_type) ? $format : $format_type)?></li>
                   <?php
                 }
                 ?>

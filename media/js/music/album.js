@@ -667,7 +667,7 @@ Object.assign(view, {
             created: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 19).replace('T', ' '),
             date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10).replace('T', ' '),
             format: format_value,
-            submitType: document.querySelector('input[name="submitType"]').value,
+            submitType: document.querySelector('input[name="submitType"]')?.value,
             text: false
           },
           dataType: 'json',
