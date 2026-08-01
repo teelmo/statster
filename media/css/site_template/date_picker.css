@@ -135,5 +135,6 @@
 }
 .calendar_container {
   position: absolute;
+  right: 0;
   z-index: 4;
 }
