@@ -123,17 +123,8 @@ if (!function_exists('addListening')) {
         return json_encode(array('error' => array('msg' => $data)));
       }
       else if ($data['album_id'] !== 'false') {
-        // Get Spotify information only if existing album.
-        $data_tmp = getAlbumInfo($data);
-        if (empty($data_tmp['spotify_id'])) {
-          // getSpotifyResourceId($data_tmp[0]);
-        }
-        foreach (getAlbumArtists($data) as $artist) {
-          $data_tmp = getArtistInfo(array('artist_id' => $artist['id']));
-          if (empty($data_tmp['spotify_id'])) {
-            // getSpotifyResourceId($data_tmp);
-          }
-        }
+        // Existing album - nothing to resolve here, just skip past the
+        // text-parsing branch below.
       }
       else if (strpos($opts['text'], DASH)) {
         list($data['artist_name'], $data['album_name']) = explode(DASH, $opts['text'], 2);

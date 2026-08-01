@@ -1,12 +1,7 @@
 Object.assign(view, {
   // Get recent listenings.
-  getRecentListenings: callback => {
+  getRecentListenings: () => {
     ajax({
-      complete: () => {
-        if (callback !== undefined) {
-          callback();
-        }
-      },
       data: {
         sub_group_by: 'album',
         limit: 12,
@@ -271,9 +266,8 @@ Object.assign(view, {
 });
 
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-view.getRecentListenings(() => {
-  view.getTopAlbums('<?=$top_album_main?>');
-});
+view.getRecentListenings();
+view.getTopAlbums('<?=$top_album_main?>');
 view.getTopArtists('<?=$top_artist_main?>');
 view.getRecommentedTopAlbum();
 view.getRecommentedNewAlbum();
