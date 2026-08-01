@@ -19,6 +19,10 @@
       & .day.toMonth:hover {
         background-color: #ddd;
       }
+      & .day.toMonth.checked:hover {
+        background-color: #000;
+        cursor: default;
+      }
     }
   }
   & .month-wrapper {
@@ -84,20 +88,22 @@
             &.toMonth.hovering,
             &.checked {
               background-color: #eee;
+              &.valid {
+                color: #fff;
+              }
             }
             &.first-date-selected,
             &.last-date-selected {
-              /* biome-ignore lint/complexity/noImportantStyles: daterangepicker.min.css sets these same two properties !important on this exact selector - no specificity can beat a vendor !important, only another !important can */
-              background-color: #000 !important;
-              /* biome-ignore lint/complexity/noImportantStyles: see above */
-              color: #fff !important;
+              background-color: #000;
+              color: #fff;
             }
             &.real-today.toMonth {
               background-color: #fff;
               color: #000;
               font-weight: 700;
-              &.hovering {
-                background-color: #ccc;
+              &.first-date-selected,
+              &.last-date-selected {
+                background-color: #000;
                 color: #fff;
               }
             }
