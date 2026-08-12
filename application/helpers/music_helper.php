@@ -615,6 +615,10 @@ if (!function_exists('getListeningsPerYear')) {
     $user_id = !empty($opts['user_id']) ? $opts['user_id'] : '%';
     $sub_group_by = (isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'album') ? "GROUP BY " . TBL_artists . ".`album_id`" : ((isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'artist') ? "GROUP BY " . TBL_artists . ".`artist_id`" : "GROUP BY " . TBL_artists . ".`id`");
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] :  TBL_artist . '.`id`';
+    // "Today" as a bound param (PHP, now browser-tz-aware) rather than
+    // MySQL's own NOW()/CURRENT_DATE(), which runs in the DB server's
+    // own timezone independent of the browser.
+    $today = date('Y-m-d');
     $sql = "SELECT (
       (
         SELECT count(*) AS `count`
@@ -636,7 +640,7 @@ if (!function_exists('getListeningsPerYear')) {
       )
       / 
       (
-       SELECT DATEDIFF(NOW(), (
+       SELECT DATEDIFF(?, (
           SELECT " . TBL_listening . ".`date`
           FROM " . TBL_album . ",
                " . TBL_artist . ",
@@ -651,13 +655,13 @@ if (!function_exists('getListeningsPerYear')) {
             AND " . TBL_listening . ".`user_id` LIKE ?
             AND " . TBL_artist . ".`id` LIKE ?
             AND " . TBL_album . ".`id` LIKE ?
-            AND YEAR(" . TBL_listening . ".`date`) <> YEAR(CURRENT_DATE())
+            AND YEAR(" . TBL_listening . ".`date`) <> YEAR(?)
           ORDER BY " . TBL_listening . ".`date` ASC
           LIMIT 1)
         ) / 365
       )
     ) AS `count`";
-    $query = $ci->db->query($sql, array($user_id, $artist_id, $album_id, $user_id, $artist_id, $album_id));
+    $query = $ci->db->query($sql, array($user_id, $artist_id, $album_id, $today, $user_id, $artist_id, $album_id, $today));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);

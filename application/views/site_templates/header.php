@@ -4,6 +4,19 @@ header('HTTP/1.1 200 OK');
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+    (function() {
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        var match = document.cookie.match(/(?:^|; )tz=([^;]*)/);
+        var current = match ? decodeURIComponent(match[1]) : null;
+        if (tz && tz !== current) {
+          document.cookie = 'tz=' + encodeURIComponent(tz) + ';path=/;max-age=31536000;samesite=lax';
+          location.reload();
+        }
+      } catch (e) {}
+    })();
+    </script>
     <title><?=TITLE?></title>
     <meta charset="utf-8">
     <meta name="description" content="Reconcile with music" />

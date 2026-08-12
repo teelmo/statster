@@ -43,7 +43,15 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 | These constants are defined by Statster and used only by Statster
 |
 */
-date_default_timezone_set('Europe/Zurich');
+// The user travels, so "today" should follow their browser's timezone
+// (set via the `tz` cookie by site_templates/header.php) rather than a
+// fixed zone - otherwise date-range queries can hide same-day data for
+// up to a couple hours around midnight whenever the two zones disagree.
+$tz = 'Europe/Helsinki';
+if (!empty($_COOKIE['tz']) && in_array($_COOKIE['tz'], timezone_identifiers_list(), true)) {
+  $tz = $_COOKIE['tz'];
+}
+date_default_timezone_set($tz);
 
 define('ADMIN_USERS', [1,14]);
 
