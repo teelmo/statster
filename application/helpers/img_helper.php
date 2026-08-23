@@ -371,7 +371,21 @@ if (!function_exists('prefetchImagePaths')) {
     // jump from ~0.1s to 1-3s, batches of 10 or fewer stay fast) - cap
     // concurrency per chunk instead of firing every request at once.
     $chunk_size = 8;
+    // Per-handle CURLOPT_TIMEOUT only bounds a single chunk; under sustained
+    // rate-limiting several chunks can each take the full 3s back to back,
+    // and enough of them exceed PHP's max_execution_time and fatal-error the
+    // whole request (seen in practice on add-listening search). Cap total
+    // wall-clock time across all chunks instead - once the budget's spent,
+    // stop prefetching and let the remaining rows fall back to the default
+    // placeholder image (getImagePath() treats a cached '' as "no image").
+    $deadline = microtime(TRUE) + 5;
     foreach (array_chunk($unique, $chunk_size, TRUE) as $chunk) {
+      if (microtime(TRUE) >= $deadline) {
+        foreach ($chunk as $key => $request) {
+          $cache[$key] = '';
+        }
+        continue;
+      }
       $multi = curl_multi_init();
       $handles = array();
       foreach ($chunk as $key => $request) {
