@@ -366,18 +366,24 @@ if (!function_exists('prefetchImagePaths')) {
       return;
     }
 
-    // IMAGE_SERVER appears to rate-limit bursts above ~10 simultaneous
-    // connections from one IP (observed: batches of 12+ intermittently
-    // jump from ~0.1s to 1-3s, batches of 10 or fewer stay fast) - cap
-    // concurrency per chunk instead of firing every request at once.
-    $chunk_size = 8;
-    // Per-handle CURLOPT_TIMEOUT only bounds a single chunk; under sustained
-    // rate-limiting several chunks can each take the full 3s back to back,
-    // and enough of them exceed PHP's max_execution_time and fatal-error the
-    // whole request (seen in practice on add-listening search). Cap total
-    // wall-clock time across all chunks instead - once the budget's spent,
-    // stop prefetching and let the remaining rows fall back to the default
-    // placeholder image (getImagePath() treats a cached '' as "no image").
+    // IMAGE_SERVER used to rate-limit bursts above ~10 simultaneous
+    // connections from one IP (batches of 12+ intermittently jumping from
+    // ~0.1s to 1-3s) under its old mod_php+prefork setup - fixed by
+    // migrating it to php-fpm+mpm_event (2026-08-25, pool sized for 20
+    // concurrent workers), confirmed live with a 12-wide burst completing
+    // in 125ms. Still cap concurrency per chunk rather than firing every
+    // request at once, since a page can need more images than that pool
+    // has workers, and other requests share the same pool concurrently.
+    $chunk_size = 16;
+    // Per-handle CURLOPT_TIMEOUT only bounds a single chunk; if IMAGE_SERVER
+    // ever degrades again (network issues, unrelated load), several chunks
+    // hitting the full timeout back to back could still exceed PHP's
+    // max_execution_time and fatal-error the whole request (this is what
+    // happened in practice on add-listening search before the migration
+    // above). Cap total wall-clock time across all chunks as a backstop -
+    // once the budget's spent, stop prefetching and let the remaining rows
+    // fall back to the default placeholder image (getImagePath() treats a
+    // cached '' as "no image").
     $deadline = microtime(TRUE) + 5;
     foreach (array_chunk($unique, $chunk_size, TRUE) as $chunk) {
       if (microtime(TRUE) >= $deadline) {
