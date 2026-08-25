@@ -627,8 +627,10 @@ if (!function_exists('getListeningsPerYear')) {
             (SELECT " . TBL_artists . ".`artist_id`,
                     " . TBL_artists . ".`album_id`
                 FROM " . TBL_artists . "
+                WHERE " . TBL_artists . ".`artist_id` LIKE ?
+                  AND " . TBL_artists . ".`album_id` LIKE ?
                 " . $sub_group_by . ") AS " . TBL_artists . ",
-             " . TBL_listening . " 
+             " . TBL_listening . "
         WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
           AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
           AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
@@ -638,7 +640,7 @@ if (!function_exists('getListeningsPerYear')) {
         GROUP BY " . $ci->db->escape_str($group_by) . "
         LIMIT 1
       )
-      / 
+      /
       (
        SELECT DATEDIFF(?, (
           SELECT " . TBL_listening . ".`date`
@@ -647,6 +649,8 @@ if (!function_exists('getListeningsPerYear')) {
               (SELECT " . TBL_artists . ".`artist_id`,
                       " . TBL_artists . ".`album_id`
                   FROM " . TBL_artists . "
+                  WHERE " . TBL_artists . ".`artist_id` LIKE ?
+                    AND " . TBL_artists . ".`album_id` LIKE ?
                   " . $sub_group_by . ") AS " . TBL_artists . ",
                " . TBL_listening . "
           WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
@@ -661,7 +665,7 @@ if (!function_exists('getListeningsPerYear')) {
         ) / 365
       )
     ) AS `count`";
-    $query = $ci->db->query($sql, array($user_id, $artist_id, $album_id, $today, $user_id, $artist_id, $album_id, $today));
+    $query = $ci->db->query($sql, array($artist_id, $album_id, $user_id, $artist_id, $album_id, $today, $artist_id, $album_id, $user_id, $artist_id, $album_id, $today));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);
