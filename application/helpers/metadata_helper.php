@@ -84,41 +84,40 @@ if (!function_exists('fetchArtistInfo')) {
         curl_setopt($ch, CURLOPT_URL, 'https://accounts.spotify.com/api/token');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials' ); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials' );
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(SPOTIFY_CLIENT_ID . ':' . SPOTIFY_CLIENT_SECRET)));
         $result = curl_exec($ch);
+        $token_error = curl_errno($ch);
+        if ($token_error) {
+          log_message('error', 'Spotify token request failed: ' . curl_error($ch));
+        }
         curl_close($ch);
+        $token = $token_error ? NULL : json_decode($result);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=artist&limit=1');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        @curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . json_decode($result)->access_token));
-        $result = curl_exec($ch);
-        curl_close($ch);
+        if ($token !== NULL && !empty($token->access_token)) {
+          $ch = curl_init();
+          curl_setopt($ch, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=artist&limit=1');
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+          curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token->access_token));
+          $result = curl_exec($ch);
+          $search_error = curl_errno($ch);
+          if ($search_error) {
+            log_message('error', 'Spotify search request failed: ' . curl_error($ch));
+          }
+          curl_close($ch);
 
-        if (json_decode($result) !== NULL && json_decode($result)->artists->total !== 0) {
-          // Get image.
-          if (json_decode($result)->artists->items[0]->images[0]) {
-            $ci=& get_instance();
-            $ci->load->helper(array('img_helper', 'id_helper'));
-            $opts['artist_id'] = getArtistID(array('artist_name' => $artist_name));
-            $opts['image_uri'] = json_decode($result)->artists->items[0]->images[0]->url;
-            fetchImages($opts, 'artist');
+          $search = $search_error ? NULL : json_decode($result);
+          if ($search !== NULL && $search->artists->total !== 0) {
+            // Get image.
+            if ($search->artists->items[0]->images[0]) {
+              $ci=& get_instance();
+              $ci->load->helper(array('img_helper', 'id_helper'));
+              $opts['artist_id'] = getArtistID(array('artist_name' => $artist_name));
+              $opts['image_uri'] = $search->artists->items[0]->images[0]->url;
+              fetchImages($opts, 'artist');
+            }
           }
         }
-
-        // if ($napster_data = json_decode(@file_get_contents('http://api.napster.com/v2.2/artists/' . urlencode(strtolower($artist_name)) . '?apikey='. NAPSTER_API_KEY), TRUE)) {
-        //   if (!empty($napster_data['artists'])) {
-        //     // Get image.
-        //     if (!empty($napster_data['artists'][0]['id'])) {
-        //       $ci=& get_instance();
-        //       $ci->load->helper(array('img_helper', 'id_helper'));
-        //       $opts['artist_id'] = getArtistID(array('artist_name' => $artist_name));
-        //       $opts['image_uri'] = 'https://api.napster.com/imageserver/v2/artists/' . $napster_data['artists'][0]['id'] . '/images/633x422.jpg';
-        //       fetchImages($opts, 'artist');
-        //     }
-        //   }
-        // }
       }
       return $data;
     }

@@ -441,6 +441,11 @@ if (!function_exists('fetchImages')) {
       curl_setopt($ch, CURLOPT_POST, 1);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
       $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+        log_message('error', 'Image upload to ' . IMAGE_SERVER . 'addImage.php failed: ' . curl_error($ch));
+        curl_close($ch);
+        return FALSE;
+      }
       curl_close($ch);
       return $result;
     }

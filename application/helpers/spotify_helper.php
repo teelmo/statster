@@ -16,15 +16,32 @@ if (!function_exists('getSpotifyResourceId')) {
     curl_setopt($ch, CURLOPT_URL, 'https://accounts.spotify.com/api/token');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials' ); 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials' );
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Basic ' . base64_encode(SPOTIFY_CLIENT_ID . ':' . SPOTIFY_CLIENT_SECRET)));
     $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+      log_message('error', 'Spotify token request failed: ' . curl_error($ch));
+      curl_close($ch);
+      return FALSE;
+    }
+    curl_close($ch);
+    $token = json_decode($result);
+    if ($token === NULL || empty($token->access_token)) {
+      log_message('error', 'Spotify token request returned an unexpected response.');
+      return FALSE;
+    }
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://api.spotify.com/v1/search?q=' . $q . '&type=' . $type . '&limit=1');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    @curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . json_decode($result)->access_token));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token->access_token));
     $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+      log_message('error', 'Spotify search request failed: ' . curl_error($ch));
+      curl_close($ch);
+      return FALSE;
+    }
+    curl_close($ch);
 
     if (!empty($data['album_name'])) {
       $spotify_id = (json_decode($result)->albums->total !== 0) ? json_decode($result)->albums->items[0]->id : FALSE;
