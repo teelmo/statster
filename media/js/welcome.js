@@ -57,15 +57,9 @@ Object.assign(view, {
       type: 'GET',
       url: '/api/artist/get'
     });
-  },
-  initWelcomeEvents: () => {
-    document.querySelector('#toggleRegisterForm').addEventListener('click', () => {
-      document.querySelector('#registerForm').classList.toggle('hidden');
-    });
   }
 });
 
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
 view.recentlyListened();
 view.topArtist();
-view.initWelcomeEvents();

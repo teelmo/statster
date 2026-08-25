@@ -2,14 +2,8 @@
     <div class="welcome_container">
       <div class="content">
         <h2>Statster &middot; &middot; &middot; Hi!</h2>
-        <h3>Want to be reconciled with the music. Do it Statster like! and <a href="javascript:" id="toggleRegisterForm"><strong>register!</strong></a></h3>
-        <?=form_open('', array('class' => 'hidden', 'id' => 'registerForm'), array('addListeningType' => 'form'))?>
-          <div><input type="text" autocomplete="off" tabindex="1" id="registerUsername" placeholder="Desired username" name="registerUsername" /></div>
-          <div><input type="text" autocomplete="off" tabindex="1" id="registerEmail" placeholder="Enter your email" name="registerEmail" /></div>
-          <div><input type="password" autocomplete="off" tabindex="1" id="registerPass1" placeholder="Enter a password" name="registerPass1" /></div>
-          <div><input type="password" autocomplete="off" tabindex="1" id="registerPass2" placeholder="Re-enter your password" name="registerPass2" /></div>
-          <p><input type="submit" name="registerSubmit" tabindex="2" id="registerSubmit" value="Register!" /></p>
-        </form>
+        <h3>Want to be reconciled with the music. Do it Statster like!</h3>
+        <p>Registration is currently closed. If you'd like an account, contact the admin.</p>
       </div>
     </div>
     <div class="container">
