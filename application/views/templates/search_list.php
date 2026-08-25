@@ -34,7 +34,7 @@ if (!empty($json_data)) {
           echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . ' no_img"><i class="mask-icon mask-icon-hashtag" aria-hidden="true"></i>' . anchor(array('year', url_title($row['value'])), '<div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to year\'s page')) . '</li>';
         }
         else if ($row['type'] === 'user') {
-          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('user', url_title($row['value'])), '<div class="cover artist_img img64" style="background-image:url(' . $row['img'] . ')"></div><div class="title">' . $row['value'] . '</div>', array('title' => 'Browse to user\'s page')) . '</li>';
+          echo '<li class="' . ($result_id % 2 ? 'even' : 'odd') . '">' . anchor(array('user', url_title($row['value'])), '<div class="cover artist_img img64" style="background-image:url(' . $row['img'] . ')"></div><div class="title">' . html_escape($row['value']) . '</div>', array('title' => 'Browse to user\'s page')) . '</li>';
         }
       }
       else if ($row['value'] === '') {

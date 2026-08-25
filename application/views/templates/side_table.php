@@ -106,7 +106,7 @@ if (!empty($json_data)) {
           if (empty($hide['date'])) {
             ?>
             <div class="datetime">
-              <?=timeAgo($row['date'])?> by <?=anchor(array('user', url_title($row['username'])), $row['username'], array('title' => 'Browse to user\'s page'))?>
+              <?=timeAgo($row['date'])?> by <?=anchor(array('user', url_title($row['username'])), html_escape($row['username']), array('title' => 'Browse to user\'s page'))?>
             </div>
             <?php
           }

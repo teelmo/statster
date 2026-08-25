@@ -52,7 +52,7 @@ if (!empty($json_data)) {
         </td>
         <td class="title">
           <div class="title">
-            <?=anchor(array('user', url_title($row['username'])), $row['username'], array('title' => 'Browse to user profile'))?>
+            <?=anchor(array('user', url_title($row['username'])), html_escape($row['username']), array('title' => 'Browse to user profile'))?>
           </div>
           <?php
           if (empty($hide['date'])) {

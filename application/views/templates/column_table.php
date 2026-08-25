@@ -27,7 +27,7 @@ if (!empty($json_data)) {
         <td class="name">
           <?php
           if (isset($type) && $type === 'user') {
-            echo anchor(array('user', url_title($row['username'])), $row['username'], array('title' => 'Browse to user\'s page'));
+            echo anchor(array('user', url_title($row['username'])), html_escape($row['username']), array('title' => 'Browse to user\'s page'));
           }
           else if (!empty($row['type'])) {
             if ($row['type'] === 'star') {

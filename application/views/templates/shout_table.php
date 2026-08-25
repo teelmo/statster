@@ -56,12 +56,12 @@ if (!empty($json_data)) {
             <?php
             if (isset($type)) {
               ?>
-              <span class="username title"><?=anchor(array('user', url_title($row['username'])), $row['username'])?></span>
+              <span class="username title"><?=anchor(array('user', url_title($row['username'])), html_escape($row['username']))?></span>
               <?php
             }
             else if ($row['type'] === 'user') {
               ?>
-              <span class="username title"><?=anchor(array('user', url_title($row['profile'])), $row['profile'])?></span>
+              <span class="username title"><?=anchor(array('user', url_title($row['profile'])), html_escape($row['profile']))?></span>
               <?php
             }
             else if ($row['type'] === 'artist') {
@@ -86,14 +86,14 @@ if (!empty($json_data)) {
               <?php
                 if (empty($hide['user'])) {
                   ?>
-                  <div>by <?=anchor(array('user', url_title($row['username'])), $row['username'], array('title' => 'Browse to user\'s page'))?></div>
+                  <div>by <?=anchor(array('user', url_title($row['username'])), html_escape($row['username']), array('title' => 'Browse to user\'s page'))?></div>
                 <?php
               }
               ?>
             </div>
           </div>
           <div class="shout_text">
-            <?=nl2br($row['text'])?>
+            <?=nl2br(html_escape($row['text']))?>
           </div>
         </td>
       </tr>

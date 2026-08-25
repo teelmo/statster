@@ -16,10 +16,11 @@ if (!function_exists('loginUser')) {
     $ci->load->database();
 
     $username = trim($opts['username']);
-    $password = md5(trim($opts['password']));
+    $password = trim($opts['password']);
 
     $sql = "SELECT " . TBL_user . ".`id` as `user_id`,
                    " . TBL_user . ".`username`,
+                   " . TBL_user . ".`password`,
                    " . TBL_user . ".`created`,
                    " . TBL_user . ".`last_login`,
                    " . TBL_user . ".`last_access`,
@@ -33,11 +34,28 @@ if (!function_exists('loginUser')) {
             FROM " . TBL_user . ",
                  " . TBL_user_info . "
             WHERE " . TBL_user . ".`id` = " . TBL_user_info . ".`user_id`
-              AND " . TBL_user . ".`username` = ?
-              AND " . TBL_user . ".`password` = ?";
-    $query = $ci->db->query($sql, array($username, $password));
-    if ($query->num_rows() === 1) {
-      $result = $query->result()[0];
+              AND " . TBL_user . ".`username` = ?";
+    $query = $ci->db->query($sql, array($username));
+    $result = ($query->num_rows() === 1) ? $query->result()[0] : FALSE;
+
+    $password_ok = FALSE;
+    if ($result !== FALSE) {
+      // Legacy unsalted MD5 hashes are 32 lowercase hex chars; anything else
+      // is already a password_hash() hash from a previous upgrade below.
+      if (preg_match('/^[a-f0-9]{32}$/', $result->password)) {
+        if (hash_equals($result->password, md5($password))) {
+          $password_ok = TRUE;
+          // Transparently upgrade to a salted hash now that the plaintext
+          // password is in hand - next login uses password_verify() instead.
+          $ci->db->query("UPDATE " . TBL_user . " SET `password` = ? WHERE `id` = ?", array(password_hash($password, PASSWORD_DEFAULT), $result->user_id));
+        }
+      }
+      else {
+        $password_ok = password_verify($password, $result->password);
+      }
+    }
+
+    if ($password_ok) {
       // https://codeigniter.com/userguide3/libraries/sessions.html
       $ci->session->set_userdata(array(
         'user_id'      => $result->user_id,
