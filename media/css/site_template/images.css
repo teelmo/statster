@@ -441,5 +441,9 @@ div.cover_shadow {
         font-weight: 600;
       }
     }
+    & p {
+      color: var(--color-white);
+      text-shadow: 2px 0 10px var(--color-black);
+    }
   }
 }
