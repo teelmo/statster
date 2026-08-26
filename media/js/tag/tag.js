@@ -114,7 +114,8 @@ Object.assign(view, {
       if (interval === 'overall') {
         lower_limit = '1970-00-00';
       } else {
-        date.setDate(new Date().getDate() - parseInt(interval, 10));
+        const date = new Date();
+        date.setDate(date.getDate() - parseInt(interval, 10));
         lower_limit = date.toISOString().split('T')[0];
       }
       ajax({
@@ -164,7 +165,8 @@ Object.assign(view, {
       if (interval === 'overall') {
         lower_limit = '1970-00-00';
       } else {
-        date.setDate(new Date().getDate() - parseInt(interval, 10));
+        const date = new Date();
+        date.setDate(date.getDate() - parseInt(interval, 10));
         lower_limit = date.toISOString().split('T')[0];
       }
       ajax({
