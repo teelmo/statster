@@ -45,9 +45,10 @@ table.music_table {
           & .mask-icon {
             color: var(--color-gray-mid);
             font-size: 15px;
+            left: 0;
             margin-left: 5px;
             position: relative;
-            top: 2px;
+            top: 0px;
             &:hover {
               color: var(--color-black);
               opacity: 1;
