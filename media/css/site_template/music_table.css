@@ -42,16 +42,18 @@ table.music_table {
         }
         & .confirmation,
         & .delete {
-          & .mask-icon {
-            color: var(--color-gray-mid);
-            font-size: 15px;
-            left: 0;
-            margin-left: 5px;
+          & a {
             position: relative;
-            top: 0px;
-            &:hover {
-              color: var(--color-black);
-              opacity: 1;
+            & .mask-icon {
+              color: var(--color-gray-mid);
+              font-size: 15px;
+              left: 2px;
+              position: absolute;
+              top: 0;
+              &:hover {
+                color: var(--color-black);
+                opacity: 1;
+              }
             }
           }
         }
