@@ -49,7 +49,7 @@ table.music_table {
               font-size: 15px;
               left: 2px;
               position: absolute;
-              top: 0;
+              top: 2px;
               &:hover {
                 color: var(--color-black);
                 opacity: 1;
