@@ -166,6 +166,12 @@ if (!function_exists('getTagsCumulative')) {
 
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
+    // Narrow the junction table down before the GROUP BY, instead of
+    // grouping the whole table (genres/keywords/nationalities all run into
+    // the tens of thousands of rows) and filtering afterwards - the outer
+    // junction_id_column LIKE check below still runs as a safety net, but
+    // on a handful of rows instead of every album/tag pairing. Same fix as
+    // [[project_recent_listenings_query_fix]].
     $sql = "SELECT `line_date`,
                    SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
             FROM (
@@ -178,6 +184,7 @@ if (!function_exists('getTagsCumulative')) {
                    (SELECT " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`,
                            " . $t['junction_table'] . ".`album_id`
                     FROM " . $t['junction_table'] . "
+                    WHERE " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "` LIKE ?
                     GROUP BY " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`, " . $t['junction_table'] . ".`album_id`) AS " . $t['junction_table'] . "
               WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
                 AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
@@ -189,7 +196,7 @@ if (!function_exists('getTagsCumulative')) {
               GROUP BY `line_date`
             ) AS `monthly`
             ORDER BY `line_date` ASC";
-    $query = $ci->db->query($sql, array($tag_id, $username));
+    $query = $ci->db->query($sql, array($tag_id, $tag_id, $username));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);

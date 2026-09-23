@@ -33,7 +33,24 @@ if (!function_exists('getListeningFormat')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) AS `count`, 
+
+    // Narrow the artist/album group down before the GROUP BY when possible,
+    // instead of grouping the whole artists table and filtering afterwards -
+    // same fix as getListenings() in listening_helper.php (see
+    // [[project_recent_listenings_query_fix]]).
+    $sub_where = array();
+    $sub_params = array();
+    if ($artist_id !== '%') {
+      $sub_where[] = TBL_artists . '.`artist_id` = ?';
+      $sub_params[] = $artist_id;
+    }
+    if ($album_id !== '%') {
+      $sub_where[] = TBL_artists . '.`album_id` = ?';
+      $sub_params[] = $album_id;
+    }
+    $sub_where_sql = !empty($sub_where) ? 'WHERE ' . implode(' AND ', $sub_where) : '';
+
+    $sql = "SELECT count(*) AS `count`,
                    `format_types`.`listening_format_type_id`,
                    `formats`.`listening_format_id`,
                    `format_type`.`name` AS `format_type_name`,
@@ -47,11 +64,12 @@ if (!function_exists('getListeningFormat')) {
                  (SELECT " . TBL_artists . ".`artist_id`,
                          " . TBL_artists . ".`album_id`
                   FROM " . TBL_artists . "
+                  " . $sub_where_sql . "
                   " . $sub_group_by . ") AS " . TBL_artists . ",
                  " . TBL_album . ",
                  " . TBL_user . ",
                  " . TBL_listening_formats . " `formats`
-                    LEFT JOIN " . TBL_listening_format_types . " `format_types` 
+                    LEFT JOIN " . TBL_listening_format_types . " `format_types`
                       ON `formats`.`listening_id` = `format_types`.`listening_id`
                     LEFT JOIN " . TBL_listening_format_type . " `format_type`
                       ON `format_type`.`id` = `format_types`.`listening_format_type_id`
@@ -70,7 +88,7 @@ if (!function_exists('getListeningFormat')) {
                      `formats`.`listening_format_id`
             ORDER BY `count` DESC
             LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_id, $album_id, $username));
+    $query = $ci->db->query($sql, array_merge($sub_params, array($lower_limit, $upper_limit, $artist_id, $album_id, $username)));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);
