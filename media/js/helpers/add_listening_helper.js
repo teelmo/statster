@@ -33,8 +33,10 @@ Object.assign(view, {
     dateInput.readOnly = true;
     dateInput.value = curday('-');
 
-    // Pages without a .calendar_container (e.g. the mosaic view) keep the
-    // plain prefilled text field - no picker to wire up.
+    // Pages without a .calendar_container keep the plain prefilled text
+    // field - no picker to wire up. Every page with an add-listening form
+    // has one as of 2026-09-23 (mosaic view included); this guard stays as
+    // a defensive fallback for any future page that omits it.
     if (!container) {
       return;
     }
