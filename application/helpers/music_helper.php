@@ -148,48 +148,136 @@ if (!function_exists('getAlbums')) {
     $album_name = isset($opts['album_name']) ? $opts['album_name'] : '%';
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : '%';
     $group_by = !empty($opts['group_by']) ? $opts['group_by'] : TBL_album . '.`id`';
-    $having = !empty($opts['having']) ? 'HAVING ' . $opts['having'] : '';
+    $having_raw = !empty($opts['having']) ? $opts['having'] : '';
+    $having = !empty($having_raw) ? 'HAVING ' . $having_raw : '';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : date('Y-m-d', time() - (31 * 24 * 60 * 60));
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : '`count` DESC, `artist_name` ASC';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    // STRAIGHT_JOIN + driving from listening first - see getArtists() above,
-    // same join-order issue, same fix (measured ~3.5x faster).
-    $sql = "SELECT STRAIGHT_JOIN count(*) AS `count`,
-                   " . TBL_artist . ".`artist_name`,
-                   " . TBL_artist . ".`id` AS `artist_id`,
-                   " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`id` AS `album_id`,
-                   " . TBL_album . ".`year`,
-                   " . TBL_album . ".`spotify_id`,
-                   " . TBL_user . ".`username` AS `username`,
-                   " . TBL_listening . ".`date` AS `date`,
-                   " . TBL_user . ".`id` AS `user_id`,
-                  (SELECT count(" . TBL_love . ".`album_id`)
-                    FROM " . TBL_love . "
-                    WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
-                      AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
-                  ) AS `love`
-            FROM " . TBL_listening . "
-            JOIN " . TBL_album . " ON " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-            JOIN " . TBL_user . " ON " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-            JOIN (SELECT " . TBL_artists . ".`artist_id`,
-                         " . TBL_artists . ".`album_id`
-                  FROM " . TBL_artists . "
-                  GROUP BY " . TBL_artists . ".`album_id`) AS " . TBL_artists . " ON " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
-            JOIN " . TBL_artist . " ON " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-            WHERE " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_artist . ".`artist_name` LIKE ?
-              AND " . TBL_album . ".`album_name` LIKE ?
-              " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . "
-            " . $ci->db->escape_str($having) . "
-            ORDER BY " . $ci->db->escape_str($order_by) . "
-            LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $artist_name, $album_name));
+
+    // The artists join here only ever picks one artist name per album for
+    // display and never changes which rows/counts qualify - unless
+    // artist_name is itself a real filter, or order_by/having/group_by
+    // reference artist data (e.g. the default order_by's `artist_name` ASC
+    // tiebreaker), in which case artist/artists must stay in the initial
+    // aggregation. When neither applies (secondChance/fromOthers's
+    // ORDER BY RAND() with an all-time range, the worst offenders - see
+    // [[project_recent_listenings_query_fix]]), aggregate first without
+    // artists at all, then decorate just the resulting LIMIT rows.
+    $needs_artist_in_aggregation = $artist_name !== '%'
+      || strpos($order_by, 'artist') !== FALSE
+      || strpos($having_raw, 'artist') !== FALSE
+      || strpos($group_by, 'artist') !== FALSE;
+
+    if (!$needs_artist_in_aggregation) {
+      // The innermost query's ORDER BY + LIMIT already produces the exact
+      // right rows in the exact right order. A plain ROW_NUMBER() OVER ()
+      // with no window ORDER BY does NOT reliably preserve that row order
+      // in MariaDB (confirmed unstable across repeated runs) - re-applying
+      // the identical $order_by expression as the window's own ORDER BY,
+      // on this already-LIMITed row set, does (deterministic order_by
+      // expressions re-sort identically; for ORDER BY RAND() specifically
+      // it just re-shuffles the same already-correct row set, which is
+      // harmless - RAND() has no "correct" order to begin with). This
+      // avoids needing to translate an arbitrary caller-supplied $order_by
+      // expression (which may reference `album.*` with no `album` table in
+      // the outermost scope) into that outer query's own column names.
+      $sql = "SELECT `album_listening`.`count`,
+                     " . TBL_artist . ".`artist_name`,
+                     " . TBL_artist . ".`id` AS `artist_id`,
+                     `album_listening`.`album_name`,
+                     `album_listening`.`album_id`,
+                     `album_listening`.`year`,
+                     `album_listening`.`spotify_id`,
+                     `album_listening`.`username`,
+                     `album_listening`.`date`,
+                     `album_listening`.`user_id`,
+                     `album_listening`.`love`
+              FROM (
+                  SELECT `ordered_result`.*, ROW_NUMBER() OVER (ORDER BY " . $ci->db->escape_str($order_by) . ") AS `seq`
+                  FROM (
+                      SELECT STRAIGHT_JOIN count(*) AS `count`,
+                             " . TBL_album . ".`album_name`,
+                             " . TBL_album . ".`id` AS `album_id`,
+                             " . TBL_album . ".`year`,
+                             " . TBL_album . ".`spotify_id`,
+                             " . TBL_user . ".`username` AS `username`,
+                             " . TBL_listening . ".`date` AS `date`,
+                             " . TBL_user . ".`id` AS `user_id`,
+                            (SELECT count(" . TBL_love . ".`album_id`)
+                              FROM " . TBL_love . "
+                              WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
+                                AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
+                            ) AS `love`
+                      FROM " . TBL_listening . "
+                      JOIN " . TBL_album . " ON " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                      JOIN " . TBL_user . " ON " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                      WHERE " . TBL_listening . ".`date` BETWEEN ? AND ?
+                        AND " . TBL_user . ".`username` LIKE ?
+                        AND " . TBL_album . ".`album_name` LIKE ?
+                        " . $ci->db->escape_str($where) . "
+                      GROUP BY " . $ci->db->escape_str($group_by) . "
+                      " . $ci->db->escape_str($having) . "
+                      ORDER BY " . $ci->db->escape_str($order_by) . "
+                      LIMIT " . $ci->db->escape_str($limit) . "
+                  ) AS `ordered_result`
+              ) AS `album_listening`
+              JOIN " . TBL_artists . " ON " . TBL_artists . ".`album_id` = `album_listening`.`album_id`
+              JOIN " . TBL_artist . " ON " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              GROUP BY `album_listening`.`album_id`
+              ORDER BY `album_listening`.`seq` ASC";
+      $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $album_name));
+    }
+    else {
+      // STRAIGHT_JOIN + driving from listening first - see getArtists() above,
+      // same join-order issue, same fix (measured ~3.5x faster).
+      $sql = "SELECT STRAIGHT_JOIN count(*) AS `count`,
+                     " . TBL_artist . ".`artist_name`,
+                     " . TBL_artist . ".`id` AS `artist_id`,
+                     " . TBL_album . ".`album_name`,
+                     " . TBL_album . ".`id` AS `album_id`,
+                     " . TBL_album . ".`year`,
+                     " . TBL_album . ".`spotify_id`,
+                     " . TBL_user . ".`username` AS `username`,
+                     " . TBL_listening . ".`date` AS `date`,
+                     " . TBL_user . ".`id` AS `user_id`,
+                    (SELECT count(" . TBL_love . ".`album_id`)
+                      FROM " . TBL_love . "
+                      WHERE " . TBL_love . ".`album_id` = " . TBL_album . ".`id`
+                        AND " . TBL_love . ".`user_id` = " . TBL_user . ".`id`
+                    ) AS `love`
+              FROM " . TBL_listening . "
+              JOIN " . TBL_album . " ON " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+              JOIN " . TBL_user . " ON " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              JOIN (SELECT " . TBL_artists . ".`artist_id`,
+                           " . TBL_artists . ".`album_id`
+                    FROM " . TBL_artists . "
+                    " . ($artist_name !== '%' ? "JOIN " . TBL_artist . " ON " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id` AND " . TBL_artist . ".`artist_name` LIKE ?" : '') . "
+                    GROUP BY " . TBL_artists . ".`album_id`) AS " . TBL_artists . " ON " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+              JOIN " . TBL_artist . " ON " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              WHERE " . TBL_listening . ".`date` BETWEEN ? AND ?
+                AND " . TBL_user . ".`username` LIKE ?
+                AND " . TBL_album . ".`album_name` LIKE ?
+                " . $ci->db->escape_str($where) . "
+              GROUP BY " . $ci->db->escape_str($group_by) . "
+              " . $ci->db->escape_str($having) . "
+              ORDER BY " . $ci->db->escape_str($order_by) . "
+              LIMIT " . $ci->db->escape_str($limit);
+      // Pushing artist_name into the derived subquery (above) instead of
+      // filtering after an unfiltered GROUP BY album_id fixes a real,
+      // pre-existing bug: the old version's GROUP BY picked ONE arbitrary
+      // representative artist per album before any artist_name filter ran,
+      // so a multi-artist collab album could be silently missed for any
+      // artist that wasn't the one grouping happened to pick - confirmed
+      // live on a real collab album while fixing getListeners() (see
+      // [[project_recent_listenings_query_fix]]). Currently dormant since
+      // no caller passes artist_name to getAlbums() today, but a real
+      // landmine if one ever does.
+      $artist_name_params = $artist_name !== '%' ? array($artist_name) : array();
+      $query = $ci->db->query($sql, array_merge($artist_name_params, array($lower_limit, $upper_limit, $username, $album_name)));
+    }
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);
@@ -232,36 +320,73 @@ if (!function_exists('getListeners')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
     $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) AS `count`,
-                   " . TBL_user . ".`username` AS `username`,
-                   " . TBL_user . ".`id` AS `user_id`,
-                   " . TBL_album . ".`album_name` AS `album_name`,
-                   " . TBL_album . ".`id` AS `album_id`,
-                   " . TBL_album . ".`year` AS `year`,
-                   " . TBL_listening . ".`date` AS `date`
-                  " . $ci->db->escape_str($select) . "
-            FROM " . TBL_album . ", 
-                 " . TBL_artist . ", 
-                 (SELECT " . TBL_artists . ".`artist_id`,
-                         " . TBL_artists . ".`album_id`
-                  FROM " . TBL_artists . "
-                  " . $sub_group_by . ") AS " . TBL_artists . ",
-                 " . TBL_listening . ", 
-                 " . TBL_user . "
-                 " . $ci->db->escape_str($from) . "
-            WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_artist . ".`id` LIKE ?
-              AND " . TBL_album . ".`id` LIKE ?
-              " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . "
-            ORDER BY " . $ci->db->escape_str($order_by) . "
-            LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $artist_id, $album_id));
+
+    // This function's SELECT list never includes artist_name/artist_id -
+    // `artist`/`artists` were joined purely to support filtering by
+    // artist_id, via a derived subquery that grouped the WHOLE artists
+    // table (10k+ rows) even when there was no artist filter at all (the
+    // common case - the /music page's all-time History chart, previously
+    // 780ms+, had no artist filter and still paid for that full scan
+    // every time). When there's no filter, drop artist/artists from the
+    // query entirely; when there is one, push it into the derived
+    // subquery's own WHERE instead of filtering after grouping the whole
+    // table (same fix family as getListeningFormat(), see
+    // [[project_recent_listenings_query_fix]]) - `artist` itself is never
+    // needed either way, since nothing here displays artist_name.
+    if ($artist_id === '%') {
+      $sql = "SELECT count(*) AS `count`,
+                     " . TBL_user . ".`username` AS `username`,
+                     " . TBL_user . ".`id` AS `user_id`,
+                     " . TBL_album . ".`album_name` AS `album_name`,
+                     " . TBL_album . ".`id` AS `album_id`,
+                     " . TBL_album . ".`year` AS `year`,
+                     " . TBL_listening . ".`date` AS `date`
+                    " . $ci->db->escape_str($select) . "
+              FROM " . TBL_album . ",
+                   " . TBL_listening . ",
+                   " . TBL_user . "
+                   " . $ci->db->escape_str($from) . "
+              WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+                AND " . TBL_user . ".`username` LIKE ?
+                AND " . TBL_album . ".`id` LIKE ?
+                " . $ci->db->escape_str($where) . "
+              GROUP BY " . $ci->db->escape_str($group_by) . "
+              ORDER BY " . $ci->db->escape_str($order_by) . "
+              LIMIT " . $ci->db->escape_str($limit);
+      $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $username, $album_id));
+    }
+    else {
+      $sql = "SELECT count(*) AS `count`,
+                     " . TBL_user . ".`username` AS `username`,
+                     " . TBL_user . ".`id` AS `user_id`,
+                     " . TBL_album . ".`album_name` AS `album_name`,
+                     " . TBL_album . ".`id` AS `album_id`,
+                     " . TBL_album . ".`year` AS `year`,
+                     " . TBL_listening . ".`date` AS `date`
+                    " . $ci->db->escape_str($select) . "
+              FROM " . TBL_album . ",
+                   (SELECT " . TBL_artists . ".`artist_id`,
+                           " . TBL_artists . ".`album_id`
+                    FROM " . TBL_artists . "
+                    WHERE " . TBL_artists . ".`artist_id` = ?
+                    " . $sub_group_by . ") AS " . TBL_artists . ",
+                   " . TBL_listening . ",
+                   " . TBL_user . "
+                   " . $ci->db->escape_str($from) . "
+              WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
+                AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+                AND " . TBL_user . ".`username` LIKE ?
+                AND " . TBL_album . ".`id` LIKE ?
+                " . $ci->db->escape_str($where) . "
+              GROUP BY " . $ci->db->escape_str($group_by) . "
+              ORDER BY " . $ci->db->escape_str($order_by) . "
+              LIMIT " . $ci->db->escape_str($limit);
+      $query = $ci->db->query($sql, array($artist_id, $lower_limit, $upper_limit, $username, $album_id));
+    }
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);
