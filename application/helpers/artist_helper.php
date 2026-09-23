@@ -527,7 +527,8 @@ if (!function_exists('updateAssociatedArtists')) {
     $associated_artist_ids = !empty($opts['associated_artist_ids']) ? $opts['associated_artist_ids'] : array();
 
     // Get currect associations.
-    $associated_artists = (json_decode(getAssociatedArtists(array('artist_id' => $artist_id)), true) !== NULL) ? json_decode(getAssociatedArtists(array('artist_id' => $artist_id)), true) : array();
+    $associated_artists_decoded = json_decode(getAssociatedArtists(array('artist_id' => $artist_id)), true);
+    $associated_artists = ($associated_artists_decoded !== NULL) ? $associated_artists_decoded : array();
 
     // Check what needs to be done.
     foreach ($associated_artists as $associated_artist) {
