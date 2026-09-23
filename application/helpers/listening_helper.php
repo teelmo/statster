@@ -56,38 +56,83 @@ if (!function_exists('getListenings')) {
     }
     $sub_where_sql = !empty($sub_where) ? 'WHERE ' . implode(' AND ', $sub_where) : '';
 
-    $sql = "SELECT " . TBL_listening . ".`id` AS `listening_id`,
-                   " . TBL_artist . ".`artist_name`,
-                   " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`year`,
-                   " . TBL_album . ".`spotify_id`,
-                   " . TBL_user . ".`username`,
-                   " . TBL_listening . ".`date`,
-                   " . TBL_listening . ".`created`,
-                   " . TBL_artist . ".`id` AS `artist_id`,
-                   " . TBL_album . ".`id` AS `album_id`,
-                   " . TBL_user . ".`id` AS `user_id`
-            FROM (
-                SELECT " . TBL_artists . ".`artist_id`, " . TBL_artists . ".`album_id`
-                FROM " . TBL_artists . "
-                " . $sub_where_sql . "
-                " . $sub_group_by . "
-            ) AS `artist_album_group`
-            JOIN " . TBL_album . " ON `artist_album_group`.`album_id` = " . TBL_album . ".`id`
-            JOIN " . TBL_artist . " ON `artist_album_group`.`artist_id` = " . TBL_artist . ".`id`
-            JOIN " . TBL_listening . " ON " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
-            JOIN " . TBL_user . " ON " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-            " . $ci->db->escape_str($from) . "
-            WHERE " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_artist . ".`id` LIKE ?
-              AND " . TBL_album . ".`id` LIKE ?
-              AND " . TBL_listening . ".`date` LIKE ?
-              " . $ci->db->escape_str($where) . "
-            ORDER BY " . TBL_listening . ".`date` DESC,
-                     " . TBL_listening . ".`id` DESC
-            LIMIT " . $ci->db->escape_str($limit);
+    if (empty($sub_where) && empty($from) && empty($where)) {
+      // No artist/album filter and no extra from/where fragment (the common
+      // "just show recent listenings" case - homepage, /recent, /mosaic,
+      // welcome/404 pages) - the query below this branch built its
+      // artist_album_group derived table by grouping the ENTIRE artists
+      // table (10k+ rows) on every call regardless of the LIMIT, since
+      // there was nothing to filter that subquery by. Here there's nothing
+      // to filter by either, but the LIMIT/ORDER BY/user filter can run
+      // first (cheap, index-backed via user_id_date) and only THEN look up
+      // album/artist details for just those rows, instead of the other way
+      // around. Confirmed equivalent output to the general query below for
+      // this parameter shape before landing this.
+      $sql = "SELECT `recent_listening`.`id` AS `listening_id`,
+                     " . TBL_artist . ".`artist_name`,
+                     " . TBL_album . ".`album_name`,
+                     " . TBL_album . ".`year`,
+                     " . TBL_album . ".`spotify_id`,
+                     " . TBL_user . ".`username`,
+                     `recent_listening`.`date`,
+                     `recent_listening`.`created`,
+                     " . TBL_artist . ".`id` AS `artist_id`,
+                     " . TBL_album . ".`id` AS `album_id`,
+                     " . TBL_user . ".`id` AS `user_id`
+              FROM (
+                  SELECT " . TBL_listening . ".`id`, " . TBL_listening . ".`album_id`, " . TBL_listening . ".`user_id`, " . TBL_listening . ".`date`, " . TBL_listening . ".`created`
+                  FROM " . TBL_listening . "
+                  JOIN " . TBL_user . " ON " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                  WHERE " . TBL_user . ".`username` LIKE ?
+                    AND " . TBL_listening . ".`date` LIKE ?
+                  ORDER BY " . TBL_listening . ".`date` DESC,
+                           " . TBL_listening . ".`id` DESC
+                  LIMIT " . $ci->db->escape_str($limit) . "
+              ) AS `recent_listening`
+              JOIN " . TBL_album . " ON `recent_listening`.`album_id` = " . TBL_album . ".`id`
+              JOIN " . TBL_user . " ON `recent_listening`.`user_id` = " . TBL_user . ".`id`
+              JOIN " . TBL_artists . " ON " . TBL_artists . ".`album_id` = `recent_listening`.`album_id`
+              JOIN " . TBL_artist . " ON " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+              GROUP BY `recent_listening`.`id`
+              ORDER BY `recent_listening`.`date` DESC,
+                       `recent_listening`.`id` DESC";
 
-    $query = $ci->db->query($sql, array_merge($sub_params, array($username, $artist_id, $album_id, $date)));
+      $query = $ci->db->query($sql, array($username, $date));
+    }
+    else {
+      $sql = "SELECT " . TBL_listening . ".`id` AS `listening_id`,
+                     " . TBL_artist . ".`artist_name`,
+                     " . TBL_album . ".`album_name`,
+                     " . TBL_album . ".`year`,
+                     " . TBL_album . ".`spotify_id`,
+                     " . TBL_user . ".`username`,
+                     " . TBL_listening . ".`date`,
+                     " . TBL_listening . ".`created`,
+                     " . TBL_artist . ".`id` AS `artist_id`,
+                     " . TBL_album . ".`id` AS `album_id`,
+                     " . TBL_user . ".`id` AS `user_id`
+              FROM (
+                  SELECT " . TBL_artists . ".`artist_id`, " . TBL_artists . ".`album_id`
+                  FROM " . TBL_artists . "
+                  " . $sub_where_sql . "
+                  " . $sub_group_by . "
+              ) AS `artist_album_group`
+              JOIN " . TBL_album . " ON `artist_album_group`.`album_id` = " . TBL_album . ".`id`
+              JOIN " . TBL_artist . " ON `artist_album_group`.`artist_id` = " . TBL_artist . ".`id`
+              JOIN " . TBL_listening . " ON " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+              JOIN " . TBL_user . " ON " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+              " . $ci->db->escape_str($from) . "
+              WHERE " . TBL_user . ".`username` LIKE ?
+                AND " . TBL_artist . ".`id` LIKE ?
+                AND " . TBL_album . ".`id` LIKE ?
+                AND " . TBL_listening . ".`date` LIKE ?
+                " . $ci->db->escape_str($where) . "
+              ORDER BY " . TBL_listening . ".`date` DESC,
+                       " . TBL_listening . ".`id` DESC
+              LIMIT " . $ci->db->escape_str($limit);
+
+      $query = $ci->db->query($sql, array_merge($sub_params, array($username, $artist_id, $album_id, $date)));
+    }
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
