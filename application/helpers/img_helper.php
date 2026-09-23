@@ -293,6 +293,96 @@ if (!function_exists('_imagePathCache')) {
   }
 }
 
+/**
+  * Maps an image type to its persistent cache table/FK column. One table
+  * per type (rather than a single polymorphic table with a `type` column)
+  * so each can carry a real FK back to its parent (album/artist/user),
+  * matching every other relationship in this schema - deleting a parent
+  * row cascades and removes its cached path automatically.
+  */
+if (!function_exists('_imagePathCacheTables')) {
+  function _imagePathCacheTables() {
+    return array(
+      'album' => array('table' => TBL_album_image_path_cache, 'column' => 'album_id'),
+      'artist' => array('table' => TBL_artist_image_path_cache, 'column' => 'artist_id'),
+      'user' => array('table' => TBL_user_image_path_cache, 'column' => 'user_id')
+    );
+  }
+}
+
+/**
+  * Batched persistent-cache lookup for one type/size pair. No-ops (no
+  * query) for a size outside IMAGE_PATH_CACHE_SIZES, an unknown type, or
+  * an empty id list, so callers can call this unconditionally.
+  *
+  * @return array Map of id => path for whatever was found.
+  */
+if (!function_exists('_imagePathCacheFetch')) {
+  function _imagePathCacheFetch($type, $size, $ids) {
+    $tables = _imagePathCacheTables();
+    $ids = array_values(array_unique(array_filter($ids, function($id) { return $id !== NULL && $id !== ''; })));
+    if (empty($ids) || !in_array($size, IMAGE_PATH_CACHE_SIZES, TRUE) || !isset($tables[$type])) {
+      return array();
+    }
+    $table = $tables[$type]['table'];
+    $column = $tables[$type]['column'];
+
+    $ci=& get_instance();
+    $ci->load->database();
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $sql = "SELECT `" . $column . "`, `path` FROM " . $table . "
+            WHERE `size` = ? AND `" . $column . "` IN (" . $placeholders . ")";
+    $query = $ci->db->query($sql, array_merge(array($size), $ids));
+
+    $result = array();
+    foreach ($query->result() as $row) {
+      $result[$row->$column] = $row->path;
+    }
+    return $result;
+  }
+}
+
+/**
+  * Batched persistent-cache write. Misses (empty path) and sizes outside
+  * IMAGE_PATH_CACHE_SIZES are filtered out - a miss must never be
+  * persisted, since a later upload for that id should still be picked up
+  * on the next lookup - so callers can pass every resolved row
+  * unconditionally.
+  *
+  * @param array $rows. Each item: array('type' => .., 'size' => .., 'id' => .., 'path' => ..).
+  */
+if (!function_exists('_imagePathCacheStore')) {
+  function _imagePathCacheStore($rows) {
+    $tables = _imagePathCacheTables();
+    $by_type = array();
+    foreach ($rows as $row) {
+      if ($row['path'] === '' || !in_array($row['size'], IMAGE_PATH_CACHE_SIZES, TRUE) || !isset($tables[$row['type']])) {
+        continue;
+      }
+      $by_type[$row['type']][] = $row;
+    }
+    if (empty($by_type)) {
+      return;
+    }
+
+    $ci=& get_instance();
+    $ci->load->database();
+    foreach ($by_type as $type => $type_rows) {
+      $table = $tables[$type]['table'];
+      $column = $tables[$type]['column'];
+      $value_sql = implode(',', array_fill(0, count($type_rows), '(?,?,?)'));
+      $params = array();
+      foreach ($type_rows as $row) {
+        array_push($params, $row['id'], $row['size'], $row['path']);
+      }
+      $sql = "INSERT INTO " . $table . " (`" . $column . "`, `size`, `path`)
+              VALUES " . $value_sql . "
+              ON DUPLICATE KEY UPDATE `path` = VALUES(`path`)";
+      $ci->db->query($sql, $params);
+    }
+  }
+}
+
 if (!function_exists('getImagePath')) {
   function getImagePath($opts, $type) {
     if (ENVIRONMENT === 'production' or ENVIRONMENT === 'development') {
@@ -306,16 +396,29 @@ if (!function_exists('getImagePath')) {
       $cache = &_imagePathCache();
       $key = $type . ':' . $opts['size'] . ':' . $opts['id'];
       if (!array_key_exists($key, $cache)) {
-        // trim() guards against IMAGE_SERVER leaking stray whitespace (e.g. a
-        // trailing newline after its closing PHP tag) into the URL - a
-        // background-image: url(...) containing a raw newline is silently
-        // rejected by the browser, so the image never even loads instead of
-        // just looking odd.
-        // A stream timeout matches prefetchImagePaths()'s curl timeout - with
-        // none set here, an unresponsive IMAGE_SERVER would hang this request
-        // for PHP's default_socket_timeout (60s) instead of failing fast.
-        $context = stream_context_create(array('http' => array('timeout' => 3)));
-        $cache[$key] = trim((string) @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id'], FALSE, $context));
+        // Persistent cache (album/artist/user_image_path_cache) skips the
+        // network round-trip entirely for anything already resolved before -
+        // see _imagePathCacheFetch()'s doc comment. Only checked/populated
+        // for sizes in IMAGE_PATH_CACHE_SIZES; every other size falls straight
+        // through to the network call exactly as before.
+        $persistent_hit = _imagePathCacheFetch($type, $opts['size'], array($opts['id']));
+        if (array_key_exists($opts['id'], $persistent_hit)) {
+          $cache[$key] = $persistent_hit[$opts['id']];
+        }
+        else {
+          // trim() guards against IMAGE_SERVER leaking stray whitespace (e.g. a
+          // trailing newline after its closing PHP tag) into the URL - a
+          // background-image: url(...) containing a raw newline is silently
+          // rejected by the browser, so the image never even loads instead of
+          // just looking odd.
+          // A stream timeout matches prefetchImagePaths()'s curl timeout - with
+          // none set here, an unresponsive IMAGE_SERVER would hang this request
+          // for PHP's default_socket_timeout (60s) instead of failing fast.
+          $context = stream_context_create(array('http' => array('timeout' => 3)));
+          $path = trim((string) @file_get_contents(IMAGE_SERVER . 'getImage.php?size=' . $opts['size'] . '&type=' . $type . '&id=' . $opts['id'], FALSE, $context));
+          $cache[$key] = $path;
+          _imagePathCacheStore(array(array('type' => $type, 'size' => $opts['size'], 'id' => $opts['id'], 'path' => $path)));
+        }
       }
       return $cache[$key];
     }
@@ -366,6 +469,26 @@ if (!function_exists('prefetchImagePaths')) {
       return;
     }
 
+    // Persistent cache pass, grouped by (type, size) so each pair present
+    // needs at most one batched SELECT - see _imagePathCacheFetch(). Only
+    // sizes in IMAGE_PATH_CACHE_SIZES are ever found here; everything else
+    // falls through to the curl_multi burst below exactly as before.
+    $by_type_size = array();
+    foreach ($unique as $key => $request) {
+      $by_type_size[$request['type']][$request['size']][] = $request['id'];
+    }
+    foreach ($by_type_size as $type => $sizes) {
+      foreach ($sizes as $size => $ids) {
+        foreach (_imagePathCacheFetch($type, $size, $ids) as $id => $path) {
+          $cache[$type . ':' . $size . ':' . $id] = $path;
+          unset($unique[$type . ':' . $size . ':' . $id]);
+        }
+      }
+    }
+    if (empty($unique)) {
+      return;
+    }
+
     // IMAGE_SERVER used to rate-limit bursts above ~10 simultaneous
     // connections from one IP (batches of 12+ intermittently jumping from
     // ~0.1s to 1-3s) under its old mod_php+prefork setup - fixed by
@@ -385,6 +508,7 @@ if (!function_exists('prefetchImagePaths')) {
     // fall back to the default placeholder image (getImagePath() treats a
     // cached '' as "no image").
     $deadline = microtime(TRUE) + 5;
+    $to_persist = array();
     foreach (array_chunk($unique, $chunk_size, TRUE) as $chunk) {
       if (microtime(TRUE) >= $deadline) {
         foreach ($chunk as $key => $request) {
@@ -410,11 +534,14 @@ if (!function_exists('prefetchImagePaths')) {
       } while ($running > 0);
 
       foreach ($handles as $key => $ch) {
-        $cache[$key] = trim((string) curl_multi_getcontent($ch));
+        $path = trim((string) curl_multi_getcontent($ch));
+        $cache[$key] = $path;
+        $to_persist[] = array('type' => $chunk[$key]['type'], 'size' => $chunk[$key]['size'], 'id' => $chunk[$key]['id'], 'path' => $path);
         curl_multi_remove_handle($multi, $ch);
       }
       curl_multi_close($multi);
     }
+    _imagePathCacheStore($to_persist);
   }
 }
 

@@ -89,11 +89,13 @@ define('TBL_album', 'album');
 define('TBL_album_biography', 'album_biography');
 define('TBL_album_shout', 'album_shout');
 define('TBL_album_equalize', 'album_equalize');
+define('TBL_album_image_path_cache', 'album_image_path_cache');
 define('TBL_artist', 'artist');
 define('TBL_artists', 'artists');
 define('TBL_artist_biography', 'artist_biography');
 define('TBL_artist_shout', 'artist_shout');
 define('TBL_artist_equalize', 'artist_equalize');
+define('TBL_artist_image_path_cache', 'artist_image_path_cache');
 define('TBL_associated_artist', 'associated_artist');
 define('TBL_blog', 'blog');
 define('TBL_blog_shout', 'blog_shout');
@@ -128,11 +130,16 @@ define('TBL_user', 'user');
 define('TBL_user_album', 'user_album');
 define('TBL_user_shout', 'user_shout');
 define('TBL_user_info', 'user_info');
+define('TBL_user_image_path_cache', 'user_image_path_cache');
 define('TBL_year_biography', 'year_biography');
 
 define('CACHE_TTL', null); // Only cleared when needed.
 
 define('IMAGE_SIZES', [32, 64, 174, 300]);
+// Sizes persisted in the *_image_path_cache tables (img_helper.php). Widen
+// later by adding a value here - no ALTER TABLE needed, `size` column
+// already exists on all three tables.
+define('IMAGE_PATH_CACHE_SIZES', [64]);
 define('IMAGE_SERVER_PROTOCOL', 'https://');
 define('IMAGE_SERVER_IP', 'img.statster.info');
 define('IMAGE_SERVER', IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . '/');
