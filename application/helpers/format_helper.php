@@ -116,48 +116,67 @@ if (!function_exists('getFormatListenings')) {
     $ci->load->helper(array('id_helper'));
 
     $format_id = (isset($opts['format_name'])) ? getFormatID($opts) : '%';
-    $sub_group_by = (isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'album') ? "GROUP BY " . TBL_artists . ".`album_id`" : ((isset($opts['group_by']) && $opts['sub_group_by'] === 'artist') ? "GROUP BY " . TBL_artists . ".`artist_id`" : "GROUP BY " . TBL_artists . ".`id`");
     $date = !empty($opts['date']) ? $opts['date'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT count(*) AS `count`,
-                   " . TBL_listening . ".`id` as `listening_id`,
+    // There's no artist/album filter here to push into an artists derived
+    // subquery (unlike getListenings()/getListeningFormat()) - this always
+    // wants every format+album combo across a user's whole (possibly
+    // date-bounded) history, aggregated and ranked by count, so that part
+    // can't be avoided. But the old version still joined a `GROUP BY
+    // artists.id` derived table (grouping the whole artists table, 10k+
+    // rows) into the aggregation itself, uselessly, since the join is
+    // 1-per-album and never changes the count/ranking. Aggregate first
+    // (listening/album/user/format tables only), then decorate just the
+    // resulting LIMIT rows with an artist name - same restructuring as
+    // getListenings()'s fast path (see [[project_recent_listenings_query_fix]]).
+    $sql = "SELECT `format_listening`.`count`,
+                   `format_listening`.`listening_id`,
                    " . TBL_artist . ".`artist_name`,
-                   " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`year`,
-                   " . TBL_album . ".`spotify_id`,
-                   " . TBL_user . ".`username`,
-                   " . TBL_listening . ".`date`,
-                   " . TBL_listening . ".`created`,
-                   " . TBL_artist . ".`id` as `artist_id`,
-                   " . TBL_album . ".`id` as `album_id`,
-                   " . TBL_user . ".`id` as `user_id`
-            FROM " . TBL_album . ",
-                 " . TBL_artist . ",
-                 " . TBL_listening_format . ",
-                 " . TBL_listening_formats . ",
-                 (SELECT " . TBL_artists . ".`artist_id`,
-                         " . TBL_artists . ".`album_id`
-                  FROM " . TBL_artists . "
-                  " . $sub_group_by . ") AS " . TBL_artists . ",
-                 " . TBL_listening . ",
-                 " . TBL_user . "
-            WHERE " . TBL_listening . ".`album_id` =  " . TBL_album . ".`id`
-              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_listening_formats . ".`listening_format_id` = " . TBL_listening_format . ".`id`
-              AND " . TBL_listening_formats . ".`listening_id` = " . TBL_listening . ".`id`
-              AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_listening_format . ".`id` LIKE ?
-              AND " . TBL_listening . ".`date` LIKE ?
-            GROUP BY " . TBL_listening_format . ".`name`,
-                     " . TBL_album . ".`id`
-            ORDER BY `count` DESC, " . TBL_album . ".`album_name` ASC
-            LIMIT " . $ci->db->escape_str($limit);
+                   `format_listening`.`album_name`,
+                   `format_listening`.`year`,
+                   `format_listening`.`spotify_id`,
+                   `format_listening`.`username`,
+                   `format_listening`.`date`,
+                   `format_listening`.`created`,
+                   " . TBL_artist . ".`id` AS `artist_id`,
+                   `format_listening`.`album_id`,
+                   `format_listening`.`user_id`
+            FROM (
+                SELECT count(*) AS `count`,
+                       " . TBL_listening . ".`id` AS `listening_id`,
+                       " . TBL_album . ".`album_name`,
+                       " . TBL_album . ".`year`,
+                       " . TBL_album . ".`spotify_id`,
+                       " . TBL_user . ".`username`,
+                       " . TBL_listening . ".`date`,
+                       " . TBL_listening . ".`created`,
+                       " . TBL_album . ".`id` AS `album_id`,
+                       " . TBL_user . ".`id` AS `user_id`
+                FROM " . TBL_album . ",
+                     " . TBL_listening_format . ",
+                     " . TBL_listening_formats . ",
+                     " . TBL_listening . ",
+                     " . TBL_user . "
+                WHERE " . TBL_listening . ".`album_id` =  " . TBL_album . ".`id`
+                  AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                  AND " . TBL_listening_formats . ".`listening_format_id` = " . TBL_listening_format . ".`id`
+                  AND " . TBL_listening_formats . ".`listening_id` = " . TBL_listening . ".`id`
+                  AND " . TBL_user . ".`username` LIKE ?
+                  AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+                  AND " . TBL_listening_format . ".`id` LIKE ?
+                  AND " . TBL_listening . ".`date` LIKE ?
+                GROUP BY " . TBL_listening_format . ".`name`,
+                         " . TBL_album . ".`id`
+                ORDER BY `count` DESC, " . TBL_album . ".`album_name` ASC
+                LIMIT " . $ci->db->escape_str($limit) . "
+            ) AS `format_listening`
+            JOIN " . TBL_artists . " ON " . TBL_artists . ".`album_id` = `format_listening`.`album_id`
+            JOIN " . TBL_artist . " ON " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+            GROUP BY `format_listening`.`album_id`
+            ORDER BY `format_listening`.`count` DESC, `format_listening`.`album_name` ASC";
     $query = $ci->db->query($sql, array($username, $lower_limit, $upper_limit, $format_id, $date));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
@@ -185,48 +204,59 @@ if (!function_exists('getFormatTypeListenings')) {
 
     $ci->load->helper(array('id_helper'));
     $format_type_id = (isset($opts['format_type_name'])) ? getFormatTypeID($opts) : '%';
-    $sub_group_by = (isset($opts['sub_group_by']) && $opts['sub_group_by'] === 'album') ? "GROUP BY " . TBL_artists . ".`album_id`" : ((isset($opts['group_by']) && $opts['sub_group_by'] === 'artist') ? "GROUP BY " . TBL_artists . ".`artist_id`" : "GROUP BY " . TBL_artists . ".`id`");
     $date = !empty($opts['date']) ? $opts['date'] : '%';
     $limit = !empty($opts['limit']) ? $opts['limit'] : 10;
     $lower_limit = !empty($opts['lower_limit']) ? $opts['lower_limit'] : '1970-00-00';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $sql = "SELECT count(*) AS `count`,
-                   " . TBL_listening . ".`id` as `listening_id`,
+    // Same restructuring as getFormatListenings() above - aggregate first,
+    // decorate the resulting LIMIT rows with an artist name after (see
+    // [[project_recent_listenings_query_fix]]).
+    $sql = "SELECT `format_listening`.`count`,
+                   `format_listening`.`listening_id`,
                    " . TBL_artist . ".`artist_name`,
-                   " . TBL_album . ".`album_name`,
-                   " . TBL_album . ".`year`,
-                   " . TBL_album . ".`spotify_id`,
-                   " . TBL_user . ".`username`,
-                   " . TBL_listening . ".`date`,
-                   " . TBL_listening . ".`created`,
-                   " . TBL_artist . ".`id` as `artist_id`,
-                   " . TBL_album . ".`id` as `album_id`,
-                   " . TBL_user . ".`id` as `user_id`
-            FROM " . TBL_album . ",
-                 " . TBL_artist . ",
-                 " . TBL_listening_format_type . ",
-                 " . TBL_listening_format_types . ",
-                 (SELECT " . TBL_artists . ".`artist_id`,
-                         " . TBL_artists . ".`album_id`
-                  FROM " . TBL_artists . "
-                  " . $sub_group_by . ") AS " . TBL_artists . ",
-                 " . TBL_listening . ",
-                 " . TBL_user . "
-            WHERE " . TBL_listening . ".`album_id` =  " . TBL_album . ".`id`
-              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_artists . ".`album_id` = " . TBL_album . ".`id`
-              AND " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_listening_format_types . ".`listening_format_type_id` = " . TBL_listening_format_type . ".`id`
-              AND " . TBL_listening_format_types . ".`listening_id` = " . TBL_listening . ".`id`
-              AND " . TBL_user . ".`username` LIKE ?
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_listening_format_type . ".`id` LIKE ?
-              AND " . TBL_listening . ".`date` LIKE ?
-            GROUP BY " . TBL_listening_format_type . ".`name`,
-                     " . TBL_album . ".`id`
-            ORDER BY `count` DESC, " . TBL_album . ".`album_name` ASC
-            LIMIT " . $ci->db->escape_str($limit);
+                   `format_listening`.`album_name`,
+                   `format_listening`.`year`,
+                   `format_listening`.`spotify_id`,
+                   `format_listening`.`username`,
+                   `format_listening`.`date`,
+                   `format_listening`.`created`,
+                   " . TBL_artist . ".`id` AS `artist_id`,
+                   `format_listening`.`album_id`,
+                   `format_listening`.`user_id`
+            FROM (
+                SELECT count(*) AS `count`,
+                       " . TBL_listening . ".`id` AS `listening_id`,
+                       " . TBL_album . ".`album_name`,
+                       " . TBL_album . ".`year`,
+                       " . TBL_album . ".`spotify_id`,
+                       " . TBL_user . ".`username`,
+                       " . TBL_listening . ".`date`,
+                       " . TBL_listening . ".`created`,
+                       " . TBL_album . ".`id` AS `album_id`,
+                       " . TBL_user . ".`id` AS `user_id`
+                FROM " . TBL_album . ",
+                     " . TBL_listening_format_type . ",
+                     " . TBL_listening_format_types . ",
+                     " . TBL_listening . ",
+                     " . TBL_user . "
+                WHERE " . TBL_listening . ".`album_id` =  " . TBL_album . ".`id`
+                  AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                  AND " . TBL_listening_format_types . ".`listening_format_type_id` = " . TBL_listening_format_type . ".`id`
+                  AND " . TBL_listening_format_types . ".`listening_id` = " . TBL_listening . ".`id`
+                  AND " . TBL_user . ".`username` LIKE ?
+                  AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+                  AND " . TBL_listening_format_type . ".`id` LIKE ?
+                  AND " . TBL_listening . ".`date` LIKE ?
+                GROUP BY " . TBL_listening_format_type . ".`name`,
+                         " . TBL_album . ".`id`
+                ORDER BY `count` DESC, " . TBL_album . ".`album_name` ASC
+                LIMIT " . $ci->db->escape_str($limit) . "
+            ) AS `format_listening`
+            JOIN " . TBL_artists . " ON " . TBL_artists . ".`album_id` = `format_listening`.`album_id`
+            JOIN " . TBL_artist . " ON " . TBL_artists . ".`artist_id` = " . TBL_artist . ".`id`
+            GROUP BY `format_listening`.`album_id`
+            ORDER BY `format_listening`.`count` DESC, `format_listening`.`album_name` ASC";
     $query = $ci->db->query($sql, array($username, $lower_limit, $upper_limit, $format_type_id, $date));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
