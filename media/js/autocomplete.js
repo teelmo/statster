@@ -140,6 +140,9 @@ function initAutocomplete(inputEl, options) {
       return;
     }
     dropdown.classList.remove('hidden');
+    if (rows.length > 0) {
+      setActive(0);
+    }
   }
 
   function fetchResults() {

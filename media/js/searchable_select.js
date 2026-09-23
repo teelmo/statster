@@ -187,6 +187,7 @@ function initSearchableSelect(selectEl) {
       groups.map(group => (group.label ? `<div class="searchable_select_group_label">${escapeHtml(group.label)}</div>` : '') + group.options.map(option => `<div class="searchable_select_result" data-value="${escapeHtml(option.value)}">${highlight(option.textContent, term)}</div>`).join('')).join('') +
       (truncated ? '<div class="searchable_select_hint">Type to narrow down more results&hellip;</div>' : '');
     dropdown.classList.remove('hidden');
+    moveActive(1);
   }
 
   function selectByValue(value) {
