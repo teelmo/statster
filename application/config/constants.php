@@ -139,7 +139,7 @@ define('IMAGE_SIZES', [32, 64, 174, 300]);
 // Sizes persisted in the *_image_path_cache tables (img_helper.php). Widen
 // later by adding a value here - no ALTER TABLE needed, `size` column
 // already exists on all three tables.
-define('IMAGE_PATH_CACHE_SIZES', [64]);
+define('IMAGE_PATH_CACHE_SIZES', [32, 64]);
 define('IMAGE_SERVER_PROTOCOL', 'https://');
 define('IMAGE_SERVER_IP', 'img.statster.info');
 define('IMAGE_SERVER', IMAGE_SERVER_PROTOCOL . IMAGE_SERVER_IP . '/');
