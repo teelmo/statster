@@ -218,10 +218,26 @@ if (!function_exists('getAlbums')) {
     // ORDER BY RAND() with an all-time range, the worst offenders - see
     // [[project_recent_listenings_query_fix]]), aggregate first without
     // artists at all, then decorate just the resulting LIMIT rows.
+    //
+    // The fast path below re-applies $order_by a second time, as a
+    // ROW_NUMBER() window clause, against the innermost query's already-
+    // materialized result (aliased `ordered_result`) - which only exposes
+    // plain, unqualified column names (count/album_name/album_id/year/...),
+    // not the original table-qualified ones ($group_by/$having are only
+    // ever used inside the innermost query itself, where the real tables
+    // are in scope, so they're safe regardless of their contents).
+    // `recommentedNewAlbum`'s order_by ('album.year DESC, album.created
+    // DESC') broke production with "Unknown column 'album.year'" for
+    // exactly this reason - `created` isn't even selected there at all.
+    // Any '.' in order_by means a table-qualified reference that may not
+    // survive into that outer scope, so require none before taking the
+    // fast path; qualified order_by expressions fall back to the
+    // always-correct original query below.
     $needs_artist_in_aggregation = $artist_name !== '%'
       || strpos($order_by, 'artist') !== FALSE
       || strpos($having_raw, 'artist') !== FALSE
-      || strpos($group_by, 'artist') !== FALSE;
+      || strpos($group_by, 'artist') !== FALSE
+      || strpos($order_by, '.') !== FALSE;
 
     if (!$needs_artist_in_aggregation) {
       // The innermost query's ORDER BY + LIMIT already produces the exact
