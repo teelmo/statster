@@ -78,36 +78,84 @@ if (!function_exists('getTags')) {
     $tag_id = !empty($opts['tag_id']) ? $opts['tag_id'] : '%';
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] : date('Y-m-d');
     $username = !empty($opts['username']) ? $opts['username'] : '%';
-    $where = !empty($opts['where']) ? 'AND ' . $opts['where'] : '';
-    $sql = "SELECT count(*) AS `count`,
-                   '" . $type . "' AS `type`,
-                   " . $t['entity_table'] . ".`" . $t['name_column'] . "` AS `name`,
-                   " . $t['entity_table'] . ".`id` AS `tag_id`
-                   " . $ci->db->escape_str($select) . "
-            FROM " . TBL_album . ",
-                 " . TBL_artist . ",
-                 " . TBL_listening . ",
-                 " . TBL_user . ",
-                 " . $t['entity_table'] . ",
-                 (SELECT " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`,
-                         " . $t['junction_table'] . ".`album_id`
-                  FROM " . $t['junction_table'] . "
-                  GROUP BY " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`, " . $t['junction_table'] . ".`album_id`) AS " . $t['junction_table'] . "
-            WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
-              AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
-              AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
-              AND " . TBL_album . ".`id` = " . $t['junction_table'] . ".`album_id`
-              AND " . $t['entity_table'] . ".`id` = " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`
-              AND " . TBL_listening . ".`date` BETWEEN ? AND ?
-              AND " . TBL_artist . ".`artist_name` LIKE ?
-              AND " . TBL_album . ".`album_name` LIKE ?
-              AND " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "` LIKE ?
-              AND " . TBL_user . ".`username` LIKE ?
-              " . $ci->db->escape_str($where) . "
-            GROUP BY " . $ci->db->escape_str($group_by) . "
-            ORDER BY " . $ci->db->escape_str($order_by) . "
-            LIMIT " . $ci->db->escape_str($limit);
-    $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $album_name, $tag_id, $username));
+    $where_raw = !empty($opts['where']) ? $opts['where'] : '';
+    $where = !empty($where_raw) ? 'AND ' . $where_raw : '';
+
+    // The old query counted one row per (listening event x tag) match, so
+    // a heavy repeat-listener's every single play of the same album re-ran
+    // the full listening->album->junction-table chain. Pre-aggregating a
+    // listen count per album FIRST (cheap - bounded by distinct albums, not
+    // total plays), then weighting the per-tag SUM by it, does the same
+    // work proportional to album count instead of listening count. The
+    // junction table's own GROUP BY (deduplicating - it has genuine
+    // duplicate (tag_id, album_id) rows, confirmed via
+    // information_schema, not just an unfiltered-scan inefficiency) must
+    // stay, so this isn't the "drop the subquery" fix used elsewhere - see
+    // [[project_recent_listenings_query_fix]]. Guarded to the common case
+    // (no artist_name filter, no custom $where) since $where may reference
+    // TBL_listening/TBL_user, which aren't in this query's outer scope
+    // once the listening/user join moves into the innermost subquery -
+    // confirmed no real caller uses either today, but falls back to the
+    // original query if one ever does.
+    if ($artist_name === '%' && empty($where_raw)) {
+      $sql = "SELECT SUM(`album_counts`.`listen_count`) AS `count`,
+                     '" . $type . "' AS `type`,
+                     " . $t['entity_table'] . ".`" . $t['name_column'] . "` AS `name`,
+                     " . $t['entity_table'] . ".`id` AS `tag_id`
+                     " . $ci->db->escape_str($select) . "
+              FROM (
+                  SELECT " . TBL_listening . ".`album_id`, COUNT(*) AS `listen_count`
+                  FROM " . TBL_listening . "
+                  JOIN " . TBL_user . " ON " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                  WHERE " . TBL_user . ".`username` LIKE ?
+                    AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+                  GROUP BY " . TBL_listening . ".`album_id`
+              ) AS `album_counts`
+              JOIN " . TBL_album . " ON `album_counts`.`album_id` = " . TBL_album . ".`id`
+              JOIN " . TBL_artist . " ON " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+              JOIN (SELECT " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`,
+                           " . $t['junction_table'] . ".`album_id`
+                    FROM " . $t['junction_table'] . "
+                    GROUP BY " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`, " . $t['junction_table'] . ".`album_id`) AS " . $t['junction_table'] . " ON " . $t['junction_table'] . ".`album_id` = `album_counts`.`album_id`
+              JOIN " . $t['entity_table'] . " ON " . $t['entity_table'] . ".`id` = " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`
+              WHERE " . TBL_album . ".`album_name` LIKE ?
+                AND " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "` LIKE ?
+              GROUP BY " . $ci->db->escape_str($group_by) . "
+              ORDER BY " . $ci->db->escape_str($order_by) . "
+              LIMIT " . $ci->db->escape_str($limit);
+      $query = $ci->db->query($sql, array($username, $lower_limit, $upper_limit, $album_name, $tag_id));
+    }
+    else {
+      $sql = "SELECT count(*) AS `count`,
+                     '" . $type . "' AS `type`,
+                     " . $t['entity_table'] . ".`" . $t['name_column'] . "` AS `name`,
+                     " . $t['entity_table'] . ".`id` AS `tag_id`
+                     " . $ci->db->escape_str($select) . "
+              FROM " . TBL_album . ",
+                   " . TBL_artist . ",
+                   " . TBL_listening . ",
+                   " . TBL_user . ",
+                   " . $t['entity_table'] . ",
+                   (SELECT " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`,
+                           " . $t['junction_table'] . ".`album_id`
+                    FROM " . $t['junction_table'] . "
+                    GROUP BY " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`, " . $t['junction_table'] . ".`album_id`) AS " . $t['junction_table'] . "
+              WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+                AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+                AND " . TBL_album . ".`id` = " . $t['junction_table'] . ".`album_id`
+                AND " . $t['entity_table'] . ".`id` = " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`
+                AND " . TBL_listening . ".`date` BETWEEN ? AND ?
+                AND " . TBL_artist . ".`artist_name` LIKE ?
+                AND " . TBL_album . ".`album_name` LIKE ?
+                AND " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "` LIKE ?
+                AND " . TBL_user . ".`username` LIKE ?
+                " . $ci->db->escape_str($where) . "
+              GROUP BY " . $ci->db->escape_str($group_by) . "
+              ORDER BY " . $ci->db->escape_str($order_by) . "
+              LIMIT " . $ci->db->escape_str($limit);
+      $query = $ci->db->query($sql, array($lower_limit, $upper_limit, $artist_name, $album_name, $tag_id, $username));
+    }
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);
