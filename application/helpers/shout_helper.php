@@ -128,6 +128,22 @@ if (!function_exists('getAlbumShout')) {
     $upper_limit = !empty($opts['upper_limit']) ? $opts['upper_limit'] . ' 23:59:59' : date('Y-m-d') . ' 23:59:59';
     $username = !empty($opts['username']) ? $opts['username'] : '%';
 
+    // Narrow the artist/album group down before the GROUP BY when possible,
+    // instead of grouping the whole artists table and filtering afterwards -
+    // same fix as getListenings() in listening_helper.php (see
+    // [[project_recent_listenings_query_fix]]).
+    $sub_where = array();
+    $sub_params = array();
+    if ($artist_id !== '%') {
+      $sub_where[] = TBL_artists . '.`artist_id` = ?';
+      $sub_params[] = $artist_id;
+    }
+    if ($album_id !== '%') {
+      $sub_where[] = TBL_artists . '.`album_id` = ?';
+      $sub_params[] = $album_id;
+    }
+    $sub_where_sql = !empty($sub_where) ? 'WHERE ' . implode(' AND ', $sub_where) : '';
+
     $sql = "SELECT " . TBL_album_shout . ".`id` as `shout_id`,
                    " . TBL_album_shout . ".`album_id`,
                    " . TBL_album_shout . ".`created`,
@@ -147,6 +163,7 @@ if (!function_exists('getAlbumShout')) {
                  (SELECT " . TBL_artists . ".`artist_id`,
                          " . TBL_artists . ".`album_id`
                   FROM " . TBL_artists . "
+                  " . $sub_where_sql . "
                   " . $sub_group_by . ") AS `artist_album_group`,
                  " . TBL_user . "
             WHERE " . TBL_album_shout . ".`album_id` = `artist_album_group`.`album_id`
@@ -160,7 +177,7 @@ if (!function_exists('getAlbumShout')) {
             ORDER BY " . TBL_album_shout . ".`created` DESC
             LIMIT " . $ci->db->escape_str($limit);
 
-    $query = $ci->db->query($sql, [$album_id, $artist_id, $album_id, $username, $lower_limit, $upper_limit]);
+    $query = $ci->db->query($sql, array_merge(array($album_id), $sub_params, array($artist_id, $album_id, $username, $lower_limit, $upper_limit)));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     $result = _json_return_helper($query, $no_content);
