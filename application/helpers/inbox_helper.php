@@ -29,7 +29,7 @@ if (!function_exists('getBulletins')) {
           WHERE " . TBL_bulletin . ".`path` = ?
             AND " . TBL_bulletin . ".`user_id` = ?
           ORDER BY " . TBL_bulletin . ".`date` DESC";
-    $query = $ci->db->query($sql, array($data['path'], $data['user_id']));
+    $query = $ci->db->query($sql, array($opts['path'], $opts['user_id']));
     return ($query->num_rows() > 0) ? $query->result_array()[0] : FALSE;
   }
 }
