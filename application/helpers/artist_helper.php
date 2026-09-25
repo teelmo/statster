@@ -16,7 +16,6 @@ if (!function_exists('getArtistsUnique')) {
     $ci->load->database();
 
     $order_by = !empty($opts['order_by']) ? $opts['order_by'] : TBL_artist . '.`artist_name` ASC';
-    $username = !empty($opts['username']) ? $opts['username'] : '%';
 
     $sql = "SELECT " . TBL_artist . ".`id` AS `artist_id`,
                    " . TBL_artist . ".`artist_name`,
@@ -35,7 +34,7 @@ if (!function_exists('getArtistsUnique')) {
              `t` ON " . TBL_artist . ".`id` = `t`.`artist_id`
             GROUP BY " . TBL_artist . ".`id`
             ORDER BY " . $ci->db->escape_str($order_by);
-    $query = $ci->db->query($sql, array($username));
+    $query = $ci->db->query($sql);
 
     return ($query->num_rows() > 0) ? $query->result_array() : array();
   }
