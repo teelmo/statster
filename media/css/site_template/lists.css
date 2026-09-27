@@ -124,13 +124,13 @@ ul {
     }
     & i {
       display: inline-block;
-      margin-right: 5px;
+      margin: 0 5px;
       vertical-align: middle;
     }
     & .flag_img {
       display: inline-block;
       height: 1em;
-      margin-right: 5px;
+      margin: 0 5px;
       vertical-align: middle;
       width: auto;
     }
