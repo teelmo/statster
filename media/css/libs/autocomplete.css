@@ -48,6 +48,9 @@ ul.ui-autocomplete {
     float: left;
     margin-right: 5px;
   }
+  i.mask-icon {
+    margin-right: 5px;
+  }
   span.highlight {
     color: #000;
     font-weight: bold;

@@ -23,9 +23,19 @@ function autocompleteHighlight(label, term) {
   return String(label).replace(new RegExp(term, 'gi'), '<span class="highlight">$&</span>');
 }
 
+var autocompleteTypeIcons = {
+  genre: 'mask-icon-music',
+  keyword: 'mask-icon-tag',
+  nationality: 'mask-icon-flag'
+};
+
 function autocompleteItemMarkup(item, label) {
   if (item.img) {
     return `<a><div class="cover album_img img40" style="background-image: url(${item.image_server_protocol}${item.image_server_ip}/${item.img})"></div>${label}</a>`;
+  }
+  var iconClass = autocompleteTypeIcons[item.type];
+  if (iconClass) {
+    return `<a><i class="mask-icon ${iconClass}" aria-hidden="true"></i><span class="no_img">${label}</span></a>`;
   }
   return `<a><span class="no_img">${label}</span></a>`;
 }
