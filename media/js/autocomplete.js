@@ -25,13 +25,15 @@ function autocompleteHighlight(label, term) {
 
 var autocompleteTypeIcons = {
   genre: 'mask-icon-music',
-  keyword: 'mask-icon-tag',
-  nationality: 'mask-icon-flag'
+  keyword: 'mask-icon-tag'
 };
 
 function autocompleteItemMarkup(item, label) {
   if (item.img) {
     return `<a><div class="cover album_img img40" style="background-image: url(${item.image_server_protocol}${item.image_server_ip}/${item.img})"></div>${label}</a>`;
+  }
+  if (item.type === 'nationality' && item.country_code) {
+    return `<a><img class="flag_img" src="/media/img/flag_img/${item.country_code.toLowerCase()}.png" alt="" /><span class="no_img">${label}</span></a>`;
   }
   var iconClass = autocompleteTypeIcons[item.type];
   if (iconClass) {

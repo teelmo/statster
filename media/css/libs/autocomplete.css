@@ -49,7 +49,14 @@ ul.ui-autocomplete {
     margin-right: 5px;
   }
   i.mask-icon {
-    margin-right: 5px;
+    vertical-align: middle;
+    margin: 0 0 0 5px;
+  }
+  img.flag_img {
+    height: 1em;
+    margin: 0 0 0 5px;
+    vertical-align: middle;
+    width: auto;
   }
   span.highlight {
     color: #000;
