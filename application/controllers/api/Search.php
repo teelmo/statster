@@ -150,6 +150,7 @@ class Search extends MY_ReadOnly_Controller {
       // Nationalities search.
       $sql = "SELECT " . TBL_nationality . ".`id` as nationality_id,
                      " . TBL_nationality . ".`country`,
+                     " . TBL_nationality . ".`country_code`,
                      (CASE WHEN " . TBL_nationality . ".`country` LIKE ? THEN 0 ELSE 1 END) AS `relevance`
               FROM " . TBL_nationality . "
               WHERE " . TBL_nationality . ".`country` LIKE ? COLLATE utf8_swedish_ci
@@ -165,6 +166,7 @@ class Search extends MY_ReadOnly_Controller {
         );
         foreach ($query->result() as $row) {
           $results[] = array(
+            'country_code' => $row->country_code,
             'img' => '',
             'label' => $row->country,
             'type' => 'nationality',

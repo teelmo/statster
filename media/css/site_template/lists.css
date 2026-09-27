@@ -127,6 +127,13 @@ ul {
       margin-right: 5px;
       vertical-align: middle;
     }
+    & .flag_img {
+      display: inline-block;
+      height: 1em;
+      margin-right: 5px;
+      vertical-align: middle;
+      width: auto;
+    }
     & a {
       align-items: center;
       display: flex;
