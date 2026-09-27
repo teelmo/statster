@@ -182,6 +182,9 @@ form#loginForm input[type='text'] {
     &:disabled {
       cursor: default;
     }
+    &:hover::before {
+      background-color: var(--color-white);
+    }
     &::before {
       background-color: var(--color-gray-light);
       content: '';
