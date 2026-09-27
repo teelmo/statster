@@ -79,7 +79,8 @@ Object.assign(view, {
     if (lower_limit === 'overall') {
       lower_limit = '1970-00-00';
     } else {
-      date.setDate(new Date().getDate() - parseInt(lower_limit, 10));
+      const date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
     ajax({
@@ -135,7 +136,8 @@ Object.assign(view, {
     if (lower_limit === 'overall') {
       lower_limit = '1970-00-00';
     } else {
-      date.setDate(new Date().getDate() - parseInt(lower_limit, 10));
+      const date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
     ajax({
@@ -191,7 +193,8 @@ Object.assign(view, {
     if (lower_limit === 'overall') {
       lower_limit = '1970-00-00';
     } else {
-      date.setDate(new Date().getDate() - parseInt(lower_limit, 10));
+      const date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
     ajax({
@@ -247,7 +250,8 @@ Object.assign(view, {
     if (lower_limit === 'overall') {
       lower_limit = '1970-00-00';
     } else {
-      date.setDate(new Date().getDate() - parseInt(lower_limit, 10));
+      const date = new Date();
+      date.setDate(date.getDate() - parseInt(lower_limit, 10));
       lower_limit = date.toISOString().split('T')[0];
     }
     ajax({
