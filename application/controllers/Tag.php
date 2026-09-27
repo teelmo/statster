@@ -256,11 +256,11 @@ class Tag extends MY_Controller {
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
           $data['no_content'] = FALSE;
-          $data['listener_count'] = count(json_decode($music_by_func($data) ?? '', true));
+          $data['listener_count'] = count(json_decode($music_by_func($data) ?? '', true) ?? array());
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode($music_by_func($data) ?? '', true)[0];
+          $data['artist'] = decodeFirstOrDefault($music_by_func($data), array('artist_id' => 0));
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           if ($type === 'album') {
             $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
@@ -308,11 +308,11 @@ class Tag extends MY_Controller {
           $data['limit'] = 100;
           $data['group_by'] = TBL_listening . '.`user_id`';
           $data['no_content'] = FALSE;
-          $data['listener_count'] = count(json_decode($music_by_func($data) ?? '', true));
+          $data['listener_count'] = count(json_decode($music_by_func($data) ?? '', true) ?? array());
           $data['limit'] = 1;
           $data['username'] = isset($_GET['u']) ? $_GET['u'] : '';
           $data['group_by'] = TBL_artist . '.`id`';
-          $data['artist'] = json_decode($music_by_func($data) ?? '', true)[0];
+          $data['artist'] = decodeFirstOrDefault($music_by_func($data), array('artist_id' => 0));
           $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
           $data['js_include'] = array('tag/tag', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/time_interval_helper');
 
@@ -344,10 +344,10 @@ class Tag extends MY_Controller {
         'lower_limit' => '1970-00-00',
         'username' => (!empty($_GET['u']) && ($this->session->userdata('username') !== $_GET['u']) ? $_GET['u'] : '')
       );
-      $data['total_count'] = count(json_decode($all_func[$tag_type]($opts)));
+      $data['total_count'] = count(json_decode($all_func[$tag_type]($opts) ?? '') ?? array());
       if ($this->session->userdata('logged_in') === TRUE) {
         $opts['username'] = $this->session->userdata('username');
-        $data['user_count'] = count(json_decode($all_func[$tag_type]($opts)));
+        $data['user_count'] = count(json_decode($all_func[$tag_type]($opts) ?? '') ?? array());
       }
       // year's landing page also renders a Highcharts chart, the other three don't.
       $data['js_include'] = ($tag_type === 'year')
