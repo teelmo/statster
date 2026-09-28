@@ -25,7 +25,8 @@ function autocompleteHighlight(label, term) {
 
 var autocompleteTypeIcons = {
   genre: 'mask-icon-music',
-  keyword: 'mask-icon-tag'
+  keyword: 'mask-icon-tag',
+  year: 'mask-icon-hashtag'
 };
 
 function autocompleteItemMarkup(item, label) {
