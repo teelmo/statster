@@ -75,6 +75,17 @@
     & .meta:nth-child(4) {
       display: none;
     }
+    & .meta {
+      & .label.user_listening {
+        padding-left: 0;
+        & .user_listening_image {
+          display: none;
+        }
+        & .user_value {
+          margin-left: 10px;
+        }
+      }
+    }
   }
 }
 /* Smart phone */
@@ -168,6 +179,9 @@
   .heading_container {
     & .meta_container {
       & .meta {
+        &:nth-child(3) {
+          padding: 0;
+        }
         padding: 0 10px 0 0;
         & .user_listening_image {
           display: none;
