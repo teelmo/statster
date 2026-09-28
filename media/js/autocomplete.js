@@ -249,9 +249,14 @@ function initAutocomplete(inputEl, options) {
   });
 
   // mousedown+preventDefault above keeps focus on inputEl during a result
-  // click, so this only fires for a real loss of focus (Tab, clicking
-  // elsewhere, etc.) - not for the selection click itself.
-  inputEl.addEventListener('blur', () => {
+  // click, so this only fires on a real loss of focus (Tab away, etc.).
+  // Dismissing a mobile on-screen keyboard blurs the input the same way but
+  // leaves relatedTarget null (unlike Tab, which always focuses a real
+  // element) - skip those so hiding the keyboard doesn't wipe the dropdown.
+  inputEl.addEventListener('blur', event => {
+    if (!event.relatedTarget) {
+      return;
+    }
     closeDropdown();
   });
 
