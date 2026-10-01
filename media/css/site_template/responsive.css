@@ -38,6 +38,15 @@
       display: none;
     }
   }
+  .main_container.inbox_container {
+    & .right_container {
+      border-right: 0;
+      display: block;
+      margin: auto;
+      max-width: 640px;
+      width: 100%;
+    }
+  }
 }
 @media all and (max-width: 800px) {
   .heading_container {

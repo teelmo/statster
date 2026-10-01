@@ -5,6 +5,27 @@ ul {
     margin: 0;
     padding: 0;
   }
+  &.folder_list {
+    & li {
+      margin: 0 0 2px;
+    }
+    & a {
+      border-left: 3px solid var(--transparent);
+      color: var(--color-black);
+      display: block;
+      font-size: 14px;
+      padding: 6px 10px;
+      &:hover {
+        background-color: var(--color-bg-white-alter);
+        text-decoration: none;
+      }
+      &.active {
+        border-left-color: var(--color-yellow);
+        color: var(--color-black);
+        font-weight: 700;
+      }
+    }
+  }
   &.music_list {
     color: var(--color-black-alter);
     display: block;
