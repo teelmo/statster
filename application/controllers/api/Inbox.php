@@ -8,7 +8,7 @@ class Inbox extends MY_ReadOnly_Controller {
     exit ('No direct script access allowed');
   }
 
-  /* List bulletins */
+  /* List messages/notifications in a folder */
   public function get() {
     if ($this->session->userdata('logged_in') !== TRUE) {
       show_404();
@@ -22,18 +22,18 @@ class Inbox extends MY_ReadOnly_Controller {
     $this->load->helper(array('inbox_helper'));
 
     echo getBulletins(array(
-      'path' => '/' . $folder . '/',
+      'folder' => $folder,
       'user_id' => $this->session->userdata('user_id')
     ));
   }
 
-  /* Add a bulletin */
+  /* Add a message */
   public function add() {
     // Load helpers
     header('HTTP/1.1 501 Not Implemented');
   }
 
-  /* Update bulletin information */
+  /* Mark a message or notification as read */
   public function update($bulletin_id = FALSE) {
     if ($this->session->userdata('logged_in') !== TRUE) {
       show_404();
@@ -42,16 +42,27 @@ class Inbox extends MY_ReadOnly_Controller {
       header('HTTP/1.1 400 Bad Request');
       return;
     }
+    $type = isset($_POST['type']) ? $_POST['type'] : 'message';
+    if (!in_array($type, array('message', 'notification'), TRUE)) {
+      header('HTTP/1.1 400 Bad Request');
+      return;
+    }
     // Load helpers
     $this->load->helper(array('inbox_helper'));
 
-    updateBulletin(array(
+    $opts = array(
       'id' => (int) $bulletin_id,
       'user_id' => $this->session->userdata('user_id')
-    ));
+    );
+    if ($type === 'notification') {
+      updateNotificationState($opts);
+    }
+    else {
+      updateMessageRecipientState($opts);
+    }
   }
 
-  /* Delete bulletin information */
+  /* Delete a message */
   public function delete() {
     // Load helpers
     header('HTTP/1.1 501 Not Implemented');

@@ -4,27 +4,54 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     $image_requests = array();
     foreach ($json_data as $row) {
-      $image_requests[] = array('type' => 'user', 'size' => $size, 'id' => $row['other_user_id']);
+      if (!empty($row['other_users'])) {
+        $image_requests[] = array('type' => 'user', 'size' => $size, 'id' => $row['other_users'][0]['user_id']);
+      }
     }
     prefetchImagePaths($image_requests);
     foreach ($json_data as $idx => $row) {
-      $is_sent = ($row['path'] === '/sent/');
+      $is_sent = ((int) $row['is_sent'] === 1);
+      $is_notification = ($row['type'] === 'notification');
       $unread = (!$is_sent && (int) $row['state'] === 0);
+      $other_users = isset($row['other_users']) ? $row['other_users'] : array();
+      $primary = !empty($other_users) ? $other_users[0] : null;
       ?>
-      <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" class="shout<?php if ($unread) : ?> unread<?php endif; ?>">
+      <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" class="shout<?php if ($unread) : ?> unread<?php endif; ?>">
         <td class="img user_img">
-          <?=anchor(array('user', url_title($row['other_username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $row['other_user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+          <?php if ($primary !== null) : ?>
+            <?=anchor(array('user', url_title($primary['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $primary['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+          <?php elseif (!$is_notification) : ?>
+            <div class="cover user_img img<?=$size?>" style="background-image:url(<?=getUserImg(array('user_id' => 0, 'size' => $size))?>)"></div>
+          <?php endif; ?>
         </td>
         <td class="text">
           <div>
-            <span class="username title"><?=$is_sent ? 'To' : 'From'?> <?=anchor(array('user', url_title($row['other_username'])), html_escape($row['other_username']))?></span>
+            <?php if ($is_notification) : ?>
+              <span class="username title">Notification</span>
+            <?php else : ?>
+              <span class="username title">
+                <?=$is_sent ? 'To' : 'From'?>
+                <?php
+                if (empty($other_users)) {
+                  echo 'Unknown recipient';
+                }
+                else {
+                  $links = array();
+                  foreach ($other_users as $user) {
+                    $links[] = anchor(array('user', url_title($user['username'])), html_escape($user['username']));
+                  }
+                  echo implode(', ', $links);
+                }
+                ?>
+              </span>
+            <?php endif; ?>
             <div class="metainfo">
               <div><?=timeAgo($row['date'])?></div>
             </div>
           </div>
           <div class="bulletin_subject"><?=html_escape($row['subject'])?></div>
           <div class="shout_text">
-            <?=nl2br(html_escape($row['message']))?>
+            <?=renderMarkdown($row['message'])?>
           </div>
         </td>
       </tr>

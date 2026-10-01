@@ -38,6 +38,9 @@ Object.assign(view, {
       var id = parseInt(target.dataset.bulletinId, 10);
       target.classList.remove('unread');
       ajax({
+        data: {
+          type: target.dataset.bulletinType
+        },
         type: 'POST',
         url: `/api/inbox/update/${id}`
       });

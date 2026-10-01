@@ -199,7 +199,7 @@ class Ajax extends MY_ReadOnly_Controller {
   public function inboxTable() {
     if (!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'output_helper', 'markdown_helper'));
 
       $this->load->view('templates/inbox_table', $_POST);
       header('HTTP/1.1 200 OK');
