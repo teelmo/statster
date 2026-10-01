@@ -187,8 +187,21 @@ class Ajax extends MY_ReadOnly_Controller {
     if (!empty($_POST)) {
       // Load helpers
       $this->load->helper(array('img_helper', 'output_helper'));
-      
+
       $this->load->view('templates/shout_table', $_POST);
+      header('HTTP/1.1 200 OK');
+    }
+    else {
+      exit (ERR_NO_RESULTS);
+    }
+  }
+
+  public function inboxTable() {
+    if (!empty($_POST)) {
+      // Load helpers
+      $this->load->helper(array('img_helper', 'output_helper'));
+
+      $this->load->view('templates/inbox_table', $_POST);
       header('HTTP/1.1 200 OK');
     }
     else {

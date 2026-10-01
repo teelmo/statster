@@ -1,36 +1,49 @@
 Object.assign(view, {
-  getBulletins: () => {
-    if (user_id === undefined) {
-      document.querySelector('#bulletinLoader').classList.add('hidden');
-      return;
-    }
+  getBulletins: folder => {
     ajax({
-      complete: () => {
-        document.querySelector('#bulletinLoader').classList.add('hidden');
-      },
       data: {
-        user_id: user_id
+        folder: folder
       },
       dataType: 'json',
       statusCode: {
-        200: () => {
-          // 200 OK
-          document.querySelector('#love').classList.add('love_del');
+        200: data => {
+          ajax({
+            data: {
+              json_data: data
+            },
+            success: data => {
+              document.querySelector('#inboxLoader').classList.add('hidden');
+              document.querySelector('#inbox').innerHTML = data;
+            },
+            type: 'POST',
+            url: '/ajax/inboxTable'
+          });
         },
         204: () => {
-          // 204 No Content
-          document.querySelector('#love').classList.add('love_add');
-        },
-        400: () => {
-          alert(`<?=ERR_BAD_REQUEST?>`);
+          document.querySelector('#inboxLoader').classList.add('hidden');
+          document.querySelector('#inbox').innerHTML = `<?=ERR_NO_RESULTS?>`;
         }
       },
       type: 'GET',
-      url: '/api/love/get/<?=$album_id?>'
+      url: '/api/inbox/get'
     });
   },
-  initInboxEvents: () => {}
+  initInboxEvents: folder => {
+    view.getBulletins(folder);
+    document.querySelector('html').addEventListener('click', event => {
+      var target = event.target.closest('tr.shout.unread');
+      if (!target) {
+        return;
+      }
+      var id = parseInt(target.dataset.bulletinId, 10);
+      target.classList.remove('unread');
+      ajax({
+        type: 'POST',
+        url: `/api/inbox/update/${id}`
+      });
+    });
+  }
 });
 
 app.setOverlayBackground(`<?=getArtistImg(array('artist_id' => $top_artist['artist_id'], 'size' => 300))?>`);
-view.initInboxEvents();
+view.initInboxEvents(`<?=$folder?>`);

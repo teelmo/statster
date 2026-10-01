@@ -5,6 +5,10 @@
   font-size: 14px;
 }
 table.shout_table tr {
+  &.unread {
+    box-shadow: inset 3px 0 0 var(--color-yellow);
+    cursor: pointer;
+  }
   &:hover td span.delete {
     &.hidden {
       display: inline;
@@ -88,6 +92,10 @@ table.shout_table tr {
       padding-left: 10px;
       vertical-align: top;
       width: 100%;
+      & .bulletin_subject {
+        color: var(--color-black);
+        font-weight: 700;
+      }
       & .confirmation {
         font-size: 10px;
         text-align: left;
@@ -124,6 +132,7 @@ table.shout_table tr {
     }
   }
 }
+.full_container table.shout_table tr,
 .left_container table.shout_table tr {
   &:nth-child(2n) {
     background-color: var(--color-bg-white-alter);

@@ -120,7 +120,7 @@ header('HTTP/1.1 200 OK');
                 <li><a href="javascript:;" class="toggle_username <?=(!empty($this->session->userdata('get_username'))) ? 'active' : ''; ?>"><?=(!empty($this->session->userdata('get_username'))) ? 'Show all' : 'Your stats only'; ?></a></li>
                 <li><?=anchor(array('user', $this->session->userdata('username')), 'Profile')?></li>
                 <li><?=anchor(array('user', 'edit'), 'Edit')?></li>
-                <!-- <li><?=anchor(array('inbox'), 'Inbox')?></li> -->
+                <li><?=anchor(array('inbox'), 'Inbox')?></li>
                 <li><?=anchor(array('search'), 'Search')?></li>
                 <?php
                 if (in_array($this->session->userdata['user_id'], ADMIN_USERS)) {

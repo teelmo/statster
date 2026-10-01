@@ -67,6 +67,9 @@ $route['album/mosaic'] = 'album/mosaic';
 $route['music/(:any)/(:any)'] = 'music/album_or_month/$1/$2';
 $route['music/(:any)'] = 'music/artist_or_year/$1';
 
+/* Inbox folder routes */
+$route['inbox/(:any)'] = 'inbox/index/$1';
+
 /* Genres, tags and release years page's routes */
 $route['genre'] = 'tag/genre';
 $route['genre/(:any)'] = 'tag/genre/$1';

@@ -27,6 +27,9 @@
         color: #ccc;
         text-decoration: none;
       }
+      &.active {
+        color: var(--color-yellow);
+      }
       &.date_filter_submit {
         margin-right: 0;
       }
