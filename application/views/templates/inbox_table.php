@@ -10,12 +10,9 @@ if (!empty($json_data)) {
     }
     prefetchImagePaths($image_requests);
 
-    $renderAvatar = function ($row) use ($size) {
-      $other_users = isset($row['other_users']) ? $row['other_users'] : array();
-      $primary = !empty($other_users) ? $other_users[0] : null;
-      $is_notification = ($row['type'] === 'notification');
-      if ($primary !== null) {
-        echo anchor(array('user', url_title($primary['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $primary['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'));
+    $renderAvatar = function ($user, $is_notification) use ($size) {
+      if ($user !== null) {
+        echo anchor(array('user', url_title($user['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $user['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'));
       }
       elseif (!$is_notification) {
         ?>
@@ -59,7 +56,7 @@ if (!empty($json_data)) {
       </div>
       <?php if ($show_toggle && !empty($row['in_thread'])) : ?>
         <div class="thread_toggle_row">
-          <a href="javascript:;" class="thread_toggle" aria-label="View full thread" data-bulletin-id="<?=$row['id']?>"><span>View full thread</span><i class="mask-icon mask-icon-chevron-down" aria-hidden="true"></i></a>
+          <a href="javascript:;" class="thread_toggle" aria-label="Show thread" data-bulletin-id="<?=$row['id']?>"><span>Show thread</span><i class="mask-icon mask-icon-chevron-down" aria-hidden="true"></i></a>
         </div>
       <?php endif; ?>
       <?php
@@ -78,9 +75,10 @@ if (!empty($json_data)) {
               $is_sent = ((int) $row['is_sent'] === 1);
               $unread = (!$is_sent && (int) $row['state'] === 0);
               $depth = isset($row['depth']) ? (int) $row['depth'] : 0;
+              $sender = isset($row['sender']) ? $row['sender'] : null;
               ?>
               <div class="thread_item<?php if ($unread) : ?> unread<?php endif; ?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" style="margin-left: <?=($depth * 24)?>px;">
-                <div class="img user_img"><?php $renderAvatar($row); ?></div>
+                <div class="img user_img"><?php $renderAvatar($sender, FALSE); ?></div>
                 <div class="text"><?php $renderContent($row, false); ?></div>
               </div>
               <?php
@@ -94,10 +92,14 @@ if (!empty($json_data)) {
     else {
       foreach ($json_data as $idx => $row) {
         $is_sent = ((int) $row['is_sent'] === 1);
+        $is_notification = ($row['type'] === 'notification');
         $unread = (!$is_sent && (int) $row['state'] === 0);
+        $other_users = isset($row['other_users']) ? $row['other_users'] : array();
+        $primary = !empty($other_users) ? $other_users[0] : null;
+        $zebra = ($idx % 2 === 0) ? 'zebra-even' : 'zebra-odd';
         ?>
-        <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" class="shout<?php if ($unread) : ?> unread<?php endif; ?>">
-          <td class="img user_img"><?php $renderAvatar($row); ?></td>
+        <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" class="shout <?=$zebra?><?php if ($unread) : ?> unread<?php endif; ?>">
+          <td class="img user_img"><?php $renderAvatar($primary, $is_notification); ?></td>
           <td class="text"><?php $renderContent($row, true); ?></td>
         </tr>
         <?php

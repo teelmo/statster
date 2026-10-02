@@ -6,7 +6,6 @@
 }
 table.shout_table tr {
   &.thread_message {
-    box-shadow: inset 3px 0 0 var(--color-gray-light);
     &.hidden {
       display: none;
     }
@@ -179,11 +178,19 @@ table.shout_table tr {
     background-color: var(--transparent);
   }
 }
+#inbox tr {
+  &.zebra-even {
+    background-color: var(--color-bg-white-alter);
+  }
+  &.zebra-odd {
+    background-color: var(--transparent);
+  }
+}
 table.shout_table .thread_tree {
   background-color: var(--color-bg-white-alter);
   padding: 5px 0;
   & .thread_item {
-    border-left: 2px solid var(--color-gray-light);
+    border-left: 4px solid var(--color-gray-light);
     display: flex;
     margin-bottom: 2px;
     padding: 10px 0 10px 12px;

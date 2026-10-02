@@ -52,11 +52,14 @@ Object.assign(view, {
       }
       event.preventDefault();
       var id = parseInt(toggle.dataset.bulletinId, 10);
+      var label = toggle.querySelector('span');
       var existing = document.querySelectorAll(`tr[data-thread-of="${id}"]`);
       if (existing.length > 0) {
         var collapsing = !existing[0].classList.contains('hidden');
         existing.forEach(row => row.classList.toggle('hidden', collapsing));
         toggle.classList.toggle('expanded', !collapsing);
+        label.textContent = collapsing ? 'Show thread' : 'Hide thread';
+        toggle.setAttribute('aria-label', collapsing ? 'Show thread' : 'Hide thread');
         return;
       }
       var row = toggle.closest('tr');
@@ -72,6 +75,8 @@ Object.assign(view, {
               success: data => {
                 row.insertAdjacentHTML('afterend', data);
                 toggle.classList.add('expanded');
+                label.textContent = 'Hide thread';
+                toggle.setAttribute('aria-label', 'Hide thread');
               },
               type: 'POST',
               url: '/ajax/inboxTable'

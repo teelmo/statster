@@ -306,6 +306,7 @@ if (!function_exists('getThread')) {
         'type' => 'message',
         'is_sent' => $is_sent ? 1 : 0,
         'other_users' => $other_users,
+        'sender' => array('user_id' => (int) $row['sender_id'], 'username' => $row['sender_username']),
         'subject' => $row['subject'],
         'message' => $row['body'],
         'depth' => $depth_of[$id],
