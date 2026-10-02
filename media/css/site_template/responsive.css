@@ -42,6 +42,7 @@
     & .right_container {
       border-right: 0;
       display: block;
+      flex: none;
       margin: auto;
       max-width: 640px;
       width: 100%;
