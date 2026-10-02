@@ -2,7 +2,7 @@
 if (!empty($json_data)) {
   $size = 64;
   if (is_array($json_data)) {
-    $thread_avatar_size = 40;
+    $thread_avatar_size = 32;
 
     $image_requests = array();
     foreach ($json_data as $row) {

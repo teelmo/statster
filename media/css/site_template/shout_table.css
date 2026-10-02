@@ -227,10 +227,10 @@ table.shout_table .thread_tree {
     }
     & .img {
       flex-shrink: 0;
-      & .img40 {
-        border-radius: 20px;
+      & .img32 {
+        border-radius: 16px;
         &:after {
-          border-radius: 20px;
+          border-radius: 16px;
         }
       }
     }
