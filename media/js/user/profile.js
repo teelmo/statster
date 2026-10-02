@@ -346,6 +346,10 @@ Object.assign(view, {
               type: 'POST',
               url: '/ajax/shoutTable'
             });
+          },
+          204: () => {
+            // 204 No Content
+            resolve();
           }
         },
         type: 'GET',
@@ -379,6 +383,10 @@ Object.assign(view, {
               type: 'POST',
               url: '/ajax/shoutTable'
             });
+          },
+          204: () => {
+            // 204 No Content
+            resolve();
           }
         },
         type: 'GET',
@@ -410,6 +418,10 @@ Object.assign(view, {
               type: 'POST',
               url: '/ajax/likeTable'
             });
+          },
+          204: () => {
+            // 204 No Content
+            resolve();
           }
         },
         type: 'GET',
@@ -441,6 +453,10 @@ Object.assign(view, {
               type: 'POST',
               url: '/ajax/likeTable'
             });
+          },
+          204: () => {
+            // 204 No Content
+            resolve();
           }
         },
         type: 'GET',
