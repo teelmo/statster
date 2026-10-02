@@ -193,7 +193,7 @@ tr.pagination_row {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 10px 5px;
   & .pagination_link {
     color: var(--color-gray-mid);
     text-decoration: none;
