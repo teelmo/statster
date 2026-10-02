@@ -77,7 +77,7 @@ if (!empty($json_data)) {
               $depth = isset($row['depth']) ? (int) $row['depth'] : 0;
               $sender = isset($row['sender']) ? $row['sender'] : null;
               ?>
-              <div class="thread_item<?php if ($unread) : ?> unread<?php endif; ?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" style="margin-left: <?=($depth * 24)?>px;">
+              <div class="thread_item<?php if ($unread) : ?> unread<?php endif; ?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" style="margin-left: <?=(($depth + 1) * 20)?>px;">
                 <div class="img user_img"><?php $renderAvatar($sender, FALSE); ?></div>
                 <div class="text"><?php $renderContent($row, false); ?></div>
               </div>
