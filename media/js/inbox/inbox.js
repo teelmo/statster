@@ -31,7 +31,7 @@ Object.assign(view, {
   initInboxEvents: folder => {
     view.getBulletins(folder);
     document.querySelector('html').addEventListener('click', event => {
-      var target = event.target.closest('tr.shout.unread');
+      var target = event.target.closest('.unread[data-bulletin-id]');
       if (!target) {
         return;
       }
