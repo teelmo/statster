@@ -1,15 +1,23 @@
 Object.assign(view, {
-  getBulletins: folder => {
+  currentFolder: `<?=$folder?>`,
+  getBulletins: (folder, page) => {
+    view.currentFolder = folder;
+    document.querySelector('#inboxLoader').classList.remove('hidden');
+    document.querySelector('#inbox').innerHTML = '';
     ajax({
       data: {
-        folder: folder
+        folder: folder,
+        page: page || 1
       },
       dataType: 'json',
       statusCode: {
         200: data => {
           ajax({
             data: {
-              json_data: data
+              json_data: data.rows,
+              page: data.page,
+              has_more: data.has_more ? 1 : 0,
+              has_prev: data.has_prev ? 1 : 0
             },
             success: data => {
               document.querySelector('#inboxLoader').classList.add('hidden');
@@ -30,6 +38,13 @@ Object.assign(view, {
   },
   initInboxEvents: folder => {
     view.getBulletins(folder);
+    document.querySelector('html').addEventListener('click', event => {
+      var target = event.target.closest('.pagination_link');
+      if (!target) {
+        return;
+      }
+      view.getBulletins(view.currentFolder, parseInt(target.dataset.page, 10));
+    });
     document.querySelector('html').addEventListener('click', event => {
       var target = event.target.closest('.unread[data-bulletin-id]');
       if (!target) {

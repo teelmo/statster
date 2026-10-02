@@ -186,6 +186,33 @@ table.shout_table tr {
     background-color: var(--transparent);
   }
 }
+tr.pagination_row {
+  background-color: var(--transparent);
+}
+.pagination {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  & .pagination_link {
+    color: var(--color-gray-mid);
+    text-decoration: none;
+    &:hover {
+      color: var(--color-black);
+    }
+    &:focus {
+      outline: none;
+    }
+    &:focus-visible {
+      outline: 2px solid var(--color-gray-mid);
+      outline-offset: 2px;
+    }
+  }
+  & .pagination_page {
+    color: var(--color-gray-medium);
+    font-size: 12px;
+  }
+}
 table.shout_table .thread_tree {
   background-color: var(--color-bg-white-alter);
   padding: 5px 0;

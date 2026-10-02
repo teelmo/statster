@@ -23,7 +23,8 @@ class Inbox extends MY_ReadOnly_Controller {
 
     echo getBulletins(array(
       'folder' => $folder,
-      'user_id' => $this->session->userdata('user_id')
+      'user_id' => $this->session->userdata('user_id'),
+      'page' => isset($_GET['page']) ? (int) $_GET['page'] : 1
     ));
   }
 

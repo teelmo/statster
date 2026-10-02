@@ -106,8 +106,26 @@ if (!empty($json_data)) {
         $zebra = ($idx % 2 === 0) ? 'zebra-even' : 'zebra-odd';
         ?>
         <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" class="shout <?=$zebra?><?php if ($unread) : ?> unread<?php endif; ?>">
-          <td class="img user_img"><?php $renderAvatar($primary, $is_notification); ?></td>
+          <td class="img user_img"><?php $renderAvatar($primary, $is_notification, $size); ?></td>
           <td class="text"><?php $renderContent($row, true); ?></td>
+        </tr>
+        <?php
+      }
+      $page = isset($page) ? (int) $page : 1;
+      if ($page > 1 || !empty($has_more)) {
+        ?>
+        <tr class="pagination_row">
+          <td colspan="2">
+            <div class="pagination">
+              <?php if (!empty($has_prev)) : ?>
+                <a href="javascript:;" class="pagination_link pagination_prev" data-page="<?=($page - 1)?>">&larr; Newer</a>
+              <?php endif; ?>
+              <span class="pagination_page">Page <?=$page?></span>
+              <?php if (!empty($has_more)) : ?>
+                <a href="javascript:;" class="pagination_link pagination_next" data-page="<?=($page + 1)?>">Older &rarr;</a>
+              <?php endif; ?>
+            </div>
+          </td>
         </tr>
         <?php
       }

@@ -1,33 +1,44 @@
 <?php
 if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
+if (!defined('INBOX_PAGE_SIZE')) {
+  define('INBOX_PAGE_SIZE', 20);
+}
+
 /**
-  * Gets all messages/notifications in a given folder for a given user.
+  * Gets one page of messages/notifications in a given folder for a given user.
   *
   * @param array $opts.
   *          'folder'   => 'inbox', 'sent', 'notices', 'notifications', 'shares', or 'trash'.
   *          'user_id'  => Viewing user's ID (server-derived, never client-supplied).
+  *          'page'     => 1-indexed page number.
   *
-  * @return string JSON encoded list.
+  * @return string JSON encoded {rows, page, has_more, has_prev}.
   */
 if (!function_exists('getBulletins')) {
   function getBulletins($opts = array()) {
     $folder = isset($opts['folder']) ? $opts['folder'] : 'inbox';
     $user_id = isset($opts['user_id']) ? $opts['user_id'] : 0;
+    $page = isset($opts['page']) ? max(1, (int) $opts['page']) : 1;
 
     if ($folder === 'sent') {
-      $results = _getSentMessages($user_id);
+      $page_result = _getSentMessages($user_id, $page);
     }
     elseif ($folder === 'notices' || $folder === 'notifications') {
-      $results = _getNotifications(($folder === 'notices') ? 'notice' : 'notification', $user_id);
+      $page_result = _getNotifications(($folder === 'notices') ? 'notice' : 'notification', $user_id, $page);
     }
     else {
-      $results = _getReceivedMessages($folder, $user_id);
+      $page_result = _getReceivedMessages($folder, $user_id, $page);
     }
 
-    if (!empty($results)) {
+    if (!empty($page_result['rows'])) {
       header('HTTP/1.1 200 OK');
-      return json_encode($results);
+      return json_encode(array(
+        'rows' => $page_result['rows'],
+        'page' => $page,
+        'has_more' => $page_result['has_more'],
+        'has_prev' => ($page > 1)
+      ));
     }
     header('HTTP/1.1 204 No Content');
     return '';
@@ -39,11 +50,12 @@ if (!function_exists('getBulletins')) {
   *
   * @param string $folder 'inbox', 'shares', or 'trash'.
   * @param int $user_id Viewing (recipient) user's ID.
+  * @param int $page 1-indexed page number.
   *
-  * @return array Rows shaped for getBulletins()'s JSON output.
+  * @return array {rows, has_more} - rows shaped for getBulletins()'s JSON output.
   */
 if (!function_exists('_getReceivedMessages')) {
-  function _getReceivedMessages($folder, $user_id) {
+  function _getReceivedMessages($folder, $user_id, $page = 1) {
     $ci=& get_instance();
     $ci->load->database();
 
@@ -56,6 +68,9 @@ if (!function_exists('_getReceivedMessages')) {
       $type_filter = "AND " . TBL_message . ".`type` = 'message'";
     }
     // Trash shows both types - a user's trash isn't split by what kind of thing they binned.
+
+    $limit = INBOX_PAGE_SIZE;
+    $offset = ($page - 1) * $limit;
 
     $sql = "SELECT " . TBL_message . ".`id`,
                    " . TBL_message . ".`sender_id` AS `other_user_id`,
@@ -72,8 +87,11 @@ if (!function_exists('_getReceivedMessages')) {
             WHERE " . TBL_message_recipient . ".`recipient_id` = ?
               AND " . TBL_message_recipient . ".`folder` = ?
               " . $type_filter . "
-            ORDER BY " . TBL_message . ".`date` DESC";
-    $rows = $ci->db->query($sql, array($user_id, $mr_folder))->result_array();
+            ORDER BY " . TBL_message . ".`date` DESC
+            LIMIT ? OFFSET ?";
+    $rows = $ci->db->query($sql, array($user_id, $mr_folder, $limit + 1, $offset))->result_array();
+    $has_more = count($rows) > $limit;
+    $rows = array_slice($rows, 0, $limit);
 
     $results = array();
     foreach ($rows as $row) {
@@ -89,7 +107,7 @@ if (!function_exists('_getReceivedMessages')) {
         'date' => $row['date']
       );
     }
-    return $results;
+    return array('rows' => $results, 'has_more' => $has_more);
   }
 }
 
@@ -97,14 +115,40 @@ if (!function_exists('_getReceivedMessages')) {
   * Gets messages a user has sent, with every real recipient attached.
   *
   * @param int $user_id Viewing (sender) user's ID.
+  * @param int $page 1-indexed page number.
   *
-  * @return array Rows shaped for getBulletins()'s JSON output.
+  * @return array {rows, has_more} - rows shaped for getBulletins()'s JSON output.
   */
 if (!function_exists('_getSentMessages')) {
-  function _getSentMessages($user_id) {
+  function _getSentMessages($user_id, $page = 1) {
     $ci=& get_instance();
     $ci->load->database();
 
+    $limit = INBOX_PAGE_SIZE;
+    $offset = ($page - 1) * $limit;
+
+    // Page over distinct messages first - the join below fans out to one row
+    // per recipient, so paging that directly would split/duplicate messages
+    // with more than one recipient across pages.
+    $sql = "SELECT `id`
+            FROM " . TBL_message . "
+            WHERE `sender_id` = ?
+              AND `sender_hidden` = 0
+              AND `type` = 'message'
+            ORDER BY `date` DESC, `id` DESC
+            LIMIT ? OFFSET ?";
+    $id_rows = $ci->db->query($sql, array($user_id, $limit + 1, $offset))->result_array();
+    $has_more = count($id_rows) > $limit;
+    $id_rows = array_slice($id_rows, 0, $limit);
+    $ids = array();
+    foreach ($id_rows as $id_row) {
+      $ids[] = (int) $id_row['id'];
+    }
+    if (empty($ids)) {
+      return array('rows' => array(), 'has_more' => FALSE);
+    }
+
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
     $sql = "SELECT " . TBL_message . ".`id`,
                    " . TBL_message . ".`subject`,
                    " . TBL_message . ".`body`,
@@ -116,11 +160,9 @@ if (!function_exists('_getSentMessages')) {
             FROM " . TBL_message . "
             LEFT JOIN " . TBL_message_recipient . " ON " . TBL_message_recipient . ".`message_id` = " . TBL_message . ".`id`
             LEFT JOIN " . TBL_user . " ON " . TBL_user . ".`id` = " . TBL_message_recipient . ".`recipient_id`
-            WHERE " . TBL_message . ".`sender_id` = ?
-              AND " . TBL_message . ".`sender_hidden` = 0
-              AND " . TBL_message . ".`type` = 'message'
-            ORDER BY " . TBL_message . ".`date` DESC, " . TBL_user . ".`username` ASC";
-    $rows = $ci->db->query($sql, array($user_id))->result_array();
+            WHERE " . TBL_message . ".`id` IN ($placeholders)
+            ORDER BY " . TBL_user . ".`username` ASC";
+    $rows = $ci->db->query($sql, $ids)->result_array();
 
     // Group by message id - a message can have multiple recipient rows.
     $messages = array();
@@ -143,7 +185,16 @@ if (!function_exists('_getSentMessages')) {
         $messages[$id]['other_users'][] = array('user_id' => (int) $row['other_user_id'], 'username' => $row['other_username']);
       }
     }
-    return array_values($messages);
+
+    // Restore the original date-ordered page sequence - the join query above
+    // orders by recipient username (for stable grouping), not date.
+    $results = array();
+    foreach ($ids as $id) {
+      if (isset($messages[$id])) {
+        $results[] = $messages[$id];
+      }
+    }
+    return array('rows' => $results, 'has_more' => $has_more);
   }
 }
 
@@ -152,13 +203,17 @@ if (!function_exists('_getSentMessages')) {
   *
   * @param string $type 'notice' or 'notification'.
   * @param int $user_id Viewing (recipient) user's ID.
+  * @param int $page 1-indexed page number.
   *
-  * @return array Rows shaped for getBulletins()'s JSON output.
+  * @return array {rows, has_more} - rows shaped for getBulletins()'s JSON output.
   */
 if (!function_exists('_getNotifications')) {
-  function _getNotifications($type, $user_id) {
+  function _getNotifications($type, $user_id, $page = 1) {
     $ci=& get_instance();
     $ci->load->database();
+
+    $limit = INBOX_PAGE_SIZE;
+    $offset = ($page - 1) * $limit;
 
     $sql = "SELECT " . TBL_notification . ".`id`,
                    " . TBL_notification . ".`subject`,
@@ -168,8 +223,11 @@ if (!function_exists('_getNotifications')) {
             FROM " . TBL_notification . "
             WHERE " . TBL_notification . ".`recipient_id` = ?
               AND " . TBL_notification . ".`type` = ?
-            ORDER BY " . TBL_notification . ".`date` DESC";
-    $rows = $ci->db->query($sql, array($user_id, $type))->result_array();
+            ORDER BY " . TBL_notification . ".`date` DESC
+            LIMIT ? OFFSET ?";
+    $rows = $ci->db->query($sql, array($user_id, $type, $limit + 1, $offset))->result_array();
+    $has_more = count($rows) > $limit;
+    $rows = array_slice($rows, 0, $limit);
 
     $results = array();
     foreach ($rows as $row) {
@@ -184,7 +242,7 @@ if (!function_exists('_getNotifications')) {
         'date' => $row['date']
       );
     }
-    return $results;
+    return array('rows' => $results, 'has_more' => $has_more);
   }
 }
 
