@@ -19,7 +19,7 @@ if (!empty($json_data)) {
       $indent_px = $depth * 24;
       ?>
       <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" class="shout<?php if ($unread) : ?> unread<?php endif; ?><?php if (!empty($thread_of)) : ?> thread_message<?php endif; ?>"<?php if (!empty($thread_of)) : ?> data-thread-of="<?=(int) $thread_of?>"<?php endif; ?>>
-        <td class="img user_img"<?php if ($depth > 0) : ?> style="padding-left: <?=$indent_px?>px;"<?php endif; ?>>
+        <td class="img user_img">
           <?php if ($primary !== null) : ?>
             <?=anchor(array('user', url_title($primary['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $primary['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
           <?php elseif (!$is_notification) : ?>
@@ -27,7 +27,7 @@ if (!empty($json_data)) {
           <?php endif; ?>
         </td>
         <td class="text">
-          <?php if ($depth > 0) : ?><div class="thread_indent" style="margin-left: <?=$indent_px?>px;"><?php endif; ?>
+          <?php if ($depth > 0) : ?><div class="thread_indent" style="transform: translateX(<?=$indent_px?>px);"><?php endif; ?>
           <div>
             <?php if ($is_notification) : ?>
               <span class="username title">Notification</span>
