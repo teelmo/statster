@@ -135,10 +135,16 @@ table.shout_table tr {
         overflow-wrap: break-word;
         word-break: break-word;
       }
+      & .thread_indent {
+        border-left: 2px solid var(--color-gray-light);
+        padding-left: 12px;
+      }
       & .thread_toggle {
+        align-items: center;
         color: var(--color-gray-mid);
-        display: inline-block;
+        display: flex;
         font-size: 12px;
+        justify-content: flex-end;
         margin-top: 5px;
         text-decoration: none;
         &:hover {
@@ -146,7 +152,7 @@ table.shout_table tr {
         }
         & .mask-icon {
           font-size: 10px;
-          margin-right: 3px;
+          margin-left: 5px;
           transition: transform 0.15s ease;
           @media (prefers-reduced-motion: reduce) {
             transition: none;

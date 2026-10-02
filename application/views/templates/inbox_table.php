@@ -15,9 +15,11 @@ if (!empty($json_data)) {
       $unread = (!$is_sent && (int) $row['state'] === 0);
       $other_users = isset($row['other_users']) ? $row['other_users'] : array();
       $primary = !empty($other_users) ? $other_users[0] : null;
+      $depth = isset($row['depth']) ? (int) $row['depth'] : 0;
+      $indent_px = $depth * 24;
       ?>
       <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" class="shout<?php if ($unread) : ?> unread<?php endif; ?><?php if (!empty($thread_of)) : ?> thread_message<?php endif; ?>"<?php if (!empty($thread_of)) : ?> data-thread-of="<?=(int) $thread_of?>"<?php endif; ?>>
-        <td class="img user_img">
+        <td class="img user_img"<?php if ($depth > 0) : ?> style="padding-left: <?=$indent_px?>px;"<?php endif; ?>>
           <?php if ($primary !== null) : ?>
             <?=anchor(array('user', url_title($primary['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $primary['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
           <?php elseif (!$is_notification) : ?>
@@ -25,6 +27,7 @@ if (!empty($json_data)) {
           <?php endif; ?>
         </td>
         <td class="text">
+          <?php if ($depth > 0) : ?><div class="thread_indent" style="margin-left: <?=$indent_px?>px;"><?php endif; ?>
           <div>
             <?php if ($is_notification) : ?>
               <span class="username title">Notification</span>
@@ -54,8 +57,9 @@ if (!empty($json_data)) {
             <?=renderMarkdown($row['message'])?>
           </div>
           <?php if (empty($thread_of) && !empty($row['in_thread'])) : ?>
-            <a href="javascript:;" class="thread_toggle" aria-label="View full thread" data-bulletin-id="<?=$row['id']?>"><i class="mask-icon mask-icon-chevron-down" aria-hidden="true"></i> View full thread</a>
+            <a href="javascript:;" class="thread_toggle" aria-label="View full thread" data-bulletin-id="<?=$row['id']?>"><span>View full thread</span><i class="mask-icon mask-icon-chevron-down" aria-hidden="true"></i></a>
           <?php endif; ?>
+          <?php if ($depth > 0) : ?></div><?php endif; ?>
         </td>
       </tr>
       <?php

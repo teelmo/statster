@@ -223,6 +223,7 @@ if (!function_exists('getThread')) {
     // recursive CTE, matching the rest of this codebase. Threads here are
     // shallow, so this is a handful of small round trips at most.
     $thread_ids = array($message_id => TRUE);
+    $parent_of = array();
     $frontier = array($message_id);
     while (!empty($frontier)) {
       $placeholders = implode(',', array_fill(0, count($frontier), '?'));
@@ -233,18 +234,34 @@ if (!function_exists('getThread')) {
       $rows = $ci->db->query($sql, array_merge($frontier, $frontier))->result_array();
       $next_frontier = array();
       foreach ($rows as $row) {
-        $found = array((int) $row['id']);
-        if ($row['parent_id'] !== NULL) {
-          $found[] = (int) $row['parent_id'];
+        $id = (int) $row['id'];
+        $parent_id = ($row['parent_id'] !== NULL) ? (int) $row['parent_id'] : NULL;
+        $parent_of[$id] = $parent_id;
+        $found = array($id);
+        if ($parent_id !== NULL) {
+          $found[] = $parent_id;
         }
-        foreach ($found as $id) {
-          if (!isset($thread_ids[$id])) {
-            $thread_ids[$id] = TRUE;
-            $next_frontier[] = $id;
+        foreach ($found as $found_id) {
+          if (!isset($thread_ids[$found_id])) {
+            $thread_ids[$found_id] = TRUE;
+            $next_frontier[] = $found_id;
           }
         }
       }
       $frontier = $next_frontier;
+    }
+
+    // Depth within the thread (0 = root), for indenting replies in the UI
+    // like a reddit-style comment chain.
+    $depth_of = array();
+    foreach ($thread_ids as $id => $_) {
+      $depth = 0;
+      $current = $id;
+      while (isset($parent_of[$current]) && $parent_of[$current] !== NULL) {
+        $current = $parent_of[$current];
+        $depth++;
+      }
+      $depth_of[$id] = $depth;
     }
 
     $ids = array_keys($thread_ids);
@@ -291,6 +308,7 @@ if (!function_exists('getThread')) {
         'other_users' => $other_users,
         'subject' => $row['subject'],
         'message' => $row['body'],
+        'depth' => $depth_of[$id],
         'state' => $is_sent ? 1 : (int) $row['state'],
         'date' => $row['date']
       );
