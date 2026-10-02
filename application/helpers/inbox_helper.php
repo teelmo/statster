@@ -197,7 +197,9 @@ if (!function_exists('_getNotifications')) {
   *          'message_id' => The message whose thread to fetch.
   *          'user_id'    => Viewing user's ID (server-derived, never client-supplied).
   *
-  * @return array Rows shaped like getBulletins()'s output, oldest first.
+  * @return array Rows shaped like getBulletins()'s output, newest first -
+  *         matching the folder list above it, so reading down from the
+  *         toggled row continues naturally backward in time.
   */
 if (!function_exists('getThread')) {
   function getThread($opts = array()) {
@@ -279,7 +281,7 @@ if (!function_exists('getThread')) {
             LEFT JOIN " . TBL_message_recipient . " ON " . TBL_message_recipient . ".`message_id` = " . TBL_message . ".`id`
               AND " . TBL_message_recipient . ".`recipient_id` = ?
             WHERE " . TBL_message . ".`id` IN ($placeholders)
-            ORDER BY " . TBL_message . ".`date` ASC, " . TBL_message . ".`id` ASC";
+            ORDER BY " . TBL_message . ".`date` DESC, " . TBL_message . ".`id` DESC";
     $rows = $ci->db->query($sql, array_merge(array($user_id), $ids))->result_array();
 
     $sql = "SELECT " . TBL_message_recipient . ".`message_id`,
