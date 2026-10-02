@@ -182,6 +182,7 @@ if (!function_exists('getUser')) {
                    " . TBL_user_info . ".`birthday`,
                    " . TBL_user_info . ".`about`,
                    " . TBL_user_info . ".`theme`,
+                   " . TBL_user_info . ".`language`,
                    " . TBL_user_info . ".`email_annotations`,
                    " . TBL_user_info . ".`bulletin_settings`,
                    " . TBL_user_info . ".`privacy_settings`,
@@ -227,6 +228,7 @@ if (!function_exists('updateUser')) {
     $homepage = !empty($opts['homepage']) ? $opts['homepage'] : '';
     $lastfm_name = !empty($opts['lastfm_name']) ? $opts['lastfm_name'] : '';
     $theme = !empty($opts['theme']) ? $opts['theme'] : '';
+    $language = !empty($opts['language']) ? $opts['language'] : 'en_EN';
     $privacy_settings = !empty($opts['privacy_settings']) ? serialize($opts['privacy_settings']) : 'a:2:{s:6:"online";s:1:"0";s:5:"login";s:1:"0";}';
     $real_name = !empty($opts['real_name']) ? $opts['real_name'] : '';
     $email_annotations = !empty($opts['email_annotations']) ? serialize($opts['email_annotations']) : 'a:4:{s:9:"bulletins";s:1:"0";s:6:"shares";s:1:"0";s:7:"notifys";s:1:"0";s:13:"notifications";s:1:"0";}';
@@ -242,6 +244,7 @@ if (!function_exists('updateUser')) {
                   " . TBL_user_info . ".`homepage` = ?,
                   " . TBL_user_info . ".`lastfm_name` = ?,
                   " . TBL_user_info . ".`theme` = ?,
+                  " . TBL_user_info . ".`language` = ?,
                   " . TBL_user_info . ".`privacy_settings` = ?,
                   " . TBL_user_info . ".`social_media_settings` = ?,
                   " . TBL_user_info . ".`email_annotations` = ?,
@@ -260,7 +263,7 @@ if (!function_exists('updateUser')) {
       'formats'      => $listening_formats
     ));
 
-    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $theme, $privacy_settings, $social_media_settings, $email_annotations, $bulletin_settings, $listening_formats, $user_id));
+    $query = $ci->db->query($sql, array($real_name, $gender, $about, $email, $homepage, $lastfm_name, $theme, $language, $privacy_settings, $social_media_settings, $email_annotations, $bulletin_settings, $listening_formats, $user_id));
     return ($ci->db->affected_rows() === 1) ? TRUE : FALSE;
   }
 }

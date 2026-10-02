@@ -124,7 +124,12 @@
           </div>
         </fieldset>
         <fieldset>
-          <legend>Bulletin settings</legend>
+          <legend>Notification settings</legend>
+          <div class="input_container">
+            <div class="label">Language</div>
+            <label><div><input type="radio" name="language" value="en_EN" <?php if ($language === 'en_EN') { echo 'checked="checked"'; }?> /> English</div></label>
+            <label><div><input type="radio" name="language" value="fi_FI" <?php if ($language === 'fi_FI') { echo 'checked="checked"'; }?> /> Suomi</div></label>
+          </div>
           <div class="input_container">
             <?php
             foreach (unserialize($bulletin_settings) as $key => $value) {
