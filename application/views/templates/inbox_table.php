@@ -70,6 +70,12 @@ if (!empty($json_data)) {
     };
 
     if (!empty($thread_of)) {
+      $max_depth = 0;
+      foreach ($json_data as $row) {
+        if ((int) $row['id'] !== (int) $thread_of) {
+          $max_depth = max($max_depth, isset($row['depth']) ? (int) $row['depth'] : 0);
+        }
+      }
       ?>
       <tr class="thread_message" data-thread-of="<?=(int) $thread_of?>">
         <td colspan="2">
@@ -83,8 +89,12 @@ if (!empty($json_data)) {
               $unread = (!$is_sent && (int) $row['state'] === 0);
               $depth = isset($row['depth']) ? (int) $row['depth'] : 0;
               $sender = isset($row['sender']) ? $row['sender'] : null;
+              // Older (closer to the root, lower depth) indents further -
+              // the newest ancestor sits right below the toggled row with
+              // the least indent, and indentation grows as you read down
+              // toward the start of the conversation.
               ?>
-              <div class="thread_item<?php if ($unread) : ?> unread<?php endif; ?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" style="margin-left: <?=(($depth + 1) * 20)?>px;">
+              <div class="thread_item<?php if ($unread) : ?> unread<?php endif; ?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" style="margin-left: <?=(($max_depth - $depth + 1) * 20)?>px;">
                 <div class="img user_img"><?php $renderAvatar($sender, FALSE, $thread_avatar_size); ?></div>
                 <div class="text"><?php $renderContent($row, false); ?></div>
               </div>

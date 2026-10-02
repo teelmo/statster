@@ -78,7 +78,6 @@ if (!function_exists('_getReceivedMessages')) {
                    " . TBL_message . ".`subject`,
                    " . TBL_message . ".`body`,
                    " . TBL_message . ".`parent_id`,
-                   (SELECT COUNT(*) FROM " . TBL_message . " AS `m2` WHERE `m2`.`parent_id` = " . TBL_message . ".`id`) AS `reply_count`,
                    " . TBL_message_recipient . ".`state`,
                    " . TBL_message . ".`date`
             FROM " . TBL_message_recipient . "
@@ -102,7 +101,7 @@ if (!function_exists('_getReceivedMessages')) {
         'other_users' => array(array('user_id' => (int) $row['other_user_id'], 'username' => $row['other_username'])),
         'subject' => $row['subject'],
         'message' => $row['body'],
-        'in_thread' => ($row['parent_id'] !== NULL || (int) $row['reply_count'] > 0) ? 1 : 0,
+        'in_thread' => ($row['parent_id'] !== NULL) ? 1 : 0,
         'state' => (int) $row['state'],
         'date' => $row['date']
       );
@@ -153,7 +152,6 @@ if (!function_exists('_getSentMessages')) {
                    " . TBL_message . ".`subject`,
                    " . TBL_message . ".`body`,
                    " . TBL_message . ".`parent_id`,
-                   (SELECT COUNT(*) FROM " . TBL_message . " AS `m2` WHERE `m2`.`parent_id` = " . TBL_message . ".`id`) AS `reply_count`,
                    " . TBL_message . ".`date`,
                    " . TBL_message_recipient . ".`recipient_id` AS `other_user_id`,
                    " . TBL_user . ".`username` AS `other_username`
@@ -176,7 +174,7 @@ if (!function_exists('_getSentMessages')) {
           'other_users' => array(),
           'subject' => $row['subject'],
           'message' => $row['body'],
-          'in_thread' => ($row['parent_id'] !== NULL || (int) $row['reply_count'] > 0) ? 1 : 0,
+          'in_thread' => ($row['parent_id'] !== NULL) ? 1 : 0,
           'state' => 1,
           'date' => $row['date']
         );
@@ -247,12 +245,13 @@ if (!function_exists('_getNotifications')) {
 }
 
 /**
-  * Gets every message in the same thread as a given message (its full
-  * ancestor chain and every descendant reply, walked via parent_id), for a
-  * participant to view the whole conversation at once.
+  * Gets the ancestor chain leading up to a given message (walked via
+  * parent_id), for a participant to see the context behind it. Never
+  * includes the message's own replies or a sibling branch's - only its
+  * direct line of ancestors.
   *
   * @param array $opts.
-  *          'message_id' => The message whose thread to fetch.
+  *          'message_id' => The message whose ancestor chain to fetch.
   *          'user_id'    => Viewing user's ID (server-derived, never client-supplied).
   *
   * @return array Rows shaped like getBulletins()'s output, newest first -
@@ -279,36 +278,25 @@ if (!function_exists('getThread')) {
       return array();
     }
 
-    // Walk outward (ancestors and every descendant reply) iteratively - no
-    // recursive CTE, matching the rest of this codebase. Threads here are
-    // shallow, so this is a handful of small round trips at most.
+    // Walk strictly upward (ancestors only) - a thread is the context that
+    // led to the clicked message, never its own replies or a sibling
+    // branch's later replies (a parent can have more than one child, e.g.
+    // two separate replies to the same share - only the clicked message's
+    // own direct line of ancestors belongs here, not its sibling's).
     $thread_ids = array($message_id => TRUE);
     $parent_of = array();
-    $frontier = array($message_id);
-    while (!empty($frontier)) {
-      $placeholders = implode(',', array_fill(0, count($frontier), '?'));
-      $sql = "SELECT `id`, `parent_id`
-              FROM " . TBL_message . "
-              WHERE `id` IN ($placeholders)
-                 OR `parent_id` IN ($placeholders)";
-      $rows = $ci->db->query($sql, array_merge($frontier, $frontier))->result_array();
-      $next_frontier = array();
-      foreach ($rows as $row) {
-        $id = (int) $row['id'];
-        $parent_id = ($row['parent_id'] !== NULL) ? (int) $row['parent_id'] : NULL;
-        $parent_of[$id] = $parent_id;
-        $found = array($id);
-        if ($parent_id !== NULL) {
-          $found[] = $parent_id;
-        }
-        foreach ($found as $found_id) {
-          if (!isset($thread_ids[$found_id])) {
-            $thread_ids[$found_id] = TRUE;
-            $next_frontier[] = $found_id;
-          }
-        }
+    $current_id = $message_id;
+    while (TRUE) {
+      $sql = "SELECT `parent_id` FROM " . TBL_message . " WHERE `id` = ?";
+      $row = $ci->db->query($sql, array($current_id))->row_array();
+      if (!$row || $row['parent_id'] === NULL) {
+        $parent_of[$current_id] = NULL;
+        break;
       }
-      $frontier = $next_frontier;
+      $parent_id = (int) $row['parent_id'];
+      $parent_of[$current_id] = $parent_id;
+      $thread_ids[$parent_id] = TRUE;
+      $current_id = $parent_id;
     }
 
     // Depth within the thread (0 = root), for indenting replies in the UI
