@@ -27,6 +27,30 @@ class Inbox extends MY_ReadOnly_Controller {
     ));
   }
 
+  /* List every message in the same thread as a given message */
+  public function thread($message_id = FALSE) {
+    if ($this->session->userdata('logged_in') !== TRUE) {
+      show_404();
+    }
+    if (!is_numeric($message_id)) {
+      header('HTTP/1.1 400 Bad Request');
+      return;
+    }
+    // Load helpers
+    $this->load->helper(array('inbox_helper'));
+
+    $results = getThread(array(
+      'message_id' => (int) $message_id,
+      'user_id' => $this->session->userdata('user_id')
+    ));
+    if (!empty($results)) {
+      header('HTTP/1.1 200 OK');
+      echo json_encode($results);
+      return;
+    }
+    header('HTTP/1.1 204 No Content');
+  }
+
   /* Add a message */
   public function add() {
     // Load helpers

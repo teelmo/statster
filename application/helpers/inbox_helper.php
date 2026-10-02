@@ -62,6 +62,8 @@ if (!function_exists('_getReceivedMessages')) {
                    " . TBL_user . ".`username` AS `other_username`,
                    " . TBL_message . ".`subject`,
                    " . TBL_message . ".`body`,
+                   " . TBL_message . ".`parent_id`,
+                   (SELECT COUNT(*) FROM " . TBL_message . " AS `m2` WHERE `m2`.`parent_id` = " . TBL_message . ".`id`) AS `reply_count`,
                    " . TBL_message_recipient . ".`state`,
                    " . TBL_message . ".`date`
             FROM " . TBL_message_recipient . "
@@ -82,6 +84,7 @@ if (!function_exists('_getReceivedMessages')) {
         'other_users' => array(array('user_id' => (int) $row['other_user_id'], 'username' => $row['other_username'])),
         'subject' => $row['subject'],
         'message' => $row['body'],
+        'in_thread' => ($row['parent_id'] !== NULL || (int) $row['reply_count'] > 0) ? 1 : 0,
         'state' => (int) $row['state'],
         'date' => $row['date']
       );
@@ -105,6 +108,8 @@ if (!function_exists('_getSentMessages')) {
     $sql = "SELECT " . TBL_message . ".`id`,
                    " . TBL_message . ".`subject`,
                    " . TBL_message . ".`body`,
+                   " . TBL_message . ".`parent_id`,
+                   (SELECT COUNT(*) FROM " . TBL_message . " AS `m2` WHERE `m2`.`parent_id` = " . TBL_message . ".`id`) AS `reply_count`,
                    " . TBL_message . ".`date`,
                    " . TBL_message_recipient . ".`recipient_id` AS `other_user_id`,
                    " . TBL_user . ".`username` AS `other_username`
@@ -129,6 +134,7 @@ if (!function_exists('_getSentMessages')) {
           'other_users' => array(),
           'subject' => $row['subject'],
           'message' => $row['body'],
+          'in_thread' => ($row['parent_id'] !== NULL || (int) $row['reply_count'] > 0) ? 1 : 0,
           'state' => 1,
           'date' => $row['date']
         );
@@ -175,6 +181,117 @@ if (!function_exists('_getNotifications')) {
         'subject' => $row['subject'],
         'message' => $row['body'],
         'state' => (int) $row['state'],
+        'date' => $row['date']
+      );
+    }
+    return $results;
+  }
+}
+
+/**
+  * Gets every message in the same thread as a given message (its full
+  * ancestor chain and every descendant reply, walked via parent_id), for a
+  * participant to view the whole conversation at once.
+  *
+  * @param array $opts.
+  *          'message_id' => The message whose thread to fetch.
+  *          'user_id'    => Viewing user's ID (server-derived, never client-supplied).
+  *
+  * @return array Rows shaped like getBulletins()'s output, oldest first.
+  */
+if (!function_exists('getThread')) {
+  function getThread($opts = array()) {
+    $message_id = isset($opts['message_id']) ? (int) $opts['message_id'] : 0;
+    $user_id = isset($opts['user_id']) ? (int) $opts['user_id'] : 0;
+
+    $ci=& get_instance();
+    $ci->load->database();
+
+    // Only a participant (sender or recipient) may view the thread.
+    $sql = "SELECT " . TBL_message . ".`id`
+            FROM " . TBL_message . "
+            LEFT JOIN " . TBL_message_recipient . " ON " . TBL_message_recipient . ".`message_id` = " . TBL_message . ".`id`
+            WHERE " . TBL_message . ".`id` = ?
+              AND (" . TBL_message . ".`sender_id` = ? OR " . TBL_message_recipient . ".`recipient_id` = ?)
+            LIMIT 1";
+    $participant = $ci->db->query($sql, array($message_id, $user_id, $user_id))->row_array();
+    if (!$participant) {
+      return array();
+    }
+
+    // Walk outward (ancestors and every descendant reply) iteratively - no
+    // recursive CTE, matching the rest of this codebase. Threads here are
+    // shallow, so this is a handful of small round trips at most.
+    $thread_ids = array($message_id => TRUE);
+    $frontier = array($message_id);
+    while (!empty($frontier)) {
+      $placeholders = implode(',', array_fill(0, count($frontier), '?'));
+      $sql = "SELECT `id`, `parent_id`
+              FROM " . TBL_message . "
+              WHERE `id` IN ($placeholders)
+                 OR `parent_id` IN ($placeholders)";
+      $rows = $ci->db->query($sql, array_merge($frontier, $frontier))->result_array();
+      $next_frontier = array();
+      foreach ($rows as $row) {
+        $found = array((int) $row['id']);
+        if ($row['parent_id'] !== NULL) {
+          $found[] = (int) $row['parent_id'];
+        }
+        foreach ($found as $id) {
+          if (!isset($thread_ids[$id])) {
+            $thread_ids[$id] = TRUE;
+            $next_frontier[] = $id;
+          }
+        }
+      }
+      $frontier = $next_frontier;
+    }
+
+    $ids = array_keys($thread_ids);
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+
+    $sql = "SELECT " . TBL_message . ".`id`,
+                   " . TBL_message . ".`sender_id`,
+                   " . TBL_user . ".`username` AS `sender_username`,
+                   " . TBL_message . ".`subject`,
+                   " . TBL_message . ".`body`,
+                   " . TBL_message . ".`date`,
+                   " . TBL_message_recipient . ".`state`
+            FROM " . TBL_message . "
+            INNER JOIN " . TBL_user . " ON " . TBL_user . ".`id` = " . TBL_message . ".`sender_id`
+            LEFT JOIN " . TBL_message_recipient . " ON " . TBL_message_recipient . ".`message_id` = " . TBL_message . ".`id`
+              AND " . TBL_message_recipient . ".`recipient_id` = ?
+            WHERE " . TBL_message . ".`id` IN ($placeholders)
+            ORDER BY " . TBL_message . ".`date` ASC, " . TBL_message . ".`id` ASC";
+    $rows = $ci->db->query($sql, array_merge(array($user_id), $ids))->result_array();
+
+    $sql = "SELECT " . TBL_message_recipient . ".`message_id`,
+                   " . TBL_message_recipient . ".`recipient_id`,
+                   " . TBL_user . ".`username`
+            FROM " . TBL_message_recipient . "
+            INNER JOIN " . TBL_user . " ON " . TBL_user . ".`id` = " . TBL_message_recipient . ".`recipient_id`
+            WHERE " . TBL_message_recipient . ".`message_id` IN ($placeholders)";
+    $recipient_rows = $ci->db->query($sql, $ids)->result_array();
+    $recipients_by_message = array();
+    foreach ($recipient_rows as $row) {
+      $recipients_by_message[(int) $row['message_id']][] = array('user_id' => (int) $row['recipient_id'], 'username' => $row['username']);
+    }
+
+    $results = array();
+    foreach ($rows as $row) {
+      $id = (int) $row['id'];
+      $is_sent = ((int) $row['sender_id'] === $user_id);
+      $other_users = $is_sent
+        ? (isset($recipients_by_message[$id]) ? $recipients_by_message[$id] : array())
+        : array(array('user_id' => (int) $row['sender_id'], 'username' => $row['sender_username']));
+      $results[] = array(
+        'id' => $id,
+        'type' => 'message',
+        'is_sent' => $is_sent ? 1 : 0,
+        'other_users' => $other_users,
+        'subject' => $row['subject'],
+        'message' => $row['body'],
+        'state' => $is_sent ? 1 : (int) $row['state'],
         'date' => $row['date']
       );
     }

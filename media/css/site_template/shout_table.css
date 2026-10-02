@@ -5,6 +5,12 @@
   font-size: 14px;
 }
 table.shout_table tr {
+  &.thread_message {
+    box-shadow: inset 3px 0 0 var(--color-gray-light);
+    &.hidden {
+      display: none;
+    }
+  }
   &.unread {
     box-shadow: inset 3px 0 0 var(--color-yellow);
     cursor: pointer;
@@ -128,6 +134,27 @@ table.shout_table tr {
         font-weight: 300;
         overflow-wrap: break-word;
         word-break: break-word;
+      }
+      & .thread_toggle {
+        color: var(--color-gray-mid);
+        display: inline-block;
+        font-size: 12px;
+        margin-top: 5px;
+        text-decoration: none;
+        &:hover {
+          color: var(--color-black);
+        }
+        & .mask-icon {
+          font-size: 10px;
+          margin-right: 3px;
+          transition: transform 0.15s ease;
+          @media (prefers-reduced-motion: reduce) {
+            transition: none;
+          }
+        }
+        &.expanded .mask-icon {
+          transform: rotate(180deg);
+        }
       }
     }
   }

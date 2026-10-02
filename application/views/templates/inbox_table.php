@@ -16,7 +16,7 @@ if (!empty($json_data)) {
       $other_users = isset($row['other_users']) ? $row['other_users'] : array();
       $primary = !empty($other_users) ? $other_users[0] : null;
       ?>
-      <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" class="shout<?php if ($unread) : ?> unread<?php endif; ?>">
+      <tr id="bulletinTable<?=$idx?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" class="shout<?php if ($unread) : ?> unread<?php endif; ?><?php if (!empty($thread_of)) : ?> thread_message<?php endif; ?>"<?php if (!empty($thread_of)) : ?> data-thread-of="<?=(int) $thread_of?>"<?php endif; ?>>
         <td class="img user_img">
           <?php if ($primary !== null) : ?>
             <?=anchor(array('user', url_title($primary['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $primary['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
@@ -53,6 +53,9 @@ if (!empty($json_data)) {
           <div class="shout_text">
             <?=renderMarkdown($row['message'])?>
           </div>
+          <?php if (empty($thread_of) && !empty($row['in_thread'])) : ?>
+            <a href="javascript:;" class="thread_toggle" aria-label="View full thread" data-bulletin-id="<?=$row['id']?>"><i class="mask-icon mask-icon-chevron-down" aria-hidden="true"></i> View full thread</a>
+          <?php endif; ?>
         </td>
       </tr>
       <?php
