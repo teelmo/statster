@@ -130,16 +130,16 @@
             <label><div><input type="radio" name="language" value="en_EN" <?php if ($language === 'en_EN') { echo 'checked="checked"'; }?> /> English</div></label>
             <label><div><input type="radio" name="language" value="fi_FI" <?php if ($language === 'fi_FI') { echo 'checked="checked"'; }?> /> Suomi</div></label>
           </div>
-          <div class="input_container">
-            <?php
-            foreach (unserialize($bulletin_settings) as $key => $value) {
-              ?>
-              <input type="hidden" name="bulletin_settings[<?=$key?>]" value="0" />
-              <label><div class="checkbox_container"><input type="checkbox" name="bulletin_settings[<?=$key?>]" value="1" <?php if ($value === '1') { echo 'checked="checked"'; }?> /> <?=ucfirst($key)?></div></label>
-              <?php
-            }
+          <?php
+          // Not currently wired to anything live (no code path creates
+          // notifications any more), so kept hidden rather than shown as a
+          // working toggle - still round-tripped unchanged on save.
+          foreach (unserialize($bulletin_settings) as $key => $value) {
             ?>
-          </div>
+            <input type="hidden" name="bulletin_settings[<?=$key?>]" value="<?=html_escape($value)?>" />
+            <?php
+          }
+          ?>
         </fieldset>
         <div class="submit_container">
           <input type="submit" name="submit" value="Save profile" />
