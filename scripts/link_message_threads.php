@@ -43,6 +43,13 @@ function stripReplyPrefix($subject) {
   while (preg_match('/^re:\s*/i', $subject)) {
     $subject = preg_replace('/^re:\s*/i', '', $subject, 1);
   }
+  // A handful of legacy replies have a corrupted subject baked in at the
+  // source (confirmed in the original bulletin data: the en_EN subject
+  // itself reads e.g. "RE: Jaettu albumi: X" - an old app bug mixed the
+  // English "RE: " prefix with the Finnish share-notice stem, not a
+  // migration artifact). Normalize that one known phrase so these still
+  // match their real (English-subject) parent.
+  $subject = preg_replace('/^Jaettu albumi:\s*/i', 'Shared album: ', $subject);
   return trim($subject);
 }
 
@@ -97,9 +104,13 @@ foreach ($messages as $id => $m) {
     if ($c['date'] >= $m['date']) {
       continue; // A parent must come strictly before its reply.
     }
-    // Same two people, in either direction.
+    // Same two people on both sides - a reply's sender must be among the
+    // candidate's recipients AND the candidate's sender must be among the
+    // reply's own recipients. Checking only one direction is too loose:
+    // one near-universal participant (e.g. the site's one active user)
+    // being on both sides is not evidence the *other* parties match too.
     $related = in_array($m['sender_id'], $c['recipients'], TRUE)
-      || in_array($c['sender_id'], $m['recipients'], TRUE);
+      && in_array($c['sender_id'], $m['recipients'], TRUE);
     if (!$related) {
       continue;
     }
