@@ -2,21 +2,28 @@
 if (!empty($json_data)) {
   $size = 64;
   if (is_array($json_data)) {
+    $thread_avatar_size = 40;
+
     $image_requests = array();
     foreach ($json_data as $row) {
-      if (!empty($row['other_users'])) {
+      if (!empty($thread_of)) {
+        if (!empty($row['sender'])) {
+          $image_requests[] = array('type' => 'user', 'size' => $thread_avatar_size, 'id' => $row['sender']['user_id']);
+        }
+      }
+      elseif (!empty($row['other_users'])) {
         $image_requests[] = array('type' => 'user', 'size' => $size, 'id' => $row['other_users'][0]['user_id']);
       }
     }
     prefetchImagePaths($image_requests);
 
-    $renderAvatar = function ($user, $is_notification) use ($size) {
+    $renderAvatar = function ($user, $is_notification, $avatar_size) {
       if ($user !== null) {
-        echo anchor(array('user', url_title($user['username'])), '<div class="cover user_img img' . $size . '" style="background-image:url(' . getUserImg(array('user_id' => $user['user_id'], 'size' => $size)) . ')"></div>', array('title' => 'Browse to user\'s page'));
+        echo anchor(array('user', url_title($user['username'])), '<div class="cover user_img img' . $avatar_size . '" style="background-image:url(' . getUserImg(array('user_id' => $user['user_id'], 'size' => $avatar_size)) . ')"></div>', array('title' => 'Browse to user\'s page'));
       }
       elseif (!$is_notification) {
         ?>
-        <div class="cover user_img img<?=$size?>" style="background-image:url(<?=getUserImg(array('user_id' => 0, 'size' => $size))?>)"></div>
+        <div class="cover user_img img<?=$avatar_size?>" style="background-image:url(<?=getUserImg(array('user_id' => 0, 'size' => $avatar_size))?>)"></div>
         <?php
       }
     };
@@ -78,7 +85,7 @@ if (!empty($json_data)) {
               $sender = isset($row['sender']) ? $row['sender'] : null;
               ?>
               <div class="thread_item<?php if ($unread) : ?> unread<?php endif; ?>" data-bulletin-id="<?=$row['id']?>" data-bulletin-type="<?=$row['type']?>" style="margin-left: <?=(($depth + 1) * 20)?>px;">
-                <div class="img user_img"><?php $renderAvatar($sender, FALSE); ?></div>
+                <div class="img user_img"><?php $renderAvatar($sender, FALSE, $thread_avatar_size); ?></div>
                 <div class="text"><?php $renderContent($row, false); ?></div>
               </div>
               <?php
