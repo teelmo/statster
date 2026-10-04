@@ -11,14 +11,26 @@
         <?=ERR_NO_RESULTS?>
       </div>
     <?php else : ?>
+      <?php
+      $image_requests = array();
+      foreach ($entries as $entry) {
+        $image_requests[] = array('type' => 'user', 'size' => 64, 'id' => $entry['user_id']);
+      }
+      prefetchImagePaths($image_requests);
+      ?>
       <?php foreach ($entries as $idx => $entry) : ?>
         <?php $zebra = ($idx % 2 === 0) ? 'zebra-even' : 'zebra-odd'; ?>
         <div class="container blog_list_item <?=$zebra?>">
-          <h3><?=anchor(array('blog', $entry['id'], url_title($entry['subject']), ''), html_escape($entry['subject']))?></h3>
-          <div class="metainfo">
-            by <?=anchor(array('user', url_title($entry['username'])), html_escape($entry['username']), array('title' => 'Browse to user\'s page'))?>
-            &nbsp;&middot;&nbsp;<?=timeAgo($entry['created'])?>
-            &nbsp;&middot;&nbsp;<?=$entry['comment_count']?> comment<?=($entry['comment_count'] === 1) ? '' : 's'?>
+          <div class="img user_img">
+            <?=anchor(array('user', url_title($entry['username'])), '<div class="cover user_img img64" style="background-image:url(' . getUserImg(array('user_id' => $entry['user_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+          </div>
+          <div class="text">
+            <h3><?=anchor(array('blog', $entry['id'], url_title($entry['subject']), ''), html_escape($entry['subject']))?></h3>
+            <div class="metainfo">
+              by <?=anchor(array('user', url_title($entry['username'])), html_escape($entry['username']), array('title' => 'Browse to user\'s page'))?>
+              &nbsp;&middot;&nbsp;<?=timeAgo($entry['created'])?>
+              &nbsp;&middot;&nbsp;<?=$entry['comment_count']?> comment<?=($entry['comment_count'] === 1) ? '' : 's'?>
+            </div>
           </div>
         </div>
       <?php endforeach; ?>

@@ -257,7 +257,27 @@ table.shout_table .thread_tree {
     }
   }
 }
+.blog_entry_heading {
+  display: flex;
+  & .img {
+    flex-shrink: 0;
+    & .img64 {
+      border-radius: 32px;
+      &:after {
+        border-radius: 32px;
+      }
+    }
+  }
+  & .text {
+    padding-left: 10px;
+    width: 100%;
+    & h2 {
+      margin-bottom: 2px;
+    }
+  }
+}
 .blog_list_item {
+  display: flex;
   padding: 8px 10px;
   &.zebra-even {
     background-color: var(--color-bg-white-alter);
@@ -265,11 +285,24 @@ table.shout_table .thread_tree {
   &.zebra-odd {
     background-color: var(--transparent);
   }
-  & h3 {
-    margin-bottom: 2px;
+  & .img {
+    flex-shrink: 0;
+    & .img64 {
+      border-radius: 32px;
+      &:after {
+        border-radius: 32px;
+      }
+    }
   }
-  & .metainfo {
-    color: var(--color-gray-medium);
-    font-size: 12px;
+  & .text {
+    padding-left: 10px;
+    width: 100%;
+    & h3 {
+      margin-bottom: 2px;
+    }
+    & .metainfo {
+      color: var(--color-gray-medium);
+      font-size: 12px;
+    }
   }
 }
