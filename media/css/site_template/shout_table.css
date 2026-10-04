@@ -258,6 +258,13 @@ table.shout_table .thread_tree {
   }
 }
 .blog_list_item {
+  padding: 8px 10px;
+  &.zebra-even {
+    background-color: var(--color-bg-white-alter);
+  }
+  &.zebra-odd {
+    background-color: var(--transparent);
+  }
   & h3 {
     margin-bottom: 2px;
   }

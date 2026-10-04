@@ -11,8 +11,9 @@
         <?=ERR_NO_RESULTS?>
       </div>
     <?php else : ?>
-      <?php foreach ($entries as $entry) : ?>
-        <div class="container blog_list_item">
+      <?php foreach ($entries as $idx => $entry) : ?>
+        <?php $zebra = ($idx % 2 === 0) ? 'zebra-even' : 'zebra-odd'; ?>
+        <div class="container blog_list_item <?=$zebra?>">
           <h3><?=anchor(array('blog', $entry['id'], url_title($entry['subject']), ''), html_escape($entry['subject']))?></h3>
           <div class="metainfo">
             by <?=anchor(array('user', url_title($entry['username'])), html_escape($entry['username']), array('title' => 'Browse to user\'s page'))?>
