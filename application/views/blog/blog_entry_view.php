@@ -1,0 +1,55 @@
+<?php $this->load->view('templates/heading_shell_main'); ?>
+</div>
+<div class="main_container">
+<?php $this->load->view('templates/page_links_main'); ?>
+  <div class="full_container">
+    <div class="container">
+      <h2><?=html_escape($entry['subject'])?></h2>
+      <div class="metainfo">
+        by <?=anchor(array('user', url_title($entry['username'])), html_escape($entry['username']), array('title' => 'Browse to user\'s page'))?>
+        &nbsp;&middot;&nbsp;<?=timeAgo($entry['created'])?>
+        <?php if ($entry['updated'] !== $entry['created'] && $entry['updated'] !== '0000-00-00 00:00:00') : ?>
+          &nbsp;&middot;&nbsp;updated <?=timeAgo($entry['updated'])?>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div class="container shout_text">
+      <?=renderMarkdown($entry['text'])?>
+    </div>
+    <div class="container" id="comments">
+      <h3><?=count($comments)?> comment<?=(count($comments) === 1) ? '' : 's'?></h3>
+      <?php if (empty($comments)) : ?>
+        <p>No comments yet.</p>
+      <?php else : ?>
+        <?php
+        $image_requests = array();
+        foreach ($comments as $comment) {
+          if (!empty($comment['user_id'])) {
+            $image_requests[] = array('type' => 'user', 'size' => 32, 'id' => $comment['user_id']);
+          }
+        }
+        prefetchImagePaths($image_requests);
+        ?>
+        <?php foreach ($comments as $comment) : ?>
+          <div class="shout blog_comment">
+            <div class="img user_img">
+              <?php if (!empty($comment['user_id'])) : ?>
+                <?=anchor(array('user', url_title($comment['username'])), '<div class="cover user_img img32" style="background-image:url(' . getUserImg(array('user_id' => $comment['user_id'], 'size' => 32)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+              <?php else : ?>
+                <div class="cover user_img img32" style="background-image:url(<?=getUserImg(array('user_id' => 0, 'size' => 32))?>)"></div>
+              <?php endif; ?>
+            </div>
+            <div class="text">
+              <div class="metainfo">
+                <div><?=timeAgo($comment['created'])?></div>
+                <div>by <?php if (!empty($comment['user_id'])) : ?><?=anchor(array('user', url_title($comment['username'])), html_escape($comment['username']), array('title' => 'Browse to user\'s page'))?><?php else : ?>Unknown user<?php endif; ?></div>
+              </div>
+              <div class="shout_text">
+                <?=renderMarkdown($comment['text'])?>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </div>
+  </div>
