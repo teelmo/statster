@@ -266,28 +266,3 @@ table.shout_table .thread_tree {
     font-size: 12px;
   }
 }
-.blog_comment {
-  border-left: 4px solid var(--color-gray-light);
-  display: flex;
-  margin-bottom: 10px;
-  padding: 10px 0 10px 12px;
-  & .img {
-    flex-shrink: 0;
-    & .img32 {
-      border-radius: 16px;
-      &:after {
-        border-radius: 16px;
-      }
-    }
-  }
-  & .text {
-    padding-left: 10px;
-    width: 100%;
-    & .metainfo {
-      float: right;
-      padding: 0 5px;
-      text-align: right;
-      white-space: nowrap;
-    }
-  }
-}
