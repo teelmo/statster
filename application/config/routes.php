@@ -130,6 +130,12 @@ $route['user/profile'] = 'user';
 $route['user/edit'] = 'user/edit';
 $route['user/(:any)'] = 'user/profile/$1';
 
+/* Blog page's routes */
+$route['blog'] = 'blog/index';
+$route['blog/page/(:num)'] = 'blog/index/$1';
+$route['blog/(:num)'] = 'blog/entry/$1';
+$route['blog/(:num)/(:any)'] = 'blog/entry/$1/$2';
+
 /* Meta page's routes */
 $route['about'] = 'main/about';
 $route['career'] = 'main/career';
