@@ -14,7 +14,7 @@
       <?php
       $image_requests = array();
       foreach ($entries as $entry) {
-        $image_requests[] = array('type' => 'user', 'size' => 32, 'id' => $entry['user_id']);
+        $image_requests[] = array('type' => 'user', 'size' => 64, 'id' => $entry['user_id']);
       }
       prefetchImagePaths($image_requests);
       ?>
@@ -24,7 +24,7 @@
             <?php $zebra = ($idx % 2 === 0) ? 'zebra-even' : 'zebra-odd'; ?>
             <tr class="shout blog_list_item <?=$zebra?>">
               <td class="img user_img">
-                <?=anchor(array('user', url_title($entry['username'])), '<div class="cover user_img img32" style="background-image:url(' . getUserImg(array('user_id' => $entry['user_id'], 'size' => 32)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+                <?=anchor(array('user', url_title($entry['username'])), '<div class="cover user_img img64" style="background-image:url(' . getUserImg(array('user_id' => $entry['user_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
               </td>
               <td class="text">
                 <h3><?=anchor(array('blog', $entry['id'], url_title($entry['subject']), ''), html_escape($entry['subject']))?></h3>
