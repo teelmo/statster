@@ -832,3 +832,13 @@ document.querySelectorAll('.quick_add_listening, .quick_own_album').forEach(el =
     this.classList.remove('subhover');
   });
 });
+document.addEventListener('click', event => {
+  document.querySelectorAll('.quick_add_listening, .quick_own_album').forEach(el => {
+    var subNav = el.querySelector('ul.subnav');
+    if (!subNav || subNav.classList.contains('hidden') || el.contains(event.target)) {
+      return;
+    }
+    el.classList.remove('active');
+    subNav.classList.add('hidden');
+  });
+});
