@@ -77,6 +77,7 @@
                   <li>
                     <label>
                       <input type="checkbox" class="own_format_checkbox" data-format-id="<?=$format['id']?>" />
+                      <img src="/media/img/format_img/format_icons/<?=$format['img']?>.png" class="middle icon" alt="" />
                       <?=html_escape($format['name'])?>
                     </label>
                   </li>

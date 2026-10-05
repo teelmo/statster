@@ -22,6 +22,7 @@ h3 {
     }
   }
   & .quick_add_listening,
+  & .quick_own_album,
   & .func_container {
     color: var(--color-gray-dark);
     cursor: pointer;

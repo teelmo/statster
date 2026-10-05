@@ -156,6 +156,9 @@
     & li {
       align-items: center;
       display: flex;
+      & .icon {
+        margin-right: 5px;
+      }
       & input[type='checkbox'] {
         margin-right: 5px;
       }
