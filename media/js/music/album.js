@@ -734,8 +734,9 @@ Object.assign(view, {
         var format_value = this.dataset.value;
         var album_id = parseInt(`<?=$album_id?>`, 10);
         var artist_ids = parseInt(`<?=$artist_id?>`, 10);
-        document.querySelectorAll('.quick_add_listening .subnav').forEach(el => {
-          el.classList.add('hidden');
+        document.querySelectorAll('.quick_add_listening').forEach(el => {
+          el.classList.remove('active');
+          el.querySelector('.subnav')?.classList.add('hidden');
         });
         ajax({
           data: {
