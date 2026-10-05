@@ -4,9 +4,9 @@
 <?php $this->load->view('templates/page_links_main'); ?>
   <div class="full_container">
     <div class="container blog_entry_heading">
-      <?php prefetchImagePaths(array(array('type' => 'user', 'size' => 32, 'id' => $entry['user_id']))); ?>
+      <?php prefetchImagePaths(array(array('type' => 'user', 'size' => 64, 'id' => $entry['user_id']))); ?>
       <div class="img user_img">
-        <?=anchor(array('user', url_title($entry['username'])), '<div class="cover user_img img32" style="background-image:url(' . getUserImg(array('user_id' => $entry['user_id'], 'size' => 32)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
+        <?=anchor(array('user', url_title($entry['username'])), '<div class="cover user_img img40" style="background-image:url(' . getUserImg(array('user_id' => $entry['user_id'], 'size' => 64)) . ')"></div>', array('title' => 'Browse to user\'s page'))?>
       </div>
       <div class="text">
         <h2><?=html_escape($entry['subject'])?></h2>
