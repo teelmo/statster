@@ -5,6 +5,7 @@ Object.assign(view, {
       dataType: 'json',
       url: '/api/lastfm/fetchSimilar',
       data: {
+        artist_id: <?=$artist_id?>,
         artist_name: '<?=$artist_name?>',
         limit: 8
       },

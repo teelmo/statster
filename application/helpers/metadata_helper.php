@@ -152,10 +152,24 @@ if (!function_exists('fetchTagBio')) {
   }
 }
 
+if (!defined('SIMILAR_ARTISTS_CACHE_DAYS')) {
+  define('SIMILAR_ARTISTS_CACHE_DAYS', 90);
+}
+if (!defined('SIMILAR_ARTISTS_FETCH_LIMIT')) {
+  define('SIMILAR_ARTISTS_FETCH_LIMIT', 20);
+}
+
 /**
-  * Gets artist's similar artists from Last.fm
+  * Gets artist's similar artists from Last.fm, caching the result in
+  * `similar_artists` per artist_id (SIMILAR_ARTISTS_CACHE_DAYS freshness)
+  * so repeat visits to the same artist skip the Last.fm round-trip. Only
+  * the raw {name, match} list from Last.fm is cached - the local artist
+  * lookup below (getArtistInfo) always runs fresh, since local data
+  * (images, equalized names) can change independently of Last.fm's
+  * similarity graph.
   *
   * @param array $opts.
+  *          'artist_id'        => Artist ID (enables caching when present)
   *          'artist_name'      => Artist name
   *          'format'           => Format
   *          'limit'            => Limit
@@ -167,29 +181,56 @@ if (!function_exists('fetchTagBio')) {
 
 if (!function_exists('fetchSimilar')) {
   function fetchSimilar($opts = array()) {
+    $artist_id = !empty($opts['artist_id']) ? (int) $opts['artist_id'] : FALSE;
     $artist_name = isset($opts['artist_name']) ? $opts['artist_name'] : FALSE;
     $limit = !empty($opts['limit']) ? $opts['limit'] : 4;
     $format = !empty($opts['format']) ? $opts['format'] : 'json';
-    if ($artist_name !== FALSE) {
-      $data = array();
-      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . $limit), TRUE);
-      if (!empty($lastfm_data['similarartists'])) {
-        $similar_artists = $lastfm_data['similarartists']['artist'];
-        foreach ($similar_artists as $idx => $similar_artist) {
-          if ($artist_info = getArtistInfo(array('artist_name' => $similar_artist['name']))) {
-            $data[] = $artist_info;
-          }
-          else {
-            $data[] = array('artist_id' => 0, 'artist_name' => $similar_artist['name']);
-          }
-        }
+    if ($artist_name === FALSE) {
+      return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
+    }
+
+    $similar_artists = FALSE;
+
+    if ($artist_id !== FALSE) {
+      $ci=& get_instance();
+      $ci->load->database();
+      $cached = $ci->db->query(
+        "SELECT `data` FROM " . TBL_similar_artists . " WHERE `artist_id` = ? AND `updated` > DATE_SUB(NOW(), INTERVAL ? DAY)",
+        array($artist_id, SIMILAR_ARTISTS_CACHE_DAYS)
+      )->row_array();
+      if ($cached) {
+        $similar_artists = json_decode($cached['data'], TRUE);
       }
-      else {
+    }
+
+    if ($similar_artists === FALSE) {
+      $lastfm_data = json_decode(file_get_contents('http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' . urlencode($artist_name) . '&api_key=' . LASTFM_API_KEY . '&format=' . $format . '&limit=' . SIMILAR_ARTISTS_FETCH_LIMIT), TRUE);
+      if (empty($lastfm_data['similarartists']['artist'])) {
         return json_encode(array('error' => array('msg' => ERR_NO_RESULTS)));
       }
-      return json_encode($data);  
+      $similar_artists = array_map(function ($similar_artist) {
+        return array('name' => $similar_artist['name'], 'match' => $similar_artist['match']);
+      }, $lastfm_data['similarartists']['artist']);
+
+      if ($artist_id !== FALSE) {
+        $ci->db->query(
+          "INSERT INTO " . TBL_similar_artists . " (`artist_id`, `data`) VALUES (?, ?)
+           ON DUPLICATE KEY UPDATE `data` = VALUES(`data`), `updated` = NOW()",
+          array($artist_id, json_encode($similar_artists))
+        );
+      }
     }
-    return json_encode(array('error' => array('msg' => ERR_NO_ARTIST)));
+
+    $data = array();
+    foreach (array_slice($similar_artists, 0, $limit) as $similar_artist) {
+      if ($artist_info = getArtistInfo(array('artist_name' => $similar_artist['name']))) {
+        $data[] = $artist_info;
+      }
+      else {
+        $data[] = array('artist_id' => 0, 'artist_name' => $similar_artist['name']);
+      }
+    }
+    return json_encode($data);
   }
 }
 
