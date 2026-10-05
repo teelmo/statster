@@ -3,9 +3,10 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
 
 /**
   * Gets the formats (from listening_format) that make sense to mark an
-  * album as owned in - excludes Not Chosen/Stream/Live, which describe how
-  * something was listened to, not a format you can physically or digitally
-  * own a copy of.
+  * album as owned in - excludes Stream/Live, which describe how something
+  * was listened to, not a format you can physically or digitally own a
+  * copy of. Not Chosen is kept (it's also what the legacy pre-2026 rows
+  * were backfilled to, so it needs to stay selectable).
   *
   * @return array Rows: id, name, img.
   */
@@ -18,7 +19,7 @@ if (!function_exists('getOwnableFormats')) {
                    " . TBL_listening_format . ".`name`,
                    " . TBL_listening_format . ".`img`
             FROM " . TBL_listening_format . "
-            WHERE " . TBL_listening_format . ".`name` NOT IN ('Not Chosen', 'Stream', 'Live')
+            WHERE " . TBL_listening_format . ".`name` NOT IN ('Stream', 'Live')
             ORDER BY " . TBL_listening_format . ".`name` ASC";
     $query = $ci->db->query($sql);
     return $query->result_array();
