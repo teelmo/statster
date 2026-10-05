@@ -111,7 +111,6 @@ define('TBL_keyword', 'keyword');
 define('TBL_keywords', 'keywords');
 define('TBL_keyword_biography', 'keyword_biography');
 define('TBL_listening', 'listening');
-define('TBL_listening_shout', 'listening_shout');
 define('TBL_listening_format', 'listening_format');
 define('TBL_listening_format_type', 'listening_format_type');
 define('TBL_listening_format_types', 'listening_format_types');
