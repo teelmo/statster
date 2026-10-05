@@ -229,7 +229,7 @@ class Music extends MY_Controller {
     }
     else {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper'/*, 'spotify_helper'*/, 'artist_helper', 'album_helper', 'tag_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper'/*, 'spotify_helper'*/, 'artist_helper', 'album_helper', 'tag_helper', 'year_helper', 'user_album_helper', 'output_helper'));
 
       $data['artist_name'] = decode($value1);
       $data['album_name'] = decode($value2);
@@ -316,9 +316,10 @@ class Music extends MY_Controller {
         $artist_info = getArtistInfo(array('artist_name' => decode($value1)));
         $data['artist_id'] = $artist_info['artist_id'];
         $data['artist_name'] = $artist_info['artist_name'];
+        $data['ownable_formats'] = getOwnableFormats();
         $data += $_REQUEST;
         $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-        $data['js_include'] = array('music/album', 'helpers/lastfm_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
+        $data['js_include'] = array('music/album', 'helpers/lastfm_helper', 'helpers/own_album_helper', 'helpers/artist_album_helper', 'helpers/tag_helper', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/shout_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper');
 
         $this->load->view('site_templates/header');
         $this->load->view('music/album_view', $data);
