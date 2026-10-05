@@ -15,7 +15,7 @@ if (!function_exists('read_file')) {
 
 if (!function_exists('site_url')) {
   function site_url() {
-    return 'http://' . $_SERVER['HTTP_HOST'] . '/';
+    return 'https://' . $_SERVER['HTTP_HOST'] . '/';
   }
 }
 ?>
