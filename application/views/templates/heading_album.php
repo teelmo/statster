@@ -70,6 +70,19 @@
           <?php
           if (!empty($is_current_page)) {
             ?>
+            <span id="own_album" class="quick_own_album">
+              <span class="mask-icon mask-icon-record-vinyl" aria-label="Mark as owned"></span>
+              <ul class="subnav hidden">
+                <?php foreach ($ownable_formats as $format) : ?>
+                  <li>
+                    <label>
+                      <input type="checkbox" class="own_format_checkbox" data-format-id="<?=$format['id']?>" />
+                      <?=html_escape($format['name'])?>
+                    </label>
+                  </li>
+                <?php endforeach; ?>
+              </ul>
+            </span>
             <span id="quick_add_listening" class="quick_add_listening">
               <span class="mask-icon mask-icon-plus-square" aria-label="Add listening"></span>
               <ul class="subnav hidden">

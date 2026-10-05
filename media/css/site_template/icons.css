@@ -67,6 +67,10 @@
   -webkit-mask-image: url('/media/img/icons/plus-square-solid.svg');
   mask-image: url('/media/img/icons/plus-square-solid.svg');
 }
+.mask-icon-record-vinyl {
+  -webkit-mask-image: url('/media/img/icons/record-vinyl-solid.svg');
+  mask-image: url('/media/img/icons/record-vinyl-solid.svg');
+}
 .mask-icon-search {
   -webkit-mask-image: url('/media/img/icons/search-solid.svg');
   mask-image: url('/media/img/icons/search-solid.svg');

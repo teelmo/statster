@@ -34,6 +34,39 @@ Object.assign(view, {
         url: '/api/love/get/<?=$album_id?>'
       }).catch(() => resolve());
     }),
+  // Get which format(s) the album is owned in.
+  getOwnedAlbum: () =>
+    new Promise(resolve => {
+      ajax({
+        data: {},
+        dataType: 'json',
+        statusCode: {
+          200: data => {
+            // 200 OK
+            var owned_ids = data.map(row => String(row.listening_format_id));
+            document.querySelectorAll('.own_format_checkbox').forEach(checkbox => {
+              checkbox.checked = owned_ids.includes(checkbox.dataset.formatId);
+            });
+            var own_album = document.querySelector('#own_album .mask-icon');
+            if (own_album) {
+              own_album.classList.toggle('owned', owned_ids.length > 0);
+            }
+          },
+          204: () => {
+            // 204 No Content - not owned in any format
+            document.querySelectorAll('.own_format_checkbox').forEach(checkbox => {
+              checkbox.checked = false;
+            });
+            var own_album = document.querySelector('#own_album .mask-icon');
+            if (own_album) {
+              own_album.classList.remove('owned');
+            }
+          }
+        },
+        type: 'GET',
+        url: '/api/useralbum/get/<?=$album_id?>'
+      }).then(() => resolve()).catch(() => resolve());
+    }),
   // Get album loves.
   getLoves: () =>
     new Promise(resolve => {
@@ -482,6 +515,7 @@ Object.assign(view, {
     Promise.all([
       view.getLove(parseInt(`<?=$this->session->userdata('user_id')?>`, 10)).catch(() => {}),
       view.getLoves().catch(() => {}),
+      view.getOwnedAlbum().catch(() => {}),
       view.getTags().catch(() => {}),
       view.getListeningHistory('%Y').catch(() => {}),
       view.getShouts().catch(() => {}),
@@ -570,6 +604,49 @@ Object.assign(view, {
           url: `/api/love/delete/${parseInt(`<?=$album_id?>`, 10)}`
         });
       }
+    });
+    document.querySelector('html').addEventListener('change', event => {
+      var checkbox = event.target.closest('.own_format_checkbox');
+      if (!checkbox) {
+        return;
+      }
+      var format_id = checkbox.dataset.formatId;
+      var album_id = parseInt(`<?=$album_id?>`, 10);
+      var was_checked = checkbox.checked;
+      ajax({
+        data: {
+          format_id: format_id
+        },
+        statusCode: {
+          201: () => {
+            // 201 Created - re-fetch rather than compute locally, since
+            // ownership can also exist in a format this page doesn't show
+            // a checkbox for (e.g. legacy rows backfilled to "Not Chosen").
+            view.getOwnedAlbum();
+          },
+          204: () => {
+            // 204 No Content
+            view.getOwnedAlbum();
+          },
+          400: () => {
+            // 400 Bad Request
+            alert(`<?=ERR_BAD_REQUEST?>`);
+            checkbox.checked = !was_checked;
+          },
+          401: () => {
+            alert('401 Unauthorized');
+            checkbox.checked = !was_checked;
+          },
+          404: () => {
+            alert('404 Not Found');
+            checkbox.checked = !was_checked;
+          }
+        },
+        type: 'POST',
+        url: was_checked ? `/api/useralbum/add/${album_id}` : `/api/useralbum/delete/${album_id}`
+      }).catch(() => {
+        checkbox.checked = !was_checked;
+      });
     });
     document.querySelector('html').addEventListener('click', event => {
       var target = event.target.closest('#submitTags');
@@ -718,9 +795,14 @@ if (update_bio === 1) {
   view.updateAlbumBio();
 }
 
-document.querySelectorAll('.quick_add_listening').forEach(el => {
-  el.addEventListener('click', function () {
-    var subNav = this.parentElement.querySelector('ul.subnav');
+document.querySelectorAll('.quick_add_listening, .quick_own_album').forEach(el => {
+  el.addEventListener('click', function (event) {
+    if (event.target.closest('ul.subnav')) {
+      // A click bubbling up from inside the dropdown itself (e.g. a
+      // checkbox) shouldn't toggle the dropdown closed.
+      return;
+    }
+    var subNav = this.querySelector('ul.subnav');
     if (!subNav) {
       return;
     }
