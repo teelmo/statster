@@ -6,7 +6,13 @@ if (!defined('BASEPATH')) exit ('No direct script access allowed');
   * album as owned in - excludes Stream/Live, which describe how something
   * was listened to, not a format you can physically or digitally own a
   * copy of. Not Chosen is kept (it's also what the legacy pre-2026 rows
-  * were backfilled to, so it needs to stay selectable).
+  * were backfilled to, so it needs to stay selectable) - ordered by id
+  * rather than name so it sorts first, matching its id of 1.
+  *
+  * "File" is relabeled to "Digital" for display here only - this is the
+  * shared listening_format taxonomy used elsewhere (format stats pages,
+  * the add-listening dropdown), so the underlying name/routes are left
+  * untouched; only what's shown in this picker changes.
   *
   * @return array Rows: id, name, img.
   */
@@ -20,9 +26,15 @@ if (!function_exists('getOwnableFormats')) {
                    " . TBL_listening_format . ".`img`
             FROM " . TBL_listening_format . "
             WHERE " . TBL_listening_format . ".`name` NOT IN ('Stream', 'Live')
-            ORDER BY " . TBL_listening_format . ".`name` ASC";
+            ORDER BY " . TBL_listening_format . ".`id` ASC";
     $query = $ci->db->query($sql);
-    return $query->result_array();
+    $formats = $query->result_array();
+    foreach ($formats as &$format) {
+      if ($format['name'] === 'File') {
+        $format['name'] = 'Digital';
+      }
+    }
+    return $formats;
   }
 }
 
