@@ -810,6 +810,17 @@ document.querySelectorAll('.quick_add_listening, .quick_own_album').forEach(el =
       this.classList.remove('active');
       subNav.classList.add('hidden');
     } else {
+      // Close any other open quick-add/own dropdown before opening this one.
+      document.querySelectorAll('.quick_add_listening, .quick_own_album').forEach(other => {
+        if (other === this) {
+          return;
+        }
+        var otherSubNav = other.querySelector('ul.subnav');
+        if (otherSubNav) {
+          other.classList.remove('active');
+          otherSubNav.classList.add('hidden');
+        }
+      });
       this.classList.add('active');
       subNav.classList.remove('hidden');
     }
