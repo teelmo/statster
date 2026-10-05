@@ -64,7 +64,7 @@ Object.assign(view, {
           }
         },
         type: 'GET',
-        url: '/api/useralbum/get/<?=$album_id?>'
+        url: '/api/userAlbum/get/<?=$album_id?>'
       }).then(() => resolve()).catch(() => resolve());
     }),
   // Get album loves.
@@ -643,7 +643,7 @@ Object.assign(view, {
           }
         },
         type: 'POST',
-        url: was_checked ? `/api/useralbum/add/${album_id}` : `/api/useralbum/delete/${album_id}`
+        url: was_checked ? `/api/userAlbum/add/${album_id}` : `/api/userAlbum/delete/${album_id}`
       }).catch(() => {
         checkbox.checked = !was_checked;
       });
