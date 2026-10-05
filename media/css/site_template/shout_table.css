@@ -258,6 +258,7 @@ table.shout_table .thread_tree {
   }
 }
 .blog_entry_heading {
+  align-items: center;
   display: flex;
   & .img {
     flex-shrink: 0;
@@ -272,7 +273,7 @@ table.shout_table .thread_tree {
     padding-left: 10px;
     width: 100%;
     & h2 {
-      margin-bottom: 2px;
+      margin: 0 0 2px;
     }
   }
 }
