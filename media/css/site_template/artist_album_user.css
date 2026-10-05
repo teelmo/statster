@@ -136,6 +136,10 @@
     text-transform: none;
     top: 9px;
   }
+  &.active span.mask-icon-plus-square {
+    -webkit-mask-image: url('/media/img/icons/times-solid.svg');
+    mask-image: url('/media/img/icons/times-solid.svg');
+  }
 }
 .quick_own_album {
   & span {
@@ -150,6 +154,10 @@
     &.owned {
       color: var(--color-green);
     }
+  }
+  &.active span.mask-icon-record-vinyl {
+    -webkit-mask-image: url('/media/img/icons/times-solid.svg');
+    mask-image: url('/media/img/icons/times-solid.svg');
   }
   & ul {
     text-transform: none;
