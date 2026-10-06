@@ -68,7 +68,7 @@
           <div class="user_listening_content">
             <span class="user_value"><span class="value number"><span class="<?=(!isset($per_year_user) || $per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=isset($per_year_user) ? $per_year_user : ''?>"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('album' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
             <span class="user_actions">
-              <span id="love" class="like_toggle" aria-label="Love this album"><div class="lds-facebook inline" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
+              <span id="love" class="like_toggle" aria-label="Love this album"><span class="mask-icon mask-icon-heart-regular"></span><div class="lds-facebook inline" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
               <?php
               if (!empty($is_current_page)) {
                 ?>

@@ -1,10 +1,12 @@
 /* Artist album and user page infos */
 .like_toggle {
   cursor: pointer;
-  float: right;
-  left: 9px;
+  font-size: 13px;
   position: relative;
-  top: 9px;
+  & .mask-icon {
+    display: none;
+    font-size: 16px;
+  }
   & .lds-facebook {
     left: 20px;
     top: 5px;
@@ -26,24 +28,14 @@
     }
   }
   &.love_add {
-    &:after {
-      background-color: currentColor;
-      content: '';
+    & .mask-icon {
       display: inline-block;
-      height: 16px;
       -webkit-mask-image: url('/media/img/icons/heart-regular.svg');
       mask-image: url('/media/img/icons/heart-regular.svg');
-      -webkit-mask-position: center;
-      mask-position: center;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      width: 16px;
     }
     &:hover {
       color: var(--color-red);
-      &:after {
+      & .mask-icon {
         -webkit-mask-image: url('/media/img/icons/heart-solid.svg');
         mask-image: url('/media/img/icons/heart-solid.svg');
       }
@@ -51,45 +43,25 @@
   }
   &.love_del {
     color: var(--color-red);
-    &:after {
-      background-color: currentColor;
-      content: '';
+    & .mask-icon {
       display: inline-block;
-      height: 16px;
       -webkit-mask-image: url('/media/img/icons/heart-solid.svg');
       mask-image: url('/media/img/icons/heart-solid.svg');
-      -webkit-mask-position: center;
-      mask-position: center;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      width: 16px;
     }
-    &:hover:after {
+    &:hover .mask-icon {
       -webkit-mask-image: url('/media/img/icons/heart-regular.svg');
       mask-image: url('/media/img/icons/heart-regular.svg');
     }
   }
   &.fan_add {
-    &:after {
-      background-color: currentColor;
-      content: '';
+    & .mask-icon {
       display: inline-block;
-      height: 16px;
       -webkit-mask-image: url('/media/img/icons/star-regular.svg');
       mask-image: url('/media/img/icons/star-regular.svg');
-      -webkit-mask-position: center;
-      mask-position: center;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      width: 16px;
     }
     &:hover {
       color: var(--color-yellow);
-      &:after {
+      & .mask-icon {
         -webkit-mask-image: url('/media/img/icons/star-solid.svg');
         mask-image: url('/media/img/icons/star-solid.svg');
       }
@@ -97,22 +69,12 @@
   }
   &.fan_del {
     color: var(--color-yellow);
-    &:after {
-      background-color: currentColor;
-      content: '';
+    & .mask-icon {
       display: inline-block;
-      height: 16px;
       -webkit-mask-image: url('/media/img/icons/star-solid.svg');
       mask-image: url('/media/img/icons/star-solid.svg');
-      -webkit-mask-position: center;
-      mask-position: center;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      width: 16px;
     }
-    &:hover:after {
+    &:hover .mask-icon {
       -webkit-mask-image: url('/media/img/icons/star-regular.svg');
       mask-image: url('/media/img/icons/star-regular.svg');
     }
@@ -128,13 +90,9 @@
   & span {
     color: #fff;
     cursor: pointer;
-    float: right;
     font-size: 16px;
-    left: 9px;
     margin-right: 5px;
-    position: relative;
     text-transform: none;
-    top: 9px;
   }
   &.active span.mask-icon-plus-square {
     -webkit-mask-image: url('/media/img/icons/times-solid.svg');
@@ -145,12 +103,8 @@
   & span {
     color: #fff;
     cursor: pointer;
-    float: right;
     font-size: 16px;
-    left: 9px;
     margin-right: 5px;
-    position: relative;
-    top: 9px;
     &.owned {
       color: var(--color-green);
     }
