@@ -278,11 +278,14 @@
         letter-spacing: 0.1em;
         text-transform: uppercase;
         &.user_listening {
+          align-items: flex-start;
           border-left: 1px solid var(--color-gray-soft);
+          column-gap: 20px;
+          display: flex;
+          min-height: 46px;
           padding-left: 30px;
-          height: 46px;
           & .user_listening_image {
-            float: left;
+            flex-shrink: 0;
             position: relative;
             & svg {
               height: 46px;
@@ -312,10 +315,17 @@
               }
             }
           }
+          & .user_listening_content {
+            align-items: center;
+            column-gap: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 46px;
+            row-gap: 4px;
+          }
         }
         & .user_value {
           line-height: 35px;
-          margin-left: 20px;
           white-space: nowrap;
           &.nomargin {
             margin: 0;
@@ -324,6 +334,11 @@
             font-size: 16px;
             font-weight: 400;
           }
+        }
+        & .user_actions {
+          align-items: center;
+          display: flex;
+          flex-direction: row-reverse;
         }
       }
     }

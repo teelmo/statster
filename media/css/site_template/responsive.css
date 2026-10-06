@@ -81,19 +81,16 @@
   }
   .heading_container .meta_container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     & .meta:nth-child(4) {
-      display: none;
+      flex-basis: 100%;
+      margin-top: 10px;
     }
     & .meta {
       & .label.user_listening {
+        border-left: 0;
         padding-left: 0;
-        & .user_listening_image {
-          display: none;
-        }
-        & .user_value {
-          margin-left: 10px;
-        }
       }
     }
   }
@@ -193,9 +190,6 @@
           padding: 0;
         }
         padding: 0 10px 0 0;
-        & .user_listening_image {
-          display: none;
-        }
       }
     }
   }
