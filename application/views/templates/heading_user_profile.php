@@ -50,12 +50,3 @@
     </div>
   </div>
 </div>
-<div class="page_links">
-  <?=anchor('album?u=' . $username, 'Albums')?>
-  <?=anchor('artist?u=' . $username, 'Artists')?>
-  <?=anchor('format?u=' . $username, 'Formats')?>
-  <?=anchor('recent?u=' . $username, 'Library')?>
-  <?=anchor('like?u=' . $username, 'Likes')?>
-  <?=anchor('shout?u=' . $username, 'Shouts')?>
-  <?=anchor('tag?u=' . $username, 'Tags')?>
-</div>
