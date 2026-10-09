@@ -103,31 +103,6 @@
         <?=anchor('album?u=' . $username, 'More albums', array('title' => 'Browse more albums'))?>
       </div>
     </div>
-    <?php if (!empty($owned_albums_preview)) : ?>
-      <div class="container"><hr /></div>
-      <div class="container">
-        <h3>Owned albums</h3>
-        <ul class="music_wall clearfix">
-          <?php foreach ($owned_albums_preview as $idx => $album) : ?>
-            <li>
-              <?=anchor(array('music', url_title($album['artists'][0]['artist_name']), url_title($album['album_name'])), '<span></span>', array('title' => 'Browse to album\'s page'))?>
-              <div class="cover album_img <?=($idx === 0) ? 'img300' : 'img150'?>" style="background-image:url(<?=getAlbumImg(array('album_id' => $album['album_id'], 'size' => ($idx === 0) ? 300 : 174))?>)">
-                <div class="meta">
-                  <div class="title main"><?=anchor(array('music', url_title($album['artists'][0]['artist_name']), url_title($album['album_name'])), ($idx === 0) ? $album['album_name'] : substrwords($album['album_name'], 35), array('title' => 'Browse to album\'s page'))?></div>
-                  <div class="title"><?=implode('<div class="artist_separator">, </div>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, $album['artists']))?></div>
-                  <?php if (!empty($album['formats'])) : ?>
-                    <div class="title count"><?=html_escape(implode(', ', array_column($album['formats'], 'name')))?></div>
-                  <?php endif; ?>
-                </div>
-              </div>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-        <div class="more">
-          <?=anchor(array('user', url_title($username), 'collection'), 'More albums', array('title' => 'Browse full collection'))?>
-        </div>
-      </div>
-    <?php endif; ?>
     <div class="container"><hr /></div>
     <div class="container">
       <h3>Favorite artists

@@ -25,7 +25,7 @@ class User extends MY_Controller {
   }
 
   public function profile($username) {
-    $this->load->helper(array('form', 'user_helper', 'user_album_helper', 'img_helper', 'music_helper', 'tag_helper', 'year_helper', 'output_helper', 'fan_helper', 'love_helper', 'shout_helper'));
+    $this->load->helper(array('form', 'user_helper', 'img_helper', 'music_helper', 'tag_helper', 'year_helper', 'output_helper', 'fan_helper', 'love_helper', 'shout_helper'));
 
     $data['username'] = $username;
     if ($data = getUser($data)) {
@@ -45,9 +45,6 @@ class User extends MY_Controller {
         'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
         'username' => $username
       );
-      $owned_groups = getOwnedAlbumsForUser($data['user_id']);
-      $data['owned_albums_preview'] = array_slice(array_merge(array(), ...array_column($owned_groups, 'albums')), 0, 13);
-
       $data['top_album'] = decodeFirstOrDefault(getAlbums($opts));
       $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
       $data['top_genre'] = decodeFirstOrDefault(getGenres($opts));
