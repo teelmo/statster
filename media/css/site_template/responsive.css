@@ -12,16 +12,16 @@
       width: 100%;
     }
   }
+  .page_links {
+    box-sizing: border-box;
+    margin: auto;
+    max-width: 640px;
+    & .music_date_selector {
+      display: none;
+    }
+  }
   .main_container {
     background-color: var(--color-bg-footer);
-    & .page_links {
-      box-sizing: border-box;
-      margin: auto;
-      max-width: 640px;
-      & .music_date_selector {
-        display: none;
-      }
-    }
     & .left_container {
       border-right: 0;
       flex: none;
@@ -97,11 +97,9 @@
 }
 /* Smart phone */
 @media all and (max-width: 480px) {
-  .main_container {
-    & .page_links {
-      margin-bottom: 5px;
-      margin-left: 3px;
-    }
+  .page_links {
+    margin-bottom: 5px;
+    margin-left: 3px;
   }
   ul.music_wall {
     & li {

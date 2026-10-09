@@ -72,7 +72,7 @@ class User extends MY_Controller {
       );
       $data += decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0, 'artist_name' => 'Unknown'));
       $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
-      $data['js_include'] = array('user/profile', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/time_interval_helper', 'helpers/shout_helper', 'helpers/per_year_helper');
+      $data['js_include'] = array('helpers/profile_sidebar_helper', 'user/profile', 'libs/highcharts.min', 'helpers/chart_helper', 'helpers/comment_helper', 'helpers/time_interval_helper', 'helpers/shout_helper', 'helpers/per_year_helper');
       if ($data['logged_in'] === 'true' && $this->session->userdata('username') === $data['username']) {
         $data['js_include'][] = 'helpers/add_listening_helper';
       }
@@ -87,14 +87,52 @@ class User extends MY_Controller {
   }
 
   public function album($username) {
-    $this->load->helper(array('user_helper', 'user_album_helper', 'music_helper', 'img_helper', 'output_helper'));
+    $this->load->helper(array('form', 'user_helper', 'user_album_helper', 'img_helper', 'music_helper', 'tag_helper', 'year_helper', 'output_helper', 'fan_helper', 'love_helper', 'shout_helper'));
 
     $data['username'] = $username;
     if ($data = getUser($data)) {
       $data['username'] = $this->uri->segment(2);
+      $intervals = $this->session->userdata('intervals') ? unserialize($this->session->userdata('intervals')) : [];
+      $data['top_listening_format_profile'] = isset($intervals['top_listening_format_profile']) ? $intervals['top_listening_format_profile'] : 'overall';
+      $data['top_genre_profile'] = isset($intervals['top_genre_profile']) ? $intervals['top_genre_profile'] : 'overall';
+      $data['top_keyword_profile'] = isset($intervals['top_keyword_profile']) ? $intervals['top_keyword_profile'] : 'overall';
+      $data['top_nationality_profile'] = isset($intervals['top_nationality_profile']) ? $intervals['top_nationality_profile'] : 'overall';
+      $data['top_year_profile'] = isset($intervals['top_year_profile']) ? $intervals['top_year_profile'] : 'overall';
+
+      $opts = array(
+        'limit' => '1',
+        'lower_limit' => date('Y-m', strtotime('first day of last month')) . '-00',
+        'upper_limit' => date('Y-m', strtotime('first day of last month')) . '-31',
+        'username' => $username
+      );
+      $data['top_album'] = decodeFirstOrDefault(getAlbums($opts));
+      $data['top_artist'] = decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0));
+      $data['top_genre'] = decodeFirstOrDefault(getGenres($opts));
+      $data['top_nationality'] = decodeFirstOrDefault(getNationalities($opts));
+      $data['top_year'] = decodeFirstOrDefault(getYears($opts));
+
+      $data += getUserTags($data);
+      $data['artist_count'] = getListeningCount($data, TBL_artist);
+      $data['album_count'] = getListeningCount($data, TBL_album);
+      $data['listening_count'] = getListeningCount($data, TBL_listening);
+      $data['fan_count'] = getFanCount(array('user_id' => $data['user_id']));
+      $data['love_count'] = getLoveCount(array('user_id' => $data['user_id']));
+      $data['shout_count'] = getShoutCount(array('user_id' => $data['user_id']));
+      $data['sub_group_by'] = 'album';
+      $data['group_by'] = TBL_listening . '.`user_id`';
+      unset($data['artist_name']);
+      $data['per_year'] = decodeFirstOrDefault(getListeningsPerYear($data), array('count' => 0))['count'];
+      $opts = array(
+        'limit' => '1',
+        'lower_limit' => '1970-00-00',
+        'username' => $username
+      );
+      $data += decodeFirstOrDefault(getArtists($opts), array('artist_id' => 0, 'artist_name' => 'Unknown'));
+      $data['logged_in'] = ($this->session->userdata('logged_in') === TRUE) ? 'true' : 'false';
+
       $data['owned_albums'] = getOwnedAlbumsForUser($data['user_id']);
       $data['ownable_formats'] = getOwnableFormats();
-      $data['js_include'] = array('user/album');
+      $data['js_include'] = array('helpers/profile_sidebar_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper', 'user/album');
 
       $this->load->view('site_templates/header');
       $this->load->view('user/album_view', $data);

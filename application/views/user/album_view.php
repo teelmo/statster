@@ -1,12 +1,6 @@
-<div class="heading_container">
-  <div class="heading_cont main_heading_cont">
-    <div class="info">
-      <h1><?=anchor(array('user', url_title($username)), $username)?><span class="separator"></span><span class="meta slogan">Owned albums</span></h1>
-    </div>
-  </div>
-</div>
+<?php $this->load->view('templates/heading_user_profile'); ?>
 <div class="main_container">
-  <div class="full_container">
+  <div class="left_container">
     <div class="container">
       <div class="owned_album_filters">
         <select data-placeholder="Filter by format" class="chosen-select" id="ownedAlbumFormatFilter" multiple>
@@ -49,4 +43,5 @@
       <?php endif; ?>
     </div>
   </div>
+<?php $this->load->view('templates/profile_sidebar'); ?>
 </div>
