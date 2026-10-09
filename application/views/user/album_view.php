@@ -11,6 +11,7 @@
   </div>
   <div class="left_container">
     <div class="container">
+      <h2>Album collection</h2>
       <div class="owned_album_filters">
         <select data-placeholder="Filter by format" class="chosen-select" id="ownedAlbumFormatFilter" multiple>
           <?php foreach ($ownable_formats as $format) : ?>
