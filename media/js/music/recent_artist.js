@@ -195,9 +195,6 @@ Object.assign(view, {
       if (!target) {
         return;
       }
-      document.querySelectorAll('.like_msg').forEach(el => {
-        el.innerHTML = '';
-      });
       if (target.classList.contains('fan_add')) {
         ajax({
           data: {},
@@ -207,14 +204,7 @@ Object.assign(view, {
               var fan = document.querySelector('#fan');
               fan.classList.remove('fan_add');
               fan.classList.add('fan_del');
-              var msg = fan.querySelector('.like_msg');
-              msg.innerHTML = "You're a fan!";
-              msg.style.display = '';
-              setTimeout(() => {
-                document.querySelectorAll('.like_msg').forEach(el => {
-                  el.classList.add('hidden');
-                });
-              }, `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), "You're a fan!", `<?=MSG_FADEOUT?>`);
               view.getFans();
             },
             400: () => {
@@ -243,14 +233,7 @@ Object.assign(view, {
               var fan = document.querySelector('#fan');
               fan.classList.remove('fan_del');
               fan.classList.add('fan_add');
-              var msg = fan.querySelector('.like_msg');
-              msg.innerHTML = 'Unfaned.';
-              msg.style.display = '';
-              setTimeout(() => {
-                document.querySelectorAll('.like_msg').forEach(el => {
-                  el.classList.add('hidden');
-                });
-              }, `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Unfaned.', `<?=MSG_FADEOUT?>`);
               view.getFans();
             },
             400: () => {

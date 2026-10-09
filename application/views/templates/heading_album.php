@@ -68,10 +68,22 @@
           <div class="user_listening_content">
             <span class="user_value"><span class="value number"><span class="<?=(!isset($per_year_user) || $per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=isset($per_year_user) ? $per_year_user : ''?>"><?=anchor(array('recent', url_title($artist_name), url_title($album_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('album' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
             <span class="user_actions">
-              <span id="love" class="like_toggle" aria-label="Love this album"><span class="mask-icon mask-icon-heart-regular"></span><div class="lds-facebook inline" id="loveLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
               <?php
               if (!empty($is_current_page)) {
                 ?>
+                <span id="quick_add_listening" class="quick_add_listening">
+                  <span class="mask-icon mask-icon-plus-square" aria-label="Add listening"></span>
+                  <ul class="subnav hidden">
+                    <?php
+                    foreach(unserialize($this->session->formats) as $key => $format) {
+                      list($format, $format_type) = array_pad(explode(':', $format), 2, false);
+                      ?>
+                        <li data-value="<?=(empty($format_type) ? $format : $format . ':' . $format_type)?>"><img src="/media/img/format_img/format_icons/<?=(empty($format_type) ? getFormatImg(array('format' => $format)) : getFormatTypeImg(array('format_type' => $format_type)))?>.png" tabindex="<?=($key + 2)?>" class="middle icon listening_format_type" title="<?=(empty($format_type) ? $format : $format_type)?>" alt="" /> <?=(empty($format_type) ? $format : $format_type)?></li>
+                      <?php
+                    }
+                    ?>
+                  </ul>
+                </span>
                 <span id="own_album" class="quick_own_album">
                   <span class="mask-icon mask-icon-record-vinyl" aria-label="Mark as owned"></span>
                   <ul class="subnav hidden">
@@ -86,22 +98,11 @@
                     <?php endforeach; ?>
                   </ul>
                 </span>
-                <span id="quick_add_listening" class="quick_add_listening">
-                  <span class="mask-icon mask-icon-plus-square" aria-label="Add listening"></span>
-                  <ul class="subnav hidden">
-                    <?php
-                    foreach(unserialize($this->session->formats) as $key => $format) {
-                      list($format, $format_type) = array_pad(explode(':', $format), 2, false);
-                      ?>
-                        <li data-value="<?=(empty($format_type) ? $format : $format . ':' . $format_type)?>"><img src="/media/img/format_img/format_icons/<?=(empty($format_type) ? getFormatImg(array('format' => $format)) : getFormatTypeImg(array('format_type' => $format_type)))?>.png" tabindex="<?=($key + 2)?>" class="middle icon listening_format_type" title="<?=(empty($format_type) ? $format : $format_type)?>" alt="" /> <?=(empty($format_type) ? $format : $format_type)?></li>
-                      <?php
-                    }
-                    ?>
-                  </ul>
-                </span>
                 <?php
               }
               ?>
+              <span id="love" class="like_toggle" aria-label="Love this album"><span class="mask-icon mask-icon-heart-regular"></span><div class="lds-facebook inline" id="loveLoader"><div></div><div></div><div></div></div></span>
+              <span class="flash_msg"></span>
             </span>
           </div>
         </div>

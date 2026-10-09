@@ -39,6 +39,16 @@ var app = {
   setOverlayBackground: image => {
     document.querySelector('.background_overlay').style.backgroundImage = `url(${image})`;
   },
+  showFlashMsg: (el, text, fadeout) => {
+    if (el.flashTimeout) {
+      clearTimeout(el.flashTimeout);
+    }
+    el.innerHTML = text;
+    el.classList.remove('hidden');
+    el.flashTimeout = setTimeout(() => {
+      el.classList.add('hidden');
+    }, fadeout);
+  },
   initMouseTrap: () => {
     Mousetrap.bind(['mod+k'], _e => {
       window.location = '/';

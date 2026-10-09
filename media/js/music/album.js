@@ -533,9 +533,6 @@ Object.assign(view, {
       if (!target) {
         return;
       }
-      document.querySelectorAll('.like_msg').forEach(el => {
-        el.innerHTML = '';
-      });
       if (target.classList.contains('love_add')) {
         ajax({
           data: {},
@@ -545,14 +542,7 @@ Object.assign(view, {
               var love = document.querySelector('#love');
               love.classList.remove('love_add');
               love.classList.add('love_del');
-              var msg = love.querySelector('.like_msg');
-              msg.innerHTML = "You're in love!";
-              msg.classList.remove('hidden');
-              setTimeout(() => {
-                document.querySelectorAll('.like_msg').forEach(el => {
-                  el.classList.add('hidden');
-                });
-              }, `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), "You're in love!", `<?=MSG_FADEOUT?>`);
               view.getLoves();
             },
             400: () => {
@@ -579,14 +569,7 @@ Object.assign(view, {
               var love = document.querySelector('#love');
               love.classList.remove('love_del');
               love.classList.add('love_add');
-              var msg = love.querySelector('.like_msg');
-              msg.innerHTML = 'Unloved.';
-              msg.classList.remove('hidden');
-              setTimeout(() => {
-                document.querySelectorAll('.like_msg').forEach(el => {
-                  el.classList.add('hidden');
-                });
-              }, `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Unloved.', `<?=MSG_FADEOUT?>`);
               view.getLoves();
             },
             400: () => {
@@ -623,10 +606,12 @@ Object.assign(view, {
             // ownership can also exist in a format this page doesn't show
             // a checkbox for (e.g. legacy rows backfilled to "Not Chosen").
             view.getOwnedAlbum();
+            app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Owned!', `<?=MSG_FADEOUT?>`);
           },
           204: () => {
             // 204 No Content
             view.getOwnedAlbum();
+            app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Unowned.', `<?=MSG_FADEOUT?>`);
           },
           400: () => {
             // 400 Bad Request
@@ -752,15 +737,7 @@ Object.assign(view, {
           statusCode: {
             201: () => {
               // 201 Created
-              var love = document.querySelector('#love');
-              var msg = love.querySelector('.like_msg');
-              msg.innerHTML = 'New listening!';
-              msg.style.display = '';
-              setTimeout(() => {
-                document.querySelectorAll('.like_msg').forEach(el => {
-                  el.classList.add('hidden');
-                });
-              }, `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'New listening!', `<?=MSG_FADEOUT?>`);
             },
             400: () => {
               // 400 Bad Request

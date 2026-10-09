@@ -65,7 +65,8 @@
           <div class="user_listening_content">
             <span class="user_value"><span class="value number"><span class="<?=(!isset($per_year_user) || $per_year_user === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=isset($per_year_user) ? $per_year_user : ''?>"><?=anchor(array('recent', url_title($artist_name) . '?u=' . $this->session->userdata('username')), number_format($user_count))?></span></span> in your library<?=($most_listened_alltime_user !== false) ? ', ' . anchor(array('artist' . '?u=' . $this->session->userdata('username')), '<span class="rank">#<span class="number">' . $most_listened_alltime_user . '</span></span>') : ''?></span>
             <span class="user_actions">
-              <span id="fan" class="like_toggle" aria-label="Fan this artist"><span class="mask-icon mask-icon-star-regular"></span><div class="lds-facebook inline" id="fanLoader"><div></div><div></div><div></div></div><span class="like_msg"></span></span>
+              <span id="fan" class="like_toggle" aria-label="Fan this artist"><span class="mask-icon mask-icon-star-regular"></span><div class="lds-facebook inline" id="fanLoader"><div></div><div></div><div></div></div></span>
+              <span class="flash_msg"></span>
             </span>
           </div>
         </div>
