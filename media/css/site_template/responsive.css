@@ -190,6 +190,11 @@
           padding: 0;
         }
         padding: 0 10px 0 0;
+        & .label.user_listening {
+          & .user_listening_image {
+            display: none;
+          }
+        }
       }
     }
   }
