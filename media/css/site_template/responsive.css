@@ -91,6 +91,9 @@
       & .label.user_listening {
         border-left: 0;
         padding-left: 0;
+        & .user_listening_image {
+          display: none;
+        }
       }
     }
   }
@@ -188,11 +191,6 @@
           padding: 0;
         }
         padding: 0 10px 0 0;
-        & .label.user_listening {
-          & .user_listening_image {
-            display: none;
-          }
-        }
       }
     }
   }
