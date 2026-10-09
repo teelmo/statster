@@ -21,17 +21,17 @@ table.column_table {
       }
     }
     &.name {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
       padding: 0 2px 0 5px;
+      position: relative;
       vertical-align: middle;
       width: 58%;
       & .icons {
         display: flex;
-        flex-shrink: 0;
         gap: 2px;
-        margin-left: 5px;
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
         & .icon {
           height: 18px;
           width: 18px;
