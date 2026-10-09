@@ -21,9 +21,22 @@ table.column_table {
       }
     }
     &.name {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
       padding: 0 2px 0 5px;
       vertical-align: middle;
       width: 58%;
+      & .icons {
+        display: flex;
+        flex-shrink: 0;
+        gap: 2px;
+        margin-left: 5px;
+        & .icon {
+          height: 18px;
+          width: 18px;
+        }
+      }
       & .listening_format_type {
         margin-right: 3px;
       }

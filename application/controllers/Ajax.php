@@ -130,7 +130,7 @@ class Ajax extends MY_ReadOnly_Controller {
   }
 
   public function columnTable() {
-    $this->load->helper(array('img_helper'));
+    $this->load->helper(array('img_helper', 'user_helper', 'user_album_helper', 'output_helper'));
     if (!empty($_POST)) {
       $this->load->view('templates/column_table', $_POST);
       header('HTTP/1.1 200 OK');

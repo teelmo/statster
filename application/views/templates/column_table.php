@@ -3,6 +3,14 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     $rank = !empty($rank) ? $rank : 1;
     $prev_count = FALSE;
+    // Owned-format icons only ever apply to album rows (either the
+    // $row['type'] === 'heart' branch, or the default/no-type branch when
+    // $row['album_name'] is set) - every other row type (user, artist,
+    // format, generic tag entity) simply has no 'album_id' key, so
+    // array_column() silently skips them and $owned_formats stays empty.
+    $owned_user = !empty($username) ? getUser(array('username' => $username)) : FALSE;
+    $owned_user_id = $owned_user ? $owned_user['user_id'] : $this->session->userdata('user_id');
+    $owned_formats = !empty($owned_user_id) ? getOwnedFormatsForAlbums($owned_user_id, array_column($json_data, 'album_id')) : array();
     foreach ($json_data as $idx => $row) {
       if (empty($highest_count)) {
         $highest_count = $row['count'];
@@ -35,6 +43,15 @@ if (!empty($json_data)) {
             }
             else if ($row['type'] === 'heart') {
               echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
+              if (!empty($owned_formats[$row['album_id']])) {
+                ?>
+                <span class="icons">
+                  <?php foreach ($owned_formats[$row['album_id']] as $format) : ?>
+                    <img src="<?=$format['icon']?>" class="icon" alt="" title="<?=html_escape($format['name'])?>" />
+                  <?php endforeach; ?>
+                </span>
+                <?php
+              }
             }
             else if ($row['type'] === 'format') {
               $listeningsFormatImg = getFormatImg(array('format' => $row['format_name']));
@@ -48,6 +65,15 @@ if (!empty($json_data)) {
           else {
             if (isset($row['album_name']) && empty($hide['album'])) {
               echo anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), $row['album_name'], array('title' => 'Browse to album\'s page'));
+              if (!empty($owned_formats[$row['album_id']])) {
+                ?>
+                <span class="icons">
+                  <?php foreach ($owned_formats[$row['album_id']] as $format) : ?>
+                    <img src="<?=$format['icon']?>" class="icon" alt="" title="<?=html_escape($format['name'])?>" />
+                  <?php endforeach; ?>
+                </span>
+                <?php
+              }
             }
             else {
               echo anchor(array('music', url_title($row['artist_name'])), $row['artist_name'], array('title' => 'Browse to artist\'s page'));
