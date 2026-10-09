@@ -212,7 +212,7 @@ class Ajax extends MY_ReadOnly_Controller {
   public function mosaic() {
     if (!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'output_helper', 'music_helper'));
+      $this->load->helper(array('img_helper', 'output_helper', 'music_helper', 'user_album_helper'));
 
       $this->load->view('templates/mosaic_wall', $_POST);
       header('HTTP/1.1 200 OK');

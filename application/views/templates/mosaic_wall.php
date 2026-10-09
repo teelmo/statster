@@ -4,10 +4,15 @@ if (!empty($json_data)) {
     switch ($type) {
       case 'album':
         prefetchImagePaths(array_map(function($row) { return array('type' => 'album', 'size' => 174, 'id' => $row['album_id']); }, $json_data));
+        $owned_formats = array();
+        if ($this->session->userdata('logged_in') === TRUE) {
+          $owned_formats = getOwnedFormatsForAlbums($this->session->userdata('user_id'), array_column($json_data, 'album_id'));
+        }
         foreach ($json_data as $idx => $row) {
+          $icons = !empty($owned_formats[$row['album_id']]) ? '<span class="icons">' . implode('', array_map(function($format) { return '<img src="' . $format['icon'] . '" class="icon" alt="" title="' . html_escape($format['name']) . '" />'; }, $owned_formats[$row['album_id']])) . '</span>' : '';
           ?>
           <li>
-            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"></div>', array('title' => 'Browse to albums\'s page'))?>
+            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')">' . $icons . '</div>', array('title' => 'Browse to albums\'s page'))?>
           </li>
           <?php
         }
