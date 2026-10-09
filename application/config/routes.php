@@ -128,7 +128,7 @@ $route['shout/(:any)'] = 'shout/index/$1';
 $route['user/profile/(:any)'] = 'user/profile/$1';
 $route['user/profile'] = 'user';
 $route['user/edit'] = 'user/edit';
-$route['user/(:any)/album'] = 'user/album/$1';
+$route['user/(:any)/collection'] = 'user/album/$1';
 $route['user/(:any)'] = 'user/profile/$1';
 
 /* Blog page's routes */

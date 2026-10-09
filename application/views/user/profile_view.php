@@ -8,6 +8,7 @@
         <div class="top_info user_info">
           <h1><?=$username?></h1>
           <h4><span class="username"><?=($real_name) ? htmlentities($real_name) : htmlentities($username) ?></span><span class="meta"> • <?=($joined_year) ? 'active since ' . $joined_year : 'active since long time ago'?></span></h4>
+          <div class="profile_links"><?=anchor(array('user', url_title($username), 'collection'), 'Album collection')?></div>
           <ul id="tags">
             <?php
             foreach ($tags as $tag) {
