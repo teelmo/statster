@@ -3,6 +3,18 @@ if (!empty($json_data)) {
   if (is_array($json_data)) {
     $word = (isset($word)) ? $word : 'plays';
     $album_artists = ($type == 'album') ? getAlbumsArtists(array_column($json_data, 'album_id')) : array();
+    $owned_formats = array();
+    if ($type == 'album') {
+      // Icons reflect the user whose wall this is (e.g. the profile being
+      // viewed), falling back to the logged-in viewer when no explicit
+      // username was passed (the homepage/month/year/library/like/tag
+      // callers of this shared template, which show the viewer's own data).
+      $owned_user = !empty($username) ? getUser(array('username' => $username)) : FALSE;
+      $owned_user_id = $owned_user ? $owned_user['user_id'] : $this->session->userdata('user_id');
+      if (!empty($owned_user_id)) {
+        $owned_formats = getOwnedFormatsForAlbums($owned_user_id, array_column($json_data, 'album_id'));
+      }
+    }
     $image_requests = array();
     foreach (array_values($json_data) as $idx => $row) {
       $image_requests[] = array(
@@ -17,7 +29,7 @@ if (!empty($json_data)) {
         ?>
         <li>
           <?=anchor(array('music', url_title($first['artist_name']), url_title($first['album_name'])), '<span></span>', array('title' => 'Browse to album\'s page'))?>
-          <div class="cover album_img img300" style="background-image:url(<?=getAlbumImg(array('album_id' => $first['album_id'], 'size' => 300))?>)"><div class="meta"><div class="title main"><?=anchor(array('music', url_title($first['artist_name']), url_title($first['album_name'])), $first['album_name'], array('title' => 'Browse to album\'s page'))?></div><div class="title"><?=implode('<div class="artist_separator">, </div>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, isset($album_artists[$first['album_id']]) ? $album_artists[$first['album_id']] : array()))?></div><div class="title count"><?=$first['count']?> <?=$word?></div></div></div>
+          <div class="cover album_img img300" style="background-image:url(<?=getAlbumImg(array('album_id' => $first['album_id'], 'size' => 300))?>)"><div class="meta"><div class="title main"><?=anchor(array('music', url_title($first['artist_name']), url_title($first['album_name'])), $first['album_name'], array('title' => 'Browse to album\'s page'))?></div><div class="title"><?=implode('<div class="artist_separator">, </div>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, isset($album_artists[$first['album_id']]) ? $album_artists[$first['album_id']] : array()))?></div><div class="title count"><?=$first['count']?> <?=$word?></div></div><?php if (!empty($owned_formats[$first['album_id']])) : ?><span class="icons"><?php foreach ($owned_formats[$first['album_id']] as $format) : ?><img src="<?=$format['icon']?>" class="icon" alt="" title="<?=html_escape($format['name'])?>" /><?php endforeach; ?></span><?php endif; ?></div>
         </li>
         <?php
       }
@@ -35,7 +47,7 @@ if (!empty($json_data)) {
         ?>
         <li>
           <?=anchor(array('music', url_title($data['artist_name']), url_title($data['album_name'])), '<span></span>', array('title' => 'Browse to album\'s page'))?>
-          <div class="cover album_img img150" style="background-image:url(<?=getAlbumImg(array('album_id' => $data['album_id'], 'size' => 174))?>)"><div class="meta"><div class="title main"><?=anchor(array('music', url_title($data['artist_name']), url_title($data['album_name'])), substrwords($data['album_name'], 35), array('title' => 'Browse to album\'s page'))?></div><div class="title"><?=implode('<div class="artist_separator">, </div>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, isset($album_artists[$data['album_id']]) ? $album_artists[$data['album_id']] : array()))?></div><div class="title count"><?=$data['count']?> <?=$word?></div></div></div>
+          <div class="cover album_img img150" style="background-image:url(<?=getAlbumImg(array('album_id' => $data['album_id'], 'size' => 174))?>)"><div class="meta"><div class="title main"><?=anchor(array('music', url_title($data['artist_name']), url_title($data['album_name'])), substrwords($data['album_name'], 35), array('title' => 'Browse to album\'s page'))?></div><div class="title"><?=implode('<div class="artist_separator">, </div>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, isset($album_artists[$data['album_id']]) ? $album_artists[$data['album_id']] : array()))?></div><div class="title count"><?=$data['count']?> <?=$word?></div></div><?php if (!empty($owned_formats[$data['album_id']])) : ?><span class="icons"><?php foreach ($owned_formats[$data['album_id']] as $format) : ?><img src="<?=$format['icon']?>" class="icon" alt="" title="<?=html_escape($format['name'])?>" /><?php endforeach; ?></span><?php endif; ?></div>
         </li>
         <?php
       }

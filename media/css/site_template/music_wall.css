@@ -39,6 +39,18 @@ ul.music_wall {
         width: 100%;
       }
     }
+    & .icons {
+      display: flex;
+      gap: 2px;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      z-index: 3;
+      & .icon {
+        height: 20px;
+        width: 20px;
+      }
+    }
     & .meta {
       bottom: 10px;
       color: #fff;

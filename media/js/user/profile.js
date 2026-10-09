@@ -197,7 +197,8 @@ Object.assign(view, {
             ajax({
               data: {
                 json_data: data,
-                type: 'album'
+                type: 'album',
+                username: `<?=(!empty($username)) ? $username: ''?>`
               },
               success: data => {
                 document.querySelectorAll('#topAlbumLoader, #topAlbumLoader2').forEach(el => {
