@@ -499,7 +499,7 @@ Object.assign(view, {
               var fan = document.querySelector('#fan');
               fan.classList.remove('fan_add');
               fan.classList.add('fan_del');
-              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), "You're a fan!", `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Ok!', `<?=MSG_FADEOUT?>`);
               view.getFans();
             },
             400: () => {
@@ -526,7 +526,7 @@ Object.assign(view, {
               var fan = document.querySelector('#fan');
               fan.classList.remove('fan_del');
               fan.classList.add('fan_add');
-              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Unfaned.', `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Del!', `<?=MSG_FADEOUT?>`);
               view.getFans();
             },
             400: () => {

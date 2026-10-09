@@ -253,7 +253,7 @@ Object.assign(view, {
               var love = document.querySelector('#love');
               love.classList.remove('love_add');
               love.classList.add('love_del');
-              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), "You're in love!", `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Ok!', `<?=MSG_FADEOUT?>`);
               view.getLoves();
             },
             400: () => {
@@ -280,7 +280,7 @@ Object.assign(view, {
               var love = document.querySelector('#love');
               love.classList.remove('love_del');
               love.classList.add('love_add');
-              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Unloved.', `<?=MSG_FADEOUT?>`);
+              app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), 'Del!', `<?=MSG_FADEOUT?>`);
               view.getLoves();
             },
             400: () => {
