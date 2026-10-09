@@ -216,12 +216,16 @@ ul {
       overflow: visible;
       position: relative;
       vertical-align: top;
-      & .icon {
-        height: 20px;
+      & .icons {
+        display: flex;
+        gap: 2px;
         position: absolute;
         right: 5px;
         top: 5px;
-        width: 20px;
+        & .icon {
+          height: 20px;
+          width: 20px;
+        }
       }
       & .meta {
         bottom: 5px;
