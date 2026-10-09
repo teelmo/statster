@@ -200,14 +200,10 @@
           & .related {
             color: #999;
           }
-        }
-        & .profile_links {
-          font-size: 14px;
-          margin-bottom: 10px;
-          & a {
-            color: #fff;
+          & .meta a {
+            color: #999;
             &:hover {
-              color: #999;
+              color: #fff;
               text-decoration: none;
             }
           }
