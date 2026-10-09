@@ -70,7 +70,7 @@ class Ajax extends MY_ReadOnly_Controller {
   public function albumList() {
     if (!empty($_POST)) {
       // Load helpers
-      $this->load->helper(array('img_helper', 'music_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'user_album_helper', 'output_helper'));
 
       $this->load->view('templates/album_list', $_POST);
       header('HTTP/1.1 200 OK');
