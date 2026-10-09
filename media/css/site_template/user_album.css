@@ -1,0 +1,18 @@
+/* Owned-albums filter bar */
+.owned_album_filters {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  & #ownedAlbumArtistFilter {
+    background-color: var(--color-bg-white-alter);
+    border-radius: 3px;
+    border: 1px solid var(--color-gray-soft);
+    box-sizing: border-box;
+    color: var(--color-black);
+    height: 34px;
+    padding: 0 10px;
+    width: 200px;
+  }
+}

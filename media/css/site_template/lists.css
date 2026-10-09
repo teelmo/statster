@@ -97,6 +97,28 @@ ul {
       &.hover .main a {
         text-decoration: underline;
       }
+      &.block {
+        display: block;
+        margin-top: 20px;
+        &:first-child {
+          margin-top: 0;
+        }
+        & h3 {
+          margin: 0;
+        }
+      }
+      & .icons {
+        display: flex;
+        gap: 2px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        z-index: 4;
+        & .icon {
+          height: 20px;
+          width: 20px;
+        }
+      }
     }
     &.music_list_64 li {
       display: inline-block;
@@ -119,6 +141,13 @@ ul {
       overflow: visible;
       vertical-align: top;
       width: 152px;
+      &.block {
+        display: block;
+        width: 100%;
+      }
+      &.hidden {
+        display: none;
+      }
     }
   }
   &.user_list.user_list_150 li {

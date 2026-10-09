@@ -43,6 +43,7 @@ const FILES = [
   'shout_table.css',
   'music_wall.css',
   'lists.css',
+  'user_album.css',
   'images.css',
   'widget_controls.css',
   'date_picker.css',

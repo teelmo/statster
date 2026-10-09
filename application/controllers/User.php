@@ -86,6 +86,25 @@ class User extends MY_Controller {
     }
   }
 
+  public function album($username) {
+    $this->load->helper(array('user_helper', 'user_album_helper', 'music_helper', 'img_helper', 'output_helper'));
+
+    $data['username'] = $username;
+    if ($data = getUser($data)) {
+      $data['username'] = $this->uri->segment(2);
+      $data['owned_albums'] = getOwnedAlbumsForUser($data['user_id']);
+      $data['ownable_formats'] = getOwnableFormats();
+      $data['js_include'] = array('user/album');
+
+      $this->load->view('site_templates/header');
+      $this->load->view('user/album_view', $data);
+      $this->load->view('site_templates/footer', $data);
+    }
+    else {
+      show_404();
+    }
+  }
+
   public function edit() {
     $data = array();
     if ($this->session->userdata('logged_in') !== TRUE) {

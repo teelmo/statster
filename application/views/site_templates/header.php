@@ -72,6 +72,7 @@ header('HTTP/1.1 200 OK');
       echo link_tag('/media/css/site_template/shout_table.css');
       echo link_tag('/media/css/site_template/music_wall.css');
       echo link_tag('/media/css/site_template/lists.css');
+      echo link_tag('/media/css/site_template/user_album.css');
       echo link_tag('/media/css/site_template/images.css');
       echo link_tag('/media/css/site_template/widget_controls.css');
       echo link_tag('/media/css/site_template/date_picker.css');
