@@ -202,4 +202,28 @@
   .heading_container .heading_cont.main_heading_cont .info h1 .meta {
     display: none;
   }
+  .quick_add_listening {
+    & span {
+      margin-right: 12px;
+    }
+  }
+  .quick_own_album {
+    & .mask-icon-record-vinyl {
+      display: none;
+    }
+    &::before {
+      color: #fff;
+      content: 'Ok!';
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      margin-right: 12px;
+    }
+    &:has(.owned)::before {
+      color: var(--color-green);
+    }
+    &.active::before {
+      content: 'Del!';
+    }
+  }
 }
