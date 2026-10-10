@@ -80,6 +80,9 @@
   &.hidden {
     display: none;
   }
+  & .short {
+    display: none;
+  }
 }
 .quick_add_listening {
   & ul {

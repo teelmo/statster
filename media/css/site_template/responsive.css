@@ -202,6 +202,14 @@
   .heading_container .heading_cont.main_heading_cont .info h1 .meta {
     display: none;
   }
+  .flash_msg {
+    & .full {
+      display: none;
+    }
+    & .short {
+      display: inline;
+    }
+  }
 }
 @media (pointer: coarse) {
   .quick_add_listening,

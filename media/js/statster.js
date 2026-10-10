@@ -39,11 +39,14 @@ var app = {
   setOverlayBackground: image => {
     document.querySelector('.background_overlay').style.backgroundImage = `url(${image})`;
   },
+  // `text` is either a plain string, or { short, full } to show the short
+  // form on narrow screens (where .flash_msg .full is hidden by CSS) and
+  // the full descriptive form on desktop.
   showFlashMsg: (el, text, fadeout) => {
     if (el.flashTimeout) {
       clearTimeout(el.flashTimeout);
     }
-    el.innerHTML = text;
+    el.innerHTML = (typeof text === 'object') ? `<span class="short">${text.short}</span><span class="full">${text.full}</span>` : text;
     el.classList.remove('hidden');
     el.flashTimeout = setTimeout(() => {
       el.classList.add('hidden');
