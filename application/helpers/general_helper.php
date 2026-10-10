@@ -29,4 +29,21 @@ if (!function_exists('decodeFirstOrDefault')) {
   }
 }
 
+/**
+  * Appends a cache-busting ?v=<mtime> query string to a media asset path,
+  * so deploys invalidate the week-long Cache-Control set in .htaccess
+  * (browsers - mobile Safari in particular - otherwise keep serving a
+  * stale bundle.min.css/js file for up to 7 days after it changes).
+  *
+  * @param string $path Site-relative asset path, e.g. '/media/css/dist/bundle.min.css'.
+  *
+  * @return string The same path, with ?v=<mtime> appended when the file exists.
+  */
+if (!function_exists('versioned_asset')) {
+  function versioned_asset($path) {
+    $mtime = @filemtime(FCPATH . ltrim($path, '/'));
+    return ($mtime !== FALSE) ? $path . '?v=' . $mtime : $path;
+  }
+}
+
 ?>

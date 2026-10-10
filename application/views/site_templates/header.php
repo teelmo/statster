@@ -36,11 +36,11 @@ header('HTTP/1.1 200 OK');
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <script type="text/javascript" src="/media/js/libs/mousetrap.min.js" defer></script>
-    <script type="text/javascript" src="/media/js/ajax.js" defer></script>
-    <script type="text/javascript" src="/media/js/searchable_select.js" defer></script>
-    <script type="text/javascript" src="/media/js/autocomplete.js" defer></script>
-    <script type="text/javascript" src="/media/js/statster.js" defer></script>
+    <script type="text/javascript" src="<?=versioned_asset('/media/js/libs/mousetrap.min.js')?>" defer></script>
+    <script type="text/javascript" src="<?=versioned_asset('/media/js/ajax.js')?>" defer></script>
+    <script type="text/javascript" src="<?=versioned_asset('/media/js/searchable_select.js')?>" defer></script>
+    <script type="text/javascript" src="<?=versioned_asset('/media/js/autocomplete.js')?>" defer></script>
+    <script type="text/javascript" src="<?=versioned_asset('/media/js/statster.js')?>" defer></script>
     <link rel="canonical" href="https://statster.info<?=$_SERVER['REQUEST_URI']?>" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,36 +54,36 @@ header('HTTP/1.1 200 OK');
     // re-running the build, and so the browser fetches them in parallel
     // rather than discovering an @import chain serially.
     $theme = ($this->session->userdata('logged_in') === TRUE) ? ($this->session->userdata('theme')) ? $this->session->userdata('theme') : 'light' : 'light';
-    echo link_tag('/media/css/themes/' . $theme . '/colors.css');
+    echo link_tag(versioned_asset('/media/css/themes/' . $theme . '/colors.css'));
     if (ENVIRONMENT === 'development') {
-      echo link_tag('/media/css/site_template/top_container.css');
-      echo link_tag('/media/css/site_template/heading_container.css');
-      echo link_tag('/media/css/site_template/main_container.css');
-      echo link_tag('/media/css/site_template/loaders.css');
-      echo link_tag('/media/css/site_template/icons.css');
-      echo link_tag('/media/css/site_template/foundation.css');
-      echo link_tag('/media/css/site_template/artist_album_user.css');
-      echo link_tag('/media/css/site_template/tags.css');
-      echo link_tag('/media/css/site_template/forms.css');
-      echo link_tag('/media/css/site_template/table_misc.css');
-      echo link_tag('/media/css/site_template/music_table.css');
-      echo link_tag('/media/css/site_template/side_table.css');
-      echo link_tag('/media/css/site_template/bar_table.css');
-      echo link_tag('/media/css/site_template/shout_table.css');
-      echo link_tag('/media/css/site_template/music_wall.css');
-      echo link_tag('/media/css/site_template/lists.css');
-      echo link_tag('/media/css/site_template/user_album.css');
-      echo link_tag('/media/css/site_template/images.css');
-      echo link_tag('/media/css/site_template/widget_controls.css');
-      echo link_tag('/media/css/site_template/date_picker.css');
-      echo link_tag('/media/css/site_template/utilities.css');
-      echo link_tag('/media/css/site_template/footer.css');
-      echo link_tag('/media/css/site_template/responsive.css');
+      echo link_tag(versioned_asset('/media/css/site_template/top_container.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/heading_container.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/main_container.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/loaders.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/icons.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/foundation.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/artist_album_user.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/tags.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/forms.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/table_misc.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/music_table.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/side_table.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/bar_table.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/shout_table.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/music_wall.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/lists.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/user_album.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/images.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/widget_controls.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/date_picker.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/utilities.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/footer.css'));
+      echo link_tag(versioned_asset('/media/css/site_template/responsive.css'));
     }
     else {
-      echo link_tag('/media/css/dist/bundle.min.css');
+      echo link_tag(versioned_asset('/media/css/dist/bundle.min.css'));
     }
-    echo link_tag('/media/css/themes/' . $theme . '/styles.css');
+    echo link_tag(versioned_asset('/media/css/themes/' . $theme . '/styles.css'));
     echo link_tag('favicon.ico', 'shortcut icon', 'image/ico');
     //echo link_tag('feed', 'alternate', 'application/rss+xml', 'My RSS Feed');
     ?>

@@ -12,7 +12,7 @@
     if (isset($js_include)) {
       foreach ($js_include as $file) {
         if (strpos($file, 'libs/') === 0 && file_exists('./media/js/' . $file . '.js')) {
-          echo '<script type="text/javascript" src="/media/js/' . $file . '.js" defer></script>';
+          echo '<script type="text/javascript" src="' . versioned_asset('/media/js/' . $file . '.js') . '" defer></script>';
         }
       }
     }
