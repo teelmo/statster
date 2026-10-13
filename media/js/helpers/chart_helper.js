@@ -92,18 +92,24 @@ Object.assign(view, {
   // the one peity('line', {...}) call this replaces. The generated <svg> keeps
   // peity's own "peity" class so the existing `svg.peity polyline` CSS rule
   // (widget_controls.css) still colors the stroke - no styling lost by dropping the library.
-  renderSparkline: (el, values, opts) => {
+  // `points` is [{x, y}, ...] ordered by x ascending - x is spaced by its own
+  // value (e.g. elapsed time), not by array index, so a gap between points reads
+  // as a gap on the line instead of being spread evenly like every other segment.
+  renderSparkline: (el, points, opts) => {
     var width = opts.width;
     var height = opts.height;
     var strokeWidth = opts.strokeWidth;
+    var values = points.map(point => point.y);
     var min = opts.min !== null && opts.min !== undefined ? opts.min : Math.min(...values);
     var max = opts.max !== null && opts.max !== undefined ? opts.max : Math.max(...values);
     var range = max - min || 1;
-    var stepX = values.length > 1 ? width / (values.length - 1) : width;
-    var points = values
-      .map((value, i) => {
-        var x = i * stepX;
-        var y = strokeWidth / 2 + (height - strokeWidth) * (1 - (value - min) / range);
+    var minX = points[0].x;
+    var maxX = points[points.length - 1].x;
+    var rangeX = maxX - minX || 1;
+    var polylinePoints = points
+      .map(point => {
+        var x = points.length > 1 ? ((point.x - minX) / rangeX) * width : width / 2;
+        var y = strokeWidth / 2 + (height - strokeWidth) * (1 - (point.y - min) / range);
         return `${x},${y}`;
       })
       .join(' ');
@@ -115,7 +121,7 @@ Object.assign(view, {
     svg.setAttribute('height', height);
 
     var polyline = document.createElementNS(svgNS, 'polyline');
-    polyline.setAttribute('points', points);
+    polyline.setAttribute('points', polylinePoints);
     polyline.setAttribute('fill', 'none');
     polyline.setAttribute('stroke-width', strokeWidth);
     svg.appendChild(polyline);
@@ -134,15 +140,23 @@ Object.assign(view, {
   },
   initGraph: data => {
     if (data[data.length - 1].cumulative_count !== '1') {
-      const chart_data = [0];
+      // line_date is always a 'YYYYMM' bucket (see getListeningsCumulative /
+      // getTagsCumulative) - turn it into a month index so points can be spaced
+      // by actual elapsed time instead of by array position.
+      var monthIndex = line_date => parseInt(line_date.substring(0, 4), 10) * 12 + (parseInt(line_date.substring(4, 6), 10) - 1);
+      var baseMonth = monthIndex(data[0].line_date);
+      const points = [{ x: 0, y: 0 }];
       data.forEach(value => {
         if (value.cumulative_count !== 0 && value.cumulative_count - data[0].cumulative_count > 0) {
-          chart_data.push(value.cumulative_count - data[0].cumulative_count);
+          points.push({
+            x: monthIndex(value.line_date) - baseMonth,
+            y: value.cumulative_count - data[0].cumulative_count
+          });
         }
       });
-      if (chart_data.length > 2) {
+      if (points.length > 2) {
         document.querySelectorAll('.line').forEach(el => {
-          view.renderSparkline(el, chart_data, {
+          view.renderSparkline(el, points, {
             height: 18,
             max: null,
             min: 0,
