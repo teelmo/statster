@@ -132,6 +132,7 @@ class User extends MY_Controller {
 
       $data['owned_albums'] = getOwnedAlbumsForUser($data['user_id']);
       $data['ownable_formats'] = getOwnableFormats();
+      $data['owned_format_counts'] = getOwnedFormatCountsForUser($data['user_id']);
       $data['js_include'] = array('helpers/profile_sidebar_helper', 'helpers/time_interval_helper', 'helpers/per_year_helper', 'user/album');
 
       $this->load->view('site_templates/header');

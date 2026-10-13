@@ -24,29 +24,43 @@
   }
   ?>
   <div class="meta_container">
-    <div class="meta">
-      <div class="label">Listenings</div>
-      <div class="value number"><span class="<?=($per_year === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year?>"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></span></div>
-    </div>
-    <div class="meta">
-      <div class="label">Albums</div>
-      <div class="value number"><?=anchor(array('album?u=' . $username), number_format($album_count))?></div>
-    </div>
-    <div class="meta">
-      <div class="label">Artists</div>
-      <div class="value number"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></div>
-    </div>
-    <div class="meta">
-      <div class="label">Shouts</div>
-      <div class="value number"><?=anchor(array('shout?u=' . $username), number_format($shout_count))?></div>
-    </div>
-    <div class="meta">
-      <div class="label">Loved</div>
-      <div class="value number"><?=anchor(array('love?u=' . $username), number_format($love_count))?></div>
-    </div>
-    <div class="meta">
-      <div class="label">Faned</div>
-      <div class="value number"><?=anchor(array('fan?u=' . $username), number_format($fan_count))?></div>
-    </div>
+    <?php if (isset($owned_format_counts)) : ?>
+      <?php foreach ($owned_format_counts as $format) : ?>
+        <div class="meta">
+          <div class="label">
+            <?=html_escape($format['name'])?>
+            <?php if (!empty($format['icon'])) : ?>
+              <img src="<?=$format['icon']?>" class="icon format_stat_icon" alt="" title="<?=html_escape($format['name'])?>" />
+            <?php endif; ?>
+          </div>
+          <div class="value number"><?=number_format($format['count'])?></div>
+        </div>
+      <?php endforeach; ?>
+    <?php else : ?>
+      <div class="meta">
+        <div class="label">Listenings</div>
+        <div class="value number"><span class="<?=($per_year === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year?>"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></span></div>
+      </div>
+      <div class="meta">
+        <div class="label">Albums</div>
+        <div class="value number"><?=anchor(array('album?u=' . $username), number_format($album_count))?></div>
+      </div>
+      <div class="meta">
+        <div class="label">Artists</div>
+        <div class="value number"><?=anchor(array('artist?u=' . $username), number_format($artist_count))?></div>
+      </div>
+      <div class="meta">
+        <div class="label">Shouts</div>
+        <div class="value number"><?=anchor(array('shout?u=' . $username), number_format($shout_count))?></div>
+      </div>
+      <div class="meta">
+        <div class="label">Loved</div>
+        <div class="value number"><?=anchor(array('love?u=' . $username), number_format($love_count))?></div>
+      </div>
+      <div class="meta">
+        <div class="label">Faned</div>
+        <div class="value number"><?=anchor(array('fan?u=' . $username), number_format($fan_count))?></div>
+      </div>
+    <?php endif; ?>
   </div>
 </div>

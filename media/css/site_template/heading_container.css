@@ -284,6 +284,10 @@
         font-weight: 300;
         letter-spacing: 0.1em;
         text-transform: uppercase;
+        & .format_stat_icon {
+          margin-left: 4px;
+          vertical-align: -2px;
+        }
         &.user_listening {
           align-items: center;
           border-left: 1px solid var(--color-gray-soft);

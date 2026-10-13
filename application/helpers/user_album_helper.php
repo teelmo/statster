@@ -182,6 +182,74 @@ if (!function_exists('getOwnedFormatsForAlbums')) {
 }
 
 /**
+  * Gets how many distinct albums a user owns per format, for a "my
+  * collection" style stats summary - one row per format the user actually
+  * owns something in (a format with zero owned albums is simply absent,
+  * same precedent as an INNER JOIN naturally excluding it), sorted
+  * alphabetically by display name.
+  *
+  * "File" is relabeled to "Digital" for display, same as
+  * getOwnableFormats() - the re-sort happens after relabeling so the
+  * alphabetical order reflects what's actually shown, not the underlying
+  * taxonomy name.
+  *
+  * @param int $user_id User ID.
+  *
+  * @return array List of {id, name, icon, count}, icon being a resolved,
+  *               existence-checked icon URL (formats whose icon file is
+  *               missing are kept, with icon set to FALSE, same precedent
+  *               as getOwnedFormatsForAlbums()).
+  */
+if (!function_exists('getOwnedFormatCountsForUser')) {
+  function getOwnedFormatCountsForUser($user_id) {
+    $ci = &get_instance();
+    $ci->load->database();
+
+    if (empty($user_id)) {
+      return array();
+    }
+
+    $sql = "SELECT " . TBL_listening_format . ".`id`,
+                   " . TBL_listening_format . ".`name`,
+                   " . TBL_listening_format . ".`img`,
+                   COUNT(DISTINCT " . TBL_user_album . ".`record_id`) AS `count`
+            FROM " . TBL_user_album . ",
+                 " . TBL_listening_format . "
+            WHERE " . TBL_listening_format . ".`id` = " . TBL_user_album . ".`listening_format_id`
+              AND " . TBL_user_album . ".`user_id` = ?
+            GROUP BY " . TBL_listening_format . ".`id`,
+                     " . TBL_listening_format . ".`name`,
+                     " . TBL_listening_format . ".`img`";
+    $query = $ci->db->query($sql, array($user_id));
+
+    $icon_exists = array();
+    $resolve_icon = function($img) use (&$icon_exists) {
+      if (!array_key_exists($img, $icon_exists)) {
+        $icon_exists[$img] = file_exists('./media/img/format_img/format_icons/' . $img . '.png');
+      }
+      return $icon_exists[$img] ? site_url() . 'media/img/format_img/format_icons/' . $img . '.png' : FALSE;
+    };
+
+    $formats = $query->result_array();
+    foreach ($formats as &$format) {
+      if ($format['name'] === 'File') {
+        $format['name'] = 'Digital';
+      }
+      $format['icon'] = $resolve_icon($format['img']);
+      $format['count'] = (int) $format['count'];
+      unset($format['img']);
+    }
+    unset($format);
+
+    usort($formats, function($a, $b) {
+      return strcasecmp($a['name'], $b['name']);
+    });
+
+    return $formats;
+  }
+}
+
+/**
   * Gets every album a user owns, grouped by artist for a "my collection"
   * style listing page - an album with more than one artist is grouped
   * once, under its first (alphabetically) artist only, same as how
