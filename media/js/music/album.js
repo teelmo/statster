@@ -67,6 +67,14 @@ Object.assign(view, {
         url: '/api/userAlbum/get/<?=$album_id?>'
       }).then(() => resolve()).catch(() => resolve());
     }),
+  // Re-run the Discography block's current sort so its owned-format icons
+  // reflect an own/unown toggle just made on this page.
+  refreshDiscography: () => {
+    var artistAlbumValue = document.querySelector('.artist_album_value');
+    if (artistAlbumValue) {
+      view.artistAlbum(artistAlbumValue.dataset.value);
+    }
+  },
   // Get album loves.
   getLoves: () =>
     new Promise(resolve => {
@@ -606,11 +614,13 @@ Object.assign(view, {
             // ownership can also exist in a format this page doesn't show
             // a checkbox for (e.g. legacy rows backfilled to "Not Chosen").
             view.getOwnedAlbum();
+            view.refreshDiscography();
             app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), { full: 'Owned!', short: 'Ok!' }, `<?=MSG_FADEOUT?>`);
           },
           204: () => {
             // 204 No Content
             view.getOwnedAlbum();
+            view.refreshDiscography();
             app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), { full: 'Unowned.', short: 'Del!' }, `<?=MSG_FADEOUT?>`);
           },
           400: () => {
