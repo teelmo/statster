@@ -227,6 +227,13 @@ ul {
           width: 20px;
         }
       }
+      & .format_icon {
+        height: 20px;
+        left: 5px;
+        position: absolute;
+        top: 5px;
+        width: 20px;
+      }
       & .meta {
         bottom: 5px;
         color: #fff;

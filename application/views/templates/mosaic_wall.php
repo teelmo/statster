@@ -31,6 +31,10 @@ if (!empty($json_data)) {
         $prev_date = '';
         $album_artists = getAlbumsArtists(array_column($json_data, 'album_id'));
         $listening_imgs = getListeningImgsForListenings(array_column($json_data, 'listening_id'));
+        $owned_formats = array();
+        if ($this->session->userdata('logged_in') === TRUE) {
+          $owned_formats = getOwnedFormatsForAlbums($this->session->userdata('user_id'), array_column($json_data, 'album_id'));
+        }
         prefetchImagePaths(array_map(function($row) { return array('type' => 'album', 'size' => 174, 'id' => $row['album_id']); }, $json_data));
         foreach ($json_data as $idx => $row) {
           if (strip_tags(timeAgo($row['date'], CUR_DATE)) != $prev_date) {
@@ -42,8 +46,10 @@ if (!empty($json_data)) {
           <li class="album">
             <?php
             $listeningsFormatImg = isset($listening_imgs[$row['listening_id']]) ? $listening_imgs[$row['listening_id']] : array('filename' => site_url() . '/media/img/format_img/format_icons/empty.png', 'name' => '');
+            $format_icon = '<img src="' . $listeningsFormatImg['filename'] . '" alt="" title="' . html_escape($listeningsFormatImg['name']) . '" class="icon format_icon" />';
+            $owned_icons = !empty($owned_formats[$row['album_id']]) ? '<span class="icons">' . implode('', array_map(function($format) { return '<img src="' . $format['icon'] . '" class="icon" alt="" title="' . html_escape($format['name']) . '" />'; }, $owned_formats[$row['album_id']])) . '</span>' : '';
             ?>
-            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')"></div><div class="meta"><div class="title main">' . anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], 35), array('title' => 'Browse to album\'s page')) . '</div><div class="title">' . implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, isset($album_artists[$row['album_id']]) ? $album_artists[$row['album_id']] : array())) . '</div></div><img src="' . $listeningsFormatImg['filename'] . '" alt="" title="' . $listeningsFormatImg['name'] . '" class="middle icon listeningFormatType"/></div>', array('title' => 'Browse to albums\'s page'))?>
+            <?=anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), '<div class="cover album_img img150" style="background-image:url(' . getAlbumImg(array('album_id' => $row['album_id'], 'size' => 174)) . ')">' . $format_icon . $owned_icons . '</div><div class="meta"><div class="title main">' . anchor(array('music', url_title($row['artist_name']), url_title($row['album_name'])), substrwords($row['album_name'], 35), array('title' => 'Browse to album\'s page')) . '</div><div class="title">' . implode('<span class="artist_separator">, </span>', array_map(function($artist) { return anchor(array('music', url_title($artist['artist_name'])), $artist['artist_name'], array('title' => 'Browse to artist\'s page'));}, isset($album_artists[$row['album_id']]) ? $album_artists[$row['album_id']] : array())) . '</div></div>', array('title' => 'Browse to albums\'s page'))?>
           </li>
           <?php
           $prev_date = strip_tags(timeAgo($row['date'], CUR_DATE));
