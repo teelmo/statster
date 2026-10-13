@@ -2,7 +2,7 @@ Object.assign(view, {
   getSearchResults: () => {
     ajax({
       data: {
-        q: '<?=$q?>'
+        q: '<?=addslashes($q)?>'
       },
       dataType: 'json',
       statusCode: {
