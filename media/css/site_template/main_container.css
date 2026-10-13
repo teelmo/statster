@@ -27,7 +27,7 @@
     font-weight: 400;
     margin: 5px 15px 2px 0;
     text-shadow: 0 0 3px #000;
-    &.visited {
+    &:visited {
       color: #fff;
     }
     &:hover {
