@@ -106,13 +106,20 @@ Object.assign(view, {
     var minX = points[0].x;
     var maxX = points[points.length - 1].x;
     var rangeX = maxX - minX || 1;
-    var polylinePoints = points
-      .map(point => {
-        var x = points.length > 1 ? ((point.x - minX) / rangeX) * width : width / 2;
-        var y = strokeWidth / 2 + (height - strokeWidth) * (1 - (point.y - min) / range);
-        return `${x},${y}`;
-      })
-      .join(' ');
+    var scaled = points.map(point => ({
+      x: points.length > 1 ? ((point.x - minX) / rangeX) * width : width / 2,
+      y: strokeWidth / 2 + (height - strokeWidth) * (1 - (point.y - min) / range)
+    }));
+    // Step-after interpolation: the value is flat between data points (nothing
+    // changed in between) and only moves at the point itself, so a long silent
+    // gap followed by a burst of new listens reads as a flat line then a sharp
+    // jump - not a diagonal implying the growth happened gradually over the gap.
+    var stepped = [scaled[0]];
+    for (var i = 1; i < scaled.length; i++) {
+      stepped.push({ x: scaled[i].x, y: scaled[i - 1].y });
+      stepped.push(scaled[i]);
+    }
+    var polylinePoints = stepped.map(point => `${point.x},${point.y}`).join(' ');
 
     var svgNS = 'http://www.w3.org/2000/svg';
     var svg = document.createElementNS(svgNS, 'svg');
