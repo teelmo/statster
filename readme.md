@@ -26,6 +26,12 @@ the individual `site_template` files.
 See `package.json` for the available scripts (CSS bundling, DB dump/
 restore helpers, deploy).
 
+CSS/JS asset URLs are cache-busted with a `?v=<filemtime>` query string
+via the `versioned_asset()` helper (`application/helpers/general_helper.php`),
+used on every `<link>`/`<script>` tag in the site templates – this
+avoids stale cached assets on repeat visits after a deploy, since
+`.htaccess` sets a 1-week `Cache-Control` on CSS/JS.
+
 ## Deployment
 
 The app deploys with a plain `git pull` on the production server:
