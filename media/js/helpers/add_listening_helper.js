@@ -1,6 +1,12 @@
 Object.assign(view, {
   initAutocomplete: () => {
     var input = document.querySelector('#addListeningText');
+    // This helper is loaded on pages (recent, mosaic) that render it
+    // whether or not the visitor is logged in, but the add-listening form
+    // itself only renders when logged in - no-op here instead of throwing.
+    if (!input) {
+      return;
+    }
     input.focus();
     view.addListeningAutocomplete = initAutocomplete(input, {
       dropdownId: 'ui-id-2',
@@ -28,6 +34,10 @@ Object.assign(view, {
       return yyyy + sp + mm + sp + dd;
     };
     var dateInput = document.querySelector('#addListeningDate');
+    if (!dateInput) {
+      // Logged-out visitor - the add-listening form isn't rendered.
+      return;
+    }
     var container = document.querySelector('#addListeningDateContainer .calendar_container');
     dateInput.type = 'text';
     dateInput.readOnly = true;
@@ -194,6 +204,10 @@ Object.assign(view, {
     });
   },
   initAddListeningHelperEvents: () => {
+    if (!document.querySelector('#addListeningForm')) {
+      // Logged-out visitor - the add-listening form isn't rendered.
+      return;
+    }
     var toggleFormat = el => {
       var checkbox = document.querySelector(`#${el.parentElement.getAttribute('for')}`);
       if (el.classList.contains('selected')) {
