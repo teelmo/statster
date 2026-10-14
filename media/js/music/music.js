@@ -1,4 +1,9 @@
 var cumulative_done = false;
+// Hold the pending auto-refresh timer for each suggestions widget, so a
+// manual refresh click replaces it instead of stacking a second, permanent,
+// self-rescheduling chain alongside the one already running.
+var secondChanceTimer = null;
+var fromOthersTimer = null;
 Object.assign(view, {
   getListeningCumulation: () => {
     cumulative_done = true;
@@ -205,7 +210,8 @@ Object.assign(view, {
         200: data => {
           ajax({
             complete: () => {
-              setTimeout(view.getSecondChance, 60 * 10 * 1000);
+              clearTimeout(secondChanceTimer);
+              secondChanceTimer = setTimeout(view.getSecondChance, 60 * 10 * 1000);
             },
             data: {
               json_data: data,
@@ -253,7 +259,8 @@ Object.assign(view, {
         200: data => {
           ajax({
             complete: () => {
-              setTimeout(view.getFromOthers, 60 * 10 * 1000);
+              clearTimeout(fromOthersTimer);
+              fromOthersTimer = setTimeout(view.getFromOthers, 60 * 10 * 1000);
             },
             data: {
               json_data: data,
