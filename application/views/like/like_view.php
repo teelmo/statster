@@ -38,7 +38,7 @@
   <div class="right_container">
     <div class="container">
       <h2>Statistics</h2>
-      <h3>Loved</h3>
+      <h3><?=anchor(array('love'), 'Loved', array('title' => 'Browse more loved albums'))?></h3>
       <div class="lds-facebook" id="recentlyLovedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyLoved" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
@@ -47,7 +47,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h3>Faned</h3>
+      <h3><?=anchor(array('fan'), 'Faned', array('title' => 'Browse more faned artists'))?></h3>
       <div class="lds-facebook" id="recentlyFanedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyFaned" class="side_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
