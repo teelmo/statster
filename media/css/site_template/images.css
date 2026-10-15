@@ -323,6 +323,18 @@ div.cover {
       text-decoration: none;
     }
   }
+  & .icons {
+    display: flex;
+    gap: 2px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 4;
+    & .icon {
+      height: 20px;
+      width: 20px;
+    }
+  }
   & .meta {
     bottom: 5px;
     color: #fff;

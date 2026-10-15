@@ -1,7 +1,16 @@
+<?php
+$owned_formats = array();
+if ($this->session->userdata('logged_in') === TRUE) {
+  $owned_formats = getOwnedFormatsForAlbums($this->session->userdata('user_id'), array($album_id));
+}
+?>
 <div class="heading_container">
   <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
     <div class="info">
       <div class="float_left cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')">
+        <?php if (!empty($owned_formats[$album_id])) : ?>
+          <span class="icons"><?php foreach ($owned_formats[$album_id] as $format) : ?><img src="<?=$format['icon']?>" class="icon" alt="" title="<?=html_escape($format['name'])?>" /><?php endforeach; ?></span>
+        <?php endif; ?>
         <?php
         if ($spotify_id !== FALSE) {
           ?>

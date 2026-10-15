@@ -338,7 +338,7 @@ class Music extends MY_Controller {
     $data = array();
     if (!empty($album_name)) {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'year_helper', 'user_album_helper', 'output_helper'));
 
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
@@ -524,7 +524,7 @@ class Music extends MY_Controller {
     $data = array();
     if (!empty($album_name)) {
       // Load helpers.
-      $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'year_helper', 'output_helper'));
+      $this->load->helper(array('img_helper', 'music_helper', 'album_helper', 'year_helper', 'user_album_helper', 'output_helper'));
 
       $data['artist_name'] = decode($artist_name);
       $data['album_name'] = decode($album_name);
