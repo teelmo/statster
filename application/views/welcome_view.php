@@ -41,7 +41,7 @@
         </tr>
         <tr>
           <td class="img32 tag_img">
-            <?=($top_genre['count'] !== 0) ? '<i class="mask-icon mask-icon-music" aria-hidden="true"></i>' : ''?>
+            <?=($top_genre['count'] !== 0) ? anchor(array('genre', url_title($top_genre['name'])), '<i class="mask-icon mask-icon-music" aria-hidden="true"></i>', array('title' => 'Browse to genre\'s page')) : ''?>
           </td>
           <td class="title">
             <?=($top_genre['count'] !== 0) ? anchor(array('genre', url_title($top_genre['name'])), $top_genre['name']) : ''?>
@@ -50,7 +50,7 @@
         </tr>
         <tr>
           <td class="img32 tag_img">
-            <?=($top_nationality['count'] !== 0) ? '<i class="mask-icon mask-icon-flag" aria-hidden="true"></i>' : ''?>
+            <?=($top_nationality['count'] !== 0) ? anchor(array('nationality', url_title($top_nationality['name'])), '<i class="mask-icon mask-icon-flag" aria-hidden="true"></i>', array('title' => 'Browse to nationality\'s page')) : ''?>
           </td>
           <td class="title">
             <?=($top_nationality['count'] !== 0) ? anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name']) : ''?>
@@ -59,7 +59,7 @@
         </tr>
         <tr>
           <td class="img32 tag_img">
-            <?=($top_year['count'] !== 0) ? '<i class="mask-icon mask-icon-hashtag" aria-hidden="true"></i>' : ''?>
+            <?=($top_year['count'] !== 0) ? anchor(array('year', url_title($top_year['year'])), '<i class="mask-icon mask-icon-hashtag" aria-hidden="true"></i>', array('title' => 'Browse to year\'s page')) : ''?>
           </td>
           <td class="title">
             <?=($top_year['count'] !== 0) ? anchor(array('year', url_title($top_year['year'])), $top_year['year']) : ''?>

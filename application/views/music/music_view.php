@@ -133,7 +133,7 @@
         if ($top_genre) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-music" aria-hidden="true"></i></td>
+            <td class="img64 tag_img"><?=anchor(array('genre', url_title($top_genre['name'])), '<i class="mask-icon mask-icon-music" aria-hidden="true"></i>', array('title' => 'Browse to genre\'s page'))?></td>
             <td class="title">
               <?=anchor(array('genre', url_title($top_genre['name'])), $top_genre['name'])?>
               <div class="count"><span class="number"><?=$top_genre['count']?></span> listenings</div>
@@ -144,7 +144,7 @@
         if ($top_nationality) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-flag" aria-hidden="true"></i></td>
+            <td class="img64 tag_img"><?=anchor(array('nationality', url_title($top_nationality['name'])), '<i class="mask-icon mask-icon-flag" aria-hidden="true"></i>', array('title' => 'Browse to nationality\'s page'))?></td>
             <td class="title">
               <?=anchor(array('nationality', url_title($top_nationality['name'])), $top_nationality['name'])?>
               <div class="count"><span class="number"><?=$top_nationality['count']?></span> listenings</div>
@@ -155,7 +155,7 @@
         if ($top_year) {
           ?>
           <tr>
-            <td class="img64 tag_img"><i class="mask-icon mask-icon-hashtag" aria-hidden="true"></i></td>
+            <td class="img64 tag_img"><?=anchor(array('year', url_title($top_year['year'])), '<i class="mask-icon mask-icon-hashtag" aria-hidden="true"></i>', array('title' => 'Browse to year\'s page'))?></td>
             <td class="title">
               <?=anchor(array('year', url_title($top_year['year'])), $top_year['year'])?>
               <div class="count"><span class="number"><?=$top_year['count']?></span> listenings</div>
