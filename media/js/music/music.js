@@ -252,7 +252,7 @@ Object.assign(view, {
         limit: 4,
         lower_limit: '1970-00-00',
         order_by: 'RAND()',
-        where: `<?=TBL_user?>.\`id\` <> <?=(!empty($_SESSION['user_id'])) ? $_SESSION['user_id'] : 0?>`
+        where: `<?=TBL_user?>.\`id\` <> <?=(!empty($_SESSION['user_id'])) ? $_SESSION['user_id'] : 0?> AND NOT EXISTS (SELECT 1 FROM <?=TBL_listening?> AS my_listening WHERE my_listening.\`album_id\` = <?=TBL_album?>.\`id\` AND my_listening.\`user_id\` = <?=(!empty($_SESSION['user_id'])) ? $_SESSION['user_id'] : 0?>)`
       },
       dataType: 'json',
       statusCode: {
