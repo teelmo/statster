@@ -90,7 +90,7 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h3>Listening formats
+    <h3><?=anchor('format?u=' . $username, 'Listening formats', array('title' => 'Browse more formats'))?>
       <span class="lds-ring hidden" id="topFormatLoader2"><div></div><div></div><div></div><div></div></span>
       <div class="func_container">
         <div class="value top_format_value" data-value="<?=$top_listening_format_profile?>"><?=INTERVAL_TEXTS[$top_listening_format_profile]?></div>
@@ -111,7 +111,7 @@
     </div>
   </div>
   <div class="container">
-    <h3>Genres
+    <h3><?=anchor('genre?u=' . $username, 'Genres', array('title' => 'Browse more listenings'))?>
       <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
       <div class="func_container">
         <div class="value top_genre_value" data-value="<?=$top_genre_profile?>"><?=INTERVAL_TEXTS[$top_genre_profile]?></div>
@@ -133,7 +133,7 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h3>Keywords
+    <h3><?=anchor('keyword?u=' . $username, 'Keywords', array('title' => 'Browse more listenings'))?>
       <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
       <div class="func_container">
         <div class="value top_keyword_value" data-value="<?=$top_keyword_profile?>"><?=INTERVAL_TEXTS[$top_keyword_profile]?></div>
@@ -155,7 +155,7 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h3>Nationalities
+    <h3><?=anchor('nationality?u=' . $username, 'Nationalities', array('title' => 'Browse more listenings'))?>
       <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
       <div class="func_container">
         <div class="value top_nationality_value" data-value="<?=$top_nationality_profile?>"><?=INTERVAL_TEXTS[$top_nationality_profile]?></div>
@@ -177,7 +177,7 @@
   </div>
   <div class="container"><hr /></div>
   <div class="container">
-    <h3>Years
+    <h3><?=anchor('year?u=' . $username, 'Years', array('title' => 'Browse more listenings'))?>
       <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
       <div class="func_container">
         <div class="value top_year_value" data-value="<?=$top_year_profile?>"><?=INTERVAL_TEXTS[$top_year_profile]?></div>

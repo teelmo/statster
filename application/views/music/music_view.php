@@ -183,7 +183,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h2>Likes</h2>
+      <h2><?=anchor(array('like'), 'Likes', array('title' => 'Browse more'))?></h2>
       <div class="lds-facebook" id="recentlyLikedLoader"><div></div><div></div><div></div></div>
       <table id="recentlyLiked" class="side_table"><!-- Content is loaded with AJAX --></table>
       <table id="recentlyFaned" class="recently_liked hidden"><!-- Content is loaded with AJAX --></table>

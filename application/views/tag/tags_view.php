@@ -84,7 +84,7 @@
     <div class="container">
       <h2>Hot</h2>
       <h3>
-        Genres
+        <?=anchor(array('genre'), 'Genres', array('title' => 'Browse more genres'))?>
         <span class="lds-ring hidden" id="topGenreLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_genre_value" data-value="<?=$top_genre_tags?>"><?=INTERVAL_TEXTS[$top_genre_tags]?></div>
@@ -107,7 +107,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h3>
-        Keywords
+        <?=anchor(array('keyword'), 'Keywords', array('title' => 'Browse more keywords'))?>
         <span class="lds-ring hidden" id="topKeywordLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_keyword_value" data-value="<?=$top_keyword_tags?>"><?=INTERVAL_TEXTS[$top_keyword_tags]?></div>
@@ -130,7 +130,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h3>
-        Nationalities
+        <?=anchor(array('nationality'), 'Nationalities', array('title' => 'Browse more nationalities'))?>
         <span class="lds-ring hidden" id="topNationalityLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_nationality_value" data-value="<?=$top_nationality_tags?>"><?=INTERVAL_TEXTS[$top_nationality_tags]?></div>
@@ -153,7 +153,7 @@
     <div class="container"><hr /></div>
     <div class="container">
       <h3>
-        Years
+        <?=anchor(array('year'), 'Years', array('title' => 'Browse more years'))?>
         <span class="lds-ring hidden" id="topYearLoader2"><div></div><div></div><div></div><div></div></span>
         <div class="func_container">
           <div class="value top_year_value" data-value="<?=$top_year_tags?>"><?=INTERVAL_TEXTS[$top_year_tags]?></div>

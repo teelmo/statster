@@ -105,7 +105,7 @@
     </div>
     <div class="container"><hr /></div>
     <div class="container">
-      <h3>Listening formats</h3>
+      <h3><?=anchor(array('format', url_title($artist_name), url_title($album_name)), 'Listening formats', array('title' => 'Browse more formats'))?></h3>
       <div class="lds-facebook" id="topListeningFormatTypesLoader"><div></div><div></div><div></div></div>
       <table id="topListeningFormatTypes" class="column_table"><!-- Content is loaded with AJAX --></table>
       <div class="more">
