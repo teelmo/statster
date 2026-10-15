@@ -200,11 +200,14 @@
           & .related {
             color: #999;
           }
-          & .meta a {
-            color: #999;
-            &:hover {
-              color: #fff;
-              text-decoration: none;
+          & .meta {
+            color: #fff;
+            & a {
+              color: #999;
+              &:hover {
+                color: #fff;
+                text-decoration: none;
+              }
             }
           }
         }
