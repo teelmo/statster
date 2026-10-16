@@ -8,9 +8,7 @@ if ($this->session->userdata('logged_in') === TRUE) {
   <div class="heading_cont" style="background-image: url('<?=getArtistImg(array('artist_id' => $artist_id, 'size' => 300))?>')">
     <div class="info">
       <div class="float_left cover album_img img174" style="background-image:url('<?=getAlbumImg(array('album_id' => $album_id, 'size' => 174))?>')">
-        <?php if (!empty($owned_formats[$album_id])) : ?>
-          <span class="icons"><?php foreach ($owned_formats[$album_id] as $format) : ?><img src="<?=$format['icon']?>" class="icon" alt="" title="<?=html_escape($format['name'])?>" /><?php endforeach; ?></span>
-        <?php endif; ?>
+        <span class="icons" id="ownedFormatIcons"><?php if (!empty($owned_formats[$album_id])) : ?><?php foreach ($owned_formats[$album_id] as $format) : ?><img src="<?=$format['icon']?>" class="icon" alt="" title="<?=html_escape($format['name'])?>" /><?php endforeach; ?><?php endif; ?></span>
         <?php
         if ($spotify_id !== FALSE) {
           ?>
@@ -99,7 +97,7 @@ if ($this->session->userdata('logged_in') === TRUE) {
                     <?php foreach ($ownable_formats as $format) : ?>
                       <li>
                         <label>
-                          <input type="checkbox" class="own_format_checkbox" data-format-id="<?=$format['id']?>" />
+                          <input type="checkbox" class="own_format_checkbox" data-format-id="<?=$format['id']?>" data-format-icon="/media/img/format_img/format_icons/<?=$format['img']?>.png" data-format-name="<?=html_escape($format['name'])?>" />
                           <img src="/media/img/format_img/format_icons/<?=$format['img']?>.png" class="middle icon" alt="" />
                           <?=html_escape($format['name'])?>
                         </label>

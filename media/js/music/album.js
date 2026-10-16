@@ -51,6 +51,7 @@ Object.assign(view, {
             if (own_album) {
               own_album.classList.toggle('owned', owned_ids.length > 0);
             }
+            view.updateOwnedCoverIcons();
           },
           204: () => {
             // 204 No Content - not owned in any format
@@ -61,12 +62,31 @@ Object.assign(view, {
             if (own_album) {
               own_album.classList.remove('owned');
             }
+            view.updateOwnedCoverIcons();
           }
         },
         type: 'GET',
         url: '/api/userAlbum/get/<?=$album_id?>'
       }).then(() => resolve()).catch(() => resolve());
     }),
+  // Rebuild the owned-format badge on the cover image from the
+  // own-format dropdown's current checkbox state, so it reflects an
+  // own/unown toggle without a page reload.
+  updateOwnedCoverIcons: () => {
+    var container = document.querySelector('#ownedFormatIcons');
+    if (!container) {
+      return;
+    }
+    container.innerHTML = '';
+    document.querySelectorAll('.own_format_checkbox:checked').forEach(checkbox => {
+      var icon = document.createElement('img');
+      icon.src = checkbox.dataset.formatIcon;
+      icon.className = 'icon';
+      icon.alt = '';
+      icon.title = checkbox.dataset.formatName;
+      container.appendChild(icon);
+    });
+  },
   // Re-run the Discography block's current sort so its owned-format icons
   // reflect an own/unown toggle just made on this page.
   refreshDiscography: () => {
