@@ -170,7 +170,11 @@ Object.assign(view, {
       if (curMonth > lastPoint.x) {
         points.push({ x: curMonth, y: lastPoint.y });
       }
-      if (points.length > 2) {
+      // A handful of listenings produces a near-meaningless 2-3 point
+      // staircase (e.g. 3 total) - only worth a trend line once there's an
+      // actual trend to show.
+      var totalCount = parseInt(data[data.length - 1].cumulative_count, 10);
+      if (points.length > 2 && totalCount >= 10) {
         document.querySelectorAll('.line').forEach(el => {
           view.renderSparkline(el, points, {
             height: 18,
