@@ -759,7 +759,7 @@ if (!function_exists('getUserSimilarity')) {
       return array(
         'artists' => array_map('_artist_anchors', array_slice($similar_artists, 0, 3)),
         'text' => $similarity_text,
-        'value' => $similarity_value * 100
+        'value' => min($similarity_value * 100, 100)
       );
     }
     else {
