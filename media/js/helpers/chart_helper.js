@@ -161,6 +161,15 @@ Object.assign(view, {
           });
         }
       });
+      // renderSparkline scales its x-axis to the points it's given, so without
+      // this the line's domain stops at the last actual listening - a long
+      // stretch of inactivity since then is invisible rather than reading as a
+      // flat tail. Extend it to the current month at the last known value.
+      var curMonth = parseInt(`<?=CUR_YEAR?>`, 10) * 12 + (parseInt(`<?=CUR_MONTH?>`, 10) - 1) - baseMonth;
+      var lastPoint = points[points.length - 1];
+      if (curMonth > lastPoint.x) {
+        points.push({ x: curMonth, y: lastPoint.y });
+      }
       if (points.length > 2) {
         document.querySelectorAll('.line').forEach(el => {
           view.renderSparkline(el, points, {
