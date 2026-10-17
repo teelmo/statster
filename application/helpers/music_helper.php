@@ -733,7 +733,7 @@ if (!function_exists('getUserSimilarity')) {
       $profile_top = array_map('_filter_artist_name', $profile_artists);
       $user_top = array_map('_filter_artist_name', $user_artists);
       $similar_artists = array_intersect($profile_top, $user_top);
-      $similarity_value = 2 * count($similar_artists) / (count($profile_top) + count($user_top));
+      $similarity_value = 4 * count($similar_artists) / (count($profile_top) + count($user_top));
       if ($similarity_value > 0.75) { // Super.
         $similarity_text = 'Super';
       }
