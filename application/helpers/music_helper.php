@@ -527,7 +527,7 @@ if (!function_exists('getListeningsCumulative')) {
               ) AS `monthly`
               ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id));
-    } elseif (isset($username) && $username !== '%') {
+    } elseif ($user_id !== '%') {
       $sql = "SELECT `line_date`,
                      SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
               FROM (
