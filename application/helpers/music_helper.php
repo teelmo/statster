@@ -509,8 +509,14 @@ if (!function_exists('getListeningsCumulative')) {
     $user_id = !empty($opts['username']) ? getUserID($opts) : '%';
 
     if ($album_id !== '%' || $artist_id !== '%') {
+      // total_count covers every listening in scope, including ones with no
+      // exact month (MONTH(date) = 0, e.g. old year-only imports) - those
+      // can't be placed on the monthly line itself, but the caller still
+      // needs the real total to judge whether the scope is too sparse to
+      // chart at all.
       $sql = "SELECT `line_date`,
-                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`,
+                     `total`.`total_count`
               FROM (
                 SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
                        COUNT(*) AS `month_count`
@@ -524,12 +530,24 @@ if (!function_exists('getListeningsCumulative')) {
                   AND " . TBL_listening . ".`user_id` LIKE ?
                   AND MONTH(" . TBL_listening . ".`date`) <> 0
                 GROUP BY `line_date`
-              ) AS `monthly`
+              ) AS `monthly`,
+              (
+                SELECT COUNT(*) AS `total_count`
+                FROM " . TBL_listening . ",
+                     " . TBL_album . ",
+                     " . TBL_artist . "
+                WHERE " . TBL_listening . ".`album_id` = " . TBL_album . ".`id`
+                  AND " . TBL_album . ".`artist_id` = " . TBL_artist . ".`id`
+                  AND " . TBL_listening . ".`album_id` LIKE ?
+                  AND " . TBL_artist . ".`id` LIKE ?
+                  AND " . TBL_listening . ".`user_id` LIKE ?
+              ) AS `total`
               ORDER BY `line_date` ASC";
-      $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id));
+      $query = $ci->db->query($sql, array($album_id, $artist_id, $user_id, $album_id, $artist_id, $user_id));
     } elseif ($user_id !== '%') {
       $sql = "SELECT `line_date`,
-                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`,
+                     `total`.`total_count`
               FROM (
                 SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
                        COUNT(*) AS `month_count`
@@ -537,19 +555,29 @@ if (!function_exists('getListeningsCumulative')) {
                 WHERE " . TBL_listening . ".`user_id` = ?
                   AND MONTH(" . TBL_listening . ".`date`) <> 0
                 GROUP BY `line_date`
-              ) AS `monthly`
+              ) AS `monthly`,
+              (
+                SELECT COUNT(*) AS `total_count`
+                FROM " . TBL_listening . "
+                WHERE " . TBL_listening . ".`user_id` = ?
+              ) AS `total`
               ORDER BY `line_date` ASC";
-      $query = $ci->db->query($sql, array($user_id));
+      $query = $ci->db->query($sql, array($user_id, $user_id));
     } else {
       $sql = "SELECT `line_date`,
-                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+                     SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`,
+                     `total`.`total_count`
               FROM (
                 SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
                        COUNT(*) AS `month_count`
                 FROM " . TBL_listening . "
                 WHERE MONTH(" . TBL_listening . ".`date`) <> 0
                 GROUP BY `line_date`
-              ) AS `monthly`
+              ) AS `monthly`,
+              (
+                SELECT COUNT(*) AS `total_count`
+                FROM " . TBL_listening . "
+              ) AS `total`
               ORDER BY `line_date` ASC";
       $query = $ci->db->query($sql);
     }

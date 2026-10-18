@@ -146,7 +146,7 @@ Object.assign(view, {
     }, 0);
   },
   initGraph: data => {
-    if (data[data.length - 1].cumulative_count !== '1') {
+    if (data[data.length - 1].total_count !== '1') {
       // line_date is always a 'YYYYMM' bucket (see getListeningsCumulative /
       // getTagsCumulative) - turn it into a month index so points can be spaced
       // by actual elapsed time instead of by array position.
@@ -172,8 +172,11 @@ Object.assign(view, {
       }
       // A handful of listenings produces a near-meaningless 2-3 point
       // staircase (e.g. 3 total) - only worth a trend line once there's an
-      // actual trend to show.
-      var totalCount = parseInt(data[data.length - 1].cumulative_count, 10);
+      // actual trend to show. total_count is the real total (unlike
+      // cumulative_count, it also counts listenings with no exact month,
+      // which can't be placed on the line itself but still count toward
+      // "is this scope worth charting").
+      var totalCount = parseInt(data[data.length - 1].total_count, 10);
       if (points.length > 2 && totalCount >= 10) {
         document.querySelectorAll('.line').forEach(el => {
           view.renderSparkline(el, points, {

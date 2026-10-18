@@ -220,8 +220,14 @@ if (!function_exists('getTagsCumulative')) {
     // junction_id_column LIKE check below still runs as a safety net, but
     // on a handful of rows instead of every album/tag pairing. Same fix as
     // [[project_recent_listenings_query_fix]].
+    // total_count covers every listening in scope, including ones with no
+    // exact month (MONTH(date) = 0, e.g. old year-only imports) - those
+    // can't be placed on the monthly line itself, but the caller still
+    // needs the real total to judge whether the scope is too sparse to
+    // chart at all.
     $sql = "SELECT `line_date`,
-                   SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`
+                   SUM(`month_count`) OVER (ORDER BY `line_date` ASC) AS `cumulative_count`,
+                   `total`.`total_count`
             FROM (
               SELECT DATE_FORMAT(" . TBL_listening . ".`date`, '%Y%m') AS `line_date`,
                      COUNT(*) AS `month_count`
@@ -242,9 +248,27 @@ if (!function_exists('getTagsCumulative')) {
                 AND " . TBL_user . ".`username` LIKE ?
                 AND MONTH(" . TBL_listening . ".`date`) <> 0
               GROUP BY `line_date`
-            ) AS `monthly`
+            ) AS `monthly`,
+            (
+              SELECT COUNT(*) AS `total_count`
+              FROM " . TBL_listening . ",
+                   " . TBL_user . ",
+                   " . TBL_album . ",
+                   " . $t['entity_table'] . ",
+                   (SELECT " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`,
+                           " . $t['junction_table'] . ".`album_id`
+                    FROM " . $t['junction_table'] . "
+                    WHERE " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "` LIKE ?
+                    GROUP BY " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`, " . $t['junction_table'] . ".`album_id`) AS " . $t['junction_table'] . "
+              WHERE " . TBL_album . ".`id` = " . TBL_listening . ".`album_id`
+                AND " . TBL_listening . ".`user_id` = " . TBL_user . ".`id`
+                AND " . TBL_album . ".`id` = " . $t['junction_table'] . ".`album_id`
+                AND " . $t['entity_table'] . ".`id` = " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "`
+                AND " . $t['junction_table'] . ".`" . $t['junction_id_column'] . "` LIKE ?
+                AND " . TBL_user . ".`username` LIKE ?
+            ) AS `total`
             ORDER BY `line_date` ASC";
-    $query = $ci->db->query($sql, array($tag_id, $tag_id, $username));
+    $query = $ci->db->query($sql, array($tag_id, $tag_id, $username, $tag_id, $tag_id, $username));
 
     $no_content = isset($opts['no_content']) ? $opts['no_content'] : TRUE;
     return _json_return_helper($query, $no_content);
