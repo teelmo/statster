@@ -329,6 +329,20 @@ Object.assign(view, {
             if (view.getUsers) {
               view.getUsers();
             }
+            if (view.getListeningHistory) {
+              // view.lastHistoryType is set by the page's own getListeningHistory
+              // each time it runs, so this re-fetches whichever granularity
+              // (Weekday/Day/Month/Year/Monthly) is currently selected instead of
+              // always resetting the view back to Year.
+              view.getListeningHistory(view.lastHistoryType || '%Y', false);
+            }
+            if (view.getListeningCumulation) {
+              view.getListeningCumulation();
+            }
+            var profileListeningCount = document.querySelector('#profileListeningCount');
+            if (profileListeningCount) {
+              profileListeningCount.textContent = app.formatNr(parseInt(profileListeningCount.textContent.replace(/[^0-9]/g, ''), 10) + 1);
+            }
             var tagMetaValue = document.querySelector('.tag_meta div.value');
             if (tagMetaValue) {
               const nextValue = parseInt(tagMetaValue.dataset.value, 10) + 1;

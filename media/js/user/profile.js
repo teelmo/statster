@@ -30,9 +30,18 @@ Object.assign(view, {
     });
   },
   // Get listening by year.
-  getListeningHistory: type =>
+  getListeningHistory: (type, animate = true) =>
     new Promise(resolve => {
-      view.initChart();
+      view.lastHistoryType = type;
+      // A quiet refresh (animate === false, e.g. after adding a listening)
+      // reuses the existing chart instead of tearing it down and rebuilding
+      // it from an empty state - that destroy/rebuild cycle is what was
+      // still producing a visible flash even with setData's own animation
+      // disabled below. A manual granularity switch (Weekday/Day/Month/
+      // Year/Monthly) keeps rebuilding fresh, unchanged from before.
+      if (animate !== false || !app.chart) {
+        view.initChart();
+      }
       var group_by;
       var order_by;
       var select;
@@ -79,8 +88,7 @@ Object.assign(view, {
                 var history = document.querySelector('#history');
                 ajaxSetHtml(history, data);
                 history.classList.add('hidden');
-                app.chart.xAxis[0].setCategories(view.categories, false);
-                app.chart.series[0].setData(view.chart_data, true);
+                view.updateChartData(view.categories, view.chart_data, animate);
                 resolve();
               },
               type: 'POST',

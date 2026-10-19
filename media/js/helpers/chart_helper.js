@@ -88,6 +88,30 @@ Object.assign(view, {
       }
     });
   },
+  // Updates the bar chart's data on the already-initialized app.chart.
+  // During a quiet refresh (animate === false, e.g. after adding a
+  // listening) the y-axis keeps its current tick positions instead of
+  // letting Highcharts recompute a "nice" set for the new range - a single
+  // bar changing by 1 can otherwise nudge the gridline count/placement
+  // (or even stretch the axis well past the real max to land on a round
+  // number) and reads as the whole chart shifting. The axis is still
+  // allowed to grow if the new data genuinely exceeds the prior range.
+  // Manual view switches (animate !== false) always get a fresh
+  // auto-computed axis, unchanged from before.
+  updateChartData: (categories, chartData, animate) => {
+    var yAxis = app.chart.yAxis[0];
+    var priorTickPositions = animate === false ? yAxis.tickPositions : null;
+    app.chart.xAxis[0].setCategories(categories, false);
+    app.chart.series[0].setData(chartData, true, animate);
+    if (priorTickPositions && priorTickPositions.length > 0) {
+      var newMax = Math.max(0, ...chartData);
+      var priorMax = priorTickPositions[priorTickPositions.length - 1];
+      if (newMax <= priorMax) {
+        yAxis.update({ tickPositions: priorTickPositions }, false);
+        app.chart.redraw(false);
+      }
+    }
+  },
   // Renders a minimal sparkline (line only, no fill) as an inline SVG, mirroring
   // the one peity('line', {...}) call this replaces. The generated <svg> keeps
   // peity's own "peity" class so the existing `svg.peity polyline` CSS rule
@@ -146,6 +170,12 @@ Object.assign(view, {
     }, 0);
   },
   initGraph: data => {
+    // A previous call (the page's initial load, followed by a stats refresh
+    // after adding a listening) may have already rendered a sparkline here -
+    // clear it out first so repeat calls don't stack up duplicate SVGs next
+    // to the same .line placeholder.
+    document.querySelectorAll('svg.peity').forEach(svg => svg.remove());
+    document.querySelectorAll('.line').forEach(el => el.classList.remove('hidden'));
     if (data[data.length - 1].total_count !== '1') {
       // line_date is always a 'YYYYMM' bucket (see getListeningsCumulative /
       // getTagsCumulative) - turn it into a month index so points can be spaced

@@ -1,5 +1,48 @@
 var cumulative_done = false;
+var last_history_type = '%Y';
 Object.assign(view, {
+  // Bumps the header's Listenings/library-count/Listeners numbers and the
+  // ring percentage by 1 after a listening is added here, rather than
+  // re-fetching - the real values also depend on the expensive all-time/
+  // this-year/release-year rank loops the page controller runs on load,
+  // which aren't exposed as an endpoint. The #1/#N rank badges are left
+  // showing their pre-add value until the next full page load.
+  incrementAlbumStats: () => {
+    var listeningEl = document.querySelector('#albumListeningCount');
+    var userEl = document.querySelector('#albumUserCount');
+    if (!listeningEl || !userEl) {
+      return;
+    }
+    var totalCount = parseInt(listeningEl.textContent.replace(/[^0-9]/g, ''), 10) + 1;
+    var userCount = parseInt(userEl.textContent.replace(/[^0-9]/g, ''), 10) + 1;
+    listeningEl.textContent = app.formatNr(totalCount);
+    userEl.textContent = app.formatNr(userCount);
+    var listenerEl = document.querySelector('#albumListenerCount');
+    if (userCount === 1 && listenerEl) {
+      // This user's first listening of this album also makes them a new listener.
+      listenerEl.textContent = app.formatNr(parseInt(listenerEl.textContent.replace(/[^0-9]/g, ''), 10) + 1);
+    }
+    var ringEl = document.querySelector('#userListeningRing');
+    var ringPathEl = document.querySelector('#userListeningProgressPath');
+    if (ringEl && ringPathEl) {
+      var percent = totalCount > 0 ? (userCount / totalCount) * 100 : 0;
+      ringEl.title = `${Math.trunc(percent)}%`;
+      ringPathEl.setAttribute('stroke-dasharray', `${percent}, 100`);
+    }
+  },
+  // Re-fetches everything on the page whose numbers a newly added listening
+  // can change: Discography, top listeners, latest listenings, listening
+  // formats, and both history views (the bar chart and the cumulative
+  // sparkline).
+  refreshAlbumStats: () => {
+    view.incrementAlbumStats();
+    view.refreshDiscography();
+    view.getUsers();
+    view.getListenings();
+    view.getFormats();
+    view.getListeningHistory(last_history_type, false);
+    view.getListeningCumulation();
+  },
   // Get album love.
   getLove: user_id =>
     new Promise(resolve => {
@@ -210,9 +253,18 @@ Object.assign(view, {
       url: '/api/listening/get/cumulative'
     });
   },
-  getListeningHistory: type =>
+  getListeningHistory: (type, animate = true) =>
     new Promise(resolve => {
-      view.initChart();
+      last_history_type = type;
+      // A quiet refresh (animate === false, e.g. after adding a listening)
+      // reuses the existing chart instead of tearing it down and rebuilding
+      // it from an empty state - that destroy/rebuild cycle is what was
+      // still producing a visible flash even with setData's own animation
+      // disabled below. A manual granularity switch (Weekday/Day/Month/
+      // Year/Monthly) keeps rebuilding fresh, unchanged from before.
+      if (animate !== false || !app.chart) {
+        view.initChart();
+      }
       var group_by;
       var order_by;
       var select;
@@ -261,8 +313,7 @@ Object.assign(view, {
                 var history = document.querySelector('#history');
                 ajaxSetHtml(history, data);
                 history.classList.add('hidden');
-                app.chart.xAxis[0].setCategories(view.categories, false);
-                app.chart.series[0].setData(view.chart_data, true);
+                view.updateChartData(view.categories, view.chart_data, animate);
                 resolve();
               },
               type: 'POST',
@@ -768,6 +819,7 @@ Object.assign(view, {
             201: () => {
               // 201 Created
               app.showFlashMsg(document.querySelector('.user_actions .flash_msg'), { full: 'New listening!', short: 'Ok!' }, `<?=MSG_FADEOUT?>`);
+              view.refreshAlbumStats();
             },
             400: () => {
               // 400 Bad Request

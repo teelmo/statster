@@ -39,7 +39,7 @@
     <?php else : ?>
       <div class="meta">
         <div class="label">Listenings</div>
-        <div class="value number"><span class="<?=($per_year === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year?>"><?=anchor(array('recent?u=' . $username), number_format($listening_count))?></span></div>
+        <div class="value number"><span class="<?=($per_year === NULL) ? '' : 'data_per_year_user'?>" data-per-year="<?=$per_year?>"><?=anchor(array('recent?u=' . $username), number_format($listening_count), array('id' => 'profileListeningCount'))?></span></div>
       </div>
       <div class="meta">
         <div class="label">Albums</div>
