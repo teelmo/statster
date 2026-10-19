@@ -59,8 +59,9 @@ if (!empty($json_data)) {
         prefetchImagePaths(array_map(function($row) { return array('type' => 'user', 'size' => 174, 'id' => $row['user_id']); }, $json_data));
         foreach ($json_data as $idx => $row) {
           ?>
-          <li>
-            <?=anchor(array('user', url_title($row['username'])), '<div class="cover user_img img150" style="background-image:url(' . getUserImg(array('user_id' => $row['user_id'], 'size' => 174)) . ')"><div class="meta"><div class="title main">' . anchor(array('user', url_title($row['username'])), html_escape(substrwords($row['username'], 35))) . '</div></div></div>', array('title' => 'Browse to user\'s page'))?>
+          <li class="user">
+            <?=anchor(array('user', url_title($row['username'])), '<span></span>', array('title' => 'Browse to user\'s page'))?>
+            <div class="cover user_img img150" style="background-image:url(<?=getUserImg(array('user_id' => $row['user_id'], 'size' => 174))?>)"><div class="meta"><div class="title main"><?=anchor(array('user', url_title($row['username'])), html_escape(substrwords($row['username'], 35)), array('title' => 'Browse to user\'s page'))?></div></div></div>
           </li>
           <?php
         }

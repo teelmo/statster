@@ -155,8 +155,15 @@ ul {
     display: inline-block;
     margin: 0 0 3px;
     overflow: visible;
+    position: relative;
     vertical-align: top;
     width: 150px;
+    > a {
+      height: 152px;
+      position: absolute;
+      width: 152px;
+      z-index: 2;
+    }
   }
   &.search_list li {
     &.even {
