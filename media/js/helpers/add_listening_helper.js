@@ -343,6 +343,28 @@ Object.assign(view, {
             if (profileListeningCount) {
               profileListeningCount.textContent = app.formatNr(parseInt(profileListeningCount.textContent.replace(/[^0-9]/g, ''), 10) + 1);
             }
+            // recent/mosaic's meta_container (Listenings total + "in your
+            // library" ring) shares the same data-value-driven markup as
+            // heading_album.php, just reached through this shared helper
+            // instead of album.js - increment both numbers and recompute
+            // the ring here rather than duplicating album.js's version.
+            var metaListeningValue = document.querySelector('.meta_container .meta .value.number[data-value]');
+            var metaUserValue = document.querySelector('.meta_container .user_value .value.number[data-value]');
+            if (metaListeningValue && metaUserValue) {
+              var nextTotal = parseInt(metaListeningValue.dataset.value, 10) + 1;
+              var nextUser = parseInt(metaUserValue.dataset.value, 10) + 1;
+              metaListeningValue.dataset.value = nextTotal;
+              metaListeningValue.textContent = app.formatNr(nextTotal);
+              metaUserValue.dataset.value = nextUser;
+              metaUserValue.textContent = app.formatNr(nextUser);
+              var metaRing = document.querySelector('.meta_container .user_listening_image');
+              var metaRingPath = document.querySelector('.meta_container .similarity_path');
+              if (metaRing && metaRingPath) {
+                var metaPercent = nextTotal > 0 ? (nextUser / nextTotal) * 100 : 0;
+                metaRing.title = `${Math.trunc(metaPercent)}%`;
+                metaRingPath.setAttribute('stroke-dasharray', `${metaPercent}, 100`);
+              }
+            }
             var tagMetaValue = document.querySelector('.tag_meta div.value');
             if (tagMetaValue) {
               const nextValue = parseInt(tagMetaValue.dataset.value, 10) + 1;
